@@ -9,17 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>DB</artifactId>
-
-    <dependencies>
-
-        <!-- database H2 -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-
-    </dependencies>
-
+    <artifactId>configs</artifactId>
 
 </project>

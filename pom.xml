@@ -13,6 +13,7 @@
         <module>DB</module>
         <module>SERVICE</module>
         <module>DAO</module>
+        <module>configs</module>
     </modules>
     <packaging>pom</packaging>
     <name>THE PAPERKI STORE</name>
