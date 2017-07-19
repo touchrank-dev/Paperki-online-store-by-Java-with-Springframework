@@ -2,25 +2,38 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--<context:property-placeholder location=""/>-->
+    <!--<import resource="appconfig-mvc.xml"/>
+
+    <context:property-placeholder location="classpath:webapp.properties"/>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <!--<value>classpath*:webapp.properties</value>-->
+                <value>classpath:webapp.properties</value>
             </list>
         </property>
-    </bean>
+    </bean>-->
+
+    <context:property-placeholder location="classpath:webapp.properties"/>
+
+    <mvc:annotation-driven/>
+
+    <context:component-scan base-package="com.kushnir.paperki.webapp.*"/>
+
+    <mvc:resources mapping="/resources/**" location="/templates/paperki/resources/"/>
 
     <bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
         <constructor-arg ref="servletContext"/>
-        <property name="prefix" value="/templates/"/>
+        <property name="prefix" value="/templates/paperki/"/>
         <property name="suffix" value=".html"/>
         <property name="templateMode" value="HTML5"/>
     </bean>
