@@ -11,7 +11,7 @@ public class MainController {
 
     @GetMapping()
     public String welcomeHandler(Model model) {
-        return "index";
+        return "/WEB-INF/templates/index.html";
     }
 
 }
