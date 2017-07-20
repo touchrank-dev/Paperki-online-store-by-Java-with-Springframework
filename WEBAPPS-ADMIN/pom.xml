@@ -10,14 +10,13 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <modules>
-        <module>service-api</module>
-        <module>sevice-impl</module>
-    </modules>
-
-    <artifactId>SERVICE</artifactId>
-
+    <artifactId>WEBAPPS-ADMIN</artifactId>
     <packaging>pom</packaging>
+
+    <modules>
+        <module>paperki-admin</module>
+        <module>mypaper-admin</module>
+    </modules>
 
 
 </project>

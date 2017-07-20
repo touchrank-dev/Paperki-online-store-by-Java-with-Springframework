@@ -5,19 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>PAPERKI</artifactId>
+        <artifactId>WEBAPPS-ADMIN</artifactId>
         <groupId>com.kushnir.paperki</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <modules>
-        <module>service-api</module>
-        <module>sevice-impl</module>
-    </modules>
-
-    <artifactId>SERVICE</artifactId>
-
-    <packaging>pom</packaging>
+    <artifactId>paperki-admin</artifactId>
+    <packaging>war</packaging>
 
 
 </project>
