@@ -75,7 +75,7 @@
     </dependencies>
 
     <build>
-        <!--<finalName>paperki</finalName>-->
+        <finalName>ROOT</finalName>
 
         <plugins>
 
