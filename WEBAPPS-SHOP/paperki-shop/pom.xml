@@ -13,6 +13,7 @@
     <artifactId>paperki-shop</artifactId>
     <packaging>war</packaging>
 
+
     <dependencies>
 
         <!-- SPRING -->
