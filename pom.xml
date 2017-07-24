@@ -18,6 +18,7 @@
         <module>configs</module>
         <module>WEBAPPS-ADMIN</module>
         <module>WEBAPPS-SHOP</module>
+        <module>MODEL</module>
     </modules>
 
     <properties>
