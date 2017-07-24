@@ -46,6 +46,16 @@
                 <artifactId>DB</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
+                <artifactId>dao-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
+                <artifactId>dao-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- SPRING -->
             <dependency>

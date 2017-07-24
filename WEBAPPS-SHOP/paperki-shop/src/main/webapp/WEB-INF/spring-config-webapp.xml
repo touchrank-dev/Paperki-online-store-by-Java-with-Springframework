@@ -10,17 +10,7 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--<import resource="appconfig-mvc.xml"/>
-
-    <context:property-placeholder location="classpath:webapp.properties"/>
-
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:webapp.properties</value>
-            </list>
-        </property>
-    </bean>-->
+    <import resource="classpath*:spring-config-dao.xml"/>
 
     <context:property-placeholder location="classpath:webapp.properties"/>
 
@@ -28,13 +18,14 @@
 
     <context:component-scan base-package="com.kushnir.paperki.webapp.*"/>
 
-    <mvc:resources mapping="/resources/**" location="WEB-INF/templates/resources/"/>
+    <mvc:resources mapping="/**" location="WEB-INF/resources/"/>
 
     <bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
         <constructor-arg ref="servletContext"/>
-        <property name="prefix" value=""/>
-        <property name="suffix" value=""/>
+        <property name="prefix" value="WEB-INF/templates/"/>
+        <property name="suffix" value=".html"/>
+        <property name="characterEncoding" value="UTF-8" />
         <property name="templateMode" value="HTML5"/>
     </bean>
 
