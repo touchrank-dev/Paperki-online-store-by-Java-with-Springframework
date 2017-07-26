@@ -14,7 +14,8 @@
         </div>
 
         <header     th:include="fragments/header :: header" />
-        <main       th:include="content/main :: main"/>
+        <p th:text="${errorMsg}">Error</p>
+        <!--<main       th:include="content/error :: error"/>-->
         <footer     th:include="fragments/footer :: footer" />
         <section    th:include="fragments/scroltotop :: scroltotop" />
         <!--<section    th:include="fragments/popups :: popups" />-->
