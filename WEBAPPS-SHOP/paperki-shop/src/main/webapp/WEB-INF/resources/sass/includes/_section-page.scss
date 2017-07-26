@@ -1,0 +1,97 @@
+.sectionBrands{
+	margin:15px 0 45px 0;
+}
+.catalogHolder.sectionPageCarousel .goodsHolder {
+    width: 100%;
+    margin: 15px 15px;
+}
+.sectionPageCarousel .prices-block {
+    min-height: 46px;
+}
+.catalogHolder.sectionPageCarousel{
+    margin: 0 -15px;
+}
+.productsSectionItem, .productsSectionItemSmall{
+	width: 14.666%;
+	float: left;
+	margin:15px 1%;
+	background-color: #FFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    font-family: ProximaNovaBold;
+}
+.productsSectionItem:hover, .productsSectionItemSmall:hover{
+	border-color:#FFD148;
+	.productsSectionItemSmallText{
+		color: #FF821D;
+	}
+	p{
+		color: #FF821D;
+	}
+}
+.productsSectionItem{
+	padding-bottom: 15px;
+    img {
+    	margin:0 auto;
+    	display: block;
+    	padding: 15px;
+    	height: 140px;
+    }
+    p{	
+    	text-align: center;
+    	border-top: 1px solid #E0E0E0;
+    	padding: 15px 15px 0px 15px;
+    	margin: 0;
+    	color: #495685;
+    	font-size: 18px;
+    	line-height: 1.3;
+    	overflow: hidden;
+  		text-overflow: ellipsis;
+  		height: 65px;
+    }
+}
+.productsSectionItemSmall{
+	.productsSectionItemSmallImg{
+		display: table-cell;
+		width: 25%;
+		vertical-align: middle;
+		overflow: hidden;
+		img{
+			width: 100%;
+			max-width: 100%;
+			padding: 10%;
+			max-height: 100%;
+		}
+	}
+	.productsSectionItemSmallText{
+		border-left: 1px solid #E0E0E0;
+		display: table-cell;
+		width: 75%;
+		color: #495685;
+		font-size: 14px;
+    	line-height: 1.3;
+    	vertical-align: middle;
+    	overflow: hidden;
+  		text-overflow: ellipsis;
+  		padding: 10px;
+	}
+}
+.sectionPageCarousel .slick-list {
+	overflow: visible;
+}
+.sliderBottomWrapper{
+	overflow: visible;
+}
+#wrapp {
+	z-index: 1;
+}
+.sliderBottomWrapper .wideProductCard .btn.c-button.btn-to-cart{
+	visibility: hidden;
+}
+.sliderBottomWrapper .wideProductCard.slick-active .btn.c-button.btn-to-cart{
+	visibility: visible;
+}
+.navbar-nav>li>.dropdown-menu.phones{
+	border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+} /**/

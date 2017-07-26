@@ -10,13 +10,13 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <import resource="classpath*:spring-config-dao.xml"/>
+    <!--<import resource="classpath*:spring-dao.xml"/>-->
 
     <context:property-placeholder location="classpath:webapp.properties"/>
 
     <mvc:annotation-driven/>
 
-    <context:component-scan base-package="com.kushnir.paperki.webapp.*"/>
+    <context:component-scan base-package="com.kushnir.paperki.webapp.paperki.shop.*"/>
 
     <mvc:resources mapping="/**" location="WEB-INF/resources/"/>
 

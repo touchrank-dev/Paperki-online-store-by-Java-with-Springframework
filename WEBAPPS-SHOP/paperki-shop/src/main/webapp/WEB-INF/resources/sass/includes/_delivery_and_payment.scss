@@ -1,0 +1,71 @@
+.delivAndPaym-block{
+	padding: 3.5%;
+	p:last-of-type{
+		margin-bottom: 0;
+	}
+}
+.delivAndPaym-contactInfo, .delivAndPaym-blockPayment{
+	.typicalH1{
+		margin-top:0;
+	}
+}
+.strongInfo{
+	color:#373B44;
+	font-family: 'ProximaNovaBold';
+}	
+.delivAndPaym-SubTitle{
+	color:#373B44;
+	font-family: ProximaNovaBlack;
+	font-size: 18px;
+}
+.delivAndPaym-list{
+	list-style-type: disc;
+	padding-left: 15px;
+	li{
+		padding-bottom: 10px;
+	}
+	li:last-of-type{
+		padding-bottom: 0;
+	}
+}
+.delivAndPaym-link{
+	color: #FF8F14;
+	border-bottom: 1px dashed #FF8F14;
+}
+.delivAndPaym-link:hover, .delivAndPaym-linkBold:hover{
+	color: #FF8F14;
+	border:none;
+}
+.delivAndPaym-linkBold{
+	color: #FF8F14;
+	border-bottom: 1px solid #FF8F14;
+	font-family: 'ProximaNovaBold';
+}
+.delivAndPaym-blockDelivery{
+	h4:first-of-type{
+		margin-top: 0;
+	}
+}
+.delivAndPaym-paymentList{
+	padding-left: 0;
+	li{
+		margin-top: 30px;
+		padding:7px 0 0 50px;
+		position: relative;
+	}
+	img{
+		width: 40px;
+		height: 40px;
+		position: absolute;
+		left:0;
+		top:0;
+	}	
+}
+.delivAndPaym-linkBold-holder{
+	font-size: 18px;	
+}
+.delivAndPaym-linkBold-holder:hover{
+	.delivAndPaym-linkBold{
+		border: none;
+	}
+}

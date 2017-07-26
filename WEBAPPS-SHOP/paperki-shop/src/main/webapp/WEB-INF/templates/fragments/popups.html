@@ -1,0 +1,2546 @@
+<section th:fragment="popups" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div id="enter-popup" class="enter-popup-content morphbutton-content">
+        <button type="button" class="morphbutton-close"></button>
+        <div class="enter-popup-wrap morphbutton-cascade">
+            <h4>Войти на сайт</h4>
+            <form>
+                <span class="input input--ichiro enter-form-field">
+                    <input class="input__field input__field--ichiro" type="email" name="your-email" id="enter-input-email" />
+                    <label class="input__label input__label--ichiro" for="enter-input-email">
+                        <span class="input__label-content input__label-content--ichiro">Ваш e-mail *</span>
+                </label>
+                </span>
+                <span class="input input--ichiro enter-form-field">
+                    <input class="input__field input__field--ichiro" type="password" name="your-password" id="enter-input-password" />
+                    <label class="input__label input__label--ichiro" for="enter-input-password">
+                        <span class="input__label-content input__label-content--ichiro">Пароль *</span>
+                </label>
+                </span>
+                <div class="enter-form-buttons">
+                    <button class="c-button" type="submit">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        войти
+                    </button>
+                    <a href="#password-recovery-popup" class="morphbutton-close open-password-recovery-popup close-morph" title="Забыли пароль?">Забыли пароль?</a>
+                </div>
+            </form>
+            <div class="enter-popup-reg">
+                <h5>Регистрация</h5>
+                <p>
+                    Регистрация в клубе <a href="#">PAP-бонус</a> простая и быстрая.
+                </p>
+                <p>
+                    Вы не потеряете состав Вашей корзины и после регистрации сможете оформить покупку на выгодных условиях.
+                </p>
+                <a href="#registration-popup" class="morphbutton-close open-reg-popup c-button" title="Зарегистрироваться">
+                    <div class="c-ripple js-ripple">
+                        <span class="c-ripple__circle"></span>
+                    </div>
+                    Зарегистрироваться
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="registration-popup" class="registration-popup-content mfp-hide">
+        <div class="registration-popup-head">
+            <h4>Регистрация в клубе PAP-бонус</h4>
+            <div class="info-reg">
+                <p>Клуб PAP-бонус – программа специальных цен и накопления бонусных баллов (1 PAP-бонус = 0,10 рубль) для клиентов нашего интернет-магазина.</p>
+                <a href="#">Подробнее о бонусной программе</a>
+            </div>
+        </div>
+        <form>
+            <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="text" name="your-name" id="registration-input-name" />
+                <label class="input__label input__label--ichiro" for="registration-input-name">
+                    <span class="input__label-content input__label-content--ichiro">Ваше Имя *</span>
+                </label>
+            </span>
+            <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="email" name="your-email" id="registration-input-email" />
+                <label class="input__label input__label--ichiro" for="registration-input-email">
+                    <span class="input__label-content input__label-content--ichiro">Ваш e-mail *</span>
+                </label>
+            </span>
+            <input type="checkbox" name="check" id="check1">
+            <label for="check1">Уведомлять о доступных промокодах, подарках и спецпредложениях</label>
+            <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="password" name="your-password" id="registration-input-password" />
+                <label class="input__label input__label--ichiro" for="registration-input-password">
+                    <span class="input__label-content input__label-content--ichiro">Пароль *</span>
+                </label>
+            <button type="button" class="show-password"></button>
+            </span>
+            <input type="checkbox" name="check" id="check2">
+            <label for="check2">Сформировать автоматически</label>
+            <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro phone" type="text" name="your-phone" id="registration-input-phone" />
+                <label class="input__label input__label--ichiro" for="registration-input-phone">
+                    <span class="input__label-content input__label-content--ichiro">Мобильный телефон</span>
+                </label>
+            </span>
+            <input type="checkbox" name="check" id="check3">
+            <label for="check3">Хочу 250 PAP-бонусов за регистрацию с <a href="#">мобильным телефоном!</a></label>
+            <p class="t-label">
+                <label>день рождения</label>
+            </p>
+            <div class="for-input">
+                <input type="text" id="datepicker" class="inp-main">
+            </div>
+            <p class="checkb">На <a href="#">день рождения мы дарим</a> PAP-бонусы.</p>
+            <input type="checkbox" name="check" id="check4">
+            <label for="check4">регистрироваться как Юридическое лицо</label>
+            <div class="podpreg">
+                <p>Регистрация на сайте подразумевает обязательное согласие с <a href="#">политикой конфиденциальности</a></p>
+            </div>
+            <div class="registration-popup-footer">
+                <button class="btn c-button btn-sign btn-reg" type="submit">
+                    <div class="c-ripple js-ripple">
+                        <span class="c-ripple__circle"></span>
+                    </div>
+                    зарегистрироваться
+                </button>
+                <p>Есть регистрация?
+                    <button class="open-morph" data-target="#enter-popup">
+                        Войти на сайт!
+                    </button>
+                </p>
+            </div>
+        </form>
+    </div>
+    <div id="password-recovery-popup" class="password-recovery-popup-content mfp-hide">
+        <div class="password-recovery-wrap">
+            <h4>Восстановление пароля</h4>
+            <p class="password-recovery__subtitle">
+                Укажите адрес электронной почты, который вы использовали при регистрации
+            </p>
+            <form action="">
+                <span class="input input--ichiro password-recovery-field">
+                    <input class="input__field input__field--ichiro" type="email" name="your-email" id="password-input-email" />
+                    <label class="input__label input__label--ichiro" for="password-input-email">
+                        <span class="input__label-content input__label-content--ichiro">Ваш e-mail *</span>
+                </label>
+                </span>
+                <button class="c-button" type="submit">
+                    <div class="c-ripple js-ripple">
+                        <span class="c-ripple__circle"></span>
+                    </div>
+                    получить инструкции
+                </button>
+            </form>
+            <div>Нужна помощь? Звоните 695-25-25 (МТС, velcom, life:) или <a href="#">напишите нам</a></div>
+        </div>
+        <div class="password-recovery-buttons">
+            <button class="open-morph" data-target="#enter-popup">
+                войти
+            </button>
+            <a href="#registration-popup" class="open-reg-popup" title="Зарегистрироваться">
+                Зарегистрироваться
+            </a>
+        </div>
+    </div>
+    <!--cart popups-->
+    <div id="cart-popup" class="cart-popup-content mfp-hide">
+        <h3>Корзина</h3>
+        <div class="cart-popup-products">
+            <p class="cart-popup-sum">Сумма</p>
+            <form action="">
+                <ul class="cart-popup-products-list">
+                    <li>
+                        <a href="#" class="cart-popup-del-prod"></a>
+                        <div class="cart-popup-del-prod-confirm">
+                            <div class="cart-popup-del-prod-confirm__btns">
+                                <a href="#" class="cart-popup-del-prod__bookmark">
+                                    <img src="img/cart-bookmark-icon.png" alt="Bookmarks">
+                                    <p>Переместить<br>
+                                        в список желаний
+                                    </p>
+                                </a>
+                                <a href="#" class="cart-popup-del-prod__remove">
+                                    <img src="img/cart-delete-prod-without-icon.png" alt="Remove">
+                                    <p>Удалить
+                                        без сохранения</p>
+                                </a>
+                            </div>
+                            <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                        </div>
+                        <div class="cart-popup-product-choosen">
+                            <div class="cart-popup-product-pict">
+                                <img src="img/cart-prod-shadow.png" alt="Product">
+                            </div>
+                            <div class="cart-popup-product-info">
+                                <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                                </a>
+                                <div class="prices-block action">
+                                    <ul class="prices-block-list">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                    <div class="bon-pr">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-popup-products-item-right">
+                            <div class="cart-popup-product__number">
+                                <div class="dec">-</div>
+                                <input type="text" name="french-hens" class="inde" value="3">
+                                <div class="inc">+</div>
+                            </div>
+                            <div class="cart-product-total-price">
+                                <div class="cart-product-total-price__old">
+                                    850 руб
+                                </div>
+                                <div class="cart-product-total-price__new">
+                                    799 руб
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="cart-popup-del-prod"></a>
+                        <div class="cart-popup-del-prod-confirm">
+                            <div class="cart-popup-del-prod-confirm__btns">
+                                <a href="#" class="cart-popup-del-prod__bookmark">
+                                    <img src="img/cart-bookmark-icon.png" alt="Bookmarks">
+                                    <p>Переместить<br>
+                                        в список желаний
+                                    </p>
+                                </a>
+                                <a href="#" class="cart-popup-del-prod__remove">
+                                    <img src="img/cart-delete-prod-without-icon.png" alt="Remove">
+                                    <p>Удалить
+                                        без сохранения</p>
+                                </a>
+                            </div>
+                            <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                        </div>
+                        <div class="cart-popup-product-choosen">
+                            <div class="cart-popup-product-pict">
+                                <img src="img/cart-prod-shadow.png" alt="Product">
+                            </div>
+                            <div class="cart-popup-product-info">
+                                <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                                </a>
+                                <div class="prices-block">
+                                    <ul class="prices-block-list">
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                    <div class="bon-pr">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-popup-products-item-right">
+                            <div class="cart-popup-product__number">
+                                <div class="dec">-</div>
+                                <input type="text" name="french-hens" class="inde" value="3">
+                                <div class="inc">+</div>
+                            </div>
+                            <div class="cart-product-total-price">
+                                <div class="cart-product-total-price__old">
+                                    850 руб
+                                </div>
+                                <div class="cart-product-total-price__new">
+                                    799 руб
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="cart-popup-products-total-price">
+                    <div>
+                        <div class="total">
+                            <p>Итого:</p>
+                            <span>352 руб</span>
+                        </div>
+                    </div>
+                    <button class="cart-popup-form-order c-button" type="submit">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        ОФОРМИТЬ ЗАКАЗ
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="cart-popup-continue-shopping">
+            <a href="#" class="cart-popup-continue-shopping__link c-button">
+                <div class="c-ripple js-ripple">
+                    <span class="c-ripple__circle"></span>
+                </div>
+                Продолжить покупку
+            </a>
+            <form action="">
+                <input type="text" placeholder="Код купона / промо слово" />
+                <button class="c-button" type="submit">
+                    <div class="c-ripple js-ripple">
+                        <span class="c-ripple__circle"></span>
+                    </div>
+                    применить
+                </button>
+            </form>
+            <div class="cart-popup-continue-shopping__links">
+                <a href="#" class="how-to-get-disc">Как получить скидку?</a>
+                <a href="#" class="disc-rules">Правила применения скидок</a>
+            </div>
+        </div>
+        <div class="cart-popup-reg">
+            <p>Если бы вы зарегистрировались в нашем клубе, за эту покупку Вы получите PAP-бонусов: 10</p>
+            <div>
+                <a href="#registration-popup" class="cart-popup-reg__link">Зарегистрироваться</a>
+                <button class="cart-popup-enter__link open-morph" data-target="#enter-popup">
+                    Войти на сайт!
+                </button>
+            </div>
+        </div>
+        <div class="also-recommend">
+            <p>Также рекомендуем</p>
+            <div class="also-recommend-slider">
+                <div class="goodsHolder">
+                    <div class="thumbnail order-product product__hit">
+                        <div class="block">
+                            <div class="caption cap-normal product-detail">
+                                <div class="product-detail-top">
+                                    <ul class="top-l-cat">
+                                        <li>
+                                            <a href="#" class="link-name-cat">Клей ПВА 500гр</a>
+                                        </li>
+                                    </ul>
+                                    <ul class="list-char">
+                                        <li>
+                                            <p class="type-char">Тип продукции:</p>
+                                            <span>Альбом для рисования</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Количество листов:</p>
+                                            <span>8</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Формат:</p>
+                                            <span>A4</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Тип переплёта:</p>
+                                            <span>Скрепка</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Цвет:</p>
+                                            <ul class="list-color">
+                                                <li>
+                                                    <span style="background-color: #000"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #ed5858"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #8ca500"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                    <div class="ill-t">
+                                        <p>Наличие:</p>
+                                        <ul class="ill-it">
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-0"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-0"></span>
+                                            </li>
+                                        </ul>
+                                        <span class="availability">55 шт</span>
+                                    </div>
+                                </div>
+                                <div class="product-detail-bottom">
+                                    <a href="#" class="btn c-button btn-more-h">
+                                        <div class="c-ripple js-ripple">
+                                            <span class="c-ripple__circle"></span>
+                                        </div>
+                                        подробнее
+                                    </a>
+                                    <div class="btn-in-cart__is-added">
+                                        <div class="btn-in-cart__is-added__title">
+                                            <p>добавлено</p>
+                                        </div>
+                                        <div class="btn-in-cart__is-added__number">
+                                            <p>
+                                                        <span>
+                                                            3
+                                                        </span> шт
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn c-button btn-click">
+                                        <div class="c-ripple js-ripple">
+                                            <span class="c-ripple__circle"></span>
+                                        </div>
+                                        купить в 1 клик
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caption cap-normal product-content">
+                            <div class="product-content__top">
+                                <div class="cart-thumb-add-to-order">
+                                    <input type="checkbox" id="add-to-order1" name="add-to-order" value="Добавить к заказу">
+                                    <label for="add-to-order1">Добавить к заказу</label>
+                                </div>
+                                <p class="al-ph">
+                                    <img src="img/product1.png" alt="Изображение товара" class="img-pr">
+                                </p>
+                                <p class="desc-pr">
+                                    Жидкий клей в пластиковом ведерке. Имеет высокую... плотность,
+                                </p>
+                            </div>
+                            <div class="product-content__bottom">
+                                <div class="prices-block">
+                                    <ul class="prices-block-list">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                    <div class="bon-pr">
+                                        <img src="img/i.png">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                        <div class="hint">
+                                            <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                            <h5>Цена зависит от<br>количества!</h5>
+                                            <div>
+                                                <p>от 1 ед. :</p>
+                                                <p>6,50 руб</p>
+                                                <p>от 20 ед. :</p>
+                                                <p>6,42 руб</p>
+                                                <p>от 30 ед. :</p>
+                                                <p>6,05 руб</p>
+                                                <p>т 60 ед. :</p>
+                                                <p>5,80 руб</p>
+                                                <p>от 120 ед. :</p>
+                                                <p>5,50 руб</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btns">
+                                    <ul class="list-bt">
+                                        <li>
+                                            <a href="#" class="btn c-button btn-ord" title="Под заказ">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                                под заказ
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn c-button btn-bookmark bnt-ic is-added" title="Добавить в закладки">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn c-button btn-compare bnt-ic is-added" title="Сравнить">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--stars-->
+                                <div class="rating">
+                                    <ul class="stars">
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-false">
+                                        </li>
+                                        <li class="star-false">
+                                        </li>
+                                    </ul>
+                                    <div class="rating__reviews">
+                                        <a href="#" class="reviews-pr">Отзывы: 679</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goodsHolder">
+                    <div class="thumbnail order-product product__hit">
+                        <div class="block">
+                            <div class="caption cap-normal product-detail">
+                                <div class="product-detail-top">
+                                    <ul class="top-l-cat">
+                                        <li>
+                                            <a href="#" class="link-name-cat">Клей ПВА 500гр</a>
+                                        </li>
+                                    </ul>
+                                    <ul class="list-char">
+                                        <li>
+                                            <p class="type-char">Тип продукции:</p>
+                                            <span>Альбом для рисования</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Количество листов:</p>
+                                            <span>8</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Формат:</p>
+                                            <span>A4</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Тип переплёта:</p>
+                                            <span>Скрепка</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Цвет:</p>
+                                            <ul class="list-color">
+                                                <li>
+                                                    <span style="background-color: #000"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #ed5858"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #8ca500"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                    <div class="ill-t">
+                                        <p>Наличие:</p>
+                                        <ul class="ill-it">
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-0"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-0"></span>
+                                            </li>
+                                        </ul>
+                                        <span class="availability">55 шт</span>
+                                    </div>
+                                </div>
+                                <div class="product-detail-bottom">
+                                    <a href="#" class="btn c-button btn-more-h">
+                                        <div class="c-ripple js-ripple">
+                                            <span class="c-ripple__circle"></span>
+                                        </div>
+                                        подробнее
+                                    </a>
+                                    <div class="btn-in-cart__is-added">
+                                        <div class="btn-in-cart__is-added__title">
+                                            <p>добавлено</p>
+                                        </div>
+                                        <div class="btn-in-cart__is-added__number">
+                                            <p>
+                                                        <span>
+                                                            3
+                                                        </span> шт
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn c-button btn-click">
+                                        <div class="c-ripple js-ripple">
+                                            <span class="c-ripple__circle"></span>
+                                        </div>
+                                        купить в 1 клик
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caption cap-normal product-content">
+                            <div class="product-content__top">
+                                <div class="cart-thumb-add-to-order">
+                                    <input type="checkbox" id="add-to-order2" name="add-to-order" value="Добавить к заказу">
+                                    <label for="add-to-order2">Добавить к заказу</label>
+                                </div>
+                                <p class="al-ph">
+                                    <img src="img/product1.png" alt="Изображение товара" class="img-pr">
+                                </p>
+                                <p class="desc-pr">
+                                    Жидкий клей в пластиковом ведерке. Имеет высокую... плотность,
+                                </p>
+                            </div>
+                            <div class="product-content__bottom">
+                                <div class="prices-block">
+                                    <ul class="prices-block-list">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                    <div class="bon-pr">
+                                        <img src="img/i.png">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                        <div class="hint">
+                                            <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                            <h5>Цена зависит от<br>количества!</h5>
+                                            <div>
+                                                <p>от 1 ед. :</p>
+                                                <p>6,50 руб</p>
+                                                <p>от 20 ед. :</p>
+                                                <p>6,42 руб</p>
+                                                <p>от 30 ед. :</p>
+                                                <p>6,05 руб</p>
+                                                <p>т 60 ед. :</p>
+                                                <p>5,80 руб</p>
+                                                <p>от 120 ед. :</p>
+                                                <p>5,50 руб</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btns">
+                                    <ul class="list-bt">
+                                        <li>
+                                            <a href="#" class="btn c-button btn-ord" title="Под заказ">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                                под заказ
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn c-button btn-bookmark bnt-ic is-added" title="Добавить в закладки">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn c-button btn-compare bnt-ic is-added" title="Сравнить">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--stars-->
+                                <div class="rating">
+                                    <ul class="stars">
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-false">
+                                        </li>
+                                        <li class="star-false">
+                                        </li>
+                                    </ul>
+                                    <div class="rating__reviews">
+                                        <a href="#" class="reviews-pr">Отзывы: 679</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goodsHolder">
+                    <div class="thumbnail order-product product__hit">
+                        <div class="block">
+                            <div class="caption cap-normal product-detail">
+                                <div class="product-detail-top">
+                                    <ul class="top-l-cat">
+                                        <li>
+                                            <a href="#" class="link-name-cat">Клей ПВА 500гр</a>
+                                        </li>
+                                    </ul>
+                                    <ul class="list-char">
+                                        <li>
+                                            <p class="type-char">Тип продукции:</p>
+                                            <span>Альбом для рисования</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Количество листов:</p>
+                                            <span>8</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Формат:</p>
+                                            <span>A4</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Тип переплёта:</p>
+                                            <span>Скрепка</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Цвет:</p>
+                                            <ul class="list-color">
+                                                <li>
+                                                    <span style="background-color: #000"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #ed5858"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #8ca500"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                    <div class="ill-t">
+                                        <p>Наличие:</p>
+                                        <ul class="ill-it">
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-0"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-0"></span>
+                                            </li>
+                                        </ul>
+                                        <span class="availability">55 шт</span>
+                                    </div>
+                                </div>
+                                <div class="product-detail-bottom">
+                                    <a href="#" class="btn c-button btn-more-h">
+                                        <div class="c-ripple js-ripple">
+                                            <span class="c-ripple__circle"></span>
+                                        </div>
+                                        подробнее
+                                    </a>
+                                    <div class="btn-in-cart__is-added">
+                                        <div class="btn-in-cart__is-added__title">
+                                            <p>добавлено</p>
+                                        </div>
+                                        <div class="btn-in-cart__is-added__number">
+                                            <p>
+                                                        <span>
+                                                            3
+                                                        </span> шт
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn c-button btn-click">
+                                        <div class="c-ripple js-ripple">
+                                            <span class="c-ripple__circle"></span>
+                                        </div>
+                                        купить в 1 клик
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caption cap-normal product-content">
+                            <div class="product-content__top">
+                                <div class="cart-thumb-add-to-order">
+                                    <input type="checkbox" id="add-to-order3" name="add-to-order" value="Добавить к заказу">
+                                    <label for="add-to-order3">Добавить к заказу</label>
+                                </div>
+                                <p class="al-ph">
+                                    <img src="img/product1.png" alt="Изображение товара" class="img-pr">
+                                </p>
+                                <p class="desc-pr">
+                                    Жидкий клей в пластиковом ведерке. Имеет высокую... плотность,
+                                </p>
+                            </div>
+                            <div class="product-content__bottom">
+                                <div class="prices-block">
+                                    <ul class="prices-block-list">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                    <div class="bon-pr">
+                                        <img src="img/i.png">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                        <div class="hint">
+                                            <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                            <h5>Цена зависит от<br>количества!</h5>
+                                            <div>
+                                                <p>от 1 ед. :</p>
+                                                <p>6,50 руб</p>
+                                                <p>от 20 ед. :</p>
+                                                <p>6,42 руб</p>
+                                                <p>от 30 ед. :</p>
+                                                <p>6,05 руб</p>
+                                                <p>т 60 ед. :</p>
+                                                <p>5,80 руб</p>
+                                                <p>от 120 ед. :</p>
+                                                <p>5,50 руб</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btns">
+                                    <ul class="list-bt">
+                                        <li>
+                                            <a href="#" class="btn c-button btn-ord" title="Под заказ">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                                под заказ
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn c-button btn-bookmark bnt-ic is-added" title="Добавить в закладки">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn c-button btn-compare bnt-ic is-added" title="Сравнить">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--stars-->
+                                <div class="rating">
+                                    <ul class="stars">
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-false">
+                                        </li>
+                                        <li class="star-false">
+                                        </li>
+                                    </ul>
+                                    <div class="rating__reviews">
+                                        <a href="#" class="reviews-pr">Отзывы: 679</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goodsHolder">
+                    <div class="thumbnail order-product product__hit">
+                        <div class="block">
+                            <div class="caption cap-normal product-detail">
+                                <div class="product-detail-top">
+                                    <ul class="top-l-cat">
+                                        <li>
+                                            <a href="#" class="link-name-cat">Клей ПВА 500гр</a>
+                                        </li>
+                                    </ul>
+                                    <ul class="list-char">
+                                        <li>
+                                            <p class="type-char">Тип продукции:</p>
+                                            <span>Альбом для рисования</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Количество листов:</p>
+                                            <span>8</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Формат:</p>
+                                            <span>A4</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Тип переплёта:</p>
+                                            <span>Скрепка</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Цвет:</p>
+                                            <ul class="list-color">
+                                                <li>
+                                                    <span style="background-color: #000"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #ed5858"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #8ca500"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                    <div class="ill-t">
+                                        <p>Наличие:</p>
+                                        <ul class="ill-it">
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-0"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-0"></span>
+                                            </li>
+                                        </ul>
+                                        <span class="availability">55 шт</span>
+                                    </div>
+                                </div>
+                                <div class="product-detail-bottom">
+                                    <a href="#" class="btn c-button btn-more-h">
+                                        <div class="c-ripple js-ripple">
+                                            <span class="c-ripple__circle"></span>
+                                        </div>
+                                        подробнее
+                                    </a>
+                                    <div class="btn-in-cart__is-added">
+                                        <div class="btn-in-cart__is-added__title">
+                                            <p>добавлено</p>
+                                        </div>
+                                        <div class="btn-in-cart__is-added__number">
+                                            <p>
+                                                        <span>
+                                                            3
+                                                        </span> шт
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn c-button btn-click">
+                                        <div class="c-ripple js-ripple">
+                                            <span class="c-ripple__circle"></span>
+                                        </div>
+                                        купить в 1 клик
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caption cap-normal product-content">
+                            <div class="product-content__top">
+                                <div class="cart-thumb-add-to-order">
+                                    <input type="checkbox" id="add-to-order4" name="add-to-order" value="Добавить к заказу">
+                                    <label for="add-to-order4">Добавить к заказу</label>
+                                </div>
+                                <p class="al-ph">
+                                    <img src="img/product1.png" alt="Изображение товара" class="img-pr">
+                                </p>
+                                <p class="desc-pr">
+                                    Жидкий клей в пластиковом ведерке. Имеет высокую... плотность,
+                                </p>
+                            </div>
+                            <div class="product-content__bottom">
+                                <div class="prices-block">
+                                    <ul class="prices-block-list">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                    <div class="bon-pr">
+                                        <img src="img/i.png">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                        <div class="hint">
+                                            <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                            <h5>Цена зависит от<br>количества!</h5>
+                                            <div>
+                                                <p>от 1 ед. :</p>
+                                                <p>6,50 руб</p>
+                                                <p>от 20 ед. :</p>
+                                                <p>6,42 руб</p>
+                                                <p>от 30 ед. :</p>
+                                                <p>6,05 руб</p>
+                                                <p>т 60 ед. :</p>
+                                                <p>5,80 руб</p>
+                                                <p>от 120 ед. :</p>
+                                                <p>5,50 руб</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btns">
+                                    <ul class="list-bt">
+                                        <li>
+                                            <a href="#" class="btn c-button btn-ord" title="Под заказ">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                                под заказ
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn c-button btn-bookmark bnt-ic is-added" title="Добавить в закладки">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn c-button btn-compare bnt-ic is-added" title="Сравнить">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--stars-->
+                                <div class="rating">
+                                    <ul class="stars">
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-false">
+                                        </li>
+                                        <li class="star-false">
+                                        </li>
+                                    </ul>
+                                    <div class="rating__reviews">
+                                        <a href="#" class="reviews-pr">Отзывы: 679</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="goodsHolder">
+                    <div class="thumbnail order-product product__hit">
+                        <div class="block">
+                            <div class="caption cap-normal product-detail">
+                                <div class="product-detail-top">
+                                    <ul class="top-l-cat">
+                                        <li>
+                                            <a href="#" class="link-name-cat">Клей ПВА 500гр</a>
+                                        </li>
+                                    </ul>
+                                    <ul class="list-char">
+                                        <li>
+                                            <p class="type-char">Тип продукции:</p>
+                                            <span>Альбом для рисования</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Количество листов:</p>
+                                            <span>8</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Формат:</p>
+                                            <span>A4</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Тип переплёта:</p>
+                                            <span>Скрепка</span>
+                                        </li>
+                                        <li>
+                                            <p class="type-char">Цвет:</p>
+                                            <ul class="list-color">
+                                                <li>
+                                                    <span style="background-color: #000"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #ed5858"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #8ca500"></span>
+                                                </li>
+                                                <li>
+                                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                    <div class="ill-t">
+                                        <p>Наличие:</p>
+                                        <ul class="ill-it">
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-1"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-0"></span>
+                                            </li>
+                                            <li>
+                                                <span class="ill-it-0"></span>
+                                            </li>
+                                        </ul>
+                                        <span class="availability">55 шт</span>
+                                    </div>
+                                </div>
+                                <div class="product-detail-bottom">
+                                    <a href="#" class="btn c-button btn-more-h">
+                                        <div class="c-ripple js-ripple">
+                                            <span class="c-ripple__circle"></span>
+                                        </div>
+                                        подробнее
+                                    </a>
+                                    <div class="btn-in-cart__is-added">
+                                        <div class="btn-in-cart__is-added__title">
+                                            <p>добавлено</p>
+                                        </div>
+                                        <div class="btn-in-cart__is-added__number">
+                                            <p>
+                                                        <span>
+                                                            3
+                                                        </span> шт
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn c-button btn-click">
+                                        <div class="c-ripple js-ripple">
+                                            <span class="c-ripple__circle"></span>
+                                        </div>
+                                        купить в 1 клик
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caption cap-normal product-content">
+                            <div class="product-content__top">
+                                <div class="cart-thumb-add-to-order">
+                                    <input type="checkbox" id="add-to-order5" name="add-to-order" value="Добавить к заказу">
+                                    <label for="add-to-order5">Добавить к заказу</label>
+                                </div>
+                                <p class="al-ph">
+                                    <img src="img/product1.png" alt="Изображение товара" class="img-pr">
+                                </p>
+                                <p class="desc-pr">
+                                    Жидкий клей в пластиковом ведерке. Имеет высокую... плотность,
+                                </p>
+                            </div>
+                            <div class="product-content__bottom">
+                                <div class="prices-block">
+                                    <ul class="prices-block-list">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                    <div class="bon-pr">
+                                        <img src="img/i.png">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                        <div class="hint">
+                                            <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                            <h5>Цена зависит от<br>количества!</h5>
+                                            <div>
+                                                <p>от 1 ед. :</p>
+                                                <p>6,50 руб</p>
+                                                <p>от 20 ед. :</p>
+                                                <p>6,42 руб</p>
+                                                <p>от 30 ед. :</p>
+                                                <p>6,05 руб</p>
+                                                <p>т 60 ед. :</p>
+                                                <p>5,80 руб</p>
+                                                <p>от 120 ед. :</p>
+                                                <p>5,50 руб</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btns">
+                                    <ul class="list-bt">
+                                        <li>
+                                            <a href="#" class="btn c-button btn-ord" title="Под заказ">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                                под заказ
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn c-button btn-bookmark bnt-ic is-added" title="Добавить в закладки">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn c-button btn-compare bnt-ic is-added" title="Сравнить">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--stars-->
+                                <div class="rating">
+                                    <ul class="stars">
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-true">
+                                        </li>
+                                        <li class="star-false">
+                                        </li>
+                                        <li class="star-false">
+                                        </li>
+                                    </ul>
+                                    <div class="rating__reviews">
+                                        <a href="#" class="reviews-pr">Отзывы: 679</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cart-added-popup" class="cart-added-popup-content mfp-hide">
+        <h3>Вы добавили товар в корзину</h3>
+        <div class="cart-popup-products">
+            <p class="cart-popup-sum">Сумма</p>
+            <form action="">
+                <ul class="cart-popup-products-list">
+                    <li>
+                        <a href="#" class="cart-popup-del-prod"></a>
+                        <div class="cart-popup-del-prod-confirm">
+                            <div class="cart-popup-del-prod-confirm__btns">
+                                <a href="#" class="cart-popup-del-prod__bookmark">
+                                    <img src="img/cart-bookmark-icon.png" alt="Bookmarks">
+                                    <p>Переместить<br>
+                                        в список желаний
+                                    </p>
+                                </a>
+                                <a href="#" class="cart-popup-del-prod__remove">
+                                    <img src="img/cart-delete-prod-without-icon.png" alt="Remove">
+                                    <p>Удалить
+                                        без сохранения</p>
+                                </a>
+                            </div>
+                            <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                        </div>
+                        <div class="cart-popup-product-choosen">
+                            <div class="cart-popup-product-pict">
+                                <img src="img/cart-prod-shadow.png" alt="Product">
+                            </div>
+                            <div class="cart-popup-product-info">
+                                <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                                </a>
+                                <div class="prices-block action">
+                                    <ul class="prices-block-list">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                    <div class="bon-pr">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-popup-products-item-right">
+                            <div class="cart-popup-product__number">
+                                <div class="dec">-</div>
+                                <input type="text" name="french-hens" class="inde" value="3">
+                                <div class="inc">+</div>
+                            </div>
+                            <div class="cart-product-total-price">
+                                <div class="cart-product-total-price__old">
+                                    850 руб
+                                </div>
+                                <div class="cart-product-total-price__new">
+                                    799 руб
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="cart-popup-del-prod"></a>
+                        <div class="cart-popup-del-prod-confirm">
+                            <div class="cart-popup-del-prod-confirm__btns">
+                                <a href="#" class="cart-popup-del-prod__bookmark">
+                                    <img src="img/cart-bookmark-icon.png" alt="Bookmarks">
+                                    <p>Переместить<br>
+                                        в список желаний
+                                    </p>
+                                </a>
+                                <a href="#" class="cart-popup-del-prod__remove">
+                                    <img src="img/cart-delete-prod-without-icon.png" alt="Remove">
+                                    <p>Удалить
+                                        без сохранения</p>
+                                </a>
+                            </div>
+                            <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                        </div>
+                        <div class="cart-popup-product-choosen">
+                            <div class="cart-popup-product-pict">
+                                <img src="img/cart-prod-shadow.png" alt="Product">
+                            </div>
+                            <div class="cart-popup-product-info">
+                                <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                                </a>
+                                <div class="prices-block action">
+                                    <ul class="prices-block-list">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                    <div class="bon-pr">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-popup-products-item-right">
+                            <div class="cart-popup-product__number">
+                                <div class="dec">-</div>
+                                <input type="text" name="french-hens" class="inde" value="3">
+                                <div class="inc">+</div>
+                            </div>
+                            <div class="cart-product-total-price">
+                                <div class="cart-product-total-price__old">
+                                    850 руб
+                                </div>
+                                <div class="cart-product-total-price__new">
+                                    799 руб
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="another-products-in-cart">
+                        <h4>Другие товары в корзине</h4>
+                        <div class="action-sugg">
+                            <ul class="cart-popup-products-list">
+                                <span class="action-sugg-title">Акционное предложение</span>
+                                <li>
+                                    <a href="#" class="cart-popup-del-prod"></a>
+                                    <div class="cart-popup-del-prod-confirm">
+                                        <div class="cart-popup-del-prod-confirm__btns">
+                                            <a href="#" class="cart-popup-del-prod__bookmark">
+                                                <img src="img/cart-bookmark-icon.png" alt="Bookmarks">
+                                                <p>Переместить<br>
+                                                    в список желаний
+                                                </p>
+                                            </a>
+                                            <a href="#" class="cart-popup-del-prod__remove">
+                                                <img src="img/cart-delete-prod-without-icon.png" alt="Remove">
+                                                <p>Удалить
+                                                    без сохранения</p>
+                                            </a>
+                                        </div>
+                                        <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                                    </div>
+                                    <div class="cart-popup-product-choosen">
+                                        <div class="cart-popup-product-pict">
+                                            <img src="img/cart-prod-shadow.png" alt="Product">
+                                        </div>
+                                        <div class="cart-popup-product-info">
+                                            <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                                            </a>
+                                            <div class="prices-block action">
+                                                <ul class="prices-block-list">
+                                                    <li class="old-pr">8,50 руб</li>
+                                                    <li class="new-pr">
+                                                        6,50 руб
+                                                    </li>
+                                                </ul>
+                                                <div class="bon-pr">
+                                                    <a href="#" class="bonuses">+11 бонусов</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cart-popup-products-item-right">
+                                        <div class="cart-product-total-price">
+                                            <div class="cart-product-total-price__old">
+                                                850 руб
+                                            </div>
+                                            <div class="cart-product-total-price__new">
+                                                799 руб
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#" class="cart-popup-del-prod"></a>
+                                    <div class="cart-popup-del-prod-confirm">
+                                        <div class="cart-popup-del-prod-confirm__btns">
+                                            <a href="#" class="cart-popup-del-prod__bookmark">
+                                                <img src="img/cart-bookmark-icon.png" alt="Bookmarks">
+                                                <p>Переместить<br>
+                                                    в список желаний
+                                                </p>
+                                            </a>
+                                            <a href="#" class="cart-popup-del-prod__remove">
+                                                <img src="img/cart-delete-prod-without-icon.png" alt="Remove">
+                                                <p>Удалить
+                                                    без сохранения</p>
+                                            </a>
+                                        </div>
+                                        <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                                    </div>
+                                    <div class="cart-popup-product-choosen">
+                                        <div class="cart-popup-product-pict">
+                                            <img src="img/cart-prod-shadow.png" alt="Product">
+                                        </div>
+                                        <div class="cart-popup-product-info">
+                                            <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                                            </a>
+                                            <div class="prices-block action">
+                                                <ul class="prices-block-list">
+                                                    <li class="old-pr">8,50 руб</li>
+                                                    <li class="new-pr">
+                                                        6,50 руб
+                                                    </li>
+                                                </ul>
+                                                <div class="bon-pr">
+                                                    <a href="#" class="bonuses">+11 бонусов</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cart-popup-products-item-right">
+                                        <div class="cart-product-total-price">
+                                            <div class="cart-product-total-price__old">
+                                                850 руб
+                                            </div>
+                                            <div class="cart-product-total-price__new">
+                                                799 руб
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="action-sugg-total">
+                                <p>Стоимость этого комплекта</p>
+                                <div class="action-sugg-total-right">
+                                    <div class="cart-popup-product__number">
+                                        <div class="dec">-</div>
+                                        <input type="text" name="french-hens" class="inde" value="3">
+                                        <div class="inc">+</div>
+                                    </div>
+                                    <div class="action-sugg-total-price">
+                                        1682 руб
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="cart-popup-del-prod"></a>
+                        <div class="cart-popup-del-prod-confirm">
+                            <div class="cart-popup-del-prod-confirm__btns">
+                                <a href="#" class="cart-popup-del-prod__bookmark">
+                                    <img src="img/cart-bookmark-icon.png" alt="Bookmarks">
+                                    <p>Переместить <br>
+                                        в список желаний
+                                    </p>
+                                </a>
+                                <a href="#" class="cart-popup-del-prod__remove">
+                                    <img src="img/cart-delete-prod-without-icon.png" alt="Remove">
+                                    <p>Удалить
+                                        без сохранения</p>
+                                </a>
+                            </div>
+                            <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                        </div>
+                        <div class="cart-popup-product-choosen">
+                            <div class="cart-popup-product-pict">
+                                <img src="img/cart-prod-shadow.png" alt="Product">
+                            </div>
+                            <div class="cart-popup-product-info">
+                                <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                                </a>
+                                <div class="prices-block action">
+                                    <ul class="prices-block-list">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                    <div class="bon-pr">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-popup-products-item-right">
+                            <div class="cart-popup-product__number">
+                                <div class="dec">-</div>
+                                <input type="text" name="french-hens" class="inde" value="3">
+                                <div class="inc">+</div>
+                            </div>
+                            <div class="cart-product-total-price">
+                                <div class="cart-product-total-price__old">
+                                    850 руб
+                                </div>
+                                <div class="cart-product-total-price__new">
+                                    799 руб
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="cart-popup-products-total-price">
+                    <div>
+                        <div class="total">
+                            <p>Итого:</p>
+                            <span>352 руб</span>
+                        </div>
+                        <div class="total-bonus-for-buying">
+                            За эту покупку будет начислено - <span>173 бонуса</span>
+                        </div>
+                    </div>
+                    <button class="cart-popup-form-order c-button" type="submit">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        ОФОРМИТЬ ЗАКАЗ
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="cart-popup-continue-shopping">
+            <a href="#" class="cart-popup-continue-shopping__link c-button">
+                <div class="c-ripple js-ripple">
+                    <span class="c-ripple__circle"></span>
+                </div>
+                Продолжить покупку
+            </a>
+            <form action="">
+                <input type="text" placeholder="Код купона / промо слово" />
+                <button class="c-button" type="submit">
+                    <div class="c-ripple js-ripple">
+                        <span class="c-ripple__circle"></span>
+                    </div>
+                    применить
+                </button>
+            </form>
+            <div class="cart-popup-continue-shopping__links">
+                <a href="#" class="how-to-get-disc">Как получить скидку?</a>
+                <a href="#" class="disc-rules">Правила применения скидок</a>
+            </div>
+        </div>
+        <div class="cart-added-popup-together-cheaper">
+            <p>Вместе дешевле</p>
+            <div class="cart-added-popup-together-cheaper-slider">
+                <div class="together-cheaper-slider-item">
+                    <div class="together-cheaper-slider-products">
+                        <div class="together-cheaper-slider-product-left product__hit">
+                            <div class="together-cheaper-slider-product_pict">
+                                <div class="together-cheaper-slider-product__pict-slider">
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                </div>
+                                <span class="pagingInfo"></span>
+                            </div>
+                            <div class="together-cheaper-slider-product__info">
+                                <span>Ваш товар</span>
+                                <a href="#">
+                                    <span>Набор файлов-карманов 100 шт Optima с </span>
+                                </a>
+                                <div class="prices-block action">
+                                    <ul class="prices-block-list action">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="together-cheaper-slider-product-right">
+                            <div class="together-cheaper-slider-product_pict">
+                                <div class="together-cheaper-slider-product__pict-slider">
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                </div>
+                                <span class="pagingInfo"></span>
+                            </div>
+                            <div class="together-cheaper-slider-product__info">
+                                <a href="#">
+                                    <span>Набор файлов-карманов 100 шт Optima с </span>
+                                </a>
+                                <div class="prices-block">
+                                    <ul class="prices-block-list">
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="together-cheaper-slider-buy">
+                        <div class="together-cheaper-slider-buy__wrap">
+                            <div class="price">
+                                15,65 руб
+                            </div>
+                            <a href="#" class="c-button">
+                                <div class="c-ripple js-ripple">
+                                    <span class="c-ripple__circle"></span>
+                                </div>
+                                купить комплект
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="together-cheaper-slider-item">
+                    <div class="together-cheaper-slider-products">
+                        <div class="together-cheaper-slider-product-left product__hit">
+                            <div class="together-cheaper-slider-product_pict">
+                                <div class="together-cheaper-slider-product__pict-slider">
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                </div>
+                                <span class="pagingInfo"></span>
+                            </div>
+                            <div class="together-cheaper-slider-product__info">
+                                <span>Ваш товар</span>
+                                <a href="#">
+                                    <span>Набор файлов-карманов 100 шт Optima с </span>
+                                </a>
+                                <div class="prices-block action">
+                                    <ul class="prices-block-list action">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="together-cheaper-slider-product-right">
+                            <div class="together-cheaper-slider-product_pict">
+                                <div class="together-cheaper-slider-product__pict-slider">
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                </div>
+                                <span class="pagingInfo"></span>
+                            </div>
+                            <div class="together-cheaper-slider-product__info">
+                                <a href="#">
+                                    <span>Набор файлов-карманов 100 шт Optima с </span>
+                                </a>
+                                <div class="prices-block">
+                                    <ul class="prices-block-list">
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="together-cheaper-slider-buy">
+                        <div class="together-cheaper-slider-buy__wrap">
+                            <div class="price">
+                                15,65 руб
+                            </div>
+                            <a href="#" class="c-button">
+                                <div class="c-ripple js-ripple">
+                                    <span class="c-ripple__circle"></span>
+                                </div>
+                                купить комплект
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="together-cheaper-slider-item">
+                    <div class="together-cheaper-slider-products">
+                        <div class="together-cheaper-slider-product-left product__hit">
+                            <div class="together-cheaper-slider-product_pict">
+                                <div class="together-cheaper-slider-product__pict-slider">
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                </div>
+                                <span class="pagingInfo"></span>
+                            </div>
+                            <div class="together-cheaper-slider-product__info">
+                                <span>Ваш товар</span>
+                                <a href="#">
+                                    <span>Набор файлов-карманов 100 шт Optima с </span>
+                                </a>
+                                <div class="prices-block action">
+                                    <ul class="prices-block-list action">
+                                        <li class="old-pr">8,50 руб</li>
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="together-cheaper-slider-product-right">
+                            <div class="together-cheaper-slider-product_pict">
+                                <div class="together-cheaper-slider-product__pict-slider">
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                    <div>
+                                        <img src="img/product1.png" alt="Product">
+                                    </div>
+                                </div>
+                                <span class="pagingInfo"></span>
+                            </div>
+                            <div class="together-cheaper-slider-product__info">
+                                <a href="#">
+                                    <span>Набор файлов-карманов 100 шт Optima с </span>
+                                </a>
+                                <div class="prices-block">
+                                    <ul class="prices-block-list">
+                                        <li class="new-pr">
+                                            6,50 руб
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="together-cheaper-slider-buy">
+                        <div class="together-cheaper-slider-buy__wrap">
+                            <div class="price">
+                                15,65 руб
+                            </div>
+                            <a href="#" class="c-button">
+                                <div class="c-ripple js-ripple">
+                                    <span class="c-ripple__circle"></span>
+                                </div>
+                                купить комплект
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="cart-empty-popup" class="cart-empty-popup-content mfp-hide">
+        <div class="cart-empty-popup-title">
+            <img src="img/cart-empty-cart-icon.png" alt="Cart empty">
+            <h3>Корзина пуста</h3>
+        </div>
+        <div class="cart-empty-popup-action">
+            <div class="cart-empty-popup-action__title">
+                <span>Но это никогда не поздно исправить :)</span>
+                <a href="#">Смотреть все акции →</a>
+            </div>
+            <div class="cart-empty-popup-action-slider">
+                <div>
+                    <a href="#">
+                        <img src="img/cart-action1.png" alt="Action">
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="img/cart-action2.png" alt="Action">
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="img/cart-action3.png" alt="Action">
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="img/cart-action1.png" alt="Action">
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="img/cart-action2.png" alt="Action">
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <img src="img/cart-action3.png" alt="Action">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="watched-products">
+            <div class="watched-products-title">
+                <span>Просмотренный товар</span>
+                <a href="#">Показать всё</a>
+            </div>
+            <div class="catalogHolder watched-products-slider">
+                <div class="wideProductCard">
+                    <div class="wideProductCardTop">
+                        <div class="wideProductCardImg">
+                            <img src="img/product1.png" alt="Изображение товара">
+                        </div>
+                        <div class="wideProductCardTitle">
+                            <h4><a href="#" class="link-name-cat">Бумага офисная Mondi Color Copy А3 250 г/м2 класс A+ 125 листов Белая (9003974443782)</a></h4>
+                            <p><a href="#" class="cat-l">КЛЕЙ</a></p>
+                            <ul class="prices-block-list">
+                                <li class="old-pr">8,50 руб </li>
+                                <li class="new-pr">
+                                    6,50 руб
+                                </li>
+                                <li>
+                                    <div class="bon-pr">
+                                        <img src="img/i.png">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                        <div class="hint">
+                                            <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                            <h5>Цена зависит от<br>количества!</h5>
+                                            <div>
+                                                <p>от 1 ед. :</p>
+                                                <p>6,50 руб</p>
+                                                <p>от 20 ед. :</p>
+                                                <p>6,42 руб</p>
+                                                <p>от 30 ед. :</p>
+                                                <p>6,05 руб</p>
+                                                <p>т 60 ед. :</p>
+                                                <p>5,80 руб</p>
+                                                <p>от 120 ед. :</p>
+                                                <p>5,50 руб</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="wideProductCardBottom">
+                        <ul class="list-bt">
+                            <li>
+                                <a href="#" class="btn c-button btn-to-cart" title="В корзину">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <img src="img/cart-icon.png" alt="Cart">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn c-button btn-bookmark bnt-ic" title="Добавить в закладки">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn c-button btn-compare bnt-ic" title="Сравнить">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="rating starsOnNewline">
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                            <div class="rating__reviews">
+                                <a href="#" class="reviews-pr">Отзывы: 679</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wideProductCard">
+                    <div class="wideProductCardTop">
+                        <div class="wideProductCardImg">
+                            <img src="img/product1.png" alt="Изображение товара">
+                        </div>
+                        <div class="wideProductCardTitle">
+                            <h4><a href="#" class="link-name-cat">Бумага офисная Mondi Color Copy А3 250 г/м2 класс A+ 125 листов Белая (9003974443782)</a></h4>
+                            <p><a href="#" class="cat-l">КЛЕЙ</a></p>
+                            <ul class="prices-block-list">
+                                <li class="old-pr">8,50 руб </li>
+                                <li class="new-pr">
+                                    6,50 руб
+                                </li>
+                                <li>
+                                    <div class="bon-pr">
+                                        <img src="img/i.png">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                        <div class="hint">
+                                            <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                            <h5>Цена зависит от<br>количества!</h5>
+                                            <div>
+                                                <p>от 1 ед. :</p>
+                                                <p>6,50 руб</p>
+                                                <p>от 20 ед. :</p>
+                                                <p>6,42 руб</p>
+                                                <p>от 30 ед. :</p>
+                                                <p>6,05 руб</p>
+                                                <p>т 60 ед. :</p>
+                                                <p>5,80 руб</p>
+                                                <p>от 120 ед. :</p>
+                                                <p>5,50 руб</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="wideProductCardBottom">
+                        <ul class="list-bt">
+                            <li>
+                                <a href="#" class="btn c-button btn-to-cart" title="В корзину">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <img src="img/cart-icon.png" alt="Cart">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn c-button btn-bookmark bnt-ic" title="Добавить в закладки">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn c-button btn-compare bnt-ic" title="Сравнить">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="rating starsOnNewline">
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                            <div class="rating__reviews">
+                                <a href="#" class="reviews-pr">Отзывы: 679</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wideProductCard">
+                    <div class="wideProductCardTop">
+                        <div class="wideProductCardImg">
+                            <img src="img/product1.png" alt="Изображение товара">
+                        </div>
+                        <div class="wideProductCardTitle">
+                            <h4><a href="#" class="link-name-cat">Бумага офисная Mondi Color Copy А3 250 г/м2 класс A+ 125 листов Белая (9003974443782)</a></h4>
+                            <p><a href="#" class="cat-l">КЛЕЙ</a></p>
+                            <ul class="prices-block-list">
+                                <li class="old-pr">8,50 руб </li>
+                                <li class="new-pr">
+                                    6,50 руб
+                                </li>
+                                <li>
+                                    <div class="bon-pr">
+                                        <img src="img/i.png">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                        <div class="hint">
+                                            <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                            <h5>Цена зависит от<br>количества!</h5>
+                                            <div>
+                                                <p>от 1 ед. :</p>
+                                                <p>6,50 руб</p>
+                                                <p>от 20 ед. :</p>
+                                                <p>6,42 руб</p>
+                                                <p>от 30 ед. :</p>
+                                                <p>6,05 руб</p>
+                                                <p>т 60 ед. :</p>
+                                                <p>5,80 руб</p>
+                                                <p>от 120 ед. :</p>
+                                                <p>5,50 руб</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="wideProductCardBottom">
+                        <ul class="list-bt">
+                            <li>
+                                <a href="#" class="btn c-button btn-to-cart" title="В корзину">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <img src="img/cart-icon.png" alt="Cart">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn c-button btn-bookmark bnt-ic" title="Добавить в закладки">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn c-button btn-compare bnt-ic" title="Сравнить">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="rating starsOnNewline">
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                            <div class="rating__reviews">
+                                <a href="#" class="reviews-pr">Отзывы: 679</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wideProductCard">
+                    <div class="wideProductCardTop">
+                        <div class="wideProductCardImg">
+                            <img src="img/product1.png" alt="Изображение товара">
+                        </div>
+                        <div class="wideProductCardTitle">
+                            <h4><a href="#" class="link-name-cat">Бумага офисная Mondi Color Copy А3 250 г/м2 класс A+ 125 листов Белая (9003974443782)</a></h4>
+                            <p><a href="#" class="cat-l">КЛЕЙ</a></p>
+                            <ul class="prices-block-list">
+                                <li class="old-pr">8,50 руб </li>
+                                <li class="new-pr">
+                                    6,50 руб
+                                </li>
+                                <li>
+                                    <div class="bon-pr">
+                                        <img src="img/i.png">
+                                        <a href="#" class="bonuses">+11 бонусов</a>
+                                        <div class="hint">
+                                            <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                            <h5>Цена зависит от<br>количества!</h5>
+                                            <div>
+                                                <p>от 1 ед. :</p>
+                                                <p>6,50 руб</p>
+                                                <p>от 20 ед. :</p>
+                                                <p>6,42 руб</p>
+                                                <p>от 30 ед. :</p>
+                                                <p>6,05 руб</p>
+                                                <p>т 60 ед. :</p>
+                                                <p>5,80 руб</p>
+                                                <p>от 120 ед. :</p>
+                                                <p>5,50 руб</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="wideProductCardBottom">
+                        <ul class="list-bt">
+                            <li>
+                                <a href="#" class="btn c-button btn-to-cart" title="В корзину">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <img src="img/cart-icon.png" alt="Cart">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn c-button btn-bookmark bnt-ic" title="Добавить в закладки">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn c-button btn-compare bnt-ic" title="Сравнить">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="rating starsOnNewline">
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                            <div class="rating__reviews">
+                                <a href="#" class="reviews-pr">Отзывы: 679</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--cart popups end-->
+    <!--search popup-->
+    <div id="search-popup" class="search-popup-content mfp-hide">
+        <div class="drop-search">
+            <div class="search-popup-content-top">
+                <form action="">
+                    <div class="input-group hgt-in">
+                    <span class="input-group-btn">
+                        <button class="btn btn-search" type="button"><img src="img/search.png" alt="Поиск"></button>
+                    </span>
+                        <input type="text" id="search-popup-input" class="search-popup-input" placeholder="Введите название товара">
+                    </div>
+                    <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+                </form>
+                <div class="drop-search-head">
+                    <p>Найдено в разделах</p>
+                    <div class="row">
+                        <a href="">Торары для хобби и творчества</a><span>458 товара</span>
+                    </div>
+                    <div class="row">
+                        <a href="">Пишушие и художественные принадлежности</a><span>1365 товара</span>
+                    </div>
+                </div>
+                <div class="head-row">
+                    <div class="col1">Товар</div>
+                    <div class="col2">Цена с НДС</div>
+                    <div class="col3">Кол-во</div>
+                    <div class="col4">Заказано</div>
+                </div>
+            </div>
+            <div class="drop-search-catalog">
+                <div class="cont-row">
+                    <div class="col1">
+                        <img src="img/pr1.png" alt="Офисная бумага SvetoCopy A4 (80 г/м2)">
+                        <h5><a href="№">Офисная бумага SvetoCopy A4 (80 г/м2)</a></h5>
+                        <div class="rating">
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                            <div class="rating__reviews">
+                                <a href="#" class="reviews-pr">Отзывы: 679</a>
+                            </div>
+                        </div>
+                        <p>Производство: Китай</p>
+                        <p>Код: 015144</p>
+                        <div>
+                            <p class="type-char">Цвет:</p>
+                            <ul class="list-color">
+                                <li>
+                                    <span style="background-color: #000"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #ed5858"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #8ca500"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                </li>
+                                <li class="multicolour">
+                                    <span></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col2">6,50 руб
+                        <a href="#">+54 бонуса</a>
+                    </div>
+                    <div class="col3">
+                        <div>
+                            <div class="dec">-</div>
+                            <input type="text" name="french-hens" class="inde" value="3">
+                            <div class="inc">+</div>
+                        </div>
+                    </div>
+                    <div class="btn-to-cart"><img src="img/buy.png" alt="Купить"></div>
+                </div>
+                <div class="cont-row">
+                    <div class="col1">
+                        <img src="img/pr1.png" alt="Офисная бумага SvetoCopy A4 (80 г/м2)">
+                        <h5><a href="№">Офисная бумага SvetoCopy A4 (80 г/м2)</a></h5>
+                        <div class="rating">
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                            <div class="rating__reviews">
+                                <a href="#" class="reviews-pr">Отзывы: 679</a>
+                            </div>
+                        </div>
+                        <p>Производство: Китай</p>
+                        <p>Код: 015144</p>
+                        <div>
+                            <p class="type-char">Цвет:</p>
+                            <ul class="list-color">
+                                <li>
+                                    <span style="background-color: #000"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #ed5858"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #8ca500"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                </li>
+                                <li class="multicolour">
+                                    <span></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col2">6,50 руб
+                        <a href="#">+54 бонуса</a>
+                    </div>
+                    <div class="col3">
+                        <div>
+                            <div class="dec">-</div>
+                            <input type="text" name="french-hens" class="inde" value="3">
+                            <div class="inc">+</div>
+                        </div>
+                    </div>
+                    <div class="btn-to-cart"><img src="img/buy.png" alt="Купить"></div>
+                </div>
+                <div class="cont-row">
+                    <div class="col1">
+                        <img src="img/pr1.png" alt="Офисная бумага SvetoCopy A4 (80 г/м2)">
+                        <h5><a href="№">Офисная бумага SvetoCopy A4 (80 г/м2)</a></h5>
+                        <div class="rating">
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                            <div class="rating__reviews">
+                                <a href="#" class="reviews-pr">Отзывы: 679</a>
+                            </div>
+                        </div>
+                        <p>Производство: Китай</p>
+                        <p>Код: 015144</p>
+                        <div>
+                            <p class="type-char">Цвет:</p>
+                            <ul class="list-color">
+                                <li>
+                                    <span style="background-color: #000"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #ed5858"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #8ca500"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                </li>
+                                <li class="multicolour">
+                                    <span></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col2">6,50 руб
+                        <a href="#">+54 бонуса</a>
+                    </div>
+                    <div class="col3">
+                        <div>
+                            <div class="dec">-</div>
+                            <input type="text" name="french-hens" class="inde" value="3">
+                            <div class="inc">+</div>
+                        </div>
+                    </div>
+                    <div class="btn-to-cart"><img src="img/buy.png" alt="Купить"></div>
+                </div>
+                <div class="cont-row">
+                    <div class="col1">
+                        <img src="img/pr1.png" alt="Офисная бумага SvetoCopy A4 (80 г/м2)">
+                        <h5><a href="№">Офисная бумага SvetoCopy A4 (80 г/м2)</a></h5>
+                        <div class="rating">
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                            <div class="rating__reviews">
+                                <a href="#" class="reviews-pr">Отзывы: 679</a>
+                            </div>
+                        </div>
+                        <p>Производство: Китай</p>
+                        <p>Код: 015144</p>
+                        <div>
+                            <p class="type-char">Цвет:</p>
+                            <ul class="list-color">
+                                <li>
+                                    <span style="background-color: #000"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #ed5858"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #8ca500"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                </li>
+                                <li class="multicolour">
+                                    <span></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col2">6,50 руб
+                        <a href="#">+54 бонуса</a>
+                    </div>
+                    <div class="col3">
+                        <div>
+                            <div class="dec">-</div>
+                            <input type="text" name="french-hens" class="inde" value="3">
+                            <div class="inc">+</div>
+                        </div>
+                    </div>
+                    <div class="btn-to-cart"><img src="img/buy.png" alt="Купить"></div>
+                </div>
+                <div class="cont-row">
+                    <div class="col1">
+                        <img src="img/pr1.png" alt="Офисная бумага SvetoCopy A4 (80 г/м2)">
+                        <h5><a href="№">Офисная бумага SvetoCopy A4 (80 г/м2)</a></h5>
+                        <div class="rating">
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                            <div class="rating__reviews">
+                                <a href="#" class="reviews-pr">Отзывы: 679</a>
+                            </div>
+                        </div>
+                        <p>Производство: Китай</p>
+                        <p>Код: 015144</p>
+                        <div>
+                            <p class="type-char">Цвет:</p>
+                            <ul class="list-color">
+                                <li>
+                                    <span style="background-color: #000"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #ed5858"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #8ca500"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                </li>
+                                <li class="multicolour">
+                                    <span></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col2">6,50 руб
+                        <a href="#">+54 бонуса</a>
+                    </div>
+                    <div class="col3">
+                        <div>
+                            <div class="dec">-</div>
+                            <input type="text" name="french-hens" class="inde" value="3">
+                            <div class="inc">+</div>
+                        </div>
+                    </div>
+                    <div class="btn-to-cart"><img src="img/buy.png" alt="Купить"></div>
+                </div>
+                <div class="cont-row">
+                    <div class="col1">
+                        <img src="img/pr1.png" alt="Офисная бумага SvetoCopy A4 (80 г/м2)">
+                        <h5><a href="№">Офисная бумага SvetoCopy A4 (80 г/м2)</a></h5>
+                        <div class="rating">
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                            <div class="rating__reviews">
+                                <a href="#" class="reviews-pr">Отзывы: 679</a>
+                            </div>
+                        </div>
+                        <p>Производство: Китай</p>
+                        <p>Код: 015144</p>
+                        <div>
+                            <p class="type-char">Цвет:</p>
+                            <ul class="list-color">
+                                <li>
+                                    <span style="background-color: #000"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #ed5858"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #8ca500"></span>
+                                </li>
+                                <li>
+                                    <span style="background-color: #fff" class="list-color__white"></span>
+                                </li>
+                                <li class="multicolour">
+                                    <span></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col2">6,50 руб
+                        <a href="#">+54 бонуса</a>
+                    </div>
+                    <div class="col3">
+                        <div>
+                            <div class="dec">-</div>
+                            <input type="text" name="french-hens" class="inde" value="3">
+                            <div class="inc">+</div>
+                        </div>
+                    </div>
+                    <div class="btn-to-cart"><img src="img/buy.png" alt="Купить"></div>
+                </div>
+            </div>
+            <div class="drop-search-loader">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+</section>

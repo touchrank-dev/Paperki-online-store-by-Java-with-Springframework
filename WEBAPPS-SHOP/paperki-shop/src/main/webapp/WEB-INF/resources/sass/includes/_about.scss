@@ -1,0 +1,258 @@
+.about-page{
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    padding-top: 32px;
+    padding-bottom: 40px;
+    h2{
+        margin: 0 0 35px 33px;
+        color: #373b44;
+        font-family: ProximaNovaBold;
+        font-size: 36px;
+        font-weight: 700;
+    }
+    h3{
+        color: #373b44;
+        font-size: 18px;
+        font-weight: 900;
+        font-family: ProximaNovaBlack;
+        margin: 0 70px 9px 39px;
+    }
+    .about-page-info{
+        margin: 0;
+        padding-right: 70px;
+        padding-left: 39px;
+        color: #838383;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        font-family: ProximaNovaRegular;
+    }
+    .representative{
+        padding-left: 39px;
+        padding-right: 70px;
+        margin-top: 16px;
+        padding-bottom: 17px;
+        p{
+            margin: 0;
+            color: #373b44;
+            font-size: 18px;
+            font-weight: 400;
+            font-family: ProximaNovaRegular;
+        }
+        ul{
+            margin: 18px 0 0 0;
+            padding: 0;
+            li{
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 19px;
+                .company-logo{
+                    width: 60px;
+                    overflow: hidden;
+                    margin-right: 13px;
+                    flex-shrink: 0;
+                }
+                p{
+                    font-family: ProximaNovaRegular;
+                    color: #838383;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+    .our-office{
+        background-color: #f3f3f3;
+        padding: 17px 62px 24px 38px;
+        h4{
+            margin: 0;
+            color: #373b44;
+            font-family: ProximaNovaBlack;
+            font-size: 18px;
+            font-weight: 900;
+        }
+        ul{
+            margin: 17px 0 0 0;
+            padding: 0;
+            li{
+                display: flex;
+                .office-pict{
+                    overflow: hidden;
+                    flex-shrink: 0;
+                    width: 240px;
+                    border-radius: 8px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    img{
+                        width: 100%;
+                    }
+                }
+                p{
+                    margin: 0 0 0 25px;
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #838383;
+                    line-height: 17px;
+                    font-family: ProximaNovaRegular;
+                    a{
+                        color: #ff8c39;
+                        text-decoration: underline;
+                        &:hover{
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .retail-stores{
+        padding: 46px 45px 13px 40px;
+        h4{
+            margin: 0;
+            color: #373b44;
+            font-family: ProximaNovaBlack;
+            font-size: 18px;
+            font-weight: 900;
+        }
+        ul{
+            padding: 0;
+            margin: 28px 0 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            li{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 43.859649123%;
+                margin-bottom: 20px;
+                .store-pict{
+                    width: 100%;
+                    overflow: hidden;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 6px;
+                    img{
+                        width: 100%;
+                    }
+                }
+                a{
+                    margin-top: 24px;
+                    color: #ff8c39;
+                    font-size: 14px;
+                    font-weight: 400;
+                    text-decoration: underline;
+                    font-family: ProximaNovaRegular;
+                    &:hover{
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+    .our-achievements{
+        padding: 40px 60px 0 38px;
+        h5{
+            margin: 0;
+            color: #373b44;
+            font-size: 18px;
+            font-weight: 900;
+            font-family: ProximaNovaBlack;
+        }
+        ul{
+            margin: 17px 0 0 0;
+            padding: 0;
+            li{
+                position: relative;
+                margin-bottom: 10px;
+                &:before{
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 5px;
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 100%;
+                    background-color: #dedede;
+                }
+                p{
+                    color: #838383;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 17px;
+                    margin: 0;
+                    padding-left: 15px;
+                    span{
+                        color: #373b44;
+                        font-size: 14px;
+                        font-family: ProximaNovaBold;
+                        font-weight: 700;
+                    }
+                }
+                ul{
+                    padding: 0;
+                    margin: 10px 0 0 0;
+                    li{
+                        &:before{
+                            display: none;
+                        }
+                        p{
+                            padding-left: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .advantages{
+        margin-top: 24px;
+        padding: 0 39px 0 39px;
+        h5{
+            margin: 0;
+            color: #373b44;
+            font-family: ProximaNovaBlack;
+            font-size: 18px;
+            font-weight: 900;
+        }
+        ul{
+            padding: 0;
+            margin: 27px 0 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            li{
+                margin-bottom: 29px;
+                width: 50%;
+                display: flex;
+                align-items: center;
+                .advantages-pict{
+                    width: 80px;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                }
+                .advantages-text{
+                    p{
+                        margin: 0 0 3px 0;
+                        font-weight: 400;
+                        color: #3e4474;
+                        font-size: 18px;
+                        font-family: ProximaNovaRegular;
+                        line-height: 1;
+                    }
+                    span{
+                        color: #838383;
+                        font-size: 14px;
+                        font-family: ProximaNovaRegular;
+                        line-height: 17px;
+                    }
+                }
+            }
+        }
+    }
+}

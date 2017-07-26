@@ -1,35 +1,24 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8">
-</head>
-    <body>
-        <style>
-            tbody {
-                width: 100%;
-                border: solid #c2c2c2 1px;
-            }
-            td {
-                width: 100%;
-            }
-        </style>
+<html lang="ru" class="no-js" xmlns:th="http://www.w3.org/1999/xhtml">
 
-        <h2>Welcome</h2>
-        <table>
-            <tbody>
-                <tr>
-                    <td>МЕНЮ</td>
-                    <td>---</td>
-                </tr>
-                <tr>
-                    <td>ЛОГИН</td>
-                    <td>---</td>
-                </tr>
-                <tr>
-                    <td>КАТАЛОГ</td>
-                    <td>---</td>
-                </tr>
-            </tbody>
-        </table>
+    <head th:include="fragments/head :: head" />
+
+    <body>
+        <!-- SVG Sprite for ripple effect-->
+        <div style="height: 0; width: 0; position: absolute; visibility: hidden;" aria-hidden="true">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <symbol id="ripply-scott" viewbox="0 0 100 100">
+                    <circle id="ripple-shape" cx="1" cy="1" r="1" />
+                </symbol>
+            </svg>
+        </div>
+
+        <header     th:include="fragments/header :: header" />
+        <main       th:include="fragments/main :: main"/>
+        <footer     th:include="fragments/footer :: footer" />
+        <section    th:include="fragments/scroltotop :: scroltotop" />
+        <!--<section    th:include="fragments/popups :: popups" />-->
+        <section    th:include="fragments/scripts :: scripts" />
+
     </body>
 </html>

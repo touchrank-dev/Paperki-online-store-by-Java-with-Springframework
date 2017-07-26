@@ -1,0 +1,23 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "sass/includes/_family";
+@import "sass/includes/_main";
+@import "sass/includes/_product-list-page";
+@import "sass/includes/_single-product-page";
+@import "sass/includes/_catalog_page";
+@import "sass/includes/_section-page";
+@import "sass/includes/_blog";
+@import "sass/includes/_cart";
+@import "sass/includes/_help";
+@import "sass/includes/_post";
+@import "sass/includes/_profile";
+@import "sass/includes/_contacts";
+@import "sass/includes/_ordering";
+@import "sass/includes/_delivery_and_payment";
+@import "sass/includes/_bonus";
+@import "sass/includes/_feedback";
+@import "sass/includes/_about";
+@import "sass/includes/_media";

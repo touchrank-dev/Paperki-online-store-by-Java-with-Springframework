@@ -1,0 +1,61 @@
+.typicalAside{
+	width: 360px;
+	float: left;
+}
+.typicalSection{
+	margin-left: 390px;
+}
+.typicalAside, .typicalSection{
+	margin-top: 30px;
+}
+.blogCategoryListWithOutTitle li:first-of-type{
+	border:none;
+	border-radius:10px 10px 0 0;
+}
+.typicalH1{
+	color: #373B44;
+	font-family: 'ProximaNovaBold';
+	font-size: 36px;
+	margin-bottom: 20px;
+}
+.helpPage{
+	color: #373B44;
+	padding: 3.5%;
+	h1{
+    	margin: 0 0 5px 0;
+	}
+	.helpTagline{
+		font-size: 16px;
+	}
+}
+.helpRow{
+	margin:0 -1.75%;
+}
+.helpCol{
+	padding-top: 30px;
+	float: left;
+	width: 29.8333%;
+	margin:0 1.75%;
+	h3{
+		margin-top: 0;
+		font-size: 26px;
+	}
+	ul{
+		padding-left: 0;
+		font-size: 16px;
+		line-height: 30px;
+	}
+	a{
+		color: #3E4474;
+		border-bottom: 1px solid #3E4474;
+	}
+	a:hover{
+		color: #FF8F14;
+		border:none;
+	}
+	svg{
+		width: 100%;
+		height: 110px;
+		fill:#FF8F14;
+	}
+}
