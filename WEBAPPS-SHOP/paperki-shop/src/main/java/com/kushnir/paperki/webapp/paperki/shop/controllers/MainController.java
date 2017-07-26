@@ -1,4 +1,4 @@
-package com.kushnir.paperki.webapp.controllers;
+package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
