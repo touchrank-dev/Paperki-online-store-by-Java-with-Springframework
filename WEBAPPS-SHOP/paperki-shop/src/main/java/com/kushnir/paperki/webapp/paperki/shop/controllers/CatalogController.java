@@ -6,12 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
-public class MainController {
+@RequestMapping("/catalog")
+public class CatalogController {
 
     @GetMapping()
-    public String mainRoot(Model model) {
-        return "index";
+    public String catalogRoot(Model model) {
+        return "catalog";
     }
 
+    @GetMapping("/{cathegory}")
+    public String welcomeHandler(Model model) {
+        return "catalog";
+    }
 }
