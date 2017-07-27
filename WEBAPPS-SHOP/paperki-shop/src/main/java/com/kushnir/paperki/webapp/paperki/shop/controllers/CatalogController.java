@@ -14,8 +14,4 @@ public class CatalogController {
         return "catalog";
     }
 
-    @GetMapping("/{cathegory}")
-    public String welcomeHandler(Model model) {
-        return "catalog";
-    }
 }
