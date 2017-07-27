@@ -41,4 +41,4 @@ target/
 # other ----------------------
 homework/
 *.odt
-UI-SOURCE/
+# UI-SOURCE/
