@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru" class="no-js" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <head th:include="fragments/head :: head" />
+
+    <body>
+        <!-- SVG Sprite for ripple effect-->
+        <div style="height: 0; width: 0; position: absolute; visibility: hidden;" aria-hidden="true">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <symbol id="ripply-scott" viewbox="0 0 100 100">
+                    <circle id="ripple-shape" cx="1" cy="1" r="1" />
+                </symbol>
+            </svg>
+        </div>
+
+        <header     th:include="fragments/header :: header" />
+        <main       th:include="content/about :: about"/>
+        <footer     th:include="fragments/footer :: footer" />
+        <section    th:include="fragments/scroltotop :: scroltotop" />
+        <!--<section    th:include="fragments/popups :: popups" />-->
+        <section    th:include="fragments/scripts :: scripts" />
+
+    </body>
+</html>

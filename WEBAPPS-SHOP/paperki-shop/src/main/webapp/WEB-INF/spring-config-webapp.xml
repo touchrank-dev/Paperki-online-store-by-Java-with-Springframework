@@ -18,12 +18,12 @@
 
     <context:component-scan base-package="com.kushnir.paperki.webapp.paperki.shop.*"/>
 
-    <mvc:resources mapping="/**" location="WEB-INF/view/resources/"/>
+    <mvc:resources mapping="/**" location="/WEB-INF/view/resources/"/>
 
     <bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
         <constructor-arg ref="servletContext"/>
-        <property name="prefix" value="${webapp.viewresurcepath}/"/>
+        <property name="prefix" value="${webapp.viewResurcePath}/templates/"/>
         <property name="suffix" value=".html"/>
         <property name="characterEncoding" value="UTF-8" />
         <property name="templateMode" value="HTML5"/>

@@ -14,4 +14,9 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/about")
+    public String aboutRoot(Model model) {
+        return "about";
+    }
+
 }
