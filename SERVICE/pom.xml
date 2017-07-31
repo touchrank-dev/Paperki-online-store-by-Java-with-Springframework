@@ -15,7 +15,7 @@
 
     <modules>
         <module>service-api</module>
-        <module>sevice-impl</module>
+        <module>service-impl</module>
     </modules>
 
 

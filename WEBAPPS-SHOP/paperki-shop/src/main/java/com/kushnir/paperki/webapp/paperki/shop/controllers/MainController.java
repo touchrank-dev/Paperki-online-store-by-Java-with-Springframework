@@ -11,12 +11,14 @@ public class MainController {
 
     @GetMapping()
     public String mainRoot(Model model) {
+        model.addAttribute("content", "main");
         return "index";
     }
 
     @GetMapping("/about")
     public String aboutRoot(Model model) {
-        return "about";
+        model.addAttribute("content", "about");
+        return "index";
     }
 
 }

@@ -27,6 +27,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring.version>4.3.6.RELEASE</spring.version>
+        <spriing.security.version>4.2.3.RELEASE</spriing.security.version>
         <thymeleaf.version>3.0.3.RELEASE</thymeleaf.version>
         <org.thymeleaf.extras.springsecurity4-version>3.0.2.RELEASE</org.thymeleaf.extras.springsecurity4-version>
         <nz.net.ultraq.thymeleaflayout-version>2.2.1</nz.net.ultraq.thymeleaflayout-version>
@@ -45,6 +46,16 @@
             <dependency>
                 <groupId>com.kushnir.paperki</groupId>
                 <artifactId>DB</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
+                <artifactId>service-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
+                <artifactId>service-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -99,6 +110,22 @@
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <!-- SPRING SECURITY -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>${spriing.security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spriing.security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${spriing.security.version}</version>
             </dependency>
 
             <!-- THYMELEAF -->
