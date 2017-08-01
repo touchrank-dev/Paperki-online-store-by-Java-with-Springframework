@@ -14,7 +14,9 @@
         </div>
 
         <header     th:include="fragments/header :: header" />
-        <main       th:include="content/main :: main"/>
+
+        <main       th:include="${templatePathName} :: __${fragmentName}__" />
+
         <footer     th:include="fragments/footer :: footer" />
         <section    th:include="fragments/scroltotop :: scroltotop" />
         <section    th:include="fragments/popups :: popups" />

@@ -11,5 +11,13 @@
 
     <artifactId>service-api</artifactId>
 
+    <dependencies>
+        <!-- SPRING -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>

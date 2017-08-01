@@ -1,9 +1,10 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,13 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/error")
 public class ErrorController {
 
+    @Value("${content.path}")
+    String contentPath;
+
     @GetMapping()
-    public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
-
-        ModelAndView errorPage = new ModelAndView("error");
-
-        errorPage.addObject("errorMsg", getErrorMessage(getErrorCode(httpRequest)));
-        return errorPage;
+    public String renderErrorPage(HttpServletRequest httpRequest, Model model) {
+        model.addAttribute("templatePathName", contentPath+"error");
+        model.addAttribute("fragmentName", "error");
+        model.addAttribute("errorMessage", getErrorMessage(getErrorCode(httpRequest)));
+        return "index";
     }
 
     private int getErrorCode(HttpServletRequest httpRequest) {

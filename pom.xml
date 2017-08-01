@@ -45,6 +45,11 @@
             <!-- project modules -->
             <dependency>
                 <groupId>com.kushnir.paperki</groupId>
+                <artifactId>MODEL</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
                 <artifactId>DB</artifactId>
                 <version>${project.version}</version>
             </dependency>

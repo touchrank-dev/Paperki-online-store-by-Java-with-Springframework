@@ -2,6 +2,6 @@ package com.kushnir.paperki.sevice;
 
 import org.springframework.ui.Model;
 
-public interface ComponentBean {
-    void initComponents(Model model);
+public interface ContentBean {
+    void initModel(Model model);
 }

@@ -11,5 +11,12 @@
 
     <artifactId>dao-api</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.kushnir.paperki</groupId>
+            <artifactId>MODEL</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>
