@@ -30,8 +30,8 @@ public class CategoryDaoImpl implements CategoryDao {
     private String getAllSqlQuery;
 
     @Override
-    public HashMap<Integer, Category> getAll() {
-        HashMap<Integer, Category> map =
+    public HashMap<Integer, HashMap<Integer, Category>> getAll() {
+        HashMap<Integer, HashMap<Integer, Category>> map =
                 (HashMap) jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
         LOGGER.debug("getAll() {}", map);
         return map;
@@ -42,11 +42,14 @@ public class CategoryDaoImpl implements CategoryDao {
 
         @Override
         public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-            HashMap<Integer, Category> map = new HashMap<Integer, Category>();
+            HashMap<Integer, HashMap<Integer, Category>> map =
+                    new HashMap<Integer, HashMap<Integer, Category>>();
+            // Инициализируем главную ветку категории
+            map.put(0, new HashMap<Integer, Category>());
+
             Category category;
             int parent;
             while (rs.next()) {
-                System.out.println(rs.getInt("parent"));
                 parent = rs.getInt("parent");
                 category = new Category(
                         rs.getInt("id_category"),
@@ -57,12 +60,17 @@ public class CategoryDaoImpl implements CategoryDao {
                         rs.getInt("order_category")
                 );
 
-                if(parent == 0) {
-                    if (map.get(category.getId()) == null) {
-                        map.put(category.getId(), category);
-                    }
-                } else if(parent > 0) {
-                    map.get(parent).getChilds().put(category.getId(), category);
+                HashMap<Integer, Category> mapCategory = new HashMap<Integer, Category>();
+                //  добавляем себя же как ключ = 0
+                mapCategory.put(0, category);
+                // добавляем в список главной ветки
+                map.put(category.getId(), mapCategory);
+
+                // ищем родителя
+                HashMap<Integer, Category> parentCategory = map.get(parent);
+                // если родитель найден добавляем к нему в child
+                if(parentCategory != null) {
+                    parentCategory.put(category.getId(), category);
                 }
             }
             return map;

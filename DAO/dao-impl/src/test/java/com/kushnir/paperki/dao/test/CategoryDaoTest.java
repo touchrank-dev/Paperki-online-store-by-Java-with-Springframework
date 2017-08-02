@@ -49,7 +49,7 @@ public class CategoryDaoTest {
 
     @Test
     public void getAllTest() {
-        HashMap<Integer, Category> categories = categoryDao.getAll();
+        HashMap<Integer, HashMap<Integer, Category>> categories = categoryDao.getAll();
         assertNotNull(categories);
         assertTrue(categories.size() > 0);
         LOGGER.debug("Test: getAllTest() >>>: {}", categories);

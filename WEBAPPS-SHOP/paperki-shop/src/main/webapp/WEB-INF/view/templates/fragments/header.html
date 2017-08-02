@@ -330,6 +330,12 @@
             <nav id="ml-menu" class="menu">
                 <div class="menu__wrap">
                     <ul data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All">
+
+
+                        <li th:each="entry : ${mapCategories.get(0)}" class="menu__item" role="menuitem">
+
+                        </li>
+
                         <li class="menu__item" role="menuitem">
                             <a class="menu__link" data-submenu="submenu-1" aria-owns="submenu-1" href="#">
                                 <div>

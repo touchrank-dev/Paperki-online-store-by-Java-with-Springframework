@@ -6,5 +6,5 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface CategoryDao {
-    HashMap <Integer, Category> getAll();
+    HashMap<Integer, HashMap<Integer, Category>> getAll();
 }
