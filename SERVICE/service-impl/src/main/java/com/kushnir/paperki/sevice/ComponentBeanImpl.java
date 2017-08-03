@@ -17,7 +17,6 @@ public class ComponentBeanImpl implements ComponentBean {
 
     @Override
     public void initComponents(Model model) {
-        HashMap mapCategories = categoryBean.getAll();
-        model.addAttribute("mapCategories", mapCategories);
+        model.addAttribute("test", "test");
     }
 }

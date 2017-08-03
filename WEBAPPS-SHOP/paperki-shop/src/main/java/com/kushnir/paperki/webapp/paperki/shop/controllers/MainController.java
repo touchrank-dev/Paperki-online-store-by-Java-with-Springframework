@@ -1,5 +1,6 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
+import com.kushnir.paperki.sevice.CategoryBean;
 import com.kushnir.paperki.sevice.ComponentBean;
 
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
+
 @Controller
 @RequestMapping("/")
 public class MainController {
@@ -22,22 +25,29 @@ public class MainController {
     @Autowired
     ComponentBean componentBean;
 
+    @Autowired
+    CategoryBean categoryBean;
+
     @Value("${content.path}")
     String contentPath;
 
     @GetMapping()
     public String mainPage(Model model) {
-        componentBean.initComponents(model);
+        LOGGER.debug("mainPage");
+        model.addAttribute("mapcategories", categoryBean.getAll());
         model.addAttribute("templatePathName", contentPath+"main");
         model.addAttribute("fragmentName", "main");
+        LOGGER.debug("model initiated parameters: >>> {} ", model);
         return "index";
     }
 
-    @GetMapping("/{content}")
+    /*@GetMapping("/{content}")
     public String getContent(@PathVariable String content, Model model) {
+        LOGGER.debug("getContent() >>> {}", content);
         model.addAttribute("templatePathName", contentPath + content);
         model.addAttribute("fragmentName", content);
+        LOGGER.debug("model initiated parameters: >>> {} ", model);
         return "index";
-    }
+    }*/
 
 }

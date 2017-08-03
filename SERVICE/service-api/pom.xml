@@ -12,14 +12,15 @@
     <artifactId>service-api</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.kushnir.paperki</groupId>
+            <artifactId>MODEL</artifactId>
+        </dependency>
+
         <!-- SPRING -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.kushnir.paperki</groupId>
-            <artifactId>MODEL</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,3395 @@
+<nav id="ml-menu" class="menu" th:fragment="navcategory" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="menu__wrap">
+        <ul data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All"
+        th:if="${mapcategories} != null">
+
+            <li th:each="map : ${mapcategories[0]}" class="menu__item" role="menuitem">
+                <a class="menu__link" data-submenu="submenu-1" aria-owns="submenu-1"
+                   href="#" th:href="@{${map.value.link}}" th:attr="data-submenu=${map.value.id},aria-owns=${map.value.id}">
+                    <div>
+                        <img src="/img/caticons/hm1.png" alt="Канцелярские товары"
+                             th:attr="src=@{'/img/caticons/'+${map.value.icon}},alt=${map.value.name}">
+                    </div>
+                    <div th:text="${map.value.name}"></div>
+                </a>
+            </li>
+
+        </ul>
+
+        <!--<ul data-menu="submenu-1" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-2" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-3" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-4" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-5" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-6" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-7" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-8" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-9" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-10" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-11" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-12" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-13" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-14" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+        <ul data-menu="submenu-15" class="catalog-submenu menu__level">
+            <div class="submenu-wrap">
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm6.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки подарочные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm1.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки автоматические
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm2.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки шариковые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm3.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки гелевые, капиллярные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm4.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки специальные
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+                <li class="menu__item">
+                    <a href="#" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="index.html" class="link-cat">
+                        <div>
+                            <img src="img/hcm5.png" alt="Маркеры перманентные">
+                        </div>
+                        Ручки перьевые
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="">
+                            <img src="img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>-->
+    </div>
+</nav>

@@ -3,7 +3,7 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <File name="File" fileName="logs/testDao.log">
+        <File name="File" fileName="logs/webapp.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
     </Appenders>
@@ -13,6 +13,6 @@
             <appender-ref ref="File"/>
         </Root>
         <Logger name="org.springframework" level="INFO"/>
-        <Logger name="com.kushnir.paperki.dao" level="DEBUG"/>
+        <Logger name="com.kushnir.paperki.webapp" level="DEBUG"/>
     </Loggers>
 </Configuration>

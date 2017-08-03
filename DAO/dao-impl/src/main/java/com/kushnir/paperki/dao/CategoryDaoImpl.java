@@ -33,7 +33,7 @@ public class CategoryDaoImpl implements CategoryDao {
     public HashMap<Integer, HashMap<Integer, Category>> getAll() {
         HashMap<Integer, HashMap<Integer, Category>> map =
                 (HashMap) jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
-        LOGGER.debug("getAll() {}", map);
+        LOGGER.debug("getAll() >>> {}", map);
         return map;
     }
 
@@ -44,7 +44,7 @@ public class CategoryDaoImpl implements CategoryDao {
         public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
             HashMap<Integer, HashMap<Integer, Category>> map =
                     new HashMap<Integer, HashMap<Integer, Category>>();
-            // Инициализируем главную ветку категории
+            // Инициализируем главную ветку категории под ключом 0
             map.put(0, new HashMap<Integer, Category>());
 
             Category category;

@@ -4,15 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:db.properties</value>
-                <value>classpath:sqlQueries.properties</value>
-            </list>
-        </property>
-    </bean>
-
     <import resource="classpath*:spring-config-db.xml" />
 
     <!--<context:property-placeholder location="classpath*:sqlQueries.properties"/>-->

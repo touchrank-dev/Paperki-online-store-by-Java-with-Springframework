@@ -45,6 +45,26 @@
             <!-- project modules -->
             <dependency>
                 <groupId>com.kushnir.paperki</groupId>
+                <artifactId>SERVICE</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
+                <artifactId>DAO</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
+                <artifactId>WEBAPPS-SHOP</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
+                <artifactId>WEBAPPS-ADMIN</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
                 <artifactId>MODEL</artifactId>
                 <version>${project.version}</version>
             </dependency>
