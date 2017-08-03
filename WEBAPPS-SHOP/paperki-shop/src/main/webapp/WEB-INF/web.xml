@@ -31,6 +31,7 @@
   </servlet-mapping>
 
   <error-page>
+    <exception-type>java.io.FileNotFoundException</exception-type>
     <location>/error</location>
   </error-page>
 

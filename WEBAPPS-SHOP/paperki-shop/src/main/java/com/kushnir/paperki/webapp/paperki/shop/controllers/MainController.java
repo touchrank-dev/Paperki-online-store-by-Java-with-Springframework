@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.HashMap;
 
 @Controller
@@ -41,13 +43,13 @@ public class MainController {
         return "index";
     }
 
-    /*@GetMapping("/{content}")
-    public String getContent(@PathVariable String content, Model model) {
+    @GetMapping("/{content}")
+    public String getContent(@PathVariable String content, Model model) throws Exception {
         LOGGER.debug("getContent() >>> {}", content);
+        model.addAttribute("mapcategories", categoryBean.getAll());
         model.addAttribute("templatePathName", contentPath + content);
         model.addAttribute("fragmentName", content);
         LOGGER.debug("model initiated parameters: >>> {} ", model);
         return "index";
-    }*/
-
+    }
 }
