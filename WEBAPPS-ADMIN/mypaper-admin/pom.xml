@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>mypaper-admin</artifactId>
-    <packaging>war</packaging>
+    <!--<packaging>war</packaging>-->
 
 
 </project>

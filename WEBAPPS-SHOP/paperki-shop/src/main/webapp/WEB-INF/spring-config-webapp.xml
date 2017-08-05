@@ -26,7 +26,7 @@
 
     <context:component-scan base-package="com.kushnir.paperki.webapp.paperki.shop.*"/>
 
-    <mvc:resources mapping="/**" location="/WEB-INF/view/resources/"/>
+    <mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/"/>
 
     <bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">

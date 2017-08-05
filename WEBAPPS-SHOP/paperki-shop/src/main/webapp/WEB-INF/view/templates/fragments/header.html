@@ -3,16 +3,15 @@
     <nav class="navbar mainMenu">
         <div class="container">
             <div class="mainMenu-wrap">
+
                 <ul class="nav navbar-nav nav-mainMenu">
-                    <li><a href="/about">О компании</a></li>
-                    <li><a href="/help">Помощь</a></li>
-                    <li class="active-link"><a href="/catalog">Каталог товаров</a></li>
-                    <li><a href="/blog">Новости</a></li>
-                    <li><a href="/">База знаний</a></li>
-                    <li><a href="/delivery_and_payment">Доставка и оплата</a></li>
-                    <li><a href="/feedback">Отзывы</a></li>
-                    <li><a href="/contacts">Контакты</a></li>
+
+                    <li th:each="menu : ${mainmenu}">
+                        <a href="/" th:href="@{${menu.link}}" th:text="${menu.name}">Menu item</a>
+                    </li>
+
                 </ul>
+
                 <ul class="nav navbar-nav navbar-right nav-profile">
                     <!--add class login to show-->
                     <li class="login">
@@ -27,7 +26,7 @@
                         <!--login-->
                         <a href="#" class="login-user-button">
                             <div class="avatar">
-                                <img src="/img/avatar.png" alt="avatar">
+                                <img src="/res/img/avatar.png" alt="avatar">
                             </div>
                             <p>Ефросинья</p>
                         </a>
@@ -43,7 +42,7 @@
                             <li>
                                 <a href="#" title="Заказы">
                                     <div>
-                                        <img src="/img/login-user-menu-orders-icon.png" alt="Заказы">
+                                        <img src="/res/img/login-user-menu-orders-icon.png" alt="Заказы">
                                     </div>
                                     Заказы
                                 </a>
@@ -51,7 +50,7 @@
                             <li>
                                 <a href="#" title="Список моих покупок">
                                     <div>
-                                        <img src="/img/login-user-menu-product-pict-icon.png" alt="Список моих покупок">
+                                        <img src="/res/img/login-user-menu-product-pict-icon.png" alt="Список моих покупок">
                                     </div>
                                     Список моих покупок
                                 </a>
@@ -59,7 +58,7 @@
                             <li>
                                 <a href="#" title="Мои организации">
                                     <div>
-                                        <img src="/img/login-user-menu-organizations-icon.png" alt="Мои организации">
+                                        <img src="/res/img/login-user-menu-organizations-icon.png" alt="Мои организации">
                                     </div>
                                     Мои организации
                                 </a>
@@ -67,7 +66,7 @@
                             <li>
                                 <a href="#" title="Отзывы о товарах">
                                     <div>
-                                        <img src="/img/login-user-menu-reviews-icon.png" alt="Отзывы о товарах">
+                                        <img src="/res/img/login-user-menu-reviews-icon.png" alt="Отзывы о товарах">
                                     </div>
                                     Отзывы о товарах
                                 </a>
@@ -75,7 +74,7 @@
                             <li>
                                 <a href="#" title="Фотографии товара">
                                     <div>
-                                        <img src="/img/login-user-menu-product-pict-icon.png" alt="Фотографии товара">
+                                        <img src="/res/img/login-user-menu-product-pict-icon.png" alt="Фотографии товара">
                                     </div>
                                     Фотографии товара
                                 </a>
@@ -83,7 +82,7 @@
                             <li>
                                 <a href="#" title="Видеообзоры">
                                     <div>
-                                        <img src="/img/login-user-menu-video-icon.png" alt="Видеообзоры">
+                                        <img src="/res/img/login-user-menu-video-icon.png" alt="Видеообзоры">
                                     </div>
                                     Видеообзоры
                                 </a>
@@ -91,7 +90,7 @@
                             <li>
                                 <a href="#" title="Вы смотрели">
                                     <div>
-                                        <img src="/img/login-user-menu-watched-icon.png" alt="Вы смотрели">
+                                        <img src="/res/img/login-user-menu-watched-icon.png" alt="Вы смотрели">
                                     </div>
                                     Вы смотрели
                                 </a>
@@ -111,10 +110,10 @@
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
                         <a class="navbar-brand" href="/">
-                            <img src="/img/logo.png" alt="Logo">
+                            <img src="/res/img/logo.png" alt="Logo">
                             <div class="after">
                                 <div class="afterin">
-                                    <div><img src="/img/logohover.png" alt="arrow-left" title="Вернуться на главную" />Вернуться на главную</div>
+                                    <div><img src="/res/img/logohover.png" alt="arrow-left" title="Вернуться на главную" />Вернуться на главную</div>
                                 </div>
                             </div>
                         </a>
@@ -131,20 +130,20 @@
                                         <div class="c-ripple js-ripple">
                                             <span class="c-ripple__circle"></span>
                                         </div>
-                                        <span class="" aria-hidden="true"><img src="/img/phone.png" alt="Phone-icon"></span> 8 (162) 42-93-95 <span><img src="/img/arrows.png" alt="arrows"></span>
+                                        <span class="" aria-hidden="true"><img src="/res/img/phone.png" alt="Phone-icon"></span> 8 (162) 42-93-95 <span><img src="/res/img/arrows.png" alt="arrows"></span>
                                     </button>
                                     <ul class="dropdown-menu phones">
                                         <div>
                                             <li class="phone_drop">
-                                                <div><span class="" aria-hidden="true"><img src="/img/p1.png" alt="Vodafone"></span> 8 (162) 42-93-95</div>
-                                                <div><span class="" aria-hidden="true"><img src="/img/p2.png" alt="Icon"></span> 8 (162) 42-93-95</div>
-                                                <div><span class="" aria-hidden="true"><img src="/img/p3.png" alt="Viber"></span> 8 (162) 42-93-95</div>
-                                                <div><span class="" aria-hidden="true"><img src="/img/p4.png" alt="Skype"></span> paperki.by</div>
+                                                <div><span class="" aria-hidden="true"><img src="/res/img/p1.png" alt="Vodafone"></span> 8 (162) 42-93-95</div>
+                                                <div><span class="" aria-hidden="true"><img src="/res/img/p2.png" alt="Icon"></span> 8 (162) 42-93-95</div>
+                                                <div><span class="" aria-hidden="true"><img src="/res/img/p3.png" alt="Viber"></span> 8 (162) 42-93-95</div>
+                                                <div><span class="" aria-hidden="true"><img src="/res/img/p4.png" alt="Skype"></span> paperki.by</div>
                                                 <div class="phone_drop-adres"><span class="" aria-hidden="true"><img src="/img/p5.png" alt="address"></span>
                                                     <p>ул. Советской Конституции&nbsp;1,
                                                         <br>"Дом Быта", 2 этаж</p>
                                                 </div>
-                                                <div><span aria-hidden="true"><img src="img/p6.png" alt="map"></span><a href="">схема проезда</a></div>
+                                                <div><span aria-hidden="true"><img src="/res/img/p6.png" alt="map"></span><a href="">схема проезда</a></div>
                                             </li>
                                         </div>
                                     </ul>
@@ -205,7 +204,7 @@
                                 <li class="dropdown cart">
                                     <a href="#" class="dropdown-toggle cartLink" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                         <div class="cartIconHolder">
-                                            <img class="cartIcon" src="/img/cart.png" alt="cart">
+                                            <img class="cartIcon" src="/res/img/cart.png" alt="cart">
                                             <img class="cartOK emptyCart" src="/img/cartOK.png" alt="added to cart">
                                         </div>
                                         <div class="dropdown-cart__current-products">
@@ -216,13 +215,13 @@
                                     <ul class="Mydropdown-menu menu-cart">
                                         <div class="title-cart">
                                             <p>Ваша&nbsp;корзина</p>
-                                            <img class="closeCart" src="/img/catalog-close-icon.png" alt="close">
+                                            <img class="closeCart" src="/res/img/catalog-close-icon.png" alt="close">
                                             <div class="clearfix"></div>
                                         </div>
                                         <div class="cart-cont">
                                             <li>
                                                 <div class="drop-pr"><span class="  drop-pr" aria-hidden="true">&#10006;</span></div>
-                                                <div class="img-cart"><img src="/img/product1.png" alt="Стеклянная доска NAGA белая"></div>
+                                                <div class="img-cart"><img src="/res/img/product1.png" alt="Стеклянная доска NAGA белая"></div>
                                                 <div class="desc-cart"><a href="#" class="name-pr-cart">Стеклянная доска NAGA белая</a>
                                                     <ul class="char-cart">
                                                         <li>Производство: Китай</li>
@@ -237,7 +236,7 @@
                                                     <span class="  drop-pr" aria-hidden="true">&#10006;</span>
                                                 </div>
                                                 <div class="img-cart">
-                                                    <img src="/img/product1.png" alt="Стеклянная доска NAGA белая">
+                                                    <img src="/res/img/product1.png" alt="Стеклянная доска NAGA белая">
                                                 </div>
                                                 <div class="desc-cart">
                                                     <a href="#" class="name-pr-cart">Стеклянная доска NAGA белая</a>
@@ -254,7 +253,7 @@
                                                     <span class="  drop-pr" aria-hidden="true">&#10006;</span>
                                                 </div>
                                                 <div class="img-cart">
-                                                    <img src="/img/product1.png" alt="Стеклянная доска NAGA белая">
+                                                    <img src="/res/img/product1.png" alt="Стеклянная доска NAGA белая">
                                                 </div>
                                                 <div class="desc-cart">
                                                     <a href="#" class="name-pr-cart">Стеклянная доска NAGA белая</a>
@@ -299,7 +298,7 @@
         <div class="container">
             <div class="products-catalog">
                 <div class="catalog_overlay"></div>
-                <a href="#" class="logofloat"><img src="/img/logo2.png" alt="Logo" title="На главную" /></a>
+                <a href="#" class="logofloat"><img src="/res/img/logo2.png" alt="Logo" title="На главную" /></a>
                 <button id="catalog-button" class="c-button action action--open" type="button" aria-label="Open Menu">
                     <div class="c-ripple js-ripple">
                         <span class="c-ripple__circle"></span>
@@ -321,7 +320,7 @@
             <div class="search-field">
                 <div class="input-group hgt-in">
                             <span class="input-group-btn">
-                        <button class="btn btn-search" type="button"><img src="/img/search.png" alt="Поиск">
+                        <button class="btn btn-search" type="button"><img src="/res/img/search.png" alt="Поиск">
                         </button>
                       </span>
                     <input type="text" class="form-control search-inp" placeholder="Введите название товара">

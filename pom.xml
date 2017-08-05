@@ -12,13 +12,15 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>MODEL</module>
         <module>DB</module>
-        <module>SERVICE</module>
-        <module>DAO</module>
         <module>configs</module>
+        <module>dao-api</module>
+        <module>dao-impl</module>
+        <module>service-api</module>
+        <module>service-impl</module>
         <module>WEBAPPS-ADMIN</module>
         <module>WEBAPPS-SHOP</module>
-        <module>MODEL</module>
     </modules>
 
     <properties>
@@ -45,32 +47,22 @@
             <!-- project modules -->
             <dependency>
                 <groupId>com.kushnir.paperki</groupId>
-                <artifactId>SERVICE</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.kushnir.paperki</groupId>
-                <artifactId>DAO</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.kushnir.paperki</groupId>
-                <artifactId>WEBAPPS-SHOP</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.kushnir.paperki</groupId>
-                <artifactId>WEBAPPS-ADMIN</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.kushnir.paperki</groupId>
                 <artifactId>MODEL</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.kushnir.paperki</groupId>
                 <artifactId>DB</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
+                <artifactId>dao-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kushnir.paperki</groupId>
+                <artifactId>dao-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -85,12 +77,7 @@
             </dependency>
             <dependency>
                 <groupId>com.kushnir.paperki</groupId>
-                <artifactId>dao-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.kushnir.paperki</groupId>
-                <artifactId>dao-api</artifactId>
+                <artifactId>paperki-shop</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
