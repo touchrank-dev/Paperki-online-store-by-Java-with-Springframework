@@ -8,6 +8,6 @@
 
     <bean id="categoryBean" class="com.kushnir.paperki.sevice.CategoryBeanImpl" />
     <bean id="componentBean" class="com.kushnir.paperki.sevice.ComponentBeanImpl" />
-    <bean id="mainMenuBean" class="com.kushnir.paperki.sevice.MenuBeanImpl" />
+    <bean id="menuBean" class="com.kushnir.paperki.sevice.MenuBeanImpl" />
 
 </beans>

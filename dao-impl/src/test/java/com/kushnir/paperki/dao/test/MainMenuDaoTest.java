@@ -51,7 +51,7 @@ public class MainMenuDaoTest {
 
     @Test
     public void getAllTest() {
-        ArrayList<MenuItem> menuItems = mainMenuDao.getAll();
+        ArrayList<MenuItem> menuItems = mainMenuDao.getAll("root");
         assertNotNull(menuItems);
         assertTrue(menuItems.size() > 0);
         LOGGER.debug("Test: getAllTest() >>>: {}", menuItems);
@@ -59,7 +59,7 @@ public class MainMenuDaoTest {
 
     @Test
     public void getItemByTNameTest() {
-        MenuItem menuItem = mainMenuDao.getItemByTName("about");
+        MenuItem menuItem = mainMenuDao.getItemByTName("root","about");
         assertNotNull(menuItem);
         assertTrue("О компании".equals(menuItem.getName()));
         assertTrue("/about".equals(menuItem.getLink()));

@@ -13,19 +13,29 @@ public class MenuBeanImpl implements MenuBean {
     private static final Logger LOGGER = LogManager.getLogger(MenuBeanImpl.class);
 
     @Autowired
-    private MenuDao mainMenuDao;
+    private MenuDao menuDao;
 
     @Override
-    public ArrayList<MenuItem> getAll() {
-        ArrayList<MenuItem> menuItems = mainMenuDao.getAll();
-        LOGGER.debug("getAll() >>> {}", menuItems);
+    public ArrayList<MenuItem> getAll(String nameMenu) {
+        LOGGER.debug("getAll(nameMenu = {}) >>>", nameMenu);
+        ArrayList<MenuItem> menuItems = menuDao.getAll(nameMenu);
+        LOGGER.debug("{}", menuItems);
         return menuItems;
     }
 
     @Override
-    public MenuItem getItemByTName(String translitName) {
-        MenuItem menuItem = mainMenuDao.getItemByTName(translitName);
-        LOGGER.debug("getItemByTName() >>> {}", menuItem);
+    public MenuItem getRootItem(String itemTName) {
+        LOGGER.debug("getRootItem(itemTName = {}) >>>", itemTName);
+        MenuItem menuItem = menuDao.getItemByTName("root", itemTName);
+        LOGGER.debug("{}", menuItem);
+        return menuItem;
+    }
+
+    @Override
+    public MenuItem getItemByTName(String nameMenu, String itemTName) {
+        LOGGER.debug("getItemByTName(nameMenu = {}, itemTName = {}) >>>", nameMenu, itemTName);
+        MenuItem menuItem = menuDao.getItemByTName(nameMenu, itemTName);
+        LOGGER.debug("{}", menuItem);
         return menuItem;
     }
 }

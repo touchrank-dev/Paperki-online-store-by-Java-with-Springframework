@@ -7,8 +7,8 @@
                 <a class="menu__link" data-submenu="submenu-1" aria-owns="submenu-1"
                    href="#" th:href="@{${map.value.link}}" th:attr="data-submenu=${map.value.id},aria-owns=${map.value.id}">
                     <div>
-                        <img src="/img/caticons/hm1.png" alt="Канцелярские товары"
-                             th:attr="src=@{'/img/caticons/'+${map.value.icon}},alt=${map.value.name}">
+                        <img src="/res/img/caticons/hm1.png" alt="Канцелярские товары"
+                             th:attr="src=@{'/res/img/caticons/'+${map.value.icon}},alt=${map.value.name}">
                     </div>
                     <div th:text="${map.value.name}"></div>
                 </a>

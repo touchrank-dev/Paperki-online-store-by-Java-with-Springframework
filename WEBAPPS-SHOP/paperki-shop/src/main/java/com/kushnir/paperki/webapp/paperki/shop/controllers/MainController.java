@@ -28,46 +28,59 @@ public class MainController {
     CategoryBean categoryBean;
 
     @Autowired
-    MenuBean mainMenuBean;
+    MenuBean menuBean;
 
     @Value("${content.path}")
     String contentPath;
 
     @GetMapping()
     public String mainPage(Model model) {
-        LOGGER.debug("mainPage");
-        model.addAttribute("mainmenu", mainMenuBean.getAll());
+        LOGGER.debug("mainPage() >>>");
+        model.addAttribute("mainmenu", menuBean.getAll("main"));
         model.addAttribute("mapcategories", categoryBean.getAll());
         model.addAttribute("templatePathName", contentPath+"main");
         model.addAttribute("fragmentName", "main");
-        LOGGER.debug("model initiated parameters: >>> {} ", model);
+        LOGGER.debug("{}", model);
         return "index";
     }
+
     // главное меню
     @GetMapping("/{menuItem}")
     public String mainMenu(@PathVariable String menuItem, Model model) throws Exception {
-        LOGGER.debug("getContent() >>> {}", menuItem);
+        LOGGER.debug("mainMenu(menuItem = {}) >>>", menuItem);
         try{
-            menuItem = mainMenuBean.getItemByTName(menuItem).getTranslitName();
+            menuItem = menuBean.getRootItem(menuItem).getTranslitName();
+            if(menuItem != null) {
+                model.addAttribute("mainmenu", menuBean.getAll("root"));
+                model.addAttribute("mapcategories", categoryBean.getAll());
+                model.addAttribute("templatePathName", contentPath + menuItem);
+                model.addAttribute("fragmentName", menuItem);
+                LOGGER.debug("{}", model);
+                return "index";
+            } else return "redirect:error";
         } catch (Exception e) {
             LOGGER.error("Пункт меню ({}) не найден: >>> {} ",menuItem , e.getMessage());
             return "redirect:error";
         }
-        model.addAttribute("mapcategories", categoryBean.getAll());
-        model.addAttribute("templatePathName", contentPath + menuItem);
-        model.addAttribute("fragmentName", menuItem);
-        LOGGER.debug("model initiated parameters: >>> {} ", model);
-        return "index";
     }
 
-    // остальные меню
-    @GetMapping("/{menu}/{content}")
-    public String menu(@PathVariable String menu, @PathVariable String content, Model model) throws Exception {
-        LOGGER.debug("getContent() >>> {}", content);
-        model.addAttribute("mapcategories", categoryBean.getAll());
-        model.addAttribute("templatePathName", contentPath + content);
-        model.addAttribute("fragmentName", content);
-        LOGGER.debug("model initiated parameters: >>> {} ", model);
-        return "index";
-    }
+/*    // остальные меню
+    @GetMapping("/{menu}/{menuItem}")
+    public String menu(@PathVariable String menu, @PathVariable String menuItem, Model model) throws Exception {
+        LOGGER.debug("menu(menu - {}, menuItem - {}) >>> ", menu, menuItem);
+        try {
+            menuItem = menuBean.getItemByTName(menu, menuItem).getTranslitName();
+            if(menuItem != null) {
+                model.addAttribute("mainmenu", menuBean.getAll("root"));
+                model.addAttribute("mapcategories", categoryBean.getAll());
+                model.addAttribute("templatePathName", contentPath + menuItem);
+                model.addAttribute("fragmentName", menuItem);
+                LOGGER.debug("{}", model);
+                return "index";
+            } else return "redirect:error";
+        } catch (Exception e) {
+            LOGGER.error("Пункт меню ({}) не найден: >>> {} ",menu+" -> "+menuItem , e.getMessage());
+            return "redirect:error";
+        }
+    }*/
 }

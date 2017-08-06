@@ -2618,7 +2618,7 @@ p.copy {
   font-weight: 400;
   line-height: 16px;
   padding-right: 27px;
-  background: url(../img/catalog__navigation-all-icon.png) no-repeat 104px 50% #fff;
+  background: url("../img/catalog-navigation-all-icon.png") no-repeat 104px 50% #fff;
   transition: all .5s ease 0s;
   margin-top: 15px; }
 
@@ -2626,7 +2626,7 @@ p.copy {
   text-decoration: none;
   color: #ff871a;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  background: url(../img/catalog__navigation-all-icon-hover.png) no-repeat 104px 50% #fff; }
+  background: url("../img/catalog-navigation-all-icon-hover.png") no-repeat 104px 50% #fff; }
 
 .nav-pay {
   position: relative;
@@ -3599,7 +3599,7 @@ button.btn.btn-search {
       height: 15px;
       display: block; }
     .list-color li.multicolour span {
-      background: url("../img/products-color-multi.png") no-repeat 50% 50%; }
+      background: url("/res/img/products-color-multi.png") no-repeat 50% 50%; }
 
 @media (max-width: 1360px) {
   .navbar-brand {
@@ -3872,7 +3872,7 @@ div ul.nav.nav-tabs.nav-brd {
   font-weight: 400;
   line-height: 16px;
   padding-right: 27px;
-  background: url("/img/catalog__navigation-all-icon.png") no-repeat 104px 50% #fff;
+  background: url("../img/catalog-navigation-all-icon.png") no-repeat 104px 50% #fff;
   transition: all .5s ease 0s;
   margin-top: 15px; }
 
@@ -3880,7 +3880,7 @@ div ul.nav.nav-tabs.nav-brd {
   text-decoration: none;
   color: #ff871a;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  background: url("/img/catalog__navigation-all-icon-hover.png") no-repeat 104px 50% #fff; }
+  background: url("../img/catalog-navigation-all-icon-hover.png") no-repeat 104px 50% #fff; }
 
 a.link-name-cat {
   color: #495685; }
@@ -7112,7 +7112,7 @@ header.js-active:before {
   box-shadow: 0px 0px 0px 2px #ffd148; }
 
 .filter-color .multicolour input[type="checkbox"] + label:before {
-  background: url("../img/products-color-multi.png") no-repeat 50% 50%; }
+  background: url("/res/img/products-color-multi.png") no-repeat 50% 50%; }
 
 .filter-buttons {
   padding-bottom: 10px; }
@@ -7647,7 +7647,7 @@ header.js-active:before {
     .single-product-main-info .product-color input[type="checkbox"]:checked + label:before {
       box-shadow: 0px 0px 0px 2px #ffd148; }
     .single-product-main-info .product-color .multicolour input[type="checkbox"] + label:before {
-      background: url("../img/products-color-multi.png") no-repeat 50% 50%; }
+      background: url("/res/img/products-color-multi.png") no-repeat 50% 50%; }
   .single-product-main-info .single-product-price {
     margin-top: 16px; }
   .single-product-main-info .single-product-price__old {
@@ -14665,7 +14665,7 @@ header.js-active:before {
         .watched-prod .watched-prod-table .table-body .table-row > li .prod-info .prod-color input[type="checkbox"]:checked + label:before {
           box-shadow: 0px 0px 0px 2px #ffd148; }
         .watched-prod .watched-prod-table .table-body .table-row > li .prod-info .prod-color .multicolour input[type="checkbox"] + label:before {
-          background: url("../img/products-color-multi.png") no-repeat 50% 50%; }
+          background: url("/res/img/products-color-multi.png") no-repeat 50% 50%; }
       .watched-prod .watched-prod-table .table-body .table-row > li .prod-price .old-pr {
         color: #a0a0a0;
         font-size: 14px;
@@ -14976,7 +14976,7 @@ header.js-active:before {
         .favorite-prod .favorite-prod-content .favorite-prod-table .table-body .table-row > li .prod-info .prod-color input[type="checkbox"]:checked + label:before {
           box-shadow: 0px 0px 0px 2px #ffd148; }
         .favorite-prod .favorite-prod-content .favorite-prod-table .table-body .table-row > li .prod-info .prod-color .multicolour input[type="checkbox"] + label:before {
-          background: url("../img/products-color-multi.png") no-repeat 50% 50%; }
+          background: url("/res/img/products-color-multi.png") no-repeat 50% 50%; }
       .favorite-prod .favorite-prod-content .favorite-prod-table .table-body .table-row > li .prod-price .old-pr {
         color: #a0a0a0;
         font-size: 14px;

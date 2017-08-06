@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,11 +16,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MainMenuDaoImpl implements MenuDao {
+public class MenuDaoImpl implements MenuDao {
 
-    private static final Logger LOGGER = LogManager.getLogger(MainMenuDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(MenuDaoImpl.class);
 
-    private final String P_FINAL_NAME = "p_translit_name";
+    private final String P_NAME_MENU = "p_translit_name_menu";
+    private final String P_TRANSLIT_NAME = "p_translit_name";
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -29,27 +29,35 @@ public class MainMenuDaoImpl implements MenuDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Value("${menu.main.getAll}")
+    @Value("${menu.getAll}")
     private String getAllSqlQuery;
 
-    @Value("${menu.main.getByTName}")
+    @Value("${menu.getByTName}")
     private String getByTNameSqlQuery;
 
     @Override
-    public ArrayList<MenuItem> getAll() throws DataAccessException {
+    public ArrayList<MenuItem> getAll(String nameMenu) {
+        LOGGER.debug("getAll(nameMenu = {}) >>>", nameMenu);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_NAME_MENU, nameMenu);
         ArrayList<MenuItem> menuItemsList =
-                (ArrayList<MenuItem>) namedParameterJdbcTemplate.query(getAllSqlQuery, new MenuRowMapper());
-        LOGGER.debug("getAll() >>> {}", menuItemsList);
+                (ArrayList<MenuItem>) namedParameterJdbcTemplate.query(getAllSqlQuery, parameterSource, new MenuRowMapper());
+        LOGGER.debug("{}", menuItemsList);
         return menuItemsList;
     }
 
     @Override
-    public MenuItem getItemByTName(String translitName) {
-        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_FINAL_NAME, translitName);
+    public MenuItem getItemByTName(String nameMenu, String translitName) {
+        LOGGER.debug("getItemByTName(nameMenu = {}, translitName = {}) >>>", nameMenu, translitName);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_NAME_MENU, nameMenu);
+        parameterSource.addValue(P_TRANSLIT_NAME, translitName);
         MenuItem menuItem = namedParameterJdbcTemplate.queryForObject(getByTNameSqlQuery, parameterSource, new MenuRowMapper());
-        LOGGER.debug("getItemByTName() >>> {}", menuItem);
+        LOGGER.debug("{}", menuItem);
         return menuItem;
     }
+
+
 
     private class MenuRowMapper implements RowMapper<MenuItem> {
 

@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.MenuItem;
 import java.util.ArrayList;
 
 public interface MenuBean {
-    ArrayList<MenuItem> getAll();
-    MenuItem getItemByTName(String translitName);
+    ArrayList<MenuItem> getAll(String nameMenu);
+    MenuItem getRootItem(String translitName);
+    MenuItem getItemByTName(String nameMenu, String translitName);
 }

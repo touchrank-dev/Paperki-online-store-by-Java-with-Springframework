@@ -23,6 +23,6 @@
     </bean>
 
     <bean id="categoryDao" class="com.kushnir.paperki.dao.CategoryDaoImpl" />
-    <bean id="mainMenuDao" class="com.kushnir.paperki.dao.MainMenuDaoImpl" />
+    <bean id="menuDao" class="com.kushnir.paperki.dao.MenuDaoImpl"/>
 
 </beans>
