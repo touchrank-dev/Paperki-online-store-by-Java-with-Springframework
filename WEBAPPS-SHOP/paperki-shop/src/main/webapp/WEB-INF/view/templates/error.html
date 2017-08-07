@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru" class="no-js" xmlns:th="http://www.w3.org/1999/xhtml">
 
+    <head th:include="fragments/head :: head" />
+
     <body>
 
         <main id="wrapp">
@@ -10,6 +12,8 @@
                 </section>
             </div>
         </main>
+
+        <section    th:include="fragments/scripts :: scripts" />
 
     </body>
 </html>

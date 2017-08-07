@@ -1,0 +1,284 @@
+<main id="wrapp" th:fragment="feedback" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="wrapper">
+        <ul class="breadCrumbs">
+            <li><a href="index.html">Главная</a></li>
+            <li>Отзывы</li>
+        </ul>
+        <aside class="blogSidebarGroup typicalAside">
+            <ul class="blogCategoryList blogCategoryListWithOutTitle">
+                <li>
+                    <a href="about.html">
+                        <img src="img/slider-arrow-left.png">
+                        О компании
+                    </a>
+                </li>
+                <li>
+                    <a href="help.html">
+                        <img src="img/slider-arrow-left.png">
+                        Помощь
+                    </a>
+                </li>
+                <li>
+                    <a href="bonus.html">
+                        <img src="img/slider-arrow-left.png">
+                        PAP-бонус
+                    </a>
+                </li>
+                <li>
+                    <a href="blog.html">
+                        <img src="img/slider-arrow-left.png">
+                        Наш блог
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="img/slider-arrow-left.png">
+                        База знаний
+                    </a>
+                </li>
+                <li>
+                    <a href="delivery_and_payment.html">
+                        <img src="img/slider-arrow-left.png">
+                        Доставка и оплата
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="feedback.html">
+                        <img src="img/slider-arrow-left.png">
+                        Отзывы
+                    </a>
+                </li>
+                <li>
+                    <a href="contacts.html">
+                        <img src="img/slider-arrow-left.png">
+                        Контакты
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <section class="typicalSection">
+            <div class="feedback-page">
+                <div class="feedback-page-top">
+                    <h2>Отзывы наших клиентов</h2>
+                    <p>В данном разделе Вы можете оставить отзыв о нашей работе. Внимание, Ваш отзыв будет размещен только после проверки администратором.</p>
+                    <a href="#send-feedback-popup" class="feedback-page-write-feedback-btn c-button">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Написать отзыв
+                    </a>
+                </div>
+                <div class="feedback-tabs">
+                    <ul class="feedback-tabs__titles">
+                        <li>
+                            Любые
+                        </li>
+                        <li>
+                            Частные лица
+                        </li>
+                        <li>
+                            Малый бизнес
+                        </li>
+                        <li>
+                            Корпоративные клиенты
+                        </li>
+                        <li>
+                            Финансовые организации
+                        </li>
+                    </ul>
+                    <div class="feedback-tabs-content">
+                        <div class="any-feedback">
+                            <ul class="feedback-list">
+                                <li>
+                                    <div class="feedback-title">
+                                        <div class="feedback-author-avatar">
+                                            <img src="img/if_users-3_984116.svg" alt="Author avatar">
+                                        </div>
+                                        <div class="feedback-info">
+                                            <h3>
+                                                Ольга
+                                                <span class="feedback-time">13.03.2017</span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-text">
+                                        <p>Заказывала товар через сайт, в течении получаса перезвонил менеджер, очень приятный парень, согласовал со мной весь перечень товара и
+                                            на следующий день мне привезли товар бесплатно.
+                                            Качество отличное, а еще больше порадовали цены. Спасибо большое за отличный сервис и оперативность!
+                                            Буду заказывать только у Вас!<a href="#" class="full-story">Читать полностью</a></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feedback-title">
+                                        <div class="feedback-author-avatar">
+                                            <img src="img/if_users-9_984126.svg" alt="Author avatar">
+                                        </div>
+                                        <div class="feedback-info">
+                                            <h3>
+                                                Николай Петрухин
+                                                <span class="feedback-time">13.03.2017</span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-text">
+                                        <p>Заказывала товар через сайт, в течении получаса перезвонил менеджер, очень приятный парень, согласовал со мной весь перечень товара и
+                                            на следующий день мне привезли товар бесплатно.<a href="#" class="full-story">Читать полностью</a></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feedback-title">
+                                        <div class="feedback-author-avatar">
+                                            <img src="img/if_case_599554.svg" alt="Author avatar">
+                                        </div>
+                                        <div class="feedback-info">
+                                            <h3>
+                                                ООО "Зевспродукт"
+                                                <span class="feedback-time">13.03.2017</span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-text">
+                                        <p>Заказывала товар через сайт, в течении получаса перезвонил менеджер, очень приятный парень, согласовал со мной весь перечень товара и
+                                            на следующий день мне привезли товар бесплатно.
+                                            Качество отличное, а еще больше порадовали цены. Спасибо большое за отличный сервис и оперативность!
+                                            Буду заказывать только у Вас!<a href="#" class="full-story">Читать полностью</a></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feedback-title">
+                                        <div class="feedback-author-avatar">
+                                            <img src="img/if_support_477135.svg" alt="Author avatar">
+                                        </div>
+                                        <span class="feedback-info">
+                                                <h3>
+                                                    <span>Алексей - ООО БУГТРАНСГРУПП</span>
+                                                    <span class="feedback-time">13.03.2017</span>
+                                                </h3>
+                                            </span>
+                                    </div>
+                                    <div class="feedback-text">
+                                        <p>Заказывала товар через сайт, в течении получаса перезвонил менеджер, очень приятный парень, согласовал со мной весь перечень товара и
+                                            на следующий день мне привезли товар бесплатно.
+                                            Качество отличное, а еще больше порадовали цены. Спасибо большое за отличный сервис и оперативность!
+                                            Буду заказывать только у Вас!<a href="#" class="full-story">Читать полностью</a></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feedback-title">
+                                        <div class="feedback-author-avatar">
+                                            <img src="img/if_Pawnshop_20_2181279.svg" alt="Author avatar">
+                                        </div>
+                                        <div class="feedback-info">
+                                            <h3>
+                                                ОАО “ЕРИП”
+                                                <span class="feedback-time">13.03.2017</span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-text">
+                                        <p>Заказывала товар через сайт, в течении получаса перезвонил менеджер, очень приятный парень, согласовал со мной весь перечень товара и
+                                            на следующий день мне привезли товар бесплатно.
+                                            Качество отличное, а еще больше порадовали цены. Спасибо большое за отличный сервис и оперативность!
+                                            Буду заказывать только у Вас!<a href="#" class="full-story">Читать полностью</a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="individual-feedback">
+                            <ul class="feedback-list">
+                                <li>
+                                    <div class="feedback-title">
+                                        <div class="feedback-author-avatar">
+                                            <img src="img/if_users-3_984116.svg" alt="Author avatar">
+                                        </div>
+                                        <div class="feedback-info">
+                                            <h3>
+                                                Ольга
+                                                <span class="feedback-time">13.03.2017</span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-text">
+                                        <p>Заказывала товар через сайт, в течении получаса перезвонил менеджер, очень приятный парень, согласовал со мной весь перечень товара и
+                                            на следующий день мне привезли товар бесплатно.
+                                            Качество отличное, а еще больше порадовали цены. Спасибо большое за отличный сервис и оперативность!
+                                            Буду заказывать только у Вас!<a href="#" class="full-story">Читать полностью</a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="small-business-feedback">
+                            <ul class="feedback-list">
+                                <li>
+                                    <div class="feedback-title">
+                                        <div class="feedback-author-avatar">
+                                            <img src="img/if_users-3_984116.svg" alt="Author avatar">
+                                        </div>
+                                        <div class="feedback-info">
+                                            <h3>
+                                                Ольга
+                                                <span class="feedback-time">13.03.2017</span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-text">
+                                        <p>Заказывала товар через сайт, в течении получаса перезвонил менеджер, очень приятный парень, согласовал со мной весь перечень товара и
+                                            на следующий день мне привезли товар бесплатно.
+                                            Качество отличное, а еще больше порадовали цены. Спасибо большое за отличный сервис и оперативность!
+                                            Буду заказывать только у Вас!<a href="#" class="full-story">Читать полностью</a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="corporate-feedback">
+                            <ul class="feedback-list">
+                                <li>
+                                    <div class="feedback-title">
+                                        <div class="feedback-author-avatar">
+                                            <img src="img/if_users-3_984116.svg" alt="Author avatar">
+                                        </div>
+                                        <div class="feedback-info">
+                                            <h3>
+                                                Ольга
+                                                <span class="feedback-time">13.03.2017</span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-text">
+                                        <p>Заказывала товар через сайт, в течении получаса перезвонил менеджер, очень приятный парень, согласовал со мной весь перечень товара и
+                                            на следующий день мне привезли товар бесплатно.
+                                            Качество отличное, а еще больше порадовали цены. Спасибо большое за отличный сервис и оперативность!
+                                            Буду заказывать только у Вас!<a href="#" class="full-story">Читать полностью</a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="financial-feedback">
+                            <ul class="feedback-list">
+                                <li>
+                                    <div class="feedback-title">
+                                        <div class="feedback-author-avatar">
+                                            <img src="img/if_users-3_984116.svg" alt="Author avatar">
+                                        </div>
+                                        <div class="feedback-info">
+                                            <h3>
+                                                Ольга
+                                                <span class="feedback-time">13.03.2017</span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-text">
+                                        <p>Заказывала товар через сайт, в течении получаса перезвонил менеджер, очень приятный парень, согласовал со мной весь перечень товара и
+                                            на следующий день мне привезли товар бесплатно.
+                                            Качество отличное, а еще больше порадовали цены. Спасибо большое за отличный сервис и оперативность!
+                                            Буду заказывать только у Вас!<a href="#" class="full-story">Читать полностью</a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

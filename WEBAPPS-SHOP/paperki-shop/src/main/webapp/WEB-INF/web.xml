@@ -1,7 +1,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-	      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	     http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
   <display-name>Hello</display-name>
@@ -30,13 +30,31 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-  <error-page>
+  <!--<error-page>
     <location>/error</location>
-  </error-page>
+  </error-page>-->
 
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <!-- Spring Security -->
   <!--<filter>

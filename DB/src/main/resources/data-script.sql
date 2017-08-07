@@ -1,3 +1,4 @@
+SET names utf8;
 INSERT INTO categories (name, translit_name, link, icon, order_category)
 VALUES  ('Тест1', 'Test1', '/category/test1', 'hm1.png', 1),
         ('Тест2', 'Test2', '/category/test2', 'hm1.png', 2),
@@ -24,10 +25,10 @@ VALUES  ('О компании', 'about', '/about', 1),
         ('Каталог товаров', 'catalog', '/catalog', 3),
         ('Новости', 'blog', '/blog', 4),
         ('База знаний', 'knowledgebase', '/knowledgebase', 5),
-        ('Доставка и оплата', 'payanddelivery', '/payanddelivery', 6),
+        ('Доставка и оплата', 'delivery-and-payment', '/delivery-and-payment', 6),
         ('Отзывы', 'feedback', '/feedback', 7),
         ('Контакты', 'contacts', '/contacts', 8),
-        ('PAP-бонус', 'papbonus', '/papbonus', 3);
+        ('PAP-бонус', 'bonus', '/bonus', 3);
 
 INSERT INTO menu_item_ref (id_menu, id_menu_item)
 VALUES  (1, 1),

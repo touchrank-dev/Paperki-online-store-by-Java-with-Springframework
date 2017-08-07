@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
-@RequestMapping("/error")
+/*@Controller
+@RequestMapping("/error")*/
 public class ErrorController {
 
     @GetMapping()

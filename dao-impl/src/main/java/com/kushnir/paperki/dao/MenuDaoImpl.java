@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -49,12 +50,17 @@ public class MenuDaoImpl implements MenuDao {
     @Override
     public MenuItem getItemByTName(String nameMenu, String translitName) {
         LOGGER.debug("getItemByTName(nameMenu = {}, translitName = {}) >>>", nameMenu, translitName);
-        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue(P_NAME_MENU, nameMenu);
-        parameterSource.addValue(P_TRANSLIT_NAME, translitName);
-        MenuItem menuItem = namedParameterJdbcTemplate.queryForObject(getByTNameSqlQuery, parameterSource, new MenuRowMapper());
-        LOGGER.debug("{}", menuItem);
-        return menuItem;
+        try {
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+            parameterSource.addValue(P_NAME_MENU, nameMenu);
+            parameterSource.addValue(P_TRANSLIT_NAME, translitName);
+            MenuItem menuItem = namedParameterJdbcTemplate.queryForObject(getByTNameSqlQuery, parameterSource, new MenuRowMapper());
+            LOGGER.debug("{}", menuItem);
+            return menuItem;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.error("Запрос не вернул результата >>> {}", e.getMessage());
+            return null;
+        }
     }
 
 
