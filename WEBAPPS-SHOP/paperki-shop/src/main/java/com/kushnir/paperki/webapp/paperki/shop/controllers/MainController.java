@@ -73,23 +73,4 @@ public class MainController {
         return "index";
     }
 
-/*    // остальные меню
-    @GetMapping("/{menu}/{menuItem}")
-    public String menu(@PathVariable String menu, @PathVariable String menuItem, Model model) throws Exception {
-        LOGGER.debug("menu(menu - {}, menuItem - {}) >>> ", menu, menuItem);
-        try {
-            menuItem = menuBean.getItemByTName(menu, menuItem).getTranslitName();
-            if(menuItem != null) {
-                model.addAttribute("mainmenu", menuBean.getAll("root"));
-                model.addAttribute("mapcategories", categoryBean.getAll());
-                model.addAttribute("templatePathName", contentPath + menuItem);
-                model.addAttribute("fragmentName", menuItem);
-                LOGGER.debug("{}", model);
-                return "index";
-            } else return "redirect:error";
-        } catch (Exception e) {
-            LOGGER.error("Пункт меню ({}) не найден: >>> {} ",menu+" -> "+menuItem , e.getMessage());
-            return "redirect:error";
-        }
-    }*/
 }
