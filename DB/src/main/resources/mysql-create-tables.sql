@@ -121,3 +121,12 @@ CREATE TABLE feedbacks (
     is_published                TINYINT         DEFAULT 0,
     FOREIGN KEY (id_user)                       REFERENCES users(id_user)
 );
+
+DROP TABLE IF EXISTS coupons;
+CREATE TABLE coupons (
+    id_coupon                   INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    start_date                  DATETIME        DEFAULT CURRENT_TIMESTAMP,
+    expiry_day                  DATETIME,
+    used                        TINYINT         DEFAULT 0,
+    is_active                   TINYINT         DEFAULT 1
+);

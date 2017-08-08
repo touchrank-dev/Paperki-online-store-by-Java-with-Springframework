@@ -1,6 +1,7 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import com.kushnir.paperki.sevice.CategoryBean;
+import com.kushnir.paperki.sevice.MenuBean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/catalog")
 public class CatalogController {
 
-    private static final Logger LOGGER = LogManager.getLogger(MainController.class);
+    private static final Logger LOGGER = LogManager.getLogger(CatalogController.class);
+    private static final String CATALOG_MENU_NAME = "catalog";
 
     @Autowired
     CategoryBean categoryBean;
+
+    @Autowired
+    MenuBean menuBean;
 
     @Value("${components.path}")
     String componentsPath;
@@ -27,11 +32,12 @@ public class CatalogController {
 
     @GetMapping()
     public String catalogPage(Model model) {
-        LOGGER.debug("catalogPage");
+        LOGGER.debug("catalogPage() >>>");
+        model.addAttribute("mainmenu", menuBean.getAll("root"));
         model.addAttribute("mapcategories", categoryBean.getAll());
-        model.addAttribute("templatePathName", contentPath+"catalog");
-        model.addAttribute("fragmentName", "catalog");
-        LOGGER.debug("model initiated parameters: >>> {} ", model);
+        model.addAttribute("templatePathName", contentPath + CATALOG_MENU_NAME);
+        model.addAttribute("fragmentName", CATALOG_MENU_NAME);
+        LOGGER.debug("{}", model);
         return "index";
     }
 

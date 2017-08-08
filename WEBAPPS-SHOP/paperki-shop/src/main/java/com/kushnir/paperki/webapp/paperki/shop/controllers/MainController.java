@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MainController {
 
     private static final Logger LOGGER = LogManager.getLogger(MainController.class);
+    private static final String MAIN_MENU_NAME = "main";
 
     @Autowired
     ComponentBean componentBean;
@@ -44,8 +45,8 @@ public class MainController {
         LOGGER.debug("mainPage() >>>");
         model.addAttribute("mainmenu", menuBean.getAll("root"));
         model.addAttribute("mapcategories", categoryBean.getAll());
-        model.addAttribute("templatePathName", contentPath + "main");
-        model.addAttribute("fragmentName", "main");
+        model.addAttribute("templatePathName", contentPath + MAIN_MENU_NAME);
+        model.addAttribute("fragmentName", MAIN_MENU_NAME);
         LOGGER.debug("{}", model);
         return "index";
     }
