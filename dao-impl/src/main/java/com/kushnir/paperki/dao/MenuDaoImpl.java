@@ -49,7 +49,7 @@ public class MenuDaoImpl implements MenuDao {
 
     @Override
     public MenuItem getItemByTName(String nameMenu, String translitName) {
-        LOGGER.debug("getItemByTName(nameMenu = {}, translitName = {}) >>>", nameMenu, translitName);
+        LOGGER.debug("getItemByTName(nameMenu - {}, translitName - {}) >>>", nameMenu, translitName);
         try {
             MapSqlParameterSource parameterSource = new MapSqlParameterSource();
             parameterSource.addValue(P_NAME_MENU, nameMenu);
@@ -58,12 +58,10 @@ public class MenuDaoImpl implements MenuDao {
             LOGGER.debug("{}", menuItem);
             return menuItem;
         } catch (EmptyResultDataAccessException e) {
-            LOGGER.error("Запрос не вернул результата >>> {}", e.getMessage());
+            LOGGER.error("Запрос getItemByTName({}, {}) не вернул результата >>> {}", nameMenu, translitName, e.getMessage());
             return null;
         }
     }
-
-
 
     private class MenuRowMapper implements RowMapper<MenuItem> {
 

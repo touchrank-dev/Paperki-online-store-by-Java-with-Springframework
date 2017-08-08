@@ -244,11 +244,11 @@
         height: 40px;
         border: 1px solid #e0e0e0;
         font-size: 0;
-        background: url('../img/slider-arrow-left.png') no-repeat 50% 50% #ffffff;
+        background: url('/res/img/slider-arrow-left.png') no-repeat 50% 50% #ffffff;
         border-radius: 100%;
     }
     .slick-arrow:hover{
-        background: url('../img/slider-arrow-left-hover.png') no-repeat 50% 50% #ffffff;
+        background: url('/res/img/slider-arrow-left-hover.png') no-repeat 50% 50% #ffffff;
     }
     .slick-arrow:focus{
         outline: none;

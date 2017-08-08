@@ -7,6 +7,7 @@ import com.kushnir.paperki.sevice.MenuBean;
 
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.AppException;
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -48,16 +48,6 @@ public class MainController {
         model.addAttribute("fragmentName", "main");
         LOGGER.debug("{}", model);
         return "index";
-    }
-
-    @ResponseStatus(value= HttpStatus.NOT_FOUND, reason="Страница не найдена")
-    @ExceptionHandler(PageNotFound.class)
-    public ModelAndView pageNotFoundHandler(HttpServletRequest req, PageNotFound e) {
-        LOGGER.error("Request: " + req.getRequestURL() + " raised " + e);
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("errorMessage", e.getMessage());
-        mav.setViewName("error");
-        return mav;
     }
 
     // страницы главного меню
