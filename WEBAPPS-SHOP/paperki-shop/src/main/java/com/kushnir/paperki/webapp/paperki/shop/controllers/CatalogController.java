@@ -37,7 +37,6 @@ public class CatalogController {
         model.addAttribute("mapcategories", categoryBean.getAll());
         model.addAttribute("templatePathName", contentPath + CATALOG_MENU_NAME);
         model.addAttribute("fragmentName", CATALOG_MENU_NAME);
-        LOGGER.debug("{}", model);
         return "index";
     }
 

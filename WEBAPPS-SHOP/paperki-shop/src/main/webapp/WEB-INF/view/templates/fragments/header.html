@@ -4,7 +4,8 @@
         <div class="container">
             <div class="mainMenu-wrap">
 
-                <ul class="nav navbar-nav nav-mainMenu" th:if="${mainmenu} != null">
+                <ul class="nav navbar-nav nav-mainMenu"
+                    th:if="${mainmenu} != null">
 
                     <li th:each="menuitem : ${mainmenu}">
                         <a href="/" th:href="@{${menuitem.link}}" th:text="${menuitem.name}">Menu item</a>
@@ -12,93 +13,9 @@
 
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right nav-profile">
-                    <!--add class login to show-->
-                    <li class="login">
-                        <!--without enter-->
-                        <button class="enter-popup-btn" data-target="#enter-popup">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewbox="0 0 100 100" width="34px" height="34px" enable-background="new 0 0 100 100" xml:space="preserve">
-                                    <path d="M7.443,93.698c-1.381,0-2.5-1.119-2.5-2.5c0-15.673,7.958-29.974,21.289-38.253c1.173-0.727,2.715-0.367,3.442,0.805  c0.729,1.173,0.368,2.715-0.805,3.443C17.019,64.554,9.943,77.266,9.943,91.198C9.943,92.579,8.824,93.698,7.443,93.698z   M95.057,91.302c0-19.631-12.46-36.759-31.069-42.803c-0.825-0.49-1.865-0.467-2.672,0.074c-3.365,2.263-7.298,3.458-11.372,3.458  c-11.257,0-20.416-9.159-20.416-20.416c0-11.258,9.159-20.417,20.416-20.417c11.258,0,20.416,9.159,20.416,20.417  c0,3.637-0.968,7.206-2.798,10.323c-0.699,1.19-0.302,2.723,0.89,3.422c1.189,0.697,2.723,0.302,3.421-0.89  c2.281-3.885,3.487-8.33,3.487-12.855c0-14.015-11.401-25.417-25.416-25.417S24.527,17.601,24.527,31.615  s11.401,25.416,25.416,25.416c4.626,0,9.106-1.239,13.041-3.597c16.239,5.525,27.072,20.607,27.072,37.867  c0,1.381,1.119,2.5,2.5,2.5S95.057,92.683,95.057,91.302z"/>
-                                </svg>
-                            войти
-                        </button>
-                        <!--without enter end-->
-                        <!--login-->
-                        <a href="#" class="login-user-button">
-                            <div class="avatar">
-                                <img src="/res/img/avatar.png" alt="avatar">
-                            </div>
-                            <p>Ефросинья</p>
-                        </a>
-                        <ul class="login-user-menu">
-                            <li>
-                                <div class="login-user-menu__pap">
-                                    <p><span>PAP</span> бонус :  <span class="login-user-menu__pap-number">1500</span></p>
-                                </div>
-                                <a href="#" class="login-user-menu__exit" title="Выход">
-                                    Выход
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" title="Заказы">
-                                    <div>
-                                        <img src="/res/img/login-user-menu-orders-icon.png" alt="Заказы">
-                                    </div>
-                                    Заказы
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" title="Список моих покупок">
-                                    <div>
-                                        <img src="/res/img/login-user-menu-product-pict-icon.png" alt="Список моих покупок">
-                                    </div>
-                                    Список моих покупок
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" title="Мои организации">
-                                    <div>
-                                        <img src="/res/img/login-user-menu-organizations-icon.png" alt="Мои организации">
-                                    </div>
-                                    Мои организации
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" title="Отзывы о товарах">
-                                    <div>
-                                        <img src="/res/img/login-user-menu-reviews-icon.png" alt="Отзывы о товарах">
-                                    </div>
-                                    Отзывы о товарах
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" title="Фотографии товара">
-                                    <div>
-                                        <img src="/res/img/login-user-menu-product-pict-icon.png" alt="Фотографии товара">
-                                    </div>
-                                    Фотографии товара
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" title="Видеообзоры">
-                                    <div>
-                                        <img src="/res/img/login-user-menu-video-icon.png" alt="Видеообзоры">
-                                    </div>
-                                    Видеообзоры
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" title="Вы смотрели">
-                                    <div>
-                                        <img src="/res/img/login-user-menu-watched-icon.png" alt="Вы смотрели">
-                                    </div>
-                                    Вы смотрели
-                                </a>
-                            </li>
-                        </ul>
-                        <!--login end-->
-                    </li>
-                </ul>
+                <ul class="nav navbar-nav navbar-right nav-profile"
+                    th:include="/components/login/navlogin :: navlogin" />
+
             </div>
         </div>
     </nav>
@@ -319,7 +236,7 @@
             </div>
             <div class="search-field">
                 <div class="input-group hgt-in">
-                            <span class="input-group-btn">
+                    <span class="input-group-btn">
                         <button class="btn btn-search" type="button"><img src="/res/img/search.png" alt="Поиск">
                         </button>
                       </span>

@@ -979,7 +979,7 @@ p.center-btn.del {
     position: absolute;
     width: 40px;
     height: 100%;
-    background: url('/img/ico-1.png') no-repeat 50% 50%;
+    background: url('/res/img/ico-1.png') no-repeat 50% 50%;
     right: 13px;
     top: 0px;
     z-index: 101;
@@ -987,7 +987,7 @@ p.center-btn.del {
     border: none;
 }
 .show-password.js-show{
-    background: url('/img/ico-1-1.png') no-repeat 50% 50%;
+    background: url('/res/img/ico-1-1.png') no-repeat 50% 50%;
 }
 .registration-popup-footer{
     display: -webkit-flex;
@@ -6041,7 +6041,7 @@ textarea.massage {
     position: relative;
 }
 .for-input .eye-a {
-    background-image: url(../img/ico-1.png);
+    background-image: url(/res/img/ico-1.png);
     width: 40px;
     height: 22px;
     cursor: pointer;

@@ -420,9 +420,9 @@ p.center-btn.del {
 
 /*enter popup */
 .mainMenu-wrap .enter-popup-btn {
-  width: 130px;
+  // width: 130px;
   height: 46px;
-  padding: 0;
+  // padding: 0;
   margin: 2px 0 0 0;
   background: #fff;
   border: none;
@@ -985,7 +985,7 @@ p.center-btn.del {
   position: absolute;
   width: 40px;
   height: 100%;
-  background: url("/img/ico-1.png") no-repeat 50% 50%;
+  background: url("/res/img/ico-1.png") no-repeat 50% 50%;
   right: 13px;
   top: 0px;
   z-index: 101;
@@ -5710,7 +5710,7 @@ textarea.massage {
   position: relative; }
 
 .for-input .eye-a {
-  background-image: url(../img/ico-1.png);
+  background-image: url(/res/img/ico-1.png);
   width: 40px;
   height: 22px;
   cursor: pointer;

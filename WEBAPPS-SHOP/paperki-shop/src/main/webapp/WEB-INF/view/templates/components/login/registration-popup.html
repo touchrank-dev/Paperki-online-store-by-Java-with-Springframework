@@ -1,0 +1,68 @@
+<div id="registration-popup" class="registration-popup-content mfp-hide"
+     th:fragment="registration-popup" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="registration-popup-head">
+        <h4>Регистрация в клубе PAP-бонус</h4>
+        <div class="info-reg">
+            <p>Клуб PAP-бонус – программа специальных цен и накопления бонусных баллов (1 PAP-бонус = 0,10 рубль) для клиентов нашего интернет-магазина.</p>
+            <a href="#">Подробнее о бонусной программе</a>
+        </div>
+    </div>
+    <form>
+        <span class="input input--ichiro registration-form-field">
+            <input class="input__field input__field--ichiro" type="text" name="your-name" id="registration-input-name" />
+            <label class="input__label input__label--ichiro" for="registration-input-name">
+                <span class="input__label-content input__label-content--ichiro">Ваше Имя *</span>
+            </label>
+        </span>
+        <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="email" name="your-email" id="registration-input-email" />
+                <label class="input__label input__label--ichiro" for="registration-input-email">
+                    <span class="input__label-content input__label-content--ichiro">Ваш e-mail *</span>
+                </label>
+            </span>
+        <input type="checkbox" name="check" id="check1">
+        <label for="check1">Уведомлять о доступных промокодах, подарках и спецпредложениях</label>
+        <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="password" name="your-password" id="registration-input-password" />
+                <label class="input__label input__label--ichiro" for="registration-input-password">
+                    <span class="input__label-content input__label-content--ichiro">Пароль *</span>
+                </label>
+            <button type="button" class="show-password"></button>
+            </span>
+        <input type="checkbox" name="check" id="check2">
+        <label for="check2">Сформировать автоматически</label>
+        <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro phone" type="text" name="your-phone" id="registration-input-phone" />
+                <label class="input__label input__label--ichiro" for="registration-input-phone">
+                    <span class="input__label-content input__label-content--ichiro">Мобильный телефон</span>
+                </label>
+            </span>
+        <input type="checkbox" name="check" id="check3">
+        <label for="check3">Хочу 250 PAP-бонусов за регистрацию с <a href="#">мобильным телефоном!</a></label>
+        <p class="t-label">
+            <label>день рождения</label>
+        </p>
+        <div class="for-input">
+            <input type="text" id="datepicker" class="inp-main">
+        </div>
+        <p class="checkb">На <a href="#">день рождения мы дарим</a> PAP-бонусы.</p>
+        <input type="checkbox" name="check" id="check4">
+        <label for="check4">регистрироваться как Юридическое лицо</label>
+        <div class="podpreg">
+            <p>Регистрация на сайте подразумевает обязательное согласие с <a href="#">политикой конфиденциальности</a></p>
+        </div>
+        <div class="registration-popup-footer">
+            <button class="btn c-button btn-sign btn-reg" type="submit">
+                <div class="c-ripple js-ripple">
+                    <span class="c-ripple__circle"></span>
+                </div>
+                зарегистрироваться
+            </button>
+            <p>Есть регистрация?
+                <button class="open-morph" data-target="#enter-popup">
+                    Войти на сайт!
+                </button>
+            </p>
+        </div>
+    </form>
+</div>

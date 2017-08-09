@@ -1,15 +1,35 @@
-<!--
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns="http://www.springframework.org/schema/security"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/security
-        http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+<b:beans xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns="http://www.springframework.org/schema/security"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/security
+         http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http use-expressions="true">
+    <http auto-config="true">
+        <intercept-url pattern="/login" access="hasRole('ROLE_USER')"/>
+        <session-management>
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+        </session-management>
+        <logout invalidate-session="true" logout-success-url="/login" delete-cookies="JSESSIONID" />
+    </http>
+
+    <user-service>
+        <user name="user" password="password" authorities="ROLE_USER" />
+    </user-service>
+
+    <authentication-manager>
+        <authentication-provider>
+            <password-encoder hash="sha"/>
+            <user-service>
+                <user name="kushnir" password="e3dd101645e98aaf54939916b599ea6c7ff3969b" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+    <!--<http use-expressions="true">
         <intercept-url pattern="/login*" access="isAnonymous()" />
         <intercept-url pattern="/**" access="isAuthenticated()"/>
         <form-login
@@ -18,13 +38,6 @@
                 authentication-failure-url="/login.html?error=true" />
         <logout logout-success-url="/logout.html" />
     </http>
+-->
 
-    <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="user1" password="user1Pass" authorities="ROLE_USER" />
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>
-
-</beans>-->
+</b:beans>
