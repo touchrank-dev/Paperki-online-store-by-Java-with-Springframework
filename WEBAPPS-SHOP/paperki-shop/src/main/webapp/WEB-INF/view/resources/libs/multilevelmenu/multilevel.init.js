@@ -9,12 +9,10 @@
 
     // mobile menu toggle
     var openMenuCtrl = document.querySelector('.action--open'),
-        closeMenuCtrl = document.querySelector('.action--close'),
-        catalogOverlay = document.querySelector('.catalog_overlay');
+        closeMenuCtrl = document.querySelector('.action--close');
 
     openMenuCtrl.addEventListener('click', openMenu);
     closeMenuCtrl.addEventListener('click', closeMenu);
-    catalogOverlay.addEventListener('click', closeMenu);
 
     function openMenu() {
         classie.add(menuEl, 'menu--open');
@@ -23,13 +21,6 @@
 
     function closeMenu() {
         classie.remove(menuEl, 'menu--open');
-        openMenuCtrl.focus();        
-    }    
-    document.onkeydown = function(evt) {
-        evt = evt || window.event;
-        if (evt.keyCode == 27) {
-            closeMenu();
-        }
-    };     
-    
+        openMenuCtrl.focus();
+    }
 })();

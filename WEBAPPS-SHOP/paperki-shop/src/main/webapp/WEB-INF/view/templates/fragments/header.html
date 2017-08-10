@@ -1,25 +1,26 @@
-<header th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org">
     <!-- Верхнее меню -->
     <nav class="navbar mainMenu">
         <div class="container">
             <div class="mainMenu-wrap">
-
+                <!-- Меню -->
                 <ul class="nav navbar-nav nav-mainMenu"
                     th:if="${mainmenu} != null">
-
                     <li th:each="menuitem : ${mainmenu}">
-                        <a href="/" th:href="@{${menuitem.link}}" th:text="${menuitem.name}">Menu item</a>
+                        <a href="/" th:href="@{${menuitem.link}}" th:text="${menuitem.name}">Menu item</a> 
+                        <!-- class="active-link" -->
                     </li>
-
                 </ul>
-
+                <!-- Меню -->
+                <!-- Иконка Логин -->
                 <ul class="nav navbar-nav navbar-right nav-profile"
                     th:include="/components/login/navlogin :: navlogin" />
-
+                <!-- Иконка Логин -->
             </div>
         </div>
     </nav>
     <!-- Верхнее меню -->
+
     <nav class="navbar navbar-default nav-navbar-main">
         <div class="container">
             <div class="row">

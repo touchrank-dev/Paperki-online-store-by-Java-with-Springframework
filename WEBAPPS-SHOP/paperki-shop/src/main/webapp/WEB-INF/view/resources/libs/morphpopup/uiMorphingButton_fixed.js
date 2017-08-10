@@ -48,7 +48,7 @@
 
 	UIMorphingButton.prototype._init = function() {
 		// the button
-		this.button = this.el.querySelector( '.btn-call' );
+		this.button = this.el.querySelector( 'button' );
 		// state
 		this.expanded = false;
 		// content el
