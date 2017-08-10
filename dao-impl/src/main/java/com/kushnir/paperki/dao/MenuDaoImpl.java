@@ -27,9 +27,6 @@ public class MenuDaoImpl implements MenuDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
     @Value("${menu.getAll}")
     private String getAllSqlQuery;
 
@@ -66,7 +63,7 @@ public class MenuDaoImpl implements MenuDao {
     private class MenuRowMapper implements RowMapper<MenuItem> {
 
         @Override
-        public MenuItem mapRow(ResultSet resultSet, int i) throws SQLException {
+        public MenuItem mapRow(ResultSet resultSet, int rowNum) throws SQLException {
             MenuItem menuItem = new MenuItem(
                     resultSet.getInt("id_menu_item"),
                     resultSet.getInt("id_menu"),

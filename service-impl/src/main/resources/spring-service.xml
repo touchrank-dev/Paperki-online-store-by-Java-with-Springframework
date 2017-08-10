@@ -9,5 +9,6 @@
     <bean id="categoryBean" class="com.kushnir.paperki.sevice.CategoryBeanImpl" />
     <bean id="componentBean" class="com.kushnir.paperki.sevice.ComponentBeanImpl" />
     <bean id="menuBean" class="com.kushnir.paperki.sevice.MenuBeanImpl" />
+    <bean id="userService" class="com.kushnir.paperki.sevice.UserServiceImpl" />
 
 </beans>

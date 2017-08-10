@@ -5,7 +5,7 @@
     <!--add class login to show-->
     <li class="login">
         <!--without enter-->
-        <sec:authorize access="!isAuthenticated()">
+        <div sec:authorize="isAnonymous()">
             <button class="enter-popup-btn" data-target="#enter-popup"
                     sec:authorize access="!isAuthenticated()">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewbox="0 0 100 100" width="34px" height="34px" enable-background="new 0 0 100 100" xml:space="preserve">
@@ -13,10 +13,11 @@
                 </svg>
                 войти или зарегистрироваться
             </button>
-        </sec:authorize>
+        </div>
         <!--without enter end-->
+
         <!--login-->
-        <sec:authorize access="isAuthenticated()">
+        <div sec:authorize="isAuthenticated()">
             <a href="#" class="login-user-button">
                 <div class="avatar">
                     <img src="/res/img/avatar.png" alt="avatar">
@@ -89,7 +90,7 @@
                     </a>
                 </li>
             </ul>
-        </sec:authorize>
+        </div>
         <!--login end-->
     </li>
 </ul>

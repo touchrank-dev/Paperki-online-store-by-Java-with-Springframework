@@ -1,4 +1,8 @@
 SET names utf8;
+
+INSERT INTO `users` (`login_user`, `name_user`, `password`)
+VALUES ('kushnir', 'Artem Kushnir', '426984');
+
 INSERT INTO categories (name, translit_name, link, icon, order_category)
 VALUES  ('Тест1', 'Test1', '/category/test1', 'hm1.png', 1),
         ('Тест2', 'Test2', '/category/test2', 'hm1.png', 2),

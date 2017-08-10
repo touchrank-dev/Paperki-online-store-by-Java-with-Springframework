@@ -8,36 +8,58 @@
          http://www.springframework.org/schema/security
          http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <http auto-config="true">
-        <intercept-url pattern="/login" access="hasRole('ROLE_USER')"/>
+    <!--<http pattern="/res/**" security="none" />
+    <http pattern="/env" security="none" />
+    <http pattern="/**" security="none" />-->
+    <!--<http auto-config="true" create-session="ifRequired">
+        <intercept-url pattern="/login" access="permitAll()" />
+        <intercept-url pattern="/login/logout" access="authenticated" />
         <session-management>
             <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
         </session-management>
         <logout invalidate-session="true" logout-success-url="/login" delete-cookies="JSESSIONID" />
+    </http>-->
+    <!--<http pattern="/**" security="none" />-->
+
+    <!--<b:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <b:constructor-arg>
+            <b:list>
+                <b:bean class="org.springframework.security.access.vote.RoleVoter">
+                    <b:property name="rolePrefix" value="" />
+                </b:bean>
+                <b:bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+                <b:bean class="org.springframework.security.web.access.expression.WebExpressionVoter" />
+            </b:list>
+        </b:constructor-arg>
+    </b:bean>-->
+    <http authentication-manager-ref="service-auth" use-expressions="true"> <!--access-decision-manager-ref="accessDecisionManager"-->
+        <intercept-url pattern="/env"       access="isFullyAuthenticated()" />
+        <form-login login-page="/login"
+                    authentication-failure-url="/faillogin"/>
+        <!--authentication-success-handler-ref="" authentication-failure-handler-ref=""-->
+        <logout invalidate-session="true"
+                delete-cookies="JSESSIONID"
+                logout-url="/logout"
+                logout-success-url="/login"/>
+        <session-management invalid-session-url="/login">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+        </session-management>
+        <!--<remember-me data-source-ref="dataSource" />-->
     </http>
 
-    <user-service>
-        <user name="user" password="password" authorities="ROLE_USER" />
-    </user-service>
-
-    <authentication-manager>
+    <!--<authentication-manager id="in-memory-auth">
         <authentication-provider>
             <password-encoder hash="sha"/>
             <user-service>
-                <user name="kushnir" password="e3dd101645e98aaf54939916b599ea6c7ff3969b" authorities="ROLE_USER" />
+                <user name="kushnir" password="e3dd101645e98aaf54939916b599ea6c7ff3969b" authorities="Admin" />
             </user-service>
         </authentication-provider>
-    </authentication-manager>
+    </authentication-manager>-->
 
-    <!--<http use-expressions="true">
-        <intercept-url pattern="/login*" access="isAnonymous()" />
-        <intercept-url pattern="/**" access="isAuthenticated()"/>
-        <form-login
-                login-page='/login.html'
-                default-target-url="/homepage.html"
-                authentication-failure-url="/login.html?error=true" />
-        <logout logout-success-url="/logout.html" />
-    </http>
--->
+    <authentication-manager id="service-auth">
+        <authentication-provider user-service-ref="userService" >
+            <!--<password-encoder hash="sha"/>-->
+        </authentication-provider>
+    </authentication-manager>
 
 </b:beans>

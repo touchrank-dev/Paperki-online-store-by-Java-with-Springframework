@@ -24,5 +24,6 @@
 
     <bean id="categoryDao" class="com.kushnir.paperki.dao.CategoryDaoImpl" />
     <bean id="menuDao" class="com.kushnir.paperki.dao.MenuDaoImpl"/>
+    <bean id="userDao" class="com.kushnir.paperki.dao.UserDaoImpl" />
 
 </beans>

@@ -7,29 +7,24 @@ DROP TABLE IF EXISTS product_category;
 DROP TABLE IF EXISTS menu_item_ref;
 DROP TABLE IF EXISTS feedbacks;
 DROP TABLE IF EXISTS orders;
-/*DROP TABLE IF EXISTS authorities;
-DROP INDEX IF EXISTS ix_auth_username;*/
 
-/*DROP TABLE IF EXISTS users;
+/*DROP TABLE IF EXISTS persistent_logins;
+CREATE TABLE persistent_logins (
+    username,
+    series,
+    token,
+    last_used
+);*/
+
+
+DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id_user                     INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     login_user                  VARCHAR(50)     NOT NULL UNIQUE,
     name_user                   VARCHAR(150)    NOT NULL,
-    password_user               VARCHAR(100)    NOT NULL
-);*/
-/*DROP TABLE IF EXISTS users;
-CREATE TABLE users(
-    username                    VARCHAR_IGNORECASE(50) NOT NULL PRIMARY KEY,
-    password                    VARCHAR_IGNORECASE(50) NOT NULL,
-    enabled                     BOOLEAN         NOT NULL
+    password                    VARCHAR(100)    NOT NULL
 );
 
-CREATE TABLE authorities (
-    username                    VARCHAR_IGNORECASE(50) NOT NULL,
-    authority                   VARCHAR_IGNORECASE(50) NOT NULL,
-    FOREIGN KEY (username)      REFERENCES users(username)
-);
-CREATE UNIQUE INDEX ix_auth_username ON authorities (username,authority);*/
 
 DROP TABLE IF EXISTS categories;
 CREATE TABLE categories (
