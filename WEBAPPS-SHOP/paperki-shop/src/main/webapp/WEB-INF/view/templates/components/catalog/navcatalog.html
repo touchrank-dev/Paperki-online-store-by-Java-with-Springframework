@@ -1,20 +1,90 @@
-<nav id="ml-menu" class="menu" th:fragment="navcategory" xmlns:th="http://www.w3.org/1999/xhtml">
+<nav id="ml-menu" class="menu" th:fragment="navcatalog" xmlns:th="http://www.thymeleaf.org">
     <div class="menu__wrap">
+        <!-- КАТЕГОРИИ -->
         <ul data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All"
-        th:if="${mapcategories} != null">
+            th:if="${mapcategories} != null">
 
             <li th:each="map : ${mapcategories[0]}" class="menu__item" role="menuitem">
                 <a class="menu__link" data-submenu="submenu-1" aria-owns="submenu-1"
                    href="#" th:href="@{${map.value.link}}" th:attr="data-submenu=${map.value.id},aria-owns=${map.value.id}">
                     <div>
-                        <img src="/res/img/caticons/hm1.png" alt="Канцелярские товары"
+                        <img src="/res/img/hcm1.png" alt="Название категории"
                              th:attr="src=@{'/res/img/caticons/'+${map.value.icon}},alt=${map.value.name}">
                     </div>
-                    <div th:text="${map.value.name}"></div>
+                    <span th:text="${map.value.name}">Название категории</span>
                 </a>
             </li>
 
         </ul>
+            
+        <ul th:each="map : ${mapcategories[0]}" class="catalog-submenu menu__level" 
+            th:attr="data-menu=${'submenu-' + ${map.value.id}}">
+            <div class="submenu-wrap">
+                <li class="menu__item" th:each="mapitem : ${mapcategories[${map.value.id}]">
+                    <a href="#" th:href="@{${mapitem.value.link}}" class="menu__link"></a>
+                    &lt;!&ndash;link to category&ndash;&gt;
+                    <a href="#" th:href="@{${mapitem.value.link}}" class="link-cat">
+                        <div>
+                            <img src="/res/img/hcm1.png" alt="Название категории" 
+                            th:attr="src=@{'/res/img/caticons/'+${mapitem.value.icon}},alt=${mapitem.value.name}" >
+                        </div>
+                        <span th:text="${mapitem.value.name}">Название категории</span>
+                    </a>
+                </li>
+            </div>
+            <div class="submenu-discount">
+                <div class="discount-icon">
+                    <img src="img/banner.png" alt="Скидка">
+                </div>
+                <div class="discount-banner">
+                    <img src="img/pen.png" alt="Pen">
+                </div>
+                <div class="discount-text">
+                    <h2>Ручки PARKER</h2>
+                    <a href="#" class="c-button" title="Выбрать ручки">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Выбрать ручки
+                    </a>
+                </div>
+            </div>
+            <div class="submenu-bottom">
+                <ul class="submenu-bottom-list">
+                    <li>
+                        <a href="#">
+                            <img src="/res/img/brands/akavim.png" alt="akavim">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/res/img/brands/artspace.png" alt="artspace">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/res/img/brands/greensboro-college.png" alt="greensboro">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/res/img/brands/infolio.png" alt="infolio">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/res/img/brands/link.png" alt="link">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <img src="/res/img/brands/magic_line.png" alt="magic_line">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+
 
         <!--<ul data-menu="submenu-1" class="catalog-submenu menu__level">
             <div class="submenu-wrap">
