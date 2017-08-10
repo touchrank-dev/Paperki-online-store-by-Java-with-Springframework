@@ -62,7 +62,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
                 HashMap<Integer, Category> mapCategory = new HashMap<Integer, Category>();
                 //  добавляем себя же как ключ = 0
-                mapCategory.put(0, category);
+                // mapCategory.put(0, category);
                 // добавляем в список главной ветки
                 map.put(category.getId(), mapCategory);
 

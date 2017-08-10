@@ -1,15 +1,17 @@
-SET names utf8;
+SET NAMES utf8;
 
 INSERT INTO `users` (`login_user`, `name_user`, `password`)
 VALUES ('kushnir', 'Artem Kushnir', '426984');
 
 INSERT INTO categories (name, translit_name, link, icon, order_category)
-VALUES  ('Тест1', 'Test1', '/category/test1', 'hm1.png', 1),
-        ('Тест2', 'Test2', '/category/test2', 'hm1.png', 2),
-        ('Тест3', 'Test3', '/category/test3', 'hm1.png', 3),
-        ('Тест4', 'Test4', '/category/test4', 'hm1.png', 2),
-        ('Тест5', 'Test5', '/category/test5', 'hm1.png', 1),
-        ('Тест6', 'Test6', '/category/test6', 'hm1.png', 2);
+VALUES  ('Бумага и бумажная продукция', 'bumaga-i-bymazhnaz produkcia', '/category/bumaga-i-bymazhnaz produkcia', 'hm1.png', 1),
+        ('Канцелярские товары', 'kanceliarskie-tovary', '/category/kanceliarskie-tovary', 'hm2.png', 2),
+        ('Пишущие и рисовальные принадлежности', 'pishushie-i-risovalnye-prinadlezhnosti', '/category/pishushie-i-risovalnye-prinadlezhnosti', 'hm3.png', 3),
+        ('Файлы, папки, портфели', 'fajly-papki-portfeli', '/category/fajly-papki-portfeli', 'hm4.png', 2),
+        ('Подставки, лотки, настольные наборы', 'podstavki-lotki-nastolnye-nabory', '/category/podstavki-lotki-nastolnye-nabory', 'hm5.png', 1),
+        ('Демонстрационное оборудование', 'demonstracionnoe-oborudovanie', '/category/demonstracionnoe-oborudovanie', 'hm6.png', 2),
+        ('Бумага офисная белая', 'bumaga-ofisnaja-belaja', '/category/bumaga-ofisnaja-belaja', 'hcm1.png', 1),
+        ('Бумага офисная цветная', 'bumaga-ofisnaja-cvetnaja', '/category/bumaga-ofisnaja-cvetnaja', 'hcm2.png', 2);
 
 INSERT INTO categories_ref (id_category, parent_id_category)
 VALUES  (1, 0),
@@ -17,7 +19,9 @@ VALUES  (1, 0),
         (3, 0),
         (4, 0),
         (5, 0),
-        (6, 0);
+        (6, 0),
+        (7, 1),
+        (8, 1);
 
 INSERT INTO menu (name, translit_name)
 VALUES  ('Главное', 'root'),
