@@ -10,22 +10,25 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!-- PROPERTIES -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:paperkiMySQLremote.properties</value>
                 <value>classpath:sqlQueries.properties</value>
-                <value>classpath:paperki.by.properties</value>
+                <value>classpath:paperki.properties</value>
             </list>
         </property>
     </bean>
 
+    <!-- SERVICE LAYER -->
     <import resource="classpath*:spring-service.xml"/>
 
     <mvc:annotation-driven/>
 
     <context:component-scan base-package="com.kushnir.paperki.webapp.paperki.shop.*"/>
 
+    <!-- STATIC RESOURCES -->
     <mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />
 
     <bean id="templateResolver"
@@ -47,7 +50,9 @@
         <property name="templateEngine" ref="templateEngine"/>
     </bean>
 
+    <!-- SPRING SECURITY -->
     <import resource="spring-web-security-config.xml"/>
+    <!-- SCHEDULER -->
     <import resource="spring-schedule.xml" />
 
 </beans>
