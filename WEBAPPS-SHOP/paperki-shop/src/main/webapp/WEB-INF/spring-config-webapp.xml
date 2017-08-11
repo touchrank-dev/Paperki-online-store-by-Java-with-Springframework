@@ -13,7 +13,7 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:paperkiMySQL.properties</value>
+                <value>classpath:paperkiMySQLremote.properties</value>
                 <value>classpath:sqlQueries.properties</value>
                 <value>classpath:paperki.by.properties</value>
             </list>
@@ -48,5 +48,6 @@
     </bean>
 
     <import resource="spring-web-security-config.xml"/>
+    <import resource="spring-schedule.xml" />
 
 </beans>
