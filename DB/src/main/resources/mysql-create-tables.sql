@@ -16,7 +16,6 @@ CREATE TABLE persistent_logins (
     last_used
 );*/
 
-
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id_user                     INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -39,7 +38,8 @@ CREATE TABLE categories (
     customtitle                 VARCHAR(255),
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_published                TINYINT         DEFAULT 0,
+    is_published                TINYINT         DEFAULT 1,
+    is_visible                  TINYINT         DEFAULT 1,
     order_category              INT             NOT NULL
 );
 

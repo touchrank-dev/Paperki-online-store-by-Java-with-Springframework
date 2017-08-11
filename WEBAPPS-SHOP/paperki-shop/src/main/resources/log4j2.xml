@@ -1,18 +1,35 @@
-<Configuration status="WARN">
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration advertiser="multicastdns">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <File name="File" fileName="logs/webapp.log">
+        <File name="ErrorFile" fileName="logs/error-paperki.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
+        <File name="DebugFile" fileName="logs/debug-paperki.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <RollingFile name="RollingFile" fileName="logs/paperki.log"
+                     filePattern="logs/$${date:yyyy-MM}/${name}-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy /><!-- Rotated everyday -->
+                <SizeBasedTriggeringPolicy size="10 MB"/> <!-- Or every 10 MB -->
+            </Policies>
+        </RollingFile>
     </Appenders>
     <Loggers>
+        <Logger name="org.springframework" level="INFO"/>
+        <Logger name="com.kushnir.paperki" level="DEBUG"/>
+        <logger name="com.kushnir.paperki" level="ERROR" />
         <Root level="ERROR">
             <appender-ref ref="Console"/>
-            <appender-ref ref="File"/>
+            <appender-ref ref="ErrorFile"/>
         </Root>
-        <Logger name="org.springframework" level="INFO"/>
-        <Logger name="com.kushnir.paperki.webapp" level="DEBUG"/>
+        <Root level="DEBUG">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="DebugFile"/>
+        </Root>
     </Loggers>
 </Configuration>

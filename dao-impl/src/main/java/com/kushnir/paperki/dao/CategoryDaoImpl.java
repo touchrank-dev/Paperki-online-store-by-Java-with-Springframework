@@ -2,6 +2,8 @@ package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.Category;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,8 +14,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CategoryDaoImpl implements CategoryDao {
@@ -26,6 +32,13 @@ public class CategoryDaoImpl implements CategoryDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    /* CSV */
+    @Value("${path.csv.files}")
+    private String csvFilesPath;
+    @Value("${csv.file.catalog}")
+    private String csvFileCatalog;
+
+    /* SQL Scripts */
     @Value("${category.getAll}")
     private String getAllSqlQuery;
 
@@ -35,6 +48,40 @@ public class CategoryDaoImpl implements CategoryDao {
                 (HashMap) jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
         LOGGER.debug("getAll() >>> {}", map);
         return map;
+    }
+
+    @Override
+    public ArrayList<Category> getCategoriesFromCSV() throws IOException {
+        LOGGER.debug("Starting retrieve data from CSV file: {}", csvFilesPath+csvFileCatalog);
+        LOGGER.debug(">>> PROGRESS ...");
+        ArrayList<Category> categories = new ArrayList<Category>();
+        try {
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(new FileReader(csvFilesPath + csvFileCatalog));
+            for (CSVRecord record : records) {
+                try {
+                    categories.add(new Category(
+                            Integer.parseInt(record.get(0)),
+                            record.get(1),
+                            record.get(2),
+                            record.get(3),
+                            record.get(4),
+                            Integer.parseInt(record.get(5)),
+                            Integer.parseInt(record.get(6)),
+                            record.get(7),
+                            record.get(8)
+                    ));
+                } catch (Exception e) {
+                    LOGGER.error(e.getMessage());
+                    continue;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            LOGGER.error(">>> File ({}) Not Found! >>> {}",
+                    csvFilesPath+csvFileCatalog, e.getMessage());
+            return null;
+        }
+        LOGGER.debug("DATA: {}\n>>> FINISH", categories);
+        return categories;
     }
 
 
@@ -61,7 +108,7 @@ public class CategoryDaoImpl implements CategoryDao {
                 );
 
                 HashMap<Integer, Category> mapCategory = new HashMap<Integer, Category>();
-                //  добавляем себя же как ключ = 0
+                // добавляем себя же как ключ = 0
                 // mapCategory.put(0, category);
                 // добавляем в список главной ветки
                 map.put(category.getId(), mapCategory);

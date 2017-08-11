@@ -8,6 +8,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CategoryBeanImpl implements CategoryBean {
@@ -22,5 +24,11 @@ public class CategoryBeanImpl implements CategoryBean {
         HashMap categories = categoryDao.getAll();
         LOGGER.debug("getAll() >>> {}", categories);
         return categories;
+    }
+
+    @Override
+    public ArrayList<Category> getCategoriesFromCSV() throws IOException {
+        LOGGER.debug("getCategoriesFromCSV() >>> ");
+        return categoryDao.getCategoriesFromCSV();
     }
 }

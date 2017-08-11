@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import java.io.Serializable;
 import java.util.HashMap;
 
-@Scope(proxyMode= ScopedProxyMode.TARGET_CLASS, value="session")
+@Scope("session")
 public class Cart implements Serializable {
 
     private HashMap<Integer, Product> items;

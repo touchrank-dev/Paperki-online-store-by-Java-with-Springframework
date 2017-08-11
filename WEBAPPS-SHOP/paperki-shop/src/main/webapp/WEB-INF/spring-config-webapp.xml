@@ -17,6 +17,7 @@
                 <value>classpath:paperkiMySQLremote.properties</value>
                 <value>classpath:sqlQueries.properties</value>
                 <value>classpath:paperki.properties</value>
+                <value>classpath:paperki.scheduler.properties</value>
             </list>
         </property>
     </bean>

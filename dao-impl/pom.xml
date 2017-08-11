@@ -39,6 +39,12 @@
             <artifactId>spring-context</artifactId>
         </dependency>
 
+        <!-- CSV file worker -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+        </dependency>
+
         <!-- for testing -->
         <dependency>
             <groupId>junit</groupId>
