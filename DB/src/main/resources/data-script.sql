@@ -1,4 +1,4 @@
-SET NAMES utf8;
+-- SET NAMES utf8;
 
 INSERT INTO `users` (`login_user`, `name_user`, `password`)
 VALUES ('kushnir', 'Artem Kushnir', '426984');

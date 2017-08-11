@@ -20,7 +20,7 @@
         </div>
     </nav>
     <!-- Верхнее меню -->
-    <!-- Верзняя панель -->
+    <!-- Верхняя панель -->
     <nav class="navbar navbar-default nav-navbar-main">
             <div class="container">
                 <div class="row">
@@ -48,7 +48,7 @@
                                             <div class="c-ripple js-ripple">
                                                 <span class="c-ripple__circle"></span>
                                             </div>
-                                            <span class="" aria-hidden="true"><img src="img/phone.png" alt="Phone-icon"></span> 8 (162) 42-93-95 <span><img src="img/arrows.png" alt="arrows"></span>
+                                            <span class="" aria-hidden="true"><img src="/res/img/phone.png" alt="Phone-icon"></span> 8 (162) 42-93-95 <span><img src="/res/img/arrows.png" alt="arrows"></span>
                                         </button>
                                         <ul class="dropdown-menu phones">
                                             <div>
@@ -212,45 +212,53 @@
                 </div>
             </div>
         </nav>
-    <!-- Верзняя панель -->
+    <!-- Верхняя панель -->
 
-
-    <!-- Поиск -->
+    <!-- Каталог и поиск -->
     <nav class="catalog-search">
         <div class="container">
             <div class="products-catalog">
-                <div class="catalog_overlay"></div>
-                <a href="#" class="logofloat"><img src="/res/img/logo2.png" alt="Logo" title="На главную" /></a>
+                <!-- ЛОГОТИП -->
+                <a href="/" class="logofloat">
+                    <img src="/res/img/logo2.png" alt="Logo" title="На главную" />
+                </a>
+                <!-- ЛОГОТИП -->
+                <!-- КНОПКА КАТАЛОГ -->
                 <button id="catalog-button" class="c-button action action--open" type="button" aria-label="Open Menu">
                     <div class="c-ripple js-ripple">
                         <span class="c-ripple__circle"></span>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" width="60px" height="60px" style="enable-background:new 0 0 33 37;" xml:space="preserve" preserveAspectRatio="xMinYMin meet">
-                            <g>
-                                <path d="M40.9,21.5H20.9c-1.2,0-2.1,1-2.1,2.1v20.1c0,1.2,1,2.1,2.1,2.1h20.1c1.2,0,2.1-1,2.1-2.1V23.6   C43.1,22.4,42.1,21.5,40.9,21.5z M38.8,41.5H23V25.7h15.8V41.5z"/>
-                                <path d="M40.9,78.5c1.2,0,2.1-1,2.1-2.1V56.3c0-1.2-1-2.1-2.1-2.1H20.9c-1.2,0-2.1,1-2.1,2.1v20.1c0,1.2,1,2.1,2.1,2.1H40.9z    M23,58.5h15.8v15.8H23V58.5z"/>
-                                <path d="M48.7,27.9c0,1.2,1,2.1,2.1,2.1h28.3c1.2,0,2.1-1,2.1-2.1s-1-2.1-2.1-2.1H50.8C49.6,25.7,48.7,26.7,48.7,27.9z"/>
-                                <path d="M79.1,37.2H50.8c-1.2,0-2.1,1-2.1,2.1c0,1.2,1,2.1,2.1,2.1h28.3c1.2,0,2.1-1,2.1-2.1C81.2,38.2,80.3,37.2,79.1,37.2z"/>
-                                <path d="M79.1,58.5H50.8c-1.2,0-2.1,1-2.1,2.1c0,1.2,1,2.1,2.1,2.1h28.3c1.2,0,2.1-1,2.1-2.1C81.2,59.4,80.3,58.5,79.1,58.5z"/>
-                                <path d="M81.2,72.1c0-1.2-1-2.1-2.1-2.1H50.8c-1.2,0-2.1,1-2.1,2.1c0,1.2,1,2.1,2.1,2.1h28.3C80.3,74.3,81.2,73.3,81.2,72.1z"/>
-                            </g>
-                        </svg>
-                    <span>Каталог товаров</span>
+                        <g>
+                            <path d="M40.9,21.5H20.9c-1.2,0-2.1,1-2.1,2.1v20.1c0,1.2,1,2.1,2.1,2.1h20.1c1.2,0,2.1-1,2.1-2.1V23.6   C43.1,22.4,42.1,21.5,40.9,21.5z M38.8,41.5H23V25.7h15.8V41.5z"/>
+                            <path d="M40.9,78.5c1.2,0,2.1-1,2.1-2.1V56.3c0-1.2-1-2.1-2.1-2.1H20.9c-1.2,0-2.1,1-2.1,2.1v20.1c0,1.2,1,2.1,2.1,2.1H40.9z    M23,58.5h15.8v15.8H23V58.5z"/>
+                            <path d="M48.7,27.9c0,1.2,1,2.1,2.1,2.1h28.3c1.2,0,2.1-1,2.1-2.1s-1-2.1-2.1-2.1H50.8C49.6,25.7,48.7,26.7,48.7,27.9z"/>
+                            <path d="M79.1,37.2H50.8c-1.2,0-2.1,1-2.1,2.1c0,1.2,1,2.1,2.1,2.1h28.3c1.2,0,2.1-1,2.1-2.1C81.2,38.2,80.3,37.2,79.1,37.2z"/>
+                            <path d="M79.1,58.5H50.8c-1.2,0-2.1,1-2.1,2.1c0,1.2,1,2.1,2.1,2.1h28.3c1.2,0,2.1-1,2.1-2.1C81.2,59.4,80.3,58.5,79.1,58.5z"/>
+                            <path d="M81.2,72.1c0-1.2-1-2.1-2.1-2.1H50.8c-1.2,0-2.1,1-2.1,2.1c0,1.2,1,2.1,2.1,2.1h28.3C80.3,74.3,81.2,73.3,81.2,72.1z"/>
+                        </g>
+                    </svg>
+                    Каталог товаров
                 </button>
                 <button class="action action--close" aria-label="Close Menu"></button>
+                <!-- КНОПКА КАТАЛОГ -->
             </div>
+            <!-- Поиск -->
             <div class="search-field">
                 <div class="input-group hgt-in">
                     <span class="input-group-btn">
-                        <button class="btn btn-search" type="button"><img src="/res/img/search.png" alt="Поиск">
-                        </button>
-                      </span>
+                        <button class="btn btn-search" type="button"><img src="/res/img/search.png" alt="Поиск"></button>
+                    </span>
                     <input type="text" class="form-control search-inp" placeholder="Введите название товара">
                 </div>
             </div>
+            <!-- Поиск -->
 
-            <nav id="ml-menu" class="menu" th:include="/components/catalog/catalog :: catalog" />
-
+            <!-- КАТАЛОГ -->
+            <nav id="ml-menu" class="menu" th:include="/components/catalog/navcatalog :: navcatalog" />
+            <!-- КАТАЛОГ -->
         </div>
     </nav>
+    <!-- Каталог и поиск -->
+    <!-- Верхнее меню -->
 </header>
