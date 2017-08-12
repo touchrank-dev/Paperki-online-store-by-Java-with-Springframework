@@ -55,7 +55,5 @@
     <import resource="spring-web-security-config.xml"/>
     <!-- SCHEDULER -->
     <import resource="spring-schedule.xml" />
-    <!--MAIL-->
-    <import resource="spring-mail.xml" />
 
 </beans>

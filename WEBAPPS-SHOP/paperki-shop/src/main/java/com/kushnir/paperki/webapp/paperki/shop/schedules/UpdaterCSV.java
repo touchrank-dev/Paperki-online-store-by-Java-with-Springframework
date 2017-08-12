@@ -2,7 +2,7 @@ package com.kushnir.paperki.webapp.paperki.shop.schedules;
 
 import com.kushnir.paperki.sevice.CategoryBean;
 
-import com.kushnir.paperki.webapp.paperki.shop.mail.Mailer;
+import com.kushnir.paperki.sevice.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,11 +1,10 @@
-package com.kushnir.paperki.webapp.paperki.shop.mail;
+package com.kushnir.paperki.sevice.mail;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -34,7 +33,7 @@ public class Mailer {
     @Value("${mail.notification.sender}")
     private String NOTIFICATION_SERVICE_EMAIL_ADDRESS;
 
-    private String[] supportResipients = new String[] {
+    private String[] supportRecipients = new String[] {
             SUPPORT_SERVICE_EMAIL_ADDRES,
             DEVELOPER_EMAIL_ADDRESS
     };
@@ -52,7 +51,7 @@ public class Mailer {
     }
 
     public void toSupportMail(String text) {
-        sendMail(supportResipients, SYSTEM_EMAIL_ADDRESS, text);
+        sendMail(supportRecipients, SYSTEM_EMAIL_ADDRESS, text);
     }
 
     private void sendMail(String to, String from, String text) {
