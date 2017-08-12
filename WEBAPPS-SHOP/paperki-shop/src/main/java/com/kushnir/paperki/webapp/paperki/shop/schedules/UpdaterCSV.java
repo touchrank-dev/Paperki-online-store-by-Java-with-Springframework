@@ -23,12 +23,21 @@ public class UpdaterCSV {
     public void catalogUpdate() throws IOException {
         LOGGER.debug("===== Started Catalog update ==== >>> ");
     }
-
     public void productUpdate() {
         LOGGER.debug("===== Started Products update ==== >>> ");
     }
-
     public void pricesUpdate() {
         LOGGER.debug("===== Started Prices update ==== >>> ");
     }
+    public void customersUpdate() {
+        LOGGER.debug("===== Started Customers update ==== >>> ");
+    }
+    public void discountsUpdate() {
+        LOGGER.debug("===== Started Discounts update ==== >>> ");
+    }
+
+    public void stockUpdate() {
+        LOGGER.debug("===== Started Stock update ==== >>> ");
+    }
+
 }
