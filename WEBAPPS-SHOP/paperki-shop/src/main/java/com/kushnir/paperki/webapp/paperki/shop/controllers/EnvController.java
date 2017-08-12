@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/env")
-@SessionAttributes("cart")
+// @SessionAttributes("cart")
 public class EnvController {
 
     private static final Logger LOGGER = LogManager.getLogger(EnvController.class);

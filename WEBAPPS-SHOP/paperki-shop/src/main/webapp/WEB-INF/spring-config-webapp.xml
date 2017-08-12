@@ -14,7 +14,7 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:paperkiMySQLremote.properties</value>
+                <value>classpath:paperkiMySQL.properties</value>
                 <value>classpath:sqlQueries.properties</value>
                 <value>classpath:paperki.properties</value>
                 <value>classpath:paperki.scheduler.properties</value>
@@ -22,10 +22,10 @@
         </property>
     </bean>
 
+    <mvc:annotation-driven/>
+
     <!-- SERVICE LAYER -->
     <import resource="classpath*:spring-service.xml"/>
-
-    <mvc:annotation-driven/>
 
     <context:component-scan base-package="com.kushnir.paperki.webapp.paperki.shop.*"/>
 
@@ -52,7 +52,7 @@
     </bean>
 
     <!-- SPRING SECURITY -->
-    <import resource="spring-web-security-config.xml"/>
+    <!--<import resource="spring-web-security-config.xml"/>-->
     <!-- SCHEDULER -->
     <import resource="spring-schedule.xml" />
 
