@@ -1,21 +1,21 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.kushnir.paperki.model.LoginData;
 import com.kushnir.paperki.model.RegistrateForm;
 import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.model.UserType;
 import com.kushnir.paperki.sevice.UserService;
 import com.kushnir.paperki.sevice.mail.Mailer;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.io.Serializable;
 
 @CrossOrigin
 @RestController
@@ -23,6 +23,7 @@ import java.io.Serializable;
 public class RESTcontroller {
 
     private static final Logger LOGGER = LogManager.getLogger(RESTcontroller.class);
+    private static final String version = "1.0";
 
     @Autowired
     UserService userService;
@@ -30,18 +31,15 @@ public class RESTcontroller {
     @Autowired
     Mailer mailer;
 
+    @Value("${webapp.host}")
+    String host;
+
     //curl -v [host]:8080/api
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage version(HttpSession httpSession) {
-        LOGGER.debug("version() >>>");
-        User user = new User();
-        user.setName("Артем");
-        user.setLogin("kushnir");
-        user.setUserType(UserType.CUSTOMER);
-        user.setId(1);
-        httpSession.setAttribute("user", user);
-        return new RestMessage(HttpStatus.FOUND, httpSession.getAttribute("user").toString());
+    public @ResponseBody RestMessage version() {
+        LOGGER.debug("{} Rest api version() >>>", host);
+        return new RestMessage(HttpStatus.OK, version);
     }
 
     //curl -H "Content-Type: application/json" -X POST -d '{"login":"xyz","password":"xyz"}' -v [host]:8088/api/login
@@ -52,7 +50,7 @@ public class RESTcontroller {
         try {
             User user = userService.getUserByLoginPassword(loginData.getLogin(), loginData.getPassword());
             httpSession.setAttribute("user", user);
-            LOGGER.error("Login successful >>> \n USER: {}", user);
+            LOGGER.debug("Login successful >>> \n USER: {}", user);
             return new RestMessage(HttpStatus.FOUND, "login successful");
         } catch (Exception e) {
             LOGGER.error("login failed >>> {}", e.getMessage());
@@ -60,6 +58,7 @@ public class RESTcontroller {
         }
     }
 
+    //curl -H "Content-Type: application/json" -X POST -d '{"login":"xyz","password":"xyz"}' -v [host]:8088/api/login
     @PostMapping("/test")
     @ResponseStatus(HttpStatus.FOUND)
     public @ResponseBody RestMessage postTest(@RequestBody String string, HttpSession httpSession) {
@@ -72,37 +71,18 @@ public class RESTcontroller {
         return new RestMessage(HttpStatus.FOUND, "login successful");
     }
 
-    /*//curl -H "Content-Type: application/json" -X POST -d '{...}' -v [host]:8088/api/registration
     @PostMapping("/registration")
     @ResponseStatus(HttpStatus.CREATED)
-    public String postRegistration(@RequestBody RegistrateForm form, Model model
-                                   *//*@RequestParam("your-name") String name,
-                                   @RequestParam("your-email") String email,
-                                   @RequestParam("check1") Boolean subscribe,
-                                   @RequestParam("your-password")String password,
-                                   @RequestParam("check2")Boolean UseAutoPassword,
-                                   @RequestParam("your-phone")String phone,
-                                   @RequestParam("datepicker")String birthDate,
-                                   @RequestParam("check4")Boolean isEnterprise*//*) {
-        LOGGER.info("postRegistration() >>> \n FORM: {}", form);
+    public @ResponseBody RestMessage registerNewUser (@RequestBody RegistrateForm registrateForm,
+                                                      HttpSession httpSession) {
+        LOGGER.debug("NEW USER REGISTRATION >>>");
         try {
-            User user = userService.registrateUser(form);
-            putUserToSession(user);
-            return "components/login/registration-success";
+            userService.registrateUser(registrateForm);
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            model.addAttribute("errormessage", e.getMessage());
-            return "components/login/registration-fail";
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, "Register failed!", registrateForm);
         }
+        return new RestMessage(HttpStatus.CREATED, "Register successful", registrateForm);
     }
-
-    @PutMapping("/logout")
-    public String logoutPage() {
-        LOGGER.debug("logoutPage() >>>");
-        return "components/login/logout";
-    }*/
-
-
 
 
 
@@ -110,6 +90,7 @@ public class RESTcontroller {
     private class RestMessage {
         HttpStatus code;
         String message;
+        Object object;
 
         public RestMessage() {
         }
@@ -117,6 +98,12 @@ public class RESTcontroller {
         public RestMessage(HttpStatus code, String message) {
             this.code = code;
             this.message = message;
+        }
+
+        public RestMessage(HttpStatus code, String message, Object object) {
+            this.code = code;
+            this.message = message;
+            this.object = object;
         }
 
         public HttpStatus getCode() {
@@ -135,6 +122,14 @@ public class RESTcontroller {
             this.message = message;
         }
 
+        public Object getObject() {
+            return object;
+        }
+
+        public void setObject(Object object) {
+            this.object = object;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -143,13 +138,15 @@ public class RESTcontroller {
             RestMessage that = (RestMessage) o;
 
             if (code != that.code) return false;
-            return message != null ? message.equals(that.message) : that.message == null;
+            if (message != null ? !message.equals(that.message) : that.message != null) return false;
+            return object != null ? object.equals(that.object) : that.object == null;
         }
 
         @Override
         public int hashCode() {
             int result = code != null ? code.hashCode() : 0;
             result = 31 * result + (message != null ? message.hashCode() : 0);
+            result = 31 * result + (object != null ? object.hashCode() : 0);
             return result;
         }
 
@@ -158,6 +155,7 @@ public class RESTcontroller {
             return "RestMessage{" +
                     "code=" + code +
                     ", message='" + message + '\'' +
+                    ", object=" + object +
                     '}';
         }
     }

@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration advertiser="multicastdns">
+<Configuration status="WARN">
+    <Properties>
+        <Property name="log-path">/home/test.paperki.by/logs/</Property>
+    </Properties>
     <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-        </Console>
-        <File name="ErrorFile" fileName="/home/test.paperki.by/logs/error-paperki.log">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-        </File>
-        <File name="DebugFile" fileName="/home/test.paperki.by/logs/debug-paperki.log">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-        </File>
-        <RollingFile name="RollingFile" fileName="/home/test.paperki.by/logs/paperki.log"
-                     filePattern="logs/$${date:yyyy-MM}/${name}-%d{yyyy-MM-dd}-%i.log.gz">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        <RollingFile name="trace-log" fileName="${log-path}/paperki-trace.log"
+                     filePattern="${log-path}/paperki-trace.%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n</pattern>
+            </PatternLayout>
             <Policies>
-                <TimeBasedTriggeringPolicy /><!-- Rotated everyday -->
-                <SizeBasedTriggeringPolicy size="10 MB"/> <!-- Or every 10 MB -->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             </Policies>
         </RollingFile>
+        <RollingFile name="error-log" fileName="${log-path}/paperki-error.log"
+                     filePattern="${log-path}/paperki-error.%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n"/>
+        </Console>
     </Appenders>
-    <Loggers>
-        <Logger name="org.springframework" level="INFO"/>
-        <Logger name="com.kushnir.paperki" level="DEBUG"/>
-        <logger name="com.kushnir.paperki" level="ERROR" />
-        <Root level="ERROR">
-            <appender-ref ref="Console"/>
-            <appender-ref ref="ErrorFile"/>
-        </Root>
-        <Root level="DEBUG">
-            <appender-ref ref="Console"/>
-            <appender-ref ref="DebugFile"/>
-        </Root>
-    </Loggers>
+        <Loggers>
+            <Logger name="com.kushnir.paperki" level="debug" additivity="false" >
+                <appender-ref ref="trace-log" level="info"/>
+                <appender-ref ref="error-log" level="error"/>
+                <appender-ref ref="console" level="debug"/>
+            </Logger>
+            <Root level="info" additivity="false">
+                <appender-ref ref="console"/>
+            </Root>
+        </Loggers>
 </Configuration>

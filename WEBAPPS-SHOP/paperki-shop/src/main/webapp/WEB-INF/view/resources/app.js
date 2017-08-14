@@ -1,23 +1,27 @@
 function register() {
-    console.log("register!");
+    console.log("registration");
     $.ajax({
         cashe: false,
         async: false,
         type: "POST",
         contentType: "application/json",
         dataType: "json",
-        url: "/login/registration",
-        data: {"regisrationForm":$('#registration-form').serializeArray()},
-        success: function(htmlResponse){
-            $("#registration-popup").html(htmlResponse);
+        url: "/api/registration",
+        data: regFormToJSON(),
+        success: function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR, textStatus, errorThrown);
         },
-        error: function(Response) {
-            console.log(Response);
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR, textStatus, errorThrown);
         }
     });
-};
+}
 
-function test() {
+function login() {
+    location.reload();
+}
+
+/*function test() {
     console.log("Test");
     $.ajax({
         cashe: false,
@@ -26,23 +30,25 @@ function test() {
         contentType: "application/json",
         dataType: "json",
         url: "/api/test",
-        data: formToJSON,
+        data: regFormToJSON,
         success: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR, textStatus, errorThrown);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR, textStatus, errorThrown);
         }
-    })
-}
+    });
+}*/
 
-
-
-function formToJSON() {
+function regFormToJSON() {
     return JSON.stringify({
-        "userId": $('#userId').val() == "" ? null : userId,
-        "login": $('#login').val(),
-        "password": $('#password').val(),
-        "description" : $('#description').val()
+        "name":             $('#registration-input-name').val(),
+        "email":            $('#registration-input-email').val(),
+        "subscribe":        $('#check-subscribe').checked,
+        "password":         $('#registration-input-password').val(),
+        "autopass":         $('#check-autopassword').checked,
+        "phone":            $('#registration-input-phone').val(),
+        "birthDate":        $('#datepicker').val(),
+        "enterprise":       $('#isEnterprise').checked
     });
 }

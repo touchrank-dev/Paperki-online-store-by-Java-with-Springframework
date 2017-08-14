@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
-@RequestMapping("/error")
+// @Controller
+// @RequestMapping("/error")
+@Deprecated
 public class ErrorController {
 
     private static final Logger LOGGER = LogManager.getLogger(ErrorController.class);
 
-    @GetMapping()
+    // @GetMapping()
     public void errorPage() {
         LOGGER.debug("error() >>>");
     }

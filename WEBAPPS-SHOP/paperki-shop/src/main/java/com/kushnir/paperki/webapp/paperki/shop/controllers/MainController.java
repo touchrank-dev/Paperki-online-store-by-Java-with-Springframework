@@ -8,6 +8,7 @@ import com.kushnir.paperki.sevice.MenuBean;
 
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 
+import com.kushnir.paperki.webapp.paperki.shop.session.Cart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,6 +53,9 @@ public class MainController {
         try {
             MenuItem menuItem = menuBean.getRootItem(pageName);
             pageName = menuItem.getTranslitName();
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new PageNotFound();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             throw e;
@@ -73,10 +77,17 @@ public class MainController {
     }
 
     @ModelAttribute("user")
-    public User getUser(HttpSession httpSession) {
+    public User setUser(HttpSession httpSession) {
         User user = (User)httpSession.getAttribute("user");
         if(user == null) user = new User();
         return user;
+    }
+
+    @ModelAttribute("cart")
+    public Cart setCart (HttpSession httpSession) {
+        Cart cart = (Cart)httpSession.getAttribute("cart");
+        if (cart == null) cart = new Cart();
+        return cart;
     }
 
 }

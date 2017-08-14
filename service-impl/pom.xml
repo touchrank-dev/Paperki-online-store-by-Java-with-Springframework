@@ -37,6 +37,12 @@
             <artifactId>mail</artifactId>
         </dependency>
 
+        <!--PASWWORD GENERATOR-->
+        <dependency>
+            <groupId>com.github.mifmif</groupId>
+            <artifactId>generex</artifactId>
+        </dependency>
+
         <!-- LOGGING -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

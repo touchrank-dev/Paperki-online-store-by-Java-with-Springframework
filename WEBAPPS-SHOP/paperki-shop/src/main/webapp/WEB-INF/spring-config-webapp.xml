@@ -52,7 +52,6 @@
         <property name="templateEngine" ref="templateEngine"/>
     </bean>
 
-
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>

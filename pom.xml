@@ -42,6 +42,7 @@
         <java.mail.version>1.4.7</java.mail.version>
         <junit.version>4.12</junit.version>
         <log4j2.version>2.8</log4j2.version>
+        <generex.version>1.0.2</generex.version>
     </properties>
 
     <dependencyManagement>
@@ -207,6 +208,13 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+
+            <!--PASWWORD GENERATOR-->
+            <dependency>
+                <groupId>com.github.mifmif</groupId>
+                <artifactId>generex</artifactId>
+                <version>${generex.version}</version>
             </dependency>
 
             <!-- CSV -->

@@ -4,24 +4,24 @@
         <h4>Регистрация в клубе PAP-бонус</h4>
         <div class="info-reg">
             <p>Клуб PAP-бонус – программа специальных цен и накопления бонусных баллов (1 PAP-бонус = 0,10 рубль) для клиентов нашего интернет-магазина.</p>
-            <a href="/bonus#">Подробнее о бонусной программе</a>
+            <a href="/bonus">Подробнее о бонусной программе</a>
         </div>
     </div>
     <form id="registration-form" action="/login" method="post">
             <span class="input input--ichiro registration-form-field">
-                <input class="input__field input__field--ichiro" type="text" name="name" id="registration-input-name" />
+                <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-name" />
                 <label class="input__label input__label--ichiro" for="registration-input-name">
                     <span class="input__label-content input__label-content--ichiro">Ваше Имя *</span>
                 </label>
             </span>
         <span class="input input--ichiro registration-form-field">
-                <input class="input__field input__field--ichiro" type="email" name="email" id="registration-input-email" />
+                <input class="input__field input__field--ichiro" type="email" name="reg-email" id="registration-input-email" />
                 <label class="input__label input__label--ichiro" for="registration-input-email">
                     <span class="input__label-content input__label-content--ichiro">Ваш e-mail *</span>
                 </label>
             </span>
-        <input type="checkbox" name="subscribe" id="check1">
-        <label for="check1">Уведомлять о доступных промокодах, подарках и спецпредложениях</label>
+        <input type="checkbox" name="subscribe" id="check-subscribe">
+        <label for="check-subscribe">Уведомлять о доступных промокодах, подарках и спецпредложениях</label>
         <span class="input input--ichiro registration-form-field">
                 <input class="input__field input__field--ichiro" type="password" name="password" id="registration-input-password" />
                 <label class="input__label input__label--ichiro" for="registration-input-password">
@@ -29,8 +29,8 @@
                 </label>
             <button type="button" class="show-password"></button>
             </span>
-        <input type="checkbox" name="UseAutoPassword" id="check2">
-        <label for="check2">Сформировать автоматически</label>
+        <input type="checkbox" name="autopassword" id="check-autopassword">
+        <label for="check-autopassword">Сформировать автоматически</label>
         <span class="input input--ichiro registration-form-field">
                 <input class="input__field input__field--ichiro phone" type="text" name="phone" id="registration-input-phone" />
                 <label class="input__label input__label--ichiro" for="registration-input-phone">
@@ -46,13 +46,13 @@
             <input type="text" id="datepicker" class="inp-main" name="birthDate">
         </div>
         <!--<p class="checkb">На <a href="#">день рождения мы дарим</a> PAP-бонусы.</p>-->
-        <input type="checkbox" name="isEnterprise" id="check4">
-        <label for="check4">регистрироваться как Юридическое лицо</label>
+        <input type="checkbox" name="isEnterprise" id="check-isenterprise">
+        <label for="check-isenterprise">регистрироваться как Юридическое лицо</label>
         <div class="podpreg">
             <p>Регистрация на сайте подразумевает обязательное согласие с <a href="#tandc">политикой конфиденциальности</a></p>
         </div>
         <div class="registration-popup-footer">
-            <button class="btn c-button btn-sign btn-reg" type="submit">
+            <button class="btn c-button btn-sign btn-reg" type="subscribe" onclick="register()">
                 <div class="c-ripple js-ripple">
                     <span class="c-ripple__circle"></span>
                 </div>

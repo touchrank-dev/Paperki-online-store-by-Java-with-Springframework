@@ -1,5 +1,6 @@
 package com.kushnir.paperki.dao;
 
+import com.kushnir.paperki.model.RegistrateForm;
 import com.kushnir.paperki.model.User;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +23,10 @@ public class UserDaoImpl implements UserDao {
 
     private static final String P_USER_LOGIN = "p_user_login";
     private static final String P_USER_PASSWORD = "p_user_password";
+    private static final String P_USER_NAME = "p_user_name";
+    private static final String P_USER_PHONE = "p_user_phone";
+    private static final String P_USER_SUBSCRIBE = "p_user_subscribe";
+    private static final String P_USER_BIRTH_DAY = ""
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -39,7 +45,7 @@ public class UserDaoImpl implements UserDao {
         try {
             User user = namedParameterJdbcTemplate
                     .queryForObject(getUserByLoginPasswordSqlQuery, parameterSource, new UserRowMapper());
-            LOGGER.debug("getUserByLoginPassword({}) >>> {}", userName, user);
+            LOGGER.debug("getUserByLogin({}) >>> {}", userName, user);
             return user;
         } catch (EmptyResultDataAccessException e) {
             LOGGER.error("Пользователь {}, не найден {}",userName, e.getMessage());
@@ -61,9 +67,12 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-
-
-
+    @Override
+    @Transactional
+    public User addUser(RegistrateForm form) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        return null;
+    }
 
 
     private class UserRowMapper implements RowMapper<User> {
