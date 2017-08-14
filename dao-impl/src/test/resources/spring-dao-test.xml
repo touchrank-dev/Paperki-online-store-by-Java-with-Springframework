@@ -9,6 +9,7 @@
             <list>
                 <value>classpath:MySQLTest.properties</value>
                 <value>classpath:sqlQueries.properties</value>
+                <value>classpath:CSVconfig.properties</value>
             </list>
         </property>
     </bean>

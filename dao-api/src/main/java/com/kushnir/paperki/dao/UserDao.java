@@ -3,5 +3,6 @@ package com.kushnir.paperki.dao;
 import com.kushnir.paperki.model.User;
 
 public interface UserDao {
-    User getUserByLogin(String userName);
+    User getUserByLoginPassword(String userName, String password);
+    User getUserByLogin(String login);
 }

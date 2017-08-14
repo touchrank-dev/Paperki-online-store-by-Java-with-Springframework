@@ -218,11 +218,11 @@
     <nav class="catalog-search">
         <div class="container">
             <div class="products-catalog">
-                <!-- ЛОГОТИП -->
+                <!-- ЛОГОТИП SMALL-->
                 <a href="/" class="logofloat">
                     <img src="/res/img/logo2.png" alt="Logo" title="На главную" />
                 </a>
-                <!-- ЛОГОТИП -->
+                <!-- ЛОГОТИП SMALL-->
                 <!-- КНОПКА КАТАЛОГ -->
                 <button id="catalog-button" class="c-button action action--open" type="button" aria-label="Open Menu">
                     <div class="c-ripple js-ripple">
@@ -244,16 +244,8 @@
                 <!-- КНОПКА КАТАЛОГ -->
             </div>
             <!-- Поиск -->
-            <div class="search-field">
-                <div class="input-group hgt-in">
-                    <span class="input-group-btn">
-                        <button class="btn btn-search" type="button"><img src="/res/img/search.png" alt="Поиск"></button>
-                    </span>
-                    <input type="text" class="form-control search-inp" placeholder="Введите название товара">
-                </div>
-            </div>
+            <div class="search-field" th:include="/components/search/nav-search :: nav-search" />
             <!-- Поиск -->
-
             <!-- КАТАЛОГ -->
             <nav id="ml-menu" class="menu" th:include="/components/catalog/navcatalog :: navcatalog" />
             <!-- КАТАЛОГ -->

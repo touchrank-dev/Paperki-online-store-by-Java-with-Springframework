@@ -1,6 +1,6 @@
 package com.kushnir.paperki.webapp.paperki.shop.schedules;
 
-import com.kushnir.paperki.sevice.CategoryBean;
+import com.kushnir.paperki.sevice.CatalogBean;
 
 import com.kushnir.paperki.sevice.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,7 @@ public class UpdaterCSV {
     private static final Logger LOGGER = LogManager.getLogger(UpdaterCSV.class);
 
     @Autowired
-    CategoryBean categoryBean;
+    CatalogBean categoryBean;
 
     @Autowired
     Mailer mailer;

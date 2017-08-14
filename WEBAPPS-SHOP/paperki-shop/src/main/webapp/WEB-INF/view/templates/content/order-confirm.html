@@ -1,0 +1,630 @@
+<main id="wrapp" th:fragment="order-confirm" xmlns:th="http://www.thymeleaf.org">
+    <div class="wrapper">
+        <ul class="breadCrumbs">
+            <li><a href="index.html">Главная</a></li>
+            <li>Оформление заказа</li>
+        </ul>
+        <h1 class="typicalH1">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
+        <div class="orderingPage">
+            <aside class="orderingSidebar">
+                <div class="orderingSidebarSection">
+                    <h2 class="orderingSidebarTitle">Итого</h2>
+                    <ul class="orderingSidebarCost">
+                        <li class="clearfix">
+                            <p class="orderingSidebarCostLeft">10 товаров на сумму</p>
+                            <p class="orderingSidebarCostRight">452 руб</p>
+                        </li>
+                        <li class="clearfix">
+                            <p class="orderingSidebarCostLeft">Стоимость доставки</p>
+                            <p class="orderingSidebarCostRight">12 руб</p>
+                        </li>
+                        <li class="clearfix">
+                            <p class="orderingSidebarCostLeft">Подъем на этаж</p>
+                            <p class="orderingSidebarCostRight">12 руб</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="orderingSidebarSection postSectionBT">
+                    <p class="orderingSidebarPrice">К оплате</p>
+                    <p class="orderingSidebarPriceHolder">452 руб</p>
+                    <div class="clearfix"></div>
+                    <button href="#" class="btn c-button likeBtnIncart orderButton" type="submit" disabled>
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        ЗАКАЗ ПОДТВЕРЖДАЮ
+                    </button>
+                    <div class="orderingSidebarBottom">
+                        <p class="orderingSidebarTermsOfUseTitle">Подтверждая заказ, я принимаю условия</p>
+                        <p class="orderingSidebarTermsOfUse"><a href="#">пользовательского соглашения</a></p>
+                        <p class="orderingSidebarBottomLinks"><a href="#">Редактировать заказ</a></p>
+                        <p class="orderingSidebarBottomLinks"><a href="#">Оплатить сертификатом</a></p>
+                        <p class="orderingSidebarBottomLinks"><a href="#">Оплатить PAP бонусами</a></p>
+                        <p>Если бы вы зарегистрировались в нашем клубе, за эту покупку Вы получите PAP-бонусов: 10</p>
+                    </div>
+                </div>
+            </aside>
+            <form class="orderingContent">
+                <ul class="howToOrdering orderingRadio">
+                    <li>Хочу оформить заказ как</li>
+                    <li>
+                        <input type="radio" id="individual" name="orderingLike" value="individual" checked>
+                        <label for="individual">физическое лицо</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="entity" name="orderingLike" value="entity">
+                        <label for="entity">юридическое лицо</label>
+                    </li>
+                </ul>
+                <div class="single-product-tabs orderingTabs">
+                    <ul class="single-product-tabs__titles">
+                        <li data-page="0">
+                            Доставка
+                        </li>
+                        <li data-page="1" >
+                            Самовывоз
+                        </li>
+                    </ul>
+                    <div class="single-product-tabs-content">
+                        <div class="single-product-tabs__char brb"><!--Tab1-->
+                            <div class="orderingTabsSection">
+                                <div class="orderingTabsSectionNumber">
+                                    1
+                                </div>
+                                <div class="orderingTabsSectionHolder paddingForInput">
+                          <span class="input input--ichiro">
+                            <input class="input__field input__field--ichiro" type="text" name="deliveryState" id="deliveryState" />
+                            <label class="input__label input__label--ichiro" for="deliveryState">
+                              <span class="input__label-content input__label-content--ichiro">Введите адрес доставки&nbsp;*</span>
+                            </label>
+                          </span>
+                                    <div id="hideMap">Скрыть карту</div>
+                                    <div class="clearfix"></div>
+                                    <div id="orderingPageMap" class="orderingPageMap">
+                                        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A63d714ddb71ccdce528a8d99377ded1346b7a58f6cc92da1df7cc496956aed86&amp;width=100%25&amp;height=350&amp;lang=ru_UA&amp;scroll=true"></script>
+                                    </div>
+                                    <div class="orderingCheckbox haveArc">
+                                        <input type="checkbox" id="haveArc" name="haveArc" value="true">
+                                        <label for="haveArc"><img src="img/icons/arc.min.svg">Есть арка?</label>
+                                    </div>
+                                    <span class="input input--ichiro callback-form-field message-field">
+                            <textarea class="input__field input__field--ichiro" name="сommentForDriver" id="сommentForDriver"></textarea>
+                            <label class="input__label input__label--ichiro" for="сommentForDriver">
+                              <span class="input__label-content input__label-content--ichiro">Комментарий водителю</span>
+                            </label>
+                          </span>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    2
+                                </div>
+                                <div class="orderingTabsSectionHolder">
+                                    <h4 class="orderingTabsSectionTitle">День доставки&nbsp;*</h4>
+                                    <h5 class="orderingTabsSectionSubTitle">Выберите дату доставки</h5>
+                                    <ul class="deliveryDateChosing orderingRadio clearfix">
+                                        <li>
+                                            <input type="radio" id="deliveryDate1" name="deliveryDate" value="1">
+                                            <label for="deliveryDate1">
+                                                <p class="deliveryWeekDay">СЕГОДНЯ</p>
+                                                <p class="deliveryDate">03</p>
+                                                <p class="deliveryMonth">МАЯ</p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="deliveryDate2" name="deliveryDate" value="2">
+                                            <label for="deliveryDate2">
+                                                <p class="deliveryWeekDay">ЗАВТРА</p>
+                                                <p class="deliveryDate">04</p>
+                                                <p class="deliveryMonth">МАЯ</p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="deliveryDate3" name="deliveryDate" value="3">
+                                            <label for="deliveryDate3">
+                                                <p class="deliveryWeekDay">СР</p>
+                                                <p class="deliveryDate">05</p>
+                                                <p class="deliveryMonth">МАЯ</p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="deliveryDate4" name="deliveryDate" value="4">
+                                            <label for="deliveryDate4">
+                                                <p class="deliveryWeekDay">ЧТ</p>
+                                                <p class="deliveryDate">06</p>
+                                                <p class="deliveryMonth">МАЯ</p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="deliveryDate5" name="deliveryDate" value="5">
+                                            <label for="deliveryDate5">
+                                                <p class="deliveryWeekDay">ПТ</p>
+                                                <p class="deliveryDate">07</p>
+                                                <p class="deliveryMonth">МАЯ</p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="deliveryDate6" name="deliveryDate" value="6"  checked>
+                                            <label for="deliveryDate6">
+                                                <p class="deliveryWeekDay">СБ</p>
+                                                <p class="deliveryDate">08</p>
+                                                <p class="deliveryMonth">МАЯ</p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="deliveryDate7" name="deliveryDate" value="7">
+                                            <label for="deliveryDate7">
+                                                <p class="deliveryWeekDay">НД</p>
+                                                <p class="deliveryDate">09</p>
+                                                <p class="deliveryMonth">МАЯ</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    3
+                                </div>
+                                <div class="orderingTabsSectionHolder">
+                                    <h4 class="orderingTabsSectionTitle">Время доставки&nbsp;*</h4>
+                                    <h5 class="orderingTabsSectionSubTitle">Обратите внимание на стоимость доставки на каждой кнопке</h5>
+                                    <ul class="orderingRadio deliveryTime">
+                                        <li>
+                                            <input type="radio" id="duringTheDay" name="deliveryTime" value="duringTheDay" >
+                                            <label class="clearfix" for="duringTheDay">
+                                                <p class="deliveryTimeTitle">В течение дня</p>
+                                                <p class="deliveryTimePrice">12 руб</p>
+                                            </label>
+                                            <div class="orderingdeliveryTimeHolder clearfix">
+                                                <select name="orderingCall" class="orderingCall__dropdown">
+                                                    <option value="9:00 - 11:00">9:00 - 11:00</option>
+                                                    <option value="11:00 - 13:00">11:00 - 13:00</option>
+                                                    <option value="13:00 - 15:00">13:00 - 15:00</option>
+                                                    <option value="15:00 - 17:00">15:00 - 17:00</option>
+                                                    <option value="17:00 - 19:00">17:00 - 19:00</option>
+                                                </select>
+                                                <label class="deliveryTimeSelect" for="deliveryTimeSelect1">Выберите удобный<br>для вас промежуток времени</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="standardDelivery" name="deliveryTime" value="standardDelivery">
+                                            <label class="clearfix" for="standardDelivery">
+                                                <p class="deliveryTimeTitle">Стандартная доставка</p>
+                                                <p class="deliveryTimePrice">12 руб</p>
+                                            </label>
+                                            <div class="orderingdeliveryTimeHolder clearfix">
+                                                <select name="orderingCall" class="orderingCall__dropdown">
+                                                    <option value="9:00 - 11:00">9:00 - 11:00</option>
+                                                    <option value="11:00 - 13:00">11:00 - 13:00</option>
+                                                    <option value="13:00 - 15:00">13:00 - 15:00</option>
+                                                    <option value="15:00 - 17:00">15:00 - 17:00</option>
+                                                    <option value="17:00 - 19:00">17:00 - 19:00</option>
+                                                </select>
+                                                <label class="deliveryTimeSelect" for="deliveryTimeSelect2">Выберите удобный<br>для вас промежуток времени</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="exactlyTime" name="deliveryTime" value="exactlyTime">
+                                            <label class="clearfix" for="exactlyTime">
+                                                <p class="deliveryTimeTitle">Точно ко времени</p>
+                                                <p class="deliveryTimePrice">12 руб</p>
+                                            </label>
+                                            <div class="orderingdeliveryTimeHolder clearfix">
+                                                <select name="orderingCall" class="orderingCall__dropdown">
+                                                    <option value="9:00 - 11:00">9:00 - 11:00</option>
+                                                    <option value="11:00 - 13:00">11:00 - 13:00</option>
+                                                    <option value="13:00 - 15:00">13:00 - 15:00</option>
+                                                    <option value="15:00 - 17:00">15:00 - 17:00</option>
+                                                    <option value="17:00 - 19:00">17:00 - 19:00</option>
+                                                </select>
+                                                <label class="deliveryTimeSelect" for="deliveryTimeSelect3">Выберите удобный<br>для вас промежуток времени</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    4
+                                </div>
+                                <div class="orderingTabsSectionHolder">
+                                    <h4 class="orderingTabsSectionTitle">Дополнительные услуги</h4>
+                                    <h5 class="orderingTabsSectionSubTitle">Выберите нужные вам услуги или пропустите данный пункут</h5>
+                                    <div class="orderingCheckbox additionalServices">
+                                        <div class="LiftToTheFloorHolder">
+                                            <input type="checkbox" id="LiftToTheFloor" name="LiftToTheFloor" value="true">
+                                            <label id="LiftToTheFloorControl" for="LiftToTheFloor">Подъём на этаж
+                                                <p class="deliveryTimePrice">12 руб</p>
+                                            </label>
+                                            <div class="LiftToTheFloorColumns clearfix">
+                                                <div class="numberOfFloor">
+                                                    <input id="numberOfFloor" type="text" maxlength="3" name="numberOfFloor" disabled>
+                                                    <label for="numberOfFloor">Укажите номер<br>этажа</label>
+                                                </div>
+                                                <div class="aboutLift">
+                                                    <input type="checkbox" id="regularLift" name="regularLift" value="true" disabled>
+                                                    <label for="regularLift">Лифт</label>
+                                                    <input type="checkbox" id="serviceLift" name="serviceLift" value="true" disabled>
+                                                    <label for="serviceLift">Грузовой лифт</label>
+                                                    <input type="checkbox" id="technicalFloor" name="technicalFloor" value="true" disabled>
+                                                    <label for="technicalFloor">Технический этаж</label>
+                                                </div>
+                                            </div>
+                                            <input type="checkbox" id="deliveryWayCheck" name="deliveryWayCheck" value="true">
+                                            <label id="deliveryWayCheckControl" class="deliveryWayCheck" for="deliveryWayCheck">Грущчикам нужно нести заказ от машины<br>до вас дальше 50 метров?</label>
+                                            <div class="LiftToTheFloorColumns clearfix">
+                                                <div class="numberOfFloor numberOfFloorBottom">
+                                                    <input id="deliveryWay" type="text" maxlength="3" name="deliveryWay" disabled>
+                                                    <label for="deliveryWay">Укажите примерное<br>количество метров</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="unloadingHolder">
+                                            <input type="checkbox" id="unloading" name="unloading" value="true">
+                                            <label class="typicalLabel" for="unloading">Разгрузка
+                                                <p class="deliveryTimePrice">12 руб</p>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    5
+                                </div>
+                                <div class="orderingTabsSectionHolder paddingForInput">
+                          <span class="input input--ichiro callback-form-field">
+                          <input class="input__field input__field--ichiro" type="text" name="deliveryCompanyAbout" id="deliveryCompanyAbout" placeholder="название" />
+                            <label class="input__label input__label--ichiro" for="deliveryCompanyAbout">
+                              <span class="input__label-content input__label-content--ichiro">
+                                О компании&nbsp;*
+                              </span>
+                            </label>
+                          </span>
+                                    <span class="input input--ichiro callback-form-field">
+                            <input class="input__field input__field--ichiro" type="text" name="deliveryUnn" id="deliveryUnn" />
+                            <label class="input__label input__label--ichiro" for="deliveryUnn">
+                              <span class="input__label-content input__label-content--ichiro">
+                                УНН&nbsp;*
+                              </span>
+                            </label>
+                          </span>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    6
+                                </div>
+                                <div class="orderingTabsSectionHolder">
+                                    <h4 class="orderingTabsSectionTitle">Способ оплаты&nbsp;*</h4>
+                                    <ul class="choosingBase orderingRadio paymentType">
+                                        <li>
+                                            <input type="radio" id="deliveryPaymentType1" name="deliveryPaymentType" value="paymentType1" checked>
+                                            <label class="clearfix" for="deliveryPaymentType1">
+                                                <p class="paymentTypeTitle">По безналичному расчёту
+                                                    <img class="paymentPic" src="img/icons/home.min.svg">
+                                                </p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="deliveryPaymentType2" name="deliveryPaymentType" value="paymentType2">
+                                            <label class="clearfix" for="deliveryPaymentType2">
+                                                <p class="paymentTypeTitle">Банковской картой
+                                                    <img class="paymentPic" src="img/icons/card.min.svg">
+                                                </p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="deliveryPaymentType3" name="deliveryPaymentType" value="paymentType3">
+                                            <label class="clearfix" for="deliveryPaymentType3">
+                                                <p class="paymentTypeTitle">За наличный расчёт
+                                                    <img class="paymentPic" src="img/icons/focus.min.svg">
+                                                </p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    7
+                                </div>
+                                <div class="orderingTabsSectionHolder paddingForInput">
+                          <span class="input input--ichiro callback-form-field">
+                            <input class="input__field input__field--ichiro" type="email" name="deliveryEmail" id="deliveryEmail" placeholder="например, petrovich@mail.ru" />
+                            <label class="input__label input__label--ichiro" for="deliveryEmail">
+                              <span class="input__label-content input__label-content--ichiro thinText">
+                                Ваша электронная почта&nbsp;*
+                              </span>
+                            </label>
+                          </span>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    8
+                                </div>
+                                <div class="orderingTabsSectionHolder paddingForInput orderingCall orderingRadio orderingCheckbox">
+                                    <div class="orderingCallRow clearfix">
+                                        <div class="orderingCallColumn">
+                              <span class="input input--ichiro callback-form-field">
+                                <input class="input__field input__field--ichiro phone" type="tel" name="deliveryTel" id="deliveryTel" />
+                                <label class="input__label input__label--ichiro" for="deliveryTel">
+                                  <span class="input__label-content input__label-content--ichiro thinText">
+                                  Ваш номер телефона&nbsp;*
+                                  </span>
+                                </label>
+                              </span>
+                                        </div>
+                                        <div class="orderingCallColumn orderingCallName">
+                              <span class="input input--ichiro callback-form-field">
+                                <input class="input__field input__field--ichiro" type="tel" name="deliveryOwner" id="deliveryOwner" />
+                                <label class="input__label input__label--ichiro" for="deliveryOwner">
+                                  <span class="input__label-content input__label-content--ichiro">
+                                  Имя&nbsp;*
+                                  </span>
+                                </label>
+                              </span>
+                                        </div>
+                                        <div class="orderingCallColumn">
+                                            <input type="checkbox" id="deliveryNeedCall" name="deliveryNeedCall" value="true">
+                                            <label for="deliveryNeedCall">Обязательно нужен<br>звонок оператора</label>
+                                        </div>
+                                    </div>
+                                    <h5 class="orderingTabsSectionSubTitle">Оператор позвонит только при возникровении вопросов</h5>
+                                    <h4 class="orderingTabsSectionTitle">Позвонить</h4>
+                                    <div class="orderingCallRow clearfix">
+                                        <div class="orderingCallColumn">
+                                            <div class="orderingCallLabelHolder">
+                                                <input type="radio" id="deliveryCallNow" name="deliveryWhenCall" value="now">
+                                                <label for="deliveryCallNow">Сейчас</label>
+                                            </div>
+                                        </div>
+                                        <div class="orderingCallColumn">
+                                            <div class="orderingCallLabelHolder">
+                                                <input type="radio" id="deliveryCallToday" name="deliveryWhenCall" value="today">
+                                                <label for="deliveryCallToday">Сегодня</label>
+                                            </div>
+                                        </div>
+                                        <div class="orderingCallColumn">
+                                            <div class="orderingCallLabelHolder">
+                                                <input type="radio" id="deliveryCallTomorrow" name="deliveryWhenCall" value="tomorrow">
+                                                <label for="deliveryCallTomorrow">Завтра</label>
+                                                <select name="orderingCall" class="orderingCall__dropdown">
+                                                    <option value="9:00 - 11:00">9:00 - 11:00</option>
+                                                    <option value="11:00 - 13:00">11:00 - 13:00</option>
+                                                    <option value="13:00 - 15:00">13:00 - 15:00</option>
+                                                    <option value="15:00 - 17:00">15:00 - 17:00</option>
+                                                    <option value="17:00 - 19:00">17:00 - 19:00</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT brb">
+                                <div class="orderingTabsSectionNumber">
+                                    9
+                                </div>
+                                <div class="orderingTabsSectionHolder">
+                          <span class="input input--ichiro callback-form-field message-field">
+                            <textarea class="input__field input__field--ichiro" name="deliveryCommentToOrder" id="deliveryCommentToOrder"></textarea>
+                            <label class="input__label input__label--ichiro" for="deliveryCommentToOrder">
+                              <span class="input__label-content input__label-content--ichiro">Комментарий к заказу</span>
+                            </label>
+                          </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-product-tabs__photo brb"><!--Tab2-->
+                            <div class="orderingTabsSection">
+                                <div class="orderingTabsSectionNumber">
+                                    1
+                                </div>
+                                <div class="orderingTabsSectionHolder">
+                                    <h4 class="orderingTabsSectionTitle">Выберите базу&nbsp;*</h4>
+                                    <h5 class="orderingTabsSectionSubTitle">Время работы: пн-сб: 8:00 - 21:00; вс: 9:00 - 18:00</h5>
+                                    <ul class="choosingBase orderingRadio">
+                                        <li>
+                                            <input type="radio" id="choosingBase1" name="choosingBase" value="Base1" checked>
+                                            <label class="clearfix" for="choosingBase1">
+                                                <p class="choosingBaseAddr">Ул. Софийская, д. 59, корп.2, стр.1
+                                                    <sup>N 59.55654211 E 30.12458</sup>
+                                                </p>
+                                                <p class="choosingBaseStatus choosingBaseStatusOk">
+                                                    Все товары в наличии
+                                                </p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="choosingBase2" name="choosingBase" value="Base2">
+                                            <label class="clearfix" for="choosingBase2">
+                                                <p class="choosingBaseAddr">Ул. Софийская, д. 59, корп.2, стр.1
+                                                    <sup>N 59.55654211 E 30.12458</sup>
+                                                <p class="choosingBasePrompt">Открыта 24 часа</p>
+                                                </p>
+                                                <p class="choosingBaseStatus choosingBaseStatusNo">
+                                                    Товар отсутсвует
+                                                </p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="choosingBase3" name="choosingBase" value="Base3">
+                                            <label class="clearfix" for="choosingBase3">
+                                                <p class="choosingBaseAddr">Ул. Софийская, д. 59, корп.2, стр.1
+                                                    <sup>N 59.55654211 E 30.12458</sup>
+                                                </p>
+                                                <p class="choosingBaseStatus choosingBaseStatusSoso">
+                                                    Есть часть товара
+                                                </p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="choosingBase4" name="choosingBase" value="Base4">
+                                            <label class="clearfix" for="choosingBase4">
+                                                <p class="choosingBaseAddr">Ул. Софийская, д. 59, корп.2, стр.1
+                                                    <sup>N 59.55654211 E 30.12458</sup>
+                                                </p>
+                                                <p class="choosingBaseStatus choosingBaseStatusOk">
+                                                    Все товары в наличии
+                                                </p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    2
+                                </div>
+                                <div class="orderingTabsSectionHolder">
+                                    <h4 class="orderingTabsSectionTitle">Способ оплаты&nbsp;*</h4>
+                                    <ul class="choosingBase orderingRadio paymentType">
+                                        <li>
+                                            <input type="radio" id="pickupPaymentType1" name="pickupPaymentType" value="paymentType1" checked>
+                                            <label class="clearfix" for="pickupPaymentType1">
+                                                <p class="paymentTypeTitle">По безналичному расчёту
+                                                    <img class="paymentPic" src="img/icons/home.min.svg">
+                                                </p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="pickupPaymentType2" name="pickupPaymentType" value="paymentType2">
+                                            <label class="clearfix" for="pickupPaymentType2">
+                                                <p class="paymentTypeTitle">Банковской картой
+                                                    <img class="paymentPic" src="img/icons/card.min.svg">
+                                                </p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="pickupPaymentType3" name="pickupPaymentType" value="paymentType3">
+                                            <label class="clearfix" for="pickupPaymentType3">
+                                                <p class="paymentTypeTitle">За наличный расчёт
+                                                    <img class="paymentPic" src="img/icons/focus.min.svg">
+                                                </p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    3
+                                </div>
+                                <div class="orderingTabsSectionHolder paddingForInput">
+                          <span class="input input--ichiro callback-form-field">
+                            <input class="input__field input__field--ichiro" type="text" name="pickupCompanyAbout" id="pickupCompanyAbout" placeholder="название" />
+                            <label class="input__label input__label--ichiro" for="pickupCompanyAbout">
+                              <span class="input__label-content input__label-content--ichiro">
+                                О компании&nbsp;*
+                              </span>
+                            </label>
+                          </span>
+                                    <span class="input input--ichiro callback-form-field">
+                            <input class="input__field input__field--ichiro" type="text" name="pickupUnn" id="pickupUnn"/>
+                            <label class="input__label input__label--ichiro" for="pickupUnn">
+                              <span class="input__label-content input__label-content--ichiro">
+                                УНН&nbsp;*
+                              </span>
+                            </label>
+                          </span>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    4
+                                </div>
+                                <div class="orderingTabsSectionHolder paddingForInput">
+                          <span class="input input--ichiro callback-form-field">
+                            <input class="input__field input__field--ichiro" type="email" name="pickupEmail" id="pickupEmail" placeholder="например, petrovich@mail.ru" />
+                            <label class="input__label input__label--ichiro" for="pickupEmail">
+                              <span class="input__label-content input__label-content--ichiro thinText">
+                                Ваша электронная почта&nbsp;*
+                              </span>
+                            </label>
+                          </span>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT">
+                                <div class="orderingTabsSectionNumber">
+                                    5
+                                </div>
+                                <div class="orderingTabsSectionHolder paddingForInput orderingCall orderingRadio orderingCheckbox">
+                                    <div class="orderingCallRow clearfix">
+                                        <div class="orderingCallColumn">
+                              <span class="input input--ichiro callback-form-field">
+                                <input class="input__field input__field--ichiro" type="tel" name="pickupTel" id="pickupTel" />
+                                <label class="input__label input__label--ichiro" for="pickupTel">
+                                  <span class="input__label-content input__label-content--ichiro thinText">
+                                  Ваш номер телефона&nbsp;*
+                                  </span>
+                                </label>
+                              </span>
+                                        </div>
+                                        <div class="orderingCallColumn orderingCallName">
+                              <span class="input input--ichiro callback-form-field">
+                                <input class="input__field input__field--ichiro" type="tel" name="pickupOwner" id="pickupOwner" />
+                                <label class="input__label input__label--ichiro" for="pickupOwner">
+                                  <span class="input__label-content input__label-content--ichiro">
+                                  Имя&nbsp;*
+                                  </span>
+                                </label>
+                              </span>
+                                        </div>
+                                        <div class="orderingCallColumn">
+                                            <input type="checkbox" id="pickupNeedCall" name="pickupNeedCall" value="true">
+                                            <label for="pickupNeedCall">Обязательно нужен<br>звонок оператора</label>
+                                        </div>
+                                    </div>
+                                    <h5 class="orderingTabsSectionSubTitle">Оператор позвонит только при возникровении вопросов</h5>
+                                    <h4 class="orderingTabsSectionTitle">Позвонить</h4>
+                                    <div class="orderingCallRow clearfix">
+                                        <div class="orderingCallColumn">
+                                            <div class="orderingCallLabelHolder">
+                                                <input type="radio" id="pickupCallNow" name="pickupWhenCall" value="now">
+                                                <label for="pickupCallNow">Сейчас</label>
+                                            </div>
+                                        </div>
+                                        <div class="orderingCallColumn">
+                                            <div class="orderingCallLabelHolder">
+                                                <input type="radio" id="pickupCallToday" name="pickupWhenCall" value="today">
+                                                <label for="pickupCallToday">Сегодня</label>
+                                            </div>
+                                        </div>
+                                        <div class="orderingCallColumn">
+                                            <div class="orderingCallLabelHolder">
+                                                <input type="radio" id="pickupCallTomorrow" name="pickupWhenCall" value="tomorrow">
+                                                <label for="pickupCallTomorrow">Завтра</label>
+                                                <select name="orderingCall" class="orderingCall__dropdown">
+                                                    <option value="9:00 - 11:00">9:00 - 11:00</option>
+                                                    <option value="11:00 - 13:00">11:00 - 13:00</option>
+                                                    <option value="13:00 - 15:00">13:00 - 15:00</option>
+                                                    <option value="15:00 - 17:00">15:00 - 17:00</option>
+                                                    <option value="17:00 - 19:00">17:00 - 19:00</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="orderingTabsSection postSectionBT brb">
+                                <div class="orderingTabsSectionNumber">
+                                    6
+                                </div>
+                                <div class="orderingTabsSectionHolder">
+                          <span class="input input--ichiro callback-form-field message-field">
+                            <textarea class="input__field input__field--ichiro" name="pickupCommentToOrder" id="pickupCommentToOrder"></textarea>
+                            <label class="input__label input__label--ichiro" for="pickupCommentToOrder">
+                              <span class="input__label-content input__label-content--ichiro">Комментарий к заказу</span>
+                            </label>
+                          </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

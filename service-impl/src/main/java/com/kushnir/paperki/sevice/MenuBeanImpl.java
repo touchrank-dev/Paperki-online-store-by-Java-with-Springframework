@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.MenuItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 
@@ -25,8 +26,11 @@ public class MenuBeanImpl implements MenuBean {
 
     @Override
     public MenuItem getRootItem(String itemTName) {
+        Assert.notNull(itemTName, "Передан пустой параметр названия запрашиваемой страницы");
         LOGGER.debug("getRootItem(itemTName = {}) >>>", itemTName);
         MenuItem menuItem = menuDao.getItemByTName("root", itemTName);
+        Assert.notNull(menuItem, "Запрашиваемая страница ("+itemTName+") не найдена!");
+        Assert.notNull(menuItem.getTranslitName(), "Запрашиваемая страница ("+itemTName+") не найдена!");
         LOGGER.debug("{}", menuItem);
         return menuItem;
     }

@@ -9,8 +9,13 @@
     <!--MAIL-->
     <import resource="spring-mail.xml" />
 
+    <!--PASSWORD ENCRYPTOR-->
+    <bean id="bcp" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg value="20" />
+    </bean>
+
     <!--BEANS-->
-    <bean id="categoryBean" class="com.kushnir.paperki.sevice.CategoryBeanImpl" />
+    <bean id="catalogBean" class="com.kushnir.paperki.sevice.CatalogBeanImpl" />
     <bean id="componentBean" class="com.kushnir.paperki.sevice.ComponentBeanImpl" />
     <bean id="menuBean" class="com.kushnir.paperki.sevice.MenuBeanImpl" />
     <bean id="userService" class="com.kushnir.paperki.sevice.UserServiceImpl" />

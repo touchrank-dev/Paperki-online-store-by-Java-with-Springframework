@@ -10,10 +10,17 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import java.io.Serializable;
 import java.util.HashMap;
 
-// @Scope("session")
-public class Cart implements Serializable {
+public class Cart {
 
     private HashMap<Integer, Product> items;
+
+    public HashMap<Integer, Product> getItems() {
+        return items;
+    }
+
+    public void setItems(HashMap<Integer, Product> items) {
+        this.items = items;
+    }
 
     @Override
     public String toString() {

@@ -22,9 +22,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CategoryDaoImpl implements CategoryDao {
+public class CatalogDaoImpl implements CatalogDao {
 
-    private static final Logger LOGGER = LogManager.getLogger(CategoryDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(CatalogDaoImpl.class);
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -39,7 +39,7 @@ public class CategoryDaoImpl implements CategoryDao {
     private String csvFileCatalog;
 
     /* SQL Scripts */
-    @Value("${category.getAll}")
+    @Value("${catalog.getAll}")
     private String getAllSqlQuery;
 
     @Override
@@ -99,12 +99,12 @@ public class CategoryDaoImpl implements CategoryDao {
             while (rs.next()) {
                 parent = rs.getInt("parent");
                 category = new Category(
-                        rs.getInt("id_category"),
+                        rs.getInt("id_catalog"),
                         rs.getString("name"),
                         rs.getString("translit_name"),
                         rs.getString("link"),
                         rs.getString("icon"),
-                        rs.getInt("order_category")
+                        rs.getInt("order_catalog")
                 );
 
                 HashMap<Integer, Category> mapCategory = new HashMap<Integer, Category>();

@@ -4,234 +4,32 @@
             <li><a href="/">Главная</a></li>
             <li>Каталог товаров</li>
         </ul>
-        <div class="catalogHolder">
-            <div class="catalogItem">
+        <div class="catalogHolder"
+             th:if="${mapcategories} != null">
+            <div class="catalogItem"
+                 th:each="map : ${mapcategories[0]}">
                 <div class="catalogHeader">
-                    <a href="catalog.html#">
+                    <a href="#"
+                       th:href="@{${map.value.link}}">
                         <svg>
                             <use xlink:href="#icon-noun_53020_cc"></use>
                         </svg>
-                        <h4>БУМАГА И БУМАЖНАЯ ПРОДУКЦИЯ</h4>
+                        <h4 th:text="${map.value.name}">КАТЕГОРИЯ</h4>
                         <div class="clearfix"></div>
                     </a>
                 </div>
                 <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
+                    <div th:if="${mapcategories[__${map.value.id}__]} != null"
+                         th:each="mapitem : ${mapcategories[__${map.value.id}__]}" th:remove="tag">
+                        <span class="catalogDescSep"> • </span>
+                        <a href="#"
+                           th:href="@{${mapitem.value.link}}"
+                           th:text="${mapitem.value.name}">Подчиненная категория</a>
+                    </div>
                 </div>
             </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_944240_cc"></use>
-                        </svg>
-                        <h4>КАНЦЕЛЯРСКИЕ ТОВАРЫ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_625993_cc"></use>
-                        </svg>
-                        <h4>ПИШУЩИЕ И РИСОВАЛЬНЫЕ ПРИНАДЛЕЖНОСТИ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#catalogiconFile11"></use>
-                        </svg>
-                        <h4>ФАЙЛЫ, ПАПКИ, ПОРТФЕЛИ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#catalogiconFile12"></use>
-                        </svg>
-                        <h4>ПОДСТАВКИ, ЛОТКИ, НАСТОЛЬНЫЕ НАБОРЫ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_363028_cc"></use>
-                        </svg>
-                        <h4>ДЕМОНСТРАЦИОННОЕ ОБОРУДОВАНИЕ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_1057465_cc"></use>
-                        </svg>
-                        <h4>БАНКОВСКИЕ РАСХОДНЫЕ МАТЕРИАЛЫ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_111025_cc"></use>
-                        </svg>
-                        <h4>ОФИСНАЯ ТЕХНИКА</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_318752_cc"></use>
-                        </svg>
-                        <h4>ОФИСНАЯ МЕБЕЛЬ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_906453_cc"></use>
-                        </svg>
-                        <h4>СТИЛЬНЫЕ АКСЕССУАРЫ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_1062879_cc"></use>
-                        </svg>
-                        <h4>ПОСТПОЛИГРАФИЧЕСКОЕ ОБОРУДОВАНИЕ И МАТЕРИАЛЫ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#catalogiconFile112"></use>
-                        </svg>
-                        <h4>ШТЕМПЕЛЬНАЯ ПРОДУКЦИЯ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_552707_cc"></use>
-                        </svg>
-                        <h4>ШКОЛЬНЫЕ ТОВАРЫ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_204416_cc"></use>
-                        </svg>
-                        <h4>ХОЗЯЙСТВЕННЫЕ ТОВАРЫ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_544400_cc"></use>
-                        </svg>
-                        <h4>ПОСТПОЛИГРАФИЧЕСКОЕ ОБОРУДОВАНИЕ И МАТЕРИАЛЫ</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="catalogItem">
-                <div class="catalogHeader">
-                    <a href="catalog.html#">
-                        <svg>
-                            <use xlink:href="#icon-noun_944900_cc"></use>
-                        </svg>
-                        <h4>ПОДАРОЧНАЯ УПАКОВКА</h4>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-                <div class="catalogDesc">
-                    <a href="catalog.html#">бумага офисная белая</a><span class="catalogDescSep"> • </span><a href="catalog.html#">бумага офисная цветная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага для черчения, рисования, калька</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">бумага писчая, газетная</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">блокноты</a><span class="catalogDescSep">  •  </span><a href="catalog.html#">канцелярские книги</a>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-
         </div>
+
         <h2 class="cp_h2">Популярные товары</h2>
         <div class="catalogHolder row-eq-height">
             <div class="goodsHolder">
@@ -334,10 +132,10 @@
                         <div class="product-content__top">
                             <ul class="top-l-cat">
                                 <li>
-                                    <a href="catalog.html#" class="link-name-cat">Клей ПВА 500гр</a>
+                                    <a href="#" class="link-name-cat">Клей ПВА 500гр</a>
                                 </li>
                                 <li>
-                                    <a href="catalog.html#" class="cat-l">клей</a>
+                                    <a href="#" class="cat-l">клей</a>
                                 </li>
                             </ul>
                             <p class="al-ph">
@@ -1283,7 +1081,9 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-        </div><!--catalogHolder-->
+        </div>
+        <!--catalogHolder-->
+
         <p class="center-btn center-btn_pad catalog-page-center-btn">
             <button class="btn c-button btn-pr" type="button">
                 <div class="c-ripple js-ripple">

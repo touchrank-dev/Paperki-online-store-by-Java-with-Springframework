@@ -14,6 +14,7 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
+                <value>classpath:CSVconfig.properties</value>
                 <value>classpath:paperkiMySQL.properties</value>
                 <value>classpath:sqlQueries.properties</value>
                 <value>classpath:paperki.properties</value>
@@ -27,7 +28,7 @@
     <!-- SERVICE LAYER -->
     <import resource="classpath*:spring-service.xml"/>
 
-    <context:component-scan base-package="com.kushnir.paperki.webapp.paperki.shop.*"/>
+    <context:component-scan base-package="com.kushnir.paperki.webapp.*"/>
 
     <!-- STATIC RESOURCES -->
     <mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />

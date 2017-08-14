@@ -22,7 +22,7 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="categoryDao" class="com.kushnir.paperki.dao.CategoryDaoImpl" />
+    <bean id="catalogDao" class="com.kushnir.paperki.dao.CatalogDaoImpl" />
     <bean id="menuDao" class="com.kushnir.paperki.dao.MenuDaoImpl"/>
     <bean id="userDao" class="com.kushnir.paperki.dao.UserDaoImpl" />
 

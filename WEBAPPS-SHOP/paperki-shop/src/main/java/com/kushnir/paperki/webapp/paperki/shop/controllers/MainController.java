@@ -1,7 +1,8 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import com.kushnir.paperki.model.MenuItem;
-import com.kushnir.paperki.sevice.CategoryBean;
+import com.kushnir.paperki.model.User;
+import com.kushnir.paperki.sevice.CatalogBean;
 import com.kushnir.paperki.sevice.ComponentBean;
 import com.kushnir.paperki.sevice.MenuBean;
 
@@ -16,6 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 @Controller
 @RequestMapping("/")
 public class MainController {
@@ -24,10 +29,7 @@ public class MainController {
     private static final String MAIN_MENU_NAME = "main";
 
     @Autowired
-    ComponentBean componentBean;
-
-    @Autowired
-    CategoryBean categoryBean;
+    CatalogBean categoryBean;
 
     @Autowired
     MenuBean menuBean;
@@ -38,35 +40,43 @@ public class MainController {
     // главная страница
     @GetMapping()
     public String mainPage(Model model) {
-        Long before = System.currentTimeMillis();
-        model.addAttribute("mainmenu", menuBean.getAll("root"));
-        model.addAttribute("mapcategories", categoryBean.getAll());
         model.addAttribute("templatePathName", contentPath + MAIN_MENU_NAME);
         model.addAttribute("fragmentName", MAIN_MENU_NAME);
-        LOGGER.debug("mainPage() >>> время инициализации: {} сек.",(System.currentTimeMillis() - before)/1000.0 );
+        LOGGER.debug("mainPage() >>>");
         return "index";
     }
 
     // страницы главного меню
     @GetMapping("/{pageName}")
     public String mainMenu(@PathVariable String pageName, Model model) throws Exception {
-        Long before = System.currentTimeMillis();
-        MenuItem menuItem = menuBean.getRootItem(pageName);
-        if (menuItem == null) {
-            LOGGER.error("Запрашиваемая страница ({}) не найдена!", pageName);
-            throw new PageNotFound();
+        try {
+            MenuItem menuItem = menuBean.getRootItem(pageName);
+            pageName = menuItem.getTranslitName();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            throw e;
         }
-        if(menuItem.getTranslitName() == null) {
-            LOGGER.error("Запрашиваемая страница ({}) не найдена!", pageName);
-            throw new PageNotFound();
-        }
-        pageName = menuItem.getTranslitName();
-        model.addAttribute("mainmenu", menuBean.getAll("root"));
-        model.addAttribute("mapcategories", categoryBean.getAll());
         model.addAttribute("templatePathName", contentPath + pageName);
         model.addAttribute("fragmentName", pageName);
-        LOGGER.debug("mainMenu(menuItem = {}) >>> время инициализации: {} сек.", pageName, (System.currentTimeMillis() - before)/1000.0);
+        LOGGER.debug("mainMenu(menuItem = {}) >>>", pageName);
         return "index";
+    }
+
+    @ModelAttribute("mainmenu")
+    public ArrayList getMainMenu () {
+        return menuBean.getAll("root");
+    }
+
+    @ModelAttribute("mapcategories")
+    public HashMap getCatalog () {
+        return categoryBean.getAll();
+    }
+
+    @ModelAttribute("user")
+    public User getUser(HttpSession httpSession) {
+        User user = (User)httpSession.getAttribute("user");
+        if(user == null) user = new User();
+        return user;
     }
 
 }

@@ -1,6 +1,6 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
-import com.kushnir.paperki.sevice.CategoryBean;
+import com.kushnir.paperki.sevice.CatalogBean;
 import com.kushnir.paperki.sevice.MenuBean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +19,7 @@ public class CatalogController {
     private static final String CATALOG_MENU_NAME = "catalog";
 
     @Autowired
-    CategoryBean categoryBean;
+    CatalogBean catalogBean;
 
     @Autowired
     MenuBean menuBean;
@@ -34,7 +34,7 @@ public class CatalogController {
     public String catalogPage(Model model) {
         LOGGER.debug("catalogPage() >>>");
         model.addAttribute("mainmenu", menuBean.getAll("root"));
-        model.addAttribute("mapcategories", categoryBean.getAll());
+        model.addAttribute("mapcategories", catalogBean.getAll());
         model.addAttribute("templatePathName", contentPath + CATALOG_MENU_NAME);
         model.addAttribute("fragmentName", CATALOG_MENU_NAME);
         return "index";

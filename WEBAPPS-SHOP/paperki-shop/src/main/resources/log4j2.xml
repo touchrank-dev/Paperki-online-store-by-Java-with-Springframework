@@ -4,13 +4,13 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-        <File name="ErrorFile" fileName="logs/error-paperki.log">
+        <File name="ErrorFile" fileName="/home/test.paperki.by/logs/error-paperki.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
-        <File name="DebugFile" fileName="logs/debug-paperki.log">
+        <File name="DebugFile" fileName="/home/test.paperki.by/logs/debug-paperki.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
-        <RollingFile name="RollingFile" fileName="logs/paperki.log"
+        <RollingFile name="RollingFile" fileName="/home/test.paperki.by/logs/paperki.log"
                      filePattern="logs/$${date:yyyy-MM}/${name}-%d{yyyy-MM-dd}-%i.log.gz">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Policies>

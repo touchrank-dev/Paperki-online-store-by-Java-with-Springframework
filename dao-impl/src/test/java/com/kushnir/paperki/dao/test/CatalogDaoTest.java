@@ -1,6 +1,6 @@
 package com.kushnir.paperki.dao.test;
 
-import com.kushnir.paperki.dao.CategoryDao;
+import com.kushnir.paperki.dao.CatalogDao;
 
 import com.kushnir.paperki.model.Category;
 import org.apache.logging.log4j.LogManager;
@@ -20,12 +20,12 @@ import java.util.HashMap;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:spring-dao-test.xml"})
 @Transactional
-public class CategoryDaoTest {
+public class CatalogDaoTest {
 
-    private static final Logger LOGGER = LogManager.getLogger(CategoryDaoTest.class);
+    private static final Logger LOGGER = LogManager.getLogger(CatalogDaoTest.class);
 
     @Autowired
-    CategoryDao categoryDao;
+    CatalogDao catalogDao;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -49,7 +49,7 @@ public class CategoryDaoTest {
 
     @Test
     public void getAllTest() {
-        HashMap<Integer, HashMap<Integer, Category>> categories = categoryDao.getAll();
+        HashMap<Integer, HashMap<Integer, Category>> categories = catalogDao.getAll();
         assertNotNull(categories);
         assertTrue(categories.size() > 0);
         LOGGER.debug("Test: getAllTest() >>>: {}", categories);

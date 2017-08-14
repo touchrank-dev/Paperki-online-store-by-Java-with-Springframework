@@ -2,6 +2,11 @@
 <html lang="ru" class="no-js" xmlns:th="http://www.thymeleaf.org">
     <head th:include="fragments/head :: head" />
     <body>
+        <!--FOR CATALOG-->
+        <script type="text/javascript" src="/res/js/catalog.sprite.js"></script>
+        <!--FOR HELP-->
+        <div id="svgContainer"></div>
+        <script type="text/javascript" src="/res/js/help.sprite.js"></script>
         <!-- SVG Sprite for ripple effect-->
         <div style="height: 0; width: 0; position: absolute; visibility: hidden;" aria-hidden="true">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -10,9 +15,9 @@
                 </symbol>
             </svg>
         </div>
-        <header     th:include="fragments/header :: header" />
-        <main       th:include="${templatePathName} :: __${fragmentName}__" />
-        <footer     th:include="fragments/footer :: footer" />
+        <header                 th:include="fragments/header :: header" />
+        <main id="wrapp"        th:include="${templatePathName} :: __${fragmentName}__" />
+        <footer class="footer"  th:include="fragments/footer :: footer" />
         <!--scroll to top-->
         <div class="scroll-page-nav">
             <button class="c-button nav_up" type="button">
@@ -26,7 +31,7 @@
                 </div>
             </button>
         </div>
-        <section    th:include="fragments/popups :: popups" />
-        <section    th:include="fragments/scripts :: scripts" />
+        <section    th:include="fragments/popups :: popups" th:remove="tag"/>
+        <section    th:include="fragments/scripts :: scripts" th:remove="tag"/>
     </body>
 </html>

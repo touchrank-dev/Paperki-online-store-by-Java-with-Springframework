@@ -1,32 +1,64 @@
 package com.kushnir.paperki.sevice;
 
 import com.kushnir.paperki.dao.UserDao;
+import com.kushnir.paperki.model.RegistrateForm;
 import com.kushnir.paperki.model.User;
 
+import com.kushnir.paperki.sevice.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.Assert;
 
-public class UserServiceImpl implements UserService, UserDetailsService {
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
+
+    private static final String PASSWORD_PATTERN =
+            "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[A#S%]).{6,20})";
+    private final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+    private Matcher matcher;
+
+    @Autowired
+    Mailer mailer;
 
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    BCryptPasswordEncoder bcp;
+
     @Override
-    public User getUserByLogin(String userName) {
-        User user = userDao.getUserByLogin(userName);
+    public User getUserByLoginPassword(String userName, String password) {
+        Assert.notNull(userName, "Значения логина не должно быть пустым");
+        Assert.hasText(userName, "Значения логина не должно быть пустым");
+
+        Assert.notNull(password, "Пароль не должен быть пустым");
+        Assert.hasText(password, "Пароль не должен быть пустым");
+        Assert.isTrue(validatePassword(password),
+                "Пароль не соответствует регулярному выражению");
+        User user = userDao.getUserByLoginPassword(userName, bcp.encode(password));
+        Assert.notNull(user, "Пользователь не найден");
+        Assert.isTrue(bcp.matches(password, user.getPassword()),"Неверный пароль");
         LOGGER.debug("getUserByLogin({}) >>> {}", userName, user);
         return user;
     }
 
+    private boolean validatePassword(String password) {
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return getUserByLogin(username);
+    public User registrateUser(RegistrateForm form) {
+        // bcp.encode(password);
+        /* Assert.notNull(userDao.getUserByLogin(userName),
+                "Пользователь под таким логином уже присутствует в базе даннных"); */
+        return null;
     }
 }

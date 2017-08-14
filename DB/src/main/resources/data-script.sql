@@ -3,17 +3,17 @@
 INSERT INTO `users` (`login_user`, `name_user`, `password`)
 VALUES ('kushnir', 'Artem Kushnir', '426984');
 
-INSERT INTO categories (name, translit_name, link, icon, order_category)
-VALUES  ('Бумага и бумажная продукция', 'bumaga-i-bymazhnaz produkcia', '/category/bumaga-i-bymazhnaz produkcia', 'hm1.png', 1),
-        ('Канцелярские товары', 'kanceliarskie-tovary', '/category/kanceliarskie-tovary', 'hm2.png', 2),
-        ('Пишущие и рисовальные принадлежности', 'pishushie-i-risovalnye-prinadlezhnosti', '/category/pishushie-i-risovalnye-prinadlezhnosti', 'hm3.png', 3),
-        ('Файлы, папки, портфели', 'fajly-papki-portfeli', '/category/fajly-papki-portfeli', 'hm4.png', 2),
-        ('Подставки, лотки, настольные наборы', 'podstavki-lotki-nastolnye-nabory', '/category/podstavki-lotki-nastolnye-nabory', 'hm5.png', 1),
-        ('Демонстрационное оборудование', 'demonstracionnoe-oborudovanie', '/category/demonstracionnoe-oborudovanie', 'hm6.png', 2),
-        ('Бумага офисная белая', 'bumaga-ofisnaja-belaja', '/category/bumaga-ofisnaja-belaja', 'hcm1.png', 1),
-        ('Бумага офисная цветная', 'bumaga-ofisnaja-cvetnaja', '/category/bumaga-ofisnaja-cvetnaja', 'hcm2.png', 2);
+INSERT INTO catalog (name, translit_name, link, icon, order_catalog)
+VALUES  ('Бумага и бумажная продукция', 'bumaga-i-bymazhnaz produkcia', '/catalog/bumaga-i-bymazhnaz produkcia', 'hm1.png', 1),
+        ('Канцелярские товары', 'kanceliarskie-tovary', '/catalog/kanceliarskie-tovary', 'hm2.png', 2),
+        ('Пишущие и рисовальные принадлежности', 'pishushie-i-risovalnye-prinadlezhnosti', '/catalog/pishushie-i-risovalnye-prinadlezhnosti', 'hm3.png', 3),
+        ('Файлы, папки, портфели', 'fajly-papki-portfeli', '/catalog/fajly-papki-portfeli', 'hm4.png', 2),
+        ('Подставки, лотки, настольные наборы', 'podstavki-lotki-nastolnye-nabory', '/catalog/podstavki-lotki-nastolnye-nabory', 'hm5.png', 1),
+        ('Демонстрационное оборудование', 'demonstracionnoe-oborudovanie', '/catalog/demonstracionnoe-oborudovanie', 'hm6.png', 2),
+        ('Бумага офисная белая', 'bumaga-ofisnaja-belaja', '/catalog/bumaga-ofisnaja-belaja', 'hcm1.png', 1),
+        ('Бумага офисная цветная', 'bumaga-ofisnaja-cvetnaja', '/catalog/bumaga-ofisnaja-cvetnaja', 'hcm2.png', 2);
 
-INSERT INTO categories_ref (id_category, parent_id_category)
+INSERT INTO catalog_ref (id_catalog, parent_id_catalog)
 VALUES  (1, 0),
         (2, 0),
         (3, 0),

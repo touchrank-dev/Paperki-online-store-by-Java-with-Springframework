@@ -1,6 +1,6 @@
 package com.kushnir.paperki.sevice;
 
-import com.kushnir.paperki.dao.CategoryDao;
+import com.kushnir.paperki.dao.CatalogDao;
 import com.kushnir.paperki.model.Category;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,16 +12,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CategoryBeanImpl implements CategoryBean {
+public class CatalogBeanImpl implements CatalogBean {
 
-    private static final Logger LOGGER = LogManager.getLogger(CategoryBeanImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(CatalogBeanImpl.class);
 
     @Autowired
-    CategoryDao categoryDao;
+    CatalogDao catalogDao;
 
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() {
-        HashMap categories = categoryDao.getAll();
+        HashMap categories = catalogDao.getAll();
         LOGGER.debug("getAll() >>> {}", categories);
         return categories;
     }
@@ -29,6 +29,6 @@ public class CategoryBeanImpl implements CategoryBean {
     @Override
     public ArrayList<Category> getCategoriesFromCSV() throws IOException {
         LOGGER.debug("getCategoriesFromCSV() >>> ");
-        return categoryDao.getCategoriesFromCSV();
+        return catalogDao.getCategoriesFromCSV();
     }
 }

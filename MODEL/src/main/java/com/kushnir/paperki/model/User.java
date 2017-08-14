@@ -1,20 +1,21 @@
 package com.kushnir.paperki.model;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
-public class User implements UserDetails {
+public class User {
 
     private Integer id;
     private String login;
     private String name;
+    private UserType userType = UserType.ANONIMUS;
     private String password;
 
     public User() {
+    }
+
+    public User(String login, String name, UserType userType, String password) {
+        this.login = login;
+        this.name = name;
+        this.userType = userType;
+        this.password = password;
     }
 
     public User(Integer id, String login, String name, String password) {
@@ -22,6 +23,10 @@ public class User implements UserDetails {
         this.login = login;
         this.name = name;
         this.password = password;
+    }
+
+    public boolean isAnonimus() {
+        return userType == UserType.ANONIMUS;
     }
 
     public Integer getId() {
@@ -48,40 +53,16 @@ public class User implements UserDetails {
         this.name = name;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        ArrayList<SimpleGrantedAuthority> auths = new ArrayList<SimpleGrantedAuthority>();
-        auths.add(new SimpleGrantedAuthority("ADMIN"));
-        return auths;
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     public String getPassword() {
         return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return getLogin();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 
     public void setPassword(String password) {
@@ -98,6 +79,7 @@ public class User implements UserDetails {
         if (id != null ? !id.equals(user.id) : user.id != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (name != null ? !name.equals(user.name) : user.name != null) return false;
+        if (userType != user.userType) return false;
         return password != null ? password.equals(user.password) : user.password == null;
     }
 
@@ -106,6 +88,7 @@ public class User implements UserDetails {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (userType != null ? userType.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
@@ -116,6 +99,7 @@ public class User implements UserDetails {
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", name='" + name + '\'' +
+                ", userType=" + userType +
                 ", password='" + password + '\'' +
                 '}';
     }
