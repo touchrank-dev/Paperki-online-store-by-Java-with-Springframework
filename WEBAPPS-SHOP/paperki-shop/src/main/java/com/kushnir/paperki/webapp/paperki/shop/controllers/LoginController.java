@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-@Controller
+@CrossOrigin
+@RestController
 @RequestMapping("/login")
 public class LoginController {
 
@@ -31,12 +32,14 @@ public class LoginController {
     @Autowired
     Mailer mailer;
 
+    //curl -v [host]:8080/login
     @GetMapping()
     public String loginPage() {
         LOGGER.debug("loginPage() >>>");
         return "components/login/login";
     }
 
+    //curl -H "Content-Type: application/json" -X POST -d '{"login":"xyz","password":"xyz"}' -v [host]:8088/user
     @PostMapping()
     public String postLogin(@RequestParam("login") String login,
                             @RequestParam("password") String password,
@@ -83,5 +86,34 @@ public class LoginController {
 
     private void putUserToSession(User user) {
         httpSession.setAttribute("user", user);
+    }
+
+
+
+
+    private class RestMessage {
+        HttpStatus code;
+        String message;
+
+        public RestMessage(HttpStatus code, String message) {
+            this.code = code;
+            this.message = message;
+        }
+
+        public HttpStatus getCode() {
+            return code;
+        }
+
+        public void setCode(HttpStatus code) {
+            this.code = code;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
     }
 }

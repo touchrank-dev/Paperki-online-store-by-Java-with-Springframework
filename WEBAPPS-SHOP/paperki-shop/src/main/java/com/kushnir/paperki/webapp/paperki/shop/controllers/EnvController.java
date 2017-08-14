@@ -21,7 +21,6 @@ public class EnvController {
     @GetMapping()
     public String envPage(HttpSession httpSession, Model model) {
         LOGGER.debug("envPage() >>>");
-        httpSession.setAttribute("user", new User());
         model.addAttribute("user", (User)httpSession.getAttribute("user"));
         return "env";
     }

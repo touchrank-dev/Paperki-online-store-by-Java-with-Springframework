@@ -1,7 +1,7 @@
 -- SET NAMES utf8;
 
 INSERT INTO `users` (`login_user`, `name_user`, `password`)
-VALUES ('kushnir', 'Artem Kushnir', '426984');
+VALUES ('kushnir', 'Artem Kushnir', '42Kush6984');
 
 INSERT INTO catalog (name, translit_name, link, icon, order_catalog)
 VALUES  ('Бумага и бумажная продукция', 'bumaga-i-bymazhnaz produkcia', '/catalog/bumaga-i-bymazhnaz produkcia', 'hm1.png', 1),

@@ -34,7 +34,7 @@
         <org.thymeleaf.extras.springsecurity4-version>3.0.2.RELEASE</org.thymeleaf.extras.springsecurity4-version>
         <nz.net.ultraq.thymeleaflayout-version>2.2.1</nz.net.ultraq.thymeleaflayout-version>
         <thymeleaf-extras-java8time-version>3.0.0.RELEASE</thymeleaf-extras-java8time-version>
-        <jackson.databind-version>2.8.6</jackson.databind-version>
+        <jackson.databind-version>2.8.9</jackson.databind-version>
         <servlet-api.version>3.1.0</servlet-api.version>
         <h2.version>1.4.193</h2.version>
         <mysql.version>6.0.6</mysql.version>

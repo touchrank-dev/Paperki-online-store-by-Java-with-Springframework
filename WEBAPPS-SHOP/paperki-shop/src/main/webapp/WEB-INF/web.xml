@@ -29,9 +29,9 @@
   </servlet-mapping>
 
   <!-- mapping Error page-->
-  <error-page>
+ <!-- <error-page>
     <location>/error</location>
-  </error-page>
+  </error-page>-->
 
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

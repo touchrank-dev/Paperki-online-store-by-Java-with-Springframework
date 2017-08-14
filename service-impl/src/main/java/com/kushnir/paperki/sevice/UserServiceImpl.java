@@ -8,6 +8,7 @@ import com.kushnir.paperki.sevice.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.Assert;
@@ -40,12 +41,11 @@ public class UserServiceImpl implements UserService {
 
         Assert.notNull(password, "Пароль не должен быть пустым");
         Assert.hasText(password, "Пароль не должен быть пустым");
-        Assert.isTrue(validatePassword(password),
-                "Пароль не соответствует регулярному выражению");
-        User user = userDao.getUserByLoginPassword(userName, bcp.encode(password));
-        Assert.notNull(user, "Пользователь не найден");
+
+        User user = userDao.getUserByLoginPassword(userName, password);
+        Assert.notNull(user, "Пользователь не найден, неверный логин или пароль!");
         Assert.isTrue(bcp.matches(password, user.getPassword()),"Неверный пароль");
-        LOGGER.debug("getUserByLogin({}) >>> {}", userName, user);
+        LOGGER.debug("getUserByLogin({}) >>> \n RETURNED USER: {}", userName, user);
         return user;
     }
 
@@ -56,6 +56,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registrateUser(RegistrateForm form) {
+        Assert.isTrue(validatePassword(form.getPassword()),
+                "Пароль не соответствует регулярному выражению");
+        String encodedPassword = bcp.encode(form.getPassword());
         // bcp.encode(password);
         /* Assert.notNull(userDao.getUserByLogin(userName),
                 "Пользователь под таким логином уже присутствует в базе даннных"); */
