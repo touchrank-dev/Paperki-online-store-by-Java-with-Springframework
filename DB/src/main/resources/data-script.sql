@@ -1,6 +1,6 @@
--- SET NAMES utf8;
+SET NAMES utf8;
 
-INSERT INTO `users` (`login_user`, `name_user`, `password`)
+INSERT INTO users (login_user, name_user, password)
 VALUES ('kushnir', 'Artem Kushnir', '42Kush6984');
 
 INSERT INTO catalog (name, translit_name, link, icon, order_catalog)
@@ -11,7 +11,8 @@ VALUES  ('Бумага и бумажная продукция', 'bumaga-i-bymazh
         ('Подставки, лотки, настольные наборы', 'podstavki-lotki-nastolnye-nabory', '/catalog/podstavki-lotki-nastolnye-nabory', 'hm5.png', 1),
         ('Демонстрационное оборудование', 'demonstracionnoe-oborudovanie', '/catalog/demonstracionnoe-oborudovanie', 'hm6.png', 2),
         ('Бумага офисная белая', 'bumaga-ofisnaja-belaja', '/catalog/bumaga-ofisnaja-belaja', 'hcm1.png', 1),
-        ('Бумага офисная цветная', 'bumaga-ofisnaja-cvetnaja', '/catalog/bumaga-ofisnaja-cvetnaja', 'hcm2.png', 2);
+        ('Бумага офисная цветная', 'bumaga-ofisnaja-cvetnaja', '/catalog/bumaga-ofisnaja-cvetnaja', 'hcm2.png', 2),
+        ('Бумага писчая, газетная', 'bumaga-pischaja-gazetnaja', '/bumaga-pischaja-gazetnaja', 'hcm3.png', 3);
 
 INSERT INTO catalog_ref (id_catalog, parent_id_catalog)
 VALUES  (1, 0),
@@ -21,11 +22,13 @@ VALUES  (1, 0),
         (5, 0),
         (6, 0),
         (7, 1),
-        (8, 1);
+        (8, 1),
+        (9, 1);
 
 INSERT INTO menu (name, translit_name)
 VALUES  ('Главное', 'root'),
-        ('Помощь', 'help');
+        ('Помощь', 'help'),
+        ('Новостии', 'blog');
 
 INSERT INTO menu_items (name, translit_name, link, order_item)
 VALUES  ('О компании', 'about', '/about', 1),

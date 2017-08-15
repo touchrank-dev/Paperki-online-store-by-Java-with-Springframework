@@ -1,21 +1,18 @@
 package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.dao.UserDao;
-import com.kushnir.paperki.model.RegistrateForm;
-import com.kushnir.paperki.model.User;
+import com.kushnir.paperki.model.*;
 
-import com.kushnir.paperki.model.UserType;
 import com.kushnir.paperki.service.mail.Mailer;
 //import com.mifmif.common.regex.Generex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,24 +39,50 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
 
-    //@Autowired
-    //BCryptPasswordEncoder bcp;
+    @Autowired
+    BCryptPasswordEncoder bcp;
+
+    @Autowired
+    ErrorLoginData errorLoginData;
+    @Autowired
+    ErrorRegistrateForm errorRegistrateForm;
 
     @Override
     @Transactional
-    public User getUserByLoginPassword(String userName, String password) {
-        Assert.notNull(userName, "Значения логина не должно быть пустым");
-        Assert.hasText(userName, "Значения логина не должно быть пустым");
-
-        Assert.notNull(password, "Пароль не должен быть пустым");
-        Assert.hasText(password, "Пароль не должен быть пустым");
-
-        User user = userDao.getUserByLogin(userName);
-        Assert.notNull(user, "Пользователь не найден, проверьте правильно ли Вы указали Логин!");
-        // Assert.isTrue(bcp.matches(password, user.getPassword()),"Неверный пароль");
-        user.setUserType(UserType.CUSTOMER);
-        LOGGER.debug("getUserByLogin({}) >>> \nRETURNED USER: {}", userName, user);
-        return user;
+    public Object getUserByLoginPassword(LoginData loginData) {
+        LOGGER.debug("GET USER BY LOGIN AND PASSWORD >>>\nLOGIN DATA: {}", loginData);
+        User user;
+        try {
+            Assert.notNull(loginData.getLogin(), "Значения логина не должно быть пустым");
+            Assert.hasText(loginData.getLogin(), "Значения логина не должно быть пустым");
+        } catch (Exception e) {
+            errorLoginData.setLogin(e.getMessage());
+            return errorLoginData;
+        }
+        try {
+            user = userDao.getUserByLogin(loginData.getLogin());
+        } catch (Exception e) {
+            LOGGER.error("DAO EXCEPTION >>>");
+            throw e;
+        }
+        try {
+            Assert.notNull(user, "Пользователь не найден, проверьте правильно ли Вы указали Логин!");
+        } catch (Exception e) {
+            errorLoginData.setLogin(e.getMessage());
+            return errorLoginData;
+        }
+        try {
+            Assert.notNull(loginData.getPassword(), "Пароль не должен быть пустым");
+            Assert.hasText(loginData.getPassword(), "Пароль не должен быть пустым");
+            Assert.isTrue(bcp.matches(loginData.getPassword(), user.getPassword()),"Неверный пароль");
+            // TODO !!! HARDCODE !!!
+            user.setUserType(UserType.CUSTOMER);
+            LOGGER.debug("USER WAS LOGGED SUCCESSFUL >>> \nRETURNED USER: {}", user);
+            return user;
+        } catch (Exception e) {
+            errorLoginData.setPassword(e.getMessage());
+            return errorLoginData;
+        }
     }
 
     @Override
@@ -85,28 +108,24 @@ public class UserServiceImpl implements UserService {
         // TODO проверка на юр-лицо form.enterprize
 
         if(form.getAutopass()) {
-            /*password = generex.random();
-            System.out.println(password); // TODO need to delete this
-            password = bcp.encode(password);
-            System.out.println(password); // TODO need to delete this
-            form.setPassword(password);*/
-            // password = null; // finalize
+            //TODO !!!HARDCODE!!!
+            form.setPassword(bcp.encode("P8g4gh1C"));
         } else {
             Assert.notNull(form.getPassword(), "Пароль не может быть пустым");
+            Assert.hasText(form.getPassword(), "Пароль не может быть пустым");
             /*Assert.isTrue(validatePassword(form.getPassword()),
                     "Пароль не соответствует регулярному выражению");*/
             //form.setPassword(bcp.encode(form.getPassword()));
         }
         try {
             User user = new User(form.getEmail(),
-                                 form.getPassword(),
+                                 bcp.encode(form.getPassword()),
                                  form.getName(),
                                  form.getEmail(),
                                  form.getPhone(),
                                  form.getSubscribe(),
-
                                  form.getEnterprise());
-            // Integer newUserId = userDao.addUser(form);
+
             Integer newUserId = userDao.addUser(user);
             user = userDao.getUserById(newUserId);
             user.setUserType(UserType.CUSTOMER);

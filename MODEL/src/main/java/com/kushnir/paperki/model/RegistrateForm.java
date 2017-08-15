@@ -8,7 +8,7 @@ public class RegistrateForm {
     private String password;
     private Boolean autopass;
     private String phone;
-    private String birthDate;
+    /*private String birthDate;*/
     private Boolean enterprise;
 
     public RegistrateForm() {
@@ -20,7 +20,7 @@ public class RegistrateForm {
                           String password,
                           Boolean autopass,
                           String phone,
-                          String birthDate,
+                          /*String birthDate,*/
                           Boolean enterprise) {
         this.name = name;
         this.email = email;
@@ -28,7 +28,7 @@ public class RegistrateForm {
         this.password = password;
         this.autopass = autopass;
         this.phone = phone;
-        this.birthDate = birthDate;
+        /*this.birthDate = birthDate;*/
         this.enterprise = enterprise;
     }
 
@@ -80,13 +80,13 @@ public class RegistrateForm {
         this.phone = phone;
     }
 
-    public String getBirthDate() {
+    /*public String getBirthDate() {
         return birthDate;
     }
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
-    }
+    }*/
 
     public Boolean getEnterprise() {
         return enterprise;
@@ -109,7 +109,7 @@ public class RegistrateForm {
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (autopass != null ? !autopass.equals(that.autopass) : that.autopass != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        if (birthDate != null ? !birthDate.equals(that.birthDate) : that.birthDate != null) return false;
+        /*if (birthDate != null ? !birthDate.equals(that.birthDate) : that.birthDate != null) return false;*/
         return enterprise != null ? enterprise.equals(that.enterprise) : that.enterprise == null;
     }
 
@@ -121,7 +121,7 @@ public class RegistrateForm {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (autopass != null ? autopass.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
+        /*result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);*/
         result = 31 * result + (enterprise != null ? enterprise.hashCode() : 0);
         return result;
     }
@@ -135,7 +135,7 @@ public class RegistrateForm {
                 ", password='" + "********" + '\'' +
                 ", autopass=" + autopass +
                 ", phone='" + phone + '\'' +
-                ", birthDate='" + birthDate + '\'' +
+                /*", birthDate='" + birthDate + '\'' +*/
                 ", enterprise=" + enterprise +
                 '}';
     }

@@ -57,8 +57,10 @@ function login() {
             if(response.code == 'FOUND') {
                 alert(response.message);
                 location.reload();
-            }
-            else if(response.code == 'INTERNAL_SERVER_ERROR') {
+            }else if(response.code == 'NOT_FOUND') {
+                console.log(response);
+                alertLoginForm(response.object);
+            } else if(response.code == 'INTERNAL_SERVER_ERROR') {
                 alert(response.message);
                 console.log(response.object);
             }
@@ -82,7 +84,7 @@ function regFormToJSON() {
         "password":         $('#registration-input-password').val(),
         "autopass":         $('#check-autopassword').attr("checked") == "checked" ? true:false,
         "phone":            $('#registration-input-phone').val(),
-        "birthDate":        $('#datepicker').val(),
+        /*"birthDate":        $('#datepicker').val(),*/
         "enterprise":       $('#isEnterprise').attr("checked") == "checked" ? true:false
     });
 }
@@ -90,4 +92,15 @@ function regFormToJSON() {
 function serverAlert() {
     alert('Возникла непредвиденная ошибка сервера или сервер недоступен.\n' +
         'Пожалуйста перезагрузите страницу или свяжитесь со службой поддержки(+375-29-715-60-60)');
+}
+
+// ==================================================================
+
+function showEnterpriseForm() {
+    if($('#check-isenterprise').attr("checked") == "checked") $('#enterpriseForm').hide;
+    else $('#enterpriseForm').show;
+}
+
+function alertLoginForm(object) {
+    console.log(object);
 }

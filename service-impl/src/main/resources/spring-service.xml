@@ -14,10 +14,20 @@
         <constructor-arg value="20" />
     </bean>
 
+    <!--PROTOTYPE BEANS-->
+    <bean id="user" class="com.kushnir.paperki.model.User" scope="prototype" />
+        <!--ERROR DATA BEANS-->
+        <bean id="errorLoginData" class="com.kushnir.paperki.model.ErrorLoginData" scope="prototype" />
+        <bean id="errorRegistrateForm" class="com.kushnir.paperki.model.ErrorRegistrateForm" scope="prototype" />
+
     <!--BEANS-->
     <bean id="catalogBean" class="com.kushnir.paperki.service.CatalogBeanImpl" />
     <bean id="componentBean" class="com.kushnir.paperki.service.ComponentBeanImpl" />
     <bean id="menuBean" class="com.kushnir.paperki.service.MenuBeanImpl" />
     <bean id="userService" class="com.kushnir.paperki.service.UserServiceImpl" />
+
+    <bean id="bcryptBean" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg name="strength" value="12"/>
+    </bean>
 
 </beans>

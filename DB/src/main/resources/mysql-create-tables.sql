@@ -9,14 +9,6 @@ DROP TABLE IF EXISTS menu_item_ref;
 DROP TABLE IF EXISTS feedbacks;
 DROP TABLE IF EXISTS orders;
 
-/*DROP TABLE IF EXISTS persistent_logins;
-CREATE TABLE persistent_logins (
-    username,
-    series,
-    token,
-    last_used
-);*/
-
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id_user                     INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,

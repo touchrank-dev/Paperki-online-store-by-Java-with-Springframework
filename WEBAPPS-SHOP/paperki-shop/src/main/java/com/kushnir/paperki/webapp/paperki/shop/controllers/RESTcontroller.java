@@ -43,16 +43,19 @@ public class RESTcontroller {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.FOUND)
     public @ResponseBody RestMessage postLogin(@RequestBody LoginData loginData, HttpSession httpSession) {
-        LOGGER.debug("postLogin() >>> \n CREDENTIALS: {}, {}",  loginData.getLogin(), loginData.getPassword());
+        LOGGER.debug("postLogin() >>> ");
         try {
-            User user = userService.getUserByLoginPassword(loginData.getLogin(), loginData.getPassword());
-            if (user == null) return new RestMessage(HttpStatus.NOT_FOUND, "LOGIN FAILED", null);
-            httpSession.setAttribute("user", user);
-            LOGGER.debug("LOGIN SUCCESSFUL >>> \n USER: {}", user);
-            return new RestMessage(HttpStatus.FOUND, "LOGIN SUCCESSFUL");
+            Object user = userService.getUserByLoginPassword(loginData);
+            if(user.getClass().isInstance(User.class)) {
+                httpSession.setAttribute("user", (User)user);
+                LOGGER.debug("LOGIN SUCCESSFUL >>> \n USER: {}", user);
+                return new RestMessage(HttpStatus.FOUND, "LOGIN SUCCESSFUL", null);
+            } else {
+                return new RestMessage(HttpStatus.NOT_FOUND, "LOGIN FAILED", (ErrorLoginData) user);
+            }
         } catch (Exception e) {
             LOGGER.error("LOGIN FAILED >>> {}", e.getMessage());
-            return new RestMessage(HttpStatus.NOT_FOUND, "LOGIN FAILED", e.getMessage());
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
         }
     }
 

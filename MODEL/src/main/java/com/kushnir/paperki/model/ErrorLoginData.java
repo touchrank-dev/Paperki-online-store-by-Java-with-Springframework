@@ -1,15 +1,15 @@
 package com.kushnir.paperki.model;
 
-public class LoginData {
+public class ErrorLoginData {
     private String login;
     private String password;
 
-    public LoginData(String lodin, String password) {
-        this.login = lodin;
-        this.password = password;
+    public ErrorLoginData() {
     }
 
-    public LoginData() {
+    public ErrorLoginData(String login, String password) {
+        this.login = login;
+        this.password = password;
     }
 
     public String getLogin() {
@@ -33,10 +33,10 @@ public class LoginData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LoginData loginData = (LoginData) o;
+        ErrorLoginData that = (ErrorLoginData) o;
 
-        if (login != null ? !login.equals(loginData.login) : loginData.login != null) return false;
-        return password != null ? password.equals(loginData.password) : loginData.password == null;
+        if (login != null ? !login.equals(that.login) : that.login != null) return false;
+        return password != null ? password.equals(that.password) : that.password == null;
     }
 
     @Override
@@ -48,9 +48,9 @@ public class LoginData {
 
     @Override
     public String toString() {
-        return "LoginData{" +
+        return "ErrorLoginData{" +
                 "login='" + login + '\'' +
-                ", password='" + "********" + '\'' +
+                ", password='" + "******" + '\'' +
                 '}';
     }
 }

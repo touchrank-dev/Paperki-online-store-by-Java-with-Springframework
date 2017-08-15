@@ -1,53 +1,80 @@
 <div id="registration-popup" class="registration-popup-content mfp-hide"
      th:fragment="registration-popup" xmlns:th="http://www.thymeleaf.org">
     <div class="registration-popup-head">
-        <h4>Регистрация в клубе PAP-бонус</h4>
-        <div class="info-reg">
+        <h4>Регистрация</h4>
+        <!--<div class="info-reg">
             <p>Клуб PAP-бонус – программа специальных цен и накопления бонусных баллов (1 PAP-бонус = 0,10 рубль) для клиентов нашего интернет-магазина.</p>
             <a href="/bonus">Подробнее о бонусной программе</a>
-        </div>
+        </div>-->
     </div>
     <form id="registration-form" action="/login" method="post">
-            <span class="input input--ichiro registration-form-field">
-                <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-name" />
-                <label class="input__label input__label--ichiro" for="registration-input-name">
-                    <span class="input__label-content input__label-content--ichiro">Ваше Имя *</span>
-                </label>
-            </span>
         <span class="input input--ichiro registration-form-field">
-                <input class="input__field input__field--ichiro" type="email" name="reg-email" id="registration-input-email" />
-                <label class="input__label input__label--ichiro" for="registration-input-email">
-                    <span class="input__label-content input__label-content--ichiro">Ваш e-mail *</span>
-                </label>
-            </span>
+            <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-name" />
+            <label class="input__label input__label--ichiro" for="registration-input-name">
+                <span class="input__label-content input__label-content--ichiro">Ваше Имя *</span>
+            </label>
+        </span>
+        <span class="input input--ichiro registration-form-field">
+            <input class="input__field input__field--ichiro" type="email" name="reg-email" id="registration-input-email" />
+            <label class="input__label input__label--ichiro" for="registration-input-email">
+                <span class="input__label-content input__label-content--ichiro">Ваш e-mail *</span>
+            </label>
+        </span>
         <input type="checkbox" name="subscribe" id="check-subscribe">
         <label for="check-subscribe">Уведомлять о доступных промокодах, подарках и спецпредложениях</label>
         <span class="input input--ichiro registration-form-field">
-                <input class="input__field input__field--ichiro" type="password" name="password" id="registration-input-password" />
-                <label class="input__label input__label--ichiro" for="registration-input-password">
-                    <span class="input__label-content input__label-content--ichiro">Пароль *</span>
-                </label>
+            <input class="input__field input__field--ichiro" type="password" name="password" id="registration-input-password" />
+            <label class="input__label input__label--ichiro" for="registration-input-password">
+                <span class="input__label-content input__label-content--ichiro">Пароль *</span>
+            </label>
             <button type="button" class="show-password"></button>
-            </span>
+        </span>
         <input type="checkbox" name="autopassword" id="check-autopassword">
         <label for="check-autopassword">Сформировать автоматически</label>
         <span class="input input--ichiro registration-form-field">
-                <input class="input__field input__field--ichiro phone" type="text" name="phone" id="registration-input-phone" />
-                <label class="input__label input__label--ichiro" for="registration-input-phone">
-                    <span class="input__label-content input__label-content--ichiro">Мобильный телефон</span>
-                </label>
-            </span>
+            <input class="input__field input__field--ichiro phone" type="text" name="phone" id="registration-input-phone" />
+            <label class="input__label input__label--ichiro" for="registration-input-phone">
+                <span class="input__label-content input__label-content--ichiro">Мобильный телефон</span>
+            </label>
+        </span>
         <!--<input type="checkbox" name="check3" id="check3">
         <label for="check3">Хочу 250 PAP-бонусов за регистрацию с <a href="#">мобильным телефоном!</a></label>-->
-        <p class="t-label">
-            <label>день рождения</label>
+        <!--<p class="t-label">
+            <label>День рождения</label>
         </p>
         <div class="for-input">
             <input type="text" id="datepicker" class="inp-main" name="birthDate">
-        </div>
+        </div>-->
         <!--<p class="checkb">На <a href="#">день рождения мы дарим</a> PAP-бонусы.</p>-->
-        <input type="checkbox" name="isEnterprise" id="check-isenterprise">
+        <input type="checkbox" name="isEnterprise" id="check-isenterprise" onchange="showEnterpriseForm()">
         <label for="check-isenterprise">регистрироваться как Юридическое лицо</label>
+        <div id="enterpriseForm">
+            <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-enterprise-name" />
+                <label class="input__label input__label--ichiro" for="registration-input-enterprise-name">
+                    <span class="input__label-content input__label-content--ichiro">УНП (можно будет использовать как дополнительный логин)</span>
+                </label>
+            </span>
+            <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-enterprise-address" />
+                <label class="input__label input__label--ichiro" for="registration-input-enterprise-address">
+                    <span class="input__label-content input__label-content--ichiro">юридический адрес</span>
+                </label>
+            </span>
+            <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-enterprise-account" />
+                <label class="input__label input__label--ichiro" for="registration-input-enterprise-account">
+                    <span class="input__label-content input__label-content--ichiro">Р/С</span>
+                </label>
+            </span>
+            <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-enterprise-account-bank" />
+                <label class="input__label input__label--ichiro" for="registration-input-enterprise-account-bank">
+                    <span class="input__label-content input__label-content--ichiro">Банк</span>
+                </label>
+            </span>
+        </div>
+
         <div class="podpreg">
             <p>Регистрация на сайте подразумевает обязательное согласие с <a href="#tandc">политикой конфиденциальности</a></p>
         </div>
