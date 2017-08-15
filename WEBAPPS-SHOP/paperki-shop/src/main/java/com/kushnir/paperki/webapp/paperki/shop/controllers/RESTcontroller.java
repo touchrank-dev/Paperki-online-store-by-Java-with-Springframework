@@ -64,7 +64,7 @@ public class RESTcontroller {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage postTest(@RequestBody String string, HttpSession httpSession) {
         try {
-            httpSession.isNew();
+            httpSession.invalidate();
             LOGGER.debug("LOGOUT SUCCESSFUL");
             return new RestMessage(HttpStatus.OK, "LOGOUT SUCCESSFUL");
         } catch (Exception e) {
