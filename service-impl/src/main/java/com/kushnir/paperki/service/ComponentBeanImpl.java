@@ -1,4 +1,4 @@
-package com.kushnir.paperki.sevice;
+package com.kushnir.paperki.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

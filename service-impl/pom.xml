@@ -38,10 +38,10 @@
         </dependency>
 
         <!--PASWWORD GENERATOR-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.github.mifmif</groupId>
             <artifactId>generex</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- LOGGING -->
         <dependency>

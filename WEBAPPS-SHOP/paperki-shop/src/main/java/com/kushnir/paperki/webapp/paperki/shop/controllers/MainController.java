@@ -2,9 +2,8 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import com.kushnir.paperki.model.MenuItem;
 import com.kushnir.paperki.model.User;
-import com.kushnir.paperki.sevice.CatalogBean;
-import com.kushnir.paperki.sevice.ComponentBean;
-import com.kushnir.paperki.sevice.MenuBean;
+import com.kushnir.paperki.service.CatalogBean;
+import com.kushnir.paperki.service.MenuBean;
 
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 
@@ -28,9 +27,6 @@ public class MainController {
 
     private static final Logger LOGGER = LogManager.getLogger(MainController.class);
     private static final String MAIN_MENU_NAME = "main";
-
-    @Autowired
-    CatalogBean categoryBean;
 
     @Autowired
     MenuBean menuBean;
@@ -64,30 +60,6 @@ public class MainController {
         model.addAttribute("fragmentName", pageName);
         LOGGER.debug("mainMenu(menuItem = {}) >>>", pageName);
         return "index";
-    }
-
-    @ModelAttribute("mainmenu")
-    public ArrayList getMainMenu () {
-        return menuBean.getAll("root");
-    }
-
-    @ModelAttribute("mapcategories")
-    public HashMap getCatalog () {
-        return categoryBean.getAll();
-    }
-
-    @ModelAttribute("user")
-    public User setUser(HttpSession httpSession) {
-        User user = (User)httpSession.getAttribute("user");
-        if(user == null) user = new User();
-        return user;
-    }
-
-    @ModelAttribute("cart")
-    public Cart setCart (HttpSession httpSession) {
-        Cart cart = (Cart)httpSession.getAttribute("cart");
-        if (cart == null) cart = new Cart();
-        return cart;
     }
 
 }

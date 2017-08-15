@@ -1,4 +1,4 @@
-package com.kushnir.paperki.sevice;
+package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.dao.CatalogDao;
 import com.kushnir.paperki.model.Category;

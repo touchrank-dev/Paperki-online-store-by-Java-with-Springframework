@@ -1,11 +1,8 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
-import com.kushnir.paperki.model.LoginData;
-import com.kushnir.paperki.model.RegistrateForm;
-import com.kushnir.paperki.model.User;
-import com.kushnir.paperki.model.UserType;
-import com.kushnir.paperki.sevice.UserService;
-import com.kushnir.paperki.sevice.mail.Mailer;
+import com.kushnir.paperki.model.*;
+import com.kushnir.paperki.service.UserService;
+import com.kushnir.paperki.service.mail.Mailer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,42 +46,48 @@ public class RESTcontroller {
         LOGGER.debug("postLogin() >>> \n CREDENTIALS: {}, {}",  loginData.getLogin(), loginData.getPassword());
         try {
             User user = userService.getUserByLoginPassword(loginData.getLogin(), loginData.getPassword());
+            if (user == null) return new RestMessage(HttpStatus.NOT_FOUND, "LOGIN FAILED", null);
             httpSession.setAttribute("user", user);
-            LOGGER.debug("Login successful >>> \n USER: {}", user);
-            return new RestMessage(HttpStatus.FOUND, "login successful");
+            LOGGER.debug("LOGIN SUCCESSFUL >>> \n USER: {}", user);
+            return new RestMessage(HttpStatus.FOUND, "LOGIN SUCCESSFUL");
         } catch (Exception e) {
-            LOGGER.error("login failed >>> {}", e.getMessage());
-            return new RestMessage(HttpStatus.NOT_FOUND, "login failed >>> "+e.getMessage());
+            LOGGER.error("LOGIN FAILED >>> {}", e.getMessage());
+            return new RestMessage(HttpStatus.NOT_FOUND, "LOGIN FAILED", e.getMessage());
         }
     }
 
-    //curl -H "Content-Type: application/json" -X POST -d '{"login":"xyz","password":"xyz"}' -v [host]:8088/api/login
-    @PostMapping("/test")
-    @ResponseStatus(HttpStatus.FOUND)
+    //curl -H "Content-Type: application/json" -X POST -d '"string":"xyz"' -v [host]:8088/api/logout
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage postTest(@RequestBody String string, HttpSession httpSession) {
-        User user = new User();
-        user.setName(string);
-        user.setLogin("kushnir");
-        user.setUserType(UserType.CUSTOMER);
-        user.setId(1);
-        httpSession.setAttribute("user", user);
-        return new RestMessage(HttpStatus.FOUND, "login successful");
+        try {
+            httpSession.isNew();
+            LOGGER.debug("LOGOUT SUCCESSFUL");
+            return new RestMessage(HttpStatus.OK, "LOGOUT SUCCESSFUL");
+        } catch (Exception e) {
+            LOGGER.error("LOGOUT FAILED");
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, "LOGOUT FAILED", e.getMessage());
+        }
     }
+
+    // curl -H "Content-Type: application/json"  -d '{"name":"kushnir","email":"a-kush@mail.ru", "subscribe":true, "password":"42Kush6984", "autopass":false, "phone":"426984", "birthDate":"19-05-1987", "enterprise":false}' -v localhost:8080/api/registration
 
     @PostMapping("/registration")
     @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody RestMessage registerNewUser (@RequestBody RegistrateForm registrateForm,
                                                       HttpSession httpSession) {
-        LOGGER.debug("NEW USER REGISTRATION >>>");
+        LOGGER.debug("RESt registration >>>\nFORM RECEIVED: {}", registrateForm);
         try {
-            userService.registrateUser(registrateForm);
+            User user = userService.registrateUser(registrateForm);
+            httpSession.setAttribute("user", user);
+            LOGGER.debug("REGISTRATION AND AUTHORIZATION WAS FINISHED!");
+            return new RestMessage(HttpStatus.CREATED, "REGISTRATION SUCCESSFUL!", null);
         } catch (Exception e) {
-            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, "Register failed!", registrateForm);
+            LOGGER.error("Register failed >>>\n{}", e.getMessage());
+            // mailer.toSupportMail(e.getMessage(), "ERROR RESTcontroller.registerNewUser");
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), new ErrorRegistrateForm());
         }
-        return new RestMessage(HttpStatus.CREATED, "Register successful", registrateForm);
     }
-
-
 
 
     private class RestMessage {

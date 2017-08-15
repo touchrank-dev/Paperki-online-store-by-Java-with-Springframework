@@ -1,4 +1,4 @@
-package com.kushnir.paperki.sevice.mail;
+package com.kushnir.paperki.service.mail;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

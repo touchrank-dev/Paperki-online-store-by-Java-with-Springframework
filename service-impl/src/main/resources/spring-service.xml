@@ -15,9 +15,9 @@
     </bean>
 
     <!--BEANS-->
-    <bean id="catalogBean" class="com.kushnir.paperki.sevice.CatalogBeanImpl" />
-    <bean id="componentBean" class="com.kushnir.paperki.sevice.ComponentBeanImpl" />
-    <bean id="menuBean" class="com.kushnir.paperki.sevice.MenuBeanImpl" />
-    <bean id="userService" class="com.kushnir.paperki.sevice.UserServiceImpl" />
+    <bean id="catalogBean" class="com.kushnir.paperki.service.CatalogBeanImpl" />
+    <bean id="componentBean" class="com.kushnir.paperki.service.ComponentBeanImpl" />
+    <bean id="menuBean" class="com.kushnir.paperki.service.MenuBeanImpl" />
+    <bean id="userService" class="com.kushnir.paperki.service.UserServiceImpl" />
 
 </beans>

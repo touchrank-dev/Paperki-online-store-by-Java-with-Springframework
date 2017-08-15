@@ -1,7 +1,7 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
-import com.kushnir.paperki.sevice.CatalogBean;
-import com.kushnir.paperki.sevice.MenuBean;
+import com.kushnir.paperki.service.CatalogBean;
+import com.kushnir.paperki.service.MenuBean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

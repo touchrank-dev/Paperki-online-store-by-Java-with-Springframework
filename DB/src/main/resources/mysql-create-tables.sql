@@ -20,9 +20,15 @@ CREATE TABLE persistent_logins (
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id_user                     INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    login_user                  VARCHAR(50)     NOT NULL UNIQUE,
-    name_user                   VARCHAR(150)    NOT NULL,
-    password                    VARCHAR(100)    NOT NULL
+    login_user                  VARCHAR(50)     CHARACTER SET utf8 NOT NULL UNIQUE ,
+    name_user                   VARCHAR(150)    CHARACTER SET utf8 NOT NULL,
+    password                    VARCHAR(100)    CHARACTER SET utf8 NOT NULL,
+    subscribe                   TINYINT         DEFAULT 1,
+    phone                       VARCHAR(20)     CHARACTER SET utf8,
+    birth_day                   DATE,
+    create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
+    edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    is_enabled                  TINYINT         DEFAULT 0
 );
 
 
@@ -30,14 +36,14 @@ DROP TABLE IF EXISTS catalog;
 CREATE TABLE catalog (
     id_catalog                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pap_id                      INT             UNIQUE,
-    name                        VARCHAR(180)    NOT NULL,
-    translit_name               VARCHAR(200)    NOT NULL UNIQUE,
-    link                        VARCHAR(200)    NOT NULL UNIQUE,
-    icon                        VARCHAR(30)     NOT NULL,
-    svg_icon                    VARCHAR(50),
-    metadesk                    VARCHAR(400),
-    metakey                     VARCHAR(400),
-    customtitle                 VARCHAR(255),
+    name                        VARCHAR(180)    CHARACTER SET utf8 NOT NULL,
+    translit_name               VARCHAR(200)    CHARACTER SET utf8 NOT NULL UNIQUE,
+    link                        VARCHAR(200)    CHARACTER SET utf8 NOT NULL UNIQUE,
+    icon                        VARCHAR(30)     CHARACTER SET utf8 NOT NULL,
+    svg_icon                    VARCHAR(50)     CHARACTER SET utf8,
+    metadesk                    VARCHAR(400)    CHARACTER SET utf8,
+    metakey                     VARCHAR(400)    CHARACTER SET utf8,
+    customtitle                 VARCHAR(255)    CHARACTER SET utf8,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_published                TINYINT         DEFAULT 1,
@@ -48,9 +54,9 @@ CREATE TABLE catalog (
 CREATE TABLE catalog_description (
     id_catalog_desc             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_catalog                  INT             NOT NULL UNIQUE,
-    short_description           VARCHAR(1000),
-    full_description            VARCHAR(5000),
-    FOREIGN KEY (id_catalog)                   REFERENCES catalog(id_catalog)
+    short_description           VARCHAR(1000)   CHARACTER SET utf8,
+    full_description            VARCHAR(5000)   CHARACTER SET utf8,
+    FOREIGN KEY (id_catalog)                    REFERENCES catalog(id_catalog)
 );
 
 CREATE TABLE catalog_ref (
@@ -64,24 +70,24 @@ DROP TABLE IF EXISTS brands;
 CREATE TABLE brands (
     id_brand                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pap_id                      INT             UNIQUE,
-    name                        VARCHAR(100)    NOT NULL,
-    translit_name               VARCHAR(120)    NOT NULL UNIQUE,
-    icon                        VARCHAR(30)     NOT NULL,
-    short_description           VARCHAR(2000),
-    full_description            VARCHAR(7000)
+    name                        VARCHAR(100)    CHARACTER SET utf8 NOT NULL,
+    translit_name               VARCHAR(120)    CHARACTER SET utf8 NOT NULL UNIQUE,
+    icon                        VARCHAR(30)     CHARACTER SET utf8 NOT NULL,
+    short_description           VARCHAR(2000)   CHARACTER SET utf8,
+    full_description            VARCHAR(7000)   CHARACTER SET utf8
 );
 
 CREATE TABLE product (
     id_product                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pap_id                      INT             UNIQUE,
     pnt                         INT             UNIQUE,
-    full_name                   VARCHAR(250)    NOT NULL UNIQUE,
-    short_name                  VARCHAR(250)    NOT NULL,
-    translit_name               VARCHAR(200)    NOT NULL UNIQUE,
-    link                        VARCHAR(200)    UNIQUE,
-    metadesk                    VARCHAR(400),
-    metakey                     VARCHAR(400),
-    customtitle                 VARCHAR(255),
+    full_name                   VARCHAR(250)    CHARACTER SET utf8 NOT NULL UNIQUE,
+    short_name                  VARCHAR(250)    CHARACTER SET utf8 NOT NULL,
+    translit_name               VARCHAR(200)    CHARACTER SET utf8 NOT NULL UNIQUE,
+    link                        VARCHAR(200)    CHARACTER SET utf8 UNIQUE,
+    metadesk                    VARCHAR(400)    CHARACTER SET utf8,
+    metakey                     VARCHAR(400)    CHARACTER SET utf8,
+    customtitle                 VARCHAR(255)    CHARACTER SET utf8,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_published                TINYINT         DEFAULT 0,
@@ -93,16 +99,16 @@ CREATE TABLE product (
 CREATE TABLE product_description (
     id_product_desc             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_product                  INT             NOT NULL UNIQUE,
-    short_description           VARCHAR(2000),
-    full_description            VARCHAR(7000),
+    short_description           VARCHAR(2000)   CHARACTER SET utf8,
+    full_description            VARCHAR(7000)   CHARACTER SET utf8,
     FOREIGN KEY (id_product)                    REFERENCES product(id_product)
 );
 
 CREATE TABLE product_attribute (
     id_product_attribute        INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_product                  INT             NOT NULL,
-    name                        VARCHAR(100),
-    value                       VARCHAR(100),
+    name                        VARCHAR(100)    CHARACTER SET utf8,
+    value                       VARCHAR(100)    CHARACTER SET utf8,
     FOREIGN KEY (id_product)                    REFERENCES product(id_product)
 );
 
@@ -111,18 +117,18 @@ CREATE TABLE product_catalog (
     id_catalog                  INT             NOT NULL,
     order_product               INT             NOT NULL,
     FOREIGN KEY (id_product)                    REFERENCES product(id_product),
-    FOREIGN KEY (id_catalog)                   REFERENCES catalog(id_catalog),
+    FOREIGN KEY (id_catalog)                    REFERENCES catalog(id_catalog),
     UNIQUE KEY `product_catalog` (id_product, id_catalog)
 );
 
 DROP TABLE IF EXISTS menu;
 CREATE TABLE menu (
     id_menu                     INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name                        VARCHAR(150)    NOT NULL UNIQUE,
-    translit_name               VARCHAR(150)    NOT NULL UNIQUE,
-    metadesk                    VARCHAR(400),
-    metakey                     VARCHAR(400),
-    customtitle                 VARCHAR(255),
+    name                        VARCHAR(150)    CHARACTER SET utf8 NOT NULL UNIQUE,
+    translit_name               VARCHAR(150)    CHARACTER SET utf8 NOT NULL UNIQUE,
+    metadesk                    VARCHAR(400)    CHARACTER SET utf8,
+    metakey                     VARCHAR(400)    CHARACTER SET utf8,
+    customtitle                 VARCHAR(255)    CHARACTER SET utf8,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -130,12 +136,12 @@ CREATE TABLE menu (
 DROP TABLE IF EXISTS menu_items;
 CREATE TABLE menu_items (
     id_menu_item                INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name                        VARCHAR(150)    NOT NULL,
-    translit_name               VARCHAR(150)    NOT NULL,
-    link                        VARCHAR(100)    NOT NULL,
-    metadesk                    VARCHAR(400),
-    metakey                     VARCHAR(400),
-    customtitle                 VARCHAR(255),
+    name                        VARCHAR(150)    CHARACTER SET utf8 NOT NULL,
+    translit_name               VARCHAR(150)    CHARACTER SET utf8 NOT NULL,
+    link                        VARCHAR(100)    CHARACTER SET utf8 NOT NULL,
+    metadesk                    VARCHAR(400)    CHARACTER SET utf8,
+    metakey                     VARCHAR(400)    CHARACTER SET utf8,
+    customtitle                 VARCHAR(255)    CHARACTER SET utf8,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_published                TINYINT         DEFAULT 0,
@@ -155,7 +161,7 @@ CREATE TABLE menu_item_ref (
 CREATE TABLE feedbacks (
     id_feedback                 INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_user                     INT             NOT NULL,
-    text                        VARCHAR(2000)   NOT NULL,
+    text                        VARCHAR(2000)   CHARACTER SET utf8 NOT NULL,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     aproove                     TINYINT         DEFAULT 0,
@@ -187,8 +193,8 @@ CREATE TABLE orders (
 DROP TABLE IF EXISTS order_status;
 CREATE TABLE order_status (
     id_order_status             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    status_code                 CHAR(1)         NOT NULL,
-    status_name                 VARCHAR(100)    NOT NULL,
-    description                 VARCHAR(1000)
+    status_code                 CHAR(1)         CHARACTER SET utf8 NOT NULL,
+    status_name                 VARCHAR(100)    CHARACTER SET utf8 NOT NULL,
+    description                 VARCHAR(1000)   CHARACTER SET utf8
 );
 

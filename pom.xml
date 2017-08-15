@@ -211,11 +211,11 @@
             </dependency>
 
             <!--PASWWORD GENERATOR-->
-            <dependency>
+            <!--<dependency>
                 <groupId>com.github.mifmif</groupId>
                 <artifactId>generex</artifactId>
                 <version>${generex.version}</version>
-            </dependency>
+            </dependency>-->
 
             <!-- CSV -->
             <dependency>

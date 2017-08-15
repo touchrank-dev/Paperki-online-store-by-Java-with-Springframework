@@ -14,6 +14,6 @@
     <!-- this is a template message that we can pre-load with default state -->
     <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage" scope="prototype" />
 
-    <bean id="mailer" class="com.kushnir.paperki.sevice.mail.Mailer" />
+    <bean id="mailer" class="com.kushnir.paperki.service.mail.Mailer" />
 
 </beans>

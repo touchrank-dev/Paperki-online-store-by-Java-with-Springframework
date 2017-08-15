@@ -1,8 +1,8 @@
 package com.kushnir.paperki.webapp.paperki.shop.schedules;
 
-import com.kushnir.paperki.sevice.CatalogBean;
+import com.kushnir.paperki.service.CatalogBean;
 
-import com.kushnir.paperki.sevice.mail.Mailer;
+import com.kushnir.paperki.service.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
