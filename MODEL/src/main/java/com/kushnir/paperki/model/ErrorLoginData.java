@@ -4,6 +4,12 @@ public class ErrorLoginData {
     private String login;
     private String password;
 
+    private Boolean isErrors = false;
+
+    public Boolean isErrors(){
+        return this.isErrors;
+    }
+
     public ErrorLoginData() {
     }
 
@@ -18,6 +24,7 @@ public class ErrorLoginData {
 
     public void setLogin(String login) {
         this.login = login;
+        this.isErrors = true;
     }
 
     public String getPassword() {
@@ -26,6 +33,7 @@ public class ErrorLoginData {
 
     public void setPassword(String password) {
         this.password = password;
+        this.isErrors = true;
     }
 
     @Override

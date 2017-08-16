@@ -11,6 +11,10 @@ public class ErrorRegistrateForm {
     private String birthDate;
     private String enterprise;
 
+    private Boolean isErrors = false;
+
+    public Boolean isErrors(){return this.isErrors;}
+
     public ErrorRegistrateForm() {
     }
 
@@ -38,6 +42,7 @@ public class ErrorRegistrateForm {
 
     public void setName(String name) {
         this.name = name;
+        this.isErrors = true;
     }
 
     public String getEmail() {
@@ -46,6 +51,7 @@ public class ErrorRegistrateForm {
 
     public void setEmail(String email) {
         this.email = email;
+        this.isErrors = true;
     }
 
     public String getSubscribe() {
@@ -54,6 +60,7 @@ public class ErrorRegistrateForm {
 
     public void setSubscribe(String subscribe) {
         this.subscribe = subscribe;
+        this.isErrors = true;
     }
 
     public String getPassword() {
@@ -62,6 +69,7 @@ public class ErrorRegistrateForm {
 
     public void setPassword(String password) {
         this.password = password;
+        this.isErrors = true;
     }
 
     public String getAutopass() {
@@ -70,6 +78,7 @@ public class ErrorRegistrateForm {
 
     public void setAutopass(String autopass) {
         this.autopass = autopass;
+        this.isErrors = true;
     }
 
     public String getPhone() {
@@ -78,6 +87,7 @@ public class ErrorRegistrateForm {
 
     public void setPhone(String phone) {
         this.phone = phone;
+        this.isErrors = true;
     }
 
     public String getBirthDate() {
@@ -86,6 +96,7 @@ public class ErrorRegistrateForm {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
+        this.isErrors = true;
     }
 
     public String getEnterprise() {
@@ -94,6 +105,7 @@ public class ErrorRegistrateForm {
 
     public void setEnterprise(String enterprise) {
         this.enterprise = enterprise;
+        this.isErrors = true;
     }
 
     @Override

@@ -4,23 +4,50 @@ import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.webapp.paperki.shop.session.Cart;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@ControllerAdvice
-public class ModelSetter {
+@Controller
+@RequestMapping("/profile")
+public class UserController {
+
+    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
+    private static final String PROFILE_MENU_NAME = "profile";
+
+    @Autowired
+    CatalogBean catalogBean;
+
+    @Autowired
+    CatalogBean categoryBean;
 
     @Autowired
     MenuBean menuBean;
 
-    @Autowired
-    CatalogBean categoryBean;
+    @Value("${components.path}")
+    String componentsPath;
+
+    @Value("${content.path}")
+    String contentPath;
+
+    @GetMapping
+    public String personalUserPage(Model model) {
+        LOGGER.debug("personalUserPage() >>>");
+        model.addAttribute("templatePathName", contentPath + PROFILE_MENU_NAME);
+        model.addAttribute("fragmentName", PROFILE_MENU_NAME);
+        return "index";
+    }
 
 
     @ModelAttribute("mainmenu")
@@ -46,4 +73,5 @@ public class ModelSetter {
         if (cart == null) cart = new Cart();
         return cart;
     }
+
 }

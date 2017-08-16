@@ -41,20 +41,21 @@ public class RESTcontroller {
 
     //curl -H "Content-Type: application/json" -X POST -d '{"login":"xyz","password":"xyz"}' -v [host]:8088/api/login
     @PostMapping("/login")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage postLogin(@RequestBody LoginData loginData, HttpSession httpSession) {
-        LOGGER.debug("postLogin() >>> ");
+        LOGGER.debug("LOGIN >>> ");
         try {
             Object user = userService.getUserByLoginPassword(loginData);
-            if(user.getClass().isInstance(User.class)) {
+            if(user instanceof User) {
                 httpSession.setAttribute("user", (User)user);
                 LOGGER.debug("LOGIN SUCCESSFUL >>> \n USER: {}", user);
                 return new RestMessage(HttpStatus.FOUND, "LOGIN SUCCESSFUL", null);
             } else {
+                LOGGER.debug("LOGIN FAILED >>>\nERROR FORM: {}", (ErrorLoginData)user);
                 return new RestMessage(HttpStatus.NOT_FOUND, "LOGIN FAILED", (ErrorLoginData) user);
             }
         } catch (Exception e) {
-            LOGGER.error("LOGIN FAILED >>> {}", e.getMessage());
+            LOGGER.error("LOGIN FAILED >>>\nERROR MESSAGE{}", e.getMessage());
             return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
         }
     }
@@ -62,7 +63,8 @@ public class RESTcontroller {
     //curl -H "Content-Type: application/json" -X POST -d '"string":"xyz"' -v [host]:8088/api/logout
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage postTest(@RequestBody String string, HttpSession httpSession) {
+    public @ResponseBody RestMessage postLogout(@RequestBody String string, HttpSession httpSession) {
+        LOGGER.debug("LOGOUT >>> ");
         try {
             httpSession.invalidate();
             LOGGER.debug("LOGOUT SUCCESSFUL");
@@ -73,22 +75,26 @@ public class RESTcontroller {
         }
     }
 
-    // curl -H "Content-Type: application/json"  -d '{"name":"kushnir","email":"a-kush@mail.ru", "subscribe":true, "password":"42Kush6984", "autopass":false, "phone":"426984", "birthDate":"19-05-1987", "enterprise":false}' -v localhost:8080/api/registration
-
+    // curl -H "Content-Type: application/json" -d '{"name":"kushnir","email":"a-kush@mail.ru", "subscribe":true, "password":"42Kush6984", "autopass":false, "phone":"426984", "birthDate":"19-05-1987", "enterprise":false}' -v localhost:8080/api/registration
     @PostMapping("/registration")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage registerNewUser (@RequestBody RegistrateForm registrateForm,
                                                       HttpSession httpSession) {
-        LOGGER.debug("RESt registration >>>\nFORM RECEIVED: {}", registrateForm);
+        LOGGER.debug("REST REGISTRATION >>>\nFORM RECEIVED: {}", registrateForm);
         try {
-            User user = userService.registrateUser(registrateForm);
-            httpSession.setAttribute("user", user);
-            LOGGER.debug("REGISTRATION AND AUTHORIZATION WAS FINISHED!");
+            Object user = userService.registrateUser(registrateForm);
+            if(user instanceof User) {
+                httpSession.setAttribute("user", (User)user);
+                LOGGER.debug("REGISTRATION AND AUTHORIZATION WAS FINISHED!");
+            } else {
+                LOGGER.debug("REGISTRATION FAILED >>>\nERROR FORM: {}", (ErrorRegistrateForm)user);
+                return new RestMessage(HttpStatus.NOT_ACCEPTABLE, "REGISTRATION FAILED", (ErrorRegistrateForm)user);
+            }
             return new RestMessage(HttpStatus.CREATED, "REGISTRATION SUCCESSFUL!", null);
         } catch (Exception e) {
-            LOGGER.error("Register failed >>>\n{}", e.getMessage());
+            LOGGER.error("REGISTRATION FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
             // mailer.toSupportMail(e.getMessage(), "ERROR RESTcontroller.registerNewUser");
-            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), new ErrorRegistrateForm());
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
         }
     }
 

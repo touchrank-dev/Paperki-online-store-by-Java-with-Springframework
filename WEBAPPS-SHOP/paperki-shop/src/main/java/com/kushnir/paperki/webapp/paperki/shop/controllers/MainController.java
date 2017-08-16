@@ -31,6 +31,9 @@ public class MainController {
     @Autowired
     MenuBean menuBean;
 
+    @Autowired
+    CatalogBean categoryBean;
+
     @Value("${content.path}")
     String contentPath;
 
@@ -60,6 +63,32 @@ public class MainController {
         model.addAttribute("fragmentName", pageName);
         LOGGER.debug("mainMenu(menuItem = {}) >>>", pageName);
         return "index";
+    }
+
+    // ================================================================================================================
+
+    @ModelAttribute("mainmenu")
+    public ArrayList getMainMenu () {
+        return menuBean.getAll("root");
+    }
+
+    @ModelAttribute("mapcategories")
+    public HashMap getCatalog () {
+        return categoryBean.getAll();
+    }
+
+    @ModelAttribute("user")
+    public User setUser(HttpSession httpSession) {
+        User user = (User)httpSession.getAttribute("user");
+        if(user == null) user = new User();
+        return user;
+    }
+
+    @ModelAttribute("cart")
+    public Cart setCart (HttpSession httpSession) {
+        Cart cart = (Cart)httpSession.getAttribute("cart");
+        if (cart == null) cart = new Cart();
+        return cart;
     }
 
 }

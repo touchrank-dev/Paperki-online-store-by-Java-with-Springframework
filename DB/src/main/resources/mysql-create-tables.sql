@@ -8,6 +8,8 @@ DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS menu_item_ref;
 DROP TABLE IF EXISTS feedbacks;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS enterprise_users;
+DROP TABLE IF EXISTS addresses;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
@@ -15,6 +17,7 @@ CREATE TABLE users (
     login_user                  VARCHAR(50)     CHARACTER SET utf8 NOT NULL UNIQUE ,
     name_user                   VARCHAR(150)    CHARACTER SET utf8 NOT NULL,
     password                    VARCHAR(100)    CHARACTER SET utf8 NOT NULL,
+    email                       VARCHAR(50)     CHARACTER SET utf8 NOT NULL,
     subscribe                   TINYINT         DEFAULT 1,
     phone                       VARCHAR(20)     CHARACTER SET utf8,
     birth_day                   DATE,
@@ -22,7 +25,33 @@ CREATE TABLE users (
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_enabled                  TINYINT         DEFAULT 0
 );
+DROP TABLE IF EXISTS enterprise;
+CREATE TABLE enterprise (
+    id_enterprise               INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_user                     INT             NOT NULL,
+    unp                         VARCHAR(10)     NOT NULL UNIQUE,
+    name                        VARCHAR(400)    NOT NULL
+);
 
+DROP TABLE IF EXISTS payment_accounts;
+CREATE TABLE payment_accounts(
+    id_payment_account          INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_enterprise               INT             NOT NULL
+);
+
+DROP TABLE IF EXISTS addresses_types;
+CREATE TABLE addresses_types (
+    id_address_type             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name                        VARCHAR(30)     CHARACTER SET utf8 NOT NULL UNIQUE
+);
+
+CREATE TABLE addresses (
+    id_address                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_address_type             INT             NOT NULL,
+    id_user                     INT             NOT NULL,
+    value                       VARCHAR(50)     CHARACTER SET utf8 NOT NULL,
+    FOREIGN KEY (id_address_type)               REFERENCES addresses_types(id_address_type)
+);
 
 DROP TABLE IF EXISTS catalog;
 CREATE TABLE catalog (

@@ -10,6 +10,12 @@ public class RegistrateForm {
     private String phone;
     /*private String birthDate;*/
     private Boolean enterprise;
+    private Long UNP;
+    private String enterpriseName;
+    private String billingAddress;
+    private String accountNumber;
+    private String bankName;
+    private Integer bankCode;
 
     public RegistrateForm() {
     }

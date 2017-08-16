@@ -3,6 +3,7 @@ package com.kushnir.paperki.service;
 import com.kushnir.paperki.dao.CatalogDao;
 import com.kushnir.paperki.model.Category;
 
+import com.kushnir.paperki.model.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,5 +31,20 @@ public class CatalogBeanImpl implements CatalogBean {
     public ArrayList<Category> getCategoriesFromCSV() throws IOException {
         LOGGER.debug("getCategoriesFromCSV() >>> ");
         return catalogDao.getCategoriesFromCSV();
+    }
+
+    @Override
+    public ArrayList<Category> getCategoryByTName(String categoryTName) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Product> getProductsByCategoryTName(String categoryTName) {
+        return null;
+    }
+
+    @Override
+    public Product getProductByCategoryTName(String categoryTName, String productTName) {
+        return null;
     }
 }

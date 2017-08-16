@@ -46,31 +46,43 @@
             <input type="text" id="datepicker" class="inp-main" name="birthDate">
         </div>-->
         <!--<p class="checkb">На <a href="#">день рождения мы дарим</a> PAP-бонусы.</p>-->
-        <input type="checkbox" name="isEnterprise" id="check-isenterprise" onchange="showEnterpriseForm()">
+        <input type="checkbox" name="isEnterprise" id="check-isenterprise" onclick="showEnterpriseForm()">
         <label for="check-isenterprise">регистрироваться как Юридическое лицо</label>
         <div id="enterpriseForm">
             <span class="input input--ichiro registration-form-field">
-                <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-enterprise-name" />
-                <label class="input__label input__label--ichiro" for="registration-input-enterprise-name">
+                <input class="input__field input__field--ichiro" type="text" name="entrp-reg-unp" id="registration-input-enterprise-unp" />
+                <label class="input__label input__label--ichiro" for="registration-input-enterprise-unp">
                     <span class="input__label-content input__label-content--ichiro">УНП (можно будет использовать как дополнительный логин)</span>
                 </label>
             </span>
             <span class="input input--ichiro registration-form-field">
-                <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-enterprise-address" />
+                <input class="input__field input__field--ichiro" type="text" name="entrp-reg-name" id="registration-input-enterprise-name" />
+                <label class="input__label input__label--ichiro" for="registration-input-enterprise-name">
+                    <span class="input__label-content input__label-content--ichiro">Название организации</span>
+                </label>
+            </span>
+            <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="text" name="entrp-reg-address" id="registration-input-enterprise-address" />
                 <label class="input__label input__label--ichiro" for="registration-input-enterprise-address">
-                    <span class="input__label-content input__label-content--ichiro">юридический адрес</span>
+                    <span class="input__label-content input__label-content--ichiro">Юридический адрес</span>
                 </label>
             </span>
             <span class="input input--ichiro registration-form-field">
-                <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-enterprise-account" />
+                <input class="input__field input__field--ichiro" type="text" name="entrp-reg-account" id="registration-input-enterprise-account" />
                 <label class="input__label input__label--ichiro" for="registration-input-enterprise-account">
-                    <span class="input__label-content input__label-content--ichiro">Р/С</span>
+                    <span class="input__label-content input__label-content--ichiro">Расчетный счет</span>
                 </label>
             </span>
             <span class="input input--ichiro registration-form-field">
-                <input class="input__field input__field--ichiro" type="text" name="reg-name" id="registration-input-enterprise-account-bank" />
+                <input class="input__field input__field--ichiro" type="text" name="entrp-reg-bank" id="registration-input-enterprise-account-bank" />
                 <label class="input__label input__label--ichiro" for="registration-input-enterprise-account-bank">
-                    <span class="input__label-content input__label-content--ichiro">Банк</span>
+                    <span class="input__label-content input__label-content--ichiro">Название и адрес банка</span>
+                </label>
+            </span>
+            <span class="input input--ichiro registration-form-field">
+                <input class="input__field input__field--ichiro" type="text" name="entrp-reg-bamk-code" id="registration-input-enterprise-account-bank-code" />
+                <label class="input__label input__label--ichiro" for="registration-input-enterprise-account-bank-code">
+                    <span class="input__label-content input__label-content--ichiro">Код банка</span>
                 </label>
             </span>
         </div>

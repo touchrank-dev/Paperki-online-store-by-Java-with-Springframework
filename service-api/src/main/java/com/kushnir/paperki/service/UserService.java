@@ -6,5 +6,5 @@ import com.kushnir.paperki.model.User;
 
 public interface UserService {
     Object getUserByLoginPassword(LoginData loginData);
-    User registrateUser(RegistrateForm form);
+    Object registrateUser(RegistrateForm form);
 }

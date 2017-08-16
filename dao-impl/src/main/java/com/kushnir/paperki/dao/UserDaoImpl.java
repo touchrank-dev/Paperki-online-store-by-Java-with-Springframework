@@ -18,7 +18,6 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 
 public class UserDaoImpl implements UserDao {
 
@@ -26,6 +25,7 @@ public class UserDaoImpl implements UserDao {
 
     private static final String P_USER_ID = "p_user_id";
     private static final String P_USER_LOGIN = "p_user_login";
+    private static final String P_USER_EMAIL = "p_user_email";
     private static final String P_USER_PASSWORD = "p_user_password";
     private static final String P_USER_NAME = "p_user_name";
     private static final String P_USER_PHONE = "p_user_phone";
@@ -105,6 +105,7 @@ public class UserDaoImpl implements UserDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         parameterSource.addValue(P_USER_NAME,           form.getName());
         parameterSource.addValue(P_USER_LOGIN,          form.getEmail());
+        parameterSource.addValue(P_USER_EMAIL,          form.getEmail());
         parameterSource.addValue(P_USER_SUBSCRIBE,      form.getSubscribe());
         parameterSource.addValue(P_USER_PASSWORD,       form.getPassword());
         parameterSource.addValue(P_USER_PHONE,          form.getPhone());

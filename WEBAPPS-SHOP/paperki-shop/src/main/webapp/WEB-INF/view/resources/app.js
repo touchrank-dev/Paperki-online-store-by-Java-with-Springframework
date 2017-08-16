@@ -1,3 +1,7 @@
+$( document ).ready(function() {
+    $('#enterpriseForm').hide();
+});
+
 function register() {
     $.ajax({
         cashe: false,
@@ -10,14 +14,18 @@ function register() {
         success: function(response){
             if(response.code == 'CREATED') {
                 alert(response.message);
+                alertForm(response.object);
                 location.reload();
+            } else if(response.code == "NOT_ACCEPTABLE") {
+                mapErrorRegisterForm(response);
             }
             else if(response.code == 'INTERNAL_SERVER_ERROR') {
-                alert(response.message);
-                console.log(response.object);
+                console.log(response);
             }
         },
-        error: serverAlert()
+        error: function () {
+            serverAlert();
+        }
     });
 }
 
@@ -36,11 +44,12 @@ function logout() {
                 location.reload();
             }
             else if(response.code == 'INTERNAL_SERVER_ERROR') {
-                alert(response.message);
-                console.log(response.object);
+                console.log(response);
             }
         },
-        error: serverAlert()
+        error: function () {
+            serverAlert();
+        }
     });
 }
 
@@ -58,14 +67,14 @@ function login() {
                 alert(response.message);
                 location.reload();
             }else if(response.code == 'NOT_FOUND') {
-                console.log(response);
-                alertLoginForm(response.object);
+                mapErrorLoginForm(response.object);
             } else if(response.code == 'INTERNAL_SERVER_ERROR') {
-                alert(response.message);
-                console.log(response.object);
+                console.log(response);
             }
         },
-        error: serverAlert()
+        error: function () {
+            serverAlert();
+        }
     });
 }
 
@@ -89,6 +98,14 @@ function regFormToJSON() {
     });
 }
 
+function mapErrorLoginForm(form) {
+    console.log(form);
+}
+
+function mapErrorRegisterForm(form) {
+    console.log(form);
+}
+
 function serverAlert() {
     alert('Возникла непредвиденная ошибка сервера или сервер недоступен.\n' +
         'Пожалуйста перезагрузите страницу или свяжитесь со службой поддержки(+375-29-715-60-60)');
@@ -97,10 +114,6 @@ function serverAlert() {
 // ==================================================================
 
 function showEnterpriseForm() {
-    if($('#check-isenterprise').attr("checked") == "checked") $('#enterpriseForm').hide;
-    else $('#enterpriseForm').show;
-}
-
-function alertLoginForm(object) {
-    console.log(object);
+    if($('#check-isenterprise').attr("checked") == "checked") $('#enterpriseForm').show("slow");
+    else $('#enterpriseForm').hide("slow");
 }
