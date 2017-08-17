@@ -125,6 +125,7 @@ public class UserDaoImpl implements UserDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         parameterSource.addValue(P_USER_NAME,           user.getName());
         parameterSource.addValue(P_USER_LOGIN,          user.getEmail());
+        parameterSource.addValue(P_USER_EMAIL,          user.getEmail());
         parameterSource.addValue(P_USER_SUBSCRIBE,      user.getSubscribe());
         parameterSource.addValue(P_USER_PASSWORD,       user.getPassword());
         parameterSource.addValue(P_USER_PHONE,          user.getPhone());

@@ -17,7 +17,7 @@
             <div th:if="${!user?.isAnonimus()}" th:remove="tag">
                 <a href="#" class="login-user-button">
                     <div class="avatar">
-                        <img src="/res/img/avatar.png" alt="avatar">
+                        <img src="/res/img/users/default.png" alt="avatar">
                     </div>
                     <span th:text="${user?.name}" th:remove="tag">Имя пользователя</span>
                 </a>

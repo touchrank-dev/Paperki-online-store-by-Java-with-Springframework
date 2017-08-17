@@ -27,15 +27,6 @@
                             <p>Личные данные</p>
                         </button>
                     </li>
-                    <li class="client-status">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Статус клиента</p>
-                        </button>
-                    </li>
                     <li class="password-change">
                         <button class="c-button">
                             <div class="c-ripple js-ripple">
@@ -72,15 +63,7 @@
                             <p>Уведомления</p>
                         </button>
                     </li>
-                    <li class="partner-program">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Партнёрская программа</p>
-                        </button>
-                    </li>
+
                     <li class="orders">
                         <button class="c-button">
                             <div class="c-ripple js-ripple">
@@ -90,60 +73,7 @@
                             <p>Заказы</p>
                         </button>
                     </li>
-                    <li class="pap">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>PAP-бонус</p>
-                        </button>
-                    </li>
-                    <li class="buying-list">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Список моих покупок</p>
-                        </button>
-                    </li>
-                    <li class="prod-reviews">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Отзывы о товарах</p>
-                        </button>
-                    </li>
-                    <li class="prod-photos">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Фотографии товаров</p>
-                        </button>
-                    </li>
-                    <li class="prod-videos">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Видеообзоры товаров</p>
-                        </button>
-                    </li>
-                    <li class="watched">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Вы смотрели</p>
-                        </button>
-                    </li>
+
                     <li class="bookmarks">
                         <button class="c-button">
                             <div class="c-ripple js-ripple">
@@ -153,39 +83,37 @@
                             <p>Избранный товар</p>
                         </button>
                     </li>
-                    <li class="compare">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Сравнение</p>
-                        </button>
-                    </li>
+
                 </ul>
                 <div class="profile-tabs-content">
                     <div class="my-profile">
                         <div class="my-profile-content">
                             <h2>Личный кабинет</h2>
-                            <div class="success-notification">
-                                <img src="/res/img/reg-success-icon.png" alt="Регистрация успешна">
-                                <p>Вы были успешно зарегистрированы! Письмо с регистрационными данными отправлено на почтовый адрес, указанный вами при регистрации.</p>
-                            </div>
                             <div class="my-profile-personal-data">
                                 <div class="my-profile-avatar no-avatar">
-                                    <img src="/res/img/my-profile-avatar.png" alt="avatar">
+                                    <img src="/res/img/users/default.png" alt="avatar">
                                 </div>
                                 <div class="my-profile-personal-data-text">
                                     <ul>
                                         <li>
                                             <p>
-                                                E-mail:
+                                                Имя ползователя:
                                             </p>
-                                            <span>
-                                                    altoir123@gmail.com
+                                            <span th:text="${user?.name}">
+                                                    Имя
                                                 </span>
                                             <a href="#">изменить</a>
                                         </li>
+                                        <li>
+                                            <p>
+                                                Логин:
+                                            </p>
+                                            <span th:text="${user?.login}">
+                                                    Логин
+                                                </span>
+                                            <a href="#">изменить</a>
+                                        </li>
+
                                         <li>
                                             <p>
                                                 Клиентский номер, ID:
@@ -194,65 +122,11 @@
                                                     843991
                                                 </span>
                                         </li>
-                                        <li>
-                                            <p>
-                                                Статус:
-                                            </p>
-                                            <span>
-                                                   Участник клуба
-                                                </span>
-                                            <a href="#">подробнее</a>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Оплачивайте бонусами
-                                            </p>
-                                            <span>
-                                                    до 30% покупки
-                                                </span>
-                                        </li>
                                     </ul>
                                     <ul>
-                                        <li>
-                                            <p>
-                                                PAP-бонусов:
-                                            </p>
-                                            <span>
-                                                   0
-                                                </span>
-                                            <a href="#">подробнее</a>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Ценовая колонка:
-                                            </p>
-                                            <span>
-                                                    Клубная
-                                                </span>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Мой магазин:
-                                            </p>
-                                            <span>
-                                                    не выбран
-                                                </span>
-                                            <a href="#">изменить</a>
-                                        </li>
+
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="my-profile-info">
-                                <p>
-                                    PAP-бонусы за отзыв на Я.Маркет! Ваше <a href="#">честное и объективное мнение</a> сделает нас лучше, и мы подарим вам <strong>300</strong> PAP-<strong>бонусов</strong>!
-                                    <a href="#">Подробнее...</a>
-                                </p>
-                                <p>
-                                    PAPбонусы на день рождения! Получите статус клиента <a href="#">"Постоянный клиент"</a>, <a href="#">"VIP клиент"</a> или <a href="#">"Супер VIP клиент"</a>, укажите ваш день рождения и мы подарим вам <strong>300 PAP-бонусов!</strong> <a href="#">Подробнее...</a>
-                                </p>
-                                <p>
-                                    Приведи друга — получи 150 PAP-бонусов! <a href="#">Порекомендуйте</a> наш интернет-магазин своим друзьям, отправив специальную ссылку. <a href="#">Подробнее...</a>
-                                </p>
                             </div>
                             <a href="#" class="c-button activate-promo">
                                 <div class="c-ripple js-ripple">
@@ -294,22 +168,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="client-status">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Статус клиента
-                                        </h3>
-                                        <p>
-                                            Ваш статус: <strong>Участник клуба.</strong>
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
+
                             <li class="password-change">
                                 <a href="#" class="c-button">
                                     <div class="c-ripple js-ripple">
@@ -374,22 +233,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="partner-program">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Партнёрская программа
-                                        </h3>
-                                        <p>
-                                            Порекомендуй нас – дополнительная программа премирования постоянных покупателей.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
+
                             <li class="orders">
                                 <a href="#" class="c-button">
                                     <div class="c-ripple js-ripple">
@@ -406,103 +250,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="pap">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            PAP-бонус
-                                        </h3>
-                                        <p>
-                                            У вас PAP-бонусов: <strong>0</strong>
-                                        </p>
-                                        <p>Информация о Ваших накопленных PAP-бонусах.</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="buying-list">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Список моих покупок
-                                        </h3>
-                                        <p>
-                                            Список покупок содержит в себе перечень всех товаров, выкупленных вами.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="prod-reviews">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Отзывы о товарах
-                                        </h3>
-                                        <p>
-                                            Раздел ваших отзывов о товарах магазина.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="prod-photos">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Фотографии товаров
-                                        </h3>
-                                        <p>
-                                            В этом разделе Вы можете добавить свои фотографии к купленным товарам.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="prod-videos">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Видеообзоры товаров
-                                        </h3>
-                                        <p>
-                                            В этом разделе Вы можете разместить ссылки на видео о купленных вами товарах.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="watched">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Вы смотрели
-                                        </h3>
-                                        <p>
-                                            Здесь можно увидеть список ранее просмотренных вами товаров.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
+
                             <li class="bookmarks">
                                 <a href="#" class="c-button">
                                     <div class="c-ripple js-ripple">
@@ -519,22 +267,7 @@
                                     </div>
                                 </a>
                             </li>
-                            <li class="compare">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Сравнение
-                                        </h3>
-                                        <p>
-                                            В этом разделе вы сможете сравнить товар по разным параметрам
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
+
                         </ul>
 
                     </div>

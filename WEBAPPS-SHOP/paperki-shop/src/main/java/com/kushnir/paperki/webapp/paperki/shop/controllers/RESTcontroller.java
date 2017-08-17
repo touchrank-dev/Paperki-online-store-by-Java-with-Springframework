@@ -64,7 +64,7 @@ public class RESTcontroller {
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage postLogout(@RequestBody String string, HttpSession httpSession) {
-        LOGGER.debug("LOGOUT >>> ");
+        LOGGER.debug("REST LOGOUT >>> ");
         try {
             httpSession.invalidate();
             LOGGER.debug("LOGOUT SUCCESSFUL");
@@ -85,15 +85,28 @@ public class RESTcontroller {
             Object user = userService.registrateUser(registrateForm);
             if(user instanceof User) {
                 httpSession.setAttribute("user", (User)user);
-                LOGGER.debug("REGISTRATION AND AUTHORIZATION WAS FINISHED!");
+                LOGGER.debug("REGISTRATION AND AUTHORIZATION WAS FINISHED SUCCESSFUL! >>>\nUSER:{}", user);
+                return new RestMessage(HttpStatus.CREATED, "REGISTRATION SUCCESSFUL!", null);
             } else {
                 LOGGER.debug("REGISTRATION FAILED >>>\nERROR FORM: {}", (ErrorRegistrateForm)user);
                 return new RestMessage(HttpStatus.NOT_ACCEPTABLE, "REGISTRATION FAILED", (ErrorRegistrateForm)user);
             }
-            return new RestMessage(HttpStatus.CREATED, "REGISTRATION SUCCESSFUL!", null);
         } catch (Exception e) {
             LOGGER.error("REGISTRATION FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
-            // mailer.toSupportMail(e.getMessage(), "ERROR RESTcontroller.registerNewUser");
+            mailer.toSupportMail(e.getMessage(), "ERROR REST REGISTRATION");
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+        }
+    }
+
+    @PostMapping("/changepassword")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage changePassword(@RequestBody String email, HttpSession httpSession) {
+        LOGGER.debug("REST PASSWORD CHANGE >>>\nEMAIL RECEIVED: {}", email);
+        try{
+            return new RestMessage(HttpStatus.OK, "PASSWORD CHANGE ACCEPTED!", null);
+        } catch (Exception e) {
+            LOGGER.error("PASSWORD CHANGE FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
+            mailer.toSupportMail(e.getMessage(), "ERROR REST PASSWORD CHANGE");
             return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
         }
     }

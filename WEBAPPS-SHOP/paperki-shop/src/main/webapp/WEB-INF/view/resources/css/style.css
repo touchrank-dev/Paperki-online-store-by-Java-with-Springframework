@@ -670,6 +670,16 @@ p.center-btn.del {
   transform-origin: 50% 100%;
   transition: opacity 0.3s, transform 0.3s; }
 
+.input_email_error {
+  border: 1px solid #ff0000;
+  color: #ff0000;
+}
+.input_password_error {
+  border: 1px solid #ff0000;
+  color: #ff0000;
+}
+
+
 .input__label--ichiro {
   width: 100%;
   text-align: left;

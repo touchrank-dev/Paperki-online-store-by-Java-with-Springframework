@@ -14,6 +14,9 @@
         <constructor-arg value="20" />
     </bean>
 
+    <!--TOKEN GENERATOR-->
+    <bean id="tokenGenerator" class="com.kushnir.paperki.service.util.TokenGenerator" />
+
     <!--PROTOTYPE BEANS-->
     <bean id="user" class="com.kushnir.paperki.model.User" scope="prototype" />
         <!--ERROR DATA BEANS-->

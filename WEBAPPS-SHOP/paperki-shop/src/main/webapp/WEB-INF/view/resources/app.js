@@ -14,7 +14,6 @@ function register() {
         success: function(response){
             if(response.code == 'CREATED') {
                 alert(response.message);
-                alertForm(response.object);
                 location.reload();
             } else if(response.code == "NOT_ACCEPTABLE") {
                 mapErrorRegisterForm(response);
@@ -54,6 +53,7 @@ function logout() {
 }
 
 function login() {
+    cleanLoginErrors();
     $.ajax({
         cashe: false,
         async: false,
@@ -64,12 +64,12 @@ function login() {
         data: authFormToJSON(),
         success: function(response){
             if(response.code == 'FOUND') {
-                alert(response.message);
                 location.reload();
             }else if(response.code == 'NOT_FOUND') {
                 mapErrorLoginForm(response.object);
             } else if(response.code == 'INTERNAL_SERVER_ERROR') {
                 console.log(response);
+                serverAlert();
             }
         },
         error: function () {
@@ -85,6 +85,31 @@ function authFormToJSON() {
     });
 }
 
+function mapErrorLoginForm(form) {
+    if(form.login != null) {
+        $('#enter-input-email').addClass("input_email_error");
+        $("#enter-input-email").tooltip({
+            title : form.login,
+        });
+        $('#enter-input-email').tooltip("show");
+    }
+    if(form.password != null) {
+        $('#enter-input-password').addClass("input_password_error");
+        $("#enter-input-password").tooltip({
+            title : form.password,
+        });
+        $("#enter-input-password").tooltip("show");
+    }
+    console.log(form);
+}
+
+function cleanLoginErrors(){
+    $('#enter-input-email').removeClass("input_email_error");
+    $('#enter-input-email').tooltip("hide");
+    $('#enter-input-password').removeClass("input_password_error");
+    $('#enter-input-password').tooltip("hide");
+}
+
 function regFormToJSON() {
     return JSON.stringify({
         "name":             $('#registration-input-name').val(),
@@ -98,8 +123,8 @@ function regFormToJSON() {
     });
 }
 
-function mapErrorLoginForm(form) {
-    console.log(form);
+function resetFormError(){
+    $('#enter-input-email').removeClass("input_error");
 }
 
 function mapErrorRegisterForm(form) {
