@@ -50,3 +50,21 @@ VALUES  (1, 1),
         (1, 6),
         (1, 7),
         (1, 8);
+
+INSERT INTO brands (name, translit_name, icon)
+VALUES ('Ксерокс', 'xerox', 'xerox.png');
+
+INSERT INTO products (pnt, full_name, short_name, translit_name, id_brand, country_made, measure, vat)
+VALUES (9491, 'Бумага офисная Ксерокс Перформер А4, 80 г/м2, 500 л.', 'А4, 80 г/м2, 500 л.', 'bumaga-ofisnaja-xerox-performer-A4-80-gm2-500l', 1, 'РФ', 'пач.', 20);
+
+INSERT INTO prices_types (name)
+VALUES ('Сиандартная');
+
+INSERT INTO product_prices (id_price_type, id_product, value)
+VALUES (1, 1, 4.6);
+
+INSERT INTO product_catalog (id_catalog, order_product)
+VALUES (7, 1);
+
+INSERT INTO stock (name, id_product, quantity)
+VALUES ('Брест центральный', 1, 20);

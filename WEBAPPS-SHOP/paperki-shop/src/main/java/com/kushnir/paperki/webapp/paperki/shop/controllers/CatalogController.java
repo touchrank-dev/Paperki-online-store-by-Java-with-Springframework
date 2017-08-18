@@ -1,5 +1,6 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
+import com.kushnir.paperki.model.Product;
 import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
@@ -30,13 +31,7 @@ public class CatalogController {
     CatalogBean catalogBean;
 
     @Autowired
-    CatalogBean categoryBean;
-
-    @Autowired
     MenuBean menuBean;
-
-    @Value("${components.path}")
-    String componentsPath;
 
     @Value("${content.path}")
     String contentPath;
@@ -52,6 +47,9 @@ public class CatalogController {
     @GetMapping("/{catalorItemTranslitName}")
     public String catalogItemPage(@PathVariable String catalorItemTranslitName, Model model){
         LOGGER.debug("catalogItemPage() >>>");
+        ArrayList<Product> products = catalogBean.getProductsByCategoryTName(catalorItemTranslitName);
+        model.addAttribute("products", products);
+        model.addAttribute("categoryname", catalorItemTranslitName);
         model.addAttribute("templatePathName", contentPath + "product-list");
         model.addAttribute("fragmentName", "product-list");
         return "index";
@@ -66,8 +64,6 @@ public class CatalogController {
         return "index";
     }
 
-
-
     @ModelAttribute("mainmenu")
     public ArrayList getMainMenu () {
         return menuBean.getAll("root");
@@ -75,7 +71,7 @@ public class CatalogController {
 
     @ModelAttribute("mapcategories")
     public HashMap getCatalog () {
-        return categoryBean.getAll();
+        return catalogBean.getAll();
     }
 
     @ModelAttribute("user")

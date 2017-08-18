@@ -28,9 +28,6 @@ public class ExceptionController {
     @Value("${webapp.host}")
     String hostMame;
 
-    @Value("${mail.enabled.toSupport}")
-    Boolean sendEmails;
-
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason="Запрашиваемая cтраница не найдена")
     @ExceptionHandler(PageNotFound.class)
     public void pageNotFoundHandler(HttpServletRequest req, HttpSession session,  PageNotFound e) {
@@ -58,6 +55,6 @@ public class ExceptionController {
                      .append("\nException class: ").append(e)
                      .append("\nError Message: ").append(e.getMessage());
         LOGGER.error(stringBuilder);
-        if(sendEmails) mailer.toSupportMail(stringBuilder.toString(), hostMame+" Ошибка сервера!");
+        mailer.toSupportMail(stringBuilder.toString(), hostMame+" Ошибка сервера!");
     }
 }

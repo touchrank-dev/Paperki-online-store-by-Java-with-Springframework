@@ -3,141 +3,52 @@
         <div class="wrapper">
             <ul class="breadCrumbs">
                 <li><a href="/">Главная</a></li>
-                <li>Список товаров</li>
+                <li><a href="/catalog">Каталог</a></li>
+                <li th:text="${categoryname}">Название категории</li>
             </ul>
             <div class="products-list-page-content">
                 <div class="products-list-page__title">
-                    <h1>Бумага офисная белая</h1>
-                    <a href="#">4682 товара</a>
+                    <h1 th:text="${categoryname}">Название категории</h1>
                 </div>
-                <ul class="products-list-page__products-type">
-                    <li>
-                        <a href="#" class="c-button" title="бумага офисная цветная">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            бумага офисная цветная
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="c-button" title="бумага для черчения, рисования, калька">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            бумага для черчения, рисования, калька
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="c-button" title="бумага писчая, газетная">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            бумага писчая, газетная
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="c-button" title="блокноты. канцелярские книги">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            блокноты. канцелярские книги
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="c-button" title="бумага для черчения, рисования, калька">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            бумага для черчения, рисования, калька
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="c-button" title="бумага офисная цветная">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            бумага для черчения, рисования, калька
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="c-button" title="блокноты. канцелярские книги">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            блокноты. канцелярские книги
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="c-button" title="бумага для черчения, рисования, калька">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            бумага для черчения, рисования, калька
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="c-button" title="бумага офисная цветная">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            бумага для черчения, рисования, калька
-                        </a>
-                    </li>
-                </ul>
+
                 <div class="products-list-page__sort-block">
                     <select name="sort-by" class="products-list-page__dropdown">
                         <option value="Сначала популярные">Сначала популярные</option>
-                        <option value="Сначала популярные">В конце популярные</option>
-                        <option value="Сначала популярные">Сначала популярные</option>
-                        <option value="Сначала популярные">Сначала популярные</option>
-                        <option value="Сначала популярные">Сначала популярные</option>
+                        <option value="Сначала популярные">Сначала дешевые</option>
                     </select>
                     <div class="sort-block-right">
-                        <ul class="product-list-view">
-                            <li class="product-list-view-tile active">
-                                <a href="products-list.html"></a>
-                            </li>
-                            <li class="product-list-view-grouped">
-                                <a href="products-list-grouped-type.html"></a>
-                            </li>
-                            <li class="product-list-view-list ">
-                                <a href="products-list-list-type.html"></a>
-                            </li>
-                        </ul>
-                        <form action="" class="sort-block-subscribe">
-                            <input type="email" name="your-email" placeholder="Подписаться на новинки раздела" />
-                            <button type="subscribe"></button>
-                        </form>
+
                     </div>
                 </div>
                 <div class="products-list-page__main-list">
                     <div class="products-list-page-products-wrap">
-                        <ul class="choosen-filters">
-                            <li>
-                                <p>A3</p>
-                                <a href="#" title="Удалить" class="delete-filter-item">x</a>
-                            </li>
-                            <li>
-                                <p>160 г/м²</p>
-                                <a href="#" title="Удалить" class="delete-filter-item">x</a>
-                            </li>
-                            <li>
-                                <p>200 листов</p>
-                                <a href="#" title="Удалить" class="delete-filter-item">x</a>
-                            </li>
-                            <li class="clear-filter-items">
-                                <a href="#" title="Сбросить">Сбросить</a>
-                            </li>
-                        </ul>
+
                         <div class="products-list-page-products tile-type">
-                            <div class="products-list-page__product-item-wrap">
+                            <div class="products-list-page__product-item-wrap"
+                                th:forech="product : ${products}">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 <div class="thumbnail order-product product__hit">
                                     <div class="block">
                                         <div class="caption cap-normal product-detail">
                                             <div class="product-detail-top">
                                                 <ul class="top-l-cat">
                                                     <li>
-                                                        <a href="#" class="link-name-cat">Датер Бухгалтерские</a>
+                                                        <a href="#" class="link-name-cat" th:href="@{product.link}">Датер Бухгалтерские</a>
                                                     </li>
                                                 </ul>
                                                 <ul class="list-char">
@@ -157,23 +68,7 @@
                                                         <p class="type-char">Тип переплёта:</p>
                                                         <span>Скрепка</span>
                                                     </li>
-                                                    <li>
-                                                        <p class="type-char">Цвет:</p>
-                                                        <ul class="list-color">
-                                                            <li>
-                                                                <span style="background-color: #000"></span>
-                                                            </li>
-                                                            <li>
-                                                                <span style="background-color: #ed5858"></span>
-                                                            </li>
-                                                            <li>
-                                                                <span style="background-color: #8ca500"></span>
-                                                            </li>
-                                                            <li>
-                                                                <span style="background-color: #fff" class="list-color__white"></span>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
+
                                                 </ul>
                                                 <div class="clearfix"></div>
                                                 <div class="ill-t">
@@ -1559,182 +1454,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="products-list-page__show-more c-button" title="показать ещё">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            показать ещё
-                        </a>
+
                     </div>
-                    <aside class="products-list-page__filter">
-                        <div class="filter-form">
-                            <form action="">
-                                <div class="filter-list filter-block">
-                                    <p>Производитель</p>
-                                    <ul>
-                                        <li>
-                                            <input type="checkbox" id="producer1" name="producer" value="Xerox" checked>
-                                            <label for="producer1">Xerox</label>
-                                            <span class="filter-list-products-number">12123</span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="producer2" name="producer" value="SvetoCopy">
-                                            <label for="producer2">SvetoCopy</label>
-                                            <span class="filter-list-products-number">54</span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="producer3" name="producer" value="Xerox">
-                                            <label for="producer3">Xerox</label>
-                                            <span class="filter-list-products-number">12123</span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="producer4" name="producer" value="SvetoCopy">
-                                            <label for="producer4">SvetoCopy</label>
-                                            <span class="filter-list-products-number">54</span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="producer5" name="producer" value="Xerox">
-                                            <label for="producer5">Xerox</label>
-                                            <span class="filter-list-products-number">12123</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="filter-range filter-block">
-                                    <p>Цена</p>
-                                    <div>
-                                        <input type="text" name="price-from" placeholder="от 1">
-                                        <input type="text" name="price-to" placeholder="до 1000">
-                                    </div>
-                                </div>
-                                <div class="filter-list filter-block">
-                                    <p>Плотность</p>
-                                    <ul>
-                                        <li>
-                                            <input type="checkbox" id="dencity1" name="dencity" value="160 г/м²">
-                                            <label for="dencity1">160 г/м²</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="dencity2" name="dencity" value="160 г/м²">
-                                            <label for="dencity2">160 г/м²</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="dencity3" name="dencity" value="160 г/м²">
-                                            <label for="dencity3">160 г/м²</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="dencity4" name="dencity" value="160 г/м²">
-                                            <label for="dencity4">160 г/м²</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="dencity5" name="dencity" value="160 г/м²">
-                                            <label for="dencity5">160 г/м²</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="dencity6" name="dencity" value="160 г/м²">
-                                            <label for="dencity6">160 г/м²</label>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="filter-color filter-block">
-                                    <p>Цвет</p>
-                                    <ul>
-                                        <li>
-                                            <input type="checkbox" id="color1" name="color" value="">
-                                            <label for="color1" style="background-color:#ff821d"></label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="color2" name="color" value="">
-                                            <label for="color2" style="background-color:#000000"></label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="color3" name="color" value="">
-                                            <label for="color3" style="background-color:#ff6868"></label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="color4" name="color" value="">
-                                            <label for="color4" style="background-color:#49ad44"></label>
-                                        </li>
-                                        <li class="multicolour">
-                                            <input type="checkbox" id="color5" name="color" value="">
-                                            <label for="color5"></label>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="filter-buttons filter-block">
-                                    <p>Размер</p>
-                                    <ul>
-                                        <li>
-                                            <input type="checkbox" id="size1" name="size" value="A4">
-                                            <label for="size1">A4</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="size2" name="size" value="A3">
-                                            <label for="size2">A4</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="size3" name="size" value="A2">
-                                            <label for="size3">A4</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="size4" name="size" value="A1">
-                                            <label for="size4">A4</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="size5" name="size" value="B4">
-                                            <label for="size5">A4</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="size6" name="size" value="B3">
-                                            <label for="size6">A4</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="size7" name="size" value="B2">
-                                            <label for="size7">A4</label>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox" id="size8" name="size" value="B1">
-                                            <label for="size8">A4</label>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="filter-range filter-block">
-                                    <p>Плотность</p>
-                                    <div>
-                                        <input type="text" name="price-from" placeholder="от 1">
-                                        <input type="text" name="price-to" placeholder="до 1000">
-                                    </div>
-                                </div>
-                                <div class="filter-extra-options filter-block">
-                                    <a href="#" title="Дополнительные параметры">Дополнительные параметры</a>
-                                </div>
-                                <div class="filter-sum">
-                                    <p>Найдено <span>52</span> товара</p>
-                                    <a href="#" title="Сбросить" class="clear-filter">Сбросить</a>
-                                </div>
-                                <div class="filter-mobile-action">
-                                    <a href="#" class="c-button filter-mobile-action__close">
-                                        <div class="c-ripple js-ripple">
-                                            <span class="c-ripple__circle"></span>
-                                        </div>
-                                        Закрыть
-                                    </a>
-                                    <button class="c-button filter-mobile-action__apply" type="submt">
-                                        <div class="c-ripple js-ripple">
-                                            <span class="c-ripple__circle"></span>
-                                        </div>
-                                        Применить
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="filter-advice">
-                            <h3>Советы от Паперок </h3>
-                            <p>
-                                Обманчивая простота белого листа: выбираем бумагу для офиса
-                            </p>
-                            <a href="#" title="Все советы">Все советы →</a>
-                        </div>
-                    </aside>
+
                 </div>
             </div>
         </div>
@@ -1752,14 +1474,5 @@
             </button>
         </div>
     </div>
-    <a href="#" class="mobile-filter-button" title="Открыть фильтр">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-15 -15 125 120" version="1.1" x="0px" y="0px">
-            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g fill="#bfbfbf"><path d="M27,24.9472656 L27,17 C27,15.6192881 25.8807119,14.5 24.5,14.5 C23.1192881,14.5 22,15.6192881 22,17 L22,25.1728516 M22,42.1630859 L22,79 L22,79 C22,80.3807119 23.1192881,81.5 24.5,81.5 C25.8807119,81.5 27,80.3807119 27,79 L27,42.0947266"/>
-                    <path d="M35.9545455,33.46875 C35.9545455,27.2722584 30.9273777,22.25 24.7272727,22.25 C18.5271677,22.25 13.5,27.2722584 13.5,33.46875 C13.5,39.6652416 18.5271677,44.6875 24.7272727,44.6875 C30.9273777,44.6875 35.9545455,39.6652416 35.9545455,33.46875 Z M18.5,33.46875 C18.5,30.0347763 21.2874985,27.25 24.7272727,27.25 C28.167047,27.25 30.9545455,30.0347763 30.9545455,33.46875 C30.9545455,36.9027237 28.167047,39.6875 24.7272727,39.6875 C21.2874985,39.6875 18.5,36.9027237 18.5,33.46875 Z"/><path d="M74,24.9472656 L74,17 C74,15.6192881 72.8807119,14.5 71.5,14.5 C70.1192881,14.5 69,15.6192881 69,17 L69,25.1728516 M69,42.1630859 L69,79 L69,79 C69,80.3807119 70.1192881,81.5 71.5,81.5 C72.8807119,81.5 74,80.3807119 74,79 L74,42.0947266"/><path d="M82.9545455,33.46875 C82.9545455,27.2722584 77.9273777,22.25 71.7272727,22.25 C65.5271677,22.25 60.5,27.2722584 60.5,33.46875 C60.5,39.6652416 65.5271677,44.6875 71.7272727,44.6875 C77.9273777,44.6875 82.9545455,39.6652416 82.9545455,33.46875 Z M65.5,33.46875 C65.5,30.0347763 68.2874985,27.25 71.7272727,27.25 C75.167047,27.25 77.9545455,30.0347763 77.9545455,33.46875 C77.9545455,36.9027237 75.167047,39.6875 71.7272727,39.6875 C68.2874985,39.6875 65.5,36.9027237 65.5,33.46875 Z"/><path d="M51,24.9472656 L51,17 C51,15.6192881 49.8807119,14.5 48.5,14.5 C47.1192881,14.5 46,15.6192881 46,17 L46,25.1728516 M46,42.1630859 L46,79 L46,79 C46,80.3807119 47.1192881,81.5 48.5,81.5 C49.8807119,81.5 51,80.3807119 51,79 L51,42.0947266" transform="translate(48.500000, 48.000000) rotate(-180.000000) translate(-48.500000, -48.000000) "/><path d="M59.5,62.53125 C59.5,56.3347584 54.4728323,51.3125 48.2727273,51.3125 C42.0726223,51.3125 37.0454545,56.3347584 37.0454545,62.53125 C37.0454545,68.7277416 42.0726223,73.75 48.2727273,73.75 C54.4728323,73.75 59.5,68.7277416 59.5,62.53125 Z M42.0454545,62.53125 C42.0454545,59.0972763 44.832953,56.3125 48.2727273,56.3125 C51.7125015,56.3125 54.5,59.0972763 54.5,62.53125 C54.5,65.9652237 51.7125015,68.75 48.2727273,68.75 C44.832953,68.75 42.0454545,65.9652237 42.0454545,62.53125 Z" transform="translate(48.272727, 62.531250) rotate(-180.000000) translate(-48.272727, -62.531250) "/>
-                </g>
-            </g>
-        </svg>
-        Открыть фильтр
-    </a>
+
 </main>

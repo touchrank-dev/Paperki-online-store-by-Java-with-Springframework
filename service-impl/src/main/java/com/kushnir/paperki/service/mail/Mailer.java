@@ -12,6 +12,9 @@ public class Mailer {
 
     private static final Logger LOGGER = LogManager.getLogger(Mailer.class);
 
+    @Value("${mail.enabled.toSupport}")
+    Boolean sendEmails;
+
     @Autowired
     private MailSender mailSender;
 
@@ -65,17 +68,18 @@ public class Mailer {
     }
 
     private void sendMail(String[] to, String from, String text, String theme) {
-        LOGGER.debug("Sending text email from({}) to ({}) >>> ", from, to);
-        templateMessage.setTo(to);
-        templateMessage.setFrom(from);
-        templateMessage.setText(text);
-        templateMessage.setSubject(theme);
-        try {
-            mailSender.send(templateMessage);
-            LOGGER.debug(">>> E-MAIL SUCCESSFULLY SENT");
-        } catch (Exception e) {
-            LOGGER.error(">>> FAIL SENDING EMAIL TO: {} \n{}", to, e.getMessage());
+        if(sendEmails) {
+            LOGGER.debug("Sending text email from({}) to ({}) >>> ", from, to);
+            templateMessage.setTo(to);
+            templateMessage.setFrom(from);
+            templateMessage.setText(text);
+            templateMessage.setSubject(theme);
+            try {
+                mailSender.send(templateMessage);
+                LOGGER.debug(">>> E-MAIL SUCCESSFULLY SENT");
+            } catch (Exception e) {
+                LOGGER.error(">>> FAIL SENDING EMAIL TO: {} \n{}", to, e.getMessage());
+            }
         }
-
     }
 }

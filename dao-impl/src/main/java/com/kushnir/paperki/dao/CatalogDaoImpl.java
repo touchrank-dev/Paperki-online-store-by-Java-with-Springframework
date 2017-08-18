@@ -2,6 +2,7 @@ package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.Category;
 
+import com.kushnir.paperki.model.Product;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.io.FileNotFoundException;
@@ -25,6 +28,8 @@ import java.util.HashMap;
 public class CatalogDaoImpl implements CatalogDao {
 
     private static final Logger LOGGER = LogManager.getLogger(CatalogDaoImpl.class);
+
+    private static final String P_CATEGORY_T_NAME = "p_category_t_name";
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -41,6 +46,8 @@ public class CatalogDaoImpl implements CatalogDao {
     /* SQL Scripts */
     @Value("${catalog.getAll}")
     private String getAllSqlQuery;
+    @Value("${catalog.getProductsByCategoryTName}")
+    private String getProductsByCategoryTNameSqlQuery;
 
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() {
@@ -51,12 +58,24 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
+    public ArrayList<Product> getProductListByCategoryTName(String categoryTName) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_CATEGORY_T_NAME, categoryTName);
+        ArrayList<Product> products =
+                (ArrayList<Product>) namedParameterJdbcTemplate
+                        .query(getProductsByCategoryTNameSqlQuery, parameterSource, new ProductResultSetExtractor());
+        LOGGER.debug("getProductListByCategoryTName() >>> {}", products);
+        return products;
+    }
+
+    @Override
     public ArrayList<Category> getCategoriesFromCSV() throws IOException {
         LOGGER.debug("Starting retrieve data from CSV file: {}", csvFilesPath+csvFileCatalog);
         LOGGER.debug(">>> PROGRESS ...");
         ArrayList<Category> categories = new ArrayList<Category>();
         try {
-            Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(new FileReader(csvFilesPath + csvFileCatalog));
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader()
+                    .parse(new FileReader(csvFilesPath + csvFileCatalog));
             for (CSVRecord record : records) {
                 try {
                     categories.add(new Category(
@@ -83,7 +102,6 @@ public class CatalogDaoImpl implements CatalogDao {
         LOGGER.debug("DATA: {}\n>>> FINISH", categories);
         return categories;
     }
-
 
     private class CategoryResultSetExtractor implements ResultSetExtractor {
 
@@ -123,5 +141,48 @@ public class CatalogDaoImpl implements CatalogDao {
             return map;
         }
     }
+
+    private class ProductResultSetExtractor implements ResultSetExtractor {
+
+        @Override
+        public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+            ArrayList<Product> products = new ArrayList<Product>();
+            /*
+                Полное название
+                короткое название
+                ЦЕНА
+                количество
+
+
+
+                Integer pnt,
+                   String fullName,
+                   String shortName,
+                   String translitName,
+                   String link,
+                   String countryFrom,
+                   String countryMade,
+                   String measure,
+                   Integer availableDay,
+                   Integer VAT,
+                   Boolean isPublishet,
+                   Boolean isVisible,
+                   Brand brand,
+                   HashMap<Integer, String[]> attributes,
+                   HashMap<Integer, Price> prices
+            */
+
+            return null;
+        }
+    }
+
+    /*private class ProductRowMapper implements RowMapper<Product> {
+
+        @Override
+        public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Product product = new Product();
+            return product;
+        }
+    }*/
 
 }

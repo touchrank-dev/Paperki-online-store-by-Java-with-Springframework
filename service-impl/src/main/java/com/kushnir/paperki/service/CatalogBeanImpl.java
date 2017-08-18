@@ -34,17 +34,18 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    public ArrayList<Category> getCategoryByTName(String categoryTName) {
-        return null;
+    public Category getCategoryByTName(String categoryTName) {
+        return  null;
     }
 
     @Override
     public ArrayList<Product> getProductsByCategoryTName(String categoryTName) {
-        return null;
+        LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
+        return catalogDao.getProductListByCategoryTName(categoryTName);
     }
 
     @Override
-    public Product getProductByCategoryTName(String categoryTName, String productTName) {
+    public Product getProductByCategoryTName(String categoryTName) {
         return null;
     }
 }

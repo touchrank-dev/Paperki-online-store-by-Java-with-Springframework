@@ -32,7 +32,7 @@ public class MainController {
     MenuBean menuBean;
 
     @Autowired
-    CatalogBean categoryBean;
+    CatalogBean catalogBean;
 
     @Value("${content.path}")
     String contentPath;
@@ -74,7 +74,7 @@ public class MainController {
 
     @ModelAttribute("mapcategories")
     public HashMap getCatalog () {
-        return categoryBean.getAll();
+        return catalogBean.getAll();
     }
 
     @ModelAttribute("user")
