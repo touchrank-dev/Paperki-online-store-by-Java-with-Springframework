@@ -12,6 +12,6 @@ public interface CatalogBean {
     HashMap<Integer, HashMap<Integer, Category>> getAll();
     ArrayList<Category> getCategoriesFromCSV () throws IOException;
     Category getCategoryByTName (String categoryTName);
-    ArrayList<Product> getProductsByCategoryTName(String categoryTName);
+    HashMap<Integer ,Product> getProductsByCategoryTName(String categoryTName);
     Product getProductByCategoryTName (String categoryTName);
 }

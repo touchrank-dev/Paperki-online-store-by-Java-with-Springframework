@@ -37,7 +37,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(Integer papId,
+    public Product(Integer id,
+                   Integer papId,
                    Integer pnt,
                    String fullName,
                    String shortName,
@@ -51,8 +52,8 @@ public class Product {
                    Boolean isPublishet,
                    Boolean isVisible,
                    Brand brand,
-                   HashMap<Integer, String[]> attributes,
                    HashMap<Integer, Price> prices) {
+        this.id = id;
         this.papId = papId;
         this.pnt = pnt;
         this.fullName = fullName;
@@ -67,7 +68,6 @@ public class Product {
         this.isPublishet = isPublishet;
         this.isVisible = isVisible;
         this.brand = brand;
-        this.attributes = attributes;
         this.prices = prices;
     }
 

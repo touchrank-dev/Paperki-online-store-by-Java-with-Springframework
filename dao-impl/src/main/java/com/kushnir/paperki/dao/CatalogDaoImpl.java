@@ -1,7 +1,9 @@
 package com.kushnir.paperki.dao;
 
+import com.kushnir.paperki.model.Brand;
 import com.kushnir.paperki.model.Category;
 
+import com.kushnir.paperki.model.Price;
 import com.kushnir.paperki.model.Product;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -58,11 +60,11 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
-    public ArrayList<Product> getProductListByCategoryTName(String categoryTName) {
+    public HashMap<Integer ,Product> getProductListByCategoryTName(String categoryTName) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(P_CATEGORY_T_NAME, categoryTName);
-        ArrayList<Product> products =
-                (ArrayList<Product>) namedParameterJdbcTemplate
+        HashMap<Integer ,Product> products =
+                (HashMap<Integer ,Product>) namedParameterJdbcTemplate
                         .query(getProductsByCategoryTNameSqlQuery, parameterSource, new ProductResultSetExtractor());
         LOGGER.debug("getProductListByCategoryTName() >>> {}", products);
         return products;
@@ -145,34 +147,33 @@ public class CatalogDaoImpl implements CatalogDao {
     private class ProductResultSetExtractor implements ResultSetExtractor {
 
         @Override
-        public Object extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-            ArrayList<Product> products = new ArrayList<Product>();
-            /*
-                Полное название
-                короткое название
-                ЦЕНА
-                количество
-
-
-
-                Integer pnt,
-                   String fullName,
-                   String shortName,
-                   String translitName,
-                   String link,
-                   String countryFrom,
-                   String countryMade,
-                   String measure,
-                   Integer availableDay,
-                   Integer VAT,
-                   Boolean isPublishet,
-                   Boolean isVisible,
-                   Brand brand,
-                   HashMap<Integer, String[]> attributes,
-                   HashMap<Integer, Price> prices
-            */
-
-            return null;
+        public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+            HashMap<Integer ,Product> products = new HashMap<Integer ,Product>();
+            Product product;
+            Price price;
+            while (rs.next()) {
+                price = new Price(rs.getDouble("quatity_start"), rs.getDouble());
+                product = new Product(
+                        rs.getInt("id_product"),
+                        rs.getInt("pap_id"),
+                        rs.getInt("pnt"),
+                        rs.getString("full_name"),
+                        rs.getString("short_name"),
+                        rs.getString("translit_name"),
+                        rs.getString("link"),
+                        rs.getString("country_from"),
+                        rs.getString("country_made"),
+                        rs.getString("measure"),
+                        rs.getInt("available_day"),
+                        rs.getInt("vat"),
+                        rs.getBoolean("is_published"),
+                        rs.getBoolean("is_visible"),
+                        new Brand(rs.getString("bname"), rs.getString("btname")),
+                        new HashMap<Integer, Price>()
+                );
+                products.put(product.getId(), product);
+            }
+            return products;
         }
     }
 
