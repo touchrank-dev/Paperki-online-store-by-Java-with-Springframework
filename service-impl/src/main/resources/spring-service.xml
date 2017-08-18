@@ -19,9 +19,9 @@
 
     <!--PROTOTYPE BEANS-->
     <bean id="user" class="com.kushnir.paperki.model.User" scope="prototype" />
-        <!--ERROR DATA BEANS-->
-        <bean id="errorLoginData" class="com.kushnir.paperki.model.ErrorLoginData" scope="prototype" />
-        <bean id="errorRegistrateForm" class="com.kushnir.paperki.model.ErrorRegistrateForm" scope="prototype" />
+    <!--ERROR DATA BEANS-->
+    <bean id="errorLoginData" class="com.kushnir.paperki.model.ErrorLoginData" scope="prototype" />
+    <bean id="errorRegistrateForm" class="com.kushnir.paperki.model.ErrorRegistrateForm" scope="prototype" />
 
     <!--BEANS-->
     <bean id="catalogBean" class="com.kushnir.paperki.service.CatalogBeanImpl" />

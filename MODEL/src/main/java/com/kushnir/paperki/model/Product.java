@@ -16,6 +16,7 @@ public class Product {
     private String barCode;
     private String measure;
     private Integer availableDay;
+    private Integer quantity;
     private Integer VAT;
     private String metadesk;
     private String metakey;
@@ -48,6 +49,7 @@ public class Product {
                    String countryMade,
                    String measure,
                    Integer availableDay,
+                   Integer quantity,
                    Integer VAT,
                    Boolean isPublishet,
                    Boolean isVisible,
@@ -64,11 +66,20 @@ public class Product {
         this.countryMade = countryMade;
         this.measure = measure;
         this.availableDay = availableDay;
+        this.quantity = quantity;
         this.VAT = VAT;
         this.isPublishet = isPublishet;
         this.isVisible = isVisible;
         this.brand = brand;
         this.prices = prices;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuentity(Integer quentity) {
+        this.quantity = quantity;
     }
 
     public Integer getId() {

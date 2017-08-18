@@ -2,6 +2,8 @@ package com.kushnir.paperki.model;
 
 public class Price {
     private String type;
+    private Integer quantityStart;
+    private Integer quantityEnd;
     private Double basePrice;
     private Integer discount;
     private Double basePriceWithVat;
@@ -10,10 +12,34 @@ public class Price {
     public Price() {
     }
 
-    public Price(Double basePrice, Double basePriceWithVat, Double overridePrice) {
-        this.basePrice = basePrice;
+    public Price(Integer quantityStart, Integer quantityEnd, Double basePriceWithVat) {
+        this.quantityStart = quantityStart;
+        this.quantityEnd = quantityEnd;
         this.basePriceWithVat = basePriceWithVat;
-        this.overridePrice = overridePrice;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getQuantityStart() {
+        return quantityStart;
+    }
+
+    public void setQuantityStart(Integer quantityStart) {
+        this.quantityStart = quantityStart;
+    }
+
+    public Integer getQuantityEnd() {
+        return quantityEnd;
+    }
+
+    public void setQuantityEnd(Integer quantityEnd) {
+        this.quantityEnd = quantityEnd;
     }
 
     public Double getBasePrice() {
@@ -22,6 +48,14 @@ public class Price {
 
     public void setBasePrice(Double basePrice) {
         this.basePrice = basePrice;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
     }
 
     public Double getBasePriceWithVat() {
@@ -47,7 +81,12 @@ public class Price {
 
         Price price = (Price) o;
 
+        if (type != null ? !type.equals(price.type) : price.type != null) return false;
+        if (quantityStart != null ? !quantityStart.equals(price.quantityStart) : price.quantityStart != null)
+            return false;
+        if (quantityEnd != null ? !quantityEnd.equals(price.quantityEnd) : price.quantityEnd != null) return false;
         if (basePrice != null ? !basePrice.equals(price.basePrice) : price.basePrice != null) return false;
+        if (discount != null ? !discount.equals(price.discount) : price.discount != null) return false;
         if (basePriceWithVat != null ? !basePriceWithVat.equals(price.basePriceWithVat) : price.basePriceWithVat != null)
             return false;
         return overridePrice != null ? overridePrice.equals(price.overridePrice) : price.overridePrice == null;
@@ -55,7 +94,11 @@ public class Price {
 
     @Override
     public int hashCode() {
-        int result = basePrice != null ? basePrice.hashCode() : 0;
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + (quantityStart != null ? quantityStart.hashCode() : 0);
+        result = 31 * result + (quantityEnd != null ? quantityEnd.hashCode() : 0);
+        result = 31 * result + (basePrice != null ? basePrice.hashCode() : 0);
+        result = 31 * result + (discount != null ? discount.hashCode() : 0);
         result = 31 * result + (basePriceWithVat != null ? basePriceWithVat.hashCode() : 0);
         result = 31 * result + (overridePrice != null ? overridePrice.hashCode() : 0);
         return result;
@@ -64,7 +107,11 @@ public class Price {
     @Override
     public String toString() {
         return "Price{" +
-                "basePrice=" + basePrice +
+                "type='" + type + '\'' +
+                ", quantityStart=" + quantityStart +
+                ", quantityEnd=" + quantityEnd +
+                ", basePrice=" + basePrice +
+                ", discount=" + discount +
                 ", basePriceWithVat=" + basePriceWithVat +
                 ", overridePrice=" + overridePrice +
                 '}';

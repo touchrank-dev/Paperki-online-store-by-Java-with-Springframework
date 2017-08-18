@@ -26,6 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class CatalogDaoImpl implements CatalogDao {
 
@@ -149,10 +150,14 @@ public class CatalogDaoImpl implements CatalogDao {
         @Override
         public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
             HashMap<Integer ,Product> products = new HashMap<Integer ,Product>();
+            HashMap<Integer, Price> prices = new LinkedHashMap<Integer, Price>();
             Product product;
             Price price;
             while (rs.next()) {
-                price = new Price(rs.getDouble("quatity_start"), rs.getDouble());
+                price = new Price(rs.getInt("quatity_start"),
+                                  rs.getInt("quatity_end"),
+                                  rs.getDouble("value")
+                );
                 product = new Product(
                         rs.getInt("id_product"),
                         rs.getInt("pap_id"),
@@ -165,13 +170,21 @@ public class CatalogDaoImpl implements CatalogDao {
                         rs.getString("country_made"),
                         rs.getString("measure"),
                         rs.getInt("available_day"),
+                        rs.getInt("quantity"),
                         rs.getInt("vat"),
                         rs.getBoolean("is_published"),
                         rs.getBoolean("is_visible"),
                         new Brand(rs.getString("bname"), rs.getString("btname")),
-                        new HashMap<Integer, Price>()
+                        prices
                 );
-                products.put(product.getId(), product);
+                if(products.get(product.getId()) == null) {
+                    products.put(product.getId(), product);
+                } else {
+                    Product p = products.get(product.getId());
+                    if(p.getPnt() == product.getPnt()) {
+                        product.getPrices().put(price.getQuantityStart(), price);
+                    }
+                }
             }
             return products;
         }

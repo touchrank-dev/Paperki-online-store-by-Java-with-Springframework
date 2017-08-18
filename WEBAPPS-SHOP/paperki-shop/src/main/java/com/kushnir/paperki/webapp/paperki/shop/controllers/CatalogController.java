@@ -47,7 +47,7 @@ public class CatalogController {
     @GetMapping("/{catalorItemTranslitName}")
     public String catalogItemPage(@PathVariable String catalorItemTranslitName, Model model){
         LOGGER.debug("catalogItemPage() >>>");
-        ArrayList<Product> products = catalogBean.getProductsByCategoryTName(catalorItemTranslitName);
+        HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalorItemTranslitName);
         model.addAttribute("products", products);
         model.addAttribute("categoryname", catalorItemTranslitName);
         model.addAttribute("templatePathName", contentPath + "product-list");

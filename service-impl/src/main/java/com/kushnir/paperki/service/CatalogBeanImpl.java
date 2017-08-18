@@ -39,9 +39,11 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    public HashMap<Integer ,Product> getProductsByCategoryTName(String categoryTName) {
+    public HashMap<Integer, Product> getProductsByCategoryTName(String categoryTName) {
         LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
-        return catalogDao.getProductListByCategoryTName(categoryTName);
+        HashMap<Integer, Product> products = catalogDao.getProductListByCategoryTName(categoryTName);
+        LOGGER.debug("PRODUCTS: {}", products);
+        return products;
     }
 
     @Override
