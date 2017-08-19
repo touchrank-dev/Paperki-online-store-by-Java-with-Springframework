@@ -3,7 +3,6 @@
         <!-- КАТЕГОРИИ -->
         <ul data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All"
             th:if="${mapcategories} != null">
-
             <li th:each="map : ${mapcategories[0]}" class="menu__item" role="menuitem">
                 <a class="menu__link" data-submenu="submenu-1" aria-owns="submenu-1"
                    href="#" 
@@ -15,9 +14,7 @@
                     <span th:text="${map.value.name}" th:remove="tag">Название категории</span>
                 </a>
             </li>
-
         </ul>
-            
         <ul th:each="map : ${mapcategories[0]}" class="catalog-submenu menu__level" 
             th:attr="data-menu='submenu-'+${map.value.id}">
             <div class="submenu-wrap">
@@ -25,9 +22,8 @@
                         th:if="${mapcategories[__${map.value.id}__]} != null" 
                         th:each="mapitem : ${mapcategories[__${map.value.id}__]}">
 
-                    <a href="#" th:href="@{${map.value.link}}" class="menu__link"></a>
-                    <!-- link to category -->
-                    <a href="#" class="link-cat"
+                    <a class="menu__link" href="#"></a>
+                    <a href="/catalog" class="link-cat"
                         th:href="@{${mapitem.value.link}}">
                         <div>
                             <img src="/res/img/hcm1.png" alt="Название категории" 
@@ -38,58 +34,8 @@
                 </li>
             </div>
             <!-- //TODO реализовать бренды и баннер для субменю -->
-            <div class="submenu-discount">
-                <div class="discount-icon">
-                    <img src="/res/img/banner.png" alt="Скидка">
-                </div>
-                <div class="discount-banner">
-                    <img src="/res/img/pen.png" alt="Pen">
-                </div>
-                <div class="discount-text">
-                    <h2>Ручки PARKER</h2>
-                    <a href="#" class="c-button" title="Выбрать ручки">
-                        <div class="c-ripple js-ripple">
-                            <span class="c-ripple__circle"></span>
-                        </div>
-                        Выбрать ручки
-                    </a>
-                </div>
-            </div>
-            <div class="submenu-bottom">
-                <ul class="submenu-bottom-list">
-                    <li>
-                        <a href="#">
-                            <img src="/res/img/brands/akavim.png" alt="akavim">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/res/img/brands/artspace.png" alt="artspace">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/res/img/brands/greensboro-college.png" alt="greensboro">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/res/img/brands/infolio.png" alt="infolio">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/res/img/brands/link.png" alt="link">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <img src="/res/img/brands/magic_line.png" alt="magic_line">
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <div class="submenu-discount"><!--banner--></div>
+            <div class="submenu-bottom"><!--brands bottom--></div>
         </ul>
-
     </div>
 </nav>

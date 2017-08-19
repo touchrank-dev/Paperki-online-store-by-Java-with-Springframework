@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
         try {
             Assert.notNull(user, "Пользователь не найден, проверьте правильно ли Вы указали Логин!");
         } catch (Exception e) {
-            errorLoginData.setLogin(e.getMessage());
+            if(!errorLoginData.isErrors()) errorLoginData.setLogin(e.getMessage());
         }
         try {
             Assert.notNull(loginData.getPassword(), "Пароль не должен быть пустым");
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
             // Assert.isTrue(bcp.matches(loginData.getPassword(), user.getPassword()),"Неверный пароль");
             // TODO !!! HARDCODE !!! SET USER TYPE
         } catch (Exception e) {
-            errorLoginData.setPassword(e.getMessage());
+            if(!errorLoginData.isErrors()) errorLoginData.setPassword(e.getMessage());
         }
         if(errorLoginData.isErrors()) {
             LOGGER.error("LOGIN FAILED! >>>\nERROR FORM: {}", errorLoginData);

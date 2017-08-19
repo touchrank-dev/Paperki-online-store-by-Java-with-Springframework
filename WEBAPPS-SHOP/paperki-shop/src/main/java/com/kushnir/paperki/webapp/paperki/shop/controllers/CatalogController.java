@@ -36,6 +36,14 @@ public class CatalogController {
     @Value("${content.path}")
     String contentPath;
 
+    @Value("${catalog.url}")
+    String catalogURL;
+
+    @Value("${product.image.path}")
+    String productImagePath;
+    @Value("${product.image.prefix}")
+    String imgPref;
+
     @GetMapping
     public String catalogPage(Model model) {
         LOGGER.debug("catalogPage() >>>");
@@ -59,9 +67,25 @@ public class CatalogController {
     public String productItemPage(@PathVariable String catalorItemTranslitName,
                                   @PathVariable String productTranslitName, Model model){
         LOGGER.debug("productItemPage() >>>");
+        Product product = catalogBean.getProductByCategoryTName(productTranslitName);
         model.addAttribute("templatePathName", contentPath + "product-details");
         model.addAttribute("fragmentName", "product-details");
         return "index";
+    }
+
+    @ModelAttribute("pip")
+    public String productImagePath() {
+        return productImagePath;
+    }
+
+    @ModelAttribute("catalogurl")
+    public String catalogUrl() {
+        return catalogURL;
+    }
+
+    @ModelAttribute("imgPref")
+    public String imgPref () {
+        return imgPref;
     }
 
     @ModelAttribute("mainmenu")

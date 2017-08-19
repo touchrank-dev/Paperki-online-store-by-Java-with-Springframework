@@ -4403,6 +4403,29 @@ a.btn.btn-ord.active {
   box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25);
   cursor: pointer; }
 
+.btn-to-cart-simple {
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  /*width: 55px;*/
+  height: 35px;
+  background-color: #a8c600;
+  border: none;
+  border-radius: 5px;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  color: #fff;
+  font-weight: 900;
+  font-size: 16px;
+  text-shadow: 1px 1px #777;
+}
+
 .btn-to-cart:hover {
   background-color: #a8c600;
   box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.35); }
@@ -7654,14 +7677,67 @@ header.js-active:before {
     height: 40px; }
   .single-product-main-info a.btn.btn-click {
     height: 40px; }
-  .single-product-main-info .single-product__number {
-    width: 98px;
-    display: -moz-flex;
-    display: -ms-flex;
-    display: -o-flex;
-    display: -ms-flexbox;
-    display: flex;
-    margin-right: 19px; }
+
+
+li .single-product__number {
+  width: 98px;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 19px;
+}
+li .single-product__number .inde {
+  width: 50px;
+  height: 38px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+  font-family: ProximaNovaBold;
+  color: #b9b9b9;
+}
+li .single-product__number .inc {
+  width: 24px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  border-left: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 34px;
+  font-family: ProximaNovaBold;
+  color: #b9b9b9;
+  line-height: 1;
+  cursor: pointer;
+  background: white;
+}
+li .single-product__number .inc:hover,
+li .single-product__number .dec:hover {
+  color: #ff871a; }
+li .single-product__number .dec {
+  width: 24px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  border-right: 0px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  font-size: 34px;
+  font-family: ProximaNovaBold;
+  color: #b9b9b9;
+  line-height: 1;
+  cursor: pointer;
+  background: white;
+}
+
+.single-product-main-info .single-product__number {
+  width: 98px;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 19px; }
+
     .single-product-main-info .single-product__number .inde {
       width: 50px;
       height: 38px;

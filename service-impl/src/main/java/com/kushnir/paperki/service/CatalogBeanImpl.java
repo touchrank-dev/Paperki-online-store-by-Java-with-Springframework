@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,12 +43,15 @@ public class CatalogBeanImpl implements CatalogBean {
     public HashMap<Integer, Product> getProductsByCategoryTName(String categoryTName) {
         LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
         HashMap<Integer, Product> products = catalogDao.getProductListByCategoryTName(categoryTName);
-        LOGGER.debug("PRODUCTS: {}", products);
+        LOGGER.debug("\nPRODUCTS: {}", products);
         return products;
     }
 
     @Override
     public Product getProductByCategoryTName(String categoryTName) {
+        LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
+        Product product = catalogDao.getProductByTName();
+        LOGGER.debug("\nPRODUCT: {}", product);
         return null;
     }
 }

@@ -12,7 +12,11 @@ VALUES  ('Бумага и бумажная продукция', 'bumaga-i-bymazh
         ('Демонстрационное оборудование', 'demonstracionnoe-oborudovanie', '/catalog/demonstracionnoe-oborudovanie', 'hm6.png', 2),
         ('Бумага офисная белая', 'bumaga-ofisnaja-belaja', '/catalog/bumaga-ofisnaja-belaja', 'hcm1.png', 1),
         ('Бумага офисная цветная', 'bumaga-ofisnaja-cvetnaja', '/catalog/bumaga-ofisnaja-cvetnaja', 'hcm2.png', 2),
-        ('Бумага писчая, газетная', 'bumaga-pischaja-gazetnaja', '/bumaga-pischaja-gazetnaja', 'hcm3.png', 3);
+        ('Бумага писчая, газетная', 'bumaga-pischaja-gazetnaja', '/bumaga-pischaja-gazetnaja', 'hcm3.png', 3),
+        ('Бумага для факса', 'bumaga-dlya-faksa', '/bumaga-dlya-faksa', 'hcm4.png', 4),
+        ('Клей', 'klej', '/klej', 'hcm1.png', 1),
+        ('Корректоры', 'korrektory', '/korrektory', 'hcm2.png', 2),
+        ('Дыроколы', 'dyrokoly', '/dyrokoly', 'hcm4.png', 4);
 
 INSERT INTO catalog_ref (id_catalog, parent_id_catalog)
 VALUES  (1, 0),
@@ -21,14 +25,13 @@ VALUES  (1, 0),
         (4, 0),
         (5, 0),
         (6, 0),
-        (7, 1),
-        (8, 1),
-        (9, 1);
+        (7, 1),(8, 1),(9, 1),(10, 1),
+        (11, 2),(12, 2),(13, 2);
 
 INSERT INTO menu (name, translit_name)
 VALUES  ('Главное', 'root'),
         ('Помощь', 'help'),
-        ('Новостии', 'blog');
+        ('Новости', 'blog');
 
 INSERT INTO menu_items (name, translit_name, link, order_item)
 VALUES  ('О компании', 'about', '/about', 1),
@@ -55,16 +58,17 @@ INSERT INTO brands (name, translit_name, icon)
 VALUES ('Ксерокс', 'xerox', 'xerox.png');
 
 INSERT INTO products (pnt, full_name, short_name, translit_name, id_brand, country_made, measure, vat)
-VALUES (9491, 'Бумага офисная Ксерокс Перформер А4, 80 г/м2, 500 л.', 'А4, 80 г/м2, 500 л.', 'bumaga-ofisnaja-xerox-performer-A4-80-gm2-500l', 1, 'РФ', 'пач.', 20);
+VALUES  (9491, 'Бумага офисная Ксерокс Перформер А4, 80 г/м2, 500 л.', 'А4, 80 г/м2, 500 л.', 'bumaga-ofisnaja-xerox-performer-A4-80-gm2-500l', 1, 'РФ', 'пач.', 20),
+        (9496, 'Бумага офисная Ксерокс Перформер А3, 80 г/м2, 500 л.', 'А3, 80 г/м2, 500 л.', 'bumaga-ofisnaja-xerox-performer-A3-80-gm2-500l', 1, 'РФ', 'пач.', 10);
 
 INSERT INTO prices_types (name)
 VALUES ('Сиандартная');
 
 INSERT INTO product_prices (id_price_type, id_product, value)
-VALUES (1, 1, 4.6);
+VALUES (1, 1, 4.6),(1, 2, 4.6);
 
 INSERT INTO product_catalog (id_catalog, order_product)
-VALUES (7, 1);
+VALUES (7, 1),(7, 2);
 
 INSERT INTO stock (name, id_product, quantity)
 VALUES ('Брест центральный', 1, 20);

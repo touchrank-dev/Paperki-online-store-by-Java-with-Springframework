@@ -33,6 +33,7 @@ public class CatalogDaoImpl implements CatalogDao {
     private static final Logger LOGGER = LogManager.getLogger(CatalogDaoImpl.class);
 
     private static final String P_CATEGORY_T_NAME = "p_category_t_name";
+    private static final String P_PRODUCT_T_NAME = "p_product_t_name";
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -49,14 +50,18 @@ public class CatalogDaoImpl implements CatalogDao {
     /* SQL Scripts */
     @Value("${catalog.getAll}")
     private String getAllSqlQuery;
+
     @Value("${catalog.getProductsByCategoryTName}")
     private String getProductsByCategoryTNameSqlQuery;
+
+    @Value("${catalog.getProductByTName}")
+    private String getProductByTNameSqlQuery;
 
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() {
         HashMap<Integer, HashMap<Integer, Category>> map =
                 (HashMap) jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
-        LOGGER.debug("getAll() >>> {}", map);
+        LOGGER.debug("getAll() >>>\nCATALOG MENU MAP: {}", map);
         return map;
     }
 
@@ -67,8 +72,17 @@ public class CatalogDaoImpl implements CatalogDao {
         HashMap<Integer ,Product> products =
                 (HashMap<Integer ,Product>) namedParameterJdbcTemplate
                         .query(getProductsByCategoryTNameSqlQuery, parameterSource, new ProductResultSetExtractor());
-        LOGGER.debug("getProductListByCategoryTName() >>> {}", products);
+        LOGGER.debug("getProductListByCategoryTName({}) >>>\nPRODUCTS MAP: {}", categoryTName, products);
         return products;
+    }
+
+    @Override
+    public Product getProductByTName(String productTName) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_PRODUCT_T_NAME, productTName);
+        Product product = namedParameterJdbcTemplate.queryForObject(getProductByTNameSqlQuery , parameterSource, new ProductRowMapper());
+        LOGGER.debug("getProductByTName({}) >>>\nPRODUCT: {}", productTName, product);
+        return null;
     }
 
     @Override
@@ -175,14 +189,17 @@ public class CatalogDaoImpl implements CatalogDao {
                         rs.getBoolean("is_published"),
                         rs.getBoolean("is_visible"),
                         new Brand(rs.getString("bname"), rs.getString("btname")),
-                        prices
+                        null
                 );
                 if(products.get(product.getId()) == null) {
+                    prices.put(price.getQuantityStart(), price);
+                    product.setPrices(prices);
                     products.put(product.getId(), product);
                 } else {
                     Product p = products.get(product.getId());
                     if(p.getPnt() == product.getPnt()) {
                         product.getPrices().put(price.getQuantityStart(), price);
+                        products.put(product.getId(), p);
                     }
                 }
             }
@@ -190,13 +207,31 @@ public class CatalogDaoImpl implements CatalogDao {
         }
     }
 
-    /*private class ProductRowMapper implements RowMapper<Product> {
+    private class ProductRowMapper implements RowMapper<Product> {
 
         @Override
         public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Product product = new Product();
+            Product product = new Product(
+                    rs.getInt("id_product"),
+                    rs.getInt("pap_id"),
+                    rs.getInt("pnt"),
+                    rs.getString("full_name"),
+                    rs.getString("short_name"),
+                    rs.getString("translit_name"),
+                    rs.getString("link"),
+                    rs.getString("country_from"),
+                    rs.getString("country_made"),
+                    rs.getString("measure"),
+                    rs.getInt("available_day"),
+                    rs.getInt("quantity"),
+                    rs.getInt("vat"),
+                    rs.getBoolean("is_published"),
+                    rs.getBoolean("is_visible"),
+                    new Brand(rs.getString("bname"), rs.getString("btname")),
+                    prices
+            );
             return product;
         }
-    }*/
+    }
 
 }

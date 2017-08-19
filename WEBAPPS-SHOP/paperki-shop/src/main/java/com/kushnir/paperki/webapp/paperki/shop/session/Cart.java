@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class Cart {
 
-    private HashMap<Integer, Product> items;
+    private HashMap<Integer, Product> items = new HashMap<Integer, Product>();
 
     public HashMap<Integer, Product> getItems() {
         return items;
