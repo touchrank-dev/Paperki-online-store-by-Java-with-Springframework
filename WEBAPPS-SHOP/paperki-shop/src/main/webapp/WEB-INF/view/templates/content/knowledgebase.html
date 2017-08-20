@@ -4,6 +4,16 @@
             <li><a href="/">Главная</a></li>
             <li>База знаний</li>
         </ul>
+        <aside class="blogSidebarGroup typicalAside">
+            <ul class="blogCategoryList blogCategoryListWithOutTitle">
+                <li th:each="menuitem : ${mainmenu}">
+                    <a href="#" th:href="@{${menuitem.link}}">
+                        <img src="/res/img/slider-arrow-left.png">
+                        <span th:text="${menuitem.name}" th:remove="tag">О компании</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
         <section class="typicalSection">
             <h1>Страница находится в разработке и скоро появится</h1>
         </section>
