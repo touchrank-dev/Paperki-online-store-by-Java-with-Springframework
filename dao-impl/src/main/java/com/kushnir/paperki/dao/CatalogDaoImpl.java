@@ -51,6 +51,9 @@ public class CatalogDaoImpl implements CatalogDao {
     @Value("${catalog.getAll}")
     private String getAllSqlQuery;
 
+    @Value("${catalog.getByTName}")
+    private String getByTNameSqlQuery;
+
     @Value("${catalog.getProductsByCategoryTName}")
     private String getProductsByCategoryTNameSqlQuery;
 
@@ -63,6 +66,15 @@ public class CatalogDaoImpl implements CatalogDao {
                 (HashMap) jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
         LOGGER.debug("getAll() >>>\nCATALOG MENU MAP: {}", map);
         return map;
+    }
+
+    @Override
+    public Category getCategoryByTName(String categoryTName) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_CATEGORY_T_NAME, categoryTName);
+        Category category = namedParameterJdbcTemplate
+                .queryForObject(getByTNameSqlQuery, parameterSource, new CategoryRowMapper());
+        LOGGER.debug("getCategoryByTName({}) >>>\nCATEGORY: {}", categoryTName, category);
+        return category;
     }
 
     @Override
@@ -159,6 +171,22 @@ public class CatalogDaoImpl implements CatalogDao {
         }
     }
 
+    private class CategoryRowMapper implements RowMapper<Category> {
+
+        @Override
+        public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Category category = new Category(
+                    rs.getInt("id_catalog"),
+                    rs.getString("name"),
+                    rs.getString("translit_name"),
+                    rs.getString("link"),
+                    rs.getString("icon"),
+                    rs.getInt("order_catalog")
+            );
+            return category;
+        }
+    }
+
     private class ProductResultSetExtractor implements ResultSetExtractor {
 
         @Override
@@ -170,7 +198,8 @@ public class CatalogDaoImpl implements CatalogDao {
             while (rs.next()) {
                 price = new Price(rs.getInt("quatity_start"),
                                   rs.getInt("quatity_end"),
-                                  rs.getDouble("value")
+                                  rs.getDouble("value"),
+                                  rs.getInt("vat")
                 );
                 product = new Product(
                         rs.getInt("id_product"),
@@ -208,6 +237,7 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     private class ProductRowMapper implements RowMapper<Product> {
+        HashMap<Integer, Price> prices = new LinkedHashMap<Integer, Price>();
 
         @Override
         public Product mapRow(ResultSet rs, int rowNum) throws SQLException {

@@ -58,7 +58,7 @@ public class ErrorLoginData {
     public String toString() {
         return "ErrorLoginData{" +
                 "login='" + login + '\'' +
-                ", password='" + "******" + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

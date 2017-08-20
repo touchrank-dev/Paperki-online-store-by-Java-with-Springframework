@@ -8,9 +8,9 @@ public class RegistrateForm {
     private String password;
     private Boolean autopass;
     private String phone;
-    /*private String birthDate;*/
+    private String birthDate;
     private Boolean enterprise;
-    private Long UNP;
+    private String UNP;
     private String enterpriseName;
     private String billingAddress;
     private String accountNumber;
@@ -26,7 +26,6 @@ public class RegistrateForm {
                           String password,
                           Boolean autopass,
                           String phone,
-                          /*String birthDate,*/
                           Boolean enterprise) {
         this.name = name;
         this.email = email;
@@ -34,8 +33,35 @@ public class RegistrateForm {
         this.password = password;
         this.autopass = autopass;
         this.phone = phone;
-        /*this.birthDate = birthDate;*/
         this.enterprise = enterprise;
+    }
+
+    public RegistrateForm(String name,
+                          String email,
+                          Boolean subscribe,
+                          String password,
+                          Boolean autopass,
+                          String phone,
+                          Boolean enterprise,
+                          String UNP,
+                          String enterpriseName,
+                          String billingAddress,
+                          String accountNumber,
+                          String bankName,
+                          Integer bankCode) {
+        this.name = name;
+        this.email = email;
+        this.subscribe = subscribe;
+        this.password = password;
+        this.autopass = autopass;
+        this.phone = phone;
+        this.enterprise = enterprise;
+        this.UNP = UNP;
+        this.enterpriseName = enterpriseName;
+        this.billingAddress = billingAddress;
+        this.accountNumber = accountNumber;
+        this.bankName = bankName;
+        this.bankCode = bankCode;
     }
 
     public String getName() {
@@ -86,13 +112,13 @@ public class RegistrateForm {
         this.phone = phone;
     }
 
-    /*public String getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
-    }*/
+    }
 
     public Boolean getEnterprise() {
         return enterprise;
@@ -100,6 +126,54 @@ public class RegistrateForm {
 
     public void setEnterprise(Boolean enterprise) {
         this.enterprise = enterprise;
+    }
+
+    public String getUNP() {
+        return UNP;
+    }
+
+    public void setUNP(String UNP) {
+        this.UNP = UNP;
+    }
+
+    public String getEnterpriseName() {
+        return enterpriseName;
+    }
+
+    public void setEnterpriseName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(String billingAddress) {
+        this.billingAddress = billingAddress;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public Integer getBankCode() {
+        return bankCode;
+    }
+
+    public void setBankCode(Integer bankCode) {
+        this.bankCode = bankCode;
     }
 
     @Override
@@ -115,8 +189,17 @@ public class RegistrateForm {
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (autopass != null ? !autopass.equals(that.autopass) : that.autopass != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-        /*if (birthDate != null ? !birthDate.equals(that.birthDate) : that.birthDate != null) return false;*/
-        return enterprise != null ? enterprise.equals(that.enterprise) : that.enterprise == null;
+        if (birthDate != null ? !birthDate.equals(that.birthDate) : that.birthDate != null) return false;
+        if (enterprise != null ? !enterprise.equals(that.enterprise) : that.enterprise != null) return false;
+        if (UNP != null ? !UNP.equals(that.UNP) : that.UNP != null) return false;
+        if (enterpriseName != null ? !enterpriseName.equals(that.enterpriseName) : that.enterpriseName != null)
+            return false;
+        if (billingAddress != null ? !billingAddress.equals(that.billingAddress) : that.billingAddress != null)
+            return false;
+        if (accountNumber != null ? !accountNumber.equals(that.accountNumber) : that.accountNumber != null)
+            return false;
+        if (bankName != null ? !bankName.equals(that.bankName) : that.bankName != null) return false;
+        return bankCode != null ? bankCode.equals(that.bankCode) : that.bankCode == null;
     }
 
     @Override
@@ -127,8 +210,14 @@ public class RegistrateForm {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (autopass != null ? autopass.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        /*result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);*/
+        result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
         result = 31 * result + (enterprise != null ? enterprise.hashCode() : 0);
+        result = 31 * result + (UNP != null ? UNP.hashCode() : 0);
+        result = 31 * result + (enterpriseName != null ? enterpriseName.hashCode() : 0);
+        result = 31 * result + (billingAddress != null ? billingAddress.hashCode() : 0);
+        result = 31 * result + (accountNumber != null ? accountNumber.hashCode() : 0);
+        result = 31 * result + (bankName != null ? bankName.hashCode() : 0);
+        result = 31 * result + (bankCode != null ? bankCode.hashCode() : 0);
         return result;
     }
 
@@ -138,11 +227,17 @@ public class RegistrateForm {
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", subscribe=" + subscribe +
-                ", password='" + "********" + '\'' +
+                ", password='" + "******" + '\'' +
                 ", autopass=" + autopass +
                 ", phone='" + phone + '\'' +
-                /*", birthDate='" + birthDate + '\'' +*/
+                ", birthDate='" + birthDate + '\'' +
                 ", enterprise=" + enterprise +
+                ", UNP=" + UNP +
+                ", enterpriseName='" + enterpriseName + '\'' +
+                ", billingAddress='" + billingAddress + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", bankCode=" + bankCode +
                 '}';
     }
 }

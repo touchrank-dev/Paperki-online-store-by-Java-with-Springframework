@@ -10,6 +10,7 @@ import java.util.HashMap;
 public interface CatalogDao {
 
     HashMap<Integer, HashMap<Integer, Category>> getAll();
+    Category getCategoryByTName(String categoryTName);
     ArrayList<Category> getCategoriesFromCSV () throws IOException;
     HashMap<Integer ,Product> getProductListByCategoryTName(String categoryTName);
     Product getProductByTName(String productTName);

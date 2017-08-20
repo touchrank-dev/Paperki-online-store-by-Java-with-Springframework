@@ -9,14 +9,18 @@ public class Price {
     private Double basePriceWithVat;
     private Double overridePrice;
 
+    private Double VatValue;
+
     public Price() {
     }
 
-    public Price(Integer quantityStart, Integer quantityEnd, Double basePriceWithVat) {
+    public Price(Integer quantityStart, Integer quantityEnd, Double basePrice, Integer VAT) {
         this.quantityStart = quantityStart;
         this.quantityEnd = quantityEnd;
-        this.basePriceWithVat = basePriceWithVat;
+        this.basePrice = basePrice;
+        this.basePriceWithVat = basePrice * Math.rint(VAT/100.0);
     }
+
 
     public String getType() {
         return type;

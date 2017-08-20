@@ -1,11 +1,14 @@
 package com.kushnir.paperki.dao;
 
+import com.kushnir.paperki.model.BillingAccount;
+import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.RegistrateForm;
 import com.kushnir.paperki.model.User;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import org.h2.result.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
@@ -33,6 +36,14 @@ public class UserDaoImpl implements UserDao {
     private static final String P_USER_BIRTH_DAY = "p_birth_day";
     private static final String P_USER_TYPE = "p_user_type";
 
+    private static final String P_ENTERPRISE_ID = "p_id_enterprise";
+    private static final String P_ENTERPRISE_UNP = "p_enterprise_unp";
+    private static final String P_ENTERPRISE_NAME = "p_enterprise_name";
+
+    private static final String P_BILLING_ACCOUNT_BANK_NAME = "p_bank_name";
+    private static final String P_BILLING_ACCOUNT_BANK_CODE = "p_bank_code";
+    private static final String P_BILLING_ACCOUNT_NUMBER = "p_account_number";
+
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -47,6 +58,15 @@ public class UserDaoImpl implements UserDao {
 
     @Value("${user.add}")
     private String addUserSqlQuery;
+
+    @Value("${enterprise.getByUNP}")
+    private String getEnterpriseByUNPSqlQuery;
+
+    @Value("${enterprise.add}")
+    private String addEnterpriseByUserIdSqlQuery;
+
+    @Value("${payment.account.add}")
+    private String addBillingAccountByEnterpriseIdSqlQuery;
 
     @Override
     public User getUserByLoginPassword(String userName, String password) throws DataAccessException {
@@ -101,6 +121,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Integer addUser(RegistrateForm form) throws DataAccessException {
+        LOGGER.debug("addUser({}) >>>", form);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         KeyHolder keyHolder = new GeneratedKeyHolder();
         parameterSource.addValue(P_USER_NAME,           form.getName());
@@ -112,15 +133,17 @@ public class UserDaoImpl implements UserDao {
         // parameterSource.addValue(P_USER_BIRTH_DAY,      form.getBirthDate());
         try {
             namedParameterJdbcTemplate.update(addUserSqlQuery, parameterSource, keyHolder);
+            LOGGER.debug("USER SUCCESSFULLY ADDED!");
             return keyHolder.getKey().intValue();
         } catch (Exception e) {
-            LOGGER.error("Не удалось добавить нового ползователя >>>\nERROR >>> {}", e.getMessage());
+            LOGGER.error("Не удалось добавить нового ползователя >>>\nERROR: {}", e.getMessage());
             throw e;
         }
     }
 
     @Override
     public Integer addUser(User user) {
+        LOGGER.debug("addUser() >>>\nUSER DATA: {}", user);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         KeyHolder keyHolder = new GeneratedKeyHolder();
         parameterSource.addValue(P_USER_NAME,           user.getName());
@@ -132,9 +155,65 @@ public class UserDaoImpl implements UserDao {
         // parameterSource.addValue(P_USER_BIRTH_DAY,      user.getBirthDay().format(DateTimeFormatter.ISO_LOCAL_DATE));
         try {
             namedParameterJdbcTemplate.update(addUserSqlQuery, parameterSource, keyHolder);
+            LOGGER.debug("USER SUCCESSFULLY ADDED!");
             return keyHolder.getKey().intValue();
         } catch (Exception e) {
-            LOGGER.error("Не удалось добавить нового ползователя >>>\nERROR >>> {}", e.getMessage());
+            LOGGER.error("Не удалось добавить нового ползователя >>>\nERROR: {}", e.getMessage());
+            throw e;
+        }
+    }
+
+    public Enterprise getEnterpriseByUNP(String unp) {
+        LOGGER.debug("getEnterpriseByUNP({}) >>>", unp);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ENTERPRISE_UNP, unp);
+        try{
+            Enterprise enterprise = namedParameterJdbcTemplate
+                    .queryForObject(getEnterpriseByUNPSqlQuery, parameterSource, new EnterpriseRowMapper());
+            LOGGER.debug("Юридическое лицо УНП: {} - найдено! >>> {}", unp, enterprise);
+            return enterprise;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.debug("Юридическое лицо УНП: {} - не найдено >>>\n ERROR: {}",unp , e.getMessage());
+            return null;
+        } catch (Exception e) {
+            LOGGER.error("В процессе выполнения запроса getEnterpriseByUNP, возникла ошибка >>>\nERROR MESSAGE: {}", e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public Integer addEnterprise(Enterprise enterprise) {
+        LOGGER.debug("addEnterprise() >>>\nENTERPRISE DATA: {}", enterprise);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_USER_ID, enterprise.getUserId());
+        parameterSource.addValue(P_ENTERPRISE_UNP, enterprise.getUNP());
+        parameterSource.addValue(P_ENTERPRISE_NAME, enterprise.getEnterpriseName());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        try {
+            namedParameterJdbcTemplate.update(addEnterpriseByUserIdSqlQuery, parameterSource, keyHolder);
+            LOGGER.debug("ENTERPRISE SUCCESSFULLY ADDED!");
+            return keyHolder.getKey().intValue();
+        } catch (Exception e) {
+            LOGGER.error("Не удалось добавить новую организацию >>>\nERROR MESSAGE: {}", e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public Integer addBillingAccount(BillingAccount billingAccount) {
+        LOGGER.debug("addBillingAccount() >>>\nBILLING ACCOUNT DATA: {}", billingAccount);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_ENTERPRISE_ID, billingAccount.getEnterpriseId());
+        parameterSource.addValue(P_BILLING_ACCOUNT_BANK_NAME, billingAccount.getBankName());
+        parameterSource.addValue(P_BILLING_ACCOUNT_BANK_CODE, billingAccount.getBankCode());
+        parameterSource.addValue(P_BILLING_ACCOUNT_NUMBER, billingAccount.getAccountNumber());
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        // addBillingAccountByEnterpriseIdSqlQuery
+        try {
+            namedParameterJdbcTemplate.update(addBillingAccountByEnterpriseIdSqlQuery, parameterSource, keyHolder);
+            LOGGER.debug("BILLING ACCOUNT SUCCESSFULLY ADDED!");
+            return keyHolder.getKey().intValue();
+        } catch (Exception e) {
+            LOGGER.error("Не удалось добавить расчетный счет организации >>>\nERROR MESSAGE: {}", e.getMessage());
             throw e;
         }
     }
@@ -151,6 +230,20 @@ public class UserDaoImpl implements UserDao {
                     rs.getString("password")
             );
             return user;
+        }
+    }
+
+    private class EnterpriseRowMapper implements RowMapper<Enterprise> {
+
+        @Override
+        public Enterprise mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Enterprise enterprise = new Enterprise(
+                    rs.getInt("id_enterprise"),
+                    rs.getInt("id_user"),
+                    rs.getString("unp"),
+                    rs.getString("name")
+            );
+            return enterprise;
         }
     }
 }

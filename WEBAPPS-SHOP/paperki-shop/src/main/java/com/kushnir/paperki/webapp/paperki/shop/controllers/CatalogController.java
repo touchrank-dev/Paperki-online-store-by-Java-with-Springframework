@@ -1,5 +1,6 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
+import com.kushnir.paperki.model.Category;
 import com.kushnir.paperki.model.Product;
 import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.service.CatalogBean;
@@ -41,6 +42,8 @@ public class CatalogController {
 
     @Value("${product.image.path}")
     String productImagePath;
+    @Value("${brand.image.path}")
+    String brandImagePath;
     @Value("${product.image.prefix}")
     String imgPref;
 
@@ -56,8 +59,9 @@ public class CatalogController {
     public String catalogItemPage(@PathVariable String catalorItemTranslitName, Model model){
         LOGGER.debug("catalogItemPage() >>>");
         HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalorItemTranslitName);
+        Category category = catalogBean.getCategoryByTName(catalorItemTranslitName);
         model.addAttribute("products", products);
-        model.addAttribute("categoryname", catalorItemTranslitName);
+        model.addAttribute("categoryname", category.getName());
         model.addAttribute("templatePathName", contentPath + "product-list");
         model.addAttribute("fragmentName", "product-list");
         return "index";
@@ -68,6 +72,9 @@ public class CatalogController {
                                   @PathVariable String productTranslitName, Model model){
         LOGGER.debug("productItemPage() >>>");
         Product product = catalogBean.getProductByCategoryTName(productTranslitName);
+        Category category = catalogBean.getCategoryByTName(catalorItemTranslitName);
+        model.addAttribute("product", product);
+        model.addAttribute("categoryname", category.getName());
         model.addAttribute("templatePathName", contentPath + "product-details");
         model.addAttribute("fragmentName", "product-details");
         return "index";
@@ -76,6 +83,11 @@ public class CatalogController {
     @ModelAttribute("pip")
     public String productImagePath() {
         return productImagePath;
+    }
+
+    @ModelAttribute("bip")
+    public String brandImagePath() {
+        return brandImagePath;
     }
 
     @ModelAttribute("catalogurl")

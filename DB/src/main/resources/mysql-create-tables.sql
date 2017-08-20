@@ -1,4 +1,6 @@
 -- FIRST DROP ALL TABLES WITH FK
+DROP TABLE IF EXISTS payment_accounts;
+DROP TABLE IF EXISTS enterprise;
 DROP TABLE IF EXISTS addresses;
 DROP TABLE IF EXISTS catalog_description;
 DROP TABLE IF EXISTS catalog_ref;
@@ -28,18 +30,23 @@ CREATE TABLE users (
     is_enabled                  TINYINT         DEFAULT 0
 );
 
-DROP TABLE IF EXISTS enterprise;
 CREATE TABLE enterprise (
     id_enterprise               INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_user                     INT             NOT NULL,
+    id_user                     INT             NOT NULL UNIQUE,
     unp                         VARCHAR(10)     NOT NULL UNIQUE,
-    name                        VARCHAR(400)    NOT NULL
+    name                        VARCHAR(400)    NOT NULL,
+    FOREIGN KEY (id_user)                       REFERENCES users(id_user)
 );
 
-DROP TABLE IF EXISTS payment_accounts;
 CREATE TABLE payment_accounts(
     id_payment_account          INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_enterprise               INT             NOT NULL
+    id_enterprise               INT             NOT NULL,
+    bank_name                   VARCHAR(150)    NOT NULL,
+    bank_code                   INT             NOT NULL,
+    account_number              VARCHAR(20)     NOT NULL,
+    is_primary                  TINYINT         DEFAULT 1,
+    FOREIGN KEY (id_enterprise)                 REFERENCES enterprise(id_enterprise),
+    UNIQUE KEY `e_a` (id_enterprise, account_number)
 );
 
 DROP TABLE IF EXISTS addresses_types;

@@ -20,6 +20,7 @@ function register() {
             }
             else if(response.code == 'INTERNAL_SERVER_ERROR') {
                 console.log(response);
+                serverAlert();
             }
         },
         error: function () {
@@ -44,6 +45,7 @@ function logout() {
             }
             else if(response.code == 'INTERNAL_SERVER_ERROR') {
                 console.log(response);
+                serverAlert();
             }
         },
         error: function () {
@@ -85,6 +87,26 @@ function authFormToJSON() {
     });
 }
 
+function regFormToJSON() {
+    return JSON.stringify({
+        "name":             $('#registration-input-name').val(),
+        "email":            $('#registration-input-email').val(),
+        "subscribe":        $('#check-subscribe').attr("checked") == "checked" ? true:false,
+        "password":         $('#registration-input-password').val(),
+        "autopass":         $('#check-autopassword').attr("checked") == "checked" ? true:false,
+        "phone":            $('#registration-input-phone').val(),
+        /*"birthDate":        $('#datepicker').val(),*/
+        // if enterprise
+        "enterprise":       $('#check-isenterprise').attr("checked") == "checked" ? true:false,
+        "unp":              $('#registration-input-enterprise-unp').val(),
+        "enterpriseName":   $('#registration-input-enterprise-name').val(),
+        "billingAddress":   $('#registration-input-enterprise-address').val(),
+        "accountNumber":    $('#registration-input-enterprise-account').val(),
+        "bankName":         $('#registration-input-enterprise-account-bank').val(),
+        "bankCode":         $('#registration-input-enterprise-account-bank-code').val()
+    });
+}
+
 function mapErrorLoginForm(form) {
     if(form.login != null) {
         $('#enter-input-email').addClass("input_email_error");
@@ -108,23 +130,6 @@ function cleanLoginErrors(){
     $('#enter-input-email').tooltip("hide");
     $('#enter-input-password').removeClass("input_password_error");
     $('#enter-input-password').tooltip("hide");
-}
-
-function regFormToJSON() {
-    return JSON.stringify({
-        "name":             $('#registration-input-name').val(),
-        "email":            $('#registration-input-email').val(),
-        "subscribe":        $('#check-subscribe').attr("checked") == "checked" ? true:false,
-        "password":         $('#registration-input-password').val(),
-        "autopass":         $('#check-autopassword').attr("checked") == "checked" ? true:false,
-        "phone":            $('#registration-input-phone').val(),
-        /*"birthDate":        $('#datepicker').val(),*/
-        "enterprise":       $('#isEnterprise').attr("checked") == "checked" ? true:false
-    });
-}
-
-function resetFormError(){
-    $('#enter-input-email').removeClass("input_error");
 }
 
 function mapErrorRegisterForm(form) {

@@ -4,20 +4,20 @@ import com.kushnir.paperki.dao.UserDao;
 import com.kushnir.paperki.model.*;
 
 import com.kushnir.paperki.service.mail.Mailer;
-//import com.mifmif.common.regex.Generex;
-import jdk.nashorn.internal.runtime.ECMAException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class UserServiceImpl implements UserService {
 
@@ -34,21 +34,11 @@ public class UserServiceImpl implements UserService {
     private final Pattern emailPattern = Pattern.compile(EMAIL_PATTERN);
     private Matcher matcher;
 
-    //Generex generex = new Generex(PASSWORD_PATTERN);
-
     @Autowired
     Mailer mailer;
 
     @Autowired
     UserDao userDao;
-
-    @Autowired
-    BCryptPasswordEncoder bcp;
-
-    /*@Autowired
-    ErrorLoginData errorLoginData;*/
-    /*@Autowired
-    ErrorRegistrateForm errorRegistrateForm;*/
 
     @Override
     @Transactional
@@ -76,10 +66,7 @@ public class UserServiceImpl implements UserService {
         try {
             Assert.notNull(loginData.getPassword(), "Пароль не должен быть пустым");
             Assert.hasText(loginData.getPassword(), "Пароль не должен быть пустым");
-            // TODO !!! HARDCODE !!! PASSWORD VALIDATION
-            Assert.isTrue(loginData.getPassword().equals(user.getPassword()), "Неверный пароль");
-            // Assert.isTrue(bcp.matches(loginData.getPassword(), user.getPassword()),"Неверный пароль");
-            // TODO !!! HARDCODE !!! SET USER TYPE
+            Assert.isTrue(encoding(loginData.getPassword()).equals(user.getPassword()), "Неверный пароль");
         } catch (Exception e) {
             if(!errorLoginData.isErrors()) errorLoginData.setPassword(e.getMessage());
         }
@@ -88,6 +75,7 @@ public class UserServiceImpl implements UserService {
             return errorLoginData;
         } else {
             try {
+                // TODO !!! HARDCODE !!! SET USER TYPE
                 user.setUserType(UserType.CUSTOMER);
                 LOGGER.debug("USER WAS VALIDATED SUCCESSFUL >>> \nRETURNED USER: {}", user);
                 return user;
@@ -124,28 +112,50 @@ public class UserServiceImpl implements UserService {
 
         // Assert.notNull(form.getPhone(), "Пожалуйста, укажите номер Вашего телефона");
         // TODO проверка телефона
-        // TODO проверка на юр-лицо form.enterprize
 
         if(form.getAutopass()) {
             //TODO !!!HARDCODE!!!
-            form.setPassword("P8g4gh1C");
-            // form.setPassword(bcp.encode("P8g4gh1C"));
+            form.setPassword(encoding("P8g4gh1C"));
         } else {
             try {
                 Assert.notNull(form.getPassword(), "Пароль не может быть пустым");
                 Assert.hasText(form.getPassword(), "Пароль не может быть пустым");
+                //TODO проверка на регулярное выражение (паттерн)
                 /*Assert.isTrue(validatePassword(form.getPassword()),
                     "Пароль не соответствует регулярному выражению");*/
-                //form.setPassword(bcp.encode(form.getPassword()));
+                form.setPassword(encoding(form.getPassword()));
             } catch (Exception e) {
                 errorRegistrateForm.setPassword(e.getMessage());
             }
         }
+        // TODO проверка на юр-лицо form.enterprize
+        if(form.getEnterprise()){
+            try {
+                Assert.notNull(form.getUNP(), "УНП не может быть пустым");
+                Assert.hasText(form.getUNP(), "УНП не может быть пустым");
+            } catch (Exception e) {
+                errorRegistrateForm.setUNP(e.getMessage());
+            }
+            try {
+                Assert.notNull(form.getEnterpriseName(), "Название организации не может быть пустым");
+                Assert.hasText(form.getEnterpriseName(), "Название организации не может быть пустым");
+                Assert.isNull(userDao.getEnterpriseByUNP(form.getUNP()), "Органзация с таким УНП уже присутствует");
+            } catch (Exception e) {
+                errorRegistrateForm.setEnterpriseName(e.getMessage());
+            }
+            try {
+                Assert.notNull(form.getBillingAddress(), "Адрес организации не может быть пустым");
+                Assert.hasText(form.getBillingAddress(), "Адрес организации не может быть пустым");
+            } catch (Exception e) {
+                errorRegistrateForm.setBillingAddress(e.getMessage());
+            }
+        }
+
+        // END VALIDATING ================================================================
         if (errorRegistrateForm.isErrors()) {
             LOGGER.error("REGISTRATION FAILED! >>>\nERROR FORM: {}", errorRegistrateForm);
                 return errorRegistrateForm;
         } else {
-                // String password = bcp.encode(form.getPassword());
                 User user = new User(form.getEmail(),
                         form.getPassword(),
                         form.getName(),
@@ -155,7 +165,12 @@ public class UserServiceImpl implements UserService {
                         form.getEnterprise());
             try {
                 Integer newUserId = userDao.addUser(user);
+                if (form.getEnterprise())
+                    Assert.notNull(addEntrpriseByUser(form, newUserId), "Не удалось добавить организацию");
+
                 user = userDao.getUserById(newUserId);
+                Assert.notNull(user, "Не удалось получить данные пользователя");
+                // TODO !!!HARDCODE !!!
                 user.setUserType(UserType.CUSTOMER);
                 LOGGER.debug("REGISTRATION SUCCESSFULLY! >>> \nNEW AUTH USER: {}", user);
                 return user;
@@ -166,6 +181,28 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Transactional
+    public Integer addEntrpriseByUser (RegistrateForm form, Integer userId) {
+        Enterprise enterprise = new Enterprise(
+                userId,
+                form.getUNP(),
+                form.getEnterpriseName(),
+                form.getBillingAddress()
+        );
+        Integer newEnterpriseId = userDao.addEnterprise(enterprise);
+        if (form.getBankName() != null && form.getAccountNumber() != null && form.getBankCode() != null) {
+            BillingAccount billingAccount = new BillingAccount(
+                    newEnterpriseId,
+                    form.getAccountNumber(),
+                    form.getBankName(),
+                    form.getBankCode()
+            );
+            userDao.addBillingAccount(billingAccount);
+        }
+        return newEnterpriseId;
+    }
+
+    // UTIL's
     private boolean validatePassword(String password) {
         matcher = passwordPattern.matcher(password);
         return matcher.matches();
@@ -179,7 +216,18 @@ public class UserServiceImpl implements UserService {
         } catch (AddressException e) {
             return false;
         }
-        /*matcher = emailPattern.matcher(email);
-        return matcher.matches();*/
+    }
+
+    public static String encoding(String input) {
+        String str = null;
+        if(input == null) return null;
+        try {
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            digest.update(input.getBytes(), 0, input.length());
+            str = new BigInteger(1, digest.digest()).toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            LOGGER.error("PASSWORD ENCODING ERROR: {}", e.getMessage());
+        }
+        return str;
     }
 }

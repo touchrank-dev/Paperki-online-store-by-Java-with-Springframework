@@ -71,7 +71,7 @@
                                                     </div>
                                                     подробнее
                                                 </a>
-                                                <div class="btn-in-cart__is-added">
+                                                <!--<div class="btn-in-cart__is-added">
                                                     <div class="btn-in-cart__is-added__title">
                                                         <p>добавлено</p>
                                                     </div>
@@ -82,7 +82,7 @@
                                                     </span> шт
                                                         </p>
                                                     </div>
-                                                </div>
+                                                </div>-->
                                                 <a href="#" class="btn c-button btn-click">
                                                     <div class="c-ripple js-ripple">
                                                         <span class="c-ripple__circle"></span>
@@ -118,8 +118,8 @@
                                             <div class="prices-block">
                                                 <ul class="prices-block-list">
                                                     <li class="new-pr"
-                                                        th:text="${product.value?.prices[0]?.basePrice}">
-                                                        6,50 руб
+                                                        th:text="${product.value?.prices[0]?.basePriceWithVat} + ' руб'">
+                                                        0,00 руб
                                                     </li>
                                                 </ul>
                                                 <div class="bon-pr">

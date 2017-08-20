@@ -3,17 +3,23 @@
         <div class="wrapper">
             <ul class="breadCrumbs">
                 <li><a href="/">Главная</a></li>
-                <li>Бумага офисная Mondi Color Copy А3 250 г/м2 класс A+ 125 листов Белая</li>
+                <li><a href="/catalog">Каталог</a></li>
+                <li th:if="${categoryname} != null" th:text="${categoryname}">Название категории</li>
+                <li th:text="${product?.fullName}">Название продукта</li>
             </ul>
             <div class="single-product-page-content">
                 <div class="single-product-page__title">
-                    <h1>Бумага офисная Mondi Color Copy А3 250 г/м2 класс A+ 125 листов Белая</h1>
+                    <h1 th:text="${product?.fullName}">Заголовок Название продукта</h1>
                 </div>
                 <div class="single-product-wrap">
-                    <div class="single-product-wrap-left super-price">
+                    <div class="single-product-wrap-left">
                         <div class="single-product-pict-slider">
                             <div class="single-product-main-pict">
                                 <div>
+                                    <img src="/res/img/single-product-pict.png" alt="slide1"
+                                         th:attr="src=@{${pip}+${product?.pnt}+${imgPref}},alt=${product?.fullName}">
+                                </div>
+                                <!--<div>
                                     <img src="/res/img/single-product-pict.png" alt="slide1">
                                 </div>
                                 <div>
@@ -24,19 +30,17 @@
                                 </div>
                                 <div>
                                     <img src="/res/img/single-product-pict.png" alt="slide1">
-                                </div>
-                                <div>
-                                    <img src="/res/img/single-product-pict.png" alt="slide1">
-                                </div>
+                                </div>-->
                             </div>
                             <div class="single-product-pict-slider-thumbs">
                                 <ul class="single-product-pict-slider-thumbs-list">
                                     <li>
                                         <div>
-                                            <img src="/res/img/single-product-pict.png" alt="slide1">
+                                            <img src="/res/img/single-product-pict.png" alt="slide1"
+                                                 th:attr="src=@{${pip}+${product?.pnt}+${imgPref}},alt=${product?.fullName}">
                                         </div>
                                     </li>
-                                    <li>
+                                    <!--<li>
                                         <div>
                                             <img src="/res/img/single-product-pict.png" alt="slide1">
                                         </div>
@@ -55,25 +59,26 @@
                                         <div>
                                             <img src="/res/img/single-product-pict.png" alt="slide1">
                                         </div>
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </div>
                         </div>
                         <div class="single-product-main-info">
                             <div class="single-product-wrap-left__action-block">
                                 <a href="#" class="product-maker">
-                                    <img src="/res/img/xerox-icon.png" alt="Xerox">
+                                    <img src="/res/img/xerox-icon.png" alt="Xerox"
+                                        th:attr="src=@{${bip}+${product?.brand?.tName}},alt=${product?.brand?.name}">
                                 </a>
                                 <form action="">
                                     <div class="product-code">
-                                        <p>Код товара: <span>5002836</span></p>
+                                        <p>Код товара: <span th:text="${product?.pnt}">00000000</span></p>
                                     </div>
 
                                     <div class="single-product-price">
                                         <div class="single-product-price-list">
                                             <div class="single-product-price__old">8,50 руб</div>
                                             <div class="single-product-price__new">
-                                                <p>6,50 руб</p>
+                                                <p th:text="${product.prices[0]?.basePriceWithVat} + ' руб'">6,50 руб</p>
                                                 <div class="bon-pr">
                                                     <img src="/res/img/i.png">
                                                     <div class="hint">

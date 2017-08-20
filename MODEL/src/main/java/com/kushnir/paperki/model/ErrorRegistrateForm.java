@@ -10,6 +10,12 @@ public class ErrorRegistrateForm {
     private String phone;
     private String birthDate;
     private String enterprise;
+    private String UNP;
+    private String enterpriseName;
+    private String billingAddress;
+    private String accountNumber;
+    private String bankName;
+    private String bankCode;
 
     private Boolean isErrors = false;
 
@@ -34,6 +40,38 @@ public class ErrorRegistrateForm {
         this.phone = phone;
         this.birthDate = birthDate;
         this.enterprise = enterprise;
+    }
+
+    public ErrorRegistrateForm(String name,
+                               String email,
+                               String subscribe,
+                               String password,
+                               String autopass,
+                               String phone,
+                               String birthDate,
+                               String enterprise,
+                               String UNP,
+                               String enterpriseName,
+                               String billingAddress,
+                               String accountNumber,
+                               String bankName,
+                               String bankCode,
+                               Boolean isErrors) {
+        this.name = name;
+        this.email = email;
+        this.subscribe = subscribe;
+        this.password = password;
+        this.autopass = autopass;
+        this.phone = phone;
+        this.birthDate = birthDate;
+        this.enterprise = enterprise;
+        this.UNP = UNP;
+        this.enterpriseName = enterpriseName;
+        this.billingAddress = billingAddress;
+        this.accountNumber = accountNumber;
+        this.bankName = bankName;
+        this.bankCode = bankCode;
+        this.isErrors = isErrors;
     }
 
     public String getName() {
@@ -108,6 +146,61 @@ public class ErrorRegistrateForm {
         this.isErrors = true;
     }
 
+    public String getUNP() {
+        return UNP;
+    }
+
+    public void setUNP(String UNP) {
+        this.UNP = UNP;
+        this.isErrors = true;
+
+    }
+
+    public String getEnterpriseName() {
+        return enterpriseName;
+    }
+
+    public void setEnterpriseName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
+        this.isErrors = true;
+    }
+
+    public String getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(String billingAddress) {
+        this.billingAddress = billingAddress;
+        this.isErrors = true;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+        this.isErrors = true;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+        this.isErrors = true;
+    }
+
+    public String getBankCode() {
+        return bankCode;
+    }
+
+    public void setBankCode(String bankCode) {
+        this.bankCode = bankCode;
+        this.isErrors = true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -122,7 +215,17 @@ public class ErrorRegistrateForm {
         if (autopass != null ? !autopass.equals(that.autopass) : that.autopass != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
         if (birthDate != null ? !birthDate.equals(that.birthDate) : that.birthDate != null) return false;
-        return enterprise != null ? enterprise.equals(that.enterprise) : that.enterprise == null;
+        if (enterprise != null ? !enterprise.equals(that.enterprise) : that.enterprise != null) return false;
+        if (UNP != null ? !UNP.equals(that.UNP) : that.UNP != null) return false;
+        if (enterpriseName != null ? !enterpriseName.equals(that.enterpriseName) : that.enterpriseName != null)
+            return false;
+        if (billingAddress != null ? !billingAddress.equals(that.billingAddress) : that.billingAddress != null)
+            return false;
+        if (accountNumber != null ? !accountNumber.equals(that.accountNumber) : that.accountNumber != null)
+            return false;
+        if (bankName != null ? !bankName.equals(that.bankName) : that.bankName != null) return false;
+        if (bankCode != null ? !bankCode.equals(that.bankCode) : that.bankCode != null) return false;
+        return isErrors != null ? isErrors.equals(that.isErrors) : that.isErrors == null;
     }
 
     @Override
@@ -135,6 +238,13 @@ public class ErrorRegistrateForm {
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
         result = 31 * result + (enterprise != null ? enterprise.hashCode() : 0);
+        result = 31 * result + (UNP != null ? UNP.hashCode() : 0);
+        result = 31 * result + (enterpriseName != null ? enterpriseName.hashCode() : 0);
+        result = 31 * result + (billingAddress != null ? billingAddress.hashCode() : 0);
+        result = 31 * result + (accountNumber != null ? accountNumber.hashCode() : 0);
+        result = 31 * result + (bankName != null ? bankName.hashCode() : 0);
+        result = 31 * result + (bankCode != null ? bankCode.hashCode() : 0);
+        result = 31 * result + (isErrors != null ? isErrors.hashCode() : 0);
         return result;
     }
 
@@ -149,6 +259,13 @@ public class ErrorRegistrateForm {
                 ", phone='" + phone + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", enterprise='" + enterprise + '\'' +
+                ", UNP='" + UNP + '\'' +
+                ", enterpriseName='" + enterpriseName + '\'' +
+                ", billingAddress='" + billingAddress + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", bankCode='" + bankCode + '\'' +
+                ", isErrors=" + isErrors +
                 '}';
     }
 }

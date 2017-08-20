@@ -36,7 +36,10 @@ public class CatalogBeanImpl implements CatalogBean {
 
     @Override
     public Category getCategoryByTName(String categoryTName) {
-        return  null;
+        LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
+        Category category = catalogDao.getCategoryByTName(categoryTName);
+        LOGGER.debug("\nCATEGORY: {}", category);
+        return  category;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class CatalogBeanImpl implements CatalogBean {
     @Override
     public Product getProductByCategoryTName(String categoryTName) {
         LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
-        Product product = catalogDao.getProductByTName();
+        Product product = catalogDao.getProductByTName(categoryTName);
         LOGGER.debug("\nPRODUCT: {}", product);
         return null;
     }
