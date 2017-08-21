@@ -61,7 +61,7 @@ public class CatalogController {
         HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalorItemTranslitName);
         Category category = catalogBean.getCategoryByTName(catalorItemTranslitName);
         model.addAttribute("products", products);
-        model.addAttribute("categoryname", category.getName());
+        model.addAttribute("category", category);
         model.addAttribute("templatePathName", contentPath + "product-list");
         model.addAttribute("fragmentName", "product-list");
         return "index";
@@ -74,7 +74,7 @@ public class CatalogController {
         Product product = catalogBean.getProductByCategoryTName(productTranslitName);
         Category category = catalogBean.getCategoryByTName(catalorItemTranslitName);
         model.addAttribute("product", product);
-        model.addAttribute("categoryname", category.getName());
+        model.addAttribute("category", category);
         model.addAttribute("templatePathName", contentPath + "product-details");
         model.addAttribute("fragmentName", "product-details");
         return "index";

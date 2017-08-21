@@ -6,52 +6,10 @@
         </ul>
         <aside class="blogSidebarGroup typicalAside">
             <ul class="blogCategoryList blogCategoryListWithOutTitle">
-                <li>
-                    <a href="about.html">
+                <li th:each="menuitem : ${mainmenu}">
+                    <a href="#" th:href="@{${menuitem.link}}">
                         <img src="/res/img/slider-arrow-left.png">
-                        О компании
-                    </a>
-                </li>
-                <li>
-                    <a href="help.html">
-                        <img src="/res/img/slider-arrow-left.png">
-                        Помощь
-                    </a>
-                </li>
-                <li>
-                    <a href="bonus.html">
-                        <img src="/res/img/slider-arrow-left.png">
-                        PAP-бонус
-                    </a>
-                </li>
-                <li>
-                    <a href="blog.html">
-                        <img src="/res/img/slider-arrow-left.png">
-                        Наш блог
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="/res/img/slider-arrow-left.png">
-                        База знаний
-                    </a>
-                </li>
-                <li>
-                    <a href="delivery_and_payment.html">
-                        <img src="/res/img/slider-arrow-left.png">
-                        Доставка и оплата
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="feedback.html">
-                        <img src="/res/img/slider-arrow-left.png">
-                        Отзывы
-                    </a>
-                </li>
-                <li>
-                    <a href="contacts.html">
-                        <img src="/res/img/slider-arrow-left.png">
-                        Контакты
+                        <span th:text="${menuitem.name}" th:remove="tag">О компании</span>
                     </a>
                 </li>
             </ul>

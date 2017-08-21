@@ -192,44 +192,48 @@ public class CatalogDaoImpl implements CatalogDao {
         @Override
         public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
             HashMap<Integer ,Product> products = new HashMap<Integer ,Product>();
-            HashMap<Integer, Price> prices = new LinkedHashMap<Integer, Price>();
-            Product product;
-            Price price;
             while (rs.next()) {
-                price = new Price(rs.getInt("quatity_start"),
-                                  rs.getInt("quatity_end"),
-                                  rs.getDouble("value"),
-                                  rs.getInt("vat")
-                );
-                product = new Product(
-                        rs.getInt("id_product"),
-                        rs.getInt("pap_id"),
-                        rs.getInt("pnt"),
-                        rs.getString("full_name"),
-                        rs.getString("short_name"),
-                        rs.getString("translit_name"),
-                        rs.getString("link"),
-                        rs.getString("country_from"),
-                        rs.getString("country_made"),
-                        rs.getString("measure"),
-                        rs.getInt("available_day"),
-                        rs.getInt("quantity"),
-                        rs.getInt("vat"),
-                        rs.getBoolean("is_published"),
-                        rs.getBoolean("is_visible"),
-                        new Brand(rs.getString("bname"), rs.getString("btname")),
-                        null
-                );
-                if(products.get(product.getId()) == null) {
-                    prices.put(price.getQuantityStart(), price);
+                int idProduct = rs.getInt("id_product");
+                int quantityStart = rs.getInt("quatity_start");
+
+                if(products.get(idProduct) == null) {
+                    Price price = new Price(quantityStart,
+                            rs.getDouble("value"),
+                            rs.getInt("vat")
+                    );
+                    Product product = new Product(
+                            idProduct,
+                            rs.getInt("pap_id"),
+                            rs.getInt("pnt"),
+                            rs.getString("full_name"),
+                            rs.getString("short_name"),
+                            rs.getString("translit_name"),
+                            rs.getString("link"),
+                            rs.getString("country_from"),
+                            rs.getString("country_made"),
+                            rs.getString("measure"),
+                            rs.getInt("available_day"),
+                            rs.getInt("quantity"),
+                            rs.getInt("vat"),
+                            rs.getBoolean("is_published"),
+                            rs.getBoolean("is_visible"),
+                            new Brand(rs.getString("bname"), rs.getString("btname")),
+                            new HashMap<Integer, Price>()
+                    );
+                    HashMap<Integer, Price> prices = product.getPrices();
+                    prices.put(quantityStart, price);
                     product.setPrices(prices);
                     products.put(product.getId(), product);
                 } else {
-                    Product p = products.get(product.getId());
-                    if(p.getPnt() == product.getPnt()) {
-                        product.getPrices().put(price.getQuantityStart(), price);
-                        products.put(product.getId(), p);
-                    }
+                    Product p = products.get(idProduct);
+                    Price price = new Price(quantityStart,
+                            rs.getDouble("value"),
+                            rs.getInt("vat")
+                    );
+                    HashMap<Integer, Price> prices = p.getPrices();
+                    prices.put(quantityStart, price);
+                    p.setPrices(prices);
+                    products.put(idProduct, p);
                 }
             }
             return products;

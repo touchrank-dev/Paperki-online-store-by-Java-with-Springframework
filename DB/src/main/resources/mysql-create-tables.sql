@@ -108,11 +108,17 @@ CREATE TABLE brands (
     full_description            VARCHAR(7000)   CHARACTER SET utf8
 );
 
+DROP TABLE IF EXISTS extra_types;
+CREATE TABLE extra_types (
+    id_extra                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name                        VARCHAR(40)     NOT NULL
+);
+
 CREATE TABLE products (
     id_product                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pap_id                      INT             UNIQUE,
     pnt                         INT             NOT NULL UNIQUE,
-    full_name                   VARCHAR(250)    CHARACTER SET utf8 NOT NULL UNIQUE,
+    full_name                   VARCHAR(300)    CHARACTER SET utf8 NOT NULL,
     short_name                  VARCHAR(250)    CHARACTER SET utf8 NOT NULL,
     translit_name               VARCHAR(200)    CHARACTER SET utf8 NOT NULL UNIQUE,
     link                        VARCHAR(200)    CHARACTER SET utf8 UNIQUE,
@@ -136,18 +142,18 @@ CREATE TABLE products (
 DROP TABLE IF EXISTS prices_types;
 CREATE TABLE prices_types (
     id_price_type               INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name                        VARCHAR(20)     NOT NULL
+    name                        VARCHAR(50)     NOT NULL
 );
 
 CREATE TABLE product_prices (
     id_price                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_price_type               INT             NOT NULL,
+    id_price_type               INT             DEFAULT 1 NOT NULL,
     id_product					INT				NOT NULL,
-    quatity_start               INT             DEFAULT 0 NOT NULL,
-    quatity_end                 INT             DEFAULT 0 NOT NULL,
+    quatity_start               INT             DEFAULT 1 NOT NULL,
     value                       DOUBLE          NOT NULL,
     FOREIGN KEY (id_price_type)                 REFERENCES prices_types(id_price_type),
-    FOREIGN KEY (id_product)                 	REFERENCES products(id_product)
+    FOREIGN KEY (id_product)                 	REFERENCES products(id_product),
+    UNIQUE KEY `p_qs` (id_product, quatity_start)
 );
 
 DROP TABLE IF EXISTS coupons;

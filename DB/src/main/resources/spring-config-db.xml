@@ -15,11 +15,4 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <jdbc:initialize-database data-source="dataSource">
-        <!--<jdbc:script location="classpath*:h2-create-tables.sql"/>-->
-        <jdbc:script location="classpath*:mysql-create-tables.sql"/>
-        <jdbc:script location="classpath*:data-script.sql"/>
-    </jdbc:initialize-database>
-
-
 </beans>

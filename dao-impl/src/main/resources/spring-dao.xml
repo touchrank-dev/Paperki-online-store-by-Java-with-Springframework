@@ -6,7 +6,10 @@
 
     <import resource="classpath*:spring-config-db.xml" />
 
-    <!--<context:property-placeholder location="classpath*:sqlQueries.properties"/>-->
+    <!--<jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="classpath*:mysql-create-tables.sql"/>
+        <jdbc:script location="classpath*:data-script.sql"/>
+    </jdbc:initialize-database>-->
 
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

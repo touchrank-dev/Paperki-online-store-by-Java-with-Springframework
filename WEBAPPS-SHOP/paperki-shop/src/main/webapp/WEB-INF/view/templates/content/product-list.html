@@ -4,11 +4,11 @@
             <ul class="breadCrumbs">
                 <li><a href="/">Главная</a></li>
                 <li><a href="/catalog">Каталог</a></li>
-                <li th:if="${categoryname} != null" th:text="${categoryname}">Название категории</li>
+                <li th:text="${category?.name}">Название категории</li>
             </ul>
             <div class="products-list-page-content">
                 <div class="products-list-page__title">
-                    <h1 th:if="${categoryname} != null" th:text="${categoryname}">Название категории</h1>
+                    <h1 th:text="${category?.name}">Название категории</h1>
                 </div>
 
                 <!--<div class="products-list-page__sort-block">
@@ -34,7 +34,7 @@
                                                 <ul class="top-l-cat">
                                                     <li>
                                                         <a href="#" class="link-name-cat"
-                                                           th:href="@{${catalogurl}+${categoryname}+'/'+${product.value?.translitName}}"
+                                                           th:href="@{${catalogurl}+${category?.translitName}+'/'+${product.value?.translitName}}"
                                                            th:text="${product.value?.fullName}">Полное название товара</a>
                                                     </li>
                                                 </ul>
@@ -65,7 +65,7 @@
                                             </div>
                                             <div class="product-detail-bottom">
                                                 <a href="#" class="btn c-button btn-more-h"
-                                                   th:href="@{${catalogurl}+${categoryname}+'/'+${product.value?.translitName}}">
+                                                   th:href="@{${catalogurl}+${category?.translitName}+'/'+${product.value?.translitName}}">
                                                     <div class="c-ripple js-ripple">
                                                         <span class="c-ripple__circle"></span>
                                                     </div>
@@ -97,12 +97,12 @@
                                             <ul class="top-l-cat">
                                                 <li>
                                                     <a href="#" class="link-name-cat"
-                                                       th:href="@{${catalogurl}+${categoryname}+'/'+${product.value?.translitName}}"
+                                                       th:href="@{${catalogurl}+${category?.translitName}+'/'+${product.value?.translitName}}"
                                                        th:text="${product.value?.fullName}">Полное название товара</a>
                                                 </li>
                                                 <li>
                                                     <a href="#" class="cat-l"
-                                                       th:href="@{${catalogurl}+${categoryname}+'/'+${product.value?.translitName}}"
+                                                       th:href="@{${catalogurl}+${category?.translitName}+'/'+${product.value?.translitName}}"
                                                        th:text="${product.value?.shortName}"></a>
                                                 </li>
                                             </ul>
@@ -117,27 +117,21 @@
                                         <div class="product-content__bottom">
                                             <div class="prices-block">
                                                 <ul class="prices-block-list">
-                                                    <li class="new-pr"
-                                                        th:text="${product.value?.prices[0]?.basePriceWithVat} + ' руб'">
+                                                    <li class="current-pr"
+                                                        th:text="${product.value?.prices[1]?.basePriceWithVat} + ' руб'">
                                                         0,00 руб
                                                     </li>
                                                 </ul>
-                                                <div class="bon-pr">
+                                                <div class="bon-pr" th:if="${product.value?.prices.size()} > 1">
                                                     <img src="/res/img/i.png" alt="Информация">
                                                     <div class="hint">
                                                         <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
                                                         <h5>Цена зависит от<br>количества!</h5>
                                                         <div>
-                                                            <p>от 1 ед. :</p>
-                                                            <p>6,50 руб</p>
-                                                            <p>от 20 ед. :</p>
-                                                            <p>6,42 руб</p>
-                                                            <p>от 30 ед. :</p>
-                                                            <p>6,05 руб</p>
-                                                            <p>от 60 ед. :</p>
-                                                            <p>5,80 руб</p>
-                                                            <p>от 120 ед. :</p>
-                                                            <p>5,50 руб</p>
+                                                            <p th:each="price : ${product.value?.prices}" th:remove="tag" >
+                                                                <p th:text="'от '+${price?.quantityStart}+' ед. :'">от 1 ед. :</p>
+                                                                <p th:text="${price?.basePriceWithVat}+' руб.'">0,00 руб</p>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,12 +139,6 @@
                                             <div class="btns">
                                                 <ul class="list-bt">
                                                     <li>
-                                                        <!--<a href="#" class="btn c-button btn-to-cart-simple" title="В корзину">
-                                                            <div class="c-ripple js-ripple">
-                                                                <span class="c-ripple__circle"></span>
-                                                            </div>
-                                                            В корзину
-                                                        </a>-->
                                                         <a href="#" class="btn c-button btn-in-cart">
                                                             <div class="c-ripple js-ripple">
                                                                 <span class="c-ripple__circle"></span>
