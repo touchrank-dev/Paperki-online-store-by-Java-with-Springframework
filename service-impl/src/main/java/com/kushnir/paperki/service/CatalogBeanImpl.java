@@ -21,6 +21,9 @@ public class CatalogBeanImpl implements CatalogBean {
     @Autowired
     CatalogDao catalogDao;
 
+    @Autowired
+    ProductBean productBean;
+
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() {
         HashMap categories = catalogDao.getAll();
@@ -44,17 +47,17 @@ public class CatalogBeanImpl implements CatalogBean {
 
     @Override
     public HashMap<Integer, Product> getProductsByCategoryTName(String categoryTName) {
-        LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
-        HashMap<Integer, Product> products = catalogDao.getProductListByCategoryTName(categoryTName);
+        LOGGER.debug("getProductsByCategoryTName({}) >>> ", categoryTName);
+        HashMap<Integer, Product> products = productBean.getProductListByCategoryTName(categoryTName);
         LOGGER.debug("\nPRODUCTS: {}", products);
         return products;
     }
 
     @Override
-    public Product getProductByCategoryTName(String categoryTName) {
-        LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
-        Product product = catalogDao.getProductByTName(categoryTName);
+    public Product getProductByTName(String productTName) {
+        LOGGER.debug("getProductByTName({}) >>> ", productTName);
+        Product product = productBean.getProductByTName(productTName);
         LOGGER.debug("\nPRODUCT: {}", product);
-        return null;
+        return product;
     }
 }

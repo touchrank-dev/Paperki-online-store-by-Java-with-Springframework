@@ -7,7 +7,7 @@ import com.kushnir.paperki.service.MenuBean;
 
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 
-import com.kushnir.paperki.webapp.paperki.shop.session.Cart;
+import com.kushnir.paperki.model.Cart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

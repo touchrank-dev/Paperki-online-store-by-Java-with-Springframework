@@ -5,7 +5,7 @@ import com.kushnir.paperki.model.Product;
 import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
-import com.kushnir.paperki.webapp.paperki.shop.session.Cart;
+import com.kushnir.paperki.model.Cart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +71,7 @@ public class CatalogController {
     public String productItemPage(@PathVariable String catalorItemTranslitName,
                                   @PathVariable String productTranslitName, Model model){
         LOGGER.debug("productItemPage() >>>");
-        Product product = catalogBean.getProductByCategoryTName(productTranslitName);
+        Product product = catalogBean.getProductByTName(productTranslitName);
         Category category = catalogBean.getCategoryByTName(catalorItemTranslitName);
         model.addAttribute("product", product);
         model.addAttribute("category", category);

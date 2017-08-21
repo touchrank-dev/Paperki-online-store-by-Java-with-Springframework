@@ -1,6 +1,7 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import com.kushnir.paperki.model.*;
+import com.kushnir.paperki.service.CartBean;
 import com.kushnir.paperki.service.UserService;
 import com.kushnir.paperki.service.mail.Mailer;
 
@@ -24,6 +25,9 @@ public class RESTcontroller {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CartBean cartBean;
 
     @Autowired
     Mailer mailer;
@@ -111,77 +115,20 @@ public class RESTcontroller {
         }
     }
 
+    @PostMapping("/addtocart")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage addToCart(@RequestBody AddProductRequest addProductRequest,
+                                               HttpSession httpSession) {
+        LOGGER.debug("REST ADD TO CART >>>\nREQUEST DATA: {}", addProductRequest);
+        try {
 
-    private class RestMessage {
-        HttpStatus code;
-        String message;
-        Object object;
 
-        public RestMessage() {
-        }
 
-        public RestMessage(HttpStatus code, String message) {
-            this.code = code;
-            this.message = message;
-        }
 
-        public RestMessage(HttpStatus code, String message, Object object) {
-            this.code = code;
-            this.message = message;
-            this.object = object;
-        }
-
-        public HttpStatus getCode() {
-            return code;
-        }
-
-        public void setCode(HttpStatus code) {
-            this.code = code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public Object getObject() {
-            return object;
-        }
-
-        public void setObject(Object object) {
-            this.object = object;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            RestMessage that = (RestMessage) o;
-
-            if (code != that.code) return false;
-            if (message != null ? !message.equals(that.message) : that.message != null) return false;
-            return object != null ? object.equals(that.object) : that.object == null;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = code != null ? code.hashCode() : 0;
-            result = 31 * result + (message != null ? message.hashCode() : 0);
-            result = 31 * result + (object != null ? object.hashCode() : 0);
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return "RestMessage{" +
-                    "code=" + code +
-                    ", message='" + message + '\'' +
-                    ", object=" + object +
-                    '}';
+            return new RestMessage(HttpStatus.OK, "ADDED TO CART", null);
+        } catch (Exception e) {
+            LOGGER.error("FAILED ADD PRODUCT TO CART >>>\nERROR MESSAGE: {}", e.getMessage());
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
         }
     }
 }

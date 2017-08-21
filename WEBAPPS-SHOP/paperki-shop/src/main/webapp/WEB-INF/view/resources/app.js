@@ -2,6 +2,26 @@ $( document ).ready(function() {
     $('#enterpriseForm').hide();
 });
 
+function addToCart(pnt) {
+    quantity = $('#'+pnt).val();
+    alert("addToCart :"+pnt+" - "+quantity);
+    $.ajax({
+        cashe: false,
+        async: true,
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/addtocart",
+        data: addItemToJson(pnt, quantity),
+        success: function(response) {
+            console.log(response);
+        },
+        error: function() {
+            serverAlert();
+        }
+    });
+}
+
 function register() {
     $.ajax({
         cashe: false,
@@ -77,6 +97,12 @@ function login() {
         error: function () {
             serverAlert();
         }
+    });
+}
+function addItemToJson(pnt, quantity) {
+    return JSON.stringify({
+        "pnt": pnt, 
+        "quantity": quantity
     });
 }
 

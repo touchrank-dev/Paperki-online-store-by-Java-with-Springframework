@@ -34,6 +34,8 @@
     <!-- STATIC RESOURCES -->
     <mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />
 
+    <!--file:/home/templates/test.paperki/resoutces/-->
+
     <bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
         <constructor-arg ref="servletContext"/>

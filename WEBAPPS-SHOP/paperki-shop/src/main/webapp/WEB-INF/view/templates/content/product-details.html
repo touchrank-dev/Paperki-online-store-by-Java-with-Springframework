@@ -3,8 +3,11 @@
         <div class="wrapper">
             <ul class="breadCrumbs">
                 <li><a href="/">Главная</a></li>
-                <li><a href="/catalog">Каталог</a></li>
-                <li th:if="${categoryname} != null" th:text="${categoryname}">Название категории</li>
+                <li><a href="/"
+                    th:href="@{${catalogurl}}">Каталог</a></li>
+                <li th:if="${category} != null">
+                    <a href="/catalog" 
+                        th:href="@{${catalogurl}+${category?.translitName}}" th:text="${category?.name}">Название категории</a></li>
                 <li th:text="${product?.fullName}">Название продукта</li>
             </ul>
             <div class="single-product-page-content">
@@ -63,11 +66,12 @@
                                 </ul>
                             </div>
                         </div>
+
                         <div class="single-product-main-info">
                             <div class="single-product-wrap-left__action-block">
                                 <a href="#" class="product-maker">
                                     <img src="/res/img/xerox-icon.png" alt="Xerox"
-                                        th:attr="src=@{${bip}+${product?.brand?.tName}},alt=${product?.brand?.name}">
+                                        th:attr="src=@{${bip}+${product?.brand?.icon}},alt=${product?.brand?.name}">
                                 </a>
                                 <form action="">
                                     <div class="product-code">
@@ -76,58 +80,50 @@
 
                                     <div class="single-product-price">
                                         <div class="single-product-price-list">
-                                            <div class="single-product-price__old">8,50 руб</div>
+                                            <!-- <div class="single-product-price__old">8,50 руб</div> -->
                                             <div class="single-product-price__new">
-                                                <p th:text="${product.prices[0]?.basePriceWithVat} + ' руб'">6,50 руб</p>
+                                                <p th:text="${product?.prices[1]?.basePriceWithVat} + ' руб'">0,00 руб</p>
                                                 <div class="bon-pr">
                                                     <img src="/res/img/i.png">
                                                     <div class="hint">
                                                         <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
                                                         <h5>Цена зависит от<br>количества!</h5>
                                                         <div>
-                                                            <p>от 1 ед. :</p>
-                                                            <p>6,50 руб</p>
-                                                            <p>от 20 ед. :</p>
-                                                            <p>6,42 руб</p>
-                                                            <p>от 30 ед. :</p>
-                                                            <p>6,05 руб</p>
-                                                            <p>т 60 ед. :</p>
-                                                            <p>5,80 руб</p>
-                                                            <p>от 120 ед. :</p>
-                                                            <p>5,50 руб</p>
+                                                            <p th:each="price : ${product?.prices}" th:remove="tag" >
+                                                                <p th:text="'от '+${price?.quantityStart}+' ед. :'">от 1 ед. :</p>
+                                                                <p th:text="${price?.basePriceWithVat}+' руб.'">0,00 руб</p>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="single-product-price__for-organisation">
-                                            Для организаций по б/н 6 руб.
-                                        </div>
+                                        </div>                                        
                                     </div>
 
                                     <div class="single-product-in-cart">
                                         <div class="single-product__number">
                                             <div class="dec">-</div>
-                                            <input type="text" name="french-hens" class="inde" value="3">
+                                                <input type="text" name="french-hens" class="inde" value="1"
+                                                    th:attr="id=${product?.pnt}">
                                             <div class="inc">+</div>
                                         </div>
-                                        <a href="#" class="btn c-button btn-in-cart">
+                                        <a href="#" class="btn c-button btn-in-cart"
+                                            onclick="addToCart('null')"
+                                            th:attr="onclick='addToCart('+${product?.pnt}+')'">
                                             <div class="c-ripple js-ripple">
                                                 <span class="c-ripple__circle"></span>
                                             </div>
                                             в корзину
                                         </a>
                                     </div>
-                                    <div class="single-product__compare-bookmark">
-                                    </div>
+                                    <div class="single-product__compare-bookmark"></div>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="single-product-wrap-right">
-                        <div class="single-product-rating">
+                        <!-- <div class="single-product-rating">
                             <p>Оценка:</p>
-                            <!--stars-->
                             <ul class="stars">
                                 <li class="star-true">
                                 </li>
@@ -140,30 +136,51 @@
                                 <li class="star-false">
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                         <div class="single-product-available">
                             <p>Наличие:</p>
                             <ul class="ill-it">
                                 <li>
-                                    <span class="ill-it-1"></span>
+                                    <span th:switch="${product?.quantity} > 5" th:remove="tag">
+                                        <span th:case="${true}" class="ill-it-1"></span>
+                                        <span th:case="${false}" class="ill-it-0"></span>
+                                        <span th:case="*" class="ill-it-0"></span>
+                                    </span>
                                 </li>
                                 <li>
-                                    <span class="ill-it-1"></span>
+                                    <span th:switch="${product?.quantity} > 15" th:remove="tag">
+                                        <span th:case="${true}" class="ill-it-1"></span>
+                                        <span th:case="${false}" class="ill-it-0"></span>
+                                        <span th:case="*" class="ill-it-0"></span>
+                                    </span>
                                 </li>
                                 <li>
-                                    <span class="ill-it-1"></span>
+                                    <span th:switch="${product?.quantity} > 50" th:remove="tag">
+                                        <span th:case="${true}" class="ill-it-1"></span>
+                                        <span th:case="${false}" class="ill-it-0"></span>
+                                        <span th:case="*" class="ill-it-0"></span>
+                                    </span>
                                 </li>
                                 <li>
-                                    <span class="ill-it-0"></span>
+                                    <span th:switch="${product?.quantity} > 100" th:remove="tag">
+                                        <span th:case="${true}" class="ill-it-1"></span>
+                                        <span th:case="${false}" class="ill-it-0"></span>
+                                        <span th:case="*" class="ill-it-0"></span>
+                                    </span>
                                 </li>
                                 <li>
-                                    <span class="ill-it-0"></span>
+                                    <span th:switch="${product?.quantity} > 300" th:remove="tag">
+                                        <span th:case="${true}" class="ill-it-1"></span>
+                                        <span th:case="${false}" class="ill-it-0"></span>
+                                        <span th:case="*" class="ill-it-0"></span>
+                                    </span>
                                 </li>
                             </ul>
-                            <span class="availability">55 шт</span>
+                            <span class="availability" th:text="${product.quantity}+' '+${product.measure}">0 шт</span>
                         </div>
 
-                        <div class="single-product-description">
+                        <div class="single-product-description"
+                            th:text="${product?.shortDescription}">
                             <p>Бумага офисная Mondi "Color Copy" класса А+ — многофункциональная бумага высшего качества без покрытия для создания четких цветных изображений и текста.</p>
                             <p>Однородная структура, гладкая поверхность, высокая степень белизны. Применяется для печати на цветных копировальных аппаратах, цветных и черно-белых лазерных принтерах, цифровых печатных устройствах.</p>
                         </div>
@@ -175,7 +192,6 @@
                             <div class="single-product-tabs__char">
                                 <h2>ХАРАКТЕРИСТИКИ</h2>
                                 <div class="single-product-general-char">
-                                    <p>ОБЩИЕ ХАРАКТЕРИСТИКИ</p>
                                     <ul>
                                         <li>
                                             <div>
@@ -183,18 +199,18 @@
                                                     БРЕНД
                                                 </p>
                                             </div>
-                                            <p>
-                                                Belsis
+                                            <p th:text="${product?.brand?.name}">
+                                                null
                                             </p>
                                         </li>
                                         <li>
                                             <div>
                                                 <p>
-                                                    КОД ПРОИЗВОДИТЕЛЯ
+                                                    ШТРИХ-КОД ПРОИЗВОДИТЕЛЯ
                                                 </p>
                                             </div>
-                                            <p>
-                                                BW1416
+                                            <p th:text="${product?.barCode}">
+                                                null
                                             </p>
                                         </li>
                                         <li>
@@ -203,15 +219,15 @@
                                                     СТРАНА ПРОИЗВОДИТЕЛЯ
                                                 </p>
                                             </div>
-                                            <p>
-                                                Китай
+                                            <p th:text="${product?.countryMade}">
+                                                null
                                             </p>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="single-product-other-char">
                                     <ul>
-                                        <li>
+                                        <!-- <li>
                                             <div>
                                                 <p>
                                                     Формат
@@ -310,7 +326,7 @@
                                             <p>
                                                 5 пачек/короб.
                                             </p>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                             </div>

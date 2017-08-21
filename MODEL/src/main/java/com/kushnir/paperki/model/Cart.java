@@ -1,16 +1,14 @@
-package com.kushnir.paperki.webapp.paperki.shop.session;
+package com.kushnir.paperki.model;
 
 import com.kushnir.paperki.model.Product;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.SessionAttribute;
-
-import java.io.Serializable;
 import java.util.HashMap;
 
 public class Cart {
+
+    private Double totalToDiscount;
+    private Double totalWithoutVat;
+    private Double totalWithVat;
 
     private HashMap<Integer, Product> items = new HashMap<Integer, Product>();
 

@@ -1,7 +1,6 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import com.kushnir.paperki.model.User;
-import com.kushnir.paperki.webapp.paperki.shop.session.Cart;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

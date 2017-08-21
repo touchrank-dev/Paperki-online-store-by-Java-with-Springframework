@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS enterprise_users;
 DROP TABLE IF EXISTS stock;
 DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS stock;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
@@ -185,7 +186,7 @@ CREATE TABLE product_attribute (
 );
 
 CREATE TABLE product_catalog (
-    id_product                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_product                  INT             NOT NULL,
     id_catalog                  INT             NOT NULL,
     order_product               INT             NOT NULL,
     FOREIGN KEY (id_product)                    REFERENCES products(id_product),
@@ -261,10 +262,17 @@ CREATE TABLE order_status (
     description                 VARCHAR(1000)   CHARACTER SET utf8
 );
 
+DROP TABLE IF EXISTS stock_place;
+CREATE TABLE stock_place (
+    id_stock_place              INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name                        VARCHAR(50)     NOT NULL
+);
+
 CREATE TABLE stock (
     id_stock                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name                        VARCHAR(50)     NOT NULL,
+    id_stock_place              INT             DEFAULT 1 NOT NULL,
     id_product                  INT             NOT NULL,
-    quantity                    INT             DEFAULT 0 NOT NULL,
-    FOREIGN KEY (id_product)                    REFERENCES products(id_product)
+    quantity_available          INT             DEFAULT 0 NOT NULL,
+    FOREIGN KEY (id_stock_place)                REFERENCES stock_place(id_stock_place),
+    UNIQUE KEY `s_p` (id_stock_place, id_product)
 );

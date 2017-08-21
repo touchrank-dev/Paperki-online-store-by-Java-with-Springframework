@@ -11,15 +11,15 @@
                     <h1 th:text="${category?.name}">Название категории</h1>
                 </div>
 
-                <!--<div class="products-list-page__sort-block">
-                    <select name="sort-by" class="products-list-page__dropdown">
+                <div class="products-list-page__sort-block">
+                    <!-- <select name="sort-by" class="products-list-page__dropdown">
                         <option value="Сначала популярные">Сначала популярные</option>
                         <option value="Сначала популярные">Сначала дешевые</option>
                     </select>
                     <div class="sort-block-right">
 
-                    </div>
-                </div>-->
+                    </div> -->
+                </div>
                 <div class="products-list-page__main-list">
                     <div class="products-list-page-products-wrap">
                         <div class="products-list-page-products tile-type">
@@ -34,8 +34,8 @@
                                                 <ul class="top-l-cat">
                                                     <li>
                                                         <a href="#" class="link-name-cat"
-                                                           th:href="@{${catalogurl}+${category?.translitName}+'/'+${product.value?.translitName}}"
-                                                           th:text="${product.value?.fullName}">Полное название товара</a>
+                                                           th:href="@{${catalogurl}+${category?.translitName}+'/'+${product?.value?.translitName}}"
+                                                           th:text="${product?.value?.fullName}">Полное название товара</a>
                                                     </li>
                                                 </ul>
 
@@ -60,12 +60,12 @@
                                                         </li>
                                                     </ul>
                                                     <span class="availability"
-                                                    th:text="${product.value?.quantity}+' '+${product.value?.measure}">1 шт.</span>
+                                                    th:text="${product?.value?.quantity}+' '+${product?.value?.measure}">1 шт.</span>
                                                 </div>
                                             </div>
                                             <div class="product-detail-bottom">
                                                 <a href="#" class="btn c-button btn-more-h"
-                                                   th:href="@{${catalogurl}+${category?.translitName}+'/'+${product.value?.translitName}}">
+                                                   th:href="@{${catalogurl}+${category?.translitName}+'/'+${product?.value?.translitName}}">
                                                     <div class="c-ripple js-ripple">
                                                         <span class="c-ripple__circle"></span>
                                                     </div>
@@ -97,20 +97,20 @@
                                             <ul class="top-l-cat">
                                                 <li>
                                                     <a href="#" class="link-name-cat"
-                                                       th:href="@{${catalogurl}+${category?.translitName}+'/'+${product.value?.translitName}}"
-                                                       th:text="${product.value?.fullName}">Полное название товара</a>
+                                                       th:href="@{${catalogurl}+${category?.translitName}+'/'+${product?.value?.translitName}}"
+                                                       th:text="${product?.value?.fullName}">Полное название товара</a>
                                                 </li>
                                                 <li>
                                                     <a href="#" class="cat-l"
-                                                       th:href="@{${catalogurl}+${category?.translitName}+'/'+${product.value?.translitName}}"
-                                                       th:text="${product.value?.shortName}"></a>
+                                                       th:href="@{${catalogurl}+${category?.translitName}+'/'+${product?.value?.translitName}}"
+                                                       th:text="${product?.value?.shortName}">Короткое название товара</a>
                                                 </li>
                                             </ul>
                                             <p class="al-ph">
                                                 <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr"
-                                                    th:attr="src=@{${pip}+${product.value?.pnt}+${imgPref}},alt=${product.value?.fullName}">
+                                                    th:attr="src=@{${pip}+${product?.value?.pnt}+${imgPref}},alt=${product?.value?.fullName}">
                                             </p>
-                                            <p class="desc-pr" th:text="${product.value?.shortDescription}">
+                                            <p class="desc-pr" th:text="${product?.value?.shortDescription}">
                                                 Короткое описание товара
                                             </p>
                                         </div>
@@ -118,17 +118,17 @@
                                             <div class="prices-block">
                                                 <ul class="prices-block-list">
                                                     <li class="current-pr"
-                                                        th:text="${product.value?.prices[1]?.basePriceWithVat} + ' руб'">
+                                                        th:text="${product?.value?.prices[1]?.basePriceWithVat} + ' руб'">
                                                         0,00 руб
                                                     </li>
                                                 </ul>
-                                                <div class="bon-pr" th:if="${product.value?.prices.size()} > 1">
+                                                <div class="bon-pr" th:if="${product?.value?.prices.size()} > 1">
                                                     <img src="/res/img/i.png" alt="Информация">
                                                     <div class="hint">
                                                         <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
                                                         <h5>Цена зависит от<br>количества!</h5>
                                                         <div>
-                                                            <p th:each="price : ${product.value?.prices}" th:remove="tag" >
+                                                            <p th:each="price : ${product?.value?.prices}" th:remove="tag" >
                                                                 <p th:text="'от '+${price?.quantityStart}+' ед. :'">от 1 ед. :</p>
                                                                 <p th:text="${price?.basePriceWithVat}+' руб.'">0,00 руб</p>
                                                             </p>
@@ -139,7 +139,9 @@
                                             <div class="btns">
                                                 <ul class="list-bt">
                                                     <li>
-                                                        <a href="#" class="btn c-button btn-in-cart">
+                                                        <a href="#" class="btn c-button btn-in-cart"
+                                                           onclick="addToCart('null')"
+                                                           th:attr="onclick='addToCart('+${product?.value?.pnt}+')'">
                                                             <div class="c-ripple js-ripple">
                                                                 <span class="c-ripple__circle"></span>
                                                             </div>
@@ -149,7 +151,8 @@
                                                     <li>
                                                         <div class="single-product__number">
                                                             <div class="dec">-</div>
-                                                            <input name="french-hens" class="inde" value="1" type="text">
+                                                                <input id="null" name="french-hens" class="inde" value="1" type="text"
+                                                                    th:attr="id=${product?.value?.pnt}">
                                                             <div class="inc">+</div>
                                                         </div>
                                                     </li>
@@ -161,6 +164,17 @@
                             </div>
                         </div>
                     </div>
+
+                    <aside class="products-list-page__filter">
+                        <div class="filter-form">
+                            <form action="">
+                                <div class="filter-list filter-block">
+                                    <p>Функция фильтрации по параметрам находится в разработке</p>
+                                </div>
+                            </form>
+                        </div>                 
+                    </aside>
+
                 </div>
             </div>
         </div>
