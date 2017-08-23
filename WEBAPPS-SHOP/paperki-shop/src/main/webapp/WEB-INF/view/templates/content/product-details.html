@@ -14,6 +14,26 @@
                 <div class="single-product-page__title">
                     <h1 th:text="${product?.fullName}">Заголовок Название продукта</h1>
                 </div>
+                <div class="single-product-page__top-block">
+                        <ul class="tabs-top-nav">
+                            <li class="js-active">
+                                <a href="#" class="tabs-top-nav__char tabs-top-nav__link" title="Характеристики">
+                                    Характеристики
+                                </a>
+                            </li>
+                            <!-- <li>
+                                <a href="#" class="tabs-top-nav__photo tabs-top-nav__link" title="Фото">
+                                    Фото
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="tabs-top-nav__reviews tabs-top-nav__link" title="Отзывы">
+                                    Отзывы
+                                    <span>561</span>
+                                </a>
+                            </li> -->
+                        </ul>                        
+                    </div>
                 <div class="single-product-wrap">
                     <div class="single-product-wrap-left">
                         <div class="single-product-pict-slider">
@@ -71,7 +91,7 @@
                             <div class="single-product-wrap-left__action-block">
                                 <a href="#" class="product-maker">
                                     <img src="/res/img/xerox-icon.png" alt="Xerox"
-                                        th:attr="src=@{${bip}+${product?.brand?.icon}},alt=${product?.brand?.name}">
+                                        th:attr="src=@{${bip}+${product?.brand?.tName}},alt=${product?.brand?.name}">
                                 </a>
                                 <form action="">
                                     <div class="product-code">
@@ -178,11 +198,8 @@
                             </ul>
                             <span class="availability" th:text="${product.quantity}+' '+${product.measure}">0 шт</span>
                         </div>
-
-                        <div class="single-product-description"
-                            th:text="${product?.shortDescription}">
-                            <p>Бумага офисная Mondi "Color Copy" класса А+ — многофункциональная бумага высшего качества без покрытия для создания четких цветных изображений и текста.</p>
-                            <p>Однородная структура, гладкая поверхность, высокая степень белизны. Применяется для печати на цветных копировальных аппаратах, цветных и черно-белых лазерных принтерах, цифровых печатных устройствах.</p>
+                        <div class="single-product-description">
+                            <p th:text="${product?.fullDescription}">Полное описание</p>
                         </div>
                     </div>
                 </div>

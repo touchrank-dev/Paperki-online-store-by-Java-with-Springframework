@@ -89,6 +89,7 @@
 
 
                 <div class="profile-tabs-content">
+                    
                     <div class="my-profile">
                         <div class="my-profile-content">
                             <h2>Личный кабинет</h2>
@@ -105,7 +106,7 @@
                                             <span th:text="${user?.name}">
                                                     Имя
                                                 </span>
-                                            <a href="#">изменить</a>
+                                            <a href="#" onclick="changeName()">изменить</a>
                                         </li>
                                         <li>
                                             <p>
@@ -113,17 +114,8 @@
                                             </p>
                                             <span th:text="${user?.login}">
                                                     Логин
-                                                </span>
-                                            <a href="#">изменить</a>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Клиентский номер, ID:
-                                            </p>
-                                            <span>
-                                                    843991
-                                                </span>
-                                        </li>
+                                            </span>
+                                        </li>                                        
                                     </ul>
                                     <ul>
                                     <!-- второй ряд -->
@@ -138,143 +130,6 @@
                                 <p>Активировать промокод</p>
                             </a>
                         </div>
-
-
-
-
-
-                        <ul class="my-profile-links">
-                            <!--for all info (is hidden)-->
-                            <li class="personal-account">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Главная страница личного кабинета
-                                        </h3>
-                                    </div>
-                                </a>
-                            </li>
-                            <!--for all info (is hidden) end-->
-                            <li class="personal-data">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Личные данные
-                                        </h3>
-                                        <p>
-                                            В этом разделе вы можете изменить свои личные даные.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="password-change">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Смена пароля
-                                        </h3>
-                                        <p>
-                                            Здесь вы можете сменить свои данные для доступа в личный кабинет.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="my-organizations">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Моя организации
-                                        </h3>
-                                        <p>
-                                            Добавьте реквизиты вашей организации для быстрого оформления заказа на юр. лицо.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="delivery-address">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Адреса доставки
-                                        </h3>
-                                        <p>
-                                            Добавьте важные адреса доставки товара и вам не придётся вводить их каждый раз в процессе осуществления заказа.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="notifications">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Уведомления
-                                        </h3>
-                                        <p>
-                                            Раздел уведомлений о новых товарах, ценах и, конечно, специальных предложениях для наших клиентов.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="orders">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            Заказы
-                                        </h3>
-                                        <p>
-                                            Порекомендуй нас – дополнительная программа премирования постоянных покупателей.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="bookmarks">
-                                <a href="#" class="c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
-                                    <div class="my-profile-link__icon"></div>
-                                    <div class="my-profile-link__text">
-                                        <h3>
-                                            В избранное
-                                        </h3>
-                                        <p>
-                                            Здесь хранятся Ваши избранные товары.
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
                     </div>
 
 
@@ -288,13 +143,15 @@
                         <form action="">
                             <div class="my-personal-data__fields">
                                     <span class="input input--ichiro">
-                                        <input class="input__field input__field--ichiro" type="text" name="personal-data-person" id="personal-data-person" />
+                                        <input class="input__field input__field--ichiro" type="text" name="personal-data-person" id="personal-data-person"
+                                            th:value="${user?.name}" onchange="alert('cahange!')" />
                                         <label class="input__label input__label--ichiro" for="personal-data-person">
                                                 <span class="input__label-content input__label-content--ichiro">Контактное лицо *</span>
                                         </label>
                                     </span>
                                 <span class="input input--ichiro">
-                                        <input class="input__field input__field--ichiro" type="email" name="personal-data-email" id="personal-data-email" />
+                                        <input class="input__field input__field--ichiro" type="email" name="personal-data-email" id="personal-data-email" 
+                                            th:value="${user?.email}"/>
                                         <label class="input__label input__label--ichiro" for="personal-data-email">
                                                 <span class="input__label-content input__label-content--ichiro">Ваш e-mail *</span>
                                         </label>
@@ -306,7 +163,7 @@
                                         </label>
                                     </span> -->
                                 <span class="input input--ichiro">
-                                        <input class="input__field input__field--ichiro phone" type="text" name="personal-data-phone" id="personal-data-phone" />
+                                        <input class="input__field input__field--ichiro phone" type="text" name="personal-data-phone" id="personal-data-phone" th:value="${user?.phone}" />
                                         <label class="input__label input__label--ichiro" for="personal-data-phone">
                                                 <span class="input__label-content input__label-content--ichiro">Мобильный телефон</span>
                                         </label>
@@ -325,7 +182,7 @@
                                 </div>
                             </div>
                             <div class="my-personal-data-form-bottom">
-                                <button class="c-button" type="subscribe">
+                                <button class="c-button" type="subscribe" onclick="updateUser()">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>
@@ -859,8 +716,8 @@
                                                 Распечатать
                                             </button>
                                         </div>
-                                    </div>
-                                </div> -->
+                                    </div>-->
+                                </div>
                                 <div class="done-orders empty">
                                     <div class="orders-list-table">
                                         <div class="table-head">

@@ -8008,7 +8008,9 @@ li .single-product__number .dec {
       top: 8px; }
 
 .single-product-description {
-  margin-bottom: 25px; }
+  margin-bottom: 25px;
+  margin-right: 20px;
+}
   .single-product-description p {
     color: #868686;
     font-family: ProximaNovaRegular;

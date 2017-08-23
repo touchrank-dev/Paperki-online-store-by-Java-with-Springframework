@@ -29,7 +29,7 @@ public class Product {
     private Brand brand;
 
     private String shortDescription;
-    private String fullDescriotion;
+    private String fullDescription;
 
     private HashMap<Integer, String[]> attributes;
 
@@ -71,6 +71,46 @@ public class Product {
         this.isPublishet = isPublishet;
         this.isVisible = isVisible;
         this.brand = brand;
+        this.prices = prices;
+    }
+
+    public Product(Integer id,
+                   Integer papId,
+                   Integer pnt,
+                   String fullName,
+                   String shortName,
+                   String translitName,
+                   String link,
+                   String countryFrom,
+                   String countryMade,
+                   String measure,
+                   Integer availableDay,
+                   Integer quantity,
+                   Integer VAT,
+                   Boolean isPublishet,
+                   Boolean isVisible,
+                   Brand brand,
+                   String shortDescription,
+                   String fullDescription,
+                   HashMap<Integer, Price> prices) {
+        this.id = id;
+        this.papId = papId;
+        this.pnt = pnt;
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.translitName = translitName;
+        this.link = link;
+        this.countryFrom = countryFrom;
+        this.countryMade = countryMade;
+        this.measure = measure;
+        this.availableDay = availableDay;
+        this.quantity = quantity;
+        this.VAT = VAT;
+        this.isPublishet = isPublishet;
+        this.isVisible = isVisible;
+        this.brand = brand;
+        this.shortDescription = shortDescription;
+        this.fullDescription = fullDescription;
         this.prices = prices;
     }
 
@@ -258,12 +298,12 @@ public class Product {
         this.shortDescription = shortDescription;
     }
 
-    public String getFullDescriotion() {
-        return fullDescriotion;
+    public String getFullDescription() {
+        return fullDescription;
     }
 
-    public void setFullDescriotion(String fullDescriotion) {
-        this.fullDescriotion = fullDescriotion;
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
     }
 
     public HashMap<Integer, String[]> getAttributes() {
@@ -314,7 +354,7 @@ public class Product {
         if (brand != null ? !brand.equals(product.brand) : product.brand != null) return false;
         if (shortDescription != null ? !shortDescription.equals(product.shortDescription) : product.shortDescription != null)
             return false;
-        if (fullDescriotion != null ? !fullDescriotion.equals(product.fullDescriotion) : product.fullDescriotion != null)
+        if (fullDescription != null ? !fullDescription.equals(product.fullDescription) : product.fullDescription != null)
             return false;
         if (attributes != null ? !attributes.equals(product.attributes) : product.attributes != null) return false;
         return prices != null ? prices.equals(product.prices) : product.prices == null;
@@ -344,7 +384,7 @@ public class Product {
         result = 31 * result + (isVisible != null ? isVisible.hashCode() : 0);
         result = 31 * result + (brand != null ? brand.hashCode() : 0);
         result = 31 * result + (shortDescription != null ? shortDescription.hashCode() : 0);
-        result = 31 * result + (fullDescriotion != null ? fullDescriotion.hashCode() : 0);
+        result = 31 * result + (fullDescription != null ? fullDescription.hashCode() : 0);
         result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
         result = 31 * result + (prices != null ? prices.hashCode() : 0);
         return result;
@@ -375,7 +415,7 @@ public class Product {
                 ", isVisible=" + isVisible +
                 ", brand=" + brand +
                 ", shortDescription='" + shortDescription + '\'' +
-                ", fullDescriotion='" + fullDescriotion + '\'' +
+                ", fullDescription='" + fullDescription + '\'' +
                 ", attributes=" + attributes +
                 ", prices=" + prices +
                 '}';

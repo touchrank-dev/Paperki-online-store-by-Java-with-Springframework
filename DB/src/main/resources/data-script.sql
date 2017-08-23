@@ -68,7 +68,7 @@ VALUES (1, 'Бумага класса С. Надежная и экономичн
 INSERT INTO prices_types (name)
 VALUES ('Стандартная');
 
-INSERT INTO product_prices (id_product, quatity_start, value)
+INSERT INTO product_prices (id_product, quantity_start, value)
 VALUES (1, 1, 5.56),
        (1, 20, 5.35),
        (1, 60, 5.26),

@@ -121,9 +121,11 @@ public class RESTcontroller {
                                                HttpSession httpSession) {
         LOGGER.debug("REST ADD TO CART >>>\nREQUEST DATA: {}", addProductRequest);
         try {
-
-
-
+            Cart cart = (Cart)httpSession.getAttribute("cart");
+            LOGGER.debug("CART FROM SESSION BEFORE ADDING: {}", cart);
+            cart = cartBean.addToCart(cart, addProductRequest);
+            LOGGER.debug("CART FROM SESSION AFTER ADDING: {}", cart);
+            httpSession.setAttribute("cart", cart);
 
             return new RestMessage(HttpStatus.OK, "ADDED TO CART", null);
         } catch (Exception e) {

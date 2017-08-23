@@ -173,3 +173,38 @@ function showEnterpriseForm() {
     if($('#check-isenterprise').attr("checked") == "checked") $('#enterpriseForm').show("slow");
     else $('#enterpriseForm').hide("slow");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function changeName() {
+    alert('Функциональность временно недоступна');
+}
+
+function updateUser() {
+    alert('Функциональность временно недоступна');
+}
+
+function activatePromo() {
+    alert('Функциональность временно недоступна');
+}

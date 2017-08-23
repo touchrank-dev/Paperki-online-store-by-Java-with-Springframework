@@ -1,6 +1,7 @@
 package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.dao.ProductDao;
+import com.kushnir.paperki.model.CartProduct;
 import com.kushnir.paperki.model.Product;
 
 import org.apache.logging.log4j.LogManager;
@@ -25,8 +26,8 @@ public class ProductBeanImpl implements ProductBean {
     }
 
     @Override
-    public Product getProductBuPNT(Integer pnt) {
-        Product product = productDao.getProductBuPNT(pnt);
+    public Product getProductByPNT(Integer pnt) {
+        Product product = productDao.getProductByPNT(pnt);
         LOGGER.debug("getProductBuPNT({}) >>>\nPRODUCT: {}", pnt, product);
         return product;
     }
@@ -36,5 +37,12 @@ public class ProductBeanImpl implements ProductBean {
         Product product = productDao.getProductByTName(TName);
         LOGGER.debug("getProductByTName({}) >>>\nPRODUCT: {}", TName, product);
         return product;
+    }
+
+    @Override
+    public CartProduct getCartProductByPNT(Integer pnt) {
+        CartProduct cartProduct = productDao.getCartProductByPNT(pnt);
+        LOGGER.debug("getCartProductByPNT({}) >>>\nCART_PRODUCT: {}", pnt, cartProduct);
+        return cartProduct;
     }
 }
