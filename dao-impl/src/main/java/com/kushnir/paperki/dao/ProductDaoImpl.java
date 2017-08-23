@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -79,14 +80,20 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public CartProduct getCartProductByPNT(Integer pnt) throws DataAccessException {
+        LOGGER.debug("getCartProductByPNT({}) >>>", pnt);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_PNT, pnt);
-        CartProduct cartProduct = (CartProduct) namedParameterJdbcTemplate.query(
-                getCartProductByPNTSqlQuery,
-                parameterSource,
-                new CartProductResultSetExtractor()
-        );
-        LOGGER.debug("getCartProductByPNT({}) >>>\nCART_PRODUCT: {}", pnt, cartProduct);
-        return cartProduct;
+        try {
+            CartProduct cartProduct = (CartProduct) namedParameterJdbcTemplate.query(
+                    getCartProductByPNTSqlQuery,
+                    parameterSource,
+                    new CartProductResultSetExtractor()
+            );
+            LOGGER.debug("CART_PRODUCT: {}", cartProduct);
+            return cartProduct;
+        } catch (Exception e) {
+            LOGGER.error("ERROR: {}", e.getMessage());
+            return null;
+        }
     }
 
 
@@ -198,26 +205,28 @@ public class ProductDaoImpl implements ProductDao {
         @Override
         public CartProduct extractData(ResultSet rs) throws SQLException, DataAccessException {
             CartProduct cartProduct = null;
-            while (rs.next()) {
+            while(rs.next()) {
+                int pnt = rs.getInt("pnt");
                 int quantityStart = rs.getInt("quantity_start");
-                Double priceValue = rs.getDouble("value");
+                Double value = rs.getDouble("value");
                 int vat = rs.getInt("vat");
-                Double currentPrice = (quantityStart == 1) ? priceValue:null;
+                String fullName = rs.getString("full_name");
+                String shortName = rs.getString("short_name");
+                int quantityAvailable = rs.getInt("quantity_available");
 
                 Price price = new Price(
                         quantityStart,
-                        priceValue,
+                        value,
                         vat
                 );
 
                 if(cartProduct == null) {
                     cartProduct = new CartProduct(
-                            rs.getInt("pnt"),
-                            rs.getString("full_name"),
-                            rs.getString("short_name"),
+                            pnt,
+                            fullName,
+                            shortName,
                             vat,
-                            rs.getInt("quantity_available"),
-                            currentPrice
+                            quantityAvailable
                     );
                     HashMap<Integer, Price> prices = cartProduct.getPrices();
                     prices.put(quantityStart, price);
@@ -231,4 +240,5 @@ public class ProductDaoImpl implements ProductDao {
             return cartProduct;
         }
     }
+
 }

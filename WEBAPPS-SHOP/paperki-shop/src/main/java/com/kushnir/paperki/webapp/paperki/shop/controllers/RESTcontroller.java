@@ -123,7 +123,9 @@ public class RESTcontroller {
         try {
             Cart cart = (Cart)httpSession.getAttribute("cart");
             LOGGER.debug("CART FROM SESSION BEFORE ADDING: {}", cart);
-            cart = cartBean.addToCart(cart, addProductRequest);
+
+            cartBean.addToCart(cart, addProductRequest);
+
             LOGGER.debug("CART FROM SESSION AFTER ADDING: {}", cart);
             httpSession.setAttribute("cart", cart);
 
