@@ -11,6 +11,7 @@ public class CartProduct {
     private Integer VAT;
     private Double vatAmount;
     private Integer quantity;
+    private Integer quantityAvailable;
     private Double currentPrice;
     private Double currentPriceWithVAT;
     private Double discountAmount;
@@ -30,14 +31,13 @@ public class CartProduct {
                        String fullName,
                        String shortName,
                        Integer VAT,
-                       Integer quantity) {
+                       Integer quantityAvailable) {
         this.pnt = pnt;
         this.fullName = fullName;
         this.shortName = shortName;
         this.VAT = VAT;
-        this.quantity = quantity;
+        this.quantityAvailable = quantityAvailable;
     }
-
 
 
     private void calcVatAmounth() {
@@ -58,6 +58,14 @@ public class CartProduct {
                 .setScale(2, RoundingMode.UP).doubleValue();
     }
 
+
+    public Integer getQuantityAvailable() {
+        return quantityAvailable;
+    }
+
+    public void setQuantityAvailable(Integer quantityAvailable) {
+        this.quantityAvailable = quantityAvailable;
+    }
 
     public Integer getPnt() {
         return pnt;
@@ -200,6 +208,8 @@ public class CartProduct {
         if (VAT != null ? !VAT.equals(that.VAT) : that.VAT != null) return false;
         if (vatAmount != null ? !vatAmount.equals(that.vatAmount) : that.vatAmount != null) return false;
         if (quantity != null ? !quantity.equals(that.quantity) : that.quantity != null) return false;
+        if (quantityAvailable != null ? !quantityAvailable.equals(that.quantityAvailable) : that.quantityAvailable != null)
+            return false;
         if (currentPrice != null ? !currentPrice.equals(that.currentPrice) : that.currentPrice != null) return false;
         if (currentPriceWithVAT != null ? !currentPriceWithVAT.equals(that.currentPriceWithVAT) : that.currentPriceWithVAT != null)
             return false;
@@ -227,6 +237,7 @@ public class CartProduct {
         result = 31 * result + (VAT != null ? VAT.hashCode() : 0);
         result = 31 * result + (vatAmount != null ? vatAmount.hashCode() : 0);
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+        result = 31 * result + (quantityAvailable != null ? quantityAvailable.hashCode() : 0);
         result = 31 * result + (currentPrice != null ? currentPrice.hashCode() : 0);
         result = 31 * result + (currentPriceWithVAT != null ? currentPriceWithVAT.hashCode() : 0);
         result = 31 * result + (discountAmount != null ? discountAmount.hashCode() : 0);
@@ -249,6 +260,7 @@ public class CartProduct {
                 ", VAT=" + VAT +
                 ", vatAmount=" + vatAmount +
                 ", quantity=" + quantity +
+                ", quantityAvailable=" + quantityAvailable +
                 ", currentPrice=" + currentPrice +
                 ", currentPriceWithVAT=" + currentPriceWithVAT +
                 ", discountAmount=" + discountAmount +

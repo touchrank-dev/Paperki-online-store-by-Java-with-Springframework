@@ -58,7 +58,7 @@ public class CatalogDaoImpl implements CatalogDao {
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() {
         HashMap<Integer, HashMap<Integer, Category>> map =
-                (HashMap) jdbcTemplate.query(getAllByStockSqlQuery, new CategoryResultSetExtractor());
+                (HashMap) jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
         LOGGER.debug("getAll() >>>\nCATALOG MENU MAP: {}", map);
         return map;
     }

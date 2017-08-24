@@ -51,7 +51,6 @@ public class ProductDaoImpl implements ProductDao {
                         getProductsByCategoryTNameSqlQuery,
                         parameterSource,
                         new ProductsResultSetExtractor());
-        LOGGER.debug("getProductListByCategoryTName({}) >>>\nPRODUCTS MAP: {}", categoryTName, products);
         return products;
     }
 
@@ -62,7 +61,6 @@ public class ProductDaoImpl implements ProductDao {
                 getByPNTSqlQuery,
                 parameterSource,
                 new ProductResultSetExtractor());
-        LOGGER.debug("getProductBuPNT({}) >>>\nPRODUCT: {}", pnt, product);
         return product;
     }
 
@@ -74,7 +72,6 @@ public class ProductDaoImpl implements ProductDao {
                 parameterSource,
                 new ProductResultSetExtractor()
         );
-        LOGGER.debug("getProductByTName({}) >>>\nPRODUCT: {}", TName, product);
         return product;
     }
 
@@ -88,7 +85,6 @@ public class ProductDaoImpl implements ProductDao {
                     parameterSource,
                     new CartProductResultSetExtractor()
             );
-            LOGGER.debug("CART_PRODUCT: {}", cartProduct);
             return cartProduct;
         } catch (Exception e) {
             LOGGER.error("ERROR: {}", e.getMessage());
@@ -103,8 +99,8 @@ public class ProductDaoImpl implements ProductDao {
         public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
             HashMap<Integer, Product> products = new HashMap<Integer ,Product>();
             while (rs.next()) {
-                int idProduct = rs.getInt("id_product");
-                int quantityStart = rs.getInt("quantity_start");
+                int idProduct =             rs.getInt("id_product");
+                int quantityStart =         rs.getInt("quantity_start");
 
                 if(products.get(idProduct) == null) {
                     Price price = new Price(quantityStart,
@@ -156,8 +152,8 @@ public class ProductDaoImpl implements ProductDao {
         public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
             Product product = null;
             while (rs.next()) {
-                int idProduct = rs.getInt("id_product");
-                int quantityStart = rs.getInt("quantity_start");
+                int idProduct =             rs.getInt("id_product");
+                int quantityStart =         rs.getInt("quantity_start");
 
                 Price price = new Price(
                         quantityStart,
@@ -206,13 +202,13 @@ public class ProductDaoImpl implements ProductDao {
         public CartProduct extractData(ResultSet rs) throws SQLException, DataAccessException {
             CartProduct cartProduct = null;
             while(rs.next()) {
-                int pnt = rs.getInt("pnt");
-                int quantityStart = rs.getInt("quantity_start");
-                Double value = rs.getDouble("value");
-                int vat = rs.getInt("vat");
-                String fullName = rs.getString("full_name");
-                String shortName = rs.getString("short_name");
-                int quantityAvailable = rs.getInt("quantity_available");
+                int pnt =                   rs.getInt("pnt");
+                int quantityStart =         rs.getInt("quantity_start");
+                Double value =              rs.getDouble("value");
+                int vat =                   rs.getInt("vat");
+                String fullName =           rs.getString("full_name");
+                String shortName =          rs.getString("short_name");
+                int quantityAvailable =     rs.getInt("quantity_available");
 
                 Price price = new Price(
                         quantityStart,
@@ -221,6 +217,7 @@ public class ProductDaoImpl implements ProductDao {
                 );
 
                 if(cartProduct == null) {
+
                     cartProduct = new CartProduct(
                             pnt,
                             fullName,
@@ -228,6 +225,7 @@ public class ProductDaoImpl implements ProductDao {
                             vat,
                             quantityAvailable
                     );
+
                     HashMap<Integer, Price> prices = cartProduct.getPrices();
                     prices.put(quantityStart, price);
                     cartProduct.setPrices(prices);

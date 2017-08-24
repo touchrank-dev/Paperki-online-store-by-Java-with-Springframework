@@ -77,26 +77,4 @@ public class MainController {
         return catalogBean.getAll();
     }
 
-    @ModelAttribute("user")
-    public User setUser(HttpSession httpSession) {
-        User user = (User)httpSession.getAttribute("user");
-        if(user == null) {
-            user = new User();
-            httpSession.setAttribute("user", user);
-            LOGGER.debug("SET NEW EMPTY USER: {}", user);
-        }
-        return user;
-    }
-
-    @ModelAttribute("cart")
-    public Cart setCart (HttpSession httpSession) {
-        Cart cart = (Cart)httpSession.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-            httpSession.setAttribute("cart", cart);
-            LOGGER.debug("SET NEW EMPTY CART: {}", cart);
-        }
-        return cart;
-    }
-
 }

@@ -42,7 +42,7 @@ public class ProductBeanImpl implements ProductBean {
     @Override
     public CartProduct getCartProductByPNT(Integer pnt) {
         CartProduct cartProduct = productDao.getCartProductByPNT(pnt);
-        LOGGER.debug("getCartProductByPNT({}) >>>\nCART_PRODUCT: {}", pnt, cartProduct);
+        LOGGER.debug("getCartProductByPNT({}) >>>\nPRODUCT: {}", pnt, cartProduct);
         return cartProduct;
     }
 }

@@ -127,7 +127,7 @@ public class RESTcontroller {
 
             cartBean.addToCart(cart, addProductRequest);
 
-            LOGGER.debug("CART FROM SESSION AFTER ADDING: {}", cart);
+            LOGGER.debug("CART AFTER ADDING: {}", cart);
             httpSession.setAttribute("cart", cart);
 
             return new RestMessage(HttpStatus.OK, "ADDED TO CART", null);
