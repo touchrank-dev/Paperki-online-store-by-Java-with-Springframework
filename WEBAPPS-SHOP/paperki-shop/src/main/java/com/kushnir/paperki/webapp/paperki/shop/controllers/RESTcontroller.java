@@ -115,6 +115,7 @@ public class RESTcontroller {
         }
     }
 
+    // curl -H "Content-Type: application/json" -d '{"pnt":9491,"quantity":1}' -v localhost:8080/api/addtocart
     @PostMapping("/addtocart")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage addToCart(@RequestBody AddProductRequest addProductRequest,

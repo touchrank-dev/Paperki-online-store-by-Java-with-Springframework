@@ -21,7 +21,7 @@ public class CartProduct {
     private Double totalDiscountedPrice;
     private Double totalDiscountedPriceWithVAT;
 
-    private HashMap<Integer, Price> prices;
+    private HashMap<Integer, Price> prices = new HashMap<>();
 
     public CartProduct() {
     }
