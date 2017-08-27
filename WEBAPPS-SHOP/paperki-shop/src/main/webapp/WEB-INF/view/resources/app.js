@@ -136,15 +136,19 @@ function regFormToJSON() {
 function mapErrorLoginForm(form) {
     if(form.login != null) {
         $('#enter-input-email').addClass("input_email_error");
-        $("#enter-input-email").tooltip({
+        $("#enter-input-email-title").tooltip({
             title : form.login,
+            placement: right,
+            delay: { show: 1000, hide: 500 }
         });
         $('#enter-input-email').tooltip("show");
     }
     if(form.password != null) {
         $('#enter-input-password').addClass("input_password_error");
-        $("#enter-input-password").tooltip({
+        $("#enter-input-password-title").tooltip({
             title : form.password,
+            placement: right,
+            delay: { show: 1000, hide: 500 }
         });
         $("#enter-input-password").tooltip("show");
     }
@@ -153,9 +157,9 @@ function mapErrorLoginForm(form) {
 
 function cleanLoginErrors(){
     $('#enter-input-email').removeClass("input_email_error");
-    $('#enter-input-email').tooltip("hide");
+    $('#enter-input-email-title').tooltip("destroy");
     $('#enter-input-password').removeClass("input_password_error");
-    $('#enter-input-password').tooltip("hide");
+    $('#enter-input-password-title').tooltip("destroy");
 }
 
 function mapErrorRegisterForm(form) {
@@ -173,26 +177,6 @@ function showEnterpriseForm() {
     if($('#check-isenterprise').attr("checked") == "checked") $('#enterpriseForm').show("slow");
     else $('#enterpriseForm').hide("slow");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
