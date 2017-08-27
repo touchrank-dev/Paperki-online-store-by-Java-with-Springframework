@@ -17,7 +17,7 @@ public class Category {
     private String customtitle;
     private LocalDateTime createDate;
     private LocalDateTime editDate;
-    private Boolean isPublished;
+    private Boolean isPublished = false;
     private Boolean isVisible;
     private Integer order;
 

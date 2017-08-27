@@ -34,7 +34,8 @@ public class CatalogBeanImpl implements CatalogBean {
     @Override
     public ArrayList<Category> getCategoriesFromCSV() throws IOException {
         LOGGER.debug("getCategoriesFromCSV() >>> ");
-        return catalogDao.getCategoriesFromCSV();
+        ArrayList<Category> categories = catalogDao.getCategoriesFromCSV();
+        return categories;
     }
 
     @Override

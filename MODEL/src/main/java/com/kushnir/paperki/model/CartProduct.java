@@ -1,7 +1,5 @@
 package com.kushnir.paperki.model;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 
 public class CartProduct {
@@ -11,7 +9,7 @@ public class CartProduct {
     private Integer VAT;
     private Double vatAmount;
     private Integer quantity;
-    private Integer quantityAvailable;
+    // private Integer quantityAvailable;
     private Double currentPrice;
     private Double currentPriceWithVAT;
     private Double discountAmount;
@@ -24,47 +22,45 @@ public class CartProduct {
 
     private HashMap<Integer, Price> prices = new HashMap<>();
 
-    public CartProduct() {
+    public CartProduct(Integer pnt, String fullName, String shortName, Integer VAT) {
+        this.pnt = pnt;
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.VAT = VAT;
     }
 
     public CartProduct(Integer pnt,
                        String fullName,
                        String shortName,
                        Integer VAT,
-                       Integer quantityAvailable) {
+                       Double vatAmount,
+                       Integer quantity,
+                       Double currentPrice,
+                       Double currentPriceWithVAT,
+                       Double discountAmount,
+                       Double discountedPrice,
+                       Double discountedPriceWithVAT,
+                       Double totalPrice,
+                       Double totalPriceWithVAT,
+                       Double totalDiscountedPrice,
+                       Double totalDiscountedPriceWithVAT,
+                       HashMap<Integer, Price> prices) {
         this.pnt = pnt;
         this.fullName = fullName;
         this.shortName = shortName;
         this.VAT = VAT;
-        this.quantityAvailable = quantityAvailable;
-    }
-
-
-    private void calcVatAmounth() {
-        this.vatAmount = 1 + (VAT/100.0);
-    }
-
-    private void calcCurrPriceWithVat() {
-        this.currentPriceWithVAT = new BigDecimal(this.currentPrice * this.vatAmount)
-                .setScale(2, RoundingMode.UP).doubleValue();
-    }
-
-    private void calcTotalPrice() {
-        this.totalPrice = currentPrice * this.quantity;
-    }
-
-    private void calcTotalPriceWithVat(){
-        this.totalPriceWithVAT = new BigDecimal(this.totalPrice * this.vatAmount)
-                .setScale(2, RoundingMode.UP).doubleValue();
-    }
-
-
-    public Integer getQuantityAvailable() {
-        return quantityAvailable;
-    }
-
-    public void setQuantityAvailable(Integer quantityAvailable) {
-        this.quantityAvailable = quantityAvailable;
+        this.vatAmount = vatAmount;
+        this.quantity = quantity;
+        this.currentPrice = currentPrice;
+        this.currentPriceWithVAT = currentPriceWithVAT;
+        this.discountAmount = discountAmount;
+        this.discountedPrice = discountedPrice;
+        this.discountedPriceWithVAT = discountedPriceWithVAT;
+        this.totalPrice = totalPrice;
+        this.totalPriceWithVAT = totalPriceWithVAT;
+        this.totalDiscountedPrice = totalDiscountedPrice;
+        this.totalDiscountedPriceWithVAT = totalDiscountedPriceWithVAT;
+        this.prices = prices;
     }
 
     public Integer getPnt() {
@@ -208,8 +204,6 @@ public class CartProduct {
         if (VAT != null ? !VAT.equals(that.VAT) : that.VAT != null) return false;
         if (vatAmount != null ? !vatAmount.equals(that.vatAmount) : that.vatAmount != null) return false;
         if (quantity != null ? !quantity.equals(that.quantity) : that.quantity != null) return false;
-        if (quantityAvailable != null ? !quantityAvailable.equals(that.quantityAvailable) : that.quantityAvailable != null)
-            return false;
         if (currentPrice != null ? !currentPrice.equals(that.currentPrice) : that.currentPrice != null) return false;
         if (currentPriceWithVAT != null ? !currentPriceWithVAT.equals(that.currentPriceWithVAT) : that.currentPriceWithVAT != null)
             return false;
@@ -237,7 +231,6 @@ public class CartProduct {
         result = 31 * result + (VAT != null ? VAT.hashCode() : 0);
         result = 31 * result + (vatAmount != null ? vatAmount.hashCode() : 0);
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
-        result = 31 * result + (quantityAvailable != null ? quantityAvailable.hashCode() : 0);
         result = 31 * result + (currentPrice != null ? currentPrice.hashCode() : 0);
         result = 31 * result + (currentPriceWithVAT != null ? currentPriceWithVAT.hashCode() : 0);
         result = 31 * result + (discountAmount != null ? discountAmount.hashCode() : 0);
@@ -260,7 +253,6 @@ public class CartProduct {
                 ", VAT=" + VAT +
                 ", vatAmount=" + vatAmount +
                 ", quantity=" + quantity +
-                ", quantityAvailable=" + quantityAvailable +
                 ", currentPrice=" + currentPrice +
                 ", currentPriceWithVAT=" + currentPriceWithVAT +
                 ", discountAmount=" + discountAmount +

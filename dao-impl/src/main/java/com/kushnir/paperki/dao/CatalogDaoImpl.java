@@ -57,18 +57,18 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() {
+        LOGGER.debug("getAll() >>>");
         HashMap<Integer, HashMap<Integer, Category>> map =
                 (HashMap) jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
-        LOGGER.debug("getAll() >>>\nCATALOG MENU MAP: {}", map);
         return map;
     }
 
     @Override
     public Category getCategoryByTName(String categoryTName) {
+        LOGGER.debug("getCategoryByTName({}) >>>", categoryTName);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_CATEGORY_T_NAME, categoryTName);
         Category category = namedParameterJdbcTemplate
                 .queryForObject(getByTNameSqlQuery, parameterSource, new CategoryRowMapper());
-        LOGGER.debug("getCategoryByTName({}) >>>\nCATEGORY: {}", categoryTName, category);
         return category;
     }
 
@@ -103,7 +103,7 @@ public class CatalogDaoImpl implements CatalogDao {
                     csvFilesPath+csvFileCatalog, e.getMessage());
             return null;
         }
-        LOGGER.debug("DATA: {}\n>>> FINISH", categories);
+        LOGGER.debug(">>> FINISH");
         return categories;
     }
 
@@ -116,11 +116,9 @@ public class CatalogDaoImpl implements CatalogDao {
             // Инициализируем главную ветку категории под ключом 0
             map.put(0, new HashMap<Integer, Category>());
 
-            Category category;
-            int parent;
             while (rs.next()) {
-                parent = rs.getInt("parent");
-                category = new Category(
+                int parent = rs.getInt("parent");
+                Category category = new Category(
                         rs.getInt("id_catalog"),
                         rs.getString("name"),
                         rs.getString("translit_name"),

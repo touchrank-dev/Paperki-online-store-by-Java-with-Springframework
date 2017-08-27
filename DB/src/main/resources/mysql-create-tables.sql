@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS enterprise;
 DROP TABLE IF EXISTS addresses;
 DROP TABLE IF EXISTS catalog_description;
 DROP TABLE IF EXISTS catalog_ref;
+DROP TABLE IF EXISTS discounts;
 DROP TABLE IF EXISTS product_description;
 DROP TABLE IF EXISTS product_attribute;
 DROP TABLE IF EXISTS product_catalog;
@@ -95,7 +96,8 @@ CREATE TABLE catalog_ref (
     id_ref_catalog              INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_catalog                  INT             NOT NULL,
     parent_id_catalog           INT             DEFAULT 0,
-    FOREIGN KEY (id_catalog)                    REFERENCES catalog(id_catalog)
+    FOREIGN KEY (id_catalog)                    REFERENCES catalog(id_catalog),
+    UNIQUE KEY `c_pc` (id_catalog, parent_id_catalog)
 );
 
 DROP TABLE IF EXISTS brands;
@@ -135,8 +137,8 @@ CREATE TABLE products (
     customtitle                 VARCHAR(255)    CHARACTER SET utf8,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_published                TINYINT         DEFAULT 0,
-    is_visible                  TINYINT         DEFAULT 0,
+    is_published                TINYINT         DEFAULT 1,
+    is_visible                  TINYINT         DEFAULT 1,
     FOREIGN KEY (id_brand)                      REFERENCES brands(id_brand)
 );
 
@@ -156,6 +158,22 @@ CREATE TABLE product_prices (
     FOREIGN KEY (id_product)                 	REFERENCES products(id_product),
     UNIQUE KEY `p_qs` (id_product, quantity_start)
 );
+
+DROP TABLE IF EXISTS discount_types;
+CREATE TABLE discount_types (
+    id_discount_type            INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    type                        VARCHAR(30)
+);
+
+CREATE TABLE discounts (
+    id_discount                 INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_discount_type            INT             NOT NULL,
+    id_product                  INT             NOT NULL UNIQUE,
+    value_double                DOUBLE          DEFAULT 0.0,
+    value_int                   INT             DEFAULT 0,
+    FOREIGN KEY (id_discount_type)              REFERENCES discount_types(id_discount_type),
+    FOREIGN KEY (id_product)                    REFERENCES products(id_product)
+); 
 
 DROP TABLE IF EXISTS coupons;
 CREATE TABLE coupons (
@@ -177,8 +195,8 @@ CREATE TABLE product_description (
     FOREIGN KEY (id_product)                    REFERENCES products(id_product)
 );
 
-CREATE TABLE product_attribute (
-    id_product_attribute        INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE product_attributes (
+    id_product_attributes       INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_product                  INT             NOT NULL,
     name                        VARCHAR(100)    CHARACTER SET utf8,
     value                       VARCHAR(100)    CHARACTER SET utf8,
@@ -265,7 +283,12 @@ CREATE TABLE order_status (
 DROP TABLE IF EXISTS stock_place;
 CREATE TABLE stock_place (
     id_stock_place              INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name                        VARCHAR(50)     NOT NULL
+    name                        VARCHAR(50)     NOT NULL,
+    address                     VARCHAR(200)    NOT NULL,
+    phone                       VARCHAR(150),
+    email                       VARCHAR(50),
+    description                 VARCHAR(500),
+    order_places                INT
 );
 
 CREATE TABLE stock (

@@ -40,7 +40,6 @@ public class MenuDaoImpl implements MenuDao {
         parameterSource.addValue(P_NAME_MENU, nameMenu);
         ArrayList<MenuItem> menuItemsList =
                 (ArrayList<MenuItem>) namedParameterJdbcTemplate.query(getAllSqlQuery, parameterSource, new MenuRowMapper());
-        LOGGER.debug("{}", menuItemsList);
         return menuItemsList;
     }
 
@@ -52,7 +51,6 @@ public class MenuDaoImpl implements MenuDao {
             parameterSource.addValue(P_NAME_MENU, nameMenu);
             parameterSource.addValue(P_TRANSLIT_NAME, translitName);
             MenuItem menuItem = namedParameterJdbcTemplate.queryForObject(getByTNameSqlQuery, parameterSource, new MenuRowMapper());
-            LOGGER.debug("{}", menuItem);
             return menuItem;
         } catch (EmptyResultDataAccessException e) {
             LOGGER.error("Запрос getItemByTName({}, {}) не вернул результата >>> {}", nameMenu, translitName, e.getMessage());

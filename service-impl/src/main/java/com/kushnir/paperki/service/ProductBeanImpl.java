@@ -1,6 +1,7 @@
 package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.dao.ProductDao;
+import com.kushnir.paperki.model.AvailableProduct;
 import com.kushnir.paperki.model.CartProduct;
 import com.kushnir.paperki.model.Product;
 
@@ -19,30 +20,40 @@ public class ProductBeanImpl implements ProductBean {
 
     @Override
     public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) {
+        LOGGER.debug("getProductListByCategoryTName({}) >>>", categoryTName);
         HashMap<Integer, Product> products =
                 productDao.getProductListByCategoryTName(categoryTName);
-        LOGGER.debug("getProductListByCategoryTName({}) >>>\nPRODUCTS: {}", categoryTName, products);
+        LOGGER.debug("PRODUCTS: {}", products);
         return products;
     }
 
     @Override
     public Product getProductByPNT(Integer pnt) {
+        LOGGER.debug("getProductByPNT({}) >>>", pnt);
         Product product = productDao.getProductByPNT(pnt);
-        LOGGER.debug("getProductBuPNT({}) >>>\nPRODUCT: {}", pnt, product);
+        LOGGER.debug("PRODUCT: {}", product);
         return product;
     }
 
     @Override
     public Product getProductByTName(String TName) {
+        LOGGER.debug("getProductByTName({}) >>>", TName);
         Product product = productDao.getProductByTName(TName);
-        LOGGER.debug("getProductByTName({}) >>>\nPRODUCT: {}", TName, product);
+        LOGGER.debug("PRODUCT: {}", product);
         return product;
     }
 
     @Override
     public CartProduct getCartProductByPNT(Integer pnt) {
+        /*LOGGER.debug("getCartProductByPNT({}) >>>", pnt);
         CartProduct cartProduct = productDao.getCartProductByPNT(pnt);
-        LOGGER.debug("getCartProductByPNT({}) >>>\nPRODUCT: {}", pnt, cartProduct);
-        return cartProduct;
+        LOGGER.debug("CART PRODUCT: {}", cartProduct);
+        return cartProduct;*/
+        return null;
+    }
+
+    @Override
+    public AvailableProduct getAvailableproductByPNT(Integer pnt) {
+        return productDao.getAvailableProductByPNT(pnt);
     }
 }

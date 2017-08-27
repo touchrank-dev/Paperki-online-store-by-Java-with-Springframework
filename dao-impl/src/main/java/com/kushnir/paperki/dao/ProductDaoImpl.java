@@ -1,9 +1,6 @@
 package com.kushnir.paperki.dao;
 
-import com.kushnir.paperki.model.Brand;
-import com.kushnir.paperki.model.CartProduct;
-import com.kushnir.paperki.model.Price;
-import com.kushnir.paperki.model.Product;
+import com.kushnir.paperki.model.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,8 +40,12 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${product.getCartProductByPNT}")
     private String getCartProductByPNTSqlQuery;
 
+    @Value("${product.getAvailableProductByPNT}")
+    private String getAvailableProductByPNTSqlQuery;
+
     @Override
     public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) {
+        LOGGER.debug("getProductListByCategoryTName({}) >>>", categoryTName);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_CATEGORY_T_NAME, categoryTName);
         HashMap<Integer, Product> products =
                 (HashMap<Integer, Product>) namedParameterJdbcTemplate.query(
@@ -56,6 +57,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product getProductByPNT(Integer pnt) throws DataAccessException {
+        LOGGER.debug("getProductByPNT({}) >>>", pnt);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_PNT, pnt);
         Product product = (Product) namedParameterJdbcTemplate.query(
                 getByPNTSqlQuery,
@@ -66,6 +68,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Product getProductByTName(String TName) throws DataAccessException {
+        LOGGER.debug("getProductByTName({}) >>>", TName);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_PRODUCT_T_NAME, TName);
         Product product = (Product) namedParameterJdbcTemplate.query(
                 getProductByTNameSqlQuery,
@@ -75,8 +78,8 @@ public class ProductDaoImpl implements ProductDao {
         return product;
     }
 
-    @Override
-    public CartProduct getCartProductByPNT(Integer pnt) throws DataAccessException {
+    //@Override
+    /*public CartProduct getCartProductByPNT(Integer pnt) throws DataAccessException {
         LOGGER.debug("getCartProductByPNT({}) >>>", pnt);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_PNT, pnt);
         try {
@@ -90,6 +93,17 @@ public class ProductDaoImpl implements ProductDao {
             LOGGER.error("ERROR: {}", e.getMessage());
             return null;
         }
+    }*/
+
+    @Override
+    public AvailableProduct getAvailableProductByPNT(Integer pnt) throws DataAccessException {
+        LOGGER.debug("getAvailableProductByPNT({}) >>>", pnt);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_PNT, pnt);
+        AvailableProduct availableProduct = (AvailableProduct) namedParameterJdbcTemplate.query(
+                getAvailableProductByPNTSqlQuery,
+                parameterSource,
+                new AvailableProductResultSetExtractor());
+        return availableProduct;
     }
 
 
@@ -102,11 +116,23 @@ public class ProductDaoImpl implements ProductDao {
                 int idProduct =             rs.getInt("id_product");
                 int quantityStart =         rs.getInt("quantity_start");
 
-                if(products.get(idProduct) == null) {
-                    Price price = new Price(quantityStart,
-                            rs.getDouble("value"),
-                            rs.getInt("vat")
+                Price price =               null;
+                Discount discount =         null;
+                String discountType =       rs.getString("dtype");
+
+                price = new Price(quantityStart,
+                        rs.getDouble("value"),
+                        rs.getInt("vat")
+                );
+                if(discountType != null) {
+                    discount = new Discount(
+                            DiscountType.valueOf(discountType),
+                            rs.getDouble("value_double"),
+                            rs.getInt("value_int")
                     );
+                }
+
+                if(products.get(idProduct) == null) {
                     Product product = new Product(
                             idProduct,
                             rs.getInt("pap_id"),
@@ -129,16 +155,14 @@ public class ProductDaoImpl implements ProductDao {
                     HashMap<Integer, Price> prices = product.getPrices();
                     prices.put(quantityStart, price);
                     product.setPrices(prices);
+                    product.setDiscount(discount);
                     products.put(product.getId(), product);
                 } else {
                     Product p = products.get(idProduct);
-                    Price price = new Price(quantityStart,
-                            rs.getDouble("value"),
-                            rs.getInt("vat")
-                    );
                     HashMap<Integer, Price> prices = p.getPrices();
                     prices.put(quantityStart, price);
                     p.setPrices(prices);
+                    p.setDiscount(discount);
                     products.put(idProduct, p);
                 }
             }
@@ -155,11 +179,21 @@ public class ProductDaoImpl implements ProductDao {
                 int idProduct =             rs.getInt("id_product");
                 int quantityStart =         rs.getInt("quantity_start");
 
-                Price price = new Price(
-                        quantityStart,
+                Price price =               null;
+                Discount discount =         null;
+                String discountType =       rs.getString("dtype");
+
+                price = new Price(quantityStart,
                         rs.getDouble("value"),
                         rs.getInt("vat")
                 );
+                if(discountType != null) {
+                    discount = new Discount(
+                            DiscountType.valueOf(discountType),
+                            rs.getDouble("value_double"),
+                            rs.getInt("value_int")
+                    );
+                }
 
                 if(product == null) {
                     product = new Product(
@@ -186,17 +220,63 @@ public class ProductDaoImpl implements ProductDao {
                     HashMap<Integer, Price> prices = product.getPrices();
                     prices.put(quantityStart, price);
                     product.setPrices(prices);
+                    product.setDiscount(discount);
                 } else {
                     HashMap<Integer, Price> prices = product.getPrices();
                     prices.put(quantityStart, price);
                     product.setPrices(prices);
+                    product.setDiscount(discount);
                 }
             }
             return product;
         }
     }
 
-    private class CartProductResultSetExtractor implements ResultSetExtractor {
+    private class AvailableProductResultSetExtractor implements ResultSetExtractor {
+
+        @Override
+        public AvailableProduct extractData(ResultSet rs) throws SQLException, DataAccessException {
+            AvailableProduct availableProduct = null;
+            while(rs.next()) {
+                int pnt =                   rs.getInt("pnt");
+                int quantityStart =         rs.getInt("quantity_start");
+                Double value =              rs.getDouble("value");
+                int vat =                   rs.getInt("vat");
+                int quantityAvailable =     rs.getInt("quantity_available");
+
+                Price price =               null;
+                Discount discount =         null;
+                String discountType =       rs.getString("dtype");
+
+                price = new Price(quantityStart,
+                        value,
+                        vat
+                );
+                if(discountType != null) {
+                    discount = new Discount(
+                            DiscountType.valueOf(discountType),
+                            rs.getDouble("value_double"),
+                            rs.getInt("value_int")
+                    );
+                }
+
+                if(availableProduct == null) {
+                    availableProduct = new AvailableProduct(
+                            pnt,
+                            vat,
+                            quantityAvailable,
+                            discount
+                    );
+                    availableProduct.getPrices().put(price.getQuantityStart(), price);
+                } else {
+                    availableProduct.getPrices().put(price.getQuantityStart(), price);
+                }
+            }
+            return availableProduct;
+        }
+    }
+
+    /*private class CartProductResultSetExtractor implements ResultSetExtractor {
 
         @Override
         public CartProduct extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -210,11 +290,21 @@ public class ProductDaoImpl implements ProductDao {
                 String shortName =          rs.getString("short_name");
                 int quantityAvailable =     rs.getInt("quantity_available");
 
-                Price price = new Price(
-                        quantityStart,
-                        value,
-                        vat
+                Price price =               null;
+                Discount discount =         null;
+                String discountType =       rs.getString("dtype");
+
+                price = new Price(quantityStart,
+                        rs.getDouble("value"),
+                        rs.getInt("vat")
                 );
+                if(discountType != null) {
+                    discount = new Discount(
+                            DiscountType.valueOf(discountType),
+                            rs.getDouble("value_double"),
+                            rs.getInt("value_int")
+                    );
+                }
 
                 if(cartProduct == null) {
 
@@ -237,6 +327,6 @@ public class ProductDaoImpl implements ProductDao {
             }
             return cartProduct;
         }
-    }
+    }*/
 
 }

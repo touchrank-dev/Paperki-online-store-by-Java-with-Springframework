@@ -25,15 +25,12 @@ public class Product {
     private LocalDateTime editDate;
     private Boolean isPublishet;
     private Boolean isVisible;
-
     private Brand brand;
-
     private String shortDescription;
     private String fullDescription;
-
     private HashMap<Integer, String[]> attributes;
-
     private HashMap<Integer, Price> prices;
+    private Discount discount;
 
     public Product() {
     }
@@ -112,6 +109,14 @@ public class Product {
         this.shortDescription = shortDescription;
         this.fullDescription = fullDescription;
         this.prices = prices;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
     }
 
     public Integer getQuantity() {

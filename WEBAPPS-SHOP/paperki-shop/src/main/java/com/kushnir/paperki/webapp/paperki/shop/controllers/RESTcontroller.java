@@ -3,6 +3,7 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers;
 import com.kushnir.paperki.model.*;
 import com.kushnir.paperki.service.CartBean;
 import com.kushnir.paperki.service.UserService;
+import com.kushnir.paperki.service.exceptions.NotEnoughQuantityAvailableException;
 import com.kushnir.paperki.service.mail.Mailer;
 
 import org.apache.logging.log4j.LogManager;
@@ -131,6 +132,8 @@ public class RESTcontroller {
             httpSession.setAttribute("cart", cart);
 
             return new RestMessage(HttpStatus.OK, "ADDED TO CART", null);
+        }catch (NotEnoughQuantityAvailableException e) {
+            return new RestMessage(HttpStatus.NOT_FOUND, e.getMessage(), null);
         } catch (Exception e) {
             LOGGER.error("FAILED ADD PRODUCT TO CART >>>\nERROR MESSAGE: {}", e.getMessage());
             return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
