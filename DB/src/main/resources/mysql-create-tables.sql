@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS catalog_description;
 DROP TABLE IF EXISTS catalog_ref;
 DROP TABLE IF EXISTS discounts;
 DROP TABLE IF EXISTS product_description;
-DROP TABLE IF EXISTS product_attribute;
+DROP TABLE IF EXISTS product_attributes;
 DROP TABLE IF EXISTS product_catalog;
 DROP TABLE IF EXISTS product_prices;
 DROP TABLE IF EXISTS menu_item_ref;

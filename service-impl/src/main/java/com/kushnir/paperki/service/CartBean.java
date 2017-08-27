@@ -19,7 +19,7 @@ public class CartBean {
     ProductBean productBean;
 
     public void addToCart (Cart cart, AddProductRequest addProductRequest) throws NotEnoughQuantityAvailableException {
-        LOGGER.debug("addToCart() >>>\nPRODUCT TO ADD: {}", addProductRequest);
+        LOGGER.debug("addToCart() >>>\nPRODUCT TO ADD REQUEST: {}", addProductRequest);
 
         int PNT = addProductRequest.getPnt();
 
@@ -61,16 +61,28 @@ public class CartBean {
                 .setScale(2, RoundingMode.UP).doubleValue();
         // ========================================================================
         Discount discount = availableProduct.getDiscount();
+
+        Double discountAmount = 0.0;
+        Double discountedPrice = 0.0;
+        Double discountedPriceWithVAT = 0.0;
+        Double totalPrice;
+
         if (discount != null) {
             // есть скидки на товар
             // рассчет скидки в зависимости от типа Скидки
             if(discount.getDiscountType().equals(DiscountType.OVERRIDE)) {
-
+                discountAmount = currentPrice - discount.getValueDouble();
             } else if(discount.getDiscountType().equals(DiscountType.PROCENT)) {
-
+                discountAmount = currentPrice * (discount.getValueInt()/100.0);
             } else if (discount.getDiscountType().equals(DiscountType.SUBSTRACT)) {
-
+                discountAmount = discount.getValueDouble();
             } else {}
+
+            discountedPrice = currentPrice - discountAmount;
+            discountedPriceWithVAT = new BigDecimal(discountedPrice * vatAmount)
+                    .setScale(2, RoundingMode.UP).doubleValue();
+
+
         } else {
             // скидок на товар нет
         }
