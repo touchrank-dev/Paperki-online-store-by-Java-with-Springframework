@@ -63,6 +63,38 @@ public class CartProduct {
         this.prices = prices;
     }
 
+    public CartProduct(Integer pnt,
+                       String fullName,
+                       String shortName,
+                       Integer VAT,
+                       Double vatAmount,
+                       Integer quantity,
+                       Double currentPrice,
+                       Double currentPriceWithVAT,
+                       Double discountAmount,
+                       Double discountedPrice,
+                       Double discountedPriceWithVAT,
+                       Double totalPrice,
+                       Double totalPriceWithVAT,
+                       Double totalDiscountedPrice,
+                       Double totalDiscountedPriceWithVAT) {
+        this.pnt = pnt;
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.VAT = VAT;
+        this.vatAmount = vatAmount;
+        this.quantity = quantity;
+        this.currentPrice = currentPrice;
+        this.currentPriceWithVAT = currentPriceWithVAT;
+        this.discountAmount = discountAmount;
+        this.discountedPrice = discountedPrice;
+        this.discountedPriceWithVAT = discountedPriceWithVAT;
+        this.totalPrice = totalPrice;
+        this.totalPriceWithVAT = totalPriceWithVAT;
+        this.totalDiscountedPrice = totalDiscountedPrice;
+        this.totalDiscountedPriceWithVAT = totalDiscountedPriceWithVAT;
+    }
+
     public Integer getPnt() {
         return pnt;
     }

@@ -139,4 +139,31 @@ public class RESTcontroller {
             return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
         }
     }
+
+    @PostMapping("/updatecart")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage updateCart(@RequestBody AddProductRequest addProductRequest,
+                                                HttpSession httpSession) {
+        LOGGER.debug("REST UPDATE PRODUCT IN CART >>>\nREQUEST DATA: {}", addProductRequest);
+        try{
+            Cart cart = (Cart)httpSession.getAttribute("cart");
+            return new RestMessage(HttpStatus.OK, "PRODUCT IN CART UPDATED", null);
+        } catch (Exception e) {
+            LOGGER.error("FAILED UPDATE IN CART >>>\nERROR MESSAGE: {}", e.getMessage());
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+        }
+    }
+
+    @PostMapping("/deletefromcart")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage deleteFromCart(@RequestBody Integer pnt, HttpSession httpSession) {
+        LOGGER.debug("REST DELETE PRODUCT FROM CART >>>\nREQUEST PNT: {}", pnt);
+        try{
+            Cart cart = (Cart)httpSession.getAttribute("cart");
+            return new RestMessage(HttpStatus.OK, "PRODUCT SUCCESSFULLY DELETED", null);
+        } catch (Exception e) {
+            LOGGER.error("FAILED DELETE FROM CART >>>\nERROR MESSAGE: {}", e.getMessage());
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+        }
+    }
 }

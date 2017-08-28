@@ -48,7 +48,6 @@ public class UserController {
         return "index";
     }
 
-
     @ModelAttribute("mainmenu")
     public ArrayList getMainMenu () {
         return menuBean.getAll("root");
@@ -57,28 +56,6 @@ public class UserController {
     @ModelAttribute("mapcategories")
     public HashMap getCatalog () {
         return categoryBean.getAll();
-    }
-
-    @ModelAttribute("user")
-    public User setUser(HttpSession httpSession) {
-        User user = (User)httpSession.getAttribute("user");
-        if(user == null) {
-            user = new User();
-            httpSession.setAttribute("user", user);
-            LOGGER.debug("SET NEW EMPTY USER: {}", user);
-        }
-        return user;
-    }
-
-    @ModelAttribute("cart")
-    public Cart setCart (HttpSession httpSession) {
-        Cart cart = (Cart)httpSession.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-            httpSession.setAttribute("cart", cart);
-            LOGGER.debug("SET NEW EMPTY CART: {}", cart);
-        }
-        return cart;
     }
 
 }

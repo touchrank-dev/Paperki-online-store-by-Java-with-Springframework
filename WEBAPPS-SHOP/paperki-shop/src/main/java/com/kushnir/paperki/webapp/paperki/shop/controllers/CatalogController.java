@@ -37,16 +37,6 @@ public class CatalogController {
     @Value("${content.path}")
     String contentPath;
 
-    @Value("${catalog.url}")
-    String catalogURL;
-
-    @Value("${product.image.path}")
-    String productImagePath;
-    @Value("${brand.image.path}")
-    String brandImagePath;
-    @Value("${product.image.prefix}")
-    String imgPref;
-
     @GetMapping
     public String catalogPage(Model model) {
         LOGGER.debug("catalogPage() >>>");
@@ -80,26 +70,6 @@ public class CatalogController {
         return "index";
     }
 
-    @ModelAttribute("pip")
-    public String productImagePath() {
-        return productImagePath;
-    }
-
-    @ModelAttribute("bip")
-    public String brandImagePath() {
-        return brandImagePath;
-    }
-
-    @ModelAttribute("catalogurl")
-    public String catalogUrl() {
-        return catalogURL;
-    }
-
-    @ModelAttribute("imgPref")
-    public String imgPref () {
-        return imgPref;
-    }
-
     @ModelAttribute("mainmenu")
     public ArrayList getMainMenu () {
         return menuBean.getAll("root");
@@ -108,28 +78,6 @@ public class CatalogController {
     @ModelAttribute("mapcategories")
     public HashMap getCatalog () {
         return catalogBean.getAll();
-    }
-
-    @ModelAttribute("user")
-    public User setUser(HttpSession httpSession) {
-        User user = (User)httpSession.getAttribute("user");
-        if(user == null) {
-            user = new User();
-            httpSession.setAttribute("user", user);
-            LOGGER.debug("SET NEW EMPTY USER: {}", user);
-        }
-        return user;
-    }
-
-    @ModelAttribute("cart")
-    public Cart setCart (HttpSession httpSession) {
-        Cart cart = (Cart)httpSession.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-            httpSession.setAttribute("cart", cart);
-            LOGGER.debug("SET NEW EMPTY CART: {}", cart);
-        }
-        return cart;
     }
 
 }
