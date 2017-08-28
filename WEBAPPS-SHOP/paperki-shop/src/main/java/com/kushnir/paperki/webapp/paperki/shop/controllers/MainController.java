@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
 
+import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 
 import com.kushnir.paperki.model.Cart;
@@ -73,7 +74,7 @@ public class MainController {
     }
 
     @ModelAttribute("mapcategories")
-    public HashMap getCatalog () {
+    public HashMap getCatalog () throws ServiceException {
         return catalogBean.getAll();
     }
 

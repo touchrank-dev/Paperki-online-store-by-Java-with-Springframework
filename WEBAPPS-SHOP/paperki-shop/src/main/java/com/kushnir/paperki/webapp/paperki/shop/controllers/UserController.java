@@ -4,6 +4,7 @@ import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.model.Cart;
+import com.kushnir.paperki.service.exceptions.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class UserController {
     }
 
     @ModelAttribute("mapcategories")
-    public HashMap getCatalog () {
+    public HashMap getCatalog () throws ServiceException {
         return categoryBean.getAll();
     }
 

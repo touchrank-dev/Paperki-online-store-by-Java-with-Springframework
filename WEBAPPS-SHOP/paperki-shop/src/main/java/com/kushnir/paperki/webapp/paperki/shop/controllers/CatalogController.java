@@ -6,6 +6,7 @@ import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.model.Cart;
+import com.kushnir.paperki.service.exceptions.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class CatalogController {
     }
 
     @GetMapping("/{catalorItemTranslitName}")
-    public String catalogItemPage(@PathVariable String catalorItemTranslitName, Model model){
+    public String catalogItemPage(@PathVariable String catalorItemTranslitName, Model model) throws ServiceException {
         LOGGER.debug("catalogItemPage() >>>");
         HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalorItemTranslitName);
         Category category = catalogBean.getCategoryByTName(catalorItemTranslitName);
@@ -59,7 +60,7 @@ public class CatalogController {
 
     @GetMapping("/{catalorItemTranslitName}/{productTranslitName}")
     public String productItemPage(@PathVariable String catalorItemTranslitName,
-                                  @PathVariable String productTranslitName, Model model){
+                                  @PathVariable String productTranslitName, Model model) throws ServiceException {
         LOGGER.debug("productItemPage() >>>");
         Product product = catalogBean.getProductByTName(productTranslitName);
         Category category = catalogBean.getCategoryByTName(catalorItemTranslitName);
@@ -76,7 +77,7 @@ public class CatalogController {
     }
 
     @ModelAttribute("mapcategories")
-    public HashMap getCatalog () {
+    public HashMap getCatalog () throws ServiceException {
         return catalogBean.getAll();
     }
 

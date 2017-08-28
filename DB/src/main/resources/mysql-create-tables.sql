@@ -155,7 +155,7 @@ CREATE TABLE product_prices (
     quantity_start              INT             DEFAULT 1 NOT NULL,
     value                       DOUBLE          NOT NULL,
     FOREIGN KEY (id_price_type)                 REFERENCES prices_types(id_price_type),
-    FOREIGN KEY (id_product)                 	REFERENCES products(id_product),
+    FOREIGN KEY (id_product)                 	  REFERENCES products(id_product),
     UNIQUE KEY `p_qs` (id_product, quantity_start)
 );
 

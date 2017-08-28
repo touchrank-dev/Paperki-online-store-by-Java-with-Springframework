@@ -42,6 +42,10 @@ public class CatalogDaoImpl implements CatalogDao {
     /* CSV */
     @Value("${path.csv.files}")
     private String csvFilesPath;
+
+    @Value("${path.csv.files.test}")
+    private String csvFilesPathTest;
+
     @Value("${csv.file.catalog}")
     private String csvFileCatalog;
 
@@ -74,12 +78,12 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public ArrayList<Category> getCategoriesFromCSV() throws IOException {
-        LOGGER.debug("Starting retrieve data from CSV file: {}", csvFilesPath+csvFileCatalog);
+        LOGGER.debug("Starting retrieve data from CSV file: {}", csvFilesPathTest+csvFileCatalog);
         LOGGER.debug(">>> PROGRESS ...");
         ArrayList<Category> categories = new ArrayList<Category>();
         try {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader()
-                    .parse(new FileReader(csvFilesPath + csvFileCatalog));
+                    .parse(new FileReader(csvFilesPathTest + csvFileCatalog));
             for (CSVRecord record : records) {
                 try {
                     categories.add(new Category(
@@ -100,7 +104,7 @@ public class CatalogDaoImpl implements CatalogDao {
             }
         } catch (FileNotFoundException e) {
             LOGGER.error(">>> File ({}) Not Found! >>> {}",
-                    csvFilesPath+csvFileCatalog, e.getMessage());
+                    csvFilesPathTest+csvFileCatalog, e.getMessage());
             return null;
         }
         LOGGER.debug(">>> FINISH");

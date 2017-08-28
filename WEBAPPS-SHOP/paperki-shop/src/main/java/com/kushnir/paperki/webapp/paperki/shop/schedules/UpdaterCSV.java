@@ -2,6 +2,7 @@ package com.kushnir.paperki.webapp.paperki.shop.schedules;
 
 import com.kushnir.paperki.service.CatalogBean;
 
+import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,9 +21,11 @@ public class UpdaterCSV {
     @Autowired
     Mailer mailer;
 
-    public void catalogUpdate() throws IOException {
+    public void catalogUpdate() throws IOException, ServiceException {
         LOGGER.debug("===== Started Catalog update ==== >>> ");
+        categoryBean.updateCatalog();
     }
+
     public void productUpdate() {
         LOGGER.debug("===== Started Products update ==== >>> ");
     }
@@ -35,7 +38,6 @@ public class UpdaterCSV {
     public void discountsUpdate() {
         LOGGER.debug("===== Started Discounts update ==== >>> ");
     }
-
     public void stockUpdate() {
         LOGGER.debug("===== Started Stock update ==== >>> ");
     }
