@@ -44,15 +44,11 @@
                                     <li class="old-pr"
                                         th:text="${item.value.currentPriceWithVAT}+' руб'">0,00 руб</li>
                                     <li class="new-pr"
-                                        th:text="${item.value.finallyPriceWithVAT}+' руб'">
-                                        0,00 руб
-                                    </li>
+                                        th:text="${item.value.finallyPriceWithVAT}+' руб'">0,00 руб</li>
                                 </ul>
                                 <ul class="prices-block-list" th:case="${false}">
                                     <li class="new-pr"
-                                        th:text="${item.value.finallyPriceWithVAT}+' руб'">
-                                        0,00 руб
-                                    </li>
+                                        th:text="${item.value.finallyPriceWithVAT}+' руб'">0,00 руб</li>
                                 </ul>
                                 <div class="bon-pr">
                                     <!--<a href="#" class="bonuses">+11 бонусов</a>-->
@@ -63,18 +59,14 @@
                     <div class="cart-popup-products-item-right">
                         <div class="cart-popup-product__number">
                             <div class="dec">-</div>
-                            <input type="text" name="french-hens" class="inde" value="3">
+                            <input type="text" name="french-hens" class="inde" value="1"
+                                   th:value="${item.value.quantity}">
                             <div class="inc">+</div>
                         </div>
                         <div class="cart-product-total-price">
-                            <div class="cart-product-total-price__old"
-                                >
-                                0.00 руб
-                            </div>
+                            <div class="cart-product-total-price__old">0.00 руб</div>
                             <div class="cart-product-total-price__new"
-                                 th:text="${item.value.totalWithVAT}+' руб'">
-                                0.00 руб
-                            </div>
+                                 th:text="${item.value.totalWithVAT}+' руб'">0.00 руб</div>
                         </div>
                     </div>
                 </li>

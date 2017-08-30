@@ -222,7 +222,7 @@ public class ProductDaoImpl implements ProductDao {
                 String fullName =           rs.getString("full_name");
                 String shortName =          rs.getString("short_name");
                 int quantityStart =         rs.getInt("quantity_start");
-                Double value =              rs.getDouble("value");
+                double value =              rs.getDouble("value");
                 int vat =                   rs.getInt("vat");
                 int quantityAvailable =     rs.getInt("quantity_available");
 

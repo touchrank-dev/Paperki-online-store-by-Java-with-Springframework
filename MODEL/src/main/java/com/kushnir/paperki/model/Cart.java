@@ -3,87 +3,136 @@ package com.kushnir.paperki.model;
 import java.util.HashMap;
 
 public class Cart {
-    private Double total;
-    private Double totalVATAmount;                  // размер налогов
-    private Double totalWithVAT;                    //
-    private Double totalDiscountAmount;             // размер скидки
-    private Double totalWithDiscount;
-    private Double totalWithDiscountWithVAT;
-    private Double paymentCost;
-    private Double shipmentCost;
-    private Double finallyTotal;
+
+    private double total;                       // сумма
+    private double totalWithVAT;                // сумма с налогом
+    private double totalWithDiscount;           // сумма с учетом скидки
+    private double totalWithDiscountWithVAT;    // сумма с учетом скидки и налога
+    private double totalDiscount;               // сумма скидки
+    private double totalVAT;                    // сумма налогов
+    private Coupon coupon = null;               // скидочный купон
+    private Present present = null;             // подарок
+    private Payment payment = null;
+    private Shipment shipment = null;
+    private double paymentCost;                 // стоимость оплаты
+    private double shipmentCost;                // стоимость доставки
+    private double finalTotal;                  // окончательная сумма
+    private double finalTotalWithVAT;           // окончательная сумма с учетом налога
     private HashMap<Integer, CartProduct> items = new HashMap<Integer, CartProduct>();
 
-    public Double getTotal() {
+    public Cart() {
+    }
+
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public Double getTotalVATAmount() {
-        return totalVATAmount;
-    }
-
-    public void setTotalVATAmount(Double totalVATAmount) {
-        this.totalVATAmount = totalVATAmount;
-    }
-
-    public Double getTotalWithVAT() {
+    public double getTotalWithVAT() {
         return totalWithVAT;
     }
 
-    public void setTotalWithVAT(Double totalWithVAT) {
+    public void setTotalWithVAT(double totalWithVAT) {
         this.totalWithVAT = totalWithVAT;
     }
 
-    public Double getTotalDiscountAmount() {
-        return totalDiscountAmount;
-    }
-
-    public void setTotalDiscountAmount(Double totalDiscountAmount) {
-        this.totalDiscountAmount = totalDiscountAmount;
-    }
-
-    public Double getTotalWithDiscount() {
+    public double getTotalWithDiscount() {
         return totalWithDiscount;
     }
 
-    public void setTotalWithDiscount(Double totalWithDiscount) {
+    public void setTotalWithDiscount(double totalWithDiscount) {
         this.totalWithDiscount = totalWithDiscount;
     }
 
-    public Double getTotalWithDiscountWithVAT() {
+    public double getTotalWithDiscountWithVAT() {
         return totalWithDiscountWithVAT;
     }
 
-    public void setTotalWithDiscountWithVAT(Double totalWithDiscountWithVAT) {
+    public void setTotalWithDiscountWithVAT(double totalWithDiscountWithVAT) {
         this.totalWithDiscountWithVAT = totalWithDiscountWithVAT;
     }
 
-    public Double getPaymentCost() {
+    public double getTotalDiscount() {
+        return totalDiscount;
+    }
+
+    public void setTotalDiscount(double totalDiscount) {
+        this.totalDiscount = totalDiscount;
+    }
+
+    public double getTotalVAT() {
+        return totalVAT;
+    }
+
+    public void setTotalVAT(double totalVAT) {
+        this.totalVAT = totalVAT;
+    }
+
+    public Coupon getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
+    }
+
+    public Present getPresent() {
+        return present;
+    }
+
+    public void setPresent(Present present) {
+        this.present = present;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public Shipment getShipment() {
+        return shipment;
+    }
+
+    public void setShipment(Shipment shipment) {
+        this.shipment = shipment;
+    }
+
+    public double getPaymentCost() {
         return paymentCost;
     }
 
-    public void setPaymentCost(Double paymentCost) {
+    public void setPaymentCost(double paymentCost) {
         this.paymentCost = paymentCost;
     }
 
-    public Double getShipmentCost() {
+    public double getShipmentCost() {
         return shipmentCost;
     }
 
-    public void setShipmentCost(Double shipmentCost) {
+    public void setShipmentCost(double shipmentCost) {
         this.shipmentCost = shipmentCost;
     }
 
-    public Double getFinallyTotal() {
-        return finallyTotal;
+    public double getFinalTotal() {
+        return finalTotal;
     }
 
-    public void setFinallyTotal(Double finallyTotal) {
-        this.finallyTotal = finallyTotal;
+    public void setFinalTotal(double finalTotal) {
+        this.finalTotal = finalTotal;
+    }
+
+    public double getFinalTotalWithVAT() {
+        return finalTotalWithVAT;
+    }
+
+    public void setFinalTotalWithVAT(double finalTotalWithVAT) {
+        this.finalTotalWithVAT = finalTotalWithVAT;
     }
 
     public HashMap<Integer, CartProduct> getItems() {
@@ -101,33 +150,51 @@ public class Cart {
 
         Cart cart = (Cart) o;
 
-        if (total != null ? !total.equals(cart.total) : cart.total != null) return false;
-        if (totalVATAmount != null ? !totalVATAmount.equals(cart.totalVATAmount) : cart.totalVATAmount != null)
-            return false;
-        if (totalWithVAT != null ? !totalWithVAT.equals(cart.totalWithVAT) : cart.totalWithVAT != null) return false;
-        if (totalDiscountAmount != null ? !totalDiscountAmount.equals(cart.totalDiscountAmount) : cart.totalDiscountAmount != null)
-            return false;
-        if (totalWithDiscount != null ? !totalWithDiscount.equals(cart.totalWithDiscount) : cart.totalWithDiscount != null)
-            return false;
-        if (totalWithDiscountWithVAT != null ? !totalWithDiscountWithVAT.equals(cart.totalWithDiscountWithVAT) : cart.totalWithDiscountWithVAT != null)
-            return false;
-        if (paymentCost != null ? !paymentCost.equals(cart.paymentCost) : cart.paymentCost != null) return false;
-        if (shipmentCost != null ? !shipmentCost.equals(cart.shipmentCost) : cart.shipmentCost != null) return false;
-        if (finallyTotal != null ? !finallyTotal.equals(cart.finallyTotal) : cart.finallyTotal != null) return false;
+        if (Double.compare(cart.total, total) != 0) return false;
+        if (Double.compare(cart.totalWithVAT, totalWithVAT) != 0) return false;
+        if (Double.compare(cart.totalWithDiscount, totalWithDiscount) != 0) return false;
+        if (Double.compare(cart.totalWithDiscountWithVAT, totalWithDiscountWithVAT) != 0) return false;
+        if (Double.compare(cart.totalDiscount, totalDiscount) != 0) return false;
+        if (Double.compare(cart.totalVAT, totalVAT) != 0) return false;
+        if (Double.compare(cart.paymentCost, paymentCost) != 0) return false;
+        if (Double.compare(cart.shipmentCost, shipmentCost) != 0) return false;
+        if (Double.compare(cart.finalTotal, finalTotal) != 0) return false;
+        if (Double.compare(cart.finalTotalWithVAT, finalTotalWithVAT) != 0) return false;
+        if (coupon != null ? !coupon.equals(cart.coupon) : cart.coupon != null) return false;
+        if (present != null ? !present.equals(cart.present) : cart.present != null) return false;
+        if (payment != null ? !payment.equals(cart.payment) : cart.payment != null) return false;
+        if (shipment != null ? !shipment.equals(cart.shipment) : cart.shipment != null) return false;
         return items != null ? items.equals(cart.items) : cart.items == null;
     }
 
     @Override
     public int hashCode() {
-        int result = total != null ? total.hashCode() : 0;
-        result = 31 * result + (totalVATAmount != null ? totalVATAmount.hashCode() : 0);
-        result = 31 * result + (totalWithVAT != null ? totalWithVAT.hashCode() : 0);
-        result = 31 * result + (totalDiscountAmount != null ? totalDiscountAmount.hashCode() : 0);
-        result = 31 * result + (totalWithDiscount != null ? totalWithDiscount.hashCode() : 0);
-        result = 31 * result + (totalWithDiscountWithVAT != null ? totalWithDiscountWithVAT.hashCode() : 0);
-        result = 31 * result + (paymentCost != null ? paymentCost.hashCode() : 0);
-        result = 31 * result + (shipmentCost != null ? shipmentCost.hashCode() : 0);
-        result = 31 * result + (finallyTotal != null ? finallyTotal.hashCode() : 0);
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(total);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(totalWithVAT);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(totalWithDiscount);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(totalWithDiscountWithVAT);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(totalDiscount);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(totalVAT);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (coupon != null ? coupon.hashCode() : 0);
+        result = 31 * result + (present != null ? present.hashCode() : 0);
+        result = 31 * result + (payment != null ? payment.hashCode() : 0);
+        result = 31 * result + (shipment != null ? shipment.hashCode() : 0);
+        temp = Double.doubleToLongBits(paymentCost);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(shipmentCost);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(finalTotal);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(finalTotalWithVAT);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (items != null ? items.hashCode() : 0);
         return result;
     }
@@ -136,14 +203,19 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "total=" + total +
-                ", totalVATAmount=" + totalVATAmount +
                 ", totalWithVAT=" + totalWithVAT +
-                ", totalDiscountAmount=" + totalDiscountAmount +
                 ", totalWithDiscount=" + totalWithDiscount +
                 ", totalWithDiscountWithVAT=" + totalWithDiscountWithVAT +
+                ", totalDiscount=" + totalDiscount +
+                ", totalVAT=" + totalVAT +
+                ", coupon=" + coupon +
+                ", present=" + present +
+                ", payment=" + payment +
+                ", shipment=" + shipment +
                 ", paymentCost=" + paymentCost +
                 ", shipmentCost=" + shipmentCost +
-                ", finallyTotal=" + finallyTotal +
+                ", finalTotal=" + finalTotal +
+                ", finalTotalWithVAT=" + finalTotalWithVAT +
                 ", items=" + items +
                 '}';
     }

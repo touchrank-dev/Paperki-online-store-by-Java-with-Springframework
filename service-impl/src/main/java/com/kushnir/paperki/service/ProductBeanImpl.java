@@ -44,16 +44,10 @@ public class ProductBeanImpl implements ProductBean {
     }
 
     @Override
-    public CartProduct getCartProductByPNT(Integer pnt) {
-        /*LOGGER.debug("getCartProductByPNT({}) >>>", pnt);
-        CartProduct cartProduct = productDao.getCartProductByPNT(pnt);
-        LOGGER.debug("CART PRODUCT: {}", cartProduct);
-        return cartProduct;*/
-        return null;
-    }
-
-    @Override
     public AvailableProduct getAvailableproductByPNT(Integer pnt) {
-        return productDao.getAvailableProductByPNT(pnt);
+        LOGGER.debug("getAvailableproductByPNT({}) >>>", pnt);
+        AvailableProduct availableProduct = productDao.getAvailableProductByPNT(pnt);
+        LOGGER.debug("AVAILABLE PRODUCT: {}", availableProduct);
+        return availableProduct;
     }
 }

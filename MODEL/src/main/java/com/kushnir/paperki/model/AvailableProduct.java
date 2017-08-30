@@ -3,20 +3,22 @@ package com.kushnir.paperki.model;
 import java.util.HashMap;
 
 public class AvailableProduct {
-    private Integer pnt;
+    private int pnt;
     private String fullName;
     private String shortName;
-    private Integer VAT;
-    private Integer quantityAvailable;
+    private String link;
+    private int VAT;
+    private int quantityAvailable;
+    private HashMap<Integer, Stock> stocks;
     private Discount discount;
     private HashMap<Integer, Price> prices = new HashMap<>();
 
     public AvailableProduct() {
     }
 
-    public AvailableProduct(Integer pnt,
-                            Integer VAT,
-                            Integer quantityAvailable,
+    public AvailableProduct(int pnt,
+                            int VAT,
+                            int quantityAvailable,
                             Discount discount) {
         this.pnt = pnt;
         this.VAT = VAT;
@@ -24,9 +26,9 @@ public class AvailableProduct {
         this.discount = discount;
     }
 
-    public AvailableProduct(Integer pnt,
-                            Integer VAT,
-                            Integer quantityAvailable,
+    public AvailableProduct(int pnt,
+                            int VAT,
+                            int quantityAvailable,
                             Discount discount,
                             HashMap<Integer, Price> prices) {
         this.pnt = pnt;
@@ -36,11 +38,11 @@ public class AvailableProduct {
         this.prices = prices;
     }
 
-    public AvailableProduct(Integer pnt,
+    public AvailableProduct(int pnt,
                             String fullName,
                             String shortName,
-                            Integer VAT,
-                            Integer quantityAvailable,
+                            int VAT,
+                            int quantityAvailable,
                             Discount discount) {
         this.pnt = pnt;
         this.fullName = fullName;
@@ -50,11 +52,11 @@ public class AvailableProduct {
         this.discount = discount;
     }
 
-    public AvailableProduct(Integer pnt,
+    public AvailableProduct(int pnt,
                             String fullName,
                             String shortName,
-                            Integer VAT,
-                            Integer quantityAvailable,
+                            int VAT,
+                            int quantityAvailable,
                             Discount discount,
                             HashMap<Integer, Price> prices) {
         this.pnt = pnt;
@@ -66,11 +68,11 @@ public class AvailableProduct {
         this.prices = prices;
     }
 
-    public Integer getPnt() {
+    public int getPnt() {
         return pnt;
     }
 
-    public void setPnt(Integer pnt) {
+    public void setPnt(int pnt) {
         this.pnt = pnt;
     }
 
@@ -90,20 +92,36 @@ public class AvailableProduct {
         this.shortName = shortName;
     }
 
-    public Integer getVAT() {
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public int getVAT() {
         return VAT;
     }
 
-    public void setVAT(Integer VAT) {
+    public void setVAT(int VAT) {
         this.VAT = VAT;
     }
 
-    public Integer getQuantityAvailable() {
+    public int getQuantityAvailable() {
         return quantityAvailable;
     }
 
-    public void setQuantityAvailable(Integer quantityAvailable) {
+    public void setQuantityAvailable(int quantityAvailable) {
         this.quantityAvailable = quantityAvailable;
+    }
+
+    public HashMap<Integer, Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(HashMap<Integer, Stock> stocks) {
+        this.stocks = stocks;
     }
 
     public Discount getDiscount() {
@@ -129,23 +147,26 @@ public class AvailableProduct {
 
         AvailableProduct that = (AvailableProduct) o;
 
-        if (pnt != null ? !pnt.equals(that.pnt) : that.pnt != null) return false;
+        if (pnt != that.pnt) return false;
+        if (VAT != that.VAT) return false;
+        if (quantityAvailable != that.quantityAvailable) return false;
         if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
         if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) return false;
-        if (VAT != null ? !VAT.equals(that.VAT) : that.VAT != null) return false;
-        if (quantityAvailable != null ? !quantityAvailable.equals(that.quantityAvailable) : that.quantityAvailable != null)
-            return false;
+        if (link != null ? !link.equals(that.link) : that.link != null) return false;
+        if (stocks != null ? !stocks.equals(that.stocks) : that.stocks != null) return false;
         if (discount != null ? !discount.equals(that.discount) : that.discount != null) return false;
         return prices != null ? prices.equals(that.prices) : that.prices == null;
     }
 
     @Override
     public int hashCode() {
-        int result = pnt != null ? pnt.hashCode() : 0;
+        int result = pnt;
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
-        result = 31 * result + (VAT != null ? VAT.hashCode() : 0);
-        result = 31 * result + (quantityAvailable != null ? quantityAvailable.hashCode() : 0);
+        result = 31 * result + (link != null ? link.hashCode() : 0);
+        result = 31 * result + VAT;
+        result = 31 * result + quantityAvailable;
+        result = 31 * result + (stocks != null ? stocks.hashCode() : 0);
         result = 31 * result + (discount != null ? discount.hashCode() : 0);
         result = 31 * result + (prices != null ? prices.hashCode() : 0);
         return result;
@@ -157,8 +178,10 @@ public class AvailableProduct {
                 "pnt=" + pnt +
                 ", fullName='" + fullName + '\'' +
                 ", shortName='" + shortName + '\'' +
+                ", link='" + link + '\'' +
                 ", VAT=" + VAT +
                 ", quantityAvailable=" + quantityAvailable +
+                ", stocks=" + stocks +
                 ", discount=" + discount +
                 ", prices=" + prices +
                 '}';
