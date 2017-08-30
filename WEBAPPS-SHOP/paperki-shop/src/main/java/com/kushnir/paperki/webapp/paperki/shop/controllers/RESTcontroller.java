@@ -131,25 +131,11 @@ public class RESTcontroller {
             LOGGER.debug("CART AFTER ADDING: {}", cart);
             httpSession.setAttribute("cart", cart);
 
-            return new RestMessage(HttpStatus.OK, "ADDED TO CART", null);
+            return new RestMessage(HttpStatus.OK, "ADDED TO CART", cart);
         }catch (NotEnoughQuantityAvailableException e) {
             return new RestMessage(HttpStatus.NOT_FOUND, e.getMessage(), null);
         } catch (Exception e) {
             LOGGER.error("FAILED ADD PRODUCT TO CART >>>\nERROR MESSAGE: {}", e.getMessage());
-            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
-        }
-    }
-
-    @PostMapping("/updatecart")
-    @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage updateCart(@RequestBody AddProductRequest addProductRequest,
-                                                HttpSession httpSession) {
-        LOGGER.debug("REST UPDATE PRODUCT IN CART >>>\nREQUEST DATA: {}", addProductRequest);
-        try{
-            Cart cart = (Cart)httpSession.getAttribute("cart");
-            return new RestMessage(HttpStatus.OK, "PRODUCT IN CART UPDATED", null);
-        } catch (Exception e) {
-            LOGGER.error("FAILED UPDATE IN CART >>>\nERROR MESSAGE: {}", e.getMessage());
             return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
         }
     }
@@ -160,7 +146,14 @@ public class RESTcontroller {
         LOGGER.debug("REST DELETE PRODUCT FROM CART >>>\nREQUEST PNT: {}", pnt);
         try{
             Cart cart = (Cart)httpSession.getAttribute("cart");
-            return new RestMessage(HttpStatus.OK, "PRODUCT SUCCESSFULLY DELETED", null);
+            LOGGER.debug("CART FROM SESSION BEFORE DELETE: {}", cart);
+
+            cartBean.deleteFromCart(cart, pnt);
+
+            LOGGER.debug("CART AFTER DELETE: {}", cart);
+            httpSession.setAttribute("cart", cart);
+
+            return new RestMessage(HttpStatus.OK, "PRODUCT SUCCESSFULLY DELETED", cart);
         } catch (Exception e) {
             LOGGER.error("FAILED DELETE FROM CART >>>\nERROR MESSAGE: {}", e.getMessage());
             return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);

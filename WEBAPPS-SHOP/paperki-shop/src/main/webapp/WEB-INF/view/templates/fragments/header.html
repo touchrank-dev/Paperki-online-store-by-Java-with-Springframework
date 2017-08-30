@@ -127,8 +127,10 @@
                                             </div>
 
                                             <div class="dropdown-cart__current-products">
-                                                <p><span class="total-sum">12 590</span>руб </p>
-                                                <span class="pr-main">365 товаров</span>
+                                                <p><span class="total-sum"
+                                                    th:text="${cart?.totalWithVAT}">0.00</span>руб </p>
+                                                <span class="pr-main"
+                                                    th:text="${cart?.items?.size()} + ' товаров'">0 товаров</span>
                                             </div>
                                         </a>
                                         <ul class="Mydropdown-menu menu-cart">
@@ -138,59 +140,36 @@
                                                 <div class="clearfix"></div>
                                             </div>
                                             <div class="cart-cont">
-                                                <li>
-                                                    <div class="drop-pr"><span class="  drop-pr" aria-hidden="true">&#10006;</span></div>
-                                                    <div class="img-cart"><img src="/res/img/product1.png" alt="Стеклянная доска NAGA белая"></div>
-                                                    <div class="desc-cart"><a href="#" class="name-pr-cart">Стеклянная доска NAGA белая</a>
-                                                        <ul class="char-cart">
-                                                            <li>Производство: Китай</li>
-                                                            <li>Код: 015144</li>
-                                                            <li>Цвет: <span class="color-c"></span></li>
-                                                        </ul>
-                                                        <p class="price-in-cart">6,50 руб x 4</p>
-                                                    </div>
-                                                </li>
-                                                <li>
+                                                <li th:if="${cart?.items.size()} > 0"
+                                                    th:each="item : ${cart.items}">
                                                     <div class="drop-pr">
                                                         <span class="  drop-pr" aria-hidden="true">&#10006;</span>
                                                     </div>
                                                     <div class="img-cart">
-                                                        <img src="/res/img/product1.png" alt="Стеклянная доска NAGA белая">
+                                                        <img src="/res/img/product1.png" alt=""
+                                                             th:attr="src=@{${pip}+${item.value.pnt}+${imgPref}},alt=${item.value.fullName}">
                                                     </div>
                                                     <div class="desc-cart">
-                                                        <a href="#" class="name-pr-cart">Стеклянная доска NAGA белая</a>
-                                                        <ul class="char-cart">
+                                                        <a href="#" class="name-pr-cart"
+                                                           th:text="${item.value.fullName}">Имя товара</a>
+                                                        <!--<ul class="char-cart">
                                                             <li>Производство: Китай</li>
                                                             <li>Код: 015144</li>
                                                             <li>Цвет: <span class="color-c"></span></li>
-                                                        </ul>
-                                                        <p class="price-in-cart">6,50 руб x 4</p>
+                                                        </ul>-->
+                                                        <p class="price-in-cart"
+                                                           th:text="${item.value.totalWithVAT}+ ' руб'">0,00 руб x 4</p>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="drop-pr">
-                                                        <span class="  drop-pr" aria-hidden="true">&#10006;</span>
-                                                    </div>
-                                                    <div class="img-cart">
-                                                        <img src="/res/img/product1.png" alt="Стеклянная доска NAGA белая">
-                                                    </div>
-                                                    <div class="desc-cart">
-                                                        <a href="#" class="name-pr-cart">Стеклянная доска NAGA белая</a>
-                                                        <ul class="char-cart">
-                                                            <li>Производство: Китай</li>
-                                                            <li>Код: 015144</li>
-                                                            <li>Цвет: <span class="color-c"></span></li>
-                                                        </ul>
-                                                        <p class="price-in-cart">6,50 руб x 4</p>
-                                                    </div>
-                                                </li>
+
                                             </div>
                                             <div class="down-cart">
                                                 <div class="row">
                                                     <div class="col-md-5 col-sm-5">
                                                         <ul class="all-pr">
-                                                            <li>10 товаров</li>
-                                                            <li class="summa-c">Сумма: 1 250 руб</li>
+                                                            <li th:text="${cart?.items?.size()} + ' товаров'">0 товаров</li>
+                                                            <li class="summa-c"
+                                                                th:text="'Сумма: '+${cart?.totalWithVAT}+ ' руб'">Сумма: 0.00 руб</li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-7 col-sm-7">

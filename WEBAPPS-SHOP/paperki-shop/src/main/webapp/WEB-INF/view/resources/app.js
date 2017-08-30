@@ -22,7 +22,27 @@ function addToCart(pnt) {
     });
 }
 
+function deleteFromCart(pnt) {
+    alert("deleteFromCart :"+pnt);
+    $.ajax({
+        cashe: false,
+        async: true,
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/deletefromcart",
+        data: JSON.stringify({"pnt":pnt}),
+        success: function(response) {
+            console.log(response);
+        },
+        error: function() {
+            serverAlert();
+        }
+    });
+}
+
 function register() {
+    cleanRegisterFormErrors();
     $.ajax({
         cashe: false,
         async: false,
@@ -38,7 +58,7 @@ function register() {
             } else if(response.code == "NOT_ACCEPTABLE") {
                 mapErrorRegisterForm(response);
             }
-            else if(response.code == 'INTERNAL_SERVER_ERROR') {
+            else if(response.code == "INTERNAL_SERVER_ERROR") {
                 console.log(response);
                 serverAlert();
             }
@@ -59,11 +79,11 @@ function logout() {
         url: "/api/logout",
         data: {"logout":true},
         success: function(response){
-            if(response.code == 'OK') {
+            if(response.code == "OK") {
                 alert(response.message);
                 location.reload();
             }
-            else if(response.code == 'INTERNAL_SERVER_ERROR') {
+            else if(response.code == "INTERNAL_SERVER_ERROR") {
                 console.log(response);
                 serverAlert();
             }
@@ -85,11 +105,11 @@ function login() {
         url: "/api/login",
         data: authFormToJSON(),
         success: function(response){
-            if(response.code == 'FOUND') {
+            if(response.code == "FOUND") {
                 location.reload();
-            }else if(response.code == 'NOT_FOUND') {
+            }else if(response.code == "NOT_FOUND") {
                 mapErrorLoginForm(response.object);
-            } else if(response.code == 'INTERNAL_SERVER_ERROR') {
+            } else if(response.code == "INTERNAL_SERVER_ERROR") {
                 console.log(response);
                 serverAlert();
             }
@@ -141,7 +161,7 @@ function mapErrorLoginForm(form) {
             placement: right,
             delay: { show: 1000, hide: 500 }
         });
-        $('#enter-input-email').tooltip("show");
+        $('#enter-input-email-title').tooltip("show");
     }
     if(form.password != null) {
         $('#enter-input-password').addClass("input_password_error");
@@ -150,7 +170,7 @@ function mapErrorLoginForm(form) {
             placement: right,
             delay: { show: 1000, hide: 500 }
         });
-        $("#enter-input-password").tooltip("show");
+        $("#enter-input-password-title").tooltip("show");
     }
     console.log(form);
 }
@@ -166,6 +186,10 @@ function mapErrorRegisterForm(form) {
     console.log(form);
 }
 
+function cleanRegisterFormErrors() {
+
+}
+
 function serverAlert() {
     alert('Возникла непредвиденная ошибка сервера или сервер недоступен.\n' +
         'Пожалуйста перезагрузите страницу или свяжитесь со службой поддержки(+375-29-715-60-60)');
@@ -179,7 +203,9 @@ function showEnterpriseForm() {
 }
 
 
-
+function toFavorites() {
+    alert('Функциональность временно недоступна');
+}
 
 function changeName() {
     alert('Функциональность временно недоступна');

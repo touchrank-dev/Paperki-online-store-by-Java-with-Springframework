@@ -3,25 +3,16 @@ package com.kushnir.paperki.model;
 import java.util.HashMap;
 
 public class Cart {
-
     private Double total;
-    private Double totalVAT;
-    private Double totalDiscount;
-    private Double totalDiscountWithVAT;
+    private Double totalVATAmount;                  // размер налогов
+    private Double totalWithVAT;                    //
+    private Double totalDiscountAmount;             // размер скидки
     private Double totalWithDiscount;
-    private Double totalWithDiscountWithWat;
-
-    private Double paymentTotal;
-    private Double shipmentTotal;
-
+    private Double totalWithDiscountWithVAT;
+    private Double paymentCost;
+    private Double shipmentCost;
+    private Double finallyTotal;
     private HashMap<Integer, CartProduct> items = new HashMap<Integer, CartProduct>();
-
-    public HashMap<Integer, CartProduct> getItems() {
-        return items;
-    }
-    public void setItems(HashMap<Integer, CartProduct> items) {
-        this.items = items;
-    }
 
     public Double getTotal() {
         return total;
@@ -31,28 +22,28 @@ public class Cart {
         this.total = total;
     }
 
-    public Double getTotalVAT() {
-        return totalVAT;
+    public Double getTotalVATAmount() {
+        return totalVATAmount;
     }
 
-    public void setTotalVAT(Double totalVAT) {
-        this.totalVAT = totalVAT;
+    public void setTotalVATAmount(Double totalVATAmount) {
+        this.totalVATAmount = totalVATAmount;
     }
 
-    public Double getTotalDiscount() {
-        return totalDiscount;
+    public Double getTotalWithVAT() {
+        return totalWithVAT;
     }
 
-    public void setTotalDiscount(Double totalDiscount) {
-        this.totalDiscount = totalDiscount;
+    public void setTotalWithVAT(Double totalWithVAT) {
+        this.totalWithVAT = totalWithVAT;
     }
 
-    public Double getTotalDiscountWithVAT() {
-        return totalDiscountWithVAT;
+    public Double getTotalDiscountAmount() {
+        return totalDiscountAmount;
     }
 
-    public void setTotalDiscountWithVAT(Double totalDiscountWithVAT) {
-        this.totalDiscountWithVAT = totalDiscountWithVAT;
+    public void setTotalDiscountAmount(Double totalDiscountAmount) {
+        this.totalDiscountAmount = totalDiscountAmount;
     }
 
     public Double getTotalWithDiscount() {
@@ -63,28 +54,44 @@ public class Cart {
         this.totalWithDiscount = totalWithDiscount;
     }
 
-    public Double getTotalWithDiscountWithWat() {
-        return totalWithDiscountWithWat;
+    public Double getTotalWithDiscountWithVAT() {
+        return totalWithDiscountWithVAT;
     }
 
-    public void setTotalWithDiscountWithWat(Double totalWithDiscountWithWat) {
-        this.totalWithDiscountWithWat = totalWithDiscountWithWat;
+    public void setTotalWithDiscountWithVAT(Double totalWithDiscountWithVAT) {
+        this.totalWithDiscountWithVAT = totalWithDiscountWithVAT;
     }
 
-    public Double getPaymentTotal() {
-        return paymentTotal;
+    public Double getPaymentCost() {
+        return paymentCost;
     }
 
-    public void setPaymentTotal(Double paymentTotal) {
-        this.paymentTotal = paymentTotal;
+    public void setPaymentCost(Double paymentCost) {
+        this.paymentCost = paymentCost;
     }
 
-    public Double getShipmentTotal() {
-        return shipmentTotal;
+    public Double getShipmentCost() {
+        return shipmentCost;
     }
 
-    public void setShipmentTotal(Double shipmentTotal) {
-        this.shipmentTotal = shipmentTotal;
+    public void setShipmentCost(Double shipmentCost) {
+        this.shipmentCost = shipmentCost;
+    }
+
+    public Double getFinallyTotal() {
+        return finallyTotal;
+    }
+
+    public void setFinallyTotal(Double finallyTotal) {
+        this.finallyTotal = finallyTotal;
+    }
+
+    public HashMap<Integer, CartProduct> getItems() {
+        return items;
+    }
+
+    public void setItems(HashMap<Integer, CartProduct> items) {
+        this.items = items;
     }
 
     @Override
@@ -95,31 +102,32 @@ public class Cart {
         Cart cart = (Cart) o;
 
         if (total != null ? !total.equals(cart.total) : cart.total != null) return false;
-        if (totalVAT != null ? !totalVAT.equals(cart.totalVAT) : cart.totalVAT != null) return false;
-        if (totalDiscount != null ? !totalDiscount.equals(cart.totalDiscount) : cart.totalDiscount != null)
+        if (totalVATAmount != null ? !totalVATAmount.equals(cart.totalVATAmount) : cart.totalVATAmount != null)
             return false;
-        if (totalDiscountWithVAT != null ? !totalDiscountWithVAT.equals(cart.totalDiscountWithVAT) : cart.totalDiscountWithVAT != null)
+        if (totalWithVAT != null ? !totalWithVAT.equals(cart.totalWithVAT) : cart.totalWithVAT != null) return false;
+        if (totalDiscountAmount != null ? !totalDiscountAmount.equals(cart.totalDiscountAmount) : cart.totalDiscountAmount != null)
             return false;
         if (totalWithDiscount != null ? !totalWithDiscount.equals(cart.totalWithDiscount) : cart.totalWithDiscount != null)
             return false;
-        if (totalWithDiscountWithWat != null ? !totalWithDiscountWithWat.equals(cart.totalWithDiscountWithWat) : cart.totalWithDiscountWithWat != null)
+        if (totalWithDiscountWithVAT != null ? !totalWithDiscountWithVAT.equals(cart.totalWithDiscountWithVAT) : cart.totalWithDiscountWithVAT != null)
             return false;
-        if (paymentTotal != null ? !paymentTotal.equals(cart.paymentTotal) : cart.paymentTotal != null) return false;
-        if (shipmentTotal != null ? !shipmentTotal.equals(cart.shipmentTotal) : cart.shipmentTotal != null)
-            return false;
+        if (paymentCost != null ? !paymentCost.equals(cart.paymentCost) : cart.paymentCost != null) return false;
+        if (shipmentCost != null ? !shipmentCost.equals(cart.shipmentCost) : cart.shipmentCost != null) return false;
+        if (finallyTotal != null ? !finallyTotal.equals(cart.finallyTotal) : cart.finallyTotal != null) return false;
         return items != null ? items.equals(cart.items) : cart.items == null;
     }
 
     @Override
     public int hashCode() {
         int result = total != null ? total.hashCode() : 0;
-        result = 31 * result + (totalVAT != null ? totalVAT.hashCode() : 0);
-        result = 31 * result + (totalDiscount != null ? totalDiscount.hashCode() : 0);
-        result = 31 * result + (totalDiscountWithVAT != null ? totalDiscountWithVAT.hashCode() : 0);
+        result = 31 * result + (totalVATAmount != null ? totalVATAmount.hashCode() : 0);
+        result = 31 * result + (totalWithVAT != null ? totalWithVAT.hashCode() : 0);
+        result = 31 * result + (totalDiscountAmount != null ? totalDiscountAmount.hashCode() : 0);
         result = 31 * result + (totalWithDiscount != null ? totalWithDiscount.hashCode() : 0);
-        result = 31 * result + (totalWithDiscountWithWat != null ? totalWithDiscountWithWat.hashCode() : 0);
-        result = 31 * result + (paymentTotal != null ? paymentTotal.hashCode() : 0);
-        result = 31 * result + (shipmentTotal != null ? shipmentTotal.hashCode() : 0);
+        result = 31 * result + (totalWithDiscountWithVAT != null ? totalWithDiscountWithVAT.hashCode() : 0);
+        result = 31 * result + (paymentCost != null ? paymentCost.hashCode() : 0);
+        result = 31 * result + (shipmentCost != null ? shipmentCost.hashCode() : 0);
+        result = 31 * result + (finallyTotal != null ? finallyTotal.hashCode() : 0);
         result = 31 * result + (items != null ? items.hashCode() : 0);
         return result;
     }
@@ -128,13 +136,14 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "total=" + total +
-                ", totalVAT=" + totalVAT +
-                ", totalDiscount=" + totalDiscount +
-                ", totalDiscountWithVAT=" + totalDiscountWithVAT +
+                ", totalVATAmount=" + totalVATAmount +
+                ", totalWithVAT=" + totalWithVAT +
+                ", totalDiscountAmount=" + totalDiscountAmount +
                 ", totalWithDiscount=" + totalWithDiscount +
-                ", totalWithDiscountWithWat=" + totalWithDiscountWithWat +
-                ", paymentTotal=" + paymentTotal +
-                ", shipmentTotal=" + shipmentTotal +
+                ", totalWithDiscountWithVAT=" + totalWithDiscountWithVAT +
+                ", paymentCost=" + paymentCost +
+                ", shipmentCost=" + shipmentCost +
+                ", finallyTotal=" + finallyTotal +
                 ", items=" + items +
                 '}';
     }

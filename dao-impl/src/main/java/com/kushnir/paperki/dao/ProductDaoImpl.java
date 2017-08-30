@@ -37,9 +37,6 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${product.getProductsByCategoryTName}")
     private String getProductsByCategoryTNameSqlQuery;
 
-    @Value("${product.getCartProductByPNT}")
-    private String getCartProductByPNTSqlQuery;
-
     @Value("${product.getAvailableProductByPNT}")
     private String getAvailableProductByPNTSqlQuery;
 
@@ -77,23 +74,6 @@ public class ProductDaoImpl implements ProductDao {
         );
         return product;
     }
-
-    //@Override
-    /*public CartProduct getCartProductByPNT(Integer pnt) throws DataAccessException {
-        LOGGER.debug("getCartProductByPNT({}) >>>", pnt);
-        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_PNT, pnt);
-        try {
-            CartProduct cartProduct = (CartProduct) namedParameterJdbcTemplate.query(
-                    getCartProductByPNTSqlQuery,
-                    parameterSource,
-                    new CartProductResultSetExtractor()
-            );
-            return cartProduct;
-        } catch (Exception e) {
-            LOGGER.error("ERROR: {}", e.getMessage());
-            return null;
-        }
-    }*/
 
     @Override
     public AvailableProduct getAvailableProductByPNT(Integer pnt) throws DataAccessException {
@@ -239,6 +219,8 @@ public class ProductDaoImpl implements ProductDao {
             AvailableProduct availableProduct = null;
             while(rs.next()) {
                 int pnt =                   rs.getInt("pnt");
+                String fullName =           rs.getString("full_name");
+                String shortName =          rs.getString("short_name");
                 int quantityStart =         rs.getInt("quantity_start");
                 Double value =              rs.getDouble("value");
                 int vat =                   rs.getInt("vat");
@@ -247,6 +229,8 @@ public class ProductDaoImpl implements ProductDao {
                 Price price =               null;
                 Discount discount =         null;
                 String discountType =       rs.getString("dtype");
+                double valueDouble =        rs.getDouble("value_double");
+                int valueInt =              rs.getInt("value_int");
 
                 price = new Price(quantityStart,
                         value,
@@ -255,14 +239,16 @@ public class ProductDaoImpl implements ProductDao {
                 if(discountType != null) {
                     discount = new Discount(
                             DiscountType.valueOf(discountType),
-                            rs.getDouble("value_double"),
-                            rs.getInt("value_int")
+                            valueDouble,
+                            valueInt
                     );
                 }
 
                 if(availableProduct == null) {
                     availableProduct = new AvailableProduct(
                             pnt,
+                            fullName,
+                            shortName,
                             vat,
                             quantityAvailable,
                             discount
@@ -275,58 +261,5 @@ public class ProductDaoImpl implements ProductDao {
             return availableProduct;
         }
     }
-
-    /*private class CartProductResultSetExtractor implements ResultSetExtractor {
-
-        @Override
-        public CartProduct extractData(ResultSet rs) throws SQLException, DataAccessException {
-            CartProduct cartProduct = null;
-            while(rs.next()) {
-                int pnt =                   rs.getInt("pnt");
-                int quantityStart =         rs.getInt("quantity_start");
-                Double value =              rs.getDouble("value");
-                int vat =                   rs.getInt("vat");
-                String fullName =           rs.getString("full_name");
-                String shortName =          rs.getString("short_name");
-                int quantityAvailable =     rs.getInt("quantity_available");
-
-                Price price =               null;
-                Discount discount =         null;
-                String discountType =       rs.getString("dtype");
-
-                price = new Price(quantityStart,
-                        rs.getDouble("value"),
-                        rs.getInt("vat")
-                );
-                if(discountType != null) {
-                    discount = new Discount(
-                            DiscountType.valueOf(discountType),
-                            rs.getDouble("value_double"),
-                            rs.getInt("value_int")
-                    );
-                }
-
-                if(cartProduct == null) {
-
-                    cartProduct = new CartProduct(
-                            pnt,
-                            fullName,
-                            shortName,
-                            vat,
-                            quantityAvailable
-                    );
-
-                    HashMap<Integer, Price> prices = cartProduct.getPrices();
-                    prices.put(quantityStart, price);
-                    cartProduct.setPrices(prices);
-                } else {
-                    HashMap<Integer, Price> prices = cartProduct.getPrices();
-                    prices.put(quantityStart, price);
-                    cartProduct.setPrices(prices);
-                }
-            }
-            return cartProduct;
-        }
-    }*/
 
 }

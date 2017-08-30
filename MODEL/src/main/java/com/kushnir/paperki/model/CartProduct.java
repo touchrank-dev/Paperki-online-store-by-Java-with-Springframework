@@ -6,21 +6,22 @@ public class CartProduct {
     private Integer pnt;
     private String fullName;
     private String shortName;
-    private Integer VAT;
-    private Double vatAmount;
-    private Integer quantity;
-    // private Integer quantityAvailable;
-    private Double currentPrice;
-    private Double currentPriceWithVAT;
-    private Double discountAmount;
-    private Double discountedPrice;
-    private Double discountedPriceWithVAT;
-    private Double totalPrice;
-    private Double totalPriceWithVAT;
-    private Double totalDiscountedPrice;
-    private Double totalDiscountedPriceWithVAT;
-
+    private Integer VAT;                        // значение налога
+    private Double vatValue;                    // множитель налога
+    private Double vatAmount;                   // сумма налога
+    private Integer quantity;                   // количество в корзине
+    private Double currentPrice;                // обычная цена
+    private Double currentPriceWithVAT;         // обычная цена с налогом
+    private Double discountAmount;              // размер скидки
+    private Double discountedPrice;             // цена со скидкой
+    private Double discountedPriceWithVAT;      // цена со скидкой и налогом
+    private Double finallyPrice;                // окончательная цена со скидкой
+    private Double finallyPriceWithVAT;         // окончательная цена со скидкой и налогом
+    private Double total;                       // сумма
+    private Double totalWithVAT;                // сумма с налогом
     private HashMap<Integer, Price> prices = new HashMap<>();
+
+    public CartProduct() {}
 
     public CartProduct(Integer pnt, String fullName, String shortName, Integer VAT) {
         this.pnt = pnt;
@@ -33,6 +34,7 @@ public class CartProduct {
                        String fullName,
                        String shortName,
                        Integer VAT,
+                       Double vatValue,
                        Double vatAmount,
                        Integer quantity,
                        Double currentPrice,
@@ -40,15 +42,16 @@ public class CartProduct {
                        Double discountAmount,
                        Double discountedPrice,
                        Double discountedPriceWithVAT,
-                       Double totalPrice,
-                       Double totalPriceWithVAT,
-                       Double totalDiscountedPrice,
-                       Double totalDiscountedPriceWithVAT,
+                       Double finallyPrice,
+                       Double finallyPriceWithVAT,
+                       Double total,
+                       Double totalWithVAT,
                        HashMap<Integer, Price> prices) {
         this.pnt = pnt;
         this.fullName = fullName;
         this.shortName = shortName;
         this.VAT = VAT;
+        this.vatValue = vatValue;
         this.vatAmount = vatAmount;
         this.quantity = quantity;
         this.currentPrice = currentPrice;
@@ -56,10 +59,10 @@ public class CartProduct {
         this.discountAmount = discountAmount;
         this.discountedPrice = discountedPrice;
         this.discountedPriceWithVAT = discountedPriceWithVAT;
-        this.totalPrice = totalPrice;
-        this.totalPriceWithVAT = totalPriceWithVAT;
-        this.totalDiscountedPrice = totalDiscountedPrice;
-        this.totalDiscountedPriceWithVAT = totalDiscountedPriceWithVAT;
+        this.finallyPrice = finallyPrice;
+        this.finallyPriceWithVAT = finallyPriceWithVAT;
+        this.total = total;
+        this.totalWithVAT = totalWithVAT;
         this.prices = prices;
     }
 
@@ -67,6 +70,7 @@ public class CartProduct {
                        String fullName,
                        String shortName,
                        Integer VAT,
+                       Double vatValue,
                        Double vatAmount,
                        Integer quantity,
                        Double currentPrice,
@@ -74,14 +78,15 @@ public class CartProduct {
                        Double discountAmount,
                        Double discountedPrice,
                        Double discountedPriceWithVAT,
-                       Double totalPrice,
-                       Double totalPriceWithVAT,
-                       Double totalDiscountedPrice,
-                       Double totalDiscountedPriceWithVAT) {
+                       Double finallyPrice,
+                       Double finallyPriceWithVAT,
+                       Double total,
+                       Double totalWithVAT) {
         this.pnt = pnt;
         this.fullName = fullName;
         this.shortName = shortName;
         this.VAT = VAT;
+        this.vatValue = vatValue;
         this.vatAmount = vatAmount;
         this.quantity = quantity;
         this.currentPrice = currentPrice;
@@ -89,10 +94,10 @@ public class CartProduct {
         this.discountAmount = discountAmount;
         this.discountedPrice = discountedPrice;
         this.discountedPriceWithVAT = discountedPriceWithVAT;
-        this.totalPrice = totalPrice;
-        this.totalPriceWithVAT = totalPriceWithVAT;
-        this.totalDiscountedPrice = totalDiscountedPrice;
-        this.totalDiscountedPriceWithVAT = totalDiscountedPriceWithVAT;
+        this.finallyPrice = finallyPrice;
+        this.finallyPriceWithVAT = finallyPriceWithVAT;
+        this.total = total;
+        this.totalWithVAT = totalWithVAT;
     }
 
     public Integer getPnt() {
@@ -125,6 +130,14 @@ public class CartProduct {
 
     public void setVAT(Integer VAT) {
         this.VAT = VAT;
+    }
+
+    public Double getVatValue() {
+        return vatValue;
+    }
+
+    public void setVatValue(Double vatValue) {
+        this.vatValue = vatValue;
     }
 
     public Double getVatAmount() {
@@ -183,36 +196,36 @@ public class CartProduct {
         this.discountedPriceWithVAT = discountedPriceWithVAT;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
+    public Double getFinallyPrice() {
+        return finallyPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setFinallyPrice(Double finallyPrice) {
+        this.finallyPrice = finallyPrice;
     }
 
-    public Double getTotalPriceWithVAT() {
-        return totalPriceWithVAT;
+    public Double getFinallyPriceWithVAT() {
+        return finallyPriceWithVAT;
     }
 
-    public void setTotalPriceWithVAT(Double totalPriceWithVAT) {
-        this.totalPriceWithVAT = totalPriceWithVAT;
+    public void setFinallyPriceWithVAT(Double finallyPriceWithVAT) {
+        this.finallyPriceWithVAT = finallyPriceWithVAT;
     }
 
-    public Double getTotalDiscountedPrice() {
-        return totalDiscountedPrice;
+    public Double getTotal() {
+        return total;
     }
 
-    public void setTotalDiscountedPrice(Double totalDiscountedPrice) {
-        this.totalDiscountedPrice = totalDiscountedPrice;
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
-    public Double getTotalDiscountedPriceWithVAT() {
-        return totalDiscountedPriceWithVAT;
+    public Double getTotalWithVAT() {
+        return totalWithVAT;
     }
 
-    public void setTotalDiscountedPriceWithVAT(Double totalDiscountedPriceWithVAT) {
-        this.totalDiscountedPriceWithVAT = totalDiscountedPriceWithVAT;
+    public void setTotalWithVAT(Double totalWithVAT) {
+        this.totalWithVAT = totalWithVAT;
     }
 
     public HashMap<Integer, Price> getPrices() {
@@ -234,6 +247,7 @@ public class CartProduct {
         if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
         if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) return false;
         if (VAT != null ? !VAT.equals(that.VAT) : that.VAT != null) return false;
+        if (vatValue != null ? !vatValue.equals(that.vatValue) : that.vatValue != null) return false;
         if (vatAmount != null ? !vatAmount.equals(that.vatAmount) : that.vatAmount != null) return false;
         if (quantity != null ? !quantity.equals(that.quantity) : that.quantity != null) return false;
         if (currentPrice != null ? !currentPrice.equals(that.currentPrice) : that.currentPrice != null) return false;
@@ -245,13 +259,11 @@ public class CartProduct {
             return false;
         if (discountedPriceWithVAT != null ? !discountedPriceWithVAT.equals(that.discountedPriceWithVAT) : that.discountedPriceWithVAT != null)
             return false;
-        if (totalPrice != null ? !totalPrice.equals(that.totalPrice) : that.totalPrice != null) return false;
-        if (totalPriceWithVAT != null ? !totalPriceWithVAT.equals(that.totalPriceWithVAT) : that.totalPriceWithVAT != null)
+        if (finallyPrice != null ? !finallyPrice.equals(that.finallyPrice) : that.finallyPrice != null) return false;
+        if (finallyPriceWithVAT != null ? !finallyPriceWithVAT.equals(that.finallyPriceWithVAT) : that.finallyPriceWithVAT != null)
             return false;
-        if (totalDiscountedPrice != null ? !totalDiscountedPrice.equals(that.totalDiscountedPrice) : that.totalDiscountedPrice != null)
-            return false;
-        if (totalDiscountedPriceWithVAT != null ? !totalDiscountedPriceWithVAT.equals(that.totalDiscountedPriceWithVAT) : that.totalDiscountedPriceWithVAT != null)
-            return false;
+        if (total != null ? !total.equals(that.total) : that.total != null) return false;
+        if (totalWithVAT != null ? !totalWithVAT.equals(that.totalWithVAT) : that.totalWithVAT != null) return false;
         return prices != null ? prices.equals(that.prices) : that.prices == null;
     }
 
@@ -261,6 +273,7 @@ public class CartProduct {
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
         result = 31 * result + (VAT != null ? VAT.hashCode() : 0);
+        result = 31 * result + (vatValue != null ? vatValue.hashCode() : 0);
         result = 31 * result + (vatAmount != null ? vatAmount.hashCode() : 0);
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
         result = 31 * result + (currentPrice != null ? currentPrice.hashCode() : 0);
@@ -268,10 +281,10 @@ public class CartProduct {
         result = 31 * result + (discountAmount != null ? discountAmount.hashCode() : 0);
         result = 31 * result + (discountedPrice != null ? discountedPrice.hashCode() : 0);
         result = 31 * result + (discountedPriceWithVAT != null ? discountedPriceWithVAT.hashCode() : 0);
-        result = 31 * result + (totalPrice != null ? totalPrice.hashCode() : 0);
-        result = 31 * result + (totalPriceWithVAT != null ? totalPriceWithVAT.hashCode() : 0);
-        result = 31 * result + (totalDiscountedPrice != null ? totalDiscountedPrice.hashCode() : 0);
-        result = 31 * result + (totalDiscountedPriceWithVAT != null ? totalDiscountedPriceWithVAT.hashCode() : 0);
+        result = 31 * result + (finallyPrice != null ? finallyPrice.hashCode() : 0);
+        result = 31 * result + (finallyPriceWithVAT != null ? finallyPriceWithVAT.hashCode() : 0);
+        result = 31 * result + (total != null ? total.hashCode() : 0);
+        result = 31 * result + (totalWithVAT != null ? totalWithVAT.hashCode() : 0);
         result = 31 * result + (prices != null ? prices.hashCode() : 0);
         return result;
     }
@@ -283,6 +296,7 @@ public class CartProduct {
                 ", fullName='" + fullName + '\'' +
                 ", shortName='" + shortName + '\'' +
                 ", VAT=" + VAT +
+                ", vatValue=" + vatValue +
                 ", vatAmount=" + vatAmount +
                 ", quantity=" + quantity +
                 ", currentPrice=" + currentPrice +
@@ -290,10 +304,10 @@ public class CartProduct {
                 ", discountAmount=" + discountAmount +
                 ", discountedPrice=" + discountedPrice +
                 ", discountedPriceWithVAT=" + discountedPriceWithVAT +
-                ", totalPrice=" + totalPrice +
-                ", totalPriceWithVAT=" + totalPriceWithVAT +
-                ", totalDiscountedPrice=" + totalDiscountedPrice +
-                ", totalDiscountedPriceWithVAT=" + totalDiscountedPriceWithVAT +
+                ", finallyPrice=" + finallyPrice +
+                ", finallyPriceWithVAT=" + finallyPriceWithVAT +
+                ", total=" + total +
+                ", totalWithVAT=" + totalWithVAT +
                 ", prices=" + prices +
                 '}';
     }

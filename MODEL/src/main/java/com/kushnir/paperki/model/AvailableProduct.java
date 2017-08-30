@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 public class AvailableProduct {
     private Integer pnt;
+    private String fullName;
+    private String shortName;
     private Integer VAT;
     private Integer quantityAvailable;
     private Discount discount;
@@ -34,12 +36,58 @@ public class AvailableProduct {
         this.prices = prices;
     }
 
+    public AvailableProduct(Integer pnt,
+                            String fullName,
+                            String shortName,
+                            Integer VAT,
+                            Integer quantityAvailable,
+                            Discount discount) {
+        this.pnt = pnt;
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.VAT = VAT;
+        this.quantityAvailable = quantityAvailable;
+        this.discount = discount;
+    }
+
+    public AvailableProduct(Integer pnt,
+                            String fullName,
+                            String shortName,
+                            Integer VAT,
+                            Integer quantityAvailable,
+                            Discount discount,
+                            HashMap<Integer, Price> prices) {
+        this.pnt = pnt;
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.VAT = VAT;
+        this.quantityAvailable = quantityAvailable;
+        this.discount = discount;
+        this.prices = prices;
+    }
+
     public Integer getPnt() {
         return pnt;
     }
 
     public void setPnt(Integer pnt) {
         this.pnt = pnt;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     public Integer getVAT() {
@@ -82,6 +130,8 @@ public class AvailableProduct {
         AvailableProduct that = (AvailableProduct) o;
 
         if (pnt != null ? !pnt.equals(that.pnt) : that.pnt != null) return false;
+        if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
+        if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) return false;
         if (VAT != null ? !VAT.equals(that.VAT) : that.VAT != null) return false;
         if (quantityAvailable != null ? !quantityAvailable.equals(that.quantityAvailable) : that.quantityAvailable != null)
             return false;
@@ -92,6 +142,8 @@ public class AvailableProduct {
     @Override
     public int hashCode() {
         int result = pnt != null ? pnt.hashCode() : 0;
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
         result = 31 * result + (VAT != null ? VAT.hashCode() : 0);
         result = 31 * result + (quantityAvailable != null ? quantityAvailable.hashCode() : 0);
         result = 31 * result + (discount != null ? discount.hashCode() : 0);
@@ -99,5 +151,16 @@ public class AvailableProduct {
         return result;
     }
 
-
+    @Override
+    public String toString() {
+        return "AvailableProduct{" +
+                "pnt=" + pnt +
+                ", fullName='" + fullName + '\'' +
+                ", shortName='" + shortName + '\'' +
+                ", VAT=" + VAT +
+                ", quantityAvailable=" + quantityAvailable +
+                ", discount=" + discount +
+                ", prices=" + prices +
+                '}';
+    }
 }
