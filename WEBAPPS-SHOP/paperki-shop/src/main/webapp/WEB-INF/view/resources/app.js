@@ -202,6 +202,11 @@ function showEnterpriseForm() {
     else $('#enterpriseForm').hide("slow");
 }
 
+function toOrderPage() {
+    var orderURL = '/order';
+    document.location.href = orderURL;
+}
+
 
 function toFavorites() {
     alert('Функциональность временно недоступна');

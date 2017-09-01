@@ -109,16 +109,16 @@
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                 <ul class="nav navbar-nav navbar-right nav-right-mn">
-                                    <!--<li class="bookmarks">
-                                        <a href="/usermenu/bookmarks">
+                                    <li class="bookmarks">
+                                        <a href="/profile?bookmarks">
                                             Закладки
-                                            <br><span class="pr-main">2 товара</span></a>
+                                            <br><span class="pr-main">0 товара</span></a>
                                     </li>
                                     <li class="comparison">
-                                        <a href="/usermenu/compare">
+                                        <a href="/compare">
                                             Сравнение
                                             <br><span class="pr-main">0 товаров</span></a>
-                                    </li>-->
+                                    </li>
                                     <li class="dropdown cart">
                                         <a href="#" class="dropdown-toggle cartLink" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             <div class="cartIconHolder">
@@ -127,10 +127,13 @@
                                             </div>
 
                                             <div class="dropdown-cart__current-products">
-                                                <p><span class="total-sum"
-                                                    th:text="${cart?.totalWithVAT}">0.00</span>руб </p>
+                                                <p>
+                                                    <span class="total-sum"
+                                                        th:if="${cart.totalWithVAT} > 0.0"
+                                                        th:text="${cart?.totalWithVAT}">0.00</span>
+                                                    руб</p>
                                                 <span class="pr-main"
-                                                    th:text="${cart?.items?.size()} + ' товаров'">0 товаров</span>
+                                                    th:text="${cart?.items?.size()} + ' ед.'">0 ед.</span>
                                             </div>
                                         </a>
                                         <ul class="Mydropdown-menu menu-cart">
@@ -147,18 +150,18 @@
                                                     </div>
                                                     <div class="img-cart">
                                                         <img src="/res/img/product1.png" alt=""
+                                                            style="max-width: 130px;" 
                                                              th:attr="src=@{${pip}+${item.value.pnt}+${imgPref}},alt=${item.value.fullName}">
                                                     </div>
                                                     <div class="desc-cart">
                                                         <a href="#" class="name-pr-cart"
-                                                           th:text="${item.value.fullName}">Имя товара</a>
-                                                        <!--<ul class="char-cart">
-                                                            <li>Производство: Китай</li>
-                                                            <li>Код: 015144</li>
-                                                            <li>Цвет: <span class="color-c"></span></li>
-                                                        </ul>-->
+                                                            th:href="@{${catalogurl}+${item.value.link}}"
+                                                            th:text="${item.value.fullName}">Имя товара</a>
+                                                        <ul class="char-cart">
+                                                            <li th:text="${item.value.shortName}">Короткое имя</li>
+                                                        </ul>
                                                         <p class="price-in-cart"
-                                                           th:text="${item.value.totalWithVAT}+ ' руб'">0,00 руб x 4</p>
+                                                           th:text="${item.value.discountedPriceWithVAT}+ ' руб'">0,00 руб x 4</p>
                                                     </div>
                                                 </li>
 
@@ -167,9 +170,10 @@
                                                 <div class="row">
                                                     <div class="col-md-5 col-sm-5">
                                                         <ul class="all-pr">
-                                                            <li th:text="${cart?.items?.size()} + ' товаров'">0 товаров</li>
+                                                            <li th:text="${cart?.items?.size()} + ' ед.'">0 товаров</li>
                                                             <li class="summa-c"
-                                                                th:text="'Сумма: '+${cart?.totalWithVAT}+ ' руб'">Сумма: 0.00 руб</li>
+                                                                th:if="${cart.totalWithVAT} > 0.0"
+                                                                th:text="'Сумма: ' +${cart?.totalWithVAT} + ' руб' ">Сумма: 0.00 руб</li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-7 col-sm-7">

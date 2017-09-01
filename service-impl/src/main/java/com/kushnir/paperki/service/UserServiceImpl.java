@@ -54,6 +54,9 @@ public class UserServiceImpl implements UserService {
         }
         try {
             user = userDao.getUserByLogin(loginData.getLogin());
+            if(user == null) {
+                user = userDao.getUserByEnterpriseUNP(loginData.getLogin());
+            }
         } catch (Exception e) {
             LOGGER.error("DAO EXCEPTION >>>\nERROR MESSAGE: {}", e.getMessage());
             throw e;
@@ -166,7 +169,7 @@ public class UserServiceImpl implements UserService {
             try {
                 Integer newUserId = userDao.addUser(user);
                 if (form.getEnterprise())
-                    Assert.notNull(addEntrpriseByUser(form, newUserId), "Не удалось добавить организацию");
+                    Assert.notNull(addEnterpriseByUser(form, newUserId), "Не удалось добавить организацию");
 
                 user = userDao.getUserById(newUserId);
                 Assert.notNull(user, "Не удалось получить данные пользователя");
@@ -182,7 +185,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public Integer addEntrpriseByUser (RegistrateForm form, Integer userId) {
+    public Integer addEnterpriseByUser (RegistrateForm form, Integer userId) {
         Enterprise enterprise = new Enterprise(
                 userId,
                 form.getUNP(),

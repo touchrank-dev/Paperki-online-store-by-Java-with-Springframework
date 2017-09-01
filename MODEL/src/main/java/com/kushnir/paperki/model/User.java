@@ -32,6 +32,22 @@ public class User {
         this.password = password;
     }
 
+    public User(Integer id,
+                String login,
+                String password,
+                String name,
+                String email,
+                String phone,
+                Boolean subscribe) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.subscribe = subscribe;
+    }
+
     public User(String login,
                 String password,
                 String name,

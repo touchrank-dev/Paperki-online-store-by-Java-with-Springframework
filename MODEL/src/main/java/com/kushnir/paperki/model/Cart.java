@@ -6,14 +6,12 @@ public class Cart {
 
     private double total;                       // сумма
     private double totalWithVAT;                // сумма с налогом
-    private double totalWithDiscount;           // сумма с учетом скидки
-    private double totalWithDiscountWithVAT;    // сумма с учетом скидки и налога
     private double totalDiscount;               // сумма скидки
     private double totalVAT;                    // сумма налогов
     private Coupon coupon = null;               // скидочный купон
     private Present present = null;             // подарок
-    private Payment payment = null;
-    private Shipment shipment = null;
+    private Payment payment = null;             // способ оплаты
+    private Shipment shipment = null;           // способ доставки
     private double paymentCost;                 // стоимость оплаты
     private double shipmentCost;                // стоимость доставки
     private double finalTotal;                  // окончательная сумма
@@ -37,22 +35,6 @@ public class Cart {
 
     public void setTotalWithVAT(double totalWithVAT) {
         this.totalWithVAT = totalWithVAT;
-    }
-
-    public double getTotalWithDiscount() {
-        return totalWithDiscount;
-    }
-
-    public void setTotalWithDiscount(double totalWithDiscount) {
-        this.totalWithDiscount = totalWithDiscount;
-    }
-
-    public double getTotalWithDiscountWithVAT() {
-        return totalWithDiscountWithVAT;
-    }
-
-    public void setTotalWithDiscountWithVAT(double totalWithDiscountWithVAT) {
-        this.totalWithDiscountWithVAT = totalWithDiscountWithVAT;
     }
 
     public double getTotalDiscount() {
@@ -152,8 +134,6 @@ public class Cart {
 
         if (Double.compare(cart.total, total) != 0) return false;
         if (Double.compare(cart.totalWithVAT, totalWithVAT) != 0) return false;
-        if (Double.compare(cart.totalWithDiscount, totalWithDiscount) != 0) return false;
-        if (Double.compare(cart.totalWithDiscountWithVAT, totalWithDiscountWithVAT) != 0) return false;
         if (Double.compare(cart.totalDiscount, totalDiscount) != 0) return false;
         if (Double.compare(cart.totalVAT, totalVAT) != 0) return false;
         if (Double.compare(cart.paymentCost, paymentCost) != 0) return false;
@@ -174,10 +154,6 @@ public class Cart {
         temp = Double.doubleToLongBits(total);
         result = (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(totalWithVAT);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(totalWithDiscount);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(totalWithDiscountWithVAT);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(totalDiscount);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -204,8 +180,6 @@ public class Cart {
         return "Cart{" +
                 "total=" + total +
                 ", totalWithVAT=" + totalWithVAT +
-                ", totalWithDiscount=" + totalWithDiscount +
-                ", totalWithDiscountWithVAT=" + totalWithDiscountWithVAT +
                 ", totalDiscount=" + totalDiscount +
                 ", totalVAT=" + totalVAT +
                 ", coupon=" + coupon +

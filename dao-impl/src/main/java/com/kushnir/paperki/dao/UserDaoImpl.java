@@ -56,6 +56,9 @@ public class UserDaoImpl implements UserDao {
     @Value("${user.getById}")
     private String getUserByIdSqlQuery;
 
+    @Value("${user.getByUNP}")
+    private String getUserByUNPSqlQuery;
+
     @Value("${user.add}")
     private String addUserSqlQuery;
 
@@ -81,6 +84,9 @@ public class UserDaoImpl implements UserDao {
         } catch (EmptyResultDataAccessException e) {
             LOGGER.error("Пользователь {}, не найден {}",userName, e.getMessage());
             return null;
+        } catch (Exception e) {
+            LOGGER.error("В процессе выполнения запроса getUserByLoginPassword, возникла ошибка >>>\n{}", e.getMessage());
+            throw e;
         }
     }
 
@@ -97,6 +103,22 @@ public class UserDaoImpl implements UserDao {
             return null;
         } catch (Exception e) {
             LOGGER.error("В процессе выполнения запроса getUserByLogin, возникла ошибка >>>\n{}", e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public User getUserByEnterpriseUNP(String UNP) {
+        LOGGER.debug("getUserByEnterpriseUNP({}) >>>", UNP);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ENTERPRISE_UNP, UNP);
+        try {
+            User user = namedParameterJdbcTemplate
+                    .queryForObject(getUserByUNPSqlQuery, parameterSource, new UserRowMapper());
+            return user;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        } catch (Exception e) {
+            LOGGER.error("В процессе выполнения запроса getUserByEnterpriseUNP, возникла ошибка >>>\n{}", e.getMessage());
             throw e;
         }
     }
@@ -226,8 +248,11 @@ public class UserDaoImpl implements UserDao {
             User user = new User(
                     rs.getInt("id_user"),
                     rs.getString("login_user"),
+                    rs.getString("password"),
                     rs.getString("name_user"),
-                    rs.getString("password")
+                    rs.getString("email"),
+                    rs.getString("phone"),
+                    rs.getBoolean("subscribe")
             );
             return user;
         }

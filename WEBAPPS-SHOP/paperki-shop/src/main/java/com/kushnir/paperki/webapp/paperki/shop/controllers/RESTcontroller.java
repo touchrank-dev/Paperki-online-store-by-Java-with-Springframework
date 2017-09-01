@@ -142,13 +142,13 @@ public class RESTcontroller {
 
     @PostMapping("/deletefromcart")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage deleteFromCart(@RequestBody Integer pnt, HttpSession httpSession) {
+    public @ResponseBody RestMessage deleteFromCart(@RequestBody DeleteRequest pnt, HttpSession httpSession) {
         LOGGER.debug("REST DELETE PRODUCT FROM CART >>>\nREQUEST PNT: {}", pnt);
         try{
             Cart cart = (Cart)httpSession.getAttribute("cart");
             LOGGER.debug("CART FROM SESSION BEFORE DELETE: {}", cart);
 
-            cartBean.deleteFromCart(cart, pnt);
+            cartBean.deleteFromCart(cart, pnt.getPnt());
 
             LOGGER.debug("CART AFTER DELETE: {}", cart);
             httpSession.setAttribute("cart", cart);

@@ -60,14 +60,12 @@ public class CartBean {
     private void calculate(Cart cart) {
         double total =                          0d;
         double totalWithVAT =                   0d;
-        double totalWithDiscount =              0d;
-        double totalWithDiscountWithVAT =       0d;
         double totalDiscount =                  0d;
         double totalVAT =                       0d;
-        Coupon coupon =                         null;
-        Present present =                       null;
-        Payment payment =                       null;
-        Shipment shipment =                     null;
+        Coupon coupon =                         cart.getCoupon();
+        Present present =                       cart.getPresent();
+        Payment payment =                       cart.getPayment();
+        Shipment shipment =                     cart.getShipment();
         double paymentCost =                    0d;
         double shipmentCost =                   0d;
         double finalTotal =                     0d;
@@ -80,22 +78,23 @@ public class CartBean {
 
                 total +=                        cartProduct.getTotal();
                 totalWithVAT +=                 cartProduct.getTotalWithVAT();
-                totalWithDiscount +=            cartProduct.getTotalWithDiscount();
-                totalWithDiscountWithVAT +=     cartProduct.getTotalWithDiscountWithVAT();
                 totalDiscount +=                cartProduct.getTotalDiscount();
                 totalVAT +=                     cartProduct.getTotalVAT();
             }
         }
 
-        finalTotalWithVAT = totalWithDiscountWithVAT
+        finalTotal =        getDouble(total
                             + paymentCost
-                            + shipmentCost;
+                            + shipmentCost);
+
+        finalTotalWithVAT = getDouble(totalWithVAT
+                            + paymentCost
+                            + shipmentCost);
 
         cart.setTotal(total);
         cart.setTotalWithVAT(totalWithVAT);
-        cart.setTotalWithDiscount(totalWithDiscount);
-        cart.setTotalWithDiscountWithVAT(totalWithDiscountWithVAT);
         cart.setTotalDiscount(totalDiscount);
+        cart.setFinalTotal(finalTotal);
         cart.setFinalTotalWithVAT(finalTotalWithVAT);
         cart.setTotalVAT(totalVAT);
     }
@@ -105,81 +104,92 @@ public class CartBean {
                                       AddProductRequest addProductRequest,
                                       AvailableProduct availableProduct) throws NotEnoughQuantityAvailableException {
 
-        Integer quantityOld = inCartProduct.getQuantity();
+        int quantityOld = inCartProduct.getQuantity();
+        int requestedQuantity = addProductRequest.getQuantity();
+        int newQuantity = quantityOld + requestedQuantity;
 
         if(     availableProduct.getQuantityAvailable() < 1 ||
-                (addProductRequest.getQuantity() + quantityOld) > availableProduct.getQuantityAvailable()) {
+                newQuantity > availableProduct.getQuantityAvailable()) {
             throw new NotEnoughQuantityAvailableException("На складе недостаточно запрашиваемого количества товара");
         }
 
-        Integer pnt =                           availableProduct.getPnt();
-        String fullName =                       availableProduct.getFullName();
-        String shortName =                      availableProduct.getShortName();
-        Integer VAT =                           availableProduct.getVAT();
-        Double vatValue =                       getDouble(1 + (VAT/100.0));
-        Double vatAmount =                      0d;
-        Integer quantity =                      addProductRequest.getQuantity() + quantityOld;
-        Double currentPrice =                   availableProduct.getPrices().get(1).getBasePrice();
-        Double currentPriceWithVAT =            getDouble(currentPrice * vatValue);
-        Double discountAmount = 0d;
-        Double discountedPrice = 0d;
-        Double discountedPriceWithVAT = 0d;
-        Double finallyPrice = 0d;
-        Double finallyPriceWithVAT = 0d;
-        Double total = 0d;
-        Double totalWithVAT = 0d;
-        Discount discount =                     availableProduct.getDiscount();
-        // ========================================================================
+        int pnt =                           availableProduct.getPnt();
+        String fullName =                   availableProduct.getFullName();
+        String shortName =                  availableProduct.getShortName();
+        String link =                       availableProduct.getLink();
+        int VAT =                           availableProduct.getVAT();
+        double vatValue =                   getDouble(1 + (VAT/100.0));
+        int quantity =                      newQuantity;
+        double currentPrice =               availableProduct.getPrices().get(1).getBasePrice();
+        double currentPriceWithVAT =        getDouble(currentPrice * vatValue);
+        double discountedPrice =            0d;
+        double discountedPriceWithVAT =     0d;
+        double discountAmount =             0d;
+        double finalPrice =                 0d;
+        double finalPriceWithVAT =          0d;
+        double total =                      0d;
+        double totalWithVAT =               0d;
+        double totalDiscount =              0d;
+        double totalVAT =                   0d;
+
+        Discount discount =                 availableProduct.getDiscount();
+        // СКИДКИ =================================================================
         if (discount != null) {
             if(discount.getDiscountType().equals(DiscountType.OVERRIDE)) {
 
-                discountedPrice =               discount.getValueDouble();
-                discountAmount =                currentPrice - discountedPrice;
+                discountedPrice =           discount.getValueDouble();
+                discountAmount =            currentPrice - discountedPrice;
             } else if(discount.getDiscountType().equals(DiscountType.PROCENT)) {
 
-                discountAmount =                getDouble(currentPrice * (discount.getValueInt()/100.0));
-                discountedPrice =               currentPrice - discountAmount;
+                discountAmount =            getDouble(currentPrice * (discount.getValueInt()/100.0));
+                discountedPrice =           currentPrice - discountAmount;
             } else if (discount.getDiscountType().equals(DiscountType.SUBSTRACT)) {
 
-                discountAmount =                discount.getValueDouble();
-                discountedPrice =               currentPrice - discountAmount;
+                discountAmount =            discount.getValueDouble();
+                discountedPrice =           currentPrice - discountAmount;
             } else {}
 
-            discountedPriceWithVAT =            getDouble(discountedPrice * vatValue);
+            discountedPriceWithVAT =        getDouble(discountedPrice * vatValue);
+        } else if(availableProduct.getPrices().size() > 1) {
+            // TODO скидка от количества
         }
         // ========================================================================
-        finallyPrice =                          currentPrice - discountAmount;
+        finalPrice =                        currentPrice - discountAmount;
         // ========================================================================
-        finallyPriceWithVAT =                   getDouble(finallyPrice * vatValue);
+        finalPriceWithVAT =                 getDouble(finalPrice * vatValue);
         // ========================================================================
-        total =                                 getDouble(finallyPrice * quantity);
+        total =                             getDouble(finalPrice * quantity);
         // ========================================================================
-        totalWithVAT =                          getDouble(total * vatValue);
+        totalWithVAT =                      getDouble(total * vatValue);
         // ========================================================================
-        vatAmount =                             getDouble(totalWithVAT - total);
+        totalDiscount =                     getDouble(discountAmount * quantity);
         // ========================================================================
+        totalVAT =                          getDouble(totalWithVAT - total);
 
+        inCartProduct.setPnt(pnt);
         inCartProduct.setFullName(fullName);
         inCartProduct.setShortName(shortName);
+        inCartProduct.setLink(link);
         inCartProduct.setVAT(VAT);
         inCartProduct.setVatValue(vatValue);
-        inCartProduct.setVatAmount(vatAmount);
         inCartProduct.setQuantity(quantity);
         inCartProduct.setCurrentPrice(currentPrice);
         inCartProduct.setCurrentPriceWithVAT(currentPriceWithVAT);
-        inCartProduct.setDiscountAmount(discountAmount);
         inCartProduct.setDiscountedPrice(discountedPrice);
         inCartProduct.setDiscountedPriceWithVAT(discountedPriceWithVAT);
-        inCartProduct.setFinallyPrice(finallyPrice);
-        inCartProduct.setFinallyPriceWithVAT(finallyPriceWithVAT);
+        inCartProduct.setDiscountAmount(discountAmount);
+        inCartProduct.setFinalPrice(finalPrice);
+        inCartProduct.setFinalPriceWithVAT(finalPriceWithVAT);
         inCartProduct.setTotal(total);
         inCartProduct.setTotalWithVAT(totalWithVAT);
+        inCartProduct.setTotalDiscount(totalDiscount);
+        inCartProduct.setTotalVAT(totalVAT);
     }
 
     @Transactional
     private CartProduct createCartProduct (AvailableProduct availableProduct, AddProductRequest addProductRequest)
             throws NotEnoughQuantityAvailableException {
-        // ========================================================================
+
         if(availableProduct.getQuantityAvailable() < 1 ||
                 availableProduct.getQuantityAvailable() < addProductRequest.getQuantity()) {
             throw new NotEnoughQuantityAvailableException("На складе недостаточно запрашиваемого количества товара");
@@ -201,15 +211,11 @@ public class CartBean {
         double finalPriceWithVAT =          0d;
         double total =                      0d;
         double totalWithVAT =               0d;
-        double totalWithDiscount =          0d;
-        double totalWithDiscountWithVAT =   0d;
         double totalDiscount =              0d;
-        double finalTotal =                 0d;
-        double finalTotalWithVAT =          0d;
         double totalVAT =                   0d;
 
         Discount discount =                 availableProduct.getDiscount();
-        // ========================================================================
+        // СКИДКИ =================================================================
         if (discount != null) {
             if(discount.getDiscountType().equals(DiscountType.OVERRIDE)) {
 
@@ -226,6 +232,9 @@ public class CartBean {
             } else {}
 
             discountedPriceWithVAT =        getDouble(discountedPrice * vatValue);
+
+        } else if(availableProduct.getPrices().size() > 1) {
+            // TODO скидка от количества
         }
         // ========================================================================
         finalPrice =                        currentPrice - discountAmount;
@@ -236,95 +245,32 @@ public class CartBean {
         // ========================================================================
         totalWithVAT =                      getDouble(total * vatValue);
         // ========================================================================
-        totalWithDiscount =                 getDouble(discountedPrice + quantity);
+        totalDiscount =                     getDouble(discountAmount * quantity);
         // ========================================================================
-        totalWithDiscountWithVAT =          getDouble(totalWithDiscount * vatValue);
+        totalVAT =                          getDouble(totalWithVAT - total);
         // ========================================================================
-        totalDiscount =                     getDouble(totalWithVAT - totalWithDiscountWithVAT);
-        // ========================================================================
-        finalTotal
         return new CartProduct(
                 pnt,
                 fullName,
                 shortName,
                 link,
-
-        );
-
-
-
-
-
-
-        /*
-        Integer pnt =                           availableProduct.getPnt();
-        String fullName =                       availableProduct.getFullName();
-        String shortName =                      availableProduct.getShortName();
-        Integer VAT =                           availableProduct.getVAT();
-        Double vatValue =                       getDouble(1 + (VAT/100.0));
-        Double vatAmount = 0d;
-        Integer quantity =                      addProductRequest.getQuantity();
-        Double currentPrice =                   availableProduct.getPrices().get(1).getBasePrice();
-        Double currentPriceWithVAT =            getDouble(currentPrice * vatValue);
-        Double discountAmount = 0d;
-        Double discountedPrice = 0d;
-        Double discountedPriceWithVAT = 0d;
-        Double finallyPrice = 0d;
-        Double finallyPriceWithVAT = 0d;
-        Double total = 0d;
-        Double totalWithVAT = 0d;
-        Discount discount =                     availableProduct.getDiscount();
-        // ========================================================================
-        if (discount != null) {
-            if(discount.getDiscountType().equals(DiscountType.OVERRIDE)) {
-
-                discountedPrice =               discount.getValueDouble();
-                discountAmount =                currentPrice - discountedPrice;
-            } else if(discount.getDiscountType().equals(DiscountType.PROCENT)) {
-
-                discountAmount =                getDouble(currentPrice * (discount.getValueInt()/100.0));
-                discountedPrice =               currentPrice - discountAmount;
-            } else if (discount.getDiscountType().equals(DiscountType.SUBSTRACT)) {
-
-                discountAmount =                discount.getValueDouble();
-                discountedPrice =               currentPrice - discountAmount;
-            } else {}
-
-            discountedPriceWithVAT =            getDouble(discountedPrice * vatValue);
-        }
-        // ========================================================================
-        finallyPrice =                          currentPrice - discountAmount;
-        // ========================================================================
-        finallyPriceWithVAT =                   getDouble(finallyPrice * vatValue);
-        // ========================================================================
-        total =                                 getDouble(finallyPrice * quantity);
-        // ========================================================================
-        totalWithVAT =                          getDouble(total * vatValue);
-        // ========================================================================
-        vatAmount =                             getDouble(totalWithVAT - total);
-        // ========================================================================
-
-        return new CartProduct(
-                pnt,
-                fullName,
-                shortName,
                 VAT,
                 vatValue,
-                vatAmount,
                 quantity,
                 currentPrice,
                 currentPriceWithVAT,
-                discountAmount,
                 discountedPrice,
                 discountedPriceWithVAT,
-                finallyPrice,
-                finallyPriceWithVAT,
+                discountAmount,
+                finalPrice,
+                finalPriceWithVAT,
                 total,
-                totalWithVAT
-        );*/
+                totalWithVAT,
+                totalDiscount,
+                totalVAT,
+                availableProduct.getPrices()
+        );
     }
-
-
 
     private Double getDouble(Double value) {
         return new BigDecimal(value)

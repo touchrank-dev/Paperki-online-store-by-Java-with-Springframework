@@ -66,8 +66,6 @@ public class MainController {
         return "index";
     }
 
-    // ================================================================================================================
-
     @ModelAttribute("mainmenu")
     public ArrayList getMainMenu () {
         return menuBean.getAll("root");

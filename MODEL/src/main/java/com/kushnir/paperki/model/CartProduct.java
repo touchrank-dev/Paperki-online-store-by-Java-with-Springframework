@@ -9,35 +9,62 @@ public class CartProduct {
     private String link;
     private int VAT;                            // значение налога
     private double vatValue;                    // коэффициент налога
-
     private int quantity;                       // количество в корзине
-
     private double currentPrice;                // обычная цена
     private double currentPriceWithVAT;         // обычная цена с налогом
-
     private double discountedPrice;             // цена со скидкой
     private double discountedPriceWithVAT;      // цена со скидкой и налогом
     private double discountAmount;              // размер скидки от цены TODO учет налога в размере скидки?
-
     private double finalPrice;                  // окончательная цена со скидкой
     private double finalPriceWithVAT;           // окончательная цена со скидкой и налогом
-
     private double total;                       // сумма
     private double totalWithVAT;                // сумма с налогом
-
-    private double totalWithDiscount;           // сумма с учетом скидки
-    private double totalWithDiscountWithVAT;    // сумма с учетом скидки и налога
     private double totalDiscount;               // сумма скидки TODO учет налога в сумме скидки?
-
-    private double finalTotal;                  // окончательная сумма
-    private double finalTotalWithVAT;           // окончательная сумма с учетом налога
-
     private double totalVAT;                    // сумма налогов
 
     private HashMap<Integer, Price> prices = new HashMap<>();
 
     public CartProduct() {}
 
+    public CartProduct(int pnt,
+                       String fullName,
+                       String shortName,
+                       String link,
+                       int VAT,
+                       double vatValue,
+                       int quantity,
+                       double currentPrice,
+                       double currentPriceWithVAT,
+                       double discountedPrice,
+                       double discountedPriceWithVAT,
+                       double discountAmount,
+                       double finalPrice,
+                       double finalPriceWithVAT,
+                       double total,
+                       double totalWithVAT,
+                       double totalDiscount,
+                       double totalVAT,
+                       HashMap<Integer, Price> prices) {
+        this.pnt = pnt;
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.link = link;
+        this.VAT = VAT;
+        this.vatValue = vatValue;
+        this.quantity = quantity;
+        this.currentPrice = currentPrice;
+        this.currentPriceWithVAT = currentPriceWithVAT;
+        this.discountedPrice = discountedPrice;
+        this.discountedPriceWithVAT = discountedPriceWithVAT;
+        this.discountAmount = discountAmount;
+        this.finalPrice = finalPrice;
+        this.finalPriceWithVAT = finalPriceWithVAT;
+        this.total = total;
+        this.totalWithVAT = totalWithVAT;
+        this.totalDiscount = totalDiscount;
+        this.totalVAT = totalVAT;
+        this.prices = prices;
+    }
 
     public int getPnt() {
         return pnt;
@@ -167,44 +194,12 @@ public class CartProduct {
         this.totalWithVAT = totalWithVAT;
     }
 
-    public double getTotalWithDiscount() {
-        return totalWithDiscount;
-    }
-
-    public void setTotalWithDiscount(double totalWithDiscount) {
-        this.totalWithDiscount = totalWithDiscount;
-    }
-
-    public double getTotalWithDiscountWithVAT() {
-        return totalWithDiscountWithVAT;
-    }
-
-    public void setTotalWithDiscountWithVAT(double totalWithDiscountWithVAT) {
-        this.totalWithDiscountWithVAT = totalWithDiscountWithVAT;
-    }
-
     public double getTotalDiscount() {
         return totalDiscount;
     }
 
     public void setTotalDiscount(double totalDiscount) {
         this.totalDiscount = totalDiscount;
-    }
-
-    public double getFinalTotal() {
-        return finalTotal;
-    }
-
-    public void setFinalTotal(double finalTotal) {
-        this.finalTotal = finalTotal;
-    }
-
-    public double getFinalTotalWithVAT() {
-        return finalTotalWithVAT;
-    }
-
-    public void setFinalTotalWithVAT(double finalTotalWithVAT) {
-        this.finalTotalWithVAT = finalTotalWithVAT;
     }
 
     public double getTotalVAT() {
@@ -243,11 +238,6 @@ public class CartProduct {
         if (Double.compare(that.finalPriceWithVAT, finalPriceWithVAT) != 0) return false;
         if (Double.compare(that.total, total) != 0) return false;
         if (Double.compare(that.totalWithVAT, totalWithVAT) != 0) return false;
-        if (Double.compare(that.totalWithDiscount, totalWithDiscount) != 0) return false;
-        if (Double.compare(that.totalWithDiscountWithVAT, totalWithDiscountWithVAT) != 0) return false;
-        if (Double.compare(that.totalDiscount, totalDiscount) != 0) return false;
-        if (Double.compare(that.finalTotal, finalTotal) != 0) return false;
-        if (Double.compare(that.finalTotalWithVAT, finalTotalWithVAT) != 0) return false;
         if (Double.compare(that.totalVAT, totalVAT) != 0) return false;
         if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
         if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) return false;
@@ -285,15 +275,7 @@ public class CartProduct {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(totalWithVAT);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(totalWithDiscount);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(totalWithDiscountWithVAT);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(totalDiscount);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(finalTotal);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(finalTotalWithVAT);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(totalVAT);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -320,11 +302,7 @@ public class CartProduct {
                 ", finalPriceWithVAT=" + finalPriceWithVAT +
                 ", total=" + total +
                 ", totalWithVAT=" + totalWithVAT +
-                ", totalWithDiscount=" + totalWithDiscount +
-                ", totalWithDiscountWithVAT=" + totalWithDiscountWithVAT +
                 ", totalDiscount=" + totalDiscount +
-                ", finalTotal=" + finalTotal +
-                ", finalTotalWithVAT=" + finalTotalWithVAT +
                 ", totalVAT=" + totalVAT +
                 ", prices=" + prices +
                 '}';

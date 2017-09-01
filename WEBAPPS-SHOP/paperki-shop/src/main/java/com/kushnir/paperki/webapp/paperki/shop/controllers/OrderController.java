@@ -1,13 +1,12 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
-import com.kushnir.paperki.model.Enterprise;
-import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
-import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.service.exceptions.ServiceException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -16,43 +15,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping("/profile")
-public class UserController {
+@RequestMapping("/order")
+public class OrderController {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
-    private static final String PROFILE_MENU_NAME = "profile";
-
-    @Autowired
-    CatalogBean categoryBean;
+    private static final Logger LOGGER = LogManager.getLogger(OrderController.class);
 
     @Autowired
     MenuBean menuBean;
+
+    @Autowired
+    CatalogBean catalogBean;
 
     @Value("${content.path}")
     String contentPath;
 
     @GetMapping
-    public String personalUserPage(Model model) {
-        LOGGER.debug("personalUserPage() >>>");
-        model.addAttribute("templatePathName", contentPath + PROFILE_MENU_NAME);
-        model.addAttribute("fragmentName", PROFILE_MENU_NAME);
+    public String orderPage(Model model) {
+        LOGGER.debug("orderPage() >>>");
+        model.addAttribute("templatePathName", contentPath + "order");
+        model.addAttribute("fragmentName", "order");
         return "index";
-    }
-
-    @ModelAttribute
-    public Enterprise getEnterprise(HttpSession httpSession) {
-        LOGGER.debug("getEnterprise() >>>");
-        User user = (User)httpSession.getAttribute("user");
-        Enterprise enterprise = null;
-        if(user.getId() != null) {
-
-        }
-        return enterprise;
     }
 
     @ModelAttribute("mainmenu")
@@ -62,7 +48,7 @@ public class UserController {
 
     @ModelAttribute("mapcategories")
     public HashMap getCatalog () throws ServiceException {
-        return categoryBean.getAll();
+        return catalogBean.getAll();
     }
 
 }

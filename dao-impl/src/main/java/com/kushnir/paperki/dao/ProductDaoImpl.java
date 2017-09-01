@@ -158,7 +158,6 @@ public class ProductDaoImpl implements ProductDao {
             while (rs.next()) {
                 int idProduct =             rs.getInt("id_product");
                 int quantityStart =         rs.getInt("quantity_start");
-
                 Price price =               null;
                 Discount discount =         null;
                 String discountType =       rs.getString("dtype");
