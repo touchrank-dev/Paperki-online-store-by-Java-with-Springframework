@@ -1,9 +1,15 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import com.kushnir.paperki.model.*;
+import com.kushnir.paperki.model.callback.Callback;
+import com.kushnir.paperki.model.callback.CallbackErrorResponse;
+import com.kushnir.paperki.model.subscribe.SubscribeRequest;
+import com.kushnir.paperki.service.CallBackService;
 import com.kushnir.paperki.service.CartBean;
+import com.kushnir.paperki.service.SubscribeService;
 import com.kushnir.paperki.service.UserService;
 import com.kushnir.paperki.service.exceptions.NotEnoughQuantityAvailableException;
+import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
 
 import org.apache.logging.log4j.LogManager;
@@ -26,6 +32,12 @@ public class RESTcontroller {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    SubscribeService subscribeService;
+
+    @Autowired
+    CallBackService callBackService;
 
     @Autowired
     CartBean cartBean;
@@ -159,4 +171,34 @@ public class RESTcontroller {
             return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
         }
     }
+
+    @PostMapping("/subscribe")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage subscribe (@RequestBody SubscribeRequest subscribeRequest) throws ServiceException {
+        LOGGER.debug("REST EMAIL SUBSCRIBE >>>\nREQUEST EMAIL: {}", subscribeRequest.getEmail());
+        try {
+            subscribeService.subscribe(subscribeRequest.getEmail(), 1);
+            return new RestMessage(HttpStatus.OK, "EMAIL SUCCESSFULLY SUBSCRIBED", subscribeRequest.getEmail());
+        } catch (Exception e) {
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+        }
+    }
+
+    @PostMapping("/callback")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage callback (@RequestBody Callback callback) {
+        LOGGER.debug("REST CALLBACK REQUEST >>>\nCALLBACK REQUEST: {}", callback);
+        try {
+            Object obj = callBackService.addCallBack(callback);
+            if(obj instanceof CallbackErrorResponse) {
+                return new RestMessage(HttpStatus.BAD_REQUEST, "CALLBACK ERROR",
+                        (CallbackErrorResponse)obj);
+            } else {
+                return new RestMessage(HttpStatus.OK, "CALLBACK SUCCESSFULLY PLACED", (Integer)obj);
+            }
+        } catch (Exception e) {
+            return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+        }
+    }
+
 }

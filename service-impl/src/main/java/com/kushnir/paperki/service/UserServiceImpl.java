@@ -41,6 +41,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    SubscribeService subscribeService;
+
     @Override
     @Transactional
     public Object getUserByLoginPassword(LoginData loginData) {
@@ -113,9 +116,15 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             errorRegistrateForm.setName(e.getMessage());
         }
-
-        // Assert.notNull(form.getPhone(), "Пожалуйста, укажите номер Вашего телефона");
-        // TODO проверка телефона
+        // подписка на рассылку
+        if(form.getSubscribe()) {
+            try{
+                subscribeService.subscribe(form.getEmail(), 1);
+            } catch (Exception e) {
+                LOGGER.error("Не удалось подписать регистрируемого пользователя {} на рассылку." +
+                        "\nERROR MESSAGE: {}",form.getEmail() ,e.getMessage());
+            }
+        }
 
         if(form.getAutopass()) {
             //TODO !!!HARDCODE!!!

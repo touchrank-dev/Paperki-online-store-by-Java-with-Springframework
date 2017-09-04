@@ -229,7 +229,6 @@ public class UserDaoImpl implements UserDao {
         parameterSource.addValue(P_BILLING_ACCOUNT_BANK_CODE, billingAccount.getBankCode());
         parameterSource.addValue(P_BILLING_ACCOUNT_NUMBER, billingAccount.getAccountNumber());
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        // addBillingAccountByEnterpriseIdSqlQuery
         try {
             namedParameterJdbcTemplate.update(addBillingAccountByEnterpriseIdSqlQuery, parameterSource, keyHolder);
             LOGGER.debug("BILLING ACCOUNT SUCCESSFULLY ADDED!");

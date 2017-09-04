@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS enterprise_users;
 DROP TABLE IF EXISTS stock;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS stock;
+DROP TABLE IF EXISTS subscribes;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
@@ -151,11 +152,11 @@ CREATE TABLE prices_types (
 CREATE TABLE product_prices (
     id_price                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_price_type               INT             DEFAULT 1 NOT NULL,
-    id_product					        INT				      NOT NULL,
+    id_product					INT				NOT NULL,
     quantity_start              INT             DEFAULT 1 NOT NULL,
     value                       DOUBLE          NOT NULL,
     FOREIGN KEY (id_price_type)                 REFERENCES prices_types(id_price_type),
-    FOREIGN KEY (id_product)                 	  REFERENCES products(id_product),
+    FOREIGN KEY (id_product)                 	REFERENCES products(id_product),
     UNIQUE KEY `p_qs` (id_product, quantity_start)
 );
 
@@ -262,7 +263,7 @@ CREATE TABLE feedbacks (
 
 CREATE TABLE orders (
     id_order                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    token_order                 INT             NOT NULL UNIQUE,
+    token_order                 VARCHAR(100)    NOT NULL UNIQUE,
     order_number                INT             NOT NULL UNIQUE,
     pap_order_number            INT             NOT NULL UNIQUE,
     id_user                     INT             NOT NULL,
@@ -298,4 +299,29 @@ CREATE TABLE stock (
     quantity_available          INT             DEFAULT 0 NOT NULL,
     FOREIGN KEY (id_stock_place)                REFERENCES stock_place(id_stock_place),
     UNIQUE KEY `s_p` (id_stock_place, id_product)
+);
+
+DROP TABLE IF EXISTS mail_lists;
+CREATE TABLE mail_lists (
+    id_mail_list                INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name                        VARCHAR(100)    NOT NULL
+);
+
+CREATE TABLE subscribes (
+    id_subscribe                INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_mail_list                INT             NOT NULL,
+    email                       VARCHAR(100)    NOT NULL,
+    FOREIGN KEY (id_mail_list)                  REFERENCES mail_lists(id_mail_list),
+    UNIQUE KEY `e_l` (id_mail_list, email)
+);
+
+DROP TABLE IF EXISTS callbacks;
+CREATE TABLE callbacks (
+    id_callback                 INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name                        VARCHAR(100)    NOT NULL,
+    phone                       VARCHAR(30)     NOT NULL,
+    comment                     VARCHAR(2000),
+    responded                   TINYINT         DEFAULT 0,
+    create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
+    responded_date              DATETIME        ON UPDATE CURRENT_TIMESTAMP
 );

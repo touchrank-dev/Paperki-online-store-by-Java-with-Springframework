@@ -3,10 +3,10 @@ SET NAMES utf8;
 INSERT INTO catalog (name, translit_name, link, icon, order_catalog)
 VALUES  ('Бумага и бумажная продукция', 'bumaga-i-bymazhnaz produkcia', '/catalog/bumaga-i-bymazhnaz produkcia', 'hm1.png', 1),
         ('Канцелярские товары', 'kanceliarskie-tovary', '/catalog/kanceliarskie-tovary', 'hm2.png', 2),
-        ('Пишущие и рисовальные принадлежности', 'pishushie-i-risovalnye-prinadlezhnosti', '/catalog/pishushie-i-risovalnye-prinadlezhnosti', 'hm3.png', 3),
+/*        ('Пишущие и рисовальные принадлежности', 'pishushie-i-risovalnye-prinadlezhnosti', '/catalog/pishushie-i-risovalnye-prinadlezhnosti', 'hm3.png', 3),
         ('Файлы, папки, портфели', 'fajly-papki-portfeli', '/catalog/fajly-papki-portfeli', 'hm4.png', 2),
         ('Подставки, лотки, настольные наборы', 'podstavki-lotki-nastolnye-nabory', '/catalog/podstavki-lotki-nastolnye-nabory', 'hm5.png', 1),
-        ('Демонстрационное оборудование', 'demonstracionnoe-oborudovanie', '/catalog/demonstracionnoe-oborudovanie', 'hm6.png', 2),
+        ('Демонстрационное оборудование', 'demonstracionnoe-oborudovanie', '/catalog/demonstracionnoe-oborudovanie', 'hm6.png', 2),*/
         ('Бумага офисная белая', 'bumaga-ofisnaja-belaja', '/catalog/bumaga-ofisnaja-belaja', 'hcm1.png', 1),
         ('Бумага офисная цветная', 'bumaga-ofisnaja-cvetnaja', '/catalog/bumaga-ofisnaja-cvetnaja', 'hcm2.png', 2),
         ('Бумага писчая, газетная', 'bumaga-pischaja-gazetnaja', '/catalog/bumaga-pischaja-gazetnaja', 'hcm3.png', 3),
@@ -16,9 +16,9 @@ VALUES  ('Бумага и бумажная продукция', 'bumaga-i-bymazh
         ('Дыроколы', 'dyrokoly', '/catalog/dyrokoly', 'hcm4.png', 4);
 
 INSERT INTO catalog_ref (id_catalog, parent_id_catalog)
-VALUES  (1, 0),(2, 0),(3, 0),(4, 0),(5, 0),(6, 0),
-        (7, 1),(8, 1),(9, 1),(10, 1),
-        (11, 2),(12, 2),(13, 2);
+VALUES  (1, 0),(2, 0),/*(3, 0),(4, 0),(5, 0),(6, 0),*/
+        (3, 1),(4, 1),(5, 1),(6, 1),
+        (7, 2),(8, 2),(9, 2);
 
 INSERT INTO menu (name, translit_name)
 VALUES  ('Главное', 'root'),
@@ -89,9 +89,9 @@ INSERT INTO discounts (id_discount_type, id_product, value_double, value_int)
 VALUES (1, 1, 3.3, 0);
 
 INSERT INTO product_catalog (id_product, id_catalog, order_product)
-VALUES (1, 7, 1),(2, 7, 2),
-       (3, 7, 3),(4, 7, 4),
-       (5, 8, 1);
+VALUES (1, 3, 1),(2, 3, 2),
+       (3, 3, 3),(4, 3, 4),
+       (5, 4, 1);
 
 INSERT INTO stock_place (name, address, phone, email, description, order_places)
 VALUES ('ООО "Паперки"', 'г. Брест, ул. Янки Купалы, 88 В', '8-0162 54-33-54, 8-0162 54-99-54', 'paperki@paperki.by', 'Пн-Пт с 8.30 до 17.00', 1),
@@ -99,3 +99,6 @@ VALUES ('ООО "Паперки"', 'г. Брест, ул. Янки Купалы,
 
 INSERT INTO stock (id_product, quantity_available)
 VALUES (1, 3086),(2, 54),(3, 1054),(4, 234),(5, 45);
+
+INSERT INTO mail_lists(name)
+VALUES ('Новостная рассылка');

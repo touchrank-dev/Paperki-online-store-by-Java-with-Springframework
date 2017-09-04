@@ -29,5 +29,7 @@
     <bean id="menuDao" class="com.kushnir.paperki.dao.MenuDaoImpl"/>
     <bean id="userDao" class="com.kushnir.paperki.dao.UserDaoImpl" />
     <bean id="productDao" class="com.kushnir.paperki.dao.ProductDaoImpl" />
+    <bean id="subscribeDao" class="com.kushnir.paperki.dao.SubscribeDaoImpl" />
+    <bean id="callbackDao" class="com.kushnir.paperki.dao.CallBackDaoImpl" />
 
 </beans>

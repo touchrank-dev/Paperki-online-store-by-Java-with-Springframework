@@ -5,7 +5,7 @@ $( document ).ready(function() {
 function addToCart(pnt) {
     quantity = $('#'+pnt).val();
     $.ajax({
-        cashe: false,
+        cache: false,
         async: false,
         type: "POST",
         contentType: "application/json",
@@ -13,7 +13,14 @@ function addToCart(pnt) {
         url: "/api/addtocart",
         data: addItemToJson(pnt, quantity),
         success: function(response) {
-            console.log(response);
+            if(response.code == "OK") {
+                alert("Товар под кодом("+pnt+") успено добавлен в корзину!");
+            } else if (response.code == "NOT_FOUND") {
+                alert("На складе недостаточное количество товара");
+            } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                serverAlert();
+                console.log(response.message);
+            }
         },
         error: function() {
             serverAlert();
@@ -23,7 +30,7 @@ function addToCart(pnt) {
 
 function deleteFromCart(pnt) {
     $.ajax({
-        cashe: false,
+        cache: false,
         async: true,
         type: "POST",
         contentType: "application/json",
@@ -31,7 +38,12 @@ function deleteFromCart(pnt) {
         url: "/api/deletefromcart",
         data: JSON.stringify({"pnt":pnt}),
         success: function(response) {
-            console.log(response);
+            if(response.code == "OK") {
+                alert("Товар под кодом("+pnt+") успено удален из корзины!");
+            } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                alert("Не удалось удалить из корзины товар под кодом("+pnt+")");
+                console.log(response.message);
+            }
         },
         error: function() {
             serverAlert();
@@ -41,7 +53,7 @@ function deleteFromCart(pnt) {
 
 function register() {
     $.ajax({
-        cashe: false,
+        cache: false,
         async: false,
         type: "POST",
         contentType: "application/json",
@@ -68,7 +80,7 @@ function register() {
 
 function logout() {
     $.ajax({
-        cashe: false,
+        cache: false,
         async: false,
         type: "POST",
         contentType: "application/json",
@@ -93,7 +105,7 @@ function logout() {
 
 function login() {
     $.ajax({
-        cashe: false,
+        cache: false,
         async: false,
         type: "POST",
         contentType: "application/json",
@@ -102,6 +114,7 @@ function login() {
         data: authFormToJSON(),
         success: function(response){
             if(response.code == "FOUND") {
+                alert(response.message);
                 location.reload();
             }else if(response.code == "NOT_FOUND") {
                 mapErrorLoginForm(response.object);
@@ -113,6 +126,70 @@ function login() {
         error: function () {
             serverAlert();
         }
+    });
+}
+
+function subscribe() {
+    $.ajax({
+         cache: false,
+         async: false,
+         type: "POST",
+         contentType: "application/json",
+         dataType: "json",
+         url: "/api/subscribe",
+         data: subscribeToJSON(),
+         success: function(response){
+             if(response.code == "OK") {
+                 alert("Вы успешно подписаны на рассылку");
+             }else if(response.code == "INTERNAL_SERVER_ERROR") {
+                 console.log(response);
+                 mapErrorSubscribe(response.object);
+             }
+         },
+         error: function () {
+             serverAlert();
+         }
+    });
+}
+
+function callback() {
+    $.ajax({
+         cache: false,
+         async: false,
+         type: "POST",
+         contentType: "application/json",
+         dataType: "json",
+         url: "/api/callback",
+         data: callBackToJSON(),
+         success: function(response){
+             if(response.code == "OK") {
+                 alert("Запрос на обратный звонок успешно оставлен,\nИДЕНТИФИКАТОР ЗАПРОСА: "+response.object);
+             } else if(response.code == "BAD_REQUEST") {
+                 console.log(response);
+                 mapErrorCallBackForm(response.object);
+             } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                 console.log(response);
+                 serverAlert();
+             }
+         },
+         error: function () {
+             serverAlert();
+         }
+    });
+}
+
+function callBackToJSON () {
+    return JSON.stringify({
+         "name": $('#name-subscribe').val(),
+         "phone": $('#email-subscribe').val(),
+         "comment":
+    });
+}
+
+function subscribeToJSON() {
+    return JSON.stringify({
+         "name": $('#name-subscribe').val(),
+         "email": $('#email-subscribe').val()
     });
 }
 
@@ -303,6 +380,15 @@ function mapErrorLoginForm(form) {
         $("#enter-input-password-title").tooltip("hide");
     }
 }
+
+function mapErrorSubscribe(object){
+    alert("Возникла ошибка при попытке подписки на рассылку: "+object);
+}
+
+function mapErrorCallBackForm(object) {
+    alert("Возникла ошибка при попытке оставить запрос на обратный звонок: "+object);
+}
+
 
 
 function serverAlert() {
