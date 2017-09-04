@@ -6,6 +6,7 @@ public class ErrorRegistrateForm {
     private String email;
     private String subscribe;
     private String password;
+    private String confirmPassword;
     private String autopass;
     private String phone;
     private String birthDate;
@@ -107,6 +108,15 @@ public class ErrorRegistrateForm {
 
     public void setPassword(String password) {
         this.password = password;
+        this.isErrors = true;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
         this.isErrors = true;
     }
 

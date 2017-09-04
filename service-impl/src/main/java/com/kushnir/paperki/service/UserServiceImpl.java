@@ -3,6 +3,7 @@ package com.kushnir.paperki.service;
 import com.kushnir.paperki.dao.UserDao;
 import com.kushnir.paperki.model.*;
 
+import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -91,7 +92,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Object registrateUser(RegistrateForm form) {
+    public Object registrateUser(RegistrateForm form) throws ServiceException {
         LOGGER.debug("NEW USER REGISTRATION >>>");
         ErrorRegistrateForm errorRegistrateForm = new ErrorRegistrateForm();
         try {
@@ -185,7 +186,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public Integer addEnterpriseByUser (RegistrateForm form, Integer userId) {
+    public Integer addEnterpriseByUser (RegistrateForm form, Integer userId) throws ServiceException {
         Enterprise enterprise = new Enterprise(
                 userId,
                 form.getUNP(),
@@ -193,6 +194,9 @@ public class UserServiceImpl implements UserService {
                 form.getBillingAddress()
         );
         Integer newEnterpriseId = userDao.addEnterprise(enterprise);
+
+        if(newEnterpriseId < 1) throw new ServiceException("Не удалось создать организацию для пользователя");
+
         if (form.getBankName() != null && form.getAccountNumber() != null && form.getBankCode() != null) {
             BillingAccount billingAccount = new BillingAccount(
                     newEnterpriseId,
@@ -200,7 +204,8 @@ public class UserServiceImpl implements UserService {
                     form.getBankName(),
                     form.getBankCode()
             );
-            userDao.addBillingAccount(billingAccount);
+            int billId = userDao.addBillingAccount(billingAccount);
+            if(billId < 1) throw new ServiceException("Не удалось создать расчетный счет для организации");
         }
         return newEnterpriseId;
     }
