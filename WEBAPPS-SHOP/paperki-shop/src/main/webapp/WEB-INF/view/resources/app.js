@@ -14,12 +14,15 @@ function addToCart(pnt) {
         data: addItemToJson(pnt, quantity),
         success: function(response) {
             if(response.code == "OK") {
+                console.log(response);
+                mapCart(response.object);
                 alert("Товар под кодом("+pnt+") успено добавлен в корзину!");
             } else if (response.code == "NOT_FOUND") {
+                console.log(response);
                 alert("На складе недостаточное количество товара");
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
-                serverAlert();
                 console.log(response.message);
+                serverAlert();
             }
         },
         error: function() {
@@ -39,6 +42,8 @@ function deleteFromCart(pnt) {
         data: JSON.stringify({"pnt":pnt}),
         success: function(response) {
             if(response.code == "OK") {
+                console.log(response);
+                mapCart(response.object);
                 alert("Товар под кодом("+pnt+") успено удален из корзины!");
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
                 alert("Не удалось удалить из корзины товар под кодом("+pnt+")");
@@ -141,9 +146,12 @@ function subscribe() {
          success: function(response){
              if(response.code == "OK") {
                  alert("Вы успешно подписаны на рассылку");
+             } else if(response.code == "BAD_REQUEST") {
+                console.log(response);
+                mapErrorSubscribe(response.object);
              }else if(response.code == "INTERNAL_SERVER_ERROR") {
-                 console.log(response);
-                 mapErrorSubscribe(response.object);
+                console.log(response);
+                serverAlert();
              }
          },
          error: function () {
@@ -164,8 +172,8 @@ function callback() {
          success: function(response){
              if(response.code == "OK") {
                  alert("Запрос на обратный звонок успешно оставлен,\nИДЕНТИФИКАТОР ЗАПРОСА: "+response.object);
+                 mapErrorCallBackForm(response.object);
              } else if(response.code == "BAD_REQUEST") {
-                 console.log(response);
                  mapErrorCallBackForm(response.object);
              } else if(response.code == "INTERNAL_SERVER_ERROR") {
                  console.log(response);
@@ -180,9 +188,9 @@ function callback() {
 
 function callBackToJSON () {
     return JSON.stringify({
-         "name": $('#name-subscribe').val(),
-         "phone": $('#email-subscribe').val(),
-         "comment":
+         "name": $('#callback-input-name').val(),
+         "phone": $('#callback-input-phone').val(),
+         "comment": $('#callback-textarea').val()
     });
 }
 
@@ -382,11 +390,46 @@ function mapErrorLoginForm(form) {
 }
 
 function mapErrorSubscribe(object){
-    alert("Возникла ошибка при попытке подписки на рассылку: "+object);
+    if(object.name != null) {
+        $('#name-subscribe').attr("title", object.name)
+                            .tooltip('fixTitle')
+                            .tooltip("show");
+    } else {
+        $('#name-subscribe').tooltip("hide");
+    }
+    if(object.email != null) {
+        $('#email-subscribe').attr("title", object.email)
+                             .tooltip('fixTitle')
+                             .tooltip("show");
+    } else {
+        $('#email-subscribe').tooltip("hide");
+    }
+
 }
 
 function mapErrorCallBackForm(object) {
-    alert("Возникла ошибка при попытке оставить запрос на обратный звонок: "+object);
+    if(object.name != null) {
+        $('#callback-input-name').addClass("input_error");
+        $('#callback-label-name').addClass('label_error');
+        $('#callback-label-name').attr("title", object.name)
+                                 .tooltip('fixTitle')
+                                 .tooltip("show");
+    } else {
+        $('#callback-input-name').removeClass("input_error");
+        $('#callback-label-name').removeClass('label_error');
+        $('#callback-label-name').tooltip("hide");
+    }
+    if(object.phone != null) {
+        $('#callback-input-phone').addClass("input_error");
+        $('#callback-label-phone').addClass('label_error');
+        $('#callback-label-phone').attr("title", object.phone)
+                                  .tooltip('fixTitle')
+                                  .tooltip("show");
+    } else {
+        $('#callback-input-phone').removeClass("input_error");
+        $('#callback-label-phone').removeClass('label_error');
+        $('#callback-label-phone').tooltip("hide");
+    }
 }
 
 
@@ -421,4 +464,46 @@ function updateUser() {
 
 function activatePromo() {
     alert('Функциональность временно недоступна');
+}
+
+
+
+
+
+
+
+
+
+function mapCart(cart) {
+    $('#cart-total-with-vat').html('');
+    if(cart.finalTotalWithVAT > 0.0) {
+        $('#cart-total-with-vat').html('<span class="total-sum">'+cart.finalTotalWithVAT+'</span> руб</p>');
+/*        $('#summa-c').text('Сумма: '+cart.finalTotalWithVAT+ ' руб');
+*/    }
+    printCartItems(cart.items);
+}
+
+function printCartItems(products) {
+    $('#cart-cont').html('');
+    if(products != null) {
+        $.each( products, function( pnt, product ) {
+            $('#cart-cont').append(
+                '<li style="left: 0px;">'+
+                    '<div class="drop-pr">'+
+                        '<span class="  drop-pr" aria-hidden="true">✖</span>'+
+                    '</div>'+
+                    '<div class="img-cart">'+
+                        '<img src="/res/img/products/'+product.pnt+'.jpg" alt="'+product.fullName+'" style="max-width: 110px;">'+
+                    '</div>'+
+                    '<div class="desc-cart">'+
+                        '<a href="/catalog/null" class="name-pr-cart">'+product.fullName+'</a>'+
+                        '<ul class="char-cart">'+
+                            '<li>'+product.shortName+'</li>'+
+                        '</ul>'+
+                        '<p class="price-in-cart">'+product.finalPriceWithVAT+' руб X '+product.quantity+' ед.</p>'+
+                    '</div>'+
+                '</li>'
+            );
+        });
+    }
 }

@@ -6,6 +6,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/env")
 public class EnvController {
@@ -16,6 +18,14 @@ public class EnvController {
     public String envPage() {
         LOGGER.debug("envPage() >>>");
         return "env";
+    }
+
+    @ModelAttribute("token")
+    public String getMainMenu () {
+        String token = UUID.randomUUID().toString() + ":" + System.currentTimeMillis();
+        String[] t = token.split(":");
+        String token_time = t[1];
+        return token;
     }
 
 }

@@ -4,6 +4,10 @@ public class SubscribeErrorResponse {
     private String name;
     private String email;
 
+    private Boolean isErrors = false;
+
+    public Boolean isErrors(){return this.isErrors;}
+
     public SubscribeErrorResponse() {
     }
 
@@ -18,6 +22,7 @@ public class SubscribeErrorResponse {
 
     public void setName(String name) {
         this.name = name;
+        this.isErrors = true;
     }
 
     public String getEmail() {
@@ -26,6 +31,7 @@ public class SubscribeErrorResponse {
 
     public void setEmail(String email) {
         this.email = email;
+        this.isErrors = true;
     }
 
     @Override

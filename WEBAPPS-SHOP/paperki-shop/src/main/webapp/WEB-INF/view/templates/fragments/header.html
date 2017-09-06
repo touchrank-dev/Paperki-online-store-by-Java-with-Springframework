@@ -78,13 +78,13 @@
                                                             <span class="input input--ichiro callback-form-field">
                                                                 <input class="input__field input__field--ichiro" type="text" name="your-name" id="callback-input-name" />
                                                                 <label class="input__label input__label--ichiro" for="callback-input-name">
-                                                                    <span class="input__label-content input__label-content--ichiro">Ваше Имя*</span>
-                                                            </label>
+                                                                    <span class="input__label-content input__label-content--ichiro" id="callback-label-name">Ваше Имя*</span>
+                                                                </label>
                                                             </span>
                                                             <span class="input input--ichiro callback-form-field">
                                                                 <input class="input__field input__field--ichiro phone" type="text" name="your-phone" id="callback-input-phone" />
                                                                 <label class="input__label input__label--ichiro" for="callback-input-phone">
-                                                                    <span class="input__label-content input__label-content--ichiro">Контактный номер телефона*</span>
+                                                                    <span class="input__label-content input__label-content--ichiro" id="callback-label-phone">Контактный номер телефона*</span>
                                                                 </label>
                                                             </span>
                                                             <span class="input input--ichiro callback-form-field message-field">
@@ -93,7 +93,7 @@
                                                                         <span class="input__label-content input__label-content--ichiro">Ваш комментарий к заявке</span>
                                                                     </label>
                                                                 </span>
-                                                            <button class="btn c-button btn-sign" type="subscribe">
+                                                            <button class="btn c-button btn-sign" type="subscribe" onclick="callback()">
                                                                 <div class="c-ripple js-ripple">
                                                                     <span class="c-ripple__circle"></span>
                                                                 </div>
@@ -127,7 +127,7 @@
                                             </div>
 
                                             <div class="dropdown-cart__current-products">
-                                                <p>
+                                                <p id="cart-total-with-vat">
                                                     <span class="total-sum"
                                                         th:if="${cart.totalWithVAT} > 0.0"
                                                         th:text="${cart?.totalWithVAT}">0.00</span>
@@ -142,7 +142,7 @@
                                                 <img class="closeCart" src="/res/img/catalog-close-icon.png" alt="close">
                                                 <div class="clearfix"></div>
                                             </div>
-                                            <div class="cart-cont">
+                                            <div class="cart-cont" id="cart-cont">
                                                 <li th:if="${cart?.items.size()} > 0"
                                                     th:each="item : ${cart.items}">
                                                     <div class="drop-pr">
@@ -150,8 +150,8 @@
                                                     </div>
                                                     <div class="img-cart">
                                                         <img src="/res/img/product1.png" alt=""
-                                                            style="max-width: 130px;" 
-                                                             th:attr="src=@{${pip}+${item.value.pnt}+${imgPref}},alt=${item.value.fullName}">
+                                                            style="max-width: 110px;" 
+                                                            th:attr="src=@{${pip}+${item.value.pnt}+${imgPref}},alt=${item.value.fullName}">
                                                     </div>
                                                     <div class="desc-cart">
                                                         <a href="#" class="name-pr-cart"
@@ -161,27 +161,26 @@
                                                             <li th:text="${item.value.shortName}">Короткое имя</li>
                                                         </ul>
                                                         <p class="price-in-cart"
-                                                           th:text="${item.value.discountedPriceWithVAT}+ ' руб'">0,00 руб x 4</p>
+                                                           th:text="${item.value.finalPriceWithVAT}+ ' руб x '+${item.value.quantity}">0,00 руб x 4</p>
                                                     </div>
                                                 </li>
-
                                             </div>
                                             <div class="down-cart">
                                                 <div class="row">
                                                     <div class="col-md-5 col-sm-5">
                                                         <ul class="all-pr">
-                                                            <li th:text="${cart?.items?.size()} + ' ед.'">0 товаров</li>
-                                                            <li class="summa-c"
+                                                            <li th:text="${cart?.items?.size()} + ' ед.'">0 ед.</li>
+                                                            <li class="summa-c" id="summa-c" 
                                                                 th:if="${cart.totalWithVAT} > 0.0"
                                                                 th:text="'Сумма: ' +${cart?.totalWithVAT} + ' руб' ">Сумма: 0.00 руб</li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-7 col-sm-7">
-                                                        <a href="#cart-popup" class="btn c-button btn-ea-c popup-close-cart">
+                                                        <a href="#" class="btn c-button btn-ea-c popup-close-cart" onclick="toOrderPage()">
                                                             <div class="c-ripple js-ripple">
                                                                 <span class="c-ripple__circle"></span>
                                                             </div>
-                                                            Просмотреть корзину
+                                                            ОФОРМТЬ ЗАКАЗ
                                                         </a>
                                                     </div>
                                                 </div>

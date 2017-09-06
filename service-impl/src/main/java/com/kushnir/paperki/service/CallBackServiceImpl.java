@@ -39,7 +39,7 @@ public class CallBackServiceImpl implements CallBackService {
         }
         // end validation
         if(callbackErrorResponse.isErrors()) {
-            LOGGER.error("ОШИБКА ЗАПРОСА ОБРАТНОГО ЗВОНКА", callbackErrorResponse);
+            LOGGER.error("ОШИБКА ЗАПРОСА ОБРАТНОГО ЗВОНКА: {}", callbackErrorResponse);
             return callbackErrorResponse;
         } else {
             try {

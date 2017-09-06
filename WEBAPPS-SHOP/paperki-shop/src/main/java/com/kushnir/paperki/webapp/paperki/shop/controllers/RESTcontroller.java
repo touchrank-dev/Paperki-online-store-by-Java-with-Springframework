@@ -3,6 +3,7 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers;
 import com.kushnir.paperki.model.*;
 import com.kushnir.paperki.model.callback.Callback;
 import com.kushnir.paperki.model.callback.CallbackErrorResponse;
+import com.kushnir.paperki.model.subscribe.SubscribeErrorResponse;
 import com.kushnir.paperki.model.subscribe.SubscribeRequest;
 import com.kushnir.paperki.service.CallBackService;
 import com.kushnir.paperki.service.CartBean;
@@ -177,8 +178,13 @@ public class RESTcontroller {
     public @ResponseBody RestMessage subscribe (@RequestBody SubscribeRequest subscribeRequest) throws ServiceException {
         LOGGER.debug("REST EMAIL SUBSCRIBE >>>\nREQUEST EMAIL: {}", subscribeRequest.getEmail());
         try {
-            subscribeService.subscribe(subscribeRequest.getEmail(), 1);
-            return new RestMessage(HttpStatus.OK, "EMAIL SUCCESSFULLY SUBSCRIBED", subscribeRequest.getEmail());
+            Object obj = subscribeService.subscribe(subscribeRequest.getEmail(), 1);
+            if(obj instanceof SubscribeErrorResponse) {
+                return new RestMessage(HttpStatus.BAD_REQUEST, "SUBSCRIBE ERROR",
+                        (SubscribeErrorResponse)obj);
+            } else {
+                return new RestMessage(HttpStatus.OK, "EMAIL SUCCESSFULLY SUBSCRIBED", (Integer)obj);
+            }
         } catch (Exception e) {
             return new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
         }
