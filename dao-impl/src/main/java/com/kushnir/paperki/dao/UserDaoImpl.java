@@ -234,7 +234,7 @@ public class UserDaoImpl implements UserDao {
             LOGGER.debug("BILLING ACCOUNT SUCCESSFULLY ADDED!");
             return keyHolder.getKey().intValue();
         } catch (Exception e) {
-            LOGGER.error("Не удалось добавить расчетный счет организации >>>\nERROR MESSAGE: {}", e.getMessage());
+            LOGGER.error("Не удалось добавить расчетный счет для организации >>>\nERROR MESSAGE: {}", e.getMessage());
             throw e;
         }
     }
