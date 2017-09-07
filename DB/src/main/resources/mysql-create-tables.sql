@@ -122,6 +122,7 @@ CREATE TABLE products (
     id_product                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pap_id                      INT             UNIQUE,
     pnt                         INT             NOT NULL UNIQUE,
+    personal_group              VARCHAR(100),    
     full_name                   VARCHAR(300)    CHARACTER SET utf8 NOT NULL,
     short_name                  VARCHAR(250)    CHARACTER SET utf8 NOT NULL,
     translit_name               VARCHAR(200)    CHARACTER SET utf8 NOT NULL UNIQUE,
