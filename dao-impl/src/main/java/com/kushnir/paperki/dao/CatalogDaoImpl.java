@@ -144,7 +144,6 @@ public class CatalogDaoImpl implements CatalogDao {
                     parentCategory.put(category.getId(), category);
                 }
             }
-            rs.close();
             return map;
         }
     }
