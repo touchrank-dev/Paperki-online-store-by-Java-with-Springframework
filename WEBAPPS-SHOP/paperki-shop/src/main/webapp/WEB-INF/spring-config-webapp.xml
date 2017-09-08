@@ -25,17 +25,15 @@
     </bean>
 
     <mvc:annotation-driven/>
-
-    <!-- SERVICE LAYER -->
-    <import resource="classpath*:spring-service.xml"/>
-
-    <context:component-scan base-package="com.kushnir.paperki.webapp.*"/>
-
     <!-- STATIC RESOURCES -->
     <mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />
     <!--<mvc:resources mapping="/res/**" location="file:/home/test.paperki.by/view/resources/" />-->
 
-    <!--file:/home/templates/test.paperki/resoutces/-->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.kushnir.paperki.webapp.*"/>
+
+    <!-- SERVICE LAYER -->
+    <import resource="classpath*:spring-service.xml"/>
 
     <bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
