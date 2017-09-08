@@ -19,7 +19,7 @@ public class Mailer {
     private MailSender mailSender;
 
     @Autowired
-    private SimpleMailMessage templateMessage;
+    private SimpleMailMessage simpleMailMessage;
 
     @Value("${mail.system.sender}")
     private String SYSTEM_EMAIL_ADDRESS;
@@ -37,48 +37,33 @@ public class Mailer {
     private String NOTIFICATION_SERVICE_EMAIL_ADDRESS;
 
     public void fromUserServiceEmail(String toEmail, String text, String theme) {
-        sendMail(toEmail, USER_SERVICE_EMAIL_ADDRESS, text, theme);
+        sendMail(new String[]{toEmail}, USER_SERVICE_EMAIL_ADDRESS, text, theme);
     }
 
     public void fromSystemEmail(String toEmail, String text, String theme) {
-        sendMail(toEmail, SYSTEM_EMAIL_ADDRESS, text, theme);
+        sendMail(new String[]{toEmail}, SYSTEM_EMAIL_ADDRESS, text, theme);
     }
 
     public void fromSupportEmail(String toEmail, String text, String theme) {
-        sendMail(toEmail, SUPPORT_SERVICE_EMAIL_ADDRES, text, theme);
+        sendMail(new String[]{toEmail}, SUPPORT_SERVICE_EMAIL_ADDRES, text, theme);
     }
 
     public void toSupportMail(String text, String theme) {
-        sendMail(new String[] {SUPPORT_SERVICE_EMAIL_ADDRES, DEVELOPER_EMAIL_ADDRESS}, SYSTEM_EMAIL_ADDRESS, text, theme);
-    }
-
-    private void sendMail(String to, String from, String text, String theme) {
-        LOGGER.debug("Sending text email from({}) to ({}) >>> ", from, to);
-        templateMessage.setTo(to);
-        templateMessage.setFrom(from);
-        templateMessage.setText(text);
-        templateMessage.setSubject(theme);
-        try {
-            mailSender.send(templateMessage);
-            LOGGER.debug(">>> E-MAIL SUCCESSFULLY SENT");
-        } catch (Exception e) {
-            LOGGER.error(">>> FAIL SENDING EMAIL TO: {} \n{}", to, e.getMessage());
-        }
-
+        sendMail(new String[]{SUPPORT_SERVICE_EMAIL_ADDRES, DEVELOPER_EMAIL_ADDRESS}, SYSTEM_EMAIL_ADDRESS, text, theme);
     }
 
     private void sendMail(String[] to, String from, String text, String theme) {
         if(sendEmails) {
             LOGGER.debug("Sending text email from({}) to ({}) >>> ", from, to);
-            templateMessage.setTo(to);
-            templateMessage.setFrom(from);
-            templateMessage.setText(text);
-            templateMessage.setSubject(theme);
+            simpleMailMessage.setTo(to);
+            simpleMailMessage.setFrom(from);
+            simpleMailMessage.setText(text);
+            simpleMailMessage.setSubject(theme);
             try {
-                mailSender.send(templateMessage);
+                mailSender.send(simpleMailMessage);
                 LOGGER.debug(">>> E-MAIL SUCCESSFULLY SENT");
             } catch (Exception e) {
-                LOGGER.error(">>> FAIL SENDING EMAIL TO: {} \n{}", to, e.getMessage());
+                LOGGER.error(">>> FAIL SENDING EMAIL TO: {}, \n{}", to, e.getMessage());
             }
         }
     }

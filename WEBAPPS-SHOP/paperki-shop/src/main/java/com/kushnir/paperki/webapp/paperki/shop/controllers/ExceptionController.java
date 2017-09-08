@@ -55,6 +55,6 @@ public class ExceptionController {
                      .append("\nException class: ").append(e)
                      .append("\nError Message: ").append(e.getMessage());
         LOGGER.error(stringBuilder);
-        mailer.toSupportMail(stringBuilder.toString(), hostMame+" Ошибка сервера!");
+        mailer.toSupportMail(stringBuilder.toString(), hostMame+", Ошибка сервера!");
     }
 }

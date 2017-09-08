@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.callback.Callback;
 import com.kushnir.paperki.model.callback.CallbackErrorResponse;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
+import com.kushnir.paperki.service.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,12 +20,14 @@ public class CallBackServiceImpl implements CallBackService {
     @Autowired
     private CallBackDao callbackDao;
 
+    @Autowired
+    Mailer mailer;
+
     @Override
     @Transactional
     public Object addCallBack(Callback callback) throws ServiceException {
         LOGGER.debug("addCallBack ({})", callback);
         CallbackErrorResponse callbackErrorResponse = new CallbackErrorResponse();
-        Assert.notNull(callback);
         try {
             Assert.notNull(callback.getName(), "Пожалуйста укажите Ваше Имя");
             Assert.hasText(callback.getName(), "Пожалуйста укажите Ваше Имя");

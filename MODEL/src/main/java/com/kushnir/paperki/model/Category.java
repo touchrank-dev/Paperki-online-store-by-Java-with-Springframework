@@ -27,7 +27,7 @@ public class Category {
 
     private Integer parent;
     private HashMap<Integer, Category> parents;
-    private HashMap<Integer, Category> childs = new HashMap<Integer, Category>();
+    private HashMap<Integer, Category> childs;
 
     public Category() {
     }

@@ -40,6 +40,12 @@ public class CatalogDaoImpl implements CatalogDao {
     private JdbcTemplate jdbcTemplate;
 
     /* CSV */
+    @Value("${csv.delimiter}")
+    private char delimiter;
+
+    @Value("${csv.escape}")
+    private char escape;
+
     @Value("${path.csv.files}")
     private String csvFilesPath;
 
@@ -82,8 +88,13 @@ public class CatalogDaoImpl implements CatalogDao {
         LOGGER.debug(">>> PROGRESS ...");
         ArrayList<Category> categories = new ArrayList<Category>();
         try {
-            Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader()
-                    .parse(new FileReader(csvFilesPathTest + csvFileCatalog));
+            Iterable<CSVRecord> records =
+                    CSVFormat
+                            .newFormat(delimiter)
+                            .withEscape(escape)
+                            .withFirstRecordAsHeader()
+                            .parse(new FileReader(csvFilesPathTest + csvFileCatalog));
+
             for (CSVRecord record : records) {
                 try {
                     categories.add(new Category(
