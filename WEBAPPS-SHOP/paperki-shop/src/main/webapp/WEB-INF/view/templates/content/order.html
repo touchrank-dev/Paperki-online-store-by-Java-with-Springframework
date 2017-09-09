@@ -12,7 +12,7 @@
                 th:case="${true}">
                 <!-- СПИСОК ТОВАРОВ В ЗАКАЗЕ -->
                 <div class="order-items">
-                    <div class="choosen-order">
+
                         <div class="composition-order">
                             <h2>Состав заказа</h2>
                             <div class="composition-order-table">
@@ -25,9 +25,9 @@
                                         <li>Сумма</li>
                                     </ul>
                                 </div>
-                                <div class="table-body"
-                                    th:each="item : ${cart?.items}">
-                                    <ul class="table-row">
+                                <div class="table-body">
+                                    <ul class="table-row" 
+                                        th:each="item : ${cart?.items}">
                                         <li th:text="${item.value.pnt}">000000</li>
                                         <li>
                                             <a href="#"
@@ -44,14 +44,9 @@
                             </div>
                         </div>
                         <div class="choosen-order-bottom">
-                            <button class="c-button">
-                                <div class="c-ripple js-ripple">
-                                    <span class="c-ripple__circle"></span>
-                                </div>
-                                Распечатать
-                            </button>
+
                         </div>
-                    </div>
+
                 </div>
                 <!-- КОНЕЦ СПИСКА ЗАКАЗА -->
                 <!-- МЕНЮ ЗАКАЗА -->
