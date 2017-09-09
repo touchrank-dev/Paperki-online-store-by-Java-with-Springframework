@@ -5,102 +5,183 @@
             <li>Оформление заказа</li>
         </ul>
         <h1 class="typicalH1">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
-
-        <div class="orderingPage" style="min-height: 700px;">
-            <aside class="orderingSidebar">
-
-                <div class="orderingSidebarSection ">
-                    <h2 class="orderingSidebarTitle">Итого</h2>
-                    <ul class="orderingSidebarCost">
-                        <li class="clearfix">
-                            <p class="orderingSidebarCostLeft">товаров на сумму</p>
-                            <p class="orderingSidebarCostRight" th:text="${cart?.totalWithVAT} + ' руб'">0.00 руб</p>
-                        </li>
-                        <li class="clearfix" th:if="${cart?.shipmentCost} > 0.0">
-                            <p class="orderingSidebarCostLeft">Стоимость доставки:</p>
-                            <p class="orderingSidebarCostRight" th:text="${cart?.shipmentCost} + ' руб'">0.00 руб</p>
-                        </li>
-                        <li class="clearfix" th:if="${cart?.paymentCost} > 0.0">
-                            <p class="orderingSidebarCostLeft">Стоимость оплаты:</p>
-                            <p class="orderingSidebarCostRight" th:text="${cart?.paymentCost} + ' руб'">0.00 руб</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="orderingSidebarSection postSectionBT">
-                    <p class="orderingSidebarPrice">Всего к оплате:</p>
-                    <p class="orderingSidebarPriceHolder" th:text="${cart?.finalTotalWithVAT} + ' руб с НДС' ">0.00 руб</p>
-                    <div class="clearfix"></div>
-                    <button href="#" class="btn c-button likeBtnIncart orderButton" type="subscribe" disabled>
-                        <div class="c-ripple js-ripple">
-                            <span class="c-ripple__circle"></span>
+        <div 
+            th:switch="${cart?.items.size()} > 0" 
+            th:remove="tag">
+            <div class="orderingPage" 
+                th:case="${true}">
+                <!-- СПИСОК ТОВАРОВ В ЗАКАЗЕ -->
+                <div class="order-items">
+                    <h2>Состав заказа</h2>
+                    <div class="choosen-order">
+                        <div class="table-head">
+                            <ul class="table-row">
+                                <li>Код</li>
+                                <li>Наименование</li>
+                                <li>Цена</li>
+                                <li>Количество</li>
+                                <li>Сумма</li>
+                            </ul>
                         </div>
-                        ЗАКАЗ ПОДТВЕРЖДАЮ
-                    </button>
-                    <div class="orderingSidebarBottom">
-                        <p class="orderingSidebarTermsOfUseTitle">Подтверждая заказ, я принимаю условия</p>
-                        <p class="orderingSidebarTermsOfUse"><a href="#">пользовательского соглашения</a></p>
+                        <div class="table-body"
+                            th:each="item : ${cart?.items}">
+                            <ul class="table-row">
+                                <li th:text="${item.value.pnt}">000000</li>
+                                <li>
+                                    <a href="#"
+                                        th:href="@{'#'}"
+                                        th:text="${item.value.fullName}">
+                                        Полное наименование товара
+                                    </a>
+                                </li>
+                                <li th:text="${item.value.finalPriceWithVAT}+ ' руб'">0.00 руб</li>
+                                <li th:text="${item.value.quantity} +' шт'">0 ед.</li>
+                                <li th:text="${item.value.totalWithVAT} +' руб'">0.00 руб</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </aside>
+                <!-- КОНЕЦ СПИСКА ЗАКАЗА -->
+                <!-- МЕНЮ ЗАКАЗА -->
+                <div class="order-menu-bar">
+                    <div class="orderingSidebarSection ">
+                        <h2 class="orderingSidebarTitle">Итого</h2>
+                        <ul class="orderingSidebarCost">
+                            <li class="clearfix">
+                                <p class="orderingSidebarCostLeft">товаров на сумму</p>
+                                <p class="orderingSidebarCostRight" th:text="${cart?.totalWithVAT} + ' руб'">0.00 руб</p>
+                            </li>
+                            <li class="clearfix" th:if="${cart?.shipmentCost} > 0.0">
+                                <p class="orderingSidebarCostLeft">Стоимость доставки:</p>
+                                <p class="orderingSidebarCostRight" th:text="${cart?.shipmentCost} + ' руб'">0.00 руб</p>
+                            </li>
+                            <li class="clearfix" th:if="${cart?.paymentCost} > 0.0">
+                                <p class="orderingSidebarCostLeft">Стоимость оплаты:</p>
+                                <p class="orderingSidebarCostRight" th:text="${cart?.paymentCost} + ' руб'">0.00 руб</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="orderingSidebarSection postSectionBT">
+                        <p class="orderingSidebarPrice">Всего к оплате:</p>
+                        <p class="orderingSidebarPriceHolder" th:text="${cart?.finalTotalWithVAT} + ' руб' ">0.00 руб</p>
+                        <div class="clearfix"></div>
+                        <button href="#" class="btn c-button likeBtnIncart orderButton" type="subscribe" disabled>
+                            <div class="c-ripple js-ripple">
+                                <span class="c-ripple__circle"></span>
+                            </div>
+                            ЗАКАЗ ПОДТВЕРЖДАЮ
+                        </button>
+                        <div class="orderingSidebarBottom">
+                            <p class="orderingSidebarTermsOfUseTitle">Подтверждая заказ, я принимаю условия</p>
+                            <p class="orderingSidebarTermsOfUse"><a href="#">пользовательского соглашения</a></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- КОНЕЦ МЕНЮ ЗАКАЗА -->
 
 
-            <div class="my-orders profile-tab" style="">
-                    <h2>Состав заказа</h2>
-                    <div class="my-orders-content">
-                        <div class="my-orders-tabs-content">
-                            <div class="active-orders" style="">
-                                <div class="choosen-order" th:if="${cart?.items.size()} > 0">
-                                    <div class="composition-order">
-                                        <div class="composition-order-table">
-                                            <div class="table-head">
-                                                <ul class="table-row">
-                                                    <li>
-                                                        Код
-                                                    </li>
-                                                    <li>
-                                                        Наименование
-                                                    </li>
-                                                    <li>
-                                                        Цена
-                                                    </li>
-                                                    <li>
-                                                        Количество
-                                                    </li>
-                                                    <li>
-                                                        Сумма
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="table-body"
-                                                th:if="${cart?.items.size()} > 0"
-                                                th:each="item : ${cart?.items}">
-                                                <ul class="table-row">
-                                                    <li th:text="${item.value.pnt}">
-                                                        000000
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" 
-                                                            th:href="@{${catalogurl}+${item.value.link}}"
-                                                            th:text="${item.value.fullName}">Полное имя товара</a>
-                                                    </li>
-                                                    <li th:text="${item.value.finalPriceWithVAT}+ ' руб'">
-                                                        0.00 руб
-                                                    </li>
-                                                    <li th:text="${item.value.quantity} +' шт'">
-                                                        0 шт.
-                                                    </li>
-                                                    <li th:text="${item.value.totalWithVAT} +' руб'">
-                                                        0.00 руб
-                                                    </li>
-                                                </ul>
+
+
+                <!-- <aside class="orderingSidebar">
+
+                    <div class="orderingSidebarSection ">
+                        <h2 class="orderingSidebarTitle">Итого</h2>
+                        <ul class="orderingSidebarCost">
+                            <li class="clearfix">
+                                <p class="orderingSidebarCostLeft">товаров на сумму</p>
+                                <p class="orderingSidebarCostRight" th:text="${cart?.totalWithVAT} + ' руб'">0.00 руб</p>
+                            </li>
+                            <li class="clearfix" th:if="${cart?.shipmentCost} > 0.0">
+                                <p class="orderingSidebarCostLeft">Стоимость доставки:</p>
+                                <p class="orderingSidebarCostRight" th:text="${cart?.shipmentCost} + ' руб'">0.00 руб</p>
+                            </li>
+                            <li class="clearfix" th:if="${cart?.paymentCost} > 0.0">
+                                <p class="orderingSidebarCostLeft">Стоимость оплаты:</p>
+                                <p class="orderingSidebarCostRight" th:text="${cart?.paymentCost} + ' руб'">0.00 руб</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="orderingSidebarSection postSectionBT">
+                        <p class="orderingSidebarPrice">Всего к оплате:</p>
+                        <p class="orderingSidebarPriceHolder" th:text="${cart?.finalTotalWithVAT} + ' руб' ">0.00 руб</p>
+                        <div class="clearfix"></div>
+                        <button href="#" class="btn c-button likeBtnIncart orderButton" type="subscribe" disabled>
+                            <div class="c-ripple js-ripple">
+                                <span class="c-ripple__circle"></span>
+                            </div>
+                            ЗАКАЗ ПОДТВЕРЖДАЮ
+                        </button>
+                        <div class="orderingSidebarBottom">
+                            <p class="orderingSidebarTermsOfUseTitle">Подтверждая заказ, я принимаю условия</p>
+                            <p class="orderingSidebarTermsOfUse"><a href="#">пользовательского соглашения</a></p>
+                        </div>
+                    </div>
+                </aside> -->
+
+
+                <!-- <div class="my-orders profile-tab">
+                        <h2>Состав заказа</h2>
+                        <div class="my-orders-content">
+                            <div class="my-orders-tabs-content">
+                                <div class="active-orders" style="">
+                                    <div class="choosen-order" th:if="${cart?.items.size()} > 0">
+                                        <div class="composition-order">
+                                            <div class="composition-order-table">
+                                                <div class="table-head">
+                                                    <ul class="table-row">
+                                                        <li>
+                                                            Код
+                                                        </li>
+                                                        <li>
+                                                            Наименование
+                                                        </li>
+                                                        <li>
+                                                            Цена
+                                                        </li>
+                                                        <li>
+                                                            Количество
+                                                        </li>
+                                                        <li>
+                                                            Сумма
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="table-body"
+                                                    th:if="${cart?.items.size()} > 0"
+                                                    th:each="item : ${cart?.items}">
+                                                    <ul class="table-row">
+                                                        <li th:text="${item.value.pnt}">
+                                                            000000
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" 
+                                                                th:href="@{${catalogurl}+${item.value.link}}"
+                                                                th:text="${item.value.fullName}">Полное имя товара</a>
+                                                        </li>
+                                                        <li th:text="${item.value.finalPriceWithVAT}+ ' руб'">
+                                                            0.00 руб
+                                                        </li>
+                                                        <li th:text="${item.value.quantity} +' шт'">
+                                                            0 шт.
+                                                        </li>
+                                                        <li th:text="${item.value.totalWithVAT} +' руб'">
+                                                            0.00 руб
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>         
+                                </div>         
+                            </div>
                         </div>
-                    </div>
+                </div> -->
+            </div>
+            <div class="order-holder" th:case="${false}">
+                <h2>Ваш заказ пуст</h2>
+
+
             </div>
         </div>
     </div>
