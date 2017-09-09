@@ -8,7 +8,7 @@
         <div 
             th:switch="${cart?.items.size()} > 0" 
             th:remove="tag">
-            <div class=".order-holder" 
+            <div class="order-holder" 
                 th:case="${true}">
                 <!-- СПИСОК ТОВАРОВ В ЗАКАЗЕ -->
                 <div class="order-items">
