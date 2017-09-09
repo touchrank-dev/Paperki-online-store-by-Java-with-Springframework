@@ -1,7 +1,7 @@
 
 .order-items {
   float: left;
-  width: 63%;
+  width: 98%;
   margin: 15px 1%;
   background-color: #FFF;
   border: 1px solid #E0E0E0;
@@ -10,21 +10,21 @@
 
 .order-menu-bar {
   float: left;
-  width: 33%;
+  width: 98%;
   margin: 15px 1%;
   background-color: #FFF;
   border: 1px solid #E0E0E0;
   border-radius: 10px;
 }
 
-@media (max-width: 768px) {}
+@media (min-width: 768px) {}
   .order-items {
 
-    width: 98%;
+    width: 63%;
   }
   .order-menu-bar {
 
-    width: 98%;
+    width: 33%;
 
   }
 }
