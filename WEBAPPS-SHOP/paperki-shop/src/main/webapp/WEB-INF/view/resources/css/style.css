@@ -30,6 +30,13 @@
     margin: 0 -1%;
 }
 
+.order-items .composition-order h2 {
+    color: #373b44;
+    font-family: ProximaNovaRegular;
+    font-size: 26px;
+    font-weight: 400;
+    margin: 0 0 21px 34px;
+}
 
 .order-items .composition-order .composition-order-table .table-head {
   border-top: 1px solid #e0e0e0;
@@ -44,8 +51,17 @@
 }
 
 .order-items .composition-order .composition-order-table .table-row li:first-of-type {
-  width: 8.771929825%;
-}
+  width: 8.771929825%; }
+.order-items .composition-order .composition-order-table .table-row li:nth-of-type(2) {
+  width: 49.473684211%; }
+.order-items .composition-order .composition-order-table .table-row li:nth-of-type(3) {
+  width: 7.719298246%; }
+.order-items .composition-order .composition-order-table .table-row li:nth-of-type(4) {
+  width: 11.228070175%; }
+.order-items .composition-order .composition-order-table .table-row li:nth-of-type(5) {
+  width: 11.929824561%; }
+.order-items .composition-order .composition-order-table .table-row li:nth-of-type(6) {
+  width: 7.543859649%; }
 
 .order-items .composition-order .composition-order-table .table-head ul li {
     padding-bottom: 12px;
