@@ -18,7 +18,7 @@
 }
 
 @media only screen and (max-width: 768px) {}
-  .orderingPage .order-items {
+  .order-holder .order-items {
     float: left;
     width: 98%;
     margin: 15px 1%;
@@ -26,7 +26,7 @@
     border: 1px solid #E0E0E0;
     border-radius: 10px;
   }
-  .orderingPage .order-menu-bar {
+  .order-holder .order-menu-bar {
     float: left;
     width: 98%;
     margin: 15px 1%;
