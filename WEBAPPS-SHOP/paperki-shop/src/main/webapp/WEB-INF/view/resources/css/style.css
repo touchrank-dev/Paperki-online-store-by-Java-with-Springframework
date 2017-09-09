@@ -26,6 +26,15 @@
   }
 }
 
+@media only screen and (max-width: 480px) {
+  .order-items {
+    width: 98%;
+  }
+  .order-menu-bar {
+    width: 98%;
+  }
+}
+
 .order-holder {
     margin: 0 -1%;
 }
@@ -35,7 +44,7 @@
     font-family: ProximaNovaRegular;
     font-size: 26px;
     font-weight: 400;
-    margin: 0 0 21px 34px;
+    margin: 21px 0 21px 34px;
 }
 
 .order-items .composition-order .composition-order-table .table-head {
