@@ -1,7 +1,7 @@
 
 .order-items {
   float: left;
-  width: 98%;
+  width: 63%;
   margin: 15px 1%;
   background-color: #FFF;
   border: 1px solid #E0E0E0;
@@ -10,23 +10,23 @@
 
 .order-menu-bar {
   float: left;
-  width: 98%;
+  width: 33%;
   margin: 15px 1%;
   background-color: #FFF;
   border: 1px solid #E0E0E0;
   border-radius: 10px;
 }
 
-@media screen and (max-width: 768px) {}
+@media only screen and (max-width: 760px) {}
   .order-items {
-    width: 63%;
+    width: 98%;
   }
   .order-menu-bar {
-    width: 33%;
+    width: 98%;
   }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 320px) {
   .order-items {
     width: 98%;
   }
@@ -60,16 +60,16 @@
 }
 
 .order-items .composition-order .composition-order-table .table-row li:first-of-type {
-  width: 7.771929825%; }
+  width: 6%; }
 .order-items .composition-order .composition-order-table .table-row li:nth-of-type(2) {
-  width: 55.01754386%; }
+  width: 58%; }
 .order-items .composition-order .composition-order-table .table-row li:nth-of-type(3) {
-  width: 9.719298246%; }
+  width: 10%; }
 .order-items .composition-order .composition-order-table .table-row li:nth-of-type(4) {
   text-align: center;
-  width: 12.228070175%; }
+  width: 13%; }
 .order-items .composition-order .composition-order-table .table-row li:nth-of-type(5) {
-  width: 11.929824561%; }
+  width: 13%; }
 
 .order-items .composition-order .composition-order-table .table-head ul li {
     padding-bottom: 12px;
