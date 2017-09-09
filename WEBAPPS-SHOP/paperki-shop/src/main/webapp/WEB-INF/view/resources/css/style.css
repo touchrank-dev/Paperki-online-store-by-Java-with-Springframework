@@ -17,25 +17,19 @@
   border-radius: 10px;
 }
 
-/*@media only screen and (max-width: 768px) {}
-  .order-holder .order-items {
-    float: left;
+@media (max-width: 768px) {}
+  .order-items {
+
     width: 98%;
-    margin: 15px 1%;
-    background-color: #FFF;
-    border: 1px solid #E0E0E0;
-    border-radius: 10px;
   }
-  .order-holder .order-menu-bar {
-    float: left;
+  .order-menu-bar {
+
     width: 98%;
-    margin: 15px 1%;
-    background-color: #FFF;
-    border: 1px solid #E0E0E0;
-    border-radius: 10px;
+
   }
 }
 
+/*
 @media only screen and (max-width: 1200px) {}
     .order-items {
     float: left;

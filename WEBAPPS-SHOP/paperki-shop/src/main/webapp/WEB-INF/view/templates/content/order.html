@@ -65,7 +65,8 @@
                         <p class="orderingSidebarPrice">Всего к оплате:</p>
                         <p class="orderingSidebarPriceHolder" th:text="${cart?.finalTotalWithVAT} + ' руб' ">0.00 руб</p>
                         <div class="clearfix"></div>
-                        <button href="#" class="btn c-button likeBtnIncart orderButton" type="subscribe" disabled>
+                        <button href="#" class="btn c-button likeBtnIncart orderButton" type="subscribe"
+                            th:attrappend="disabled=${${cart?.finalTotalWithVAT} <= 0.0}?'disabled'">
                             <div class="c-ripple js-ripple">
                                 <span class="c-ripple__circle"></span>
                             </div>
