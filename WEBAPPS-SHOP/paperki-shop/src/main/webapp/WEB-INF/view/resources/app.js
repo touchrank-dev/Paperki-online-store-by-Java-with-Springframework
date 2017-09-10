@@ -269,10 +269,10 @@ function regFormToJSON() {
 
 function mapErrorFeedbackForm(form) {
     console.log(form);
-    if(form.name != null) {
+    if(form.userName != null) {
         $('#send-feedback-input-name').addClass("input_error");
         $('#send-feedback-label-name').addClass('label_error');
-        $('#send-feedback-label-name').attr("title", form.name)
+        $('#send-feedback-label-name').attr("title", form.userName)
                                       .tooltip('fixTitle')
                                       .tooltip("show");
     } else {
