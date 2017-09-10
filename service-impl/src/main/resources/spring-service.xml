@@ -23,5 +23,6 @@
     <bean id="productBean" class="com.kushnir.paperki.service.ProductBeanImpl" />
     <bean id="subscribeService" class="com.kushnir.paperki.service.SubscribeServiceImpl" />
     <bean id="callBackService" class="com.kushnir.paperki.service.CallBackServiceImpl" />
+    <bean id="feedbackService" class="com.kushnir.paperki.service.FeedbackServiceImpl" />
 
 </beans>
