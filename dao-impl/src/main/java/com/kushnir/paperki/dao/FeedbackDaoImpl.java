@@ -40,7 +40,7 @@ public class FeedbackDaoImpl implements FeedbackDao {
         parameterSource.addValue(P_TEXT, feedback.getText());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         try {
-            namedParameterJdbcTemplate.update(addFeedbackSqlQuery, parameterSource);
+            namedParameterJdbcTemplate.update(addFeedbackSqlQuery, parameterSource, keyHolder);
             LOGGER.debug("Отзыв успешно записан");
             return keyHolder.getKey().intValue();
         } catch (Exception e) {

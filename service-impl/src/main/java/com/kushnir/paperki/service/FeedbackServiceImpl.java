@@ -71,7 +71,6 @@ public class FeedbackServiceImpl implements FeedbackService {
                 mailer.fromUserServiceEmail(feedbackRequest.getEmail(),
                         "Благодарим за оставленный отзыв № "+id,
                         "paperki.by, Благодарим за отзыв");
-                // TODO отправить письио customer service
                 mailer.toCustomerService("Пользователь оставил новый отзыв ("+id+")",
                         "Зарегистрирован новый отзыв клиента ("+id+")");
                 return id;
