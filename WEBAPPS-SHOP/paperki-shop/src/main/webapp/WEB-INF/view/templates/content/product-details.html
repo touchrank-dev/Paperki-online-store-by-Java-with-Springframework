@@ -243,107 +243,17 @@
                                     </ul>
                                 </div>
                                 <div class="single-product-other-char">
-                                    <ul>
-                                        <!-- <li>
+                                    <ul th:if="${product?.attributes} != null">
+                                        <li th:each="attribute : ${product?.attributes}">
                                             <div>
-                                                <p>
-                                                    Формат
+                                                <p th:text="${attribute?.name}">
+                                                    Свойство
                                                 </p>
                                             </div>
-                                            <p>
-                                                A4
+                                            <p th:text="${attribute?.value}">
+                                                Значение
                                             </p>
                                         </li>
-                                        <li>
-                                            <div>
-                                                <p>
-                                                    Класс
-                                                </p>
-                                            </div>
-                                            <p>
-                                                C
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p>
-                                                    Плотность
-                                                </p>
-                                            </div>
-                                            <p>
-                                                80 г/кв.м
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p>
-                                                    Толщина листа
-                                                </p>
-                                            </div>
-                                            <p>
-                                                104 мкм
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p>
-                                                    Толщина листа
-                                                </p>
-                                            </div>
-                                            <p>
-                                                104 мкм
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p>
-                                                    Непрозрачность
-                                                </p>
-                                            </div>
-                                            <p>
-                                                91%
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p>
-                                                    Яркость
-                                                </p>
-                                            </div>
-                                            <p>
-                                                93%
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p>
-                                                    Белизна
-                                                </p>
-                                            </div>
-                                            <p>
-                                                146%
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p>
-                                                    Кол-во листов в упаковке
-                                                </p>
-                                            </div>
-                                            <p>
-                                                500 шт
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <p>
-                                                    Кратность упаковки
-                                                </p>
-                                            </div>
-                                            <p>
-                                                5 пачек/короб.
-                                            </p>
-                                        </li> -->
                                     </ul>
                                 </div>
                             </div>
@@ -351,19 +261,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!--scroll to top-->
-        <div class="scroll-page-nav">
-            <button class="c-button nav_up" type="button">
-                <div class="c-ripple js-ripple">
-                    <span class="c-ripple__circle"></span>
-                </div>
-            </button>
-            <button class="c-button nav_down" type="button">
-                <div class="c-ripple js-ripple">
-                    <span class="c-ripple__circle"></span>
-                </div>
-            </button>
         </div>
     </div>
 </main>

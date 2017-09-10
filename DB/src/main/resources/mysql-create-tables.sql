@@ -199,10 +199,11 @@ CREATE TABLE product_description (
 
 CREATE TABLE product_attributes (
     id_product_attributes       INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_product                  INT             NOT NULL,
+    pnt                         INT             NOT NULL,
     name                        VARCHAR(100)    CHARACTER SET utf8,
     value                       VARCHAR(100)    CHARACTER SET utf8,
-    FOREIGN KEY (id_product)                    REFERENCES products(id_product)
+    order_attr                  INT             NOT NULL,
+    FOREIGN KEY (pnt)                           REFERENCES products(pnt)
 );
 
 CREATE TABLE product_catalog (

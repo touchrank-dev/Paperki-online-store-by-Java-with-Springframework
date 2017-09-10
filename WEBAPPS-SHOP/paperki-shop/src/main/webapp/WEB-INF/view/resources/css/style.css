@@ -26,6 +26,15 @@
   }
 }
 
+@media only screen and (max-width: 360px) {
+  .order-items .composition-order .composition-order-table .table-head ul li {
+    font-size: 10px;
+  }
+  .order-items .composition-order .composition-order-table .table-body ul li {
+    font-size: 12px;
+  }
+}
+
 .order-holder {
     margin: 0 -1%;
 }

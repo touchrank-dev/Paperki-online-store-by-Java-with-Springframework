@@ -5,10 +5,12 @@ import com.kushnir.paperki.model.AvailableProduct;
 import com.kushnir.paperki.model.CartProduct;
 import com.kushnir.paperki.model.Product;
 
+import com.kushnir.paperki.model.product.Attribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProductBeanImpl implements ProductBean {
@@ -39,6 +41,9 @@ public class ProductBeanImpl implements ProductBean {
     public Product getProductByTName(String TName) {
         LOGGER.debug("getProductByTName({}) >>>", TName);
         Product product = productDao.getProductByTName(TName);
+        if(product != null) {
+            product.setAttributes(getAttributesByPNT(product.getPnt()));
+        }
         LOGGER.debug("PRODUCT: {}", product);
         return product;
     }
@@ -49,5 +54,13 @@ public class ProductBeanImpl implements ProductBean {
         AvailableProduct availableProduct = productDao.getAvailableProductByPNT(pnt);
         LOGGER.debug("AVAILABLE PRODUCT: {}", availableProduct);
         return availableProduct;
+    }
+
+    @Override
+    public ArrayList<Attribute> getAttributesByPNT(Integer pnt) {
+        LOGGER.debug("getAttributesByPNT({}) >>>", pnt);
+        ArrayList<Attribute> attributes = productDao.getAttributesByPNT(pnt);
+        LOGGER.debug("PRODUCT ATTRIBUTES: {}", attributes);
+        return attributes;
     }
 }

@@ -60,7 +60,8 @@ public class CatalogController {
 
     @GetMapping("/{catalorItemTranslitName}/{productTranslitName}")
     public String productItemPage(@PathVariable String catalorItemTranslitName,
-                                  @PathVariable String productTranslitName, Model model) throws ServiceException {
+                                  @PathVariable String productTranslitName,
+                                  Model model) throws ServiceException {
         LOGGER.debug("productItemPage() >>>");
         Product product = catalogBean.getProductByTName(productTranslitName);
         Category category = catalogBean.getCategoryByTName(catalorItemTranslitName);

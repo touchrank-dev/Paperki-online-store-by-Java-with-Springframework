@@ -2,12 +2,14 @@ package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.*;
 
+import com.kushnir.paperki.model.product.Attribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -15,6 +17,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProductDaoImpl implements ProductDao {
@@ -39,6 +42,9 @@ public class ProductDaoImpl implements ProductDao {
 
     @Value("${product.getAvailableProductByPNT}")
     private String getAvailableProductByPNTSqlQuery;
+
+    @Value("${product.getAttributesByProductPNT}")
+    private String getAttributesByPNTSqlQuery;
 
     @Override
     public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) {
@@ -84,6 +90,23 @@ public class ProductDaoImpl implements ProductDao {
                 parameterSource,
                 new AvailableProductResultSetExtractor());
         return availableProduct;
+    }
+
+    @Override
+    public ArrayList<Attribute> getAttributesByPNT(Integer pnt) throws DataAccessException {
+        LOGGER.debug("getAttributesByPNT({}) >>>", pnt);
+        try {
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_PNT, pnt);
+            ArrayList<Attribute> attributes = (ArrayList<Attribute>)
+                    namedParameterJdbcTemplate.query(
+                            getAttributesByPNTSqlQuery,
+                            parameterSource,
+                            new AttributeRowMapper());
+            return attributes;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.error("Запрос getAttributesByPNT({}) не вернул результата >>> {}", pnt, e.getMessage());
+            return null;
+        }
     }
 
 
@@ -258,6 +281,20 @@ public class ProductDaoImpl implements ProductDao {
                 }
             }
             return availableProduct;
+        }
+    }
+
+    private class AttributeRowMapper implements RowMapper<Attribute> {
+
+        @Override
+        public Attribute mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Attribute attribute = new Attribute(
+                    rs.getInt("id_product_attributes"),
+                    rs.getString("name"),
+                    rs.getString("value"),
+                    rs.getInt("order_attr")
+            );
+            return attribute;
         }
     }
 

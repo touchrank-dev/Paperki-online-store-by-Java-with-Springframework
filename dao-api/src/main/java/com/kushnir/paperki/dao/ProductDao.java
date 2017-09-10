@@ -3,8 +3,10 @@ package com.kushnir.paperki.dao;
 import com.kushnir.paperki.model.AvailableProduct;
 import com.kushnir.paperki.model.CartProduct;
 import com.kushnir.paperki.model.Product;
+import com.kushnir.paperki.model.product.Attribute;
 import org.springframework.dao.DataAccessException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface ProductDao {
@@ -13,4 +15,5 @@ public interface ProductDao {
     Product getProductByPNT(Integer pnt) throws DataAccessException;
     Product getProductByTName(String TName) throws DataAccessException;
     AvailableProduct getAvailableProductByPNT(Integer pnt) throws DataAccessException;
+    ArrayList<Attribute> getAttributesByPNT(Integer pnt) throws DataAccessException;
 }

@@ -1,6 +1,9 @@
 package com.kushnir.paperki.model;
 
+import com.kushnir.paperki.model.product.Attribute;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Product {
@@ -28,7 +31,7 @@ public class Product {
     private Brand brand;
     private String shortDescription;
     private String fullDescription;
-    private HashMap<Integer, String[]> attributes;
+    private ArrayList<Attribute> attributes;
     private HashMap<Integer, Price> prices;
     private Discount discount;
 
@@ -311,11 +314,11 @@ public class Product {
         this.fullDescription = fullDescription;
     }
 
-    public HashMap<Integer, String[]> getAttributes() {
+    public ArrayList<Attribute> getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(HashMap<Integer, String[]> attributes) {
+    public void setAttributes(ArrayList<Attribute> attributes) {
         this.attributes = attributes;
     }
 
