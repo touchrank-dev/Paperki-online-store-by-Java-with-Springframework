@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @CrossOrigin
@@ -244,11 +245,18 @@ public class RESTcontroller {
 
     @PostMapping("/feedback")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage feedback (@RequestBody FeedbackRequest feedbackRequest) {
+    public @ResponseBody RestMessage feedback (@RequestBody FeedbackRequest feedbackRequest,
+                                               HttpSession session,
+                                               HttpServletRequest req) {
         LOGGER.debug("REST FEEDBACK REQUEST >>>\nFEEDBACK REQUEST: {}", feedbackRequest);
         RestMessage restMessage;
+        User user = (User) session.getAttribute("user");
+        int userId = 0;
+        if (user != null) {
+            userId = (user.getId() == null)? 0:user.getId();
+        }
         try {
-            Object obj = feedbackService.addFeedback(feedbackRequest);
+            Object obj = feedbackService.addFeedback(feedbackRequest, req.getRemoteAddr(), userId);
             if(obj instanceof FeedbackErrorResponse) {
                 restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "FEEDBACK ERROR",
                         (FeedbackErrorResponse)obj);

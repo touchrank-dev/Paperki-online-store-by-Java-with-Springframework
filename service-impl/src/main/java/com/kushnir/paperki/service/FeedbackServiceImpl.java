@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -29,7 +30,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     Mailer mailer;
 
     @Override
-    public Object addFeedback(FeedbackRequest feedbackRequest) throws ServiceException {
+    public Object addFeedback(FeedbackRequest feedbackRequest, String ip, int userId) throws ServiceException {
         LOGGER.debug("addFeedback ({})", feedbackRequest);
         FeedbackErrorResponse feedbackErrorResponse = new FeedbackErrorResponse();
         try {
@@ -47,6 +48,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         }
         try {
             Assert.notNull(feedbackRequest.getText(),"Не заполнен текст отзыва");
+            Assert.hasText(feedbackRequest.getText(),"Не заполнен текст отзыва");
         } catch (Exception e) {
             feedbackErrorResponse.setText(e.getMessage());
         }
@@ -58,8 +60,10 @@ public class FeedbackServiceImpl implements FeedbackService {
             try {
                 Integer id = feedbackDao.addFeedback(
                         new Feedback(
+                                userId,
                                 feedbackRequest.getUserName(),
                                 feedbackRequest.getEmail(),
+                                ip,
                                 feedbackRequest.getText()
                         )
                 );
@@ -73,7 +77,6 @@ public class FeedbackServiceImpl implements FeedbackService {
                 return id;
             } catch (Exception e) {
                 LOGGER.error("ОШИБКА ОТЗЫВА", e.getMessage());
-                mailer.toSupportMail("ОШИБКА ОТЗЫВА", "FEEDBACK SERVICE ERROR");
                 throw new ServiceException(e.getMessage());
             }
         }
