@@ -48,6 +48,10 @@ public class Mailer {
         sendMail(new String[]{toEmail}, SUPPORT_SERVICE_EMAIL_ADDRES, text, theme);
     }
 
+    public void toCustomerService(String text, String theme) {
+        sendMail(new String[]{USER_SERVICE_EMAIL_ADDRESS}, SYSTEM_EMAIL_ADDRESS, text, theme);
+    }
+
     public void toSupportMail(String text, String theme) {
         sendMail(new String[]{SUPPORT_SERVICE_EMAIL_ADDRES, DEVELOPER_EMAIL_ADDRESS}, SYSTEM_EMAIL_ADDRESS, text, theme);
     }

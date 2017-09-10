@@ -3,12 +3,11 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers;
 import com.kushnir.paperki.model.*;
 import com.kushnir.paperki.model.callback.Callback;
 import com.kushnir.paperki.model.callback.CallbackErrorResponse;
+import com.kushnir.paperki.model.feedback.FeedbackErrorResponse;
+import com.kushnir.paperki.model.feedback.FeedbackRequest;
 import com.kushnir.paperki.model.subscribe.SubscribeErrorResponse;
 import com.kushnir.paperki.model.subscribe.SubscribeRequest;
-import com.kushnir.paperki.service.CallBackService;
-import com.kushnir.paperki.service.CartBean;
-import com.kushnir.paperki.service.SubscribeService;
-import com.kushnir.paperki.service.UserService;
+import com.kushnir.paperki.service.*;
 import com.kushnir.paperki.service.exceptions.NotEnoughQuantityAvailableException;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
@@ -39,6 +38,9 @@ public class RESTcontroller {
 
     @Autowired
     CallBackService callBackService;
+
+    @Autowired
+    FeedbackService feedbackService;
 
     @Autowired
     CartBean cartBean;
@@ -236,6 +238,28 @@ public class RESTcontroller {
         } catch (Exception e) {
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
             mailer.toSupportMail(restMessage.toString(), "ERROR REST CALLBACK");
+            return restMessage;
+        }
+    }
+
+    @PostMapping("/feedback")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage feedback (@RequestBody FeedbackRequest feedbackRequest) {
+        LOGGER.debug("REST FEEDBACK REQUEST >>>\nFEEDBACK REQUEST: {}", feedbackRequest);
+        RestMessage restMessage;
+        try {
+            Object obj = feedbackService.addFeedback(feedbackRequest);
+            if(obj instanceof FeedbackErrorResponse) {
+                restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "FEEDBACK ERROR",
+                        (FeedbackErrorResponse)obj);
+                return restMessage;
+            } else {
+                restMessage = new RestMessage(HttpStatus.OK, "FEEDBACK SUCCESSFULLY PLACED", (Integer)obj);
+                return restMessage;
+            }
+        } catch (Exception e) {
+            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            mailer.toSupportMail(restMessage.toString(), "ERROR REST FEEDBACK");
             return restMessage;
         }
     }

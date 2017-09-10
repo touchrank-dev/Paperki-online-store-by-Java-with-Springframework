@@ -186,6 +186,40 @@ function callback() {
     });
 }
 
+function feedback() {
+    $.ajax({
+         cache: false,
+         async: false,
+         type: "POST",
+         contentType: "application/json",
+         dataType: "json",
+         url: "/api/feedback",
+         data: feedbackToJSON(),
+         success: function(response){
+             if(response.code == "OK") {
+                 alert("Благодарим Вас за отзыв!,\nИДЕНТИФИКАТОР ЗАПРОСА: "+response.object+".\nПосле проверки модератором отзыв будет опубликован");
+                 mapErrorFeedbackForm(response.object);
+             } else if(response.code == "BAD_REQUEST") {
+                 mapErrorFeedbackForm(response.object);
+             } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                 console.log(response);
+                 serverAlert();
+             }
+         },
+         error: function () {
+             serverAlert();
+         }
+    });
+}
+
+function feedbackToJSON () {
+    return JSON.stringify({
+        "userName": $('#send-feedback-input-name').val(),
+        "email": $('#send-feedback-input-email').val(),
+        "text": $('#send-description-textarea').val()
+    });
+}
+
 function callBackToJSON () {
     return JSON.stringify({
          "name": $('#callback-input-name').val(),
@@ -231,6 +265,43 @@ function regFormToJSON() {
         "bankName":         $('#registration-input-enterprise-account-bank').val(),
         "bankCode":         $('#registration-input-enterprise-account-bank-code').val()
     });
+}
+
+function mapErrorFeedbackForm(form) {
+    console.log(form);
+    if(form.name != null) {
+        $('#send-feedback-input-name').addClass("input_error");
+        $('#send-feedback-label-name').addClass('label_error');
+        $('#send-feedback-label-name').attr("title", form.name)
+                                      .tooltip('fixTitle')
+                                      .tooltip("show");
+    } else {
+        $('#send-feedback-input-name').removeClass("input_error");
+        $('#send-feedback-label-name').removeClass('label_error');
+        $('#send-feedback-label-name').tooltip("hide");
+    }
+    if (form.email != null) {
+        $('#send-feedback-input-email').addClass("input_error");
+        $('#send-feedback-label-email').addClass('label_error');
+        $('#send-feedback-label-email').attr("title", form.email)
+                                       .tooltip('fixTitle')
+                                       .tooltip("show");
+    } else {
+        $('#send-feedback-input-email').removeClass("input_error");
+        $('#send-feedback-label-email').removeClass('label_error');
+        $('#send-feedback-label-email').tooltip("hide");
+    }
+    if (form.text != null) {
+        $('#send-description-textarea').addClass("input_error");
+        $('#send-description-label').addClass('label_error');
+        $('#send-description-label').attr("title", form.text)
+                                    .tooltip('fixTitle')
+                                    .tooltip("show");
+    } else {
+        $('#send-description-textarea').removeClass("input_error");
+        $('#send-description-label').removeClass('label_error');
+        $('#send-description-label').tooltip("hide");
+    }
 }
 
 function mapErrorRegisterForm(form) {
@@ -450,7 +521,7 @@ function toOrderPage() {
 }
 
 
-function toFavorites() {
+function toFavorites(pnt) {
     alert('Функциональность временно недоступна');
 }
 

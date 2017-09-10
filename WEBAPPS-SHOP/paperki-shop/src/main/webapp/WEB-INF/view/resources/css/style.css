@@ -1,3 +1,6 @@
+.order-holder {
+  margin: 0 -1%;
+}
 
 .order-items {
   float: left;
@@ -28,23 +31,19 @@
 
 @media only screen and (max-width: 360px) {
   .order-items .composition-order .composition-order-table .table-head ul li {
-    font-size: 10px;
+    font-size: 8px;
   }
   .order-items .composition-order .composition-order-table .table-body ul li {
-    font-size: 12px;
+    font-size: 10px;
   }
-}
-
-.order-holder {
-    margin: 0 -1%;
 }
 
 .order-items .composition-order h2 {
-    color: #373b44;
-    font-family: ProximaNovaRegular;
-    font-size: 26px;
-    font-weight: 400;
-    margin: 21px 0 21px 34px;
+  color: #373b44;
+  font-family: ProximaNovaRegular;
+  font-size: 26px;
+  font-weight: 400;
+  margin: 21px 0 21px 34px;
 }
 
 .order-items .composition-order .composition-order-table .table-head {
@@ -56,41 +55,55 @@
   -ms-flex-align: center;
   align-items: center;
   margin: 0;
-  padding: 0 0 0 36px;
+  padding: 0 10px 0 10px;
 }
 
 .order-items .composition-order .composition-order-table .table-row li:first-of-type {
   width: 6%; }
 .order-items .composition-order .composition-order-table .table-row li:nth-of-type(2) {
-  width: 58%; }
+  width: 6%; }
 .order-items .composition-order .composition-order-table .table-row li:nth-of-type(3) {
-  width: 10%; }
+  width: 60%; }
 .order-items .composition-order .composition-order-table .table-row li:nth-of-type(4) {
-  text-align: center;
-  width: 13%; }
+  width: 10%; }
 .order-items .composition-order .composition-order-table .table-row li:nth-of-type(5) {
-  width: 13%; }
+  text-align: center;
+  width: 9%; }
+.order-items .composition-order .composition-order-table .table-row li:nth-of-type(6) {
+  text-align: center;
+  width: 9%; }
 
 .order-items .composition-order .composition-order-table .table-head ul li {
-    padding-bottom: 12px;
-    padding-top: 12px;
-    color: #9f9f9f;
-    font-family: ProximaNovaRegular;
-    font-size: 14px;
-    font-weight: 400;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  color: #9f9f9f;
+  font-family: ProximaNovaRegular;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .order-items .composition-order .composition-order-table .table-body ul {
-    border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .order-items .composition-order .composition-order-table .table-body ul li {
-    padding-top: 22px;
-    padding-bottom: 22px;
-    font-family: ProximaNovaRegular;
-    font-size: 14px;
-    font-weight: 400;
-    color: #373b44;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  font-family: ProximaNovaRegular;
+  font-size: 14px;
+  font-weight: 400;
+  color: #373b44;
+}
+
+
+.table-body .table-row > li .cart-popup-del-prod {
+  position: absolute;
+  left: 15px;
+  top: 14px;
+  width: 15px;
+  height: 15px;
+  background: url(/res/img/cart-delete-prod.png) no-repeat 50% 50%;
+  cursor: pointer;
 }
 
 

@@ -39,7 +39,7 @@ public class CallBackDaoImpl implements CallBackDao {
             LOGGER.debug("Запрос на обратный звонок успешно записан");
             return keyHolder.getKey().intValue();
         } catch (Exception e) {
-            LOGGER.error("Не удалось записать запро на обратный звонок!," +
+            LOGGER.error("Не удалось записать запроc на обратный звонок!," +
                     "\nError message: {}", e.getMessage());
             throw e;
         }

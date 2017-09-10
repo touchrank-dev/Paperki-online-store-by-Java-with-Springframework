@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS catalog_ref;
 DROP TABLE IF EXISTS discounts;
 DROP TABLE IF EXISTS product_description;
 DROP TABLE IF EXISTS product_attributes;
+DROP TABLE IF EXISTS product_feedback;
 DROP TABLE IF EXISTS product_catalog;
 DROP TABLE IF EXISTS product_prices;
 DROP TABLE IF EXISTS menu_item_ref;
@@ -122,7 +123,7 @@ CREATE TABLE products (
     id_product                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pap_id                      INT             UNIQUE,
     pnt                         INT             NOT NULL UNIQUE,
-    personal_group              VARCHAR(100),    
+    personal_group_name         VARCHAR(150),   
     full_name                   VARCHAR(300)    CHARACTER SET utf8 NOT NULL,
     short_name                  VARCHAR(250)    CHARACTER SET utf8 NOT NULL,
     translit_name               VARCHAR(200)    CHARACTER SET utf8 NOT NULL UNIQUE,
@@ -142,6 +143,48 @@ CREATE TABLE products (
     is_published                TINYINT         DEFAULT 1,
     is_visible                  TINYINT         DEFAULT 1,
     FOREIGN KEY (id_brand)                      REFERENCES brands(id_brand)
+);
+
+CREATE TABLE product_description (
+    id_product_desc             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_product                  INT             NOT NULL UNIQUE,
+    short_description           VARCHAR(2000)   CHARACTER SET utf8,
+    full_description            VARCHAR(7000)   CHARACTER SET utf8,
+    FOREIGN KEY (id_product)                    REFERENCES products(id_product)
+);
+
+CREATE TABLE product_attributes (
+    id_product_attributes       INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    pnt                         INT             NOT NULL,
+    name                        VARCHAR(100)    CHARACTER SET utf8,
+    value                       VARCHAR(100)    CHARACTER SET utf8,
+    order_attr                  INT             NOT NULL,
+    FOREIGN KEY (pnt)                           REFERENCES products(pnt)
+);
+
+CREATE TABLE product_feedback (
+    id_product_feedback         INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    pnt                         INT             NOT NULL,
+    id_user                     INT,
+    user_name                   VARCHAR(100),
+    email                       VARCHAR(80),
+    ip_address                  VARCHAR(20),    
+    rate                        INT             DEFAULT 0 NOT NULL,
+    text                        VARCHAR(5000),
+    is_published                TINYINT         DEFAULT 0,
+    approve                     TINYINT         DEFAULT 0,
+    create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
+    edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (pnt)                           REFERENCES products(pnt)
+);
+
+CREATE TABLE product_catalog (
+    id_product                  INT             NOT NULL,
+    id_catalog                  INT             NOT NULL,
+    order_product               INT             NOT NULL,
+    FOREIGN KEY (id_product)                    REFERENCES products(id_product),
+    FOREIGN KEY (id_catalog)                    REFERENCES catalog(id_catalog),
+    UNIQUE KEY `product_catalog` (id_product, id_catalog)
 );
 
 DROP TABLE IF EXISTS prices_types;
@@ -189,32 +232,6 @@ CREATE TABLE coupons (
     value                       INT             DEFAULT 0 NOT NULL
 );
 
-CREATE TABLE product_description (
-    id_product_desc             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_product                  INT             NOT NULL UNIQUE,
-    short_description           VARCHAR(2000)   CHARACTER SET utf8,
-    full_description            VARCHAR(7000)   CHARACTER SET utf8,
-    FOREIGN KEY (id_product)                    REFERENCES products(id_product)
-);
-
-CREATE TABLE product_attributes (
-    id_product_attributes       INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    pnt                         INT             NOT NULL,
-    name                        VARCHAR(100)    CHARACTER SET utf8,
-    value                       VARCHAR(100)    CHARACTER SET utf8,
-    order_attr                  INT             NOT NULL,
-    FOREIGN KEY (pnt)                           REFERENCES products(pnt)
-);
-
-CREATE TABLE product_catalog (
-    id_product                  INT             NOT NULL,
-    id_catalog                  INT             NOT NULL,
-    order_product               INT             NOT NULL,
-    FOREIGN KEY (id_product)                    REFERENCES products(id_product),
-    FOREIGN KEY (id_catalog)                    REFERENCES catalog(id_catalog),
-    UNIQUE KEY `product_catalog` (id_product, id_catalog)
-);
-
 DROP TABLE IF EXISTS menu;
 CREATE TABLE menu (
     id_menu                     INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -254,13 +271,16 @@ CREATE TABLE menu_item_ref (
 
 CREATE TABLE feedbacks (
     id_feedback                 INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_user                     INT             NOT NULL,
+    id_user                     INT,
+    user_name                   VARCHAR(100)    NOT NULL,
+    email                       VARCHAR(80)     NOT NULL,
+    ip_address                  VARCHAR(20),    
+    rate                        INT,
     text                        VARCHAR(2000)   CHARACTER SET utf8 NOT NULL,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    aproove                     TINYINT         DEFAULT 0,
-    is_published                TINYINT         DEFAULT 0,
-    FOREIGN KEY (id_user)                       REFERENCES users(id_user)
+    approve                     TINYINT         DEFAULT 0,
+    is_published                TINYINT         DEFAULT 0
 );
 
 CREATE TABLE orders (
