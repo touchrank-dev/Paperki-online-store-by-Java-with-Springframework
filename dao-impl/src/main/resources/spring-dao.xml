@@ -32,5 +32,6 @@
     <bean id="subscribeDao" class="com.kushnir.paperki.dao.SubscribeDaoImpl" />
     <bean id="callbackDao" class="com.kushnir.paperki.dao.CallBackDaoImpl" />
     <bean id="feedbackDao" class="com.kushnir.paperki.dao.FeedbackDaoImpl" />
+    <bean id="deliveryDao" class="com.kushnir.paperki.dao.DeliveryDaoImpl" />
 
 </beans>

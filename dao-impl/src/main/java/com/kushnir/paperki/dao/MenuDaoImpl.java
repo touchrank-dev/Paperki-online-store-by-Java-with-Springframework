@@ -36,10 +36,10 @@ public class MenuDaoImpl implements MenuDao {
     @Override
     public ArrayList<MenuItem> getAll(String nameMenu) {
         LOGGER.debug("getAll(nameMenu = {}) >>>", nameMenu);
-        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        parameterSource.addValue(P_NAME_MENU, nameMenu);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_NAME_MENU, nameMenu);
         ArrayList<MenuItem> menuItemsList =
-                (ArrayList<MenuItem>) namedParameterJdbcTemplate.query(getAllSqlQuery, parameterSource, new MenuRowMapper());
+                (ArrayList<MenuItem>) namedParameterJdbcTemplate.query(getAllSqlQuery,
+                        parameterSource, new MenuRowMapper());
         return menuItemsList;
     }
 

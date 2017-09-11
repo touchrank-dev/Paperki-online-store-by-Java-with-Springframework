@@ -1,6 +1,7 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import com.kushnir.paperki.service.CatalogBean;
+import com.kushnir.paperki.service.DeliveryService;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
@@ -30,6 +31,9 @@ public class OrderController {
     @Autowired
     CatalogBean catalogBean;
 
+    @Autowired
+    DeliveryService deliveryService;
+
     @Value("${content.path}")
     String contentPath;
 
@@ -39,6 +43,10 @@ public class OrderController {
         model.addAttribute("templatePathName", contentPath + "order");
         model.addAttribute("fragmentName", "order");
         return "index";
+    }
+    @ModelAttribute("deliveries")
+    public HashMap getAllDelivery () {
+        return deliveryService.getAll();
     }
 
     @ModelAttribute("mainmenu")

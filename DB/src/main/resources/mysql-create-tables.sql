@@ -18,6 +18,8 @@ DROP TABLE IF EXISTS stock;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS stock;
 DROP TABLE IF EXISTS subscribes;
+DROP TABLE IF EXISTS delivery_order_type;
+DROP TABLE IF EXISTS payment_order_type;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
@@ -346,4 +348,53 @@ CREATE TABLE callbacks (
     responded                   TINYINT         DEFAULT 0,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     responded_date              DATETIME        ON UPDATE CURRENT_TIMESTAMP
+);
+
+
+
+
+DROP TABLE IF EXISTS order_types;
+CREATE TABLE order_types (
+    id_order_type               INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name                        VARCHAR(30)     NOT NULL
+);
+
+DROP TABLE IF EXISTS delivery;
+CREATE TABLE delivery (
+    id_delivery                 INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name                        VARCHAR(50)     NOT NULL,
+    short_description           VARCHAR(1000),
+    full_description            VARCHAR(5000),
+    link                        VARCHAR(200),
+    icon                        VARCHAR(150)
+);
+
+CREATE TABLE delivery_order_type (
+    id_delivery                 INT             NOT NULL,
+    id_order_type               INT             NOT NULL,
+    min_cart_total              DOUBLE          DEFAULT 0.0,
+    price                       DOUBLE          DEFAULT 0.0,
+    FOREIGN KEY (id_delivery)                   REFERENCES delivery(id_delivery),
+    FOREIGN KEY (id_order_type)                 REFERENCES order_types(id_order_type),
+    UNIQUE KEY `d_o_c_p` (id_delivery, id_order_type, min_cart_total, price)
+);
+
+DROP TABLE IF EXISTS payment;
+CREATE TABLE payment (
+    id_payment                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name                        VARCHAR(50)     NOT NULL,
+    short_description           VARCHAR(1000),
+    full_description            VARCHAR(5000),
+    link                        VARCHAR(200),
+    icon                        VARCHAR(150)
+);
+
+CREATE TABLE payment_order_type (
+    id_payment                  INT             NOT NULL,
+    id_order_type               INT             NOT NULL,
+    min_cart_total              DOUBLE          DEFAULT 0.0,
+    price                       DOUBLE          DEFAULT 0.0,
+    FOREIGN KEY (id_payment)                    REFERENCES payment(id_payment),
+    FOREIGN KEY (id_order_type)                 REFERENCES order_types(id_order_type),
+    UNIQUE KEY `p_o_c_p` (id_payment, id_order_type, min_cart_total, price)
 );
