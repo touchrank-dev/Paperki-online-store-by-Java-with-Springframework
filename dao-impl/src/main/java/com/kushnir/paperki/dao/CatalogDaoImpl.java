@@ -109,7 +109,7 @@ public class CatalogDaoImpl implements CatalogDao {
                             record.get(8)
                     ));
                 } catch (Exception e) {
-                    LOGGER.error(e.getMessage());
+                    LOGGER.error("ERROR >>> {}", e.getMessage());
                     continue;
                 }
             }
@@ -121,6 +121,8 @@ public class CatalogDaoImpl implements CatalogDao {
         LOGGER.debug(">>> FINISH");
         return categories;
     }
+
+
 
     private class CategoryResultSetExtractor implements ResultSetExtractor {
 

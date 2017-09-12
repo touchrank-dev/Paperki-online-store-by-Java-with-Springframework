@@ -9,6 +9,7 @@ import com.kushnir.paperki.service.util.Transliterator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,11 +87,14 @@ public class CatalogBeanImpl implements CatalogBean {
     @Override
     @Transactional
     public void updateCatalog() throws ServiceException, IOException {
+        LOGGER.debug("updateCatalog() START PROCESS >>>");
         ArrayList<Category> categories = getCategoriesFromCSV();
         for (Category category: categories) {
             category.setTranslitName(Transliterator.cyr2lat(category.getName()));
-            System.out.println(category);
+            // TODO обработка и запись в БД
         }
+        System.out.println(categories);
+        System.out.println("ВСЕГО ОБРАБОТАНО ЗАПИСЕЙ: "+ categories.size()+"\n>>> FINISH");
     }
 
     private ArrayList<Category> getCategoriesFromCSV() throws IOException, ServiceException {
