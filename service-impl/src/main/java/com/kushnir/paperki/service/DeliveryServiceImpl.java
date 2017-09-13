@@ -24,6 +24,6 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public HashMap<Integer, Delivery> getByOrderIdType(Integer orderIdType) {
-        return getAll().get(orderIdType);
+        return this.getAll().get(orderIdType);
     }
 }
