@@ -28,7 +28,7 @@ public class UserController {
     private static final String PROFILE_MENU_NAME = "profile";
 
     @Autowired
-    CatalogBean categoryBean;
+    CatalogBean catalogBean;
 
     @Autowired
     MenuBean menuBean;
@@ -62,7 +62,7 @@ public class UserController {
 
     @ModelAttribute("mapcategories")
     public HashMap getCatalog () throws ServiceException {
-        return categoryBean.getAll();
+        return catalogBean.getAll();
     }
 
 }

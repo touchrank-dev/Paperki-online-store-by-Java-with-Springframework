@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -34,7 +35,7 @@ public class MenuDaoImpl implements MenuDao {
     private String getByTNameSqlQuery;
 
     @Override
-    public ArrayList<MenuItem> getAll(String nameMenu) {
+    public ArrayList<MenuItem> getAll(String nameMenu) throws DataAccessException {
         LOGGER.debug("getAll(nameMenu = {}) >>>", nameMenu);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_NAME_MENU, nameMenu);
         ArrayList<MenuItem> menuItemsList =
@@ -44,7 +45,7 @@ public class MenuDaoImpl implements MenuDao {
     }
 
     @Override
-    public MenuItem getItemByTName(String nameMenu, String translitName) {
+    public MenuItem getItemByTName(String nameMenu, String translitName) throws DataAccessException {
         LOGGER.debug("getItemByTName(nameMenu - {}, translitName - {}) >>>", nameMenu, translitName);
         try {
             MapSqlParameterSource parameterSource = new MapSqlParameterSource();

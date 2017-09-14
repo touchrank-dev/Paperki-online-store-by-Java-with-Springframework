@@ -5,10 +5,14 @@ import com.kushnir.paperki.model.MenuItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 
+@Service
+@Transactional
 public class MenuBeanImpl implements MenuBean {
 
     private static final Logger LOGGER = LogManager.getLogger(MenuBeanImpl.class);

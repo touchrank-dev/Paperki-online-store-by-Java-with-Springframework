@@ -4,13 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--DAO-->
     <import resource="classpath*:spring-dao.xml" />
 
     <!--MAIL-->
     <import resource="spring-mail.xml" />
-
-    <!--TOKEN GENERATOR-->
-    <bean id="tokenGenerator" class="com.kushnir.paperki.service.util.TokenGenerator" />
 
     <!--PROTOTYPE BEANS-->
     <bean id="user" class="com.kushnir.paperki.model.User" scope="prototype" />

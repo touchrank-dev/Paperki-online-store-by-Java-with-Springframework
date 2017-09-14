@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -24,7 +25,7 @@ public class SubscribeDaoImpl implements SubscribeDao {
     private String addSubscribeSqlQuery;
 
     @Override
-    public int subscribe(String email, int idEmailList) {
+    public int subscribe(String email, int idEmailList) throws DataAccessException {
         LOGGER.debug("subscribe({}, {})", email, idEmailList);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(P_ID_EMAIL_LIST, idEmailList);

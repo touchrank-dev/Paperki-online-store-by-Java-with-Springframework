@@ -30,7 +30,7 @@
     <!--<mvc:resources mapping="/res/**" location="file:/home/test.paperki.by/view/resources/" />-->
 
     <context:annotation-config/>
-    <context:component-scan base-package="com.kushnir.paperki.webapp.*"/>
+    <context:component-scan base-package="com.kushnir.paperki.*"/>
 
     <!-- SERVICE LAYER -->
     <import resource="classpath*:spring-service.xml"/>

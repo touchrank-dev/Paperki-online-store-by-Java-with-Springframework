@@ -28,7 +28,7 @@ public class DeliveryDaoImpl implements DeliveryDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public HashMap<Integer, HashMap<Integer, Delivery>> getAll() {
+    public HashMap<Integer, HashMap<Integer, Delivery>> getAll() throws DataAccessException {
         LOGGER.debug("getAll()");
         HashMap<Integer, HashMap<Integer, Delivery>> deliveries =
                 (HashMap<Integer, HashMap<Integer, Delivery>>)
@@ -41,7 +41,7 @@ public class DeliveryDaoImpl implements DeliveryDao {
     private class DeliveryRowSetExtractor implements ResultSetExtractor {
 
         @Override
-        public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public Object extractData(ResultSet rs) throws SQLException {
             HashMap<Integer, HashMap<Integer, Delivery>> deliveries =
                     new HashMap<Integer, HashMap<Integer, Delivery>>();
             while (rs.next()) {

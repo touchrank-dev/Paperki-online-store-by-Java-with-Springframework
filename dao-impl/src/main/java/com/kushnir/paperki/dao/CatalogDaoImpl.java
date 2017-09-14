@@ -66,7 +66,7 @@ public class CatalogDaoImpl implements CatalogDao {
     private String getByTNameSqlQuery;
 
     @Override
-    public HashMap<Integer, HashMap<Integer, Category>> getAll() {
+    public HashMap<Integer, HashMap<Integer, Category>> getAll() throws DataAccessException {
         LOGGER.debug("getAll() >>>");
         HashMap<Integer, HashMap<Integer, Category>> map =
                 (HashMap) jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
@@ -74,7 +74,7 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
-    public Category getCategoryByTName(String categoryTName) {
+    public Category getCategoryByTName(String categoryTName) throws DataAccessException {
         LOGGER.debug("getCategoryByTName({}) >>>", categoryTName);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_CATEGORY_T_NAME, categoryTName);
         Category category = namedParameterJdbcTemplate
@@ -83,7 +83,7 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
-    public ArrayList<Category> getCategoriesFromCSV() throws IOException {
+    public ArrayList<Category> getCategoriesFromCSV() throws IOException, DataAccessException {
         LOGGER.debug("Starting retrieve data from CSV file: {}", csvFilesPathTest+csvFileCatalog);
         LOGGER.debug(">>> PROGRESS ...");
         ArrayList<Category> categories = new ArrayList<Category>();
@@ -127,7 +127,7 @@ public class CatalogDaoImpl implements CatalogDao {
     private class CategoryResultSetExtractor implements ResultSetExtractor {
 
         @Override
-        public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public Object extractData(ResultSet rs) throws SQLException {
             HashMap<Integer, HashMap<Integer, Category>> map =
                     new HashMap<Integer, HashMap<Integer, Category>>();
             // Инициализируем главную ветку категории под ключом 0

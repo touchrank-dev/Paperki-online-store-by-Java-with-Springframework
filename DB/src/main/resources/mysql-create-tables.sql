@@ -336,6 +336,8 @@ CREATE TABLE subscribes (
     id_subscribe                INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_mail_list                INT             NOT NULL,
     email                       VARCHAR(100)    NOT NULL,
+    create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
+    updated_date                DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_mail_list)                  REFERENCES mail_lists(id_mail_list),
     UNIQUE KEY `e_l` (id_mail_list, email)
 );

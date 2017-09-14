@@ -108,7 +108,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByEnterpriseUNP(String UNP) {
+    public User getUserByEnterpriseUNP(String UNP) throws DataAccessException {
         LOGGER.debug("getUserByEnterpriseUNP({}) >>>", UNP);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ENTERPRISE_UNP, UNP);
         try {
@@ -116,6 +116,7 @@ public class UserDaoImpl implements UserDao {
                     .queryForObject(getUserByUNPSqlQuery, parameterSource, new UserRowMapper());
             return user;
         } catch (EmptyResultDataAccessException e) {
+            LOGGER.debug("Пользователь (Enterprise) UNP: {} - не найден {}", UNP, e.getMessage());
             return null;
         } catch (Exception e) {
             LOGGER.error("В процессе выполнения запроса getUserByEnterpriseUNP, возникла ошибка >>>\n{}", e.getMessage());
@@ -164,7 +165,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Integer addUser(User user) {
+    public Integer addUser(User user) throws DataAccessException {
         LOGGER.debug("addUser() >>>\nUSER DATA: {}", user);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -185,7 +186,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    public Enterprise getEnterpriseByUNP(String unp) {
+    public Enterprise getEnterpriseByUNP(String unp) throws DataAccessException {
         LOGGER.debug("getEnterpriseByUNP({}) >>>", unp);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ENTERPRISE_UNP, unp);
         try{
@@ -203,7 +204,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Integer addEnterprise(Enterprise enterprise) {
+    public Integer addEnterprise(Enterprise enterprise) throws DataAccessException {
         LOGGER.debug("addEnterprise() >>>\nENTERPRISE DATA: {}", enterprise);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(P_USER_ID, enterprise.getUserId());
@@ -221,7 +222,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Integer addBillingAccount(BillingAccount billingAccount) {
+    public Integer addBillingAccount(BillingAccount billingAccount) throws DataAccessException {
         LOGGER.debug("addBillingAccount() >>>\nBILLING ACCOUNT DATA: {}", billingAccount);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(P_ENTERPRISE_ID, billingAccount.getEnterpriseId());

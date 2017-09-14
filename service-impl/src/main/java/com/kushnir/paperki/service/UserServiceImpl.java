@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -20,6 +21,8 @@ import java.util.regex.Pattern;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
@@ -45,7 +48,6 @@ public class UserServiceImpl implements UserService {
     SubscribeService subscribeService;
 
     @Override
-    @Transactional
     public Object getUserByLoginPassword(LoginData loginData) {
         LOGGER.debug("GET USER BY LOGIN AND PASSWORD >>>\nLOGIN DATA: {}", loginData);
         ErrorLoginData errorLoginData = new ErrorLoginData();
@@ -94,7 +96,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public Object registrateUser(RegistrateForm form) throws ServiceException {
         LOGGER.debug("NEW USER REGISTRATION >>>");
         ErrorRegistrateForm errorRegistrateForm = new ErrorRegistrateForm();
@@ -194,7 +195,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Transactional
+    @Override
     public Integer addEnterpriseByUser (RegistrateForm form, Integer userId) throws ServiceException {
         Enterprise enterprise = new Enterprise(
                 userId,
@@ -213,6 +214,7 @@ public class UserServiceImpl implements UserService {
                     form.getBankName(),
                     form.getBankCode()
             );
+
             int billId = userDao.addBillingAccount(billingAccount);
             if(billId < 1) throw new ServiceException("Не удалось создать расчетный счет для организации");
         }

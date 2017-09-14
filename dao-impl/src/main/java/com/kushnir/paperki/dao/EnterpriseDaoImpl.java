@@ -29,7 +29,7 @@ public class EnterpriseDaoImpl implements EnterpriseDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public Enterprise getEnterpriseByUserId(int UserId) {
+    public Enterprise getEnterpriseByUserId(int UserId) throws DataAccessException {
         LOGGER.debug("getEnterpriseByUserId({}) >>>", UserId);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_USER_ID, UserId);
         try {
@@ -48,7 +48,7 @@ public class EnterpriseDaoImpl implements EnterpriseDao {
     private class EnterpriseResultSetExtractor implements ResultSetExtractor {
 
         @Override
-        public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public Object extractData(ResultSet rs) throws SQLException {
             Enterprise enterprise = null;
             while (rs.next()) {
 

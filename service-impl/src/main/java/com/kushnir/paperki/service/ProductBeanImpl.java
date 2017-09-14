@@ -9,10 +9,14 @@ import com.kushnir.paperki.model.product.Attribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Service
+@Transactional
 public class ProductBeanImpl implements ProductBean {
 
     private static final Logger LOGGER = LogManager.getLogger(ProductBeanImpl.class);

@@ -3,11 +3,15 @@ package com.kushnir.paperki.service;
 import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.order.OrderErrorForm;
 import com.kushnir.paperki.model.order.OrderForm;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+@Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
     @Override

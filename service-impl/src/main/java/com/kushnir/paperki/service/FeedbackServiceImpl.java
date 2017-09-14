@@ -12,12 +12,14 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+@Service
 @Transactional
 public class FeedbackServiceImpl implements FeedbackService {
 

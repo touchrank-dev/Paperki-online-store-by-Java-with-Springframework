@@ -16,14 +16,14 @@ public class UpdaterCSV {
     private static final Logger LOGGER = LogManager.getLogger(UpdaterCSV.class);
 
     @Autowired
-    CatalogBean categoryBean;
+    CatalogBean catalogBean;
 
     @Autowired
     Mailer mailer;
 
     public void catalogUpdate() throws IOException, ServiceException {
         LOGGER.debug("===== Started Catalog update ==== >>> ");
-        categoryBean.updateCatalog();
+        catalogBean.updateCatalog();
     }
 
     public void productUpdate() {

@@ -47,7 +47,7 @@ public class ProductDaoImpl implements ProductDao {
     private String getAttributesByPNTSqlQuery;
 
     @Override
-    public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) {
+    public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) throws DataAccessException {
         LOGGER.debug("getProductListByCategoryTName({}) >>>", categoryTName);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_CATEGORY_T_NAME, categoryTName);
         HashMap<Integer, Product> products =
@@ -113,7 +113,7 @@ public class ProductDaoImpl implements ProductDao {
     private class ProductsResultSetExtractor implements ResultSetExtractor {
 
         @Override
-        public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public Object extractData(ResultSet rs) throws SQLException {
             HashMap<Integer, Product> products = new HashMap<Integer ,Product>();
             while (rs.next()) {
                 int idProduct =             rs.getInt("id_product");
@@ -176,7 +176,7 @@ public class ProductDaoImpl implements ProductDao {
     private class ProductResultSetExtractor implements ResultSetExtractor {
 
         @Override
-        public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public Product extractData(ResultSet rs) throws SQLException {
             Product product = null;
             while (rs.next()) {
                 int idProduct =             rs.getInt("id_product");
@@ -237,7 +237,7 @@ public class ProductDaoImpl implements ProductDao {
     private class AvailableProductResultSetExtractor implements ResultSetExtractor {
 
         @Override
-        public AvailableProduct extractData(ResultSet rs) throws SQLException, DataAccessException {
+        public AvailableProduct extractData(ResultSet rs) throws SQLException {
             AvailableProduct availableProduct = null;
             while(rs.next()) {
                 int pnt =                   rs.getInt("pnt");

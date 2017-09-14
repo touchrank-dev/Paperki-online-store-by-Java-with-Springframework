@@ -8,4 +8,5 @@ import com.kushnir.paperki.service.exceptions.ServiceException;
 public interface UserService {
     Object getUserByLoginPassword(LoginData loginData);
     Object registrateUser(RegistrateForm form) throws ServiceException;
+    Integer addEnterpriseByUser (RegistrateForm form, Integer userId) throws ServiceException;
 }

@@ -10,9 +10,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+@Service
+@Transactional
 public class CallBackServiceImpl implements CallBackService {
 
     private static final Logger LOGGER = LogManager.getLogger(CallBackServiceImpl.class);
@@ -24,7 +27,6 @@ public class CallBackServiceImpl implements CallBackService {
     Mailer mailer;
 
     @Override
-    @Transactional
     public Object addCallBack(Callback callback) throws ServiceException {
         LOGGER.debug("addCallBack ({})", callback);
         CallbackErrorResponse callbackErrorResponse = new CallbackErrorResponse();

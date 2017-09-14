@@ -12,12 +12,14 @@ import org.apache.logging.log4j.Logger;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Service
 @Transactional
 public class CatalogBeanImpl implements CatalogBean {
 
