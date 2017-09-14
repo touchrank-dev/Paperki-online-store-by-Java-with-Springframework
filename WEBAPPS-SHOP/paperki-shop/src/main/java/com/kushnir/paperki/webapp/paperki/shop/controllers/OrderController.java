@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -42,11 +43,16 @@ public class OrderController {
         LOGGER.debug("orderPage() >>>");
         model.addAttribute("templatePathName", contentPath + "order");
         model.addAttribute("fragmentName", "order");
+        model.addAttribute("deliveries", deliveryService.getAll());
         return "index";
     }
-    @ModelAttribute("deliveries")
-    public HashMap getAllDelivery () {
-        return deliveryService.getAll();
+
+    @GetMapping("/{token}")
+    public String orderByToken(@PathVariable String token, Model model) {
+        LOGGER.debug("orderByToken({}) >>>", token);
+        model.addAttribute("templatePathName", contentPath + "order-details");
+        model.addAttribute("fragmentName", "order-details");
+        return "index";
     }
 
     @ModelAttribute("mainmenu")

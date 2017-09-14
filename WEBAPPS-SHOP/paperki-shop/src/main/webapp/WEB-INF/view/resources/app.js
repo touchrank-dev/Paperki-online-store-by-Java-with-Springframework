@@ -578,3 +578,14 @@ function printCartItems(products) {
         });
     }
 }
+
+
+
+function confirmOrder() {
+    var orderURL = '/order/'+getOrderToken();
+    document.location.href = orderURL;
+}
+
+function getOrderToken() {
+    return '1';
+}
