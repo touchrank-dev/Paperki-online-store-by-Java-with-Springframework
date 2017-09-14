@@ -28,7 +28,7 @@ public class RESTOrder {
     RestMessage validateOrder (@RequestBody OrderForm orderForm, HttpSession session) {
         LOGGER.debug("REST ORDER VALIDATE >>>");
         RestMessage restMessage;
-        restMessage = new RestMessage(HttpStatus.OK, "test", null);
+        restMessage = new RestMessage(HttpStatus.OK, "test", 1);
 
 
 

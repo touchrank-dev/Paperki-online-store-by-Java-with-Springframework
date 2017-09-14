@@ -11,6 +11,20 @@
   border-radius: 10px;
 }
 
+.order-completed-info {
+  padding-left: 35px;
+    margin-top: 28px;
+}
+
+.order-completed-items {
+  float: left;
+  width: 98%;
+  margin: 15px 1%;
+  background-color: #FFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+}
+
 .order-menu-bar {
   float: left;
   width: 33%;
