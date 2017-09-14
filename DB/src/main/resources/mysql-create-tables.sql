@@ -285,24 +285,25 @@ CREATE TABLE feedbacks (
     is_published                TINYINT         DEFAULT 0
 );
 
-CREATE TABLE orders (
-    id_order                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    token_order                 VARCHAR(100)    NOT NULL UNIQUE,
-    order_number                INT             NOT NULL UNIQUE,
-    pap_order_number            INT             NOT NULL UNIQUE,
-    id_user                     INT             NOT NULL,
-    id_order_status             INT             NOT NULL,
-    create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
-    edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_user)                       REFERENCES users(id_user)
-);
-
 DROP TABLE IF EXISTS order_status;
 CREATE TABLE order_status (
     id_order_status             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     status_code                 CHAR(1)         CHARACTER SET utf8 NOT NULL,
     status_name                 VARCHAR(100)    CHARACTER SET utf8 NOT NULL,
     description                 VARCHAR(1000)   CHARACTER SET utf8
+);
+
+CREATE TABLE orders (
+    id_order                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    token_order                 VARCHAR(100)    NOT NULL UNIQUE,
+    order_number                VARCHAR(15)     NOT NULL UNIQUE,
+    pap_order_number            INT             NOT NULL UNIQUE,
+    id_user                     INT             NOT NULL,
+    id_order_status             INT             NOT NULL,
+    create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
+    edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_user)                       REFERENCES users(id_user),
+    FOREIGN KEY (id_order_status)               REFERENCES order_status(id_order_status)
 );
 
 DROP TABLE IF EXISTS stock_place;

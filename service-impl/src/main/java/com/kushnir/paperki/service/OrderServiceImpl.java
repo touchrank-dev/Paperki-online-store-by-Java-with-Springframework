@@ -12,8 +12,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Object submitOrder(Cart cart) {
-        validateOrder(cart);
-        return createOrder();
+        OrderErrorForm orderErrorForm = validateOrder(cart);
+        if (orderErrorForm.isErrors()) {
+            return orderErrorForm;
+        } else {
+            return createOrder();
+        }
     }
 
     private OrderErrorForm validateOrder (Cart cart) {
@@ -26,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
 
 
 
+            //TODO validate
 
 
 
@@ -37,13 +42,21 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private String createOrder() {
-        return generateToken()+generateOrderNumber();
+        String orderNumber = generateOrderNumber();
+        String orderToken = generateToken();
+
+
+
+
+        // TODO create order
+
+
+
+
+        return orderToken;
     }
 
     private String generateToken() {
-        /*String token = UUID.randomUUID().toString() + ":" + System.currentTimeMillis();
-        String[] t = token.split(":");
-        String token_time = t[1];*/
         return UUID.randomUUID().toString();
     }
 

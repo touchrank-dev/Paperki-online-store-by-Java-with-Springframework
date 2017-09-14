@@ -41,7 +41,10 @@ public class RESTOrder {
         try {
             Cart cart = (Cart) session.getAttribute("cart");
             if (cart != null) cart.setOrderForm(orderForm);
-            restMessage = new RestMessage(HttpStatus.OK, "test", orderService.submitOrder(cart));
+
+            Object obj = orderService.submitOrder(cart);
+
+            restMessage = new RestMessage(HttpStatus.OK, "test", obj);
             return restMessage;
         } catch (Exception e) {
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
