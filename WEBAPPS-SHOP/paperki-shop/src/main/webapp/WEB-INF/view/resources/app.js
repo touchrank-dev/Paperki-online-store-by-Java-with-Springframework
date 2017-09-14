@@ -582,20 +582,10 @@ function printCartItems(products) {
 
 
 function confirmOrder() {
-    var token = validateOrder();
-    if(token != null) {
-        var orderURL = '/order/'+token;
-        console.log(orderURL);
-        document.location.href = orderURL;
-    }
-}
-
-function getOrderToken() {
-    return '1';
+    validateOrder();
 }
 
 function validateOrder() {
-    var token = null;
     $.ajax({
         cache: false,
         async: false,
@@ -606,12 +596,11 @@ function validateOrder() {
         data: orderFormToJSON(),
         success: function(response) {
             if(response.code == "OK") {
-                console.log(response);
-                token = response.object;
+                var token = response.object;
+                document.location.href = '/order/'+token;
             } else if (response.code == "BAD_REQUEST") {
-                console.log(response);
+
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
-                console.log(response);
                 serverAlert();
             }
         },
@@ -619,7 +608,6 @@ function validateOrder() {
             serverAlert();
         }
     });
-    return token;
 }
 
 function orderFormToJSON() {
