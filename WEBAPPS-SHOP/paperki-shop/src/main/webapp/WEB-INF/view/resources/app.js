@@ -594,6 +594,7 @@ function getOrderToken() {
 }
 
 function validateOrder() {
+    var isOk = false;
     $.ajax({
         cache: false,
         async: false,
@@ -605,21 +606,19 @@ function validateOrder() {
         success: function(response) {
             if(response.code == "OK") {
                 console.log(response);
-                return true;
+                isOk = true;
             } else if (response.code == "BAD_REQUEST") {
                 console.log(response);
-                return false;
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
                 console.log(response);
                 serverAlert();
-                return false;
             }
         },
         error: function() {
             serverAlert();
-            return false;
         }
     });
+    return isOk;
 }
 
 function orderFormToJSON() {
