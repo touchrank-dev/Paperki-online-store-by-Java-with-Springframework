@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private OrderErrorForm validateOrder (Cart cart) {
-        OrderErrorForm orderErrorForm;
+        OrderErrorForm orderErrorForm = new OrderErrorForm();
         if (cart != null) {
             OrderForm orderForm = cart.getOrderForm();
             if (orderForm != null) {
@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 
             }
         }
-        return null;
+        return orderErrorForm;
     }
 
     private String createOrder() {
