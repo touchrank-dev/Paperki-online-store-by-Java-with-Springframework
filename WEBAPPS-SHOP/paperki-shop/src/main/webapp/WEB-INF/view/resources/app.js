@@ -585,6 +585,10 @@ function confirmOrder() {
     validateOrder();
 }
 
+function redirectToOrderDone(token) {
+    document.location.href = '/order/'+token;
+}
+
 function validateOrder() {
     $.ajax({
         cache: false,
@@ -596,8 +600,7 @@ function validateOrder() {
         data: orderFormToJSON(),
         success: function(response) {
             if(response.code == "OK") {
-                var token = response.object;
-                document.location.href = '/order/'+token;
+                redirectToOrderDone(response.object);
             } else if (response.code == "BAD_REQUEST") {
 
             } else if(response.code == "INTERNAL_SERVER_ERROR") {

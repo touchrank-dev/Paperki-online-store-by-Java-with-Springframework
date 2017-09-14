@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 @CrossOrigin
 @RestController
@@ -28,10 +29,17 @@ public class RESTOrder {
     RestMessage validateOrder (@RequestBody OrderForm orderForm, HttpSession session) {
         LOGGER.debug("REST ORDER VALIDATE >>>");
         RestMessage restMessage;
-        restMessage = new RestMessage(HttpStatus.OK, "test", 1);
+        restMessage = new RestMessage(HttpStatus.OK, "test", generateToken());
 
 
 
         return restMessage;
+    }
+
+    private String generateToken() {
+        /*String token = UUID.randomUUID().toString() + ":" + System.currentTimeMillis();
+        String[] t = token.split(":");
+        String token_time = t[1];*/
+        return UUID.randomUUID().toString();
     }
 }
