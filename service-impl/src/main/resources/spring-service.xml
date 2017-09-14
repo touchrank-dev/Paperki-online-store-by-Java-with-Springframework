@@ -25,5 +25,6 @@
     <bean id="callBackService" class="com.kushnir.paperki.service.CallBackServiceImpl" />
     <bean id="feedbackService" class="com.kushnir.paperki.service.FeedbackServiceImpl" />
     <bean id="deliveryService" class="com.kushnir.paperki.service.DeliveryServiceImpl" />
+    <bean id="orderService" class="com.kushnir.paperki.service.OrderServiceImpl" />
 
 </beans>

@@ -580,23 +580,25 @@ function printCartItems(products) {
 }
 
 
+/*===================================================================================*/
+
 
 function confirmOrder() {
-    validateOrder();
+    submitOrder();
 }
 
 function redirectToOrderDone(token) {
     document.location.href = '/order/'+token;
 }
 
-function validateOrder() {
+function submitOrder() {
     $.ajax({
         cache: false,
         async: false,
         type: "POST",
         contentType: "application/json",
         dataType: "json",
-        url: "/api/order/validate",
+        url: "/api/order/submit",
         data: orderFormToJSON(),
         success: function(response) {
             if(response.code == "OK") {
