@@ -70,13 +70,14 @@
                             <h2>Оформить заказ как:</h2>
                             <div class="single-product-tabs orderingTabs">
                                 <ul class="single-product-tabs__titles">
-                                    <li data-page="0">
+                                    <li data-page="0" onclick="switchOrderType(1)">
                                       Физическое лицо
                                     </li>
-                                    <li data-page="1" >
+                                    <li data-page="1" onclick="switchOrderType(2)">
                                       Юридическое лицо
                                     </li>
                                 </ul>
+                                <input type="hidden" id="order-type-switcher" value="1">
 
                                 <!--Как физ. лицо-->
                                 <div class="single-product-tabs-content">

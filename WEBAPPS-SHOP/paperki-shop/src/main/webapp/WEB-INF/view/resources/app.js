@@ -589,3 +589,50 @@ function confirmOrder() {
 function getOrderToken() {
     return '1';
 }
+
+function validateOrder() {
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/order/validate",
+        data: orderFormToJSON(),
+        success: function(response) {
+            if(response.code == "OK") {
+                console.log(response);
+            } else if (response.code == "BAD_REQUEST") {
+                console.log(response);
+            } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
+                serverAlert();
+            }
+        },
+        error: function() {
+            serverAlert();
+        }
+    });
+}
+
+function orderFormToJSON() {
+    return JSON.stringify({
+        /*"name":             $('#registration-input-name').val(),
+        "email":            $('#registration-input-email').val(),
+        "subscribe":        $('#check-subscribe').attr("checked") == "checked" ? true:false,
+        "password":         $('#registration-input-password').val(),
+        "autopass":         $('#check-autopassword').attr("checked") == "checked" ? true:false,
+        "phone":            $('#registration-input-phone').val(),
+        "enterprise":       $('#check-isenterprise').attr("checked") == "checked" ? true:false,
+        "unp":              $('#registration-input-enterprise-unp').val(),
+        "enterpriseName":   $('#registration-input-enterprise-name').val(),
+        "billingAddress":   $('#registration-input-enterprise-address').val(),
+        "accountNumber":    $('#registration-input-enterprise-account').val(),
+        "bankName":         $('#registration-input-enterprise-account-bank').val(),
+        "bankCode":         $('#registration-input-enterprise-account-bank-code').val()*/
+    });
+}
+
+function switchOrderType(type) {
+    $('#order-type-switcher').val(type);
+}

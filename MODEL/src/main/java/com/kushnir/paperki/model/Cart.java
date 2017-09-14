@@ -1,8 +1,12 @@
 package com.kushnir.paperki.model;
 
+import com.kushnir.paperki.model.order.OrderForm;
+
 import java.util.HashMap;
 
 public class Cart {
+
+    private OrderForm orderForm;
 
     private double total;                       // сумма
     private double totalWithVAT;                // сумма с налогом
@@ -19,6 +23,14 @@ public class Cart {
     private HashMap<Integer, CartProduct> items = new HashMap<Integer, CartProduct>();
 
     public Cart() {
+    }
+
+    public OrderForm getOrderForm() {
+        return orderForm;
+    }
+
+    public void setOrderForm(OrderForm orderForm) {
+        this.orderForm = orderForm;
     }
 
     public double getTotal() {
