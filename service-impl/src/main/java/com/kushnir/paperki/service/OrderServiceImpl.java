@@ -3,6 +3,7 @@ package com.kushnir.paperki.service;
 import com.kushnir.paperki.dao.OrderDao;
 import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.CartProduct;
+import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.model.order.Order;
 import com.kushnir.paperki.model.order.OrderErrorForm;
 import com.kushnir.paperki.model.order.OrderForm;
@@ -28,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
     OrderDao orderDao;
 
     @Override
-    public Object submitOrder(Cart cart) {
+    public Object submitOrder(OrderForm orderForm, Cart cart, User user) {
         try {
             OrderErrorForm orderErrorForm = validateOrder(cart);
             if (orderErrorForm.isErrors()) {
@@ -73,7 +74,9 @@ public class OrderServiceImpl implements OrderService {
         String orderToken = generateToken();
 
         Order order = new Order();
-        order.setIdOrderType(cart.getOrderForm().getOrderType().getI());
+        order.setIdOrderType(cart.getOrderForm().getOrderType() == null?
+                1:cart.getOrderForm().getOrderType().getI() == 0?
+                    1: cart.getOrderForm().getOrderType().getI());
         order.setTokenOrder(orderToken);
         order.setOrderNumber(orderNumber);
         order.setIdUser(cart.getOrderForm().getUser().getId() == null? 0:cart.getOrderForm().getUser().getId());

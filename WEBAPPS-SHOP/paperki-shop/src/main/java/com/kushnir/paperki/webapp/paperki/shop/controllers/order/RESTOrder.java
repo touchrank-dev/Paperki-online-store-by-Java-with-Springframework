@@ -45,7 +45,8 @@ public class RESTOrder {
             if (user != null) orderForm.setUser(user);
             if (cart != null) cart.setOrderForm(orderForm);
 
-            Object obj = orderService.submitOrder(cart);
+            Object obj = orderService.submitOrder(orderForm, cart, user);
+
             if(obj instanceof Integer) {
                 restMessage = new RestMessage(HttpStatus.OK, "Заказ успешно создан", obj);
             } else {
