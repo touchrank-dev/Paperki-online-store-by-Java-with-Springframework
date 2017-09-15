@@ -2,10 +2,11 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers.order;
 
 import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.RestMessage;
+import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.model.order.OrderForm;
-
 import com.kushnir.paperki.service.OrderService;
 import com.kushnir.paperki.service.mail.Mailer;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,11 +41,17 @@ public class RESTOrder {
         RestMessage restMessage;
         try {
             Cart cart = (Cart) session.getAttribute("cart");
+            User user = (User) session.getAttribute("user");
+            if (user != null) orderForm.setUser(user);
             if (cart != null) cart.setOrderForm(orderForm);
 
             Object obj = orderService.submitOrder(cart);
+            if(obj instanceof Integer) {
+                restMessage = new RestMessage(HttpStatus.OK, "Заказ успешно создан", obj);
+            } else {
+                restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "Ошибка создания заказа", obj);
+            }
 
-            restMessage = new RestMessage(HttpStatus.OK, "test", obj);
             return restMessage;
         } catch (Exception e) {
             LOGGER.error("ERROR REST ORDER SUBMIT >>>\nERROR MESSAGE{}", e.getMessage());

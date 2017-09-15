@@ -1,14 +1,13 @@
 package com.kushnir.paperki.model.order;
 
+import com.kushnir.paperki.model.User;
+
 public class OrderForm {
 
     private OrderType orderType;
+    private User user;
 
     public OrderForm() {
-    }
-
-    public OrderForm(OrderType orderType) {
-        this.orderType = orderType;
     }
 
     public OrderType getOrderType() {
@@ -19,6 +18,14 @@ public class OrderForm {
         this.orderType = orderType;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -26,18 +33,22 @@ public class OrderForm {
 
         OrderForm orderForm = (OrderForm) o;
 
-        return orderType == orderForm.orderType;
+        if (orderType != orderForm.orderType) return false;
+        return user != null ? user.equals(orderForm.user) : orderForm.user == null;
     }
 
     @Override
     public int hashCode() {
-        return orderType != null ? orderType.hashCode() : 0;
+        int result = orderType != null ? orderType.hashCode() : 0;
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
         return "OrderForm{" +
                 "orderType=" + orderType +
+                ", user=" + user +
                 '}';
     }
 }

@@ -1,4 +1,6 @@
 -- FIRST DROP ALL TABLES WITH FK
+DROP TABLE IF EXISTS payment_order_type;
+DROP TABLE IF EXISTS delivery_order_type;
 DROP TABLE IF EXISTS payment_accounts;
 DROP TABLE IF EXISTS enterprise;
 DROP TABLE IF EXISTS addresses;
@@ -12,14 +14,14 @@ DROP TABLE IF EXISTS product_catalog;
 DROP TABLE IF EXISTS product_prices;
 DROP TABLE IF EXISTS menu_item_ref;
 DROP TABLE IF EXISTS feedbacks;
+DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS order_info;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS enterprise_users;
 DROP TABLE IF EXISTS stock;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS stock;
 DROP TABLE IF EXISTS subscribes;
-DROP TABLE IF EXISTS delivery_order_type;
-DROP TABLE IF EXISTS payment_order_type;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
@@ -293,18 +295,70 @@ CREATE TABLE order_status (
     description                 VARCHAR(1000)   CHARACTER SET utf8
 );
 
+DROP TABLE IF EXISTS order_types;
+CREATE TABLE order_types (
+    id_order_type               INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name                        VARCHAR(30)     NOT NULL
+);
+
 CREATE TABLE orders (
     id_order                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_order_type               INT             NOT NULL,
     token_order                 VARCHAR(100)    NOT NULL UNIQUE,
     order_number                VARCHAR(15)     NOT NULL UNIQUE,
-    pap_order_number            INT             NOT NULL UNIQUE,
-    id_user                     INT             NOT NULL,
-    id_order_status             INT             NOT NULL,
+    pap_order_number            INT             UNIQUE,
+    id_user                     INT             DEFAULT 0 NOT NULL,
+    id_order_status             INT             DEFAULT 1 NOT NULL,
+    total                       DOUBLE          NOT NULL,
+    total_with_vat              DOUBLE          NOT NULL,
+    vat_total                   DOUBLE          NOT NULL,
+    total_discount              DOUBLE          ,
+    coupon_id                   INT             ,
+    payment_cost                DOUBLE          DEFAULT 0.0 NOT NULL,
+    shipmentcost                DOUBLE          DEFAULT 0.0 NOT NULL,
+    final_total                 DOUBLE          NOT NULL,
+    final_total_with_vat        DOUBLE          NOT NULL,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_user)                       REFERENCES users(id_user),
+    FOREIGN KEY (id_order_type)                 REFERENCES order_types(id_order_type),
     FOREIGN KEY (id_order_status)               REFERENCES order_status(id_order_status)
 );
+
+CREATE TABLE order_items (
+    id_order                    INT             NOT NULL,
+    id_product                  INT             NOT NULL,
+    product_full_name           VARCHAR(250)    ,
+    product_link                VARCHAR(250)    ,
+    VAT                         INT             NOT NULL,
+    base_price                  DOUBLE          NOT NULL,
+    base_price_with_vat         DOUBLE          NOT NULL,
+    discounted_price            DOUBLE          NOT NULL,
+    discounted_price_with_vat   DOUBLE          NOT NULL,
+    quantity                    INT             NOT NULL,
+    total                       DOUBLE          NOT NULL,
+    total_with_vat              DOUBLE          NOT NULL,
+    FOREIGN KEY (id_order)      REFERENCES orders(id_order),
+    FOREIGN KEY (id_product)    REFERENCES products(id_product),
+    UNIQUE KEY `o_p` (id_order, id_product)
+);
+
+CREATE TABLE order_info (
+    id_order                    INT             NOT NULL,
+    customer_name               VARCHAR(250)    ,
+    enterprise_name             VARCHAR(450)    ,
+    unp                         VARCHAR(20)     ,
+    email                       VARCHAR(100)    NOT NULL,
+    phone                       VARCHAR(20)     ,
+    payment_name                VARCHAR(250)    ,
+    payment_account             VARCHAR(30)     ,
+    payment_bank_name           VARCHAR(450)    ,
+    payment_bank_code           VARCHAR(8)      ,
+    shipment_name               VARCHAR(250)    ,
+    shipment_address            VARCHAR(250)    ,
+    user_notes                  VARCHAR(2000)   ,
+    FOREIGN KEY (id_order)      REFERENCES orders(id_order)
+);
+
 
 DROP TABLE IF EXISTS stock_place;
 CREATE TABLE stock_place (
@@ -355,12 +409,6 @@ CREATE TABLE callbacks (
 
 
 
-
-DROP TABLE IF EXISTS order_types;
-CREATE TABLE order_types (
-    id_order_type               INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name                        VARCHAR(30)     NOT NULL
-);
 
 DROP TABLE IF EXISTS delivery;
 CREATE TABLE delivery (
