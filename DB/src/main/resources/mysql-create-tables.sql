@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS product_prices;
 DROP TABLE IF EXISTS menu_item_ref;
 DROP TABLE IF EXISTS feedbacks;
 DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS order_attributes;
 DROP TABLE IF EXISTS order_info;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS enterprise_users;
@@ -342,6 +343,15 @@ CREATE TABLE order_items (
     UNIQUE KEY `o_p` (id_order, id_product)
 );
 
+CREATE TABLE order_attributes (
+    id_order                    INT             NOT NULL,
+    name                        VARCHAR(250)    NOT NULL,
+    value                       VARCHAR(1000)   ,
+    order                       INT,            ,
+    FOREIGN KEY (id_order)      REFERENCES orders(id_order),
+    UNIQUE KEY `o_a` (id_order, name)
+);
+
 CREATE TABLE order_info (
     id_order                    INT             NOT NULL,
     customer_name               VARCHAR(250)    ,
@@ -358,7 +368,6 @@ CREATE TABLE order_info (
     user_notes                  VARCHAR(2000)   ,
     FOREIGN KEY (id_order)      REFERENCES orders(id_order)
 );
-
 
 DROP TABLE IF EXISTS stock_place;
 CREATE TABLE stock_place (

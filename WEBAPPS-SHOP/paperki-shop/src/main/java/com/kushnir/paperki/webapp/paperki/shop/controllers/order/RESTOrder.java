@@ -56,7 +56,7 @@ public class RESTOrder {
             return restMessage;
         } catch (Exception e) {
             LOGGER.error("ERROR REST ORDER SUBMIT >>>\nERROR MESSAGE{}", e.getMessage());
-            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
             mailer.toSupportMail(restMessage.toString(), "ERROR REST ORDER SUBMIT");
             return restMessage;
         }

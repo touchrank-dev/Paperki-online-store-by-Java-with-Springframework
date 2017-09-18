@@ -1,6 +1,6 @@
 package com.kushnir.paperki.model.order;
 
-public class OrderInfo {
+public class OrderInfo implements OrderAttributes {
 
     private String customerName;
     private String enterpriseName;

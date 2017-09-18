@@ -1,4 +1,4 @@
-package com.kushnir.paperki.webapp.paperki.shop.controllers;
+package com.kushnir.paperki.webapp.paperki.shop.controllers.order;
 
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.DeliveryService;
