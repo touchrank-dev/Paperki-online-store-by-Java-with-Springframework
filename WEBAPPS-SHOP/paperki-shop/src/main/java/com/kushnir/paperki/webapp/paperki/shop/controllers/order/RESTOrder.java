@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @CrossOrigin
 @RestController
@@ -35,22 +36,21 @@ public class RESTOrder {
 
     @PostMapping("/submit")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage submitOrder (@RequestBody OrderForm orderForm,
-                                                    HttpSession session) {
-        LOGGER.debug("REST ORDER SUBMIT >>>");
+    public @ResponseBody RestMessage submitOrder (@RequestBody HashMap<String, String> orderForm,
+                                                  HttpSession session) {
+        LOGGER.debug("REST ORDER SUBMIT >>>\n{}", orderForm);
         RestMessage restMessage;
         try {
             Cart cart = (Cart) session.getAttribute("cart");
             User user = (User) session.getAttribute("user");
-            if (user != null) orderForm.setUser(user);
-            if (cart != null) cart.setOrderForm(orderForm);
 
             Object obj = orderService.submitOrder(orderForm, cart, user);
 
-            if(obj instanceof Integer) {
+            if(obj instanceof String) {
                 restMessage = new RestMessage(HttpStatus.OK, "Заказ успешно создан", obj);
+                session.setAttribute("cart", new Cart());
             } else {
-                restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "Ошибка создания заказа", obj);
+                restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "Ошибка валидации заказа", obj);
             }
 
             return restMessage;

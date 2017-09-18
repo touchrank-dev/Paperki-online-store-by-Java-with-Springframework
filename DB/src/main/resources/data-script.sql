@@ -113,8 +113,8 @@ INSERT INTO order_types (name)
 VALUES ('Физ лиц'), ('Юр лиц');
 
 INSERT INTO delivery (name, short_description, full_description, link, icon)
-VALUES ('САМОВЫВОЗ СО СКЛАДА В БРЕСТЕ', '', '', '', ''),
-       ('ДОСТАВКА "Паперки"', '', '', '', '');
+VALUES ('САМОВЫВОЗ СО СКЛАДА В БРЕСТЕ', 'Адрес пункта самовывоза: Брест Я.Купалы 88 в', '', '', ''),
+       ('ДОСТАВКА "Паперки"', 'Пн - Пт с 8.30 - 16.00', '', '', '');
 
 INSERT INTO delivery_order_type (id_delivery, id_order_type, min_cart_total, price)
 VALUES (1, 1, 0.0, 0.0), (1, 2, 0.0, 0.0),

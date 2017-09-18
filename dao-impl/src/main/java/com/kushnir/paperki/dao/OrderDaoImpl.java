@@ -1,7 +1,9 @@
 package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.CartProduct;
+import com.kushnir.paperki.model.order.Attribute;
 import com.kushnir.paperki.model.order.Order;
+import com.kushnir.paperki.model.order.OrderAttributes;
 import com.kushnir.paperki.model.order.OrderInfo;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -16,9 +20,14 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class OrderDaoImpl implements OrderDao {
+public class OrderDaoImpl implements OrderDao, OrderAttributes {
 
     private static final Logger LOGGER = LogManager.getLogger(OrderDaoImpl.class);
 
@@ -26,6 +35,9 @@ public class OrderDaoImpl implements OrderDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final String P_ORDER_ID = "p_id_order";
+
+    @Value("${order.getByToken}")
+    private String getOrderByTokenSqlQuery;
 
     @Value("${order.add}")
     private String addOrderSqlQuery;
@@ -62,6 +74,9 @@ public class OrderDaoImpl implements OrderDao {
     @Value("${order.addItem}")
     private String addOrderItemSqlQuery;
 
+    @Value("${order.batch.addItem}")
+    private String addOrderItemBatchSqlQuery;
+
     private static final String P_ITEM_ID_ORDER = "p_id_order";
     private static final String P_ITEM_ID_PRODUCT = "p_id_product";
     private static final String P_ITEM_PRODUCT_FULL_NAME = "p_product_full_name";
@@ -75,22 +90,36 @@ public class OrderDaoImpl implements OrderDao {
     private static final String P_ITEM_TOTAL_WITH_VAT = "p_total_with_vat";
 
 
+    @Value("${order.addAttribute}")
+    private String addAttributeSqlQuery;
+
+
+    @Override
+    public Order getOrderByToken(String token) {
+        LOGGER.debug("getOrderByToken({}) >>>", token);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_TOKEN, token);
+        Order order;
+        order = (Order) namedParameterJdbcTemplate.query(   getOrderByTokenSqlQuery,
+                                                            parameterSource,
+                                                            new OrderResultSetExtractor());
+        return order;
+    }
 
     @Override
     public Integer addOrder(Order order) {
         LOGGER.debug("addOrder({}) >>>", order);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        parameterSource.addValue(P_ORDER_ID_ORDER_TYPE, order.getIdOrderType());
-        parameterSource.addValue(P_ORDER_TOKEN, order.getTokenOrder());
-        parameterSource.addValue(P_ORDER_NUMBER, order.getOrderNumber());
-        parameterSource.addValue(P_ORDER_ID_USER, order.getIdUser());
+        parameterSource.addValue(P_ORDER_ID_ORDER_TYPE, order.getId_order_type());
+        parameterSource.addValue(P_ORDER_TOKEN, order.getToken_order());
+        parameterSource.addValue(P_ORDER_NUMBER, order.getOrder_number());
+        parameterSource.addValue(P_ORDER_ID_USER, order.getId_user());
         parameterSource.addValue(P_ORDER_TOTAL, order.getTotal());
-        parameterSource.addValue(P_ORDER_TOTAL_WITH_VAT, order.getTotalWithVAT());
-        parameterSource.addValue(P_ORDER_VAT_TOTAL, order.getVATtotal());
-        parameterSource.addValue(P_ORDER_TOTAL_DISCOUNT, order.getTotalDiscount());
-        parameterSource.addValue(P_ORDER_FINAL_TOTAL, order.getFinalTotal());
-        parameterSource.addValue(P_ORDER_FINAL_TOTAL_WITH_VAT, order.getFinalTotalWithVAT());
+        parameterSource.addValue(P_ORDER_TOTAL_WITH_VAT, order.getTotal_with_vat());
+        parameterSource.addValue(P_ORDER_VAT_TOTAL, order.getVat_total());
+        parameterSource.addValue(P_ORDER_TOTAL_DISCOUNT, order.getTotal_discount());
+        parameterSource.addValue(P_ORDER_FINAL_TOTAL, order.getFinal_total());
+        parameterSource.addValue(P_ORDER_FINAL_TOTAL_WITH_VAT, order.getFinal_total_with_vat());
 
         namedParameterJdbcTemplate.update(addOrderSqlQuery, parameterSource, keyHolder);
 
@@ -122,8 +151,35 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public int[] addOrderAttributes(HashMap<String, String> orderForm, Integer idOrder) {
+
+        List<Attribute> attributes = new ArrayList<>();
+        attributes.add(new Attribute(idOrder, CONTACT_NAME, orderForm.get("name")));
+        attributes.add(new Attribute(idOrder, CONTACT_PHONE, orderForm.get("phone")));
+        attributes.add(new Attribute(idOrder, EMAIL, orderForm.get("email")));
+
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(attributes.toArray());
+        return namedParameterJdbcTemplate.batchUpdate(addAttributeSqlQuery, batch);
+    }
+
+    @Override
     public int[] addOrderItems(HashMap<Integer, CartProduct> items, Integer idOrder) {
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items.values().toArray());
         return namedParameterJdbcTemplate.batchUpdate(addOrderItemSqlQuery, batch);
+    }
+
+    private int[] addOrderItemsInternal(HashMap<Integer, CartProduct> items, Integer idOrder) {
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items.values().toArray());
+        return namedParameterJdbcTemplate.batchUpdate(addOrderItemBatchSqlQuery, batch);
+
+    }
+
+
+    private class OrderResultSetExtractor implements ResultSetExtractor {
+
+        @Override
+        public Order extractData(ResultSet rs) throws SQLException, DataAccessException {
+            return null;
+        }
     }
 }

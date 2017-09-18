@@ -13,7 +13,7 @@
 
 .order-completed-info {
   padding-left: 35px;
-    margin-top: 28px;
+  margin-top: 28px;
 }
 
 .order-menu-bar {
@@ -111,6 +111,152 @@
   cursor: pointer;
 }
 
+
+
+
+
+
+
+
+
+.order-details {
+  float: left;
+  width: 98%;
+  margin: 15px 1%;
+  background-color: #FFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+}
+
+.order-details h2 {
+  color: #373b44;
+  font-family: ProximaNovaRegular;
+  font-size: 26px;
+  font-weight: 400;
+  margin: 21px 0 21px 34px;
+}
+
+.order-details-items {
+  padding-left: 35px;
+  margin-top: 28px;
+}
+
+.order-details-actions {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 25px 0 24px 35px;
+}
+
+.order-details-attributes {
+  padding-left: 35px;
+  margin-top: 28px;
+}
+
+.order-details-attributes h4 {
+    font-family: ProximaNovaRegular;
+    font-weight: 400;
+    color: #373b44;
+    font-size: 18px;
+    margin: 0;
+}
+
+.order-details-attributes ul {
+    padding: 0;
+    margin: 16px 0 0 0;
+}
+
+.order-details-attributes ul li {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+.order-details-attributes ul li div {
+    position: relative;
+    overflow: hidden;
+    width: 410px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+}
+
+.order-details-attributes ul li div:before {
+  content: '................................................................................................................................................................................................................................................';
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  color: #9f9f9f;
+  font-size: 14px;
+  font-family: ProximaNovaRegular;
+  font-weight: 400; 
+}
+
+.order-details-attributes ul li p, .order-details-attributes ul li span {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    background: #fff;
+    margin: 0;
+    color: #373b44;
+    font-size: 14px;
+    font-family: ProximaNovaRegular;
+    font-weight: 400;
+    padding-right: 5px;
+}
+
+
+.order-details-items .composition-order-table .table-head {
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+.order-details-items .composition-order-table .table-row {
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 0;
+  padding: 0 10px 0 10px;
+}
+
+.order-details-items .composition-order-table .table-row li:first-of-type {
+  width: 10%; }
+.order-details-items .composition-order-table .table-row li:nth-of-type(2) {
+  width: 60%; }
+.order-details-items .composition-order-table .table-row li:nth-of-type(3) {
+  width: 10%; }
+.order-details-items .composition-order-table .table-row li:nth-of-type(4) {
+  width: 10%; }
+.order-details-items .composition-order-table .table-row li:nth-of-type(5) {
+  text-align: center;
+  width: 10%; }
+
+.order-details-items .composition-order-table .table-head ul li {
+  padding-bottom: 12px;
+  padding-top: 12px;
+  color: #9f9f9f;
+  font-family: ProximaNovaRegular;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.order-details-items .composition-order-table .table-body ul {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.order-details-items .composition-order-table .table-body ul li {
+  padding-top: 22px;
+  padding-bottom: 22px;
+  font-family: ProximaNovaRegular;
+  font-size: 14px;
+  font-weight: 400;
+  color: #373b44;
+}
 
 
 

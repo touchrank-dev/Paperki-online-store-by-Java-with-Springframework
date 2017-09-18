@@ -604,8 +604,9 @@ function submitOrder() {
             if(response.code == "OK") {
                 redirectToOrderDone(response.object);
             } else if (response.code == "BAD_REQUEST") {
-
+                console.log(response);
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
                 serverAlert();
             }
         },
@@ -616,21 +617,40 @@ function submitOrder() {
 }
 
 function orderFormToJSON() {
-    return JSON.stringify({
-        /*"name":             $('#registration-input-name').val(),
-        "email":            $('#registration-input-email').val(),
-        "subscribe":        $('#check-subscribe').attr("checked") == "checked" ? true:false,
-        "password":         $('#registration-input-password').val(),
-        "autopass":         $('#check-autopassword').attr("checked") == "checked" ? true:false,
-        "phone":            $('#registration-input-phone').val(),
-        "enterprise":       $('#check-isenterprise').attr("checked") == "checked" ? true:false,
-        "unp":              $('#registration-input-enterprise-unp').val(),
-        "enterpriseName":   $('#registration-input-enterprise-name').val(),
-        "billingAddress":   $('#registration-input-enterprise-address').val(),
-        "accountNumber":    $('#registration-input-enterprise-account').val(),
-        "bankName":         $('#registration-input-enterprise-account-bank').val(),
-        "bankCode":         $('#registration-input-enterprise-account-bank-code').val()*/
-    });
+    if($('#order-type-switcher').val() == 1) {
+        return JSON.stringify({
+            "type":             $('#order-type-switcher').val(),
+            "name" :            $('#order-input-customer-name').val(),
+            "email":            $('#order-input-customer-email').val(),
+            "phone":            $('#order-input-customer-phone').val(),
+            "shipment_id":      $('#customer-shipment-chosen input[type=radio]:checked').val(),
+            "payment_id":       $('#customer-payment-chosen input[type=radio]:checked').val(),
+            "comments":         $('#order-customer-comment').val()
+        });
+    } else {
+        return JSON.stringify({
+            "type":             $('#order-type-switcher').val(),
+            
+            "shipment_id":      $('#enterprise-shipment-chosen input[type=radio]:checked').val(),
+
+
+
+
+            /*"name":             $('#registration-input-name').val(),
+            "email":            $('#registration-input-email').val(),
+            "subscribe":        $('#check-subscribe').attr("checked") == "checked" ? true:false,
+            "password":         $('#registration-input-password').val(),
+            "autopass":         $('#check-autopassword').attr("checked") == "checked" ? true:false,
+            "phone":            $('#registration-input-phone').val(),
+            "enterprise":       $('#check-isenterprise').attr("checked") == "checked" ? true:false,
+            "unp":              $('#registration-input-enterprise-unp').val(),
+            "enterpriseName":   $('#registration-input-enterprise-name').val(),
+            "billingAddress":   $('#registration-input-enterprise-address').val(),
+            "accountNumber":    $('#registration-input-enterprise-account').val(),
+            "bankName":         $('#registration-input-enterprise-account-bank').val(),
+            "bankCode":         $('#registration-input-enterprise-account-bank-code').val()*/
+        });
+    }
 }
 
 function switchOrderType(type) {
