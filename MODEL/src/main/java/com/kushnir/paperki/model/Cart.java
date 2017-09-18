@@ -1,6 +1,7 @@
 package com.kushnir.paperki.model;
 
 import com.kushnir.paperki.model.order.OrderForm;
+import com.kushnir.paperki.model.payment.Payment;
 
 import java.util.HashMap;
 

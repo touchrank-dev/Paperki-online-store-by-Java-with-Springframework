@@ -10,4 +10,5 @@ public interface OrderAttributes {
     String PAYMENT_NAME = "Способ оплаты";
     String PAYMENT_ACCOUNT = "р/с";
     String SHIPMENT_NAME = "Способ доставки";
+    String COMMENTS = "Комментарий к заказу";
 }

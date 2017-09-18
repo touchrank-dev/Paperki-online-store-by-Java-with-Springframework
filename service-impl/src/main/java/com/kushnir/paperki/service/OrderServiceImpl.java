@@ -10,6 +10,7 @@ import com.kushnir.paperki.service.exceptions.ServiceException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,6 +99,11 @@ public class OrderServiceImpl implements OrderService {
                             orderErrorForm.setPayment(e.getMessage());
                         }
                     } else if(orderType == 2) {
+                        String name = orderForm.get("name");
+                        String email = orderForm.get("email");
+                        String phone = orderForm.get("phone");
+                        String unp = orderForm.get("unp");
+                        String address = orderForm.get("address");
 
                         // TODO validate enterprise order
 
@@ -160,10 +166,17 @@ public class OrderServiceImpl implements OrderService {
             attributes.add(new Attribute(idOrder, EMAIL, orderForm.get("email")));
             attributes.add(new Attribute(idOrder, SHIPMENT_NAME, orderForm.get("shipment_id")));
             attributes.add(new Attribute(idOrder, PAYMENT_NAME, orderForm.get("payment_id")));
+            attributes.add(new Attribute(idOrder, COMMENTS, orderForm.get("comments")));
+
             return orderDao.addOrderAttributes(attributes);
         } else if (orderTypeId == 2){
+
+
+
+
+
             return null;
-        } else throw new ServiceException("Типа заказа не существует");
+        } else throw new ServiceException("Тип заказа не существует");
     }
 
     private int[] addOrderItems(HashMap<Integer, CartProduct> items, Integer idOrder) {

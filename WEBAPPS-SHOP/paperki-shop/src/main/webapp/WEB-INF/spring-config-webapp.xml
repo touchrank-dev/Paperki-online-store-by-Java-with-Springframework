@@ -14,8 +14,8 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:CSVconfig.properties</value>
-                <!--<value>classpath:paperkiMySQL.properties</value>-->
+                <!--<value>classpath:CSVconfig.properties</value>-->
+                <value>classpath:paperkiMySQL.properties</value>
                 <value>classpath:paperkiMySQLremote.properties</value>
                 <value>classpath:sqlQueries.properties</value>
                 <value>classpath:paperki.properties</value>
