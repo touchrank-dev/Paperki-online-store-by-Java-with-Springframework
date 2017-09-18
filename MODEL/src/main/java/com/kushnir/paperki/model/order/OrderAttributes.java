@@ -1,6 +1,7 @@
 package com.kushnir.paperki.model.order;
 
 public interface OrderAttributes {
+    String ORDER_TYPE = "Тип заказа";
     String CONTACT_NAME = "Контактное лицо";
     String CONTACT_PHONE = "Контактный номер телефона";
     String EMAIL = "Адрес электронной почты";

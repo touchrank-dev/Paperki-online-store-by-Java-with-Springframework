@@ -630,25 +630,17 @@ function orderFormToJSON() {
     } else {
         return JSON.stringify({
             "type":             $('#order-type-switcher').val(),
-            
+            "email":            $('#order-input-enterprise-email').val(),
+            "phone":            $('#order-input-enterprise-phone').val(),
+            "name":             $('#order-input-enterprise-name').val(),
+            "unp":              $('#order-input-enterprise-unp').val(),
+            "address":          $('#order-input-enterprise-address').val(),
             "shipment_id":      $('#enterprise-shipment-chosen input[type=radio]:checked').val(),
+            "payment_id":       $('#enterprise-payment-chosen input[type=radio]:checked').val(),
+            "comments":         $('#order-enterprise-comment').val()
 
-
-
-
-            /*"name":             $('#registration-input-name').val(),
-            "email":            $('#registration-input-email').val(),
-            "subscribe":        $('#check-subscribe').attr("checked") == "checked" ? true:false,
-            "password":         $('#registration-input-password').val(),
-            "autopass":         $('#check-autopassword').attr("checked") == "checked" ? true:false,
-            "phone":            $('#registration-input-phone').val(),
-            "enterprise":       $('#check-isenterprise').attr("checked") == "checked" ? true:false,
-            "unp":              $('#registration-input-enterprise-unp').val(),
-            "enterpriseName":   $('#registration-input-enterprise-name').val(),
-            "billingAddress":   $('#registration-input-enterprise-address').val(),
-            "accountNumber":    $('#registration-input-enterprise-account').val(),
-            "bankName":         $('#registration-input-enterprise-account-bank').val(),
-            "bankCode":         $('#registration-input-enterprise-account-bank-code').val()*/
+            // "subscribe":        $('#check-subscribe').attr("checked") == "checked" ? true:false
+        
         });
     }
 }

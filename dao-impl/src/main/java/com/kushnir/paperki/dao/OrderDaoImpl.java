@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OrderDaoImpl implements OrderDao, OrderAttributes {
+public class OrderDaoImpl implements OrderDao {
 
     private static final Logger LOGGER = LogManager.getLogger(OrderDaoImpl.class);
 
@@ -151,34 +151,31 @@ public class OrderDaoImpl implements OrderDao, OrderAttributes {
     }
 
     @Override
-    public int[] addOrderAttributes(HashMap<String, String> orderForm, Integer idOrder) {
-
-        List<Attribute> attributes = new ArrayList<>();
-        attributes.add(new Attribute(idOrder, CONTACT_NAME, orderForm.get("name")));
-        attributes.add(new Attribute(idOrder, CONTACT_PHONE, orderForm.get("phone")));
-        attributes.add(new Attribute(idOrder, EMAIL, orderForm.get("email")));
-
+    public int[] addOrderAttributes(List<Attribute> attributes) {
+        LOGGER.debug("addOrderAttributes({}) >>>", attributes);
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(attributes.toArray());
         return namedParameterJdbcTemplate.batchUpdate(addAttributeSqlQuery, batch);
     }
 
     @Override
     public int[] addOrderItems(HashMap<Integer, CartProduct> items, Integer idOrder) {
+        LOGGER.debug("addOrderItems({}, {}) >>>", items, idOrder);
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items.values().toArray());
         return namedParameterJdbcTemplate.batchUpdate(addOrderItemSqlQuery, batch);
     }
 
-    private int[] addOrderItemsInternal(HashMap<Integer, CartProduct> items, Integer idOrder) {
-        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items.values().toArray());
-        return namedParameterJdbcTemplate.batchUpdate(addOrderItemBatchSqlQuery, batch);
-
-    }
 
 
     private class OrderResultSetExtractor implements ResultSetExtractor {
 
         @Override
         public Order extractData(ResultSet rs) throws SQLException, DataAccessException {
+            Order order;
+            while(rs.next()) {
+
+
+
+            }
             return null;
         }
     }

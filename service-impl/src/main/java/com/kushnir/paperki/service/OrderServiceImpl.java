@@ -4,10 +4,9 @@ import com.kushnir.paperki.dao.OrderDao;
 import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.CartProduct;
 import com.kushnir.paperki.model.User;
-import com.kushnir.paperki.model.order.Order;
-import com.kushnir.paperki.model.order.OrderErrorForm;
-import com.kushnir.paperki.model.order.OrderForm;
-import com.kushnir.paperki.model.order.OrderInfo;
+import com.kushnir.paperki.model.order.*;
+import static com.kushnir.paperki.model.order.OrderAttributes.*;
+import com.kushnir.paperki.service.exceptions.ServiceException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,9 +18,7 @@ import org.springframework.util.Assert;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -33,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     OrderDao orderDao;
 
     @Override
-    public Object submitOrder(HashMap<String, String> orderForm, Cart cart, User user) {
+    public Object submitOrder(HashMap<String, String> orderForm, Cart cart, User user) throws ServiceException {
         try {
             OrderErrorForm orderErrorForm = validateOrder(orderForm, cart);
             if (orderErrorForm.isErrors()) {
@@ -48,18 +45,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private OrderErrorForm validateOrder (HashMap<String, String> orderForm, Cart cart) {
+        LOGGER.error("START ORDER VALIDATE >>");
         OrderErrorForm orderErrorForm = new OrderErrorForm();
         if (cart != null) {
             if (orderForm != null) {
                 if(orderForm.get("type") != null) {
 
-                    int orderType = 0;
-
-                    try {
-                        orderType = Integer.parseInt(orderForm.get("type"));
-                    } catch (Exception e) {
-                        LOGGER.error("ERROR PARSE ORDER TYPE >>> ERROR {}, MESSAGE {}", e, e.getMessage());
-                    }
+                    int orderType = getOrderType(orderForm.get("type"));
 
                     if(orderType == 1) {
                         String name = orderForm.get("name");
@@ -127,7 +119,7 @@ public class OrderServiceImpl implements OrderService {
         return orderErrorForm;
     }
 
-    private String createOrder(HashMap<String, String> orderForm, Cart cart, User user) {
+    private String createOrder(HashMap<String, String> orderForm, Cart cart, User user) throws ServiceException {
         LOGGER.error("createOrder() >>>");
         String orderNumber = generateOrderNumber();
         String orderToken = generateToken();
@@ -146,27 +138,38 @@ public class OrderServiceImpl implements OrderService {
         order.setFinal_total_with_vat(cart.getFinalTotalWithVAT());
 
         Integer idOrder = addOrder(order);
-        addOrderIfo(orderForm , idOrder);
+
+        addOrderIfo(orderForm , idOrder, orderTypeId);
         // addOrderItems(cart.getItems(), idOrder);
 
         return orderToken;
     }
 
-
-
     private Integer addOrder(Order order) {
         return orderDao.addOrder(order);
     }
 
-    private int[] addOrderIfo(HashMap<String, String> orderForm, Integer idOrder) {
-        return orderDao.addOrderAttributes(orderForm, idOrder);
+    private int[] addOrderIfo(HashMap<String, String> orderForm, Integer idOrder, int orderTypeId) throws ServiceException {
+        LOGGER.error("addOrderIfo()");
+        List<Attribute> attributes = new ArrayList<>();
+
+        if(orderTypeId == 1) {
+            attributes.add(new Attribute(idOrder, ORDER_TYPE, orderForm.get("type")));
+            attributes.add(new Attribute(idOrder, CONTACT_NAME, orderForm.get("name")));
+            attributes.add(new Attribute(idOrder, CONTACT_PHONE, orderForm.get("phone")));
+            attributes.add(new Attribute(idOrder, EMAIL, orderForm.get("email")));
+            attributes.add(new Attribute(idOrder, SHIPMENT_NAME, orderForm.get("shipment_id")));
+            attributes.add(new Attribute(idOrder, PAYMENT_NAME, orderForm.get("payment_id")));
+            return orderDao.addOrderAttributes(attributes);
+        } else if (orderTypeId == 2){
+            return null;
+        } else throw new ServiceException("Типа заказа не существует");
     }
 
     private int[] addOrderItems(HashMap<Integer, CartProduct> items, Integer idOrder) {
+        LOGGER.error("addOrderItems()");
         return orderDao.addOrderItems(items, idOrder);
     }
-
-
 
     private String generateToken() {
         return UUID.randomUUID().toString();
@@ -176,7 +179,14 @@ public class OrderServiceImpl implements OrderService {
         return new SimpleDateFormat("yyyyMMdd-hhmmssS").format(new Date());
     }
 
-
+    private int getOrderType(String orderTypeParameter) {
+        try {
+            return Integer.parseInt(orderTypeParameter);
+        } catch (Exception e) {
+            LOGGER.error("ERROR PARSE ORDER TYPE >>> ERROR {}, MESSAGE {}", e, e.getMessage());
+            return 0;
+        }
+    }
 
     private boolean validateEmail(String email) {
         try {
