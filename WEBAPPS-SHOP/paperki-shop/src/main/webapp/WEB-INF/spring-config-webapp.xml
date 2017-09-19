@@ -70,6 +70,6 @@
     <!-- SPRING SECURITY -->
     <!--<import resource="spring-web-security-config.xml"/>-->
     <!-- SCHEDULER -->
-    <import resource="spring-schedule.xml" />
+    <!--<import resource="spring-schedule.xml" />-->
 
 </beans>
