@@ -23,11 +23,13 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public HashMap<Integer, HashMap<Integer, Delivery>> getAll() {
+        LOGGER.debug("getAll()");
         return deliveryDao.getAll();
     }
 
     @Override
     public HashMap<Integer, Delivery> getByOrderIdType(Integer orderIdType) {
+        LOGGER.debug("getByOrderIdType({})", orderIdType);
         return this.getAll().get(orderIdType);
     }
 }

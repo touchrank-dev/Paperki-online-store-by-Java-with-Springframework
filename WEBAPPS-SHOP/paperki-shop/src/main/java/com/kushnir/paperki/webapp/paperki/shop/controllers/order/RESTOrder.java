@@ -3,7 +3,6 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers.order;
 import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.RestMessage;
 import com.kushnir.paperki.model.User;
-import com.kushnir.paperki.model.order.OrderForm;
 import com.kushnir.paperki.service.OrderService;
 import com.kushnir.paperki.service.mail.Mailer;
 

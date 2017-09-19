@@ -150,7 +150,7 @@ public class OrderServiceImpl implements OrderService {
         LOGGER.debug("createOrder() >>>");
         String orderNumber = generateOrderNumber();
         String orderToken = generateToken();
-        int orderTypeId = Integer.parseInt(orderForm.get("type"));
+        int orderTypeId = getOrderType(orderForm.get("type"));
 
         Order order = new Order();
         order.setId_order_type(orderTypeId);
@@ -213,7 +213,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private String generateOrderNumber() {
-        return new SimpleDateFormat("yyyyMMdd-hhmmssS").format(new Date());
+        return new SimpleDateFormat("yyyyMMdd-HHmmssSSS").format(new Date());
     }
 
     private int getOrderType(String orderTypeParameter) {
