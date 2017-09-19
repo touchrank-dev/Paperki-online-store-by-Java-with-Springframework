@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -38,6 +39,12 @@ public class OrderDaoImpl implements OrderDao {
 
     @Value("${order.getByToken}")
     private String getOrderByTokenSqlQuery;
+
+    @Value("${order.getAttributes}")
+    private String getOrderAttributeSqlQuery;
+
+    @Value("${order.getItems}")
+    private String getOrderItemsSQlQuery;
 
     @Value("${order.add}")
     private String addOrderSqlQuery;
@@ -98,11 +105,30 @@ public class OrderDaoImpl implements OrderDao {
     public Order getOrderByToken(String token) {
         LOGGER.debug("getOrderByToken({}) >>>", token);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_TOKEN, token);
-        Order order;
-        order = (Order) namedParameterJdbcTemplate.query(   getOrderByTokenSqlQuery,
+        Order order = (Order) namedParameterJdbcTemplate.query(   getOrderByTokenSqlQuery,
                                                             parameterSource,
                                                             new OrderResultSetExtractor());
         return order;
+    }
+
+    @Override
+    public List<Attribute> getOrderAttributes(int idOrder) {
+        LOGGER.debug("getOrderAttributes({}) >>>", idOrder);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_ID, idOrder);
+        List<Attribute> attributes = namedParameterJdbcTemplate
+                .query( getOrderAttributeSqlQuery,
+                        parameterSource,
+                        new AttributeRowMapper());
+        return attributes;
+    }
+
+    @Override
+    public List<CartProduct> getOrderItems(int idOrder) {
+        LOGGER.debug("getOrderItems({}) >>>", idOrder);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_ID, idOrder);
+        List<CartProduct> items = namedParameterJdbcTemplate
+                .query(getOrderItemsSQlQuery, parameterSource, new CartProductRowMapper());
+        return items;
     }
 
     @Override
@@ -150,6 +176,8 @@ public class OrderDaoImpl implements OrderDao {
         return keyHolder.getKey().intValue();
     }
 
+
+
     @Override
     public int[] addOrderAttributes(List<Attribute> attributes) {
         LOGGER.debug("addOrderAttributes({}) >>>", attributes);
@@ -170,13 +198,70 @@ public class OrderDaoImpl implements OrderDao {
 
         @Override
         public Order extractData(ResultSet rs) throws SQLException, DataAccessException {
-            Order order;
+            Order order = new Order();
             while(rs.next()) {
+                int idOrder =           rs.getInt("id_order");
+                int type =              rs.getInt("id_order_type");
+                String token =          rs.getString("token_order");
+                String number =         rs.getString("order_number");
+                int status =            rs.getInt("id_order_status");
+                double totalWithVat =   rs.getDouble("final_total_with_vat");
 
+                Attribute attribute = new Attribute(
+                        rs.getString("name"), rs.getString("value"));
 
-
+                if(order.getId() == 0 ) {
+                    order.setId(idOrder);
+                    order.setToken_order(token);
+                    order.setOrder_number(number);
+                    order.setId_order_status(status);
+                    order.setFinal_total_with_vat(totalWithVat);
+                } else {
+                    List<Attribute> attributes = order.getAttributes();
+                    if (attributes == null) {
+                        attributes = new ArrayList<>();
+                        attributes.add(attribute);
+                        order.setAttributes(attributes);
+                    } else {
+                        order.getAttributes().add(attribute);
+                    }
+                }
             }
-            return null;
+            return order;
+        }
+    }
+
+    private class AttributeRowMapper implements RowMapper {
+
+        @Override
+        public Attribute mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Attribute attribute = new Attribute(
+                    rs.getInt("id_order"),
+                    rs.getString("name"),
+                    rs.getString("value")
+            );
+            return attribute;
+        }
+    }
+
+    private class CartProductRowMapper implements RowMapper {
+
+        @Override
+        public CartProduct mapRow(ResultSet rs, int rowNum) throws SQLException {
+            CartProduct cartProduct = new CartProduct(
+                rs.getInt("id_product"),
+                rs.getInt("pnt"),
+                rs.getString("product_full_name"),
+                rs.getInt("VAT"),
+                rs.getDouble("base_price"),
+                rs.getDouble("base_price_with_vat"),
+                rs.getDouble("discounted_price"),
+                rs.getDouble("discounted_price_with_vat"),
+                rs.getInt("quantity"),
+                rs.getDouble("total"),
+                rs.getDouble("total_with_vat")
+            );
+            return cartProduct;
         }
     }
 }

@@ -8,6 +8,11 @@ public class Attribute {
     public Attribute() {
     }
 
+    public Attribute(String p_name, String p_value) {
+        this.p_name = p_name;
+        this.p_value = p_value;
+    }
+
     public Attribute(int p_id_order, String p_name, String p_value) {
         this.p_id_order = p_id_order;
         this.p_name = p_name;

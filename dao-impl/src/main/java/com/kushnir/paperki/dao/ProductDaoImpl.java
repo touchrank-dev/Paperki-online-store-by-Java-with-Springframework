@@ -240,6 +240,7 @@ public class ProductDaoImpl implements ProductDao {
         public AvailableProduct extractData(ResultSet rs) throws SQLException {
             AvailableProduct availableProduct = null;
             while(rs.next()) {
+                int id =                    rs.getInt("id_product");
                 int pnt =                   rs.getInt("pnt");
                 String fullName =           rs.getString("full_name");
                 String shortName =          rs.getString("short_name");
@@ -268,6 +269,7 @@ public class ProductDaoImpl implements ProductDao {
 
                 if(availableProduct == null) {
                     availableProduct = new AvailableProduct(
+                            id,
                             pnt,
                             fullName,
                             shortName,

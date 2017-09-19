@@ -45,8 +45,29 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public Order getOrderByToken(String token) throws ServiceException {
+        LOGGER.debug("getOrderByToken({})", token);
+        Order order = orderDao.getOrderByToken(token);
+        order.setItems(getOrderItems(order.getId()));
+        LOGGER.debug("ORDER >>> {}", order);
+        return order;
+    }
+
+    private List<Attribute> getOrderAttributes(int idOrder) {
+        LOGGER.debug("getOrderAttributes({})", idOrder);
+        List<Attribute> attributes = orderDao.getOrderAttributes(idOrder);
+        return attributes;
+    }
+
+    private List<CartProduct> getOrderItems(int idOrder) {
+        LOGGER.debug("getOrderAttributes({})", idOrder);
+        List<CartProduct> items = orderDao.getOrderItems(idOrder);
+        return items;
+    }
+
     private OrderErrorForm validateOrder (HashMap<String, String> orderForm, Cart cart) {
-        LOGGER.error("START ORDER VALIDATE >>");
+        LOGGER.debug("START ORDER VALIDATE >>");
         OrderErrorForm orderErrorForm = new OrderErrorForm();
         if (cart != null) {
             if (orderForm != null) {
@@ -126,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private String createOrder(HashMap<String, String> orderForm, Cart cart, User user) throws ServiceException {
-        LOGGER.error("createOrder() >>>");
+        LOGGER.debug("createOrder() >>>");
         String orderNumber = generateOrderNumber();
         String orderToken = generateToken();
         int orderTypeId = Integer.parseInt(orderForm.get("type"));
@@ -146,7 +167,7 @@ public class OrderServiceImpl implements OrderService {
         Integer idOrder = addOrder(order);
 
         addOrderIfo(orderForm , idOrder, orderTypeId);
-        // addOrderItems(cart.getItems(), idOrder);
+        addOrderItems(cart.getItems(), idOrder);
 
         return orderToken;
     }
@@ -156,7 +177,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private int[] addOrderIfo(HashMap<String, String> orderForm, Integer idOrder, int orderTypeId) throws ServiceException {
-        LOGGER.error("addOrderIfo()");
+        LOGGER.debug("addOrderIfo()");
         List<Attribute> attributes = new ArrayList<>();
 
         if(orderTypeId == 1) {
@@ -180,7 +201,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private int[] addOrderItems(HashMap<Integer, CartProduct> items, Integer idOrder) {
-        LOGGER.error("addOrderItems()");
+        LOGGER.debug("addOrderItems()");
+        for (Map.Entry<Integer, CartProduct> item :items.entrySet()) {
+            item.getValue().setIdOrder(idOrder.intValue());
+        }
         return orderDao.addOrderItems(items, idOrder);
     }
 

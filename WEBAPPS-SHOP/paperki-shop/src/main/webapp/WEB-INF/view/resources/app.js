@@ -591,6 +591,10 @@ function redirectToOrderDone(token) {
     document.location.href = '/order/'+token;
 }
 
+function switchOrderType(type) {
+    $('#order-type-switcher').val(type);
+}
+
 function submitOrder() {
     $.ajax({
         cache: false,
@@ -605,6 +609,7 @@ function submitOrder() {
                 redirectToOrderDone(response.object);
             } else if (response.code == "BAD_REQUEST") {
                 console.log(response);
+                mapErrorOrderForm(response.object);
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
                 console.log(response);
                 serverAlert();
@@ -627,7 +632,7 @@ function orderFormToJSON() {
             "payment_id":       $('#customer-payment-chosen input[type=radio]:checked').val(),
             "comments":         $('#order-customer-comment').val()
         });
-    } else {
+    } else if($('#order-type-switcher').val() == 2) {
         return JSON.stringify({
             "type":             $('#order-type-switcher').val(),
             "email":            $('#order-input-enterprise-email').val(),
@@ -645,6 +650,63 @@ function orderFormToJSON() {
     }
 }
 
-function switchOrderType(type) {
-    $('#order-type-switcher').val(type);
+function mapErrorOrderForm(form) {
+	if($('#order-type-switcher').val() == 1) {
+		if (form.name != null) {
+			$('#order-input-customer-name').addClass("input_error");
+			$('#order-label-customer-name').addClass('label_error');
+			$('#order-label-customer-name').attr("title", form.name)
+                                 		   .tooltip('fixTitle')
+                                           .tooltip("show");
+		} else {
+			$('#order-input-customer-name').removeClass("input_error");
+			$('#order-label-customer-name').removeClass('label_error');
+			$('#order-label-customer-name').tooltip("hide");
+		}
+
+		if (form.email != null) {
+			$('#order-input-customer-email').addClass("input_error");
+			$('#order-label-customer-email').addClass('label_error');
+			$('#order-label-customer-email').attr("title", form.email)
+                                 		    .tooltip('fixTitle')
+                                            .tooltip("show");
+		} else {
+			$('#order-input-customer-email').removeClass("input_error");
+			$('#order-label-customer-email').removeClass('label_error');
+			$('#order-label-customer-email').tooltip("hide");
+		}
+
+		if (form.phone != null) {
+			$('#order-input-customer-phone').addClass("input_error");
+			$('#order-label-customer-phone').addClass('label_error');
+			$('#order-label-customer-phone').attr("title", form.phone)
+                                 		    .tooltip('fixTitle')
+                                            .tooltip("show");
+		} else {
+			$('#order-input-customer-phone').removeClass("input_error");
+			$('#order-label-customer-phone').removeClass('label_error');
+			$('#order-label-customer-phone').tooltip("hide");
+		}
+
+		if (form.shipment != null) {
+			$('#customer-shipment-chosen').attr("title", form.shipment)
+                                 		  .tooltip('fixTitle')
+                                          .tooltip("show");
+		} else {
+			$('#customer-shipment-chosen').tooltip("hide");
+		}
+
+		if (form.payment != null) {
+			$('#customer-payment-chosen').attr("title", form.payment)
+                                 		 .tooltip('fixTitle')
+                                         .tooltip("show");
+		} else {
+			$('#customer-payment-chosen').tooltip("hide");
+		}
+
+		document.location.href = '#customer-tab';
+		
+	} else if($('#order-type-switcher').val() == 2) {
+
+	}
 }

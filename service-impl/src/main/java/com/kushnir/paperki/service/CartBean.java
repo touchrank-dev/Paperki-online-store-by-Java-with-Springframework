@@ -49,7 +49,6 @@ public class CartBean {
         calculate(cart);
     }
 
-    @Transactional
     public void deleteFromCart(Cart cart, Integer pnt) {
         LOGGER.debug("deleteFromCart({}) >>>", pnt);
         if(cart != null) {
@@ -58,7 +57,6 @@ public class CartBean {
         calculate(cart);
     }
 
-    @Transactional
     private void calculate(Cart cart) {
         double total =                          0d;
         double totalWithVAT =                   0d;
@@ -101,7 +99,6 @@ public class CartBean {
         cart.setTotalVAT(totalVAT);
     }
 
-    @Transactional
     private void calculateCartProduct(CartProduct inCartProduct,
                                       AddProductRequest addProductRequest,
                                       AvailableProduct availableProduct) throws NotEnoughQuantityAvailableException {
@@ -115,6 +112,7 @@ public class CartBean {
             throw new NotEnoughQuantityAvailableException("На складе недостаточно запрашиваемого количества товара");
         }
 
+        int id =                            availableProduct.getId();
         int pnt =                           availableProduct.getPnt();
         String fullName =                   availableProduct.getFullName();
         String shortName =                  availableProduct.getShortName();
@@ -168,6 +166,7 @@ public class CartBean {
         // ========================================================================
         totalVAT =                          getDouble(totalWithVAT - total);
 
+        inCartProduct.setId(id);
         inCartProduct.setPnt(pnt);
         inCartProduct.setFullName(fullName);
         inCartProduct.setShortName(shortName);
@@ -188,7 +187,6 @@ public class CartBean {
         inCartProduct.setTotalVAT(totalVAT);
     }
 
-    @Transactional
     private CartProduct createCartProduct (AvailableProduct availableProduct, AddProductRequest addProductRequest)
             throws NotEnoughQuantityAvailableException {
 
@@ -197,6 +195,7 @@ public class CartBean {
             throw new NotEnoughQuantityAvailableException("На складе недостаточно запрашиваемого количества товара");
         }
 
+        int id =                            availableProduct.getId();
         int pnt =                           availableProduct.getPnt();
         String fullName =                   availableProduct.getFullName();
         String shortName =                  availableProduct.getShortName();
@@ -252,6 +251,7 @@ public class CartBean {
         totalVAT =                          getDouble(totalWithVAT - total);
         // ========================================================================
         return new CartProduct(
+                id,
                 pnt,
                 fullName,
                 shortName,

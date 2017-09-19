@@ -1,11 +1,13 @@
 package com.kushnir.paperki.model.order;
 
+import com.kushnir.paperki.model.CartProduct;
+
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
 
 public class Order {
 
+    private int id;
     private int id_order;
     private int id_order_type;
     private String token_order;
@@ -26,9 +28,17 @@ public class Order {
     private LocalDateTime edit_date;
 
     private List<Attribute> attributes;
-    private HashMap<Integer, Item> items;
+    private List<CartProduct> items;
 
     public Order() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId_order() {
@@ -183,11 +193,11 @@ public class Order {
         this.attributes = attributes;
     }
 
-    public HashMap<Integer, Item> getItems() {
+    public List<CartProduct> getItems() {
         return items;
     }
 
-    public void setItems(HashMap<Integer, Item> items) {
+    public void setItems(List<CartProduct> items) {
         this.items = items;
     }
 
