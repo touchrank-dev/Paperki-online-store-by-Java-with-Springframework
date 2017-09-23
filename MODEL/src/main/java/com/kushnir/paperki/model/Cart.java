@@ -2,6 +2,7 @@ package com.kushnir.paperki.model;
 
 import com.kushnir.paperki.model.order.OrderForm;
 import com.kushnir.paperki.model.payment.Payment;
+import com.kushnir.paperki.model.product.CartProduct;
 
 import java.util.HashMap;
 

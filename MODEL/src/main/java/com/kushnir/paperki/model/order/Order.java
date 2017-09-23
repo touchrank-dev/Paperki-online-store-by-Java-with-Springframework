@@ -1,6 +1,6 @@
 package com.kushnir.paperki.model.order;
 
-import com.kushnir.paperki.model.CartProduct;
+import com.kushnir.paperki.model.product.CartProduct;
 
 import java.time.LocalDateTime;
 import java.util.List;

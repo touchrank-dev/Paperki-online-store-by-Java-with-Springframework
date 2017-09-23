@@ -1,9 +1,8 @@
 package com.kushnir.paperki.dao;
 
-import com.kushnir.paperki.model.CartProduct;
+import com.kushnir.paperki.model.product.CartProduct;
 import com.kushnir.paperki.model.order.Attribute;
 import com.kushnir.paperki.model.order.Order;
-import com.kushnir.paperki.model.order.OrderAttributes;
 import com.kushnir.paperki.model.order.OrderInfo;
 
 import org.apache.logging.log4j.LogManager;
@@ -26,7 +25,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class OrderDaoImpl implements OrderDao {
 

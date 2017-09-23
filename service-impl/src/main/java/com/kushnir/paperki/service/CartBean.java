@@ -1,9 +1,11 @@
 package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.model.*;
-
 import com.kushnir.paperki.model.payment.Payment;
+import com.kushnir.paperki.model.product.AvailableProduct;
+import com.kushnir.paperki.model.product.CartProduct;
 import com.kushnir.paperki.service.exceptions.NotEnoughQuantityAvailableException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

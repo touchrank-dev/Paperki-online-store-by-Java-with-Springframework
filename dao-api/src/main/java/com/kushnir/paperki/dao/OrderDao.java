@@ -1,11 +1,10 @@
 package com.kushnir.paperki.dao;
 
-import com.kushnir.paperki.model.CartProduct;
 import com.kushnir.paperki.model.order.Attribute;
 import com.kushnir.paperki.model.order.Order;
 import com.kushnir.paperki.model.order.OrderInfo;
+import com.kushnir.paperki.model.product.CartProduct;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
