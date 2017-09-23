@@ -1,7 +1,6 @@
 package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.Category;
-import com.kushnir.paperki.model.Product;
 
 import java.io.IOException;
 import java.util.ArrayList;

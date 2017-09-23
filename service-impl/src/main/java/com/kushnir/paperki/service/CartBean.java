@@ -2,13 +2,14 @@ package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.model.*;
 
+import com.kushnir.paperki.model.product.AvailableProduct;
+import com.kushnir.paperki.model.product.CartProduct;
 import com.kushnir.paperki.service.exceptions.NotEnoughQuantityAvailableException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

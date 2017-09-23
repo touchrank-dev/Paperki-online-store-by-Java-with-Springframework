@@ -1,8 +1,7 @@
 package com.kushnir.paperki.dao;
 
-import com.kushnir.paperki.model.AvailableProduct;
-import com.kushnir.paperki.model.CartProduct;
-import com.kushnir.paperki.model.Product;
+import com.kushnir.paperki.model.product.AvailableProduct;
+import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.model.product.Attribute;
 import org.springframework.dao.DataAccessException;
 

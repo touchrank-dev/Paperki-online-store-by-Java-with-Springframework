@@ -3,6 +3,8 @@ package com.kushnir.paperki.dao;
 import com.kushnir.paperki.model.*;
 
 import com.kushnir.paperki.model.product.Attribute;
+import com.kushnir.paperki.model.product.AvailableProduct;
+import com.kushnir.paperki.model.product.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

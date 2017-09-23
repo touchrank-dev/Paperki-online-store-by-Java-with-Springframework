@@ -1,9 +1,8 @@
 package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.dao.ProductDao;
-import com.kushnir.paperki.model.AvailableProduct;
-import com.kushnir.paperki.model.CartProduct;
-import com.kushnir.paperki.model.Product;
+import com.kushnir.paperki.model.product.AvailableProduct;
+import com.kushnir.paperki.model.product.Product;
 
 import com.kushnir.paperki.model.product.Attribute;
 import org.apache.logging.log4j.LogManager;

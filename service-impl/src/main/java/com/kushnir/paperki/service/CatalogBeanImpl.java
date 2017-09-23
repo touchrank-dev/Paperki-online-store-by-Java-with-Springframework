@@ -3,15 +3,13 @@ package com.kushnir.paperki.service;
 import com.kushnir.paperki.dao.CatalogDao;
 import com.kushnir.paperki.model.Category;
 
-import com.kushnir.paperki.model.Product;
+import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.util.Transliterator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,7 +62,6 @@ public class CatalogBeanImpl implements CatalogBean {
         LOGGER.debug("getProductsByCategoryTName({}) >>> ", categoryTName);
         try {
             HashMap<Integer, Product> products = productBean.getProductListByCategoryTName(categoryTName);
-            LOGGER.debug("\nPRODUCTS: {}", products);
             return products;
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -95,8 +92,6 @@ public class CatalogBeanImpl implements CatalogBean {
             category.setTranslitName(Transliterator.cyr2lat(category.getName()));
             // TODO обработка и запись в БД
         }
-        System.out.println(categories);
-        System.out.println("ВСЕГО ОБРАБОТАНО ЗАПИСЕЙ: "+ categories.size()+"\n>>> FINISH");
     }
 
     private ArrayList<Category> getCategoriesFromCSV() throws IOException, ServiceException {

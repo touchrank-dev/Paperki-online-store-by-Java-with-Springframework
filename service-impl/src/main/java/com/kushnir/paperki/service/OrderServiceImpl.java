@@ -2,7 +2,7 @@ package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.dao.OrderDao;
 import com.kushnir.paperki.model.Cart;
-import com.kushnir.paperki.model.CartProduct;
+import com.kushnir.paperki.model.product.CartProduct;
 import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.model.order.Order;
 import com.kushnir.paperki.model.order.OrderErrorForm;

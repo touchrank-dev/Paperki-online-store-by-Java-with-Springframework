@@ -1,10 +1,7 @@
 package com.kushnir.paperki.dao;
 
-import com.kushnir.paperki.model.Brand;
 import com.kushnir.paperki.model.Category;
 
-import com.kushnir.paperki.model.Price;
-import com.kushnir.paperki.model.Product;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;

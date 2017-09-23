@@ -1,4 +1,8 @@
-package com.kushnir.paperki.model;
+package com.kushnir.paperki.model.product;
+
+import com.kushnir.paperki.model.Discount;
+import com.kushnir.paperki.model.Price;
+import com.kushnir.paperki.model.Stock;
 
 import java.util.HashMap;
 

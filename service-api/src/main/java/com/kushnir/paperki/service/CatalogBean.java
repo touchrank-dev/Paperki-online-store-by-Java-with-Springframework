@@ -1,7 +1,7 @@
 package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.model.Category;
-import com.kushnir.paperki.model.Product;
+import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
 import java.io.IOException;
