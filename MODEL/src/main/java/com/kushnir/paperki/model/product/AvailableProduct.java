@@ -7,6 +7,7 @@ import com.kushnir.paperki.model.Stock;
 import java.util.HashMap;
 
 public class AvailableProduct {
+    private int id;
     private int pnt;
     private String fullName;
     private String shortName;
@@ -42,12 +43,14 @@ public class AvailableProduct {
         this.prices = prices;
     }
 
-    public AvailableProduct(int pnt,
+    public AvailableProduct(int id,
+                            int pnt,
                             String fullName,
                             String shortName,
                             int VAT,
                             int quantityAvailable,
                             Discount discount) {
+        this.id = id;
         this.pnt = pnt;
         this.fullName = fullName;
         this.shortName = shortName;
@@ -70,6 +73,14 @@ public class AvailableProduct {
         this.quantityAvailable = quantityAvailable;
         this.discount = discount;
         this.prices = prices;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPnt() {

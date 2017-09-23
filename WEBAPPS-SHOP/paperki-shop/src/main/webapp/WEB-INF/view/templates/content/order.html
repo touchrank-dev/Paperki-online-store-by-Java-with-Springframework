@@ -80,7 +80,7 @@
                                 <input type="hidden" id="order-type-switcher" value="1">
 
                                 <!--Как физ. лицо-->
-                                <div class="single-product-tabs-content">
+                                <div class="single-product-tabs-content" id="customer-tab">
                                     <div class="single-product-tabs__char brb">
                                         <form class="orderingContent">
 
@@ -93,28 +93,31 @@
                                                 <div class="orderingTabsSectionHolder">
                                                     <h4 class="orderingTabsSectionTitle">Контактная информация</h4>
                                                     <br>
-                                                        <span class="input input--ichiro callback-form-field">
-                                                            <input class="input__field input__field--ichiro" type="text" name="reg-name" 
-                                                                id="order-input-customer-name" />
-                                                            <label class="input__label input__label--ichiro" for="order-input-customer-name">
-                                                                <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
-                                                                    id="order-label-customer-name">Ваше Имя *</span>
-                                                            </label>
-                                                        </span>
-                                                        <span class="input input--ichiro callback-form-field">
-                                                            <input class="input__field input__field--ichiro" type="email" id="order-input-customer-email" />
-                                                            <label class="input__label input__label--ichiro" for="order-input-customer-email">
-                                                                <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
-                                                                    id="order-label-customer-email">e-mail *</span>
-                                                            </label>
-                                                        </span>
-                                                        <span class="input input--ichiro callback-form-field">
-                                                            <input class="input__field input__field--ichiro" type="text" id="order-input-customer-phone" />
-                                                            <label class="input__label input__label--ichiro" for="order-input-customer-phone">
-                                                                <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
-                                                                id="order-label-customer-phone">Телефон *</span>
-                                                            </label>
-                                                        </span>
+                                                    <span class="input input--ichiro callback-form-field">
+                                                        <input class="input__field input__field--ichiro" type="text" name="reg-name" 
+                                                            id="order-input-customer-name"
+                                                            th:value="${user?.name}" />
+                                                        <label class="input__label input__label--ichiro" for="order-input-customer-name">
+                                                            <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                                                id="order-label-customer-name">Ваше Имя *</span>
+                                                        </label>
+                                                    </span>
+                                                    <span class="input input--ichiro callback-form-field">
+                                                        <input class="input__field input__field--ichiro" type="email" id="order-input-customer-email"
+                                                            th:value="${user?.email}" />
+                                                        <label class="input__label input__label--ichiro" for="order-input-customer-email">
+                                                            <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                                                id="order-label-customer-email">e-mail *</span>
+                                                        </label>
+                                                    </span>
+                                                    <span class="input input--ichiro callback-form-field">
+                                                        <input class="input__field input__field--ichiro" type="text" id="order-input-customer-phone"
+                                                            th:value="${user?.phone}" />
+                                                        <label class="input__label input__label--ichiro" for="order-input-customer-phone">
+                                                            <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                                            id="order-label-customer-phone">Телефон *</span>
+                                                        </label>
+                                                    </span>
                                                 </div>
                                             </div>
 
@@ -128,13 +131,15 @@
                                                     <h4 class="orderingTabsSectionTitle">Способы получения товара</h4>
                                                     <h5 class="orderingTabsSectionSubTitle">Выберите получения товара</h5>
 
-                                                    <ul class="orderingRadio deliveryTime"
+                                                    <ul class="orderingRadio deliveryTime" id="customer-shipment-chosen"
                                                         th:if="${deliveries[1]} != null">
                                                         <li th:each="dilivery : ${deliveries[1]}">
                                                             <input type="radio" 
                                                                 id="delivery-id" 
-                                                                name="deliveryTime"
-                                                                th:attr="id='delivery-id-'+${dilivery?.value?.id}">
+                                                                name="deliveryTime" 
+                                                                value="test" 
+                                                                th:attr="id='delivery-id-'+${dilivery?.value?.id}"
+                                                                th:value="${dilivery?.value?.id}">
                                                             <label class="clearfix" 
                                                                 for="delivery-id"
                                                                 th:attr="for='delivery-id-'+${dilivery?.value?.id}">
@@ -161,9 +166,9 @@
                                                     <h4 class="orderingTabsSectionTitle">Спосоы оплаты</h4>
                                                     <h5 class="orderingTabsSectionSubTitle">Выберите способ оплаты</h5>
 
-                                                    <ul class="choosingBase orderingRadio paymentType">
+                                                    <ul class="choosingBase orderingRadio paymentType" id="customer-payment-chosen">
                                                         <li>
-                                                            <input type="radio" id="deliveryPaymentType3">
+                                                            <input type="radio" id="deliveryPaymentType3" value="1">
                                                             <label class="clearfix" for="deliveryPaymentType3">
                                                                 <p class="paymentTypeTitle">За наличный расчёт
                                                                     <img class="paymentPic" src="/res/img/icons/focus.min.svg">
@@ -206,54 +211,53 @@
 
                                             <div class="orderingTabsSectionHolder">
                                                 <h4 class="orderingTabsSectionTitle">Контактная информация</h4>
-                                                    <br>
+                                                <br>
 
-                                                    <span class="input input--ichiro callback-form-field">
-                                                        <input class="input__field input__field--ichiro" type="email" 
-                                                            id="order-input-enterprise-email" />
-                                                        <label class="input__label input__label--ichiro" for="order-input-enterprise-email">
-                                                            <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
-                                                                id="order-label-enterprise-email">e-mail *</span>
-                                                        </label>
-                                                    </span>
-                                                     <span class="input input--ichiro callback-form-field">
-                                                        <input class="input__field input__field--ichiro" type="text" 
-                                                            id="order-input-enterprise-phone" />
-                                                        <label class="input__label input__label--ichiro" for="order-input-enterprise-phone">
-                                                            <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
-                                                                id="order-label-enterprise-phone">Телефон *</span>
-                                                        </label>
-                                                    </span>
-                                                    <span class="input input--ichiro callback-form-field">
-                                                        <input class="input__field input__field--ichiro" type="text" 
-                                                            id="order-input-enterprise-name" />
-                                                        <label class="input__label input__label--ichiro" for="order-input-enterprise-name">
-                                                            <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro"
-                                                                id="order-label-enterprise-name">
-                                                                Название компании
-                                                            </span>
-                                                        </label>
-                                                    </span>
-                                                    <span class="input input--ichiro callback-form-field">
-                                                        <input class="input__field input__field--ichiro" type="text" 
-                                                            id="order-input-enterprise-unp" />
-                                                        <label class="input__label input__label--ichiro" for="order-input-enterprise-unp">
-                                                            <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro"
-                                                                id="order-label-enterprise-unp">
-                                                                УНН
-                                                            </span>
-                                                        </label>
-                                                    </span>
-                                                    <span class="input input--ichiro callback-form-field">
-                                                        <input class="input__field input__field--ichiro" type="text" 
-                                                            id="order-input-enterprise-address" />
-                                                        <label class="input__label input__label--ichiro" for="order-input-enterprise-address">
-                                                            <span data-toggle="tooltip" 
-                                                                class="input__label-content input__label-content--ichiro" 
-                                                                id="order-label-enterprise-address">Юридический адрес</span>
-                                                        </label>
-                                                    </span>
-
+                                                <span class="input input--ichiro callback-form-field">
+                                                    <input class="input__field input__field--ichiro" type="email" 
+                                                        id="order-input-enterprise-email" />
+                                                    <label class="input__label input__label--ichiro" for="order-input-enterprise-email">
+                                                        <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                                            id="order-label-enterprise-email">e-mail *</span>
+                                                    </label>
+                                                </span>
+                                                 <span class="input input--ichiro callback-form-field">
+                                                    <input class="input__field input__field--ichiro" type="text" 
+                                                        id="order-input-enterprise-phone" />
+                                                    <label class="input__label input__label--ichiro" for="order-input-enterprise-phone">
+                                                        <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                                            id="order-label-enterprise-phone">Телефон *</span>
+                                                    </label>
+                                                </span>
+                                                <span class="input input--ichiro callback-form-field">
+                                                    <input class="input__field input__field--ichiro" type="text" 
+                                                        id="order-input-enterprise-name" />
+                                                    <label class="input__label input__label--ichiro" for="order-input-enterprise-name">
+                                                        <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro"
+                                                            id="order-label-enterprise-name">
+                                                            Название компании
+                                                        </span>
+                                                    </label>
+                                                </span>
+                                                <span class="input input--ichiro callback-form-field">
+                                                    <input class="input__field input__field--ichiro" type="text" 
+                                                        id="order-input-enterprise-unp" />
+                                                    <label class="input__label input__label--ichiro" for="order-input-enterprise-unp">
+                                                        <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro"
+                                                            id="order-label-enterprise-unp">
+                                                            УНН
+                                                        </span>
+                                                    </label>
+                                                </span>
+                                                <span class="input input--ichiro callback-form-field">
+                                                    <input class="input__field input__field--ichiro" type="text" 
+                                                        id="order-input-enterprise-address" />
+                                                    <label class="input__label input__label--ichiro" for="order-input-enterprise-address">
+                                                        <span data-toggle="tooltip" 
+                                                            class="input__label-content input__label-content--ichiro" 
+                                                            id="order-label-enterprise-address">Юридический адрес</span>
+                                                    </label>
+                                                </span>
                                             </div>
                                         </div>
 
@@ -267,26 +271,28 @@
                                                 <h4 class="orderingTabsSectionTitle">Способы получения товара</h4>
                                                 <h5 class="orderingTabsSectionSubTitle">Выберите способ получения товара</h5>
 
-                                                <ul class="orderingRadio deliveryTime"
+                                                <ul class="orderingRadio deliveryTime" id="enterprise-shipment-chosen"
                                                         th:if="${deliveries[2]} != null">
-                                                        <li th:each="dilivery : ${deliveries[2]}">
-                                                            <input type="radio" 
-                                                                id="delivery-id" 
-                                                                name="deliveryTime"
-                                                                th:attr="id='delivery-id-'+${dilivery?.value?.id}">
-                                                            <label class="clearfix" 
-                                                                for="delivery-id"
-                                                                th:attr="for='delivery-id-'+${dilivery?.value?.id}">
-                                                                <p class="deliveryTimeTitle" 
-                                                                    th:text="${dilivery?.value?.name}">Название доставки</p>
-                                                                <p class="deliveryTimePrice"></p>
-                                                            </label>
-                                                            <div class="orderingdeliveryTimeHolder clearfix"
-                                                                 th:text="${dilivery?.value?.shortDescription}">
-                                                                Описание
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                                    <li th:each="dilivery : ${deliveries[2]}">
+                                                        <input type="radio" 
+                                                            id="delivery-id-e" 
+                                                            name="deliveryTime"
+                                                            value="test"
+                                                            th:attr="id='delivery-id-e-'+${dilivery?.value?.id}"
+                                                            th:value="${dilivery?.value?.id}">
+                                                        <label class="clearfix" 
+                                                            for="delivery-id"
+                                                            th:attr="for='delivery-id-e-'+${dilivery?.value?.id}">
+                                                            <p class="deliveryTimeTitle" 
+                                                                th:text="${dilivery?.value?.name}">Название доставки</p>
+                                                            <p class="deliveryTimePrice"></p>
+                                                        </label>
+                                                        <div class="orderingdeliveryTimeHolder clearfix"
+                                                             th:text="${dilivery?.value?.shortDescription}">
+                                                              Описание
+                                                        </div>
+                                                    </li>
+                                                </ul>
 
                                             </div>
                                         </div>
@@ -300,7 +306,7 @@
                                             <div class="orderingTabsSectionHolder">
                                                 <h4 class="orderingTabsSectionTitle">Способы оплаты</h4>
                                                 <h5 class="orderingTabsSectionSubTitle">Выберите способ оплаты</h5>
-                                                <ul class="choosingBase orderingRadio paymentType">
+                                                <ul class="choosingBase orderingRadio paymentType" id="enterprise-payment-chosen">
                                                     <li>
                                                         <input type="radio" id="deliveryPaymentType1">
                                                         <label class="clearfix" for="deliveryPaymentType1">
@@ -336,6 +342,7 @@
                         </div>
                 </div>
                 <!-- КОНЕЦ ДЕТАЛИ ЗАКАЗА -->
+
                 <!-- МЕНЮ ЗАКАЗА -->
                 <div class="order-menu-bar">
                     <div class="orderingSidebarSection ">

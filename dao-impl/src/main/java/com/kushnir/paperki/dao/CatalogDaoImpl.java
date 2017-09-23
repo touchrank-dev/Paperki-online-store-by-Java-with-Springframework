@@ -37,6 +37,7 @@ public class CatalogDaoImpl implements CatalogDao {
     private JdbcTemplate jdbcTemplate;
 
     /* CSV */
+
     @Value("${csv.delimiter}")
     private char delimiter;
 

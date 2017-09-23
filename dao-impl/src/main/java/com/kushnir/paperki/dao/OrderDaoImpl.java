@@ -1,7 +1,9 @@
 package com.kushnir.paperki.dao;
 
-import com.kushnir.paperki.model.product.CartProduct;
+import com.kushnir.paperki.model.CartProduct;
+import com.kushnir.paperki.model.order.Attribute;
 import com.kushnir.paperki.model.order.Order;
+import com.kushnir.paperki.model.order.OrderAttributes;
 import com.kushnir.paperki.model.order.OrderInfo;
 
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +11,9 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -16,7 +21,12 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class OrderDaoImpl implements OrderDao {
 
@@ -26,6 +36,15 @@ public class OrderDaoImpl implements OrderDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final String P_ORDER_ID = "p_id_order";
+
+    @Value("${order.getByToken}")
+    private String getOrderByTokenSqlQuery;
+
+    @Value("${order.getAttributes}")
+    private String getOrderAttributeSqlQuery;
+
+    @Value("${order.getItems}")
+    private String getOrderItemsSQlQuery;
 
     @Value("${order.add}")
     private String addOrderSqlQuery;
@@ -62,6 +81,9 @@ public class OrderDaoImpl implements OrderDao {
     @Value("${order.addItem}")
     private String addOrderItemSqlQuery;
 
+    @Value("${order.batch.addItem}")
+    private String addOrderItemBatchSqlQuery;
+
     private static final String P_ITEM_ID_ORDER = "p_id_order";
     private static final String P_ITEM_ID_PRODUCT = "p_id_product";
     private static final String P_ITEM_PRODUCT_FULL_NAME = "p_product_full_name";
@@ -75,22 +97,55 @@ public class OrderDaoImpl implements OrderDao {
     private static final String P_ITEM_TOTAL_WITH_VAT = "p_total_with_vat";
 
 
+    @Value("${order.addAttribute}")
+    private String addAttributeSqlQuery;
+
+
+    @Override
+    public Order getOrderByToken(String token) {
+        LOGGER.debug("getOrderByToken({}) >>>", token);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_TOKEN, token);
+        Order order = (Order) namedParameterJdbcTemplate.query(   getOrderByTokenSqlQuery,
+                                                            parameterSource,
+                                                            new OrderResultSetExtractor());
+        return order;
+    }
+
+    @Override
+    public List<Attribute> getOrderAttributes(int idOrder) {
+        LOGGER.debug("getOrderAttributes({}) >>>", idOrder);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_ID, idOrder);
+        List<Attribute> attributes = namedParameterJdbcTemplate
+                .query( getOrderAttributeSqlQuery,
+                        parameterSource,
+                        new AttributeRowMapper());
+        return attributes;
+    }
+
+    @Override
+    public List<CartProduct> getOrderItems(int idOrder) {
+        LOGGER.debug("getOrderItems({}) >>>", idOrder);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_ID, idOrder);
+        List<CartProduct> items = namedParameterJdbcTemplate
+                .query(getOrderItemsSQlQuery, parameterSource, new CartProductRowMapper());
+        return items;
+    }
 
     @Override
     public Integer addOrder(Order order) {
         LOGGER.debug("addOrder({}) >>>", order);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        parameterSource.addValue(P_ORDER_ID_ORDER_TYPE, order.getIdOrderType());
-        parameterSource.addValue(P_ORDER_TOKEN, order.getTokenOrder());
-        parameterSource.addValue(P_ORDER_NUMBER, order.getOrderNumber());
-        parameterSource.addValue(P_ORDER_ID_USER, order.getIdUser());
+        parameterSource.addValue(P_ORDER_ID_ORDER_TYPE, order.getId_order_type());
+        parameterSource.addValue(P_ORDER_TOKEN, order.getToken_order());
+        parameterSource.addValue(P_ORDER_NUMBER, order.getOrder_number());
+        parameterSource.addValue(P_ORDER_ID_USER, order.getId_user());
         parameterSource.addValue(P_ORDER_TOTAL, order.getTotal());
-        parameterSource.addValue(P_ORDER_TOTAL_WITH_VAT, order.getTotalWithVAT());
-        parameterSource.addValue(P_ORDER_VAT_TOTAL, order.getVATtotal());
-        parameterSource.addValue(P_ORDER_TOTAL_DISCOUNT, order.getTotalDiscount());
-        parameterSource.addValue(P_ORDER_FINAL_TOTAL, order.getFinalTotal());
-        parameterSource.addValue(P_ORDER_FINAL_TOTAL_WITH_VAT, order.getFinalTotalWithVAT());
+        parameterSource.addValue(P_ORDER_TOTAL_WITH_VAT, order.getTotal_with_vat());
+        parameterSource.addValue(P_ORDER_VAT_TOTAL, order.getVat_total());
+        parameterSource.addValue(P_ORDER_TOTAL_DISCOUNT, order.getTotal_discount());
+        parameterSource.addValue(P_ORDER_FINAL_TOTAL, order.getFinal_total());
+        parameterSource.addValue(P_ORDER_FINAL_TOTAL_WITH_VAT, order.getFinal_total_with_vat());
 
         namedParameterJdbcTemplate.update(addOrderSqlQuery, parameterSource, keyHolder);
 
@@ -121,9 +176,92 @@ public class OrderDaoImpl implements OrderDao {
         return keyHolder.getKey().intValue();
     }
 
+
+
+    @Override
+    public int[] addOrderAttributes(List<Attribute> attributes) {
+        LOGGER.debug("addOrderAttributes({}) >>>", attributes);
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(attributes.toArray());
+        return namedParameterJdbcTemplate.batchUpdate(addAttributeSqlQuery, batch);
+    }
+
     @Override
     public int[] addOrderItems(HashMap<Integer, CartProduct> items, Integer idOrder) {
+        LOGGER.debug("addOrderItems({}, {}) >>>", items, idOrder);
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items.values().toArray());
         return namedParameterJdbcTemplate.batchUpdate(addOrderItemSqlQuery, batch);
+    }
+
+
+
+    private class OrderResultSetExtractor implements ResultSetExtractor {
+
+        @Override
+        public Order extractData(ResultSet rs) throws SQLException, DataAccessException {
+            Order order = new Order();
+            while(rs.next()) {
+                int idOrder =           rs.getInt("id_order");
+                int type =              rs.getInt("id_order_type");
+                String token =          rs.getString("token_order");
+                String number =         rs.getString("order_number");
+                int status =            rs.getInt("id_order_status");
+                double totalWithVat =   rs.getDouble("final_total_with_vat");
+
+                Attribute attribute = new Attribute(
+                        rs.getString("name"), rs.getString("value"));
+
+                if(order.getId() == 0 ) {
+                    order.setId(idOrder);
+                    order.setToken_order(token);
+                    order.setOrder_number(number);
+                    order.setId_order_status(status);
+                    order.setFinal_total_with_vat(totalWithVat);
+                } else {
+                    List<Attribute> attributes = order.getAttributes();
+                    if (attributes == null) {
+                        attributes = new ArrayList<>();
+                        attributes.add(attribute);
+                        order.setAttributes(attributes);
+                    } else {
+                        order.getAttributes().add(attribute);
+                    }
+                }
+            }
+            return order;
+        }
+    }
+
+    private class AttributeRowMapper implements RowMapper {
+
+        @Override
+        public Attribute mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Attribute attribute = new Attribute(
+                    rs.getInt("id_order"),
+                    rs.getString("name"),
+                    rs.getString("value")
+            );
+            return attribute;
+        }
+    }
+
+    private class CartProductRowMapper implements RowMapper {
+
+        @Override
+        public CartProduct mapRow(ResultSet rs, int rowNum) throws SQLException {
+            CartProduct cartProduct = new CartProduct(
+                rs.getInt("id_product"),
+                rs.getInt("pnt"),
+                rs.getString("product_full_name"),
+                rs.getInt("VAT"),
+                rs.getDouble("base_price"),
+                rs.getDouble("base_price_with_vat"),
+                rs.getDouble("discounted_price"),
+                rs.getDouble("discounted_price_with_vat"),
+                rs.getInt("quantity"),
+                rs.getDouble("total"),
+                rs.getDouble("total_with_vat")
+            );
+            return cartProduct;
+        }
     }
 }

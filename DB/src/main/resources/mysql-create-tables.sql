@@ -306,8 +306,8 @@ CREATE TABLE orders (
     id_order                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_order_type               INT             NOT NULL,
     token_order                 VARCHAR(100)    NOT NULL UNIQUE,
-    order_number                VARCHAR(15)     NOT NULL UNIQUE,
-    pap_order_number            INT             UNIQUE,
+    order_number                VARCHAR(18)     NOT NULL UNIQUE,
+    pap_order_number            VARCHAR(20)     UNIQUE,
     id_user                     INT             DEFAULT 0 NOT NULL,
     id_order_status             INT             DEFAULT 1 NOT NULL,
     total                       DOUBLE          NOT NULL,
@@ -328,8 +328,8 @@ CREATE TABLE orders (
 CREATE TABLE order_items (
     id_order                    INT             NOT NULL,
     id_product                  INT             NOT NULL,
+    pnt                         INT             ,
     product_full_name           VARCHAR(250)    ,
-    product_link                VARCHAR(250)    ,
     VAT                         INT             NOT NULL,
     base_price                  DOUBLE          NOT NULL,
     base_price_with_vat         DOUBLE          NOT NULL,
@@ -347,9 +347,9 @@ CREATE TABLE order_attributes (
     id_order                    INT             NOT NULL,
     name                        VARCHAR(250)    NOT NULL,
     value                       VARCHAR(1000)   ,
-    order                       INT,            ,
+    order_attribute             INT             ,
     FOREIGN KEY (id_order)      REFERENCES orders(id_order),
-    UNIQUE KEY `o_a` (id_order, name)
+    UNIQUE KEY `o_n` (id_order, name)
 );
 
 CREATE TABLE order_info (

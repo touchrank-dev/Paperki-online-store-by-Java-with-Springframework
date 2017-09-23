@@ -142,7 +142,8 @@
                                                 <li th:if="${cart?.items.size()} > 0"
                                                     th:each="item : ${cart.items}">
                                                     <div class="drop-pr">
-                                                        <span class="  drop-pr" aria-hidden="true">&#10006;</span>
+                                                        <span class="  drop-pr" aria-hidden="true" onclick="deleteFromCart('null')"
+                                                            th:attr="onclick='deleteFromCart('+${item.value.pnt}+')'">&#10006;</span>
                                                     </div>
                                                     <div class="img-cart">
                                                         <img src="/res/img/product1.png" alt=""
@@ -165,7 +166,7 @@
                                                 <div class="row">
                                                     <div class="col-md-5 col-sm-5">
                                                         <ul class="all-pr">
-                                                            <li th:text="${cart?.items?.size()} + ' ед.'">0 ед.</li>
+                                                            <!-- <li th:text="${cart?.items?.size()} + ' ед.'">0 ед.</li> -->
                                                             <li class="summa-c" id="summa-c" 
                                                                 th:if="${cart.totalWithVAT} > 0.0"
                                                                 th:text="'Сумма: ' +${cart?.totalWithVAT} + ' руб' ">Сумма: 0.00 руб</li>

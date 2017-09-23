@@ -20,12 +20,4 @@ public class EnvController {
         return "env";
     }
 
-    @ModelAttribute("token")
-    public String getMainMenu () {
-        String token = UUID.randomUUID().toString() + ":" + System.currentTimeMillis();
-        String[] t = token.split(":");
-        String token_time = t[1];
-        return token;
-    }
-
 }

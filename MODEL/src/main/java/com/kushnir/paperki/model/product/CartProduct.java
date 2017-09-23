@@ -5,6 +5,8 @@ import com.kushnir.paperki.model.Price;
 import java.util.HashMap;
 
 public class CartProduct {
+    private int id;
+    private int idOrder;
     private int pnt;
     private String fullName;
     private String shortName;
@@ -28,7 +30,32 @@ public class CartProduct {
 
     public CartProduct() {}
 
-    public CartProduct(int pnt,
+    public CartProduct(int id,
+                       int pnt,
+                       String fullName,
+                       int VAT,
+                       double currentPrice,
+                       double currentPriceWithVAT,
+                       double discountedPrice,
+                       double discountedPriceWithVAT,
+                       int quantity,
+                       double total,
+                       double totalWithVAT) {
+        this.id = id;
+        this.pnt = pnt;
+        this.fullName = fullName;
+        this.VAT = VAT;
+        this.currentPrice = currentPrice;
+        this.currentPriceWithVAT = currentPriceWithVAT;
+        this.discountedPrice = discountedPrice;
+        this.discountedPriceWithVAT = discountedPriceWithVAT;
+        this.quantity = quantity;
+        this.total = total;
+        this.totalWithVAT = totalWithVAT;
+    }
+
+    public CartProduct(int id,
+                       int pnt,
                        String fullName,
                        String shortName,
                        String link,
@@ -47,6 +74,7 @@ public class CartProduct {
                        double totalDiscount,
                        double totalVAT,
                        HashMap<Integer, Price> prices) {
+        this.id = id;
         this.pnt = pnt;
         this.fullName = fullName;
         this.shortName = shortName;
@@ -66,6 +94,22 @@ public class CartProduct {
         this.totalDiscount = totalDiscount;
         this.totalVAT = totalVAT;
         this.prices = prices;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdOrder() {
+        return idOrder;
+    }
+
+    public void setIdOrder(int idOrder) {
+        this.idOrder = idOrder;
     }
 
     public int getPnt() {

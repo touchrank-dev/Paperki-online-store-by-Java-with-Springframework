@@ -1,8 +1,6 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers.order;
 
-import com.kushnir.paperki.service.CatalogBean;
-import com.kushnir.paperki.service.DeliveryService;
-import com.kushnir.paperki.service.MenuBean;
+import com.kushnir.paperki.service.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +31,13 @@ public class OrderController {
     CatalogBean catalogBean;
 
     @Autowired
+    PaymentService paymentService;
+
+    @Autowired
     DeliveryService deliveryService;
+
+    @Autowired
+    OrderService orderService;
 
     @Value("${content.path}")
     String contentPath;
@@ -44,14 +48,16 @@ public class OrderController {
         model.addAttribute("templatePathName", contentPath + "order");
         model.addAttribute("fragmentName", "order");
         model.addAttribute("deliveries", deliveryService.getAll());
+        model.addAttribute("payments", paymentService.getAll());
         return "index";
     }
 
     @GetMapping("/{token}")
-    public String orderByToken(@PathVariable String token, Model model) {
+    public String orderByToken(@PathVariable String token, Model model) throws ServiceException {
         LOGGER.debug("orderByToken({}) >>>", token);
         model.addAttribute("templatePathName", contentPath + "order-details");
         model.addAttribute("fragmentName", "order-details");
+        model.addAttribute("order", orderService.getOrderByToken(token));
         return "index";
     }
 
