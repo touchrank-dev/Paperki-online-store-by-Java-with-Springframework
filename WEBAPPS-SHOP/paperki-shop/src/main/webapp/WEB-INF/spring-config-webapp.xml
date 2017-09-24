@@ -72,4 +72,6 @@
     <!-- SCHEDULER -->
     <!--<import resource="spring-schedule.xml" />-->
 
+    <bean id="htmlMailer" class="com.kushnir.paperki.webapp.paperki.shop.mail.HtmlMailer" />
+
 </beans>

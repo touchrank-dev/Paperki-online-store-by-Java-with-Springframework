@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Template for HTML email with inline image</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+    <body>
+        <p th:text="${order?.id}">
+            Order ID
+        </p>
+        <p th:text="${order?.token_order}">
+            Order token_order
+        </p>
+        <p th:text="${order?.order_number}">
+            Order order_number
+        </p>
+    </body>
+</html>
