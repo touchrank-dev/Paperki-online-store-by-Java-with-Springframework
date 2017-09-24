@@ -44,7 +44,6 @@ public class HtmlMailer {
             message.setFrom(USER_SERVICE_EMAIL_ADDRESS);
             message.setTo(email);
             message.setText(htmlContent, true); // true = isHtml
-
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             LOGGER.error("Не удалось отправить сообщение");
