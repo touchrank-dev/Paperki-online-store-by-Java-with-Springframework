@@ -9,7 +9,7 @@
 
     <task:scheduler id="paperkiSheduler"/>
 
-    <bean id="updaterCSV" class="com.kushnir.paperki.webapp.paperki.shop.schedules.UpdaterCSV" />
+    <bean id="updaterCSV" class="com.kushnir.paperki.admin.schedules.UpdaterCSV" />
 
     <task:scheduled-tasks scheduler="paperkiSheduler">
         <task:scheduled ref="updaterCSV" method="catalogUpdate"     cron="${cron.update.catalog}" />

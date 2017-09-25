@@ -27,13 +27,13 @@ DROP TABLE IF EXISTS subscribes;
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id_user                     INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    login_user                  VARCHAR(50)     CHARACTER SET utf8 NOT NULL UNIQUE ,
-    name_user                   VARCHAR(150)    CHARACTER SET utf8 NOT NULL,
-    password                    VARCHAR(100)    CHARACTER SET utf8 NOT NULL,
-    email                       VARCHAR(50)     CHARACTER SET utf8 NOT NULL,
+    login_user                  VARCHAR(50)     NOT NULL UNIQUE ,
+    name_user                   VARCHAR(150)    NOT NULL,
+    password                    VARCHAR(100)    NOT NULL,
+    email                       VARCHAR(50)     NOT NULL,
     subscribe                   TINYINT         DEFAULT 1,
-    phone                       VARCHAR(20)     CHARACTER SET utf8,
-    birth_day                   DATE,
+    phone                       VARCHAR(20)     ,
+    birth_day                   DATE            ,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_enabled                  TINYINT         DEFAULT 0
@@ -61,14 +61,14 @@ CREATE TABLE payment_accounts(
 DROP TABLE IF EXISTS addresses_types;
 CREATE TABLE addresses_types (
     id_address_type             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name                        VARCHAR(30)     CHARACTER SET utf8 NOT NULL UNIQUE
+    name                        VARCHAR(30)     NOT NULL UNIQUE
 );
 
 CREATE TABLE addresses (
     id_address                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_address_type             INT             NOT NULL,
     id_user                     INT             NOT NULL,
-    value                       VARCHAR(50)     CHARACTER SET utf8 NOT NULL,
+    value                       VARCHAR(50)     NOT NULL,
     FOREIGN KEY (id_address_type)               REFERENCES addresses_types(id_address_type)
 );
 
@@ -76,14 +76,14 @@ DROP TABLE IF EXISTS catalog;
 CREATE TABLE catalog (
     id_catalog                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pap_id                      INT             UNIQUE,
-    name                        VARCHAR(180)    CHARACTER SET utf8 NOT NULL,
-    translit_name               VARCHAR(200)    CHARACTER SET utf8 NOT NULL UNIQUE,
-    link                        VARCHAR(200)    CHARACTER SET utf8 NOT NULL UNIQUE,
-    icon                        VARCHAR(30)     CHARACTER SET utf8 NOT NULL,
-    svg_icon                    VARCHAR(50)     CHARACTER SET utf8,
-    metadesk                    VARCHAR(400)    CHARACTER SET utf8,
-    metakey                     VARCHAR(400)    CHARACTER SET utf8,
-    customtitle                 VARCHAR(255)    CHARACTER SET utf8,
+    name                        VARCHAR(180)    NOT NULL,
+    translit_name               VARCHAR(200)    NOT NULL UNIQUE,
+    link                        VARCHAR(200)    NOT NULL UNIQUE,
+    icon                        VARCHAR(30)     NOT NULL,
+    svg_icon                    VARCHAR(50)     ,
+    metadesk                    VARCHAR(400)    ,
+    metakey                     VARCHAR(400)    ,
+    customtitle                 VARCHAR(255)    ,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_published                TINYINT         DEFAULT 1,
@@ -94,8 +94,8 @@ CREATE TABLE catalog (
 CREATE TABLE catalog_description (
     id_catalog_desc             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_catalog                  INT             NOT NULL UNIQUE,
-    short_description           VARCHAR(1000)   CHARACTER SET utf8,
-    full_description            VARCHAR(5000)   CHARACTER SET utf8,
+    short_description           VARCHAR(1000)   ,
+    full_description            VARCHAR(5000)   ,
     FOREIGN KEY (id_catalog)                    REFERENCES catalog(id_catalog)
 );
 
@@ -111,11 +111,11 @@ DROP TABLE IF EXISTS brands;
 CREATE TABLE brands (
     id_brand                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pap_id                      INT             UNIQUE,
-    name                        VARCHAR(100)    CHARACTER SET utf8 NOT NULL,
-    translit_name               VARCHAR(120)    CHARACTER SET utf8 NOT NULL UNIQUE,
-    icon                        VARCHAR(30)     CHARACTER SET utf8 NOT NULL,
-    short_description           VARCHAR(2000)   CHARACTER SET utf8,
-    full_description            VARCHAR(7000)   CHARACTER SET utf8
+    name                        VARCHAR(100)    NOT NULL,
+    translit_name               VARCHAR(120)    NOT NULL UNIQUE,
+    icon                        VARCHAR(30)     NOT NULL,
+    short_description           VARCHAR(2000)   ,
+    full_description            VARCHAR(7000)
 );
 
 DROP TABLE IF EXISTS extra_types;
@@ -128,21 +128,21 @@ CREATE TABLE products (
     id_product                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pap_id                      INT             UNIQUE,
     pnt                         INT             NOT NULL UNIQUE,
-    personal_group_name         VARCHAR(150),   
-    full_name                   VARCHAR(300)    CHARACTER SET utf8 NOT NULL,
-    short_name                  VARCHAR(250)    CHARACTER SET utf8 NOT NULL,
-    translit_name               VARCHAR(200)    CHARACTER SET utf8 NOT NULL UNIQUE,
-    link                        VARCHAR(200)    CHARACTER SET utf8 UNIQUE,
-    id_brand                    INT,
-    country_from                VARCHAR(30)     CHARACTER SET utf8,
-    country_made                VARCHAR(30)     CHARACTER SET utf8 NOT NULL,
-    bar_code                    VARCHAR(30)     CHARACTER SET utf8,
-    measure                     VARCHAR(10)     CHARACTER SET utf8 NOT NULL,
+    personal_group_name         VARCHAR(150)    ,   
+    full_name                   VARCHAR(300)    NOT NULL,
+    short_name                  VARCHAR(250)    NOT NULL,
+    translit_name               VARCHAR(200)    NOT NULL UNIQUE,
+    link                        VARCHAR(200)    UNIQUE,
+    id_brand                    INT             ,
+    country_from                VARCHAR(30)     ,
+    country_made                VARCHAR(30)     NOT NULL,
+    bar_code                    VARCHAR(30)     ,
+    measure                     VARCHAR(10)     NOT NULL,
     available_day               INT             DEFAULT 0 NOT NULL,
     vat                         INT             DEFAULT 0 NOT NULL,
-    metadesk                    VARCHAR(400)    CHARACTER SET utf8,
-    metakey                     VARCHAR(400)    CHARACTER SET utf8,
-    customtitle                 VARCHAR(255)    CHARACTER SET utf8,
+    metadesk                    VARCHAR(400)    ,
+    metakey                     VARCHAR(400)    ,
+    customtitle                 VARCHAR(255)    ,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_published                TINYINT         DEFAULT 1,
@@ -153,16 +153,16 @@ CREATE TABLE products (
 CREATE TABLE product_description (
     id_product_desc             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_product                  INT             NOT NULL UNIQUE,
-    short_description           VARCHAR(2000)   CHARACTER SET utf8,
-    full_description            VARCHAR(7000)   CHARACTER SET utf8,
+    short_description           VARCHAR(2000)   ,
+    full_description            VARCHAR(7000)   ,
     FOREIGN KEY (id_product)                    REFERENCES products(id_product)
 );
 
 CREATE TABLE product_attributes (
     id_product_attributes       INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pnt                         INT             NOT NULL,
-    name                        VARCHAR(100)    CHARACTER SET utf8,
-    value                       VARCHAR(100)    CHARACTER SET utf8,
+    name                        VARCHAR(100)    ,
+    value                       VARCHAR(100)    ,
     order_attr                  INT             NOT NULL,
     FOREIGN KEY (pnt)                           REFERENCES products(pnt)
 );
@@ -171,11 +171,11 @@ CREATE TABLE product_feedback (
     id_product_feedback         INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pnt                         INT             NOT NULL,
     id_user                     INT,
-    user_name                   VARCHAR(100),
-    email                       VARCHAR(80),
-    ip_address                  VARCHAR(20),    
+    user_name                   VARCHAR(100)    ,
+    email                       VARCHAR(80)     ,
+    ip_address                  VARCHAR(20)     ,    
     rate                        INT             DEFAULT 0 NOT NULL,
-    text                        VARCHAR(5000),
+    text                        VARCHAR(5000)   ,
     is_published                TINYINT         DEFAULT 0,
     approve                     TINYINT         DEFAULT 0,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
@@ -231,7 +231,7 @@ CREATE TABLE coupons (
     code                        VARCHAR(100)    NOT NULL,
     token                       VARCHAR(100)    NOT NULL,
     start_date                  DATETIME        DEFAULT CURRENT_TIMESTAMP,
-    expire_day                  DATETIME,
+    expire_day                  DATETIME        ,
     used                        TINYINT         DEFAULT 0,
     is_active                   TINYINT         DEFAULT 1,
     value                       INT             DEFAULT 0 NOT NULL
@@ -240,11 +240,11 @@ CREATE TABLE coupons (
 DROP TABLE IF EXISTS menu;
 CREATE TABLE menu (
     id_menu                     INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name                        VARCHAR(150)    CHARACTER SET utf8 NOT NULL UNIQUE,
-    translit_name               VARCHAR(150)    CHARACTER SET utf8 NOT NULL UNIQUE,
-    metadesk                    VARCHAR(400)    CHARACTER SET utf8,
-    metakey                     VARCHAR(400)    CHARACTER SET utf8,
-    customtitle                 VARCHAR(255)    CHARACTER SET utf8,
+    name                        VARCHAR(150)    NOT NULL UNIQUE,
+    translit_name               VARCHAR(150)    NOT NULL UNIQUE,
+    metadesk                    VARCHAR(400)    ,
+    metakey                     VARCHAR(400)    ,
+    customtitle                 VARCHAR(255)    ,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -252,12 +252,12 @@ CREATE TABLE menu (
 DROP TABLE IF EXISTS menu_items;
 CREATE TABLE menu_items (
     id_menu_item                INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name                        VARCHAR(150)    CHARACTER SET utf8 NOT NULL,
-    translit_name               VARCHAR(150)    CHARACTER SET utf8 NOT NULL,
-    link                        VARCHAR(100)    CHARACTER SET utf8 NOT NULL,
-    metadesk                    VARCHAR(400)    CHARACTER SET utf8,
-    metakey                     VARCHAR(400)    CHARACTER SET utf8,
-    customtitle                 VARCHAR(255)    CHARACTER SET utf8,
+    name                        VARCHAR(150)    NOT NULL,
+    translit_name               VARCHAR(150)    NOT NULL,
+    link                        VARCHAR(100)    NOT NULL,
+    metadesk                    VARCHAR(400)    ,
+    metakey                     VARCHAR(400)    ,
+    customtitle                 VARCHAR(255)    ,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_published                TINYINT         DEFAULT 0,
@@ -281,7 +281,7 @@ CREATE TABLE feedbacks (
     email                       VARCHAR(80)     NOT NULL,
     ip_address                  VARCHAR(20),    
     rate                        INT,
-    text                        VARCHAR(2000)   CHARACTER SET utf8 NOT NULL,
+    text                        VARCHAR(2000)   NOT NULL,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     approve                     TINYINT         DEFAULT 0,
@@ -291,9 +291,9 @@ CREATE TABLE feedbacks (
 DROP TABLE IF EXISTS order_status;
 CREATE TABLE order_status (
     id_order_status             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    status_code                 CHAR(1)         CHARACTER SET utf8 NOT NULL,
-    status_name                 VARCHAR(100)    CHARACTER SET utf8 NOT NULL,
-    description                 VARCHAR(1000)   CHARACTER SET utf8
+    status_code                 CHAR(1)         NOT NULL,
+    status_name                 VARCHAR(100)    NOT NULL,
+    description                 VARCHAR(1000)
 );
 
 DROP TABLE IF EXISTS order_types;
@@ -374,9 +374,9 @@ CREATE TABLE stock_place (
     id_stock_place              INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name                        VARCHAR(50)     NOT NULL,
     address                     VARCHAR(200)    NOT NULL,
-    phone                       VARCHAR(150),
-    email                       VARCHAR(50),
-    description                 VARCHAR(500),
+    phone                       VARCHAR(150)    ,
+    email                       VARCHAR(50)     ,
+    description                 VARCHAR(500)    ,
     order_places                INT
 );
 
@@ -410,7 +410,7 @@ CREATE TABLE callbacks (
     id_callback                 INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name                        VARCHAR(100)    NOT NULL,
     phone                       VARCHAR(30)     NOT NULL,
-    comment                     VARCHAR(2000),
+    comment                     VARCHAR(2000)   ,
     responded                   TINYINT         DEFAULT 0,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     responded_date              DATETIME        ON UPDATE CURRENT_TIMESTAMP
@@ -423,9 +423,9 @@ DROP TABLE IF EXISTS delivery;
 CREATE TABLE delivery (
     id_delivery                 INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name                        VARCHAR(50)     NOT NULL,
-    short_description           VARCHAR(1000),
-    full_description            VARCHAR(5000),
-    link                        VARCHAR(200),
+    short_description           VARCHAR(1000)   ,
+    full_description            VARCHAR(5000)   ,
+    link                        VARCHAR(200)    ,
     icon                        VARCHAR(150)
 );
 
@@ -443,9 +443,9 @@ DROP TABLE IF EXISTS payment;
 CREATE TABLE payment (
     id_payment                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name                        VARCHAR(50)     NOT NULL,
-    short_description           VARCHAR(1000),
-    full_description            VARCHAR(5000),
-    link                        VARCHAR(200),
+    short_description           VARCHAR(1000)   ,
+    full_description            VARCHAR(5000)   ,
+    link                        VARCHAR(200)    ,
     icon                        VARCHAR(150)
 );
 

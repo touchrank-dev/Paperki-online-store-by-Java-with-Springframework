@@ -44,9 +44,6 @@ public class RESTcontroller {
     FeedbackService feedbackService;
 
     @Autowired
-    CartBean cartBean;
-
-    @Autowired
     Mailer mailer;
 
     @Value("${webapp.host}")
@@ -146,55 +143,6 @@ public class RESTcontroller {
             LOGGER.error("PASSWORD CHANGE FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
             mailer.toSupportMail(restMessage.toString(), "ERROR REST PASSWORD CHANGE");
-            return restMessage;
-        }
-    }
-
-    // curl -H "Content-Type: application/json" -d '{"pnt":9491,"quantity":1}' -v localhost:8080/api/addtocart
-    @PostMapping("/addtocart")
-    @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage addToCart(@RequestBody AddProductRequest addProductRequest,
-                                               HttpSession httpSession) {
-        LOGGER.debug("REST ADD TO CART >>>\nREQUEST DATA: {}", addProductRequest);
-        RestMessage restMessage;
-        try {
-            Cart cart = (Cart)httpSession.getAttribute("cart");
-            LOGGER.debug("CART FROM SESSION BEFORE ADDING: {}", cart);
-
-            cartBean.addToCart(cart, addProductRequest);
-
-            LOGGER.debug("CART AFTER ADDING: {}", cart);
-            httpSession.setAttribute("cart", cart);
-            restMessage = new RestMessage(HttpStatus.OK, "ADDED TO CART", cart);
-            return restMessage;
-        }catch (NotEnoughQuantityAvailableException e) {
-            restMessage = new RestMessage(HttpStatus.NOT_FOUND, e.getMessage(), null);
-            return restMessage;
-        } catch (Exception e) {
-            LOGGER.error("FAILED ADD PRODUCT TO CART >>>\nERROR MESSAGE: {}", e.getMessage());
-            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
-            return restMessage;
-        }
-    }
-
-    @PostMapping("/deletefromcart")
-    @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage deleteFromCart(@RequestBody DeleteRequest pnt, HttpSession httpSession) {
-        LOGGER.debug("REST DELETE PRODUCT FROM CART >>>\nREQUEST PNT: {}", pnt);
-        RestMessage restMessage;
-        try{
-            Cart cart = (Cart)httpSession.getAttribute("cart");
-            LOGGER.debug("CART FROM SESSION BEFORE DELETE: {}", cart);
-
-            cartBean.deleteFromCart(cart, pnt.getPnt());
-
-            LOGGER.debug("CART AFTER DELETE: {}", cart);
-            httpSession.setAttribute("cart", cart);
-            restMessage = new RestMessage(HttpStatus.OK, "PRODUCT SUCCESSFULLY DELETED", cart);
-            return restMessage;
-        } catch (Exception e) {
-            LOGGER.error("FAILED DELETE FROM CART >>>\nERROR MESSAGE: {}", e.getMessage());
-            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
             return restMessage;
         }
     }

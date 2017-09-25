@@ -10,7 +10,7 @@ function addToCart(pnt) {
         type: "POST",
         contentType: "application/json",
         dataType: "json",
-        url: "/api/addtocart",
+        url: "/api/cart/addtocart",
         data: addItemToJson(pnt, quantity),
         success: function(response) {
             if(response.code == "OK") {
@@ -38,7 +38,7 @@ function deleteFromCart(pnt) {
         type: "POST",
         contentType: "application/json",
         dataType: "json",
-        url: "/api/deletefromcart",
+        url: "/api/cart/deletefromcart",
         data: JSON.stringify({"pnt":pnt}),
         success: function(response) {
             if(response.code == "OK") {

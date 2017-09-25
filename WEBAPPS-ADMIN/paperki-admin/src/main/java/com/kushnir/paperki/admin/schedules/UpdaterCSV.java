@@ -1,4 +1,4 @@
-package com.kushnir.paperki.webapp.paperki.shop.schedules;
+package com.kushnir.paperki.admin.schedules;
 
 import com.kushnir.paperki.service.CatalogBean;
 
@@ -17,9 +17,6 @@ public class UpdaterCSV {
 
     @Autowired
     CatalogBean catalogBean;
-
-    @Autowired
-    Mailer mailer;
 
     public void catalogUpdate() throws IOException, ServiceException {
         LOGGER.debug("===== Started Catalog update ==== >>> ");
