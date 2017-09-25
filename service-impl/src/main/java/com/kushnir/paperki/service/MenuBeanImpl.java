@@ -24,7 +24,6 @@ public class MenuBeanImpl implements MenuBean {
     public ArrayList<MenuItem> getAll(String nameMenu) {
         LOGGER.debug("getAll(nameMenu = {}) >>>", nameMenu);
         ArrayList<MenuItem> menuItems = menuDao.getAll(nameMenu);
-        LOGGER.debug("{}", menuItems);
         return menuItems;
     }
 

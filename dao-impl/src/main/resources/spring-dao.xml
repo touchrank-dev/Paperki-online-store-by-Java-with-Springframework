@@ -33,6 +33,7 @@
     <bean id="callbackDao" class="com.kushnir.paperki.dao.CallBackDaoImpl" />
     <bean id="feedbackDao" class="com.kushnir.paperki.dao.FeedbackDaoImpl" />
     <bean id="deliveryDao" class="com.kushnir.paperki.dao.DeliveryDaoImpl" />
+    <bean id="paymentDao" class="com.kushnir.paperki.dao.PaymentDaoImpl" />
     <bean id="orderDao" class="com.kushnir.paperki.dao.OrderDaoImpl" />
 
 </beans>

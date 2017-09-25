@@ -135,14 +135,14 @@
                                                         th:if="${deliveries[1]} != null">
                                                         <li th:each="dilivery : ${deliveries[1]}">
                                                             <input type="radio" 
-                                                                id="delivery-id" 
-                                                                name="deliveryTime" 
-                                                                value="test" 
-                                                                th:attr="id='delivery-id-'+${dilivery?.value?.id}"
-                                                                th:value="${dilivery?.value?.id}">
+                                                                    id="delivery-id"
+                                                                    name="deliveryTime"
+                                                                    value="0"
+                                                                    th:attr="id='delivery-id-'+${dilivery?.value?.id}"
+                                                                    th:value="${dilivery?.value?.id}">
                                                             <label class="clearfix" 
-                                                                for="delivery-id"
-                                                                th:attr="for='delivery-id-'+${dilivery?.value?.id}">
+                                                                    for="delivery-id"
+                                                                    th:attr="for='delivery-id-'+${dilivery?.value?.id}">
                                                                 <p class="deliveryTimeTitle" 
                                                                     th:text="${dilivery?.value?.name}">Название доставки</p>
                                                                 <p class="deliveryTimePrice"></p>
@@ -166,15 +166,26 @@
                                                     <h4 class="orderingTabsSectionTitle">Спосоы оплаты</h4>
                                                     <h5 class="orderingTabsSectionSubTitle">Выберите способ оплаты</h5>
 
-                                                    <ul class="choosingBase orderingRadio paymentType" id="customer-payment-chosen">
-                                                        <li>
-                                                            <input type="radio" id="deliveryPaymentType3" value="1">
-                                                            <label class="clearfix" for="deliveryPaymentType3">
-                                                                <p class="paymentTypeTitle">За наличный расчёт
-                                                                    <img class="paymentPic" src="/res/img/icons/focus.min.svg">
-                                                                </p>                                              
+                                                    <ul class="choosingBase orderingRadio paymentType" id="customer-payment-chosen"
+                                                        th:if="${payments[1]} != null">
+                                                        <li th:each="payment : ${payments[1]}">
+                                                            <input type="radio"
+                                                                   id="payment-id"
+                                                                   name="paymentType"
+                                                                   value="0"
+                                                                   th:attr="id='payment-id-' + ${payment?.value?.id}"
+                                                                   th:value="${payment?.value?.id}">
+                                                            <label class="clearfix"
+                                                                   for="payment-id"
+                                                                   th:attr="for='payment-id-' + ${payment?.value?.id}">
+                                                                <p class="paymentTypeTitle"
+                                                                    th:text="${payment?.value?.name}">Название оплаты
+                                                                    <!--<img class="paymentPic" src="/res/img/icons/focus.min.svg">-->
+                                                                </p>
+                                                                <p class="paymentTimePrice"></p>
                                                             </label>
-                                                            <div class="orderingdeliveryTimeHolder clearfix">
+                                                            <div class="orderingdeliveryTimeHolder clearfix"
+                                                                 th:text="${payment?.value?.shortDescription}">
                                                                 Краткое описание способа оплаты
                                                             </div>
                                                         </li>
@@ -306,16 +317,29 @@
                                             <div class="orderingTabsSectionHolder">
                                                 <h4 class="orderingTabsSectionTitle">Способы оплаты</h4>
                                                 <h5 class="orderingTabsSectionSubTitle">Выберите способ оплаты</h5>
-                                                <ul class="choosingBase orderingRadio paymentType" id="enterprise-payment-chosen">
-                                                    <li>
-                                                        <input type="radio" id="deliveryPaymentType1">
-                                                        <label class="clearfix" for="deliveryPaymentType1">
-                                                            <p class="paymentTypeTitle">По безналичному расчёту
-                                                                <img class="paymentPic" src="/res/img/icons/home.min.svg">
+                                                <ul class="choosingBase orderingRadio paymentType" id="enterprise-payment-chosen"
+                                                    th:if="${payments[2]} != null">
+                                                    <li th:each="payment : ${payments[2]}">
+                                                        <input type="radio"
+                                                               id="payment-id-e"
+                                                               name="paymentType"
+                                                               value="0"
+                                                               th:attr="id='payment-id-e-' + ${payment?.value?.id}"
+                                                               th:value="${payment?.value?.id}">
+                                                        <label class="clearfix"
+                                                               for="payment-id"
+                                                               th:attr="for='payment-id-e-' + ${payment?.value?.id}">
+                                                            <p class="paymentTypeTitle"
+                                                               th:text="${payment?.value?.name}">Название оплаты
                                                             </p>
+                                                            <p class="paymentTimePrice"></p>
                                                         </label>
+                                                        <div class="orderingdeliveryTimeHolder clearfix"
+                                                             th:text="${payment?.value?.shortDescription}">
+                                                            Краткое описание способа оплаты
+                                                        </div>
                                                     </li>
-                                                </ul>   
+                                                </ul>
                                             </div>
                                         </div>
                                         

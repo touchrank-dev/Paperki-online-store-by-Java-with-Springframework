@@ -104,11 +104,6 @@ VALUES (1, 3086),(2, 54),(3, 1054),(4, 234),(5, 45);
 INSERT INTO mail_lists(name)
 VALUES ('Новостная рассылка');
 
-INSERT INTO payment (name, short_description, full_description, link, icon)
-VALUES ('Безналичный расчет', '', '', '', ''),
-       ('Наличный расчет', '', '', '', ''), 
-       ('через систему ”Расчет“ (ЕРИП)', '', '', '', '');
-
 INSERT INTO order_types (name)
 VALUES ('Физ лиц'), ('Юр лиц');
 
@@ -119,6 +114,11 @@ VALUES ('САМОВЫВОЗ СО СКЛАДА В БРЕСТЕ', 'Адрес пу
 INSERT INTO delivery_order_type (id_delivery, id_order_type, min_cart_total, price)
 VALUES (1, 1, 0.0, 0.0), (1, 2, 0.0, 0.0),
        (2, 1, 30.0, 0.0), (2, 1, 0.0, 5.0), (2, 2, 10.0, 0.0);
+
+INSERT INTO payment (name, short_description, full_description, link, icon)
+VALUES ('Безналичный расчет', '', '', '', ''),
+       ('Наличный расчет', '', '', '', ''), 
+       ('через систему ”Расчет“ (ЕРИП)', '', '', '', '');
 
 INSERT INTO payment_order_type (id_payment, id_order_type, min_cart_total, price)
 VALUES (1, 2, 0.0, 0.0), 
