@@ -42,3 +42,5 @@ target/
 homework/
 *.odt
 # UI-SOURCE/
+/DB/src/main/resources/paperkiMySQL.properties
+/DB/src/main/resources/paperkiMySQLremote.properties
