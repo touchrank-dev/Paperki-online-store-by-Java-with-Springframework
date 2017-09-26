@@ -64,11 +64,14 @@
 					</div>
         		</div>
         		<div class="order-details-total">
-        			
-
+        			<ul class="choosen-order-total">
+						<li class="cost">
+							<p>Итого:</p>
+							<span th:if="${order?.final_total_with_vat} != null" th:text="${order?.final_total_with_vat} + ' руб'">00,00 руб</span>
+						</li>
+					</ul>
         		</div>
         	</div>
         </div>
-
 	</div>
 </main>

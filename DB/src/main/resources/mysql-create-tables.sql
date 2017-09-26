@@ -335,6 +335,8 @@ CREATE TABLE order_items (
     base_price_with_vat         DOUBLE          NOT NULL,
     discounted_price            DOUBLE          NOT NULL,
     discounted_price_with_vat   DOUBLE          NOT NULL,
+    final_price                 DOUBLE          NOT NULL,
+    final_price_with_vat        DOUBLE          NOT NULL,
     quantity                    INT             NOT NULL,
     total                       DOUBLE          NOT NULL,
     total_with_vat              DOUBLE          NOT NULL,

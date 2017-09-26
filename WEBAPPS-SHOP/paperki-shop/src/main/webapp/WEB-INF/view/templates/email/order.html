@@ -113,7 +113,9 @@
                         </tr>
                         <tr>
                             <td align="right" class="pricePad" colspan="2">Способ получения заказа: </td>
-                            <td align="left" class="pricePad" colspan="4"><small></small></td>
+                            <td align="left" class="pricePad" colspan="4" >
+                                <small th:text="${order?.delivery?.name}"></small>
+                            </td>
                         </tr>
                     </table>
                 </td>
