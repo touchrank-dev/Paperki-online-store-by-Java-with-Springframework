@@ -239,11 +239,15 @@ public class OrderServiceImpl implements OrderService {
         for (Map.Entry<Integer, CartProduct> item :items.entrySet()) {
             item.getValue().setIdOrder(idOrder.intValue());
         }
-        return orderDao.addOrderItems(getListItems(items), idOrder);
+        return orderDao.addOrderItems(getArrayItems(items));
     }
 
     private List<CartProduct> getListItems(HashMap<Integer, CartProduct> items) {
-        return (List<CartProduct>) items.values();
+        return new ArrayList<CartProduct>(items.values());
+    }
+
+    private CartProduct[] getArrayItems(HashMap<Integer, CartProduct> items) {
+        return (CartProduct[]) items.values().toArray();
     }
 
     private String generateToken() {
