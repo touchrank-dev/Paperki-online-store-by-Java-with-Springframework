@@ -102,7 +102,7 @@ public class PaymentDaoImpl implements PaymentDao {
         public Payment mapRow(ResultSet rs, int rowNum) throws SQLException {
             Payment payment = new Payment(
                     rs.getInt("id_payment"),
-                    rs.getString("id_payment"),
+                    rs.getString("name"),
                     rs.getString("short_description"),
                     rs.getString("full_description"),
                     rs.getString("link"),

@@ -104,8 +104,8 @@ public class DeliveryDaoImpl implements DeliveryDao {
         @Override
         public Delivery mapRow(ResultSet rs, int i) throws SQLException {
             Delivery delivery = new Delivery(
-                    rs.getInt("id_payment"),
-                    rs.getString("id_payment"),
+                    rs.getInt("id_delivery"),
+                    rs.getString("name"),
                     rs.getString("short_description"),
                     rs.getString("full_description"),
                     rs.getString("link"),
