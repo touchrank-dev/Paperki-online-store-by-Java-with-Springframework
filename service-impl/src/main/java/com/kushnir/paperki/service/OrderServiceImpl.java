@@ -181,7 +181,7 @@ public class OrderServiceImpl implements OrderService {
         order.setComments(orderForm.get("comments"));
 
         order.setPayment(paymentService.getById(getInt(orderForm.get("payment_id"))));
-        order.setDelivery(deliveryService.getById(getInt(orderForm.get("payment_id"))));
+        order.setDelivery(deliveryService.getById(getInt(orderForm.get("shipment_id"))));
 
         // =============================================================
         order.setId(addOrder(order));
