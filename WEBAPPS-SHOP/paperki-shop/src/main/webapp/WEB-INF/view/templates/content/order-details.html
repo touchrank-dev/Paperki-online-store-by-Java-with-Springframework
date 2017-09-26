@@ -56,7 +56,7 @@
 										Полное наименование товара
 									</a>
 								</li>
-								<li th:text="${item.discountedPriceWithVAT}+ ' руб'">0.00 руб</li>
+								<li th:text="${item.finalPriceWithVAT}+ ' руб'">0.00 руб</li>
 								<li th:text="${item.quantity} +' шт'">0 ед.</li>
 								<li th:text="${item.totalWithVAT} +' руб'">0.00 руб</li>
 							</ul>
