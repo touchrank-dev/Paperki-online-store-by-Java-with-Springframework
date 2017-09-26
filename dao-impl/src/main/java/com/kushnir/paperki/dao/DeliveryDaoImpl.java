@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.ResultSet;
@@ -20,9 +22,13 @@ public class DeliveryDaoImpl implements DeliveryDao {
     private static final Logger LOGGER = LogManager.getLogger(DeliveryDaoImpl.class);
 
     private final String P_ID_ORDER_TYPE = "p_id_order_type";
+    private final String P_DELIVERY_ID = "p_id";
 
     @Value("${delivery.getAll}")
     private String getAllSqlQuery;
+
+    @Value("${delivery.getById}")
+    private String getByIdSqlQuery;
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -36,6 +42,14 @@ public class DeliveryDaoImpl implements DeliveryDao {
                         getAllSqlQuery,
                         new DeliveryRowSetExtractor());
         return deliveries;
+    }
+
+    @Override
+    public Delivery getById(int idDelivery) {
+        LOGGER.debug("getById({})", idDelivery);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_DELIVERY_ID, idDelivery);
+        Delivery delivery = namedParameterJdbcTemplate.queryForObject(getByIdSqlQuery, parameterSource, new DeliveryRowMapper());
+        return delivery;
     }
 
     private class DeliveryRowSetExtractor implements ResultSetExtractor {
@@ -82,6 +96,22 @@ public class DeliveryDaoImpl implements DeliveryDao {
 
             }
             return deliveries;
+        }
+    }
+
+    private class DeliveryRowMapper implements RowMapper<Delivery> {
+
+        @Override
+        public Delivery mapRow(ResultSet rs, int i) throws SQLException {
+            Delivery delivery = new Delivery(
+                    rs.getInt("id_payment"),
+                    rs.getString("id_payment"),
+                    rs.getString("short_description"),
+                    rs.getString("full_description"),
+                    rs.getString("link"),
+                    rs.getString("icon")
+            );
+            return delivery;
         }
     }
 }

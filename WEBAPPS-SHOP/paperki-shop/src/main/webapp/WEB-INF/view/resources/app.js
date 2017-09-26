@@ -637,7 +637,7 @@ function orderFormToJSON() {
             "type":             $('#order-type-switcher').val(),
             "email":            $('#order-input-enterprise-email').val(),
             "phone":            $('#order-input-enterprise-phone').val(),
-            "name":             $('#order-input-enterprise-name').val(),
+            "enterprise-name":  $('#order-input-enterprise-name').val(),
             "unp":              $('#order-input-enterprise-unp').val(),
             "address":          $('#order-input-enterprise-address').val(),
             "shipment_id":      $('#enterprise-shipment-chosen input[type=radio]:checked').val(),
