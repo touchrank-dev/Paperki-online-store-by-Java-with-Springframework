@@ -116,21 +116,33 @@
                                         </div>
                                         <div class="product-content__bottom">
                                             <div class="prices-block">
+                                                <!-- <span th:switch="${product?.value?.basePriceWithVat} > ${product?.value?.finalPriceWithVAT}" th:remove="tag">
+
+                                                    <ul class="prices-block-list" th:case="${true}">
+                                                        <li class="old-pr">8,50 руб</li>
+                                                        <li class="new-pr">
+                                                            6,50 руб
+                                                        </li>
+                                                    </ul>
+                                                    
+                                                </span> -->
+
                                                 <ul class="prices-block-list">
                                                     <li class="current-pr"
                                                         th:text="${product?.value?.prices[1]?.basePriceWithVat} + ' руб'">
                                                         0,00 руб
                                                     </li>
                                                 </ul>
-                                                <div class="bon-pr" th:if="${product?.value?.prices.size()} > 1">
+                                                <div class="bon-pr" 
+                                                    th:if="${product?.value?.prices.size()} > 1">
                                                     <img src="/res/img/i.png" alt="Информация">
                                                     <div class="hint">
                                                         <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
                                                         <h5>Цена зависит от<br>количества!</h5>
                                                         <div>
                                                             <p th:each="price : ${product?.value?.prices}" th:remove="tag" >
-                                                                <p th:text="'от '+${price?.quantityStart}+' ед. :'">от 1 ед. :</p>
-                                                                <p th:text="${price?.basePriceWithVat}+' руб.'">0,00 руб</p>
+                                                                <p th:text="'от '+${price?.value?.quantityStart}+' ед. :'">от 1 ед. :</p>
+                                                                <p th:text="${price?.value?.basePriceWithVat}+' руб.'">0,00 руб</p>
                                                             </p>
                                                         </div>
                                                     </div>
