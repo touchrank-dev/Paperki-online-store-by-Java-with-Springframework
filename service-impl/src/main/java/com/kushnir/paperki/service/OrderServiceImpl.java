@@ -182,11 +182,15 @@ public class OrderServiceImpl implements OrderService {
 
         order.setPayment(paymentService.getById(getInt(orderForm.get("payment_id"))));
         order.setDelivery(deliveryService.getById(getInt(orderForm.get("payment_id"))));
+
         // =============================================================
         order.setId(addOrder(order));
         // =============================================================
         addOrderAttributes(orderForm , order);
+        // =============================================================
         addOrderItems(cart.getItems(), order.getId());
+        // =============================================================
+        order.setItems(getListItems(cart.getItems()));
 
         try {
             htmlMailer.sendOrderConfirmEmail(order, orderForm.get("email"));
@@ -235,7 +239,11 @@ public class OrderServiceImpl implements OrderService {
         for (Map.Entry<Integer, CartProduct> item :items.entrySet()) {
             item.getValue().setIdOrder(idOrder.intValue());
         }
-        return orderDao.addOrderItems(items, idOrder);
+        return orderDao.addOrderItems(getListItems(items), idOrder);
+    }
+
+    private List<CartProduct> getListItems(HashMap<Integer, CartProduct> items) {
+        return (List<CartProduct>) items.values();
     }
 
     private String generateToken() {

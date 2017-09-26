@@ -184,9 +184,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public int[] addOrderItems(HashMap<Integer, CartProduct> items, Integer idOrder) {
+    public int[] addOrderItems(List<CartProduct> items, Integer idOrder) {
         LOGGER.debug("addOrderItems({}, {}) >>>", items, idOrder);
-        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items.values().toArray());
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items.toArray());
         return namedParameterJdbcTemplate.batchUpdate(addOrderItemSqlQuery, batch);
     }
 
