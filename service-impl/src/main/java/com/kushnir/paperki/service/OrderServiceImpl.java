@@ -246,8 +246,8 @@ public class OrderServiceImpl implements OrderService {
         return new ArrayList<CartProduct>(items.values());
     }
 
-    private CartProduct[] getArrayItems(HashMap<Integer, CartProduct> items) {
-        return (CartProduct[]) items.values().toArray();
+    private Object[] getArrayItems(HashMap<Integer, CartProduct> items) {
+        return items.values().toArray();
     }
 
     private String generateToken() {
