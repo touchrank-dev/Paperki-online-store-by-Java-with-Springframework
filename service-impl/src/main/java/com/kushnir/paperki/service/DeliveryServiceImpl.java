@@ -32,4 +32,10 @@ public class DeliveryServiceImpl implements DeliveryService {
         LOGGER.debug("getByOrderIdType({})", orderIdType);
         return this.getAll().get(orderIdType);
     }
+
+    @Override
+    public Delivery getById(int idDelivery) {
+        LOGGER.debug("getById({})", idDelivery);
+        return deliveryDao.getById(idDelivery);
+    }
 }

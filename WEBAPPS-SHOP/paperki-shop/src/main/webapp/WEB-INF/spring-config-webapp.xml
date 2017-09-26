@@ -66,11 +66,4 @@
         <property name="prettyPrint" value="true" />
     </bean>
 
-    <!-- SPRING SECURITY -->
-    <!--<import resource="spring-web-security-config.xml"/>-->
-    <!-- SCHEDULER -->
-    <!--<import resource="spring-schedule.xml" />-->
-
-    <bean id="htmlMailer" class="com.kushnir.paperki.webapp.paperki.shop.mail.HtmlMailer" />
-
 </beans>

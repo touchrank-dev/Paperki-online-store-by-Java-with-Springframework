@@ -15,5 +15,5 @@ public interface OrderDao {
     Integer addOrder(Order order);
     Integer addOrderIfo(OrderInfo orderInfo, Integer idOrder);
     int[] addOrderAttributes(List<Attribute> attributes);
-    int[] addOrderItems(HashMap<Integer, CartProduct> items, Integer idOrder);
+    int[] addOrderItems(List<CartProduct> items, Integer idOrder);
 }

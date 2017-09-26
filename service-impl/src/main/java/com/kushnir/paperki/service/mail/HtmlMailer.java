@@ -1,4 +1,4 @@
-package com.kushnir.paperki.webapp.paperki.shop.mail;
+package com.kushnir.paperki.service.mail;
 
 import com.kushnir.paperki.model.order.Order;
 
@@ -23,6 +23,9 @@ public class HtmlMailer {
     @Value("${mail.user.sender}")
     private String USER_SERVICE_EMAIL_ADDRESS;
 
+    @Value("${mail.support.recipient}")
+    private String SUPPORT_SERVICE_EMAIL_ADDRES;
+
     @Autowired
     private JavaMailSenderImpl mailSender;
 
@@ -42,8 +45,8 @@ public class HtmlMailer {
 
             message.setSubject("Благодарим за заказ на paperki.by");
             message.setFrom(USER_SERVICE_EMAIL_ADDRESS);
-            message.setTo(email);
-            message.setText(htmlContent, true); // true = isHtml
+            message.setTo(new String[] {email, SUPPORT_SERVICE_EMAIL_ADDRES});
+            message.setText(htmlContent, true);
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             LOGGER.error("Не удалось отправить сообщение");

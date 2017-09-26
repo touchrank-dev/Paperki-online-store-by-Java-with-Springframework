@@ -21,4 +21,10 @@ public class PaymentServiceImpl implements PaymentService {
         LOGGER.debug("getAll()");
         return paymentDao.getAll();
     }
+
+    @Override
+    public Payment getById(int idPayment) {
+        LOGGER.debug("getById({})", idPayment);
+        return paymentDao.getById(idPayment);
+    }
 }

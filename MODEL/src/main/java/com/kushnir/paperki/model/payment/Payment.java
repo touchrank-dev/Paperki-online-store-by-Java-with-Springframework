@@ -15,6 +15,20 @@ public class Payment {
     }
 
     public Payment(int id,
+                   String name,
+                   String shortDescription,
+                   String fullDescription,
+                   String link,
+                   String icon) {
+        this.id = id;
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.fullDescription = fullDescription;
+        this.link = link;
+        this.icon = icon;
+    }
+
+    public Payment(int id,
                    int idOrderType,
                    String name,
                    String shortDescription,

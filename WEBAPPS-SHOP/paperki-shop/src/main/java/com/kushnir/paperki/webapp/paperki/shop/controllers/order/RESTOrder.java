@@ -3,10 +3,11 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers.order;
 import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.RestMessage;
 import com.kushnir.paperki.model.User;
+import com.kushnir.paperki.model.order.Order;
 import com.kushnir.paperki.service.OrderService;
 import com.kushnir.paperki.service.mail.Mailer;
 
-import com.kushnir.paperki.webapp.paperki.shop.mail.HtmlMailer;
+import com.kushnir.paperki.service.mail.HtmlMailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,9 +25,6 @@ import java.util.HashMap;
 public class RESTOrder {
 
     private static final Logger LOGGER = LogManager.getLogger(RESTOrder.class);
-
-    @Autowired
-    private HtmlMailer htmlMailer;
 
     @Autowired
     OrderService orderService;
@@ -51,13 +49,10 @@ public class RESTOrder {
 
             if(obj instanceof String) {
                 restMessage = new RestMessage(HttpStatus.OK, "Заказ успешно создан", obj);
-                String orderToken = (String) obj;
-                htmlMailer.sendOrderConfirmEmail(orderService.getOrderByToken(orderToken), "a-kush@mail.ru");
                 session.setAttribute("cart", new Cart());
             } else {
                 restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "Ошибка валидации заказа", obj);
             }
-
             return restMessage;
         } catch (Exception e) {
             LOGGER.error("ERROR REST ORDER SUBMIT >>>\nERROR MESSAGE{}", e.getMessage());

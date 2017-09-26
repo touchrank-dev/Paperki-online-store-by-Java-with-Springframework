@@ -7,4 +7,5 @@ import java.util.HashMap;
 public interface DeliveryService {
     HashMap<Integer, HashMap<Integer, Delivery>> getAll();
     HashMap<Integer, Delivery> getByOrderIdType(Integer orderIdType);
+    Delivery getById(int idDelivery);
 }

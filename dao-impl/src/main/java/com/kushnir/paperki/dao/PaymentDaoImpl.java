@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.ResultSet;
@@ -20,12 +22,16 @@ public class PaymentDaoImpl implements PaymentDao {
     private static final Logger LOGGER = LogManager.getLogger(PaymentDaoImpl.class);
 
     private final String P_ID_ORDER_TYPE = "p_id_order_type";
+    private final String P_PAYMENT_ID = "p_id";
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("${payment.getAll}")
     private String getAllSqlQuery;
+
+    @Value("${payment.getById}")
+    private String getByIdSqlQuery;
 
     @Override
     public HashMap<Integer, HashMap<Integer, Payment>> getAll() {
@@ -34,6 +40,14 @@ public class PaymentDaoImpl implements PaymentDao {
                 (HashMap<Integer, HashMap<Integer, Payment>>)
                         namedParameterJdbcTemplate.query(getAllSqlQuery, new PaymentRowSetExtractor());
         return payments;
+    }
+
+    @Override
+    public Payment getById(int idPayment) {
+        LOGGER.debug("getById({})", idPayment);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_PAYMENT_ID, idPayment);
+        Payment payment = namedParameterJdbcTemplate.queryForObject(getByIdSqlQuery, parameterSource, new PaymentRowMapper());
+        return payment;
     }
 
     private class PaymentRowSetExtractor implements ResultSetExtractor {
@@ -79,6 +93,22 @@ public class PaymentDaoImpl implements PaymentDao {
                 }
             }
             return payments;
+        }
+    }
+
+    private class PaymentRowMapper implements RowMapper<Payment> {
+
+        @Override
+        public Payment mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Payment payment = new Payment(
+                    rs.getInt("id_payment"),
+                    rs.getString("name"),
+                    rs.getString("short_description"),
+                    rs.getString("full_description"),
+                    rs.getString("link"),
+                    rs.getString("icon")
+            );
+            return payment;
         }
     }
 }

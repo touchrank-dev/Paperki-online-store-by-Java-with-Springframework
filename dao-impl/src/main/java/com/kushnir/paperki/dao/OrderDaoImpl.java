@@ -167,7 +167,7 @@ public class OrderDaoImpl implements OrderDao {
         parameterSource.addValue(P_PAYMENT_BANK_CODE, orderInfo.getPaymentBankCode());
         parameterSource.addValue(P_SHIPMENT_NAME, orderInfo.getShipmentName());
         parameterSource.addValue(P_SHIPMENT_ADDRESS, orderInfo.getShipmentAddress());
-        parameterSource.addValue(P_USER_NOTES, orderInfo.getUserNotes());
+        parameterSource.addValue(P_USER_NOTES, orderInfo.getUserComment());
 
         namedParameterJdbcTemplate.update(addOrderInfoSqlQuery, parameterSource, keyHolder);
 
@@ -184,9 +184,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public int[] addOrderItems(HashMap<Integer, CartProduct> items, Integer idOrder) {
+    public int[] addOrderItems(List<CartProduct> items, Integer idOrder) {
         LOGGER.debug("addOrderItems({}, {}) >>>", items, idOrder);
-        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items.values().toArray());
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items.toArray());
         return namedParameterJdbcTemplate.batchUpdate(addOrderItemSqlQuery, batch);
     }
 

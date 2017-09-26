@@ -1,9 +1,10 @@
 package com.kushnir.paperki.model.order;
 
-public class OrderInfo implements OrderAttributes {
+public class OrderInfo {
 
     private String customerName;
     private String enterpriseName;
+    private String enterpriseAddress;
     private String UNP;
     private String email;
     private String phone;
@@ -13,7 +14,7 @@ public class OrderInfo implements OrderAttributes {
     private String paymentBankCode;
     private String shipmentName;
     private String shipmentAddress;
-    private String userNotes;
+    private String userComment;
 
     public OrderInfo() {
     }
@@ -106,12 +107,12 @@ public class OrderInfo implements OrderAttributes {
         this.shipmentAddress = shipmentAddress;
     }
 
-    public String getUserNotes() {
-        return userNotes;
+    public String getUserComment() {
+        return userComment;
     }
 
-    public void setUserNotes(String userNotes) {
-        this.userNotes = userNotes;
+    public void setUserComment(String userComment) {
+        this.userComment = userComment;
     }
 
     @Override
@@ -140,7 +141,7 @@ public class OrderInfo implements OrderAttributes {
             return false;
         if (shipmentAddress != null ? !shipmentAddress.equals(orderInfo.shipmentAddress) : orderInfo.shipmentAddress != null)
             return false;
-        return userNotes != null ? userNotes.equals(orderInfo.userNotes) : orderInfo.userNotes == null;
+        return userComment != null ? userComment.equals(orderInfo.userComment) : orderInfo.userComment == null;
     }
 
     @Override
@@ -156,7 +157,7 @@ public class OrderInfo implements OrderAttributes {
         result = 31 * result + (paymentBankCode != null ? paymentBankCode.hashCode() : 0);
         result = 31 * result + (shipmentName != null ? shipmentName.hashCode() : 0);
         result = 31 * result + (shipmentAddress != null ? shipmentAddress.hashCode() : 0);
-        result = 31 * result + (userNotes != null ? userNotes.hashCode() : 0);
+        result = 31 * result + (userComment != null ? userComment.hashCode() : 0);
         return result;
     }
 
@@ -174,7 +175,7 @@ public class OrderInfo implements OrderAttributes {
                 ", paymentBankCode='" + paymentBankCode + '\'' +
                 ", shipmentName='" + shipmentName + '\'' +
                 ", shipmentAddress='" + shipmentAddress + '\'' +
-                ", userNotes='" + userNotes + '\'' +
+                ", userComment='" + userComment + '\'' +
                 '}';
     }
 }
