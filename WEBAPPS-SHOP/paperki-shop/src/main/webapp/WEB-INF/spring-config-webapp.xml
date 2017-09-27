@@ -15,8 +15,8 @@
         <property name="locations">
             <list>
                 <value>classpath:CSVconfig.properties</value>
-                <value>classpath:paperkiMySQL.properties</value>
-                <!--<value>classpath:paperkiMySQLremote.properties</value>-->
+                <!--<value>classpath:paperkiMySQL.properties</value>-->
+                <value>classpath:paperkiMySQLremote.properties</value>
                 <value>classpath:sqlQueries.properties</value>
                 <value>classpath:paperki.properties</value>
             </list>
@@ -25,8 +25,8 @@
 
     <mvc:annotation-driven/>
     <!-- STATIC RESOURCES -->
-    <mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />
-    <!--<mvc:resources mapping="/res/**" location="file:/home/test.paperki.by/view/resources/" />-->
+    <!--<mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />-->
+    <mvc:resources mapping="/res/**" location="file:/home/artkush/paperki.by/view/resources/" />
 
     <context:annotation-config/>
     <context:component-scan base-package="com.kushnir.paperki.*"/>
@@ -34,13 +34,23 @@
     <!-- SERVICE LAYER -->
     <import resource="classpath*:spring-service.xml"/>
 
-    <bean id="templateResolver"
+    <!--<bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
         <constructor-arg ref="servletContext"/>
         <property name="prefix" value="${webapp.viewResurcePath}templates/"/>
         <property name="suffix" value=".html"/>
         <property name="characterEncoding" value="UTF-8" />
         <property name="templateMode" value="HTML5"/>
+        <property name="cacheable" value="false" />
+    </bean>-->
+
+    <bean id="templateResolver"
+          class="org.thymeleaf.templateresolver.FileTemplateResolver">
+        <property name="prefix" value="/home/artkush/paperki.by/view/templates/"/>
+        <property name="suffix" value=".html"/>
+        <property name="characterEncoding" value="UTF-8" />
+        <property name="templateMode" value="HTML5"/>
+        <property name="cacheable" value="false" />
     </bean>
 
     <bean id="templateEngine"
