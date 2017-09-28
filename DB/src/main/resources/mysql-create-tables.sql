@@ -161,8 +161,8 @@ CREATE TABLE product_description (
 CREATE TABLE product_attributes (
     id_product_attributes       INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pnt                         INT             NOT NULL,
-    name                        VARCHAR(100)    ,
-    value                       VARCHAR(100)    ,
+    name                        VARCHAR(100)    NOT NULL,
+    value                       VARCHAR(120)    ,
     order_attr                  INT             NOT NULL,
     FOREIGN KEY (pnt)                           REFERENCES products(pnt)
 );
