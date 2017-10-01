@@ -101,30 +101,30 @@
 
                                     <div class="single-product-price">
                                         <div class="single-product-price-list">
-                                            <span   th:switch="${product?.value?.basePrice} > ${product?.value?.finalPrice}" 
+                                            <span   th:switch="${product?.basePrice} > ${product?.finalPrice}" 
                                                     th:remove="tag">
 
                                                 <span   th:case="${true}" 
                                                         th:remove="tag">
                                                     <div class="single-product-price__old" 
-                                                        th:text="${product?.value?.basePriceWithVAT}">0,00</div>
+                                                        th:text="${product?.basePriceWithVAT}">0,00</div>
                                                     <div class="single-product-price__new"
-                                                        th:text="${product?.value?.finalPriceWithVAT}">0,00</div>
+                                                        th:text="${product?.finalPriceWithVAT}">0,00</div>
                                                 </span>
 
                                                 <span   th:case="${true}" 
                                                         th:remove="tag">
-                                                    <div th:text="${product?.value?.finalPriceWithVAT}">0,00</div>
+                                                    <div th:text="${product?.finalPriceWithVAT}">0,00</div>
                                                 </span>
 
                                                 <div class="bon-pr" 
-                                                    th:if="${product?.value?.prices.size()} > 1">
+                                                    th:if="${product?.prices.size()} > 1">
                                                     <img src="/res/img/i.png" alt="Информация">
                                                     <div class="hint">
                                                         <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
                                                         <h5>Цена зависит от<br>количества!</h5>
                                                         <div>
-                                                            <p  th:each="price : ${product?.value?.prices}" 
+                                                            <p  th:each="price : ${product?.prices}" 
                                                                 th:remove="tag" >
                                                                 <p th:text="'от '+${price?.value?.quantityStart}+' ед. :'">от 1 ед. :</p>
                                                                 <p th:text="${price?.value?.basePriceWithVAT}+' руб.'">0,00 руб</p>
