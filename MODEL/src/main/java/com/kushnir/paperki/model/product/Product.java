@@ -22,6 +22,11 @@ public class Product {
     private String measure;
     private Integer availableDay;
     private Integer quantity;
+
+    private double basePrice;
+    private double finalPrice;
+    private double finalPriceWithVAT;
+
     private Integer VAT;
     private String metadesk;
     private String metakey;
@@ -52,6 +57,9 @@ public class Product {
                    String measure,
                    Integer availableDay,
                    Integer quantity,
+                   double basePrice,
+                   double finalPrice,
+                   double finalPriceWithVAT,
                    Integer VAT,
                    Boolean isPublishet,
                    Boolean isVisible,
@@ -69,6 +77,11 @@ public class Product {
         this.measure = measure;
         this.availableDay = availableDay;
         this.quantity = quantity;
+
+        this.basePrice = basePrice;
+        this.finalPrice = finalPrice;
+        this.finalPriceWithVAT = finalPriceWithVAT;
+
         this.VAT = VAT;
         this.isPublishet = isPublishet;
         this.isVisible = isVisible;
@@ -114,22 +127,6 @@ public class Product {
         this.shortDescription = shortDescription;
         this.fullDescription = fullDescription;
         this.prices = prices;
-    }
-
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuentity(Integer quentity) {
-        this.quantity = quantity;
     }
 
     public Integer getId() {
@@ -226,6 +223,38 @@ public class Product {
 
     public void setAvailableDay(Integer availableDay) {
         this.availableDay = availableDay;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public double getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(double finalPrice) {
+        this.finalPrice = finalPrice;
+    }
+
+    public double getFinalPriceWithVAT() {
+        return finalPriceWithVAT;
+    }
+
+    public void setFinalPriceWithVAT(double finalPriceWithVAT) {
+        this.finalPriceWithVAT = finalPriceWithVAT;
     }
 
     public Integer getVAT() {
@@ -332,6 +361,14 @@ public class Product {
         this.prices = prices;
     }
 
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -339,6 +376,9 @@ public class Product {
 
         Product product = (Product) o;
 
+        if (Double.compare(product.basePrice, basePrice) != 0) return false;
+        if (Double.compare(product.finalPrice, finalPrice) != 0) return false;
+        if (Double.compare(product.finalPriceWithVAT, finalPriceWithVAT) != 0) return false;
         if (id != null ? !id.equals(product.id) : product.id != null) return false;
         if (papId != null ? !papId.equals(product.papId) : product.papId != null) return false;
         if (pnt != null ? !pnt.equals(product.pnt) : product.pnt != null) return false;
@@ -353,6 +393,7 @@ public class Product {
         if (measure != null ? !measure.equals(product.measure) : product.measure != null) return false;
         if (availableDay != null ? !availableDay.equals(product.availableDay) : product.availableDay != null)
             return false;
+        if (quantity != null ? !quantity.equals(product.quantity) : product.quantity != null) return false;
         if (VAT != null ? !VAT.equals(product.VAT) : product.VAT != null) return false;
         if (metadesk != null ? !metadesk.equals(product.metadesk) : product.metadesk != null) return false;
         if (metakey != null ? !metakey.equals(product.metakey) : product.metakey != null) return false;
@@ -367,12 +408,15 @@ public class Product {
         if (fullDescription != null ? !fullDescription.equals(product.fullDescription) : product.fullDescription != null)
             return false;
         if (attributes != null ? !attributes.equals(product.attributes) : product.attributes != null) return false;
-        return prices != null ? prices.equals(product.prices) : product.prices == null;
+        if (prices != null ? !prices.equals(product.prices) : product.prices != null) return false;
+        return discount != null ? discount.equals(product.discount) : product.discount == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result;
+        long temp;
+        result = id != null ? id.hashCode() : 0;
         result = 31 * result + (papId != null ? papId.hashCode() : 0);
         result = 31 * result + (pnt != null ? pnt.hashCode() : 0);
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
@@ -384,6 +428,13 @@ public class Product {
         result = 31 * result + (barCode != null ? barCode.hashCode() : 0);
         result = 31 * result + (measure != null ? measure.hashCode() : 0);
         result = 31 * result + (availableDay != null ? availableDay.hashCode() : 0);
+        result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+        temp = Double.doubleToLongBits(basePrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(finalPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(finalPriceWithVAT);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (VAT != null ? VAT.hashCode() : 0);
         result = 31 * result + (metadesk != null ? metadesk.hashCode() : 0);
         result = 31 * result + (metakey != null ? metakey.hashCode() : 0);
@@ -397,6 +448,7 @@ public class Product {
         result = 31 * result + (fullDescription != null ? fullDescription.hashCode() : 0);
         result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
         result = 31 * result + (prices != null ? prices.hashCode() : 0);
+        result = 31 * result + (discount != null ? discount.hashCode() : 0);
         return result;
     }
 
@@ -415,6 +467,10 @@ public class Product {
                 ", barCode='" + barCode + '\'' +
                 ", measure='" + measure + '\'' +
                 ", availableDay=" + availableDay +
+                ", quantity=" + quantity +
+                ", basePrice=" + basePrice +
+                ", finalPrice=" + finalPrice +
+                ", finalPriceWithVAT=" + finalPriceWithVAT +
                 ", VAT=" + VAT +
                 ", metadesk='" + metadesk + '\'' +
                 ", metakey='" + metakey + '\'' +
@@ -428,6 +484,7 @@ public class Product {
                 ", fullDescription='" + fullDescription + '\'' +
                 ", attributes=" + attributes +
                 ", prices=" + prices +
-                '}';
+                ", discount=" + discount +
+                '}'+'\n';
     }
 }

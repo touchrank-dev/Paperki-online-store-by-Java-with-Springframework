@@ -139,6 +139,7 @@ CREATE TABLE products (
     bar_code                    VARCHAR(30)     ,
     measure                     VARCHAR(10)     NOT NULL,
     available_day               INT             DEFAULT 0 NOT NULL,
+    base_price                  DOUBLE          NOT NULL,
     vat                         INT             DEFAULT 0 NOT NULL,
     metadesk                    VARCHAR(400)    ,
     metakey                     VARCHAR(400)    ,

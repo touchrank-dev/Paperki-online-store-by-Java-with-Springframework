@@ -1,10 +1,10 @@
 package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.*;
-
 import com.kushnir.paperki.model.product.Attribute;
 import com.kushnir.paperki.model.product.AvailableProduct;
 import com.kushnir.paperki.model.product.Product;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +17,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,6 +49,32 @@ public class ProductDaoImpl implements ProductDao {
 
     @Value("${product.getAttributesByProductPNT}")
     private String getAttributesByPNTSqlQuery;
+
+
+    private double getDouble(double value) {
+        return new BigDecimal(value)
+                .setScale(2, RoundingMode.UP).doubleValue();
+    }
+
+    private double calculateFinalPrice(Discount discount, double basePrice) {
+        DiscountType discountType = discount.getDiscountType();
+        double dValue = discount.getValueDouble();
+        int iValue = discount.getValueInt();
+
+        if (discountType != null) {
+            switch (discountType) {
+                case PROCENT:
+                    double val = basePrice * getDouble(iValue/100.0);
+                    return getDouble(basePrice - val);
+                case OVERRIDE:
+                    return getDouble(dValue);
+                case SUBSTRACT:
+                    return getDouble(basePrice - dValue);
+                default:
+                    return basePrice;
+            }
+        } else return basePrice;
+    }
 
     @Override
     public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) throws DataAccessException {
@@ -116,29 +144,52 @@ public class ProductDaoImpl implements ProductDao {
 
         @Override
         public Object extractData(ResultSet rs) throws SQLException {
+
             HashMap<Integer, Product> products = new HashMap<Integer ,Product>();
+
             while (rs.next()) {
+
                 int idProduct =             rs.getInt("id_product");
-                int quantityStart =         rs.getInt("quantity_start");
 
+                // цена =======================================================================
+                int VAT =                   rs.getInt("vat");
+                double vatValue =           1 + (VAT/100.0);
+                double basePrice =          rs.getDouble("base_price");
+
+                // цена от количества =========================================================
                 Price price =               null;
-                Discount discount =         null;
-                String discountType =       rs.getString("dtype");
+                int quantityStart =         rs.getInt("quantity_start");
+                double value =              rs.getDouble("value");
+                double valueWithVAT =       getDouble(value * vatValue);
 
-                price = new Price(quantityStart,
-                        rs.getDouble("value"),
-                        rs.getInt("vat")
-                );
-                if(discountType != null) {
-                    discount = new Discount(
-                            DiscountType.valueOf(discountType),
-                            rs.getDouble("value_double"),
-                            rs.getInt("value_int")
-                    );
+                if (quantityStart > 0 && value > 0d) {
+                    price = new Price(quantityStart, value, valueWithVAT);
                 }
 
-                if(products.get(idProduct) == null) {
-                    Product product = new Product(
+                // скидки =====================================================================
+                Discount discount =         null;
+                String discountTypeValue =  rs.getString("dtype");
+
+                if(discountTypeValue != null) {
+                    DiscountType discountType = DiscountType.valueOf(discountTypeValue);
+                    double dValue =         rs.getDouble("value_double");
+                    int iValue =            rs.getInt("value_int");
+
+                    discount = new Discount(
+                            discountType,
+                            dValue,
+                            iValue
+                    );
+                }
+                // ============================================================================
+
+                double finalPrice = calculateFinalPrice(discount, basePrice);
+                double finalPriceWithVAT = getDouble(finalPrice * vatValue);
+
+                Product product = products.get(idProduct);
+
+                if(product == null) {
+                    product = new Product(
                             idProduct,
                             rs.getInt("pap_id"),
                             rs.getInt("pnt"),
@@ -151,24 +202,30 @@ public class ProductDaoImpl implements ProductDao {
                             rs.getString("measure"),
                             rs.getInt("available_day"),
                             rs.getInt("quantity_available"),
-                            rs.getInt("vat"),
+
+                            basePrice,
+                            finalPrice,
+                            finalPriceWithVAT,
+
+                            VAT,
                             rs.getBoolean("is_published"),
                             rs.getBoolean("is_visible"),
                             new Brand(rs.getString("bname"), rs.getString("btname")),
                             new HashMap<Integer, Price>()
                     );
+
                     HashMap<Integer, Price> prices = product.getPrices();
-                    prices.put(quantityStart, price);
-                    product.setPrices(prices);
+                    if (price != null) {
+                        prices.put(quantityStart, price);
+                    }
                     product.setDiscount(discount);
                     products.put(product.getId(), product);
+
                 } else {
-                    Product p = products.get(idProduct);
-                    HashMap<Integer, Price> prices = p.getPrices();
-                    prices.put(quantityStart, price);
-                    p.setPrices(prices);
-                    p.setDiscount(discount);
-                    products.put(idProduct, p);
+                    HashMap<Integer, Price> prices = product.getPrices();
+                    if (price != null) {
+                        prices.put(quantityStart, price);
+                    }
                 }
             }
             return products;
