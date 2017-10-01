@@ -23,7 +23,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
@@ -78,9 +77,6 @@ public class OrderDaoImpl implements OrderDao {
 
     @Value("${order.addItem}")
     private String addOrderItemSqlQuery;
-
-    @Value("${order.batch.addItem}")
-    private String addOrderItemBatchSqlQuery;
 
     private static final String P_ITEM_ID_ORDER = "p_id_order";
     private static final String P_ITEM_ID_PRODUCT = "p_id_product";
@@ -174,8 +170,6 @@ public class OrderDaoImpl implements OrderDao {
         return keyHolder.getKey().intValue();
     }
 
-
-
     @Override
     public int[] addOrderAttributes(List<Attribute> attributes) {
         LOGGER.debug("addOrderAttributes({}) >>>", attributes);
@@ -251,13 +245,16 @@ public class OrderDaoImpl implements OrderDao {
                 rs.getInt("pnt"),
                 rs.getString("product_full_name"),
                 rs.getInt("VAT"),
+                rs.getInt("quantity"),
                 rs.getDouble("base_price"),
                 rs.getDouble("base_price_with_vat"),
-                rs.getDouble("discounted_price"),
-                rs.getDouble("discounted_price_with_vat"),
-                rs.getInt("quantity"),
+                rs.getDouble("discount_amount"),
+                rs.getDouble("final_price"),
+                rs.getDouble("final_price_with_vat"),
                 rs.getDouble("total"),
-                rs.getDouble("total_with_vat")
+                rs.getDouble("total_with_vat"),
+                rs.getDouble("total_discount"),
+                rs.getDouble("total_vat")
             );
             return cartProduct;
         }

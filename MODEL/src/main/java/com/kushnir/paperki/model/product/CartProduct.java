@@ -30,6 +30,36 @@ public class CartProduct {
     public CartProduct(int id,
                        int pnt,
                        String fullName,
+                       int VAT,
+                       int quantity,
+                       double currentPrice,
+                       double currentPriceWithVAT,
+                       double discountAmount,
+                       double finalPrice,
+                       double finalPriceWithVAT,
+                       double total,
+                       double totalWithVAT,
+                       double totalDiscount,
+                       double totalVAT) {
+        this.id = id;
+        this.pnt = pnt;
+        this.fullName = fullName;
+        this.VAT = VAT;
+        this.quantity = quantity;
+        this.currentPrice = currentPrice;
+        this.currentPriceWithVAT = currentPriceWithVAT;
+        this.discountAmount = discountAmount;
+        this.finalPrice = finalPrice;
+        this.finalPriceWithVAT = finalPriceWithVAT;
+        this.total = total;
+        this.totalWithVAT = totalWithVAT;
+        this.totalDiscount = totalDiscount;
+        this.totalVAT = totalVAT;
+    }
+
+    public CartProduct(int id,
+                       int pnt,
+                       String fullName,
                        String shortName,
                        String link,
                        int VAT,
