@@ -26,10 +26,15 @@ public class ProductBeanImpl implements ProductBean {
     @Override
     public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) {
         LOGGER.debug("getProductListByCategoryTName({}) >>>", categoryTName);
-        HashMap<Integer, Product> products =
-                productDao.getProductListByCategoryTName(categoryTName);
-        LOGGER.debug("PRODUCTS: {}", products);
-        return products;
+        try {
+            HashMap<Integer, Product> products =
+                    productDao.getProductListByCategoryTName(categoryTName);
+            LOGGER.debug("PRODUCTS: {}", products);
+            return products;
+        } catch (Exception e) {
+            LOGGER.error("{} >>> {}", e, e.getMessage());
+            return null;
+        }
     }
 
     @Override
