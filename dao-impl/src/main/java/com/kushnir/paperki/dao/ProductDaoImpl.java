@@ -57,22 +57,24 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     private double calculateFinalPrice(Discount discount, double basePrice) {
-        DiscountType discountType = discount.getDiscountType();
-        double dValue = discount.getValueDouble();
-        int iValue = discount.getValueInt();
+        if (discount != null) {
+            DiscountType discountType = discount.getDiscountType();
+            double dValue = discount.getValueDouble();
+            int iValue = discount.getValueInt();
 
-        if (discountType != null) {
-            switch (discountType) {
-                case PROCENT:
-                    double val = basePrice * getDouble(iValue/100.0);
-                    return getDouble(basePrice - val);
-                case OVERRIDE:
-                    return getDouble(dValue);
-                case SUBSTRACT:
-                    return getDouble(basePrice - dValue);
-                default:
-                    return basePrice;
-            }
+            if (discountType != null) {
+                switch (discountType) {
+                    case PROCENT:
+                        double val = basePrice * getDouble(iValue / 100.0);
+                        return getDouble(basePrice - val);
+                    case OVERRIDE:
+                        return getDouble(dValue);
+                    case SUBSTRACT:
+                        return getDouble(basePrice - dValue);
+                    default:
+                        return basePrice;
+                }
+            } else return basePrice;
         } else return basePrice;
     }
 
