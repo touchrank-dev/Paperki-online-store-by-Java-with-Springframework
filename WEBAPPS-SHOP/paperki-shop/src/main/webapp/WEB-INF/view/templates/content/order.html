@@ -35,7 +35,7 @@
                                                 <div class="cart-popup-del-prod-confirm__btns">
                                                     <a class="cart-popup-del-prod__bookmark" style="cursor: pointer;"
                                                         onclick="toFavorites('null')"
-                                                        th:attr="onclick='toFavorites('+${item.value.pnt}+')'">
+                                                        th:attr="onclick='toFavorites('+${item?.value?.pnt}+')'">
                                                         <img src="/res/img/cart-bookmark-icon.png" alt="Bookmarks">
                                                         <p>Переместить<br>
                                                             в список желаний
@@ -43,7 +43,7 @@
                                                     </a>
                                                     <a class="cart-popup-del-prod__remove" style="cursor: pointer;"
                                                         onclick="deleteFromCart('null')"
-                                                        th:attr="onclick='deleteFromCart('+${item.value.pnt}+')'">
+                                                        th:attr="onclick='deleteFromCart('+${item?.value?.pnt}+')'">
                                                         <img src="/res/img/cart-delete-prod-without-icon.png" alt="Remove">
                                                         <p>Удалить без сохранения</p>
                                                     </a>
@@ -55,13 +55,13 @@
                                         <li>
                                             <a href="#"
                                                 th:href="@{'#'}"
-                                                th:text="${item.value.fullName}">
+                                                th:text="${item?.value?.fullName}">
                                                 Полное наименование товара
                                             </a>
                                         </li>
-                                        <li th:text="${item.value.finalPriceWithVAT}+ ' руб'">0.00 руб</li>
-                                        <li th:text="${item.value.quantity} +' шт'">0 ед.</li>
-                                        <li th:text="${item.value.totalWithVAT} +' руб'">0.00 руб</li>
+                                        <li th:text="${item?.value?.finalPriceWithVAT}+ ' руб'">0.00 руб</li>
+                                        <li th:text="${item?.value?.quantity} +' шт'">0 ед.</li>
+                                        <li th:text="${item?.value?.totalWithVAT} +' руб'">0.00 руб</li>
                                     </ul>
                                 </div>
                             </div>

@@ -7,7 +7,8 @@
                     th:href="@{${catalogurl}}">Каталог</a></li>
                 <li th:if="${category} != null">
                     <a href="/catalog" 
-                        th:href="@{${catalogurl}+${category?.translitName}}" th:text="${category?.name}">Название категории</a></li>
+                        th:href="@{${catalogurl}+${category?.translitName}}" 
+                        th:text="${category?.name}">Название категории</a></li>
                 <li th:text="${product?.fullName}">Название продукта</li>
             </ul>
             <div class="single-product-page-content">
@@ -100,23 +101,39 @@
 
                                     <div class="single-product-price">
                                         <div class="single-product-price-list">
-                                            <!-- <div class="single-product-price__old">8,50 руб</div> -->
-                                            <div class="single-product-price__new">
-                                                <p th:text="${product?.prices[1]?.basePriceWithVat} + ' руб'">0,00 руб</p>
-                                                <div class="bon-pr">
-                                                    <img src="/res/img/i.png">
+                                            <span   th:switch="${product?.value?.basePrice} > ${product?.value?.finalPrice}" 
+                                                    th:remove="tag">
+
+                                                <span   th:case="${true}" 
+                                                        th:remove="tag">
+                                                    <div class="single-product-price__old" 
+                                                        th:text="${product?.value?.basePriceWithVAT}">0,00</div>
+                                                    <div class="single-product-price__new"
+                                                        th:text="${product?.value?.finalPriceWithVAT}">0,00</div>
+                                                </span>
+
+                                                <span   th:case="${true}" 
+                                                        th:remove="tag">
+                                                    <div th:text="${product?.value?.finalPriceWithVAT}">0,00</div>
+                                                </span>
+
+                                                <div class="bon-pr" 
+                                                    th:if="${product?.value?.prices.size()} > 1">
+                                                    <img src="/res/img/i.png" alt="Информация">
                                                     <div class="hint">
                                                         <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
                                                         <h5>Цена зависит от<br>количества!</h5>
                                                         <div>
-                                                            <p th:each="price : ${product?.prices}" th:remove="tag" >
-                                                                <p th:text="'от '+${price?.quantityStart}+' ед. :'">от 1 ед. :</p>
-                                                                <p th:text="${price?.basePriceWithVat}+' руб.'">0,00 руб</p>
+                                                            <p  th:each="price : ${product?.value?.prices}" 
+                                                                th:remove="tag" >
+                                                                <p th:text="'от '+${price?.value?.quantityStart}+' ед. :'">от 1 ед. :</p>
+                                                                <p th:text="${price?.value?.basePriceWithVAT}+' руб.'">0,00 руб</p>
                                                             </p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+
+                                            </span>
                                         </div>                                        
                                     </div>
 
@@ -196,7 +213,7 @@
                                     </span>
                                 </li>
                             </ul>
-                            <span class="availability" th:text="${product.quantity}+' '+${product.measure}">0 шт</span>
+                            <!-- <span class="availability" th:text="${product.quantity}+' '+${product.measure}">0 шт</span> -->
                         </div>
                         <div class="single-product-description">
                             <p th:text="${product?.fullDescription}">Полное описание</p>
