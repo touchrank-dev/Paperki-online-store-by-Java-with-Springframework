@@ -87,6 +87,7 @@ public class ProductDaoImpl implements ProductDao {
                         getProductsByCategoryTNameSqlQuery,
                         parameterSource,
                         new ProductsResultSetExtractor());
+        LOGGER.debug("PRODUCTS: {}", products);
         return products;
     }
 
@@ -157,6 +158,7 @@ public class ProductDaoImpl implements ProductDao {
                 int VAT =                   rs.getInt("vat");
                 double vatValue =           1 + (VAT/100.0);
                 double basePrice =          rs.getDouble("base_price");
+                double basePriceWithVAT =   getDouble(basePrice * vatValue);
 
                 // цена от количества =========================================================
                 Price price =               null;
@@ -206,6 +208,7 @@ public class ProductDaoImpl implements ProductDao {
                             rs.getInt("quantity_available"),
 
                             basePrice,
+                            basePriceWithVAT,
                             finalPrice,
                             finalPriceWithVAT,
 

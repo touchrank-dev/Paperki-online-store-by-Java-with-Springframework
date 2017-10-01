@@ -24,6 +24,7 @@ public class Product {
     private Integer quantity;
 
     private double basePrice;
+    private double basePriceWithVAT;
     private double finalPrice;
     private double finalPriceWithVAT;
 
@@ -58,6 +59,7 @@ public class Product {
                    Integer availableDay,
                    Integer quantity,
                    double basePrice,
+                   double basePriceWithVAT,
                    double finalPrice,
                    double finalPriceWithVAT,
                    Integer VAT,
@@ -79,6 +81,7 @@ public class Product {
         this.quantity = quantity;
 
         this.basePrice = basePrice;
+        this.basePriceWithVAT = basePriceWithVAT;
         this.finalPrice = finalPrice;
         this.finalPriceWithVAT = finalPriceWithVAT;
 
@@ -241,6 +244,14 @@ public class Product {
         this.basePrice = basePrice;
     }
 
+    public double getBasePriceWithVAT() {
+        return basePriceWithVAT;
+    }
+
+    public void setBasePriceWithVAT(double basePriceWithVAT) {
+        this.basePriceWithVAT = basePriceWithVAT;
+    }
+
     public double getFinalPrice() {
         return finalPrice;
     }
@@ -377,6 +388,7 @@ public class Product {
         Product product = (Product) o;
 
         if (Double.compare(product.basePrice, basePrice) != 0) return false;
+        if (Double.compare(product.basePriceWithVAT, basePriceWithVAT) != 0) return false;
         if (Double.compare(product.finalPrice, finalPrice) != 0) return false;
         if (Double.compare(product.finalPriceWithVAT, finalPriceWithVAT) != 0) return false;
         if (id != null ? !id.equals(product.id) : product.id != null) return false;
@@ -431,6 +443,8 @@ public class Product {
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
         temp = Double.doubleToLongBits(basePrice);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(basePriceWithVAT);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(finalPrice);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(finalPriceWithVAT);
@@ -469,6 +483,7 @@ public class Product {
                 ", availableDay=" + availableDay +
                 ", quantity=" + quantity +
                 ", basePrice=" + basePrice +
+                ", basePriceWithVAT=" + basePriceWithVAT +
                 ", finalPrice=" + finalPrice +
                 ", finalPriceWithVAT=" + finalPriceWithVAT +
                 ", VAT=" + VAT +
@@ -485,6 +500,6 @@ public class Product {
                 ", attributes=" + attributes +
                 ", prices=" + prices +
                 ", discount=" + discount +
-                '}'+'\n';
+                '}' + '\n';
     }
 }
