@@ -12,12 +12,9 @@ public class CartProduct {
     private String shortName;
     private String link;
     private int VAT;                            // значение налога
-    private double vatValue;                    // коэффициент налога
     private int quantity;                       // количество в корзине
     private double currentPrice;                // обычная цена
     private double currentPriceWithVAT;         // обычная цена с налогом
-    private double discountedPrice;             // цена со скидкой
-    private double discountedPriceWithVAT;      // цена со скидкой и налогом
     private double discountAmount;              // размер скидки от цены TODO учет налога в размере скидки?
     private double finalPrice;                  // окончательная цена со скидкой
     private double finalPriceWithVAT;           // окончательная цена со скидкой и налогом
@@ -33,39 +30,12 @@ public class CartProduct {
     public CartProduct(int id,
                        int pnt,
                        String fullName,
-                       int VAT,
-                       double currentPrice,
-                       double currentPriceWithVAT,
-                       double discountedPrice,
-                       double discountedPriceWithVAT,
-                       int quantity,
-                       double total,
-                       double totalWithVAT) {
-        this.id = id;
-        this.pnt = pnt;
-        this.fullName = fullName;
-        this.VAT = VAT;
-        this.currentPrice = currentPrice;
-        this.currentPriceWithVAT = currentPriceWithVAT;
-        this.discountedPrice = discountedPrice;
-        this.discountedPriceWithVAT = discountedPriceWithVAT;
-        this.quantity = quantity;
-        this.total = total;
-        this.totalWithVAT = totalWithVAT;
-    }
-
-    public CartProduct(int id,
-                       int pnt,
-                       String fullName,
                        String shortName,
                        String link,
                        int VAT,
-                       double vatValue,
                        int quantity,
                        double currentPrice,
                        double currentPriceWithVAT,
-                       double discountedPrice,
-                       double discountedPriceWithVAT,
                        double discountAmount,
                        double finalPrice,
                        double finalPriceWithVAT,
@@ -80,12 +50,9 @@ public class CartProduct {
         this.shortName = shortName;
         this.link = link;
         this.VAT = VAT;
-        this.vatValue = vatValue;
         this.quantity = quantity;
         this.currentPrice = currentPrice;
         this.currentPriceWithVAT = currentPriceWithVAT;
-        this.discountedPrice = discountedPrice;
-        this.discountedPriceWithVAT = discountedPriceWithVAT;
         this.discountAmount = discountAmount;
         this.finalPrice = finalPrice;
         this.finalPriceWithVAT = finalPriceWithVAT;
@@ -152,14 +119,6 @@ public class CartProduct {
         this.VAT = VAT;
     }
 
-    public double getVatValue() {
-        return vatValue;
-    }
-
-    public void setVatValue(double vatValue) {
-        this.vatValue = vatValue;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -182,22 +141,6 @@ public class CartProduct {
 
     public void setCurrentPriceWithVAT(double currentPriceWithVAT) {
         this.currentPriceWithVAT = currentPriceWithVAT;
-    }
-
-    public double getDiscountedPrice() {
-        return discountedPrice;
-    }
-
-    public void setDiscountedPrice(double discountedPrice) {
-        this.discountedPrice = discountedPrice;
-    }
-
-    public double getDiscountedPriceWithVAT() {
-        return discountedPriceWithVAT;
-    }
-
-    public void setDiscountedPriceWithVAT(double discountedPriceWithVAT) {
-        this.discountedPriceWithVAT = discountedPriceWithVAT;
     }
 
     public double getDiscountAmount() {
@@ -273,12 +216,9 @@ public class CartProduct {
 
         if (pnt != that.pnt) return false;
         if (VAT != that.VAT) return false;
-        if (Double.compare(that.vatValue, vatValue) != 0) return false;
         if (quantity != that.quantity) return false;
         if (Double.compare(that.currentPrice, currentPrice) != 0) return false;
         if (Double.compare(that.currentPriceWithVAT, currentPriceWithVAT) != 0) return false;
-        if (Double.compare(that.discountedPrice, discountedPrice) != 0) return false;
-        if (Double.compare(that.discountedPriceWithVAT, discountedPriceWithVAT) != 0) return false;
         if (Double.compare(that.discountAmount, discountAmount) != 0) return false;
         if (Double.compare(that.finalPrice, finalPrice) != 0) return false;
         if (Double.compare(that.finalPriceWithVAT, finalPriceWithVAT) != 0) return false;
@@ -300,16 +240,10 @@ public class CartProduct {
         result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
         result = 31 * result + (link != null ? link.hashCode() : 0);
         result = 31 * result + VAT;
-        temp = Double.doubleToLongBits(vatValue);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + quantity;
         temp = Double.doubleToLongBits(currentPrice);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(currentPriceWithVAT);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(discountedPrice);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(discountedPriceWithVAT);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(discountAmount);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -337,12 +271,9 @@ public class CartProduct {
                 ", shortName='" + shortName + '\'' +
                 ", link='" + link + '\'' +
                 ", VAT=" + VAT +
-                ", vatValue=" + vatValue +
                 ", quantity=" + quantity +
                 ", currentPrice=" + currentPrice +
                 ", currentPriceWithVAT=" + currentPriceWithVAT +
-                ", discountedPrice=" + discountedPrice +
-                ", discountedPriceWithVAT=" + discountedPriceWithVAT +
                 ", discountAmount=" + discountAmount +
                 ", finalPrice=" + finalPrice +
                 ", finalPriceWithVAT=" + finalPriceWithVAT +

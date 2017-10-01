@@ -4,6 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--MODEL-->
+    <import resource="classpath*:spring-model.xml" />
+
     <!--DAO-->
     <import resource="classpath*:spring-dao.xml" />
 

@@ -29,7 +29,6 @@ public class ProductBeanImpl implements ProductBean {
         try {
             HashMap<Integer, Product> products =
                     productDao.getProductListByCategoryTName(categoryTName);
-            LOGGER.debug("PRODUCTS: {}", products);
             return products;
         } catch (Exception e) {
             LOGGER.error("{} >>> {}", e, e.getMessage());
@@ -41,7 +40,6 @@ public class ProductBeanImpl implements ProductBean {
     public Product getProductByPNT(Integer pnt) {
         LOGGER.debug("getProductByPNT({}) >>>", pnt);
         Product product = productDao.getProductByPNT(pnt);
-        LOGGER.debug("PRODUCT: {}", product);
         return product;
     }
 
@@ -52,7 +50,6 @@ public class ProductBeanImpl implements ProductBean {
         if(product != null) {
             product.setAttributes(getAttributesByPNT(product.getPnt()));
         }
-        LOGGER.debug("PRODUCT: {}", product);
         return product;
     }
 
@@ -60,7 +57,6 @@ public class ProductBeanImpl implements ProductBean {
     public AvailableProduct getAvailableproductByPNT(Integer pnt) {
         LOGGER.debug("getAvailableproductByPNT({}) >>>", pnt);
         AvailableProduct availableProduct = productDao.getAvailableProductByPNT(pnt);
-        LOGGER.debug("AVAILABLE PRODUCT: {}", availableProduct);
         return availableProduct;
     }
 
@@ -68,7 +64,6 @@ public class ProductBeanImpl implements ProductBean {
     public ArrayList<Attribute> getAttributesByPNT(Integer pnt) {
         LOGGER.debug("getAttributesByPNT({}) >>>", pnt);
         ArrayList<Attribute> attributes = productDao.getAttributesByPNT(pnt);
-        LOGGER.debug("PRODUCT ATTRIBUTES: {}", attributes);
         return attributes;
     }
 }

@@ -122,7 +122,7 @@
                                                     <ul class="prices-block-list" 
                                                         th:case="${true}">
                                                         <li class="old-pr" th:text="${product?.value?.basePrice}">0,00 руб</li>
-                                                        <li class="new-pr" th:text="${product?.value?.finalPriceWithVAT}">0,00 руб</li>
+                                                        <li class="new-pr" th:text="${product?.value?.finalPriceWithVAT} + ' руб'">0,00 руб</li>
                                                     </ul>
                                                     <ul class="prices-block-list" 
                                                         th:case="${false}">

@@ -12,6 +12,10 @@ public class AvailableProduct {
     private String fullName;
     private String shortName;
     private String link;
+    private double basePrice;
+    private double basePriceWithVAT;
+    private double finalPrice;
+    private double finalPriceWithVAT;
     private int VAT;
     private int quantityAvailable;
     private HashMap<Integer, Stock> stocks;
@@ -47,6 +51,10 @@ public class AvailableProduct {
                             int pnt,
                             String fullName,
                             String shortName,
+                            double basePrice,
+                            double basePriceWithVAT,
+                            double finalPrice,
+                            double finalPriceWithVAT,
                             int VAT,
                             int quantityAvailable,
                             Discount discount) {
@@ -54,6 +62,10 @@ public class AvailableProduct {
         this.pnt = pnt;
         this.fullName = fullName;
         this.shortName = shortName;
+        this.basePrice = basePrice;
+        this.basePriceWithVAT = basePriceWithVAT;
+        this.finalPrice = finalPrice;
+        this.finalPriceWithVAT = finalPriceWithVAT;
         this.VAT = VAT;
         this.quantityAvailable = quantityAvailable;
         this.discount = discount;
@@ -115,6 +127,38 @@ public class AvailableProduct {
         this.link = link;
     }
 
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(double basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public double getBasePriceWithVAT() {
+        return basePriceWithVAT;
+    }
+
+    public void setBasePriceWithVAT(double basePriceWithVAT) {
+        this.basePriceWithVAT = basePriceWithVAT;
+    }
+
+    public double getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(double finalPrice) {
+        this.finalPrice = finalPrice;
+    }
+
+    public double getFinalPriceWithVAT() {
+        return finalPriceWithVAT;
+    }
+
+    public void setFinalPriceWithVAT(double finalPriceWithVAT) {
+        this.finalPriceWithVAT = finalPriceWithVAT;
+    }
+
     public int getVAT() {
         return VAT;
     }
@@ -162,7 +206,12 @@ public class AvailableProduct {
 
         AvailableProduct that = (AvailableProduct) o;
 
+        if (id != that.id) return false;
         if (pnt != that.pnt) return false;
+        if (Double.compare(that.basePrice, basePrice) != 0) return false;
+        if (Double.compare(that.basePriceWithVAT, basePriceWithVAT) != 0) return false;
+        if (Double.compare(that.finalPrice, finalPrice) != 0) return false;
+        if (Double.compare(that.finalPriceWithVAT, finalPriceWithVAT) != 0) return false;
         if (VAT != that.VAT) return false;
         if (quantityAvailable != that.quantityAvailable) return false;
         if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
@@ -175,10 +224,21 @@ public class AvailableProduct {
 
     @Override
     public int hashCode() {
-        int result = pnt;
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + pnt;
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
         result = 31 * result + (link != null ? link.hashCode() : 0);
+        temp = Double.doubleToLongBits(basePrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(basePriceWithVAT);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(finalPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(finalPriceWithVAT);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + VAT;
         result = 31 * result + quantityAvailable;
         result = 31 * result + (stocks != null ? stocks.hashCode() : 0);
@@ -190,10 +250,15 @@ public class AvailableProduct {
     @Override
     public String toString() {
         return "AvailableProduct{" +
-                "pnt=" + pnt +
+                "id=" + id +
+                ", pnt=" + pnt +
                 ", fullName='" + fullName + '\'' +
                 ", shortName='" + shortName + '\'' +
                 ", link='" + link + '\'' +
+                ", basePrice=" + basePrice +
+                ", basePriceWithVAT=" + basePriceWithVAT +
+                ", finalPrice=" + finalPrice +
+                ", finalPriceWithVAT=" + finalPriceWithVAT +
                 ", VAT=" + VAT +
                 ", quantityAvailable=" + quantityAvailable +
                 ", stocks=" + stocks +
