@@ -179,7 +179,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public int[] addOrderItems(Object[] items) {
-        LOGGER.debug("addOrderItems()");
+        LOGGER.debug("addOrderItems({})", items);
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items);
         return namedParameterJdbcTemplate.batchUpdate(addOrderItemSqlQuery, batch);
     }

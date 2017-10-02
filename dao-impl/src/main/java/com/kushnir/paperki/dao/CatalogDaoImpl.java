@@ -65,7 +65,6 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() throws DataAccessException {
-        LOGGER.debug("getAll() >>>");
         HashMap<Integer, HashMap<Integer, Category>> map =
                 (HashMap) jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
         return map;

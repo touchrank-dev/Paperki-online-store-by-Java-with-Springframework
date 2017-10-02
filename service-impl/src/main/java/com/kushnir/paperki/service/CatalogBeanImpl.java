@@ -32,7 +32,6 @@ public class CatalogBeanImpl implements CatalogBean {
     @Override
     @Transactional
     public HashMap<Integer, HashMap<Integer, Category>> getAll() throws ServiceException {
-        LOGGER.debug("getAll() >>>");
         try {
             HashMap categories = catalogDao.getAll();
             return categories;

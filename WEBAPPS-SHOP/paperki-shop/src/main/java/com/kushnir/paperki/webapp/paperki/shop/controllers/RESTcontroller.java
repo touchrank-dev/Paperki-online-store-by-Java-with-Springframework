@@ -88,7 +88,7 @@ public class RESTcontroller {
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage postLogout(@RequestBody String string, HttpSession httpSession) {
-        LOGGER.debug("REST LOGOUT >>> ");
+        LOGGER.debug("LOGOUT >>> ");
         RestMessage restMessage;
         try {
             httpSession.invalidate();
@@ -108,7 +108,7 @@ public class RESTcontroller {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage registerNewUser (@RequestBody RegistrateForm registrateForm,
                                                       HttpSession httpSession) {
-        LOGGER.debug("REST REGISTRATION >>>\nFORM RECEIVED: {}", registrateForm);
+        LOGGER.debug("REGISTRATION >>>\nFORM RECEIVED: {}", registrateForm);
         RestMessage restMessage;
         try {
             Object user = userService.registrateUser(registrateForm);
@@ -134,7 +134,7 @@ public class RESTcontroller {
     @PostMapping("/changepassword")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage changePassword(@RequestBody String email, HttpSession httpSession) {
-        LOGGER.debug("REST PASSWORD CHANGE >>>\nEMAIL RECEIVED: {}", email);
+        LOGGER.debug("PASSWORD CHANGE >>>\nEMAIL RECEIVED: {}", email);
         RestMessage restMessage;
         try{
             restMessage = new RestMessage(HttpStatus.OK, "PASSWORD CHANGE ACCEPTED!", null);
@@ -150,7 +150,7 @@ public class RESTcontroller {
     @PostMapping("/subscribe")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage subscribe (@RequestBody SubscribeRequest subscribeRequest) throws ServiceException {
-        LOGGER.debug("REST EMAIL SUBSCRIBE >>>\nREQUEST EMAIL: {}", subscribeRequest.getEmail());
+        LOGGER.debug("EMAIL SUBSCRIBE >>>\nREQUEST EMAIL: {}", subscribeRequest.getEmail());
         RestMessage restMessage;
         try {
             Object obj = subscribeService.subscribe(subscribeRequest.getEmail(), 1);
@@ -172,7 +172,7 @@ public class RESTcontroller {
     @PostMapping("/callback")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage callback (@RequestBody Callback callback) {
-        LOGGER.debug("REST CALLBACK REQUEST >>>\nCALLBACK REQUEST: {}", callback);
+        LOGGER.debug("CALLBACK REQUEST >>>\nCALLBACK REQUEST: {}", callback);
         RestMessage restMessage;
         try {
             Object obj = callBackService.addCallBack(callback);
@@ -196,7 +196,7 @@ public class RESTcontroller {
     public @ResponseBody RestMessage feedback (@RequestBody FeedbackRequest feedbackRequest,
                                                HttpSession session,
                                                HttpServletRequest req) {
-        LOGGER.debug("REST FEEDBACK REQUEST >>>\nFEEDBACK REQUEST: {}", feedbackRequest);
+        LOGGER.debug("FEEDBACK REQUEST >>>\nFEEDBACK REQUEST: {}", feedbackRequest);
         RestMessage restMessage;
         User user = (User) session.getAttribute("user");
         int userId = 0;

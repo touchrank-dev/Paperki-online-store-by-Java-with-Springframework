@@ -41,15 +41,16 @@ public class MainController {
     // главная страница
     @GetMapping()
     public String mainPage(Model model) {
+        LOGGER.debug("mainPage() >>>");
         model.addAttribute("templatePathName", contentPath + MAIN_MENU_NAME);
         model.addAttribute("fragmentName", MAIN_MENU_NAME);
-        LOGGER.debug("mainPage() >>>");
         return "index";
     }
 
     // страницы главного меню
     @GetMapping("/{pageName}")
     public String mainMenu(@PathVariable String pageName, Model model) throws Exception {
+        LOGGER.debug("mainMenu({})", pageName);
         try {
             MenuItem menuItem = menuBean.getRootItem(pageName);
             pageName = menuItem.getTranslitName();
@@ -62,7 +63,6 @@ public class MainController {
         }
         model.addAttribute("templatePathName", contentPath + pageName);
         model.addAttribute("fragmentName", pageName);
-        LOGGER.debug("mainMenu(menuItem = {}) >>>", pageName);
         return "index";
     }
 

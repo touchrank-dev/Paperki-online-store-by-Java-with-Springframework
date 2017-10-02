@@ -18,7 +18,6 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public HashMap<Integer, HashMap<Integer, Payment>> getAll() {
-        LOGGER.debug("getAll()");
         return paymentDao.getAll();
     }
 

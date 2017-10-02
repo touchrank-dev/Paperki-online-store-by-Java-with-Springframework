@@ -46,7 +46,6 @@ public class UserController {
 
     @ModelAttribute
     public Enterprise getEnterprise(HttpSession httpSession) {
-        LOGGER.debug("getEnterprise() >>>");
         User user = (User)httpSession.getAttribute("user");
         Enterprise enterprise = null;
         if(user.getId() != null) {

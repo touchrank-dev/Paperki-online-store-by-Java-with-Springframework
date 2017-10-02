@@ -35,7 +35,6 @@ public class PaymentDaoImpl implements PaymentDao {
 
     @Override
     public HashMap<Integer, HashMap<Integer, Payment>> getAll() {
-        LOGGER.debug("getAll()");
         HashMap<Integer, HashMap<Integer, Payment>> payments =
                 (HashMap<Integer, HashMap<Integer, Payment>>)
                         namedParameterJdbcTemplate.query(getAllSqlQuery, new PaymentRowSetExtractor());

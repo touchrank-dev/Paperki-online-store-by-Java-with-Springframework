@@ -49,7 +49,7 @@ public class HtmlMailer {
             message.setText(htmlContent, true);
             mailSender.send(mimeMessage);
         } catch (Exception e) {
-            LOGGER.error("Не удалось отправить сообщение");
+            LOGGER.error("Не удалось отправить сообщение для: {}", email);
         }
     }
 

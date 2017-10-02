@@ -22,7 +22,6 @@ public class MenuBeanImpl implements MenuBean {
 
     @Override
     public ArrayList<MenuItem> getAll(String nameMenu) {
-        LOGGER.debug("getAll(nameMenu = {}) >>>", nameMenu);
         ArrayList<MenuItem> menuItems = menuDao.getAll(nameMenu);
         return menuItems;
     }
@@ -34,7 +33,6 @@ public class MenuBeanImpl implements MenuBean {
         MenuItem menuItem = menuDao.getItemByTName("root", itemTName);
         Assert.notNull(menuItem, "Запрашиваемая страница ("+itemTName+") не найдена!");
         Assert.notNull(menuItem.getTranslitName(), "Запрашиваемая страница ("+itemTName+") не найдена!");
-        LOGGER.debug("{}", menuItem);
         return menuItem;
     }
 
@@ -42,7 +40,6 @@ public class MenuBeanImpl implements MenuBean {
     public MenuItem getItemByTName(String nameMenu, String itemTName) {
         LOGGER.debug("getItemByTName(nameMenu = {}, itemTName = {}) >>>", nameMenu, itemTName);
         MenuItem menuItem = menuDao.getItemByTName(nameMenu, itemTName);
-        LOGGER.debug("{}", menuItem);
         return menuItem;
     }
 }

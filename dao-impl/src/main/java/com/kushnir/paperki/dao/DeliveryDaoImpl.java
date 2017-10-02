@@ -35,7 +35,6 @@ public class DeliveryDaoImpl implements DeliveryDao {
 
     @Override
     public HashMap<Integer, HashMap<Integer, Delivery>> getAll() throws DataAccessException {
-        LOGGER.debug("getAll()");
         HashMap<Integer, HashMap<Integer, Delivery>> deliveries =
                 (HashMap<Integer, HashMap<Integer, Delivery>>)
                 namedParameterJdbcTemplate.query(

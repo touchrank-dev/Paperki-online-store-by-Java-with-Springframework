@@ -23,7 +23,6 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public HashMap<Integer, HashMap<Integer, Delivery>> getAll() {
-        LOGGER.debug("getAll()");
         return deliveryDao.getAll();
     }
 
