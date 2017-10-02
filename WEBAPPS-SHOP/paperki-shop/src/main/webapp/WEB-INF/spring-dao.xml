@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath*:spring-config-db.xml" />
+
+    <!--<jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="classpath*:mysql-create-tables.sql"/>
+        <jdbc:script location="classpath*:data-script.sql"/>
+    </jdbc:initialize-database>-->
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="namedParameterJdbcTemplate"
+          class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="catalogDao" class="com.kushnir.paperki.dao.CatalogDaoImpl" />
+    <bean id="menuDao" class="com.kushnir.paperki.dao.MenuDaoImpl"/>
+    <bean id="userDao" class="com.kushnir.paperki.dao.UserDaoImpl" />
+    <bean id="productDao" class="com.kushnir.paperki.dao.ProductDaoImpl" />
+    <bean id="subscribeDao" class="com.kushnir.paperki.dao.SubscribeDaoImpl" />
+    <bean id="callbackDao" class="com.kushnir.paperki.dao.CallBackDaoImpl" />
+    <bean id="feedbackDao" class="com.kushnir.paperki.dao.FeedbackDaoImpl" />
+    <bean id="deliveryDao" class="com.kushnir.paperki.dao.DeliveryDaoImpl" />
+    <bean id="paymentDao" class="com.kushnir.paperki.dao.PaymentDaoImpl" />
+    <bean id="orderDao" class="com.kushnir.paperki.dao.OrderDaoImpl" />
+
+</beans>

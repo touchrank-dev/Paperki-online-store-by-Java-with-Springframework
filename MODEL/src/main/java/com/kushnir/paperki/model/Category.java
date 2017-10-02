@@ -84,6 +84,34 @@ public class Category {
         this.childs = childs;
     }
 
+    public Category(Integer id,
+                    Integer papId,
+                    String name,
+                    String translitName,
+                    String link,
+                    String icon,
+                    String metadesk,
+                    String metakey,
+                    String customtitle,
+                    Boolean isPublished,
+                    Boolean isVisible,
+                    Integer order,
+                    Integer parent) {
+        this.id = id;
+        this.papId = papId;
+        this.name = name;
+        this.translitName = translitName;
+        this.link = link;
+        this.icon = icon;
+        this.metadesk = metadesk;
+        this.metakey = metakey;
+        this.customtitle = customtitle;
+        this.isPublished = isPublished;
+        this.isVisible = isVisible;
+        this.order = order;
+        this.parent = parent;
+    }
+
     public Integer getId() {
         return id;
     }

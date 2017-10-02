@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -119,6 +120,13 @@ public class CatalogDaoImpl implements CatalogDao {
         return categories;
     }
 
+    @Override
+    public HashMap<String, Category> getAllCategories() {
+        HashMap<String, Category> categories;
+        categories = (HashMap) jdbcTemplate
+                .query(getAllSqlQuery , new AllCategoriesResultSetExtractor());
+        return categories;
+    }
 
 
     private class CategoryResultSetExtractor implements ResultSetExtractor {
@@ -155,6 +163,34 @@ public class CatalogDaoImpl implements CatalogDao {
                 }
             }
             return map;
+        }
+    }
+
+    private class AllCategoriesResultSetExtractor implements ResultSetExtractor {
+
+        @Override
+        public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+            HashMap<String, Category> categories = new HashMap<String, Category>();
+            while (rs.next()) {
+                String translitName = rs.getString("translit_name");
+                Category category = new Category(
+                        rs.getInt("id_catalog"),
+                        rs.getInt("pap_id"),
+                        rs.getString("name"),
+                        translitName,
+                        rs.getString("link"),
+                        rs.getString("icon"),
+                        rs.getString("metadesk"),
+                        rs.getString("metakey"),
+                        rs.getString("customtitle"),
+                        rs.getBoolean("is_published"),
+                        rs.getBoolean("is_visible"),
+                        rs.getInt("order_catalog"),
+                        rs.getInt("parent")
+                );
+                categories.put(translitName, category);
+            }
+            return categories;
         }
     }
 

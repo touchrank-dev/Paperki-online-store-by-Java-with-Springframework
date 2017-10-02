@@ -13,5 +13,7 @@ public interface CatalogBean {
     Category getCategoryByTName (String categoryTName) throws ServiceException;
     HashMap<Integer ,Product> getProductsByCategoryTName(String categoryTName) throws ServiceException;
     Product getProductByTName (String productTName) throws ServiceException;
-    void updateCatalog() throws ServiceException, IOException;
+    String updateCatalog() throws ServiceException, IOException;
+    int addCategory(Category category);
+    int updateCategory(Category category);
 }

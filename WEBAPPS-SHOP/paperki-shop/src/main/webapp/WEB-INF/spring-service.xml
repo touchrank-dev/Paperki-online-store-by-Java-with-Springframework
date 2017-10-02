@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--MODEL-->
+    <bean id="priceCalculator" class="com.kushnir.paperki.model.calculation.PriceCalculator" />
+
+    <!--MAIL-->
+    <import resource="spring-mail.xml" />
+
+    <!--DAO-->
+    <import resource="spring-dao.xml" />
+
+    <!--BEANS-->
+    <bean id="catalogBean" class="com.kushnir.paperki.service.CatalogBeanImpl" />
+    <bean id="menuBean" class="com.kushnir.paperki.service.MenuBeanImpl" />
+    <bean id="userService" class="com.kushnir.paperki.service.UserServiceImpl" />
+    <bean id="cartBean" class="com.kushnir.paperki.service.CartBean" />
+    <bean id="productBean" class="com.kushnir.paperki.service.ProductBeanImpl" />
+    <bean id="subscribeService" class="com.kushnir.paperki.service.SubscribeServiceImpl" />
+    <bean id="callBackService" class="com.kushnir.paperki.service.CallBackServiceImpl" />
+    <bean id="feedbackService" class="com.kushnir.paperki.service.FeedbackServiceImpl" />
+    <bean id="deliveryService" class="com.kushnir.paperki.service.DeliveryServiceImpl" />
+    <bean id="paymentService" class="com.kushnir.paperki.service.PaymentServiceImpl" />
+    <bean id="orderService" class="com.kushnir.paperki.service.OrderServiceImpl" />
+
+</beans>

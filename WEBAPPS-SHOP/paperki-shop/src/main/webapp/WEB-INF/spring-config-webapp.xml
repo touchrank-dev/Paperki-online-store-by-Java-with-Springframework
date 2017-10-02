@@ -11,69 +11,17 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- PROPERTIES -->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:CSVconfig.properties</value>
-                <!--<value>classpath:paperkiMySQL.properties</value>-->
-                <value>classpath:paperkiMySQLremote.properties</value>
-                <value>classpath:sqlQueries.properties</value>
-                <value>classpath:paperki.properties</value>
-            </list>
-        </property>
-    </bean>
+    <import resource="spring-properties.xml" />
 
     <mvc:annotation-driven/>
-    <!-- STATIC RESOURCES -->
-    <!--<mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />-->
-    <mvc:resources mapping="/res/**" location="file:/home/paperki.by/view/resources/" />
-
     <context:annotation-config/>
     <context:component-scan base-package="com.kushnir.paperki.*"/>
 
+    <!--WEB-->
+    <import resource="spring-web.xml" />
+
     <!-- SERVICE LAYER -->
-    <import resource="classpath*:spring-service.xml"/>
+    <import resource="spring-service.xml"/>
 
-    <!--<bean id="templateResolver"
-          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
-        <constructor-arg ref="servletContext"/>
-        <property name="prefix" value="${webapp.viewResurcePath}templates/"/>
-        <property name="suffix" value=".html"/>
-        <property name="characterEncoding" value="UTF-8" />
-        <property name="templateMode" value="HTML5"/>
-        <property name="cacheable" value="false" />
-    </bean>-->
-
-    <bean id="templateResolver"
-          class="org.thymeleaf.templateresolver.FileTemplateResolver">
-        <property name="prefix" value="/home/paperki.by/view/templates/"/>
-        <property name="suffix" value=".html"/>
-        <property name="characterEncoding" value="UTF-8" />
-        <property name="templateMode" value="HTML5"/>
-        <property name="cacheable" value="false" />
-    </bean>
-
-    <bean id="templateEngine"
-          class="org.thymeleaf.spring4.SpringTemplateEngine">
-        <property name="templateResolver" ref="templateResolver"/>
-    </bean>
-
-    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
-        <property name="characterEncoding" value="UTF-8"/>
-        <property name="templateEngine" ref="templateEngine"/>
-    </bean>
-
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <ref bean="jsonConverter"/>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-        <property name="supportedMediaTypes" value="application/json" />
-        <property name="prettyPrint" value="true" />
-    </bean>
 
 </beans>

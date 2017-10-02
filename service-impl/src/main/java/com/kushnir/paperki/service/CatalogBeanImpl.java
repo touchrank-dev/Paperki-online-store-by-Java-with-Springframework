@@ -47,7 +47,6 @@ public class CatalogBeanImpl implements CatalogBean {
         LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
         try {
             Category category = catalogDao.getCategoryByTName(categoryTName);
-            LOGGER.debug("\nCATEGORY: {}", category);
             return category;
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -74,7 +73,6 @@ public class CatalogBeanImpl implements CatalogBean {
         LOGGER.debug("getProductByTName({}) >>> ", productTName);
         try {
             Product product = productBean.getProductByTName(productTName);
-            LOGGER.debug("\nPRODUCT: {}", product);
             return product;
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -82,15 +80,54 @@ public class CatalogBeanImpl implements CatalogBean {
         }
     }
 
+
+    private HashMap<String, Category> getAllCategories() {
+        LOGGER.debug("getAllCategories() >>> ");
+        HashMap<String, Category> categoryes = catalogDao.getAllCategories();
+        return categoryes;
+    }
+
     @Override
     @Transactional
-    public void updateCatalog() throws ServiceException, IOException {
+    public String updateCatalog() throws ServiceException, IOException {
         LOGGER.debug("updateCatalog() START PROCESS >>>");
-        ArrayList<Category> categories = getCategoriesFromCSV();
-        for (Category category: categories) {
-            category.setTranslitName(Transliterator.cyr2lat(category.getName()));
-            // TODO обработка и запись в БД
+
+        StringBuilder sb = new StringBuilder();
+
+        ArrayList<Category> CSVcategories = getCategoriesFromCSV();
+        HashMap<String, Category> categories = getAllCategories();
+
+        for (Category CSVCategory: CSVcategories) {
+            try {
+                String translitName = Transliterator.cyr2lat(CSVCategory.getName());
+                CSVCategory.setTranslitName(translitName);
+
+                Category category = categories.get(translitName);
+                if (category == null) {
+                    //TODO add
+                    addCategory(CSVCategory);
+                    sb.append("Категория добавлена: ").append(CSVCategory.getName()).append('\n');
+                } else {
+                    //TODO update
+                    updateCategory(CSVCategory);
+                    sb.append("Категория обновлена: ").append(CSVCategory.getName()).append('\n');
+                }
+            } catch (Exception e) {
+                sb.append("Ошибка обновления категории: ").append(e).append(" MSG >>> ").append(e.getMessage()).append('\n');
+            }
         }
+        LOGGER.debug(sb);
+        return sb.toString();
+    }
+
+    @Override
+    public int addCategory(Category category) {
+        return 0;
+    }
+
+    @Override
+    public int updateCategory(Category category) {
+        return 0;
     }
 
     private ArrayList<Category> getCategoriesFromCSV() throws IOException, ServiceException {

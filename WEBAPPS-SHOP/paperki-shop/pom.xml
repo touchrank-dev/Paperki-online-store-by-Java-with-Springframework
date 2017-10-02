@@ -92,34 +92,16 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-jcl</artifactId>
-        </dependency>-->
+        </dependency>
 
     </dependencies>
 
     <build>
         <finalName>ROOT</finalName>
 
-        <plugins>
-
-           <!-- <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <configuration>
-                    <path>/</path>
-                    <hostName>pap</hostName>
-                    <port>8088</port>
-                    <aliases>
-                        <alias>paperki.by</alias>
-                        <alias>mypaper.by</alias>
-                    </aliases>
-                    <clientAuth>true</clientAuth>
-                </configuration>
-            </plugin>-->
-
-        </plugins>
 
     </build>
 

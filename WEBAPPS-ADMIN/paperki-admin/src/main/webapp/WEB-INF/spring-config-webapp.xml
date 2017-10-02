@@ -11,40 +11,20 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- PROPERTIES -->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:CSVconfig.properties</value>
-                <!--<value>classpath:paperkiMySQL.properties</value>-->
-                <value>classpath:paperkiMySQLremote.properties</value>
-                <value>classpath:sqlQueries.properties</value>
-                <value>classpath:paperki.scheduler.properties</value>
-            </list>
-        </property>
-    </bean>
+    <import resource="spring-properties.xml" />
 
     <mvc:annotation-driven/>
-
     <context:annotation-config/>
-    <context:component-scan base-package="com.kushnir.paperki.admin.*"/>
+    <context:component-scan base-package="com.kushnir.paperki.*"/>
 
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-        <property name="messageConverters">
-            <list>
-                <ref bean="jsonConverter"/>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-        <property name="supportedMediaTypes" value="application/json" />
-        <property name="prettyPrint" value="true" />
-    </bean>
+    <!--WEB-->
+    <import resource="spring-web.xml" />
 
     <!-- SERVICE LAYER -->
-    <import resource="classpath*:spring-service.xml"/>
+    <import resource="spring-service.xml"/>
 
-    <!-- SCHEDULER -->
+    <!--SCHEDULER-->
     <import resource="spring-schedule.xml" />
+
 
 </beans>

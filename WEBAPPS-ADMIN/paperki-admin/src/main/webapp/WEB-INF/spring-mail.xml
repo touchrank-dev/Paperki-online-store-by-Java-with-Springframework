@@ -16,5 +16,6 @@
     <bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage" scope="prototype" />
 
     <bean id="mailer" class="com.kushnir.paperki.service.mail.Mailer" />
+    <bean id="htmlMailer" class="com.kushnir.paperki.service.mail.HtmlMailer" />
 
 </beans>

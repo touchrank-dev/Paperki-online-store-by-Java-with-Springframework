@@ -7,14 +7,11 @@
     <!--MODEL-->
     <bean id="priceCalculator" class="com.kushnir.paperki.model.calculation.PriceCalculator" />
 
-    <!--DAO-->
-    <import resource="classpath*:spring-dao.xml" />
-
     <!--MAIL-->
     <import resource="spring-mail.xml" />
 
-    <!--PROTOTYPE BEANS-->
-    <bean id="user" class="com.kushnir.paperki.model.User" scope="prototype" />
+    <!--DAO-->
+    <import resource="spring-dao.xml" />
 
     <!--BEANS-->
     <bean id="catalogBean" class="com.kushnir.paperki.service.CatalogBeanImpl" />
@@ -28,6 +25,5 @@
     <bean id="deliveryService" class="com.kushnir.paperki.service.DeliveryServiceImpl" />
     <bean id="paymentService" class="com.kushnir.paperki.service.PaymentServiceImpl" />
     <bean id="orderService" class="com.kushnir.paperki.service.OrderServiceImpl" />
-    <bean id="htmlMailer" class="com.kushnir.paperki.service.mail.HtmlMailer" />
 
 </beans>

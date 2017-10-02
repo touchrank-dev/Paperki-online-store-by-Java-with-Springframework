@@ -19,8 +19,9 @@ public class UpdaterCSV {
     CatalogBean catalogBean;
 
     public void catalogUpdate() throws IOException, ServiceException {
-        LOGGER.debug("===== Started Catalog update ==== >>> ");
+        LOGGER.debug("===== START Catalog update ==== >>> ");
         catalogBean.updateCatalog();
+        LOGGER.debug("===== FINISH Catalog update ==== ");
     }
 
     public void productUpdate() {
