@@ -10,12 +10,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 @Transactional
@@ -94,36 +98,44 @@ public class CatalogBeanImpl implements CatalogBean {
 
         StringBuilder sb = new StringBuilder();
 
-        ArrayList<Category> CSVcategories = getCategoriesFromCSV();
+        ArrayList<Category> CSVCategories = getCategoriesFromCSV();
         HashMap<String, Category> categories = getAllCategories();
 
-        if(CSVcategories != null && categories != null) {
-            for (Category CSVCategory : CSVcategories) {
+        List<Category> catAdd = new ArrayList<>();
+        List<Category> catUpd = new ArrayList<>();
+
+        if(CSVCategories != null && categories != null) {
+            for (Category CSVCategory : CSVCategories) {
                 try {
+
                     String translitName = Transliterator.cyr2lat(CSVCategory.getName());
                     CSVCategory.setTranslitName(translitName);
-
                     Category category = categories.get(translitName);
+
+                    validateCategory(CSVCategory);
+
                     if (category == null) {
                         //TODO add
-                        addCategory(CSVCategory);
-                        sb.append("Категория добавлена: ").append(CSVCategory.getName()).append('\n');
+                        catAdd.add(CSVCategory);
                     } else {
                         //TODO update
-                        updateCategory(CSVCategory);
-                        sb.append("Категория обновлена: ").append(CSVCategory.getName()).append('\n');
+                        catUpd.add(CSVCategory);
                     }
                 } catch (Exception e) {
                     sb.append("Ошибка обновления категории: ").append(e).append(" MSG >>> ").append(e.getMessage()).append('\n');
                 }
             }
+
+            addCategories(catAdd);
+
         }
         return sb.toString();
     }
 
     @Override
-    public int addCategory(Category category) {
-        return 0;
+    public int[] addCategories(List<Category> categories) {
+        LOGGER.debug("addCategories() >>>");
+        return catalogDao.addCategories(categories);
     }
 
     @Override
@@ -131,9 +143,21 @@ public class CatalogBeanImpl implements CatalogBean {
         return 0;
     }
 
+    private void unPublishAllCategories() {
+        //TODO
+    }
+
     private ArrayList<Category> getCategoriesFromCSV() throws IOException, ServiceException {
         LOGGER.debug("getCategoriesFromCSV() >>> ");
         ArrayList<Category> categories = catalogDao.getCategoriesFromCSV();
         return categories;
+    }
+
+    private void validateCategory(Category category) {
+        Assert.notNull(category, "Категория = null");
+        Assert.notNull(category.getName(), "Имя категории = null");
+        Assert.hasText(category.getName() ,"Пустое имя категории");
+        Assert.notNull(category.getTranslitName(), "translitName = null");
+        Assert.hasText(category.getTranslitName(), "translitName is blank");
     }
 }

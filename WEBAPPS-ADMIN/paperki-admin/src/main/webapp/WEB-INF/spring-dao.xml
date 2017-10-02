@@ -4,12 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="classpath*:spring-config-db.xml" />
 
-    <!--<jdbc:initialize-database data-source="dataSource">
-        <jdbc:script location="classpath*:mysql-create-tables.sql"/>
-        <jdbc:script location="classpath*:data-script.sql"/>
-    </jdbc:initialize-database>-->
+    <import resource="classpath*:spring-config-db.xml" />
 
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -26,14 +22,6 @@
     </bean>
 
     <bean id="catalogDao" class="com.kushnir.paperki.dao.CatalogDaoImpl" />
-    <bean id="menuDao" class="com.kushnir.paperki.dao.MenuDaoImpl"/>
-    <bean id="userDao" class="com.kushnir.paperki.dao.UserDaoImpl" />
     <bean id="productDao" class="com.kushnir.paperki.dao.ProductDaoImpl" />
-    <bean id="subscribeDao" class="com.kushnir.paperki.dao.SubscribeDaoImpl" />
-    <bean id="callbackDao" class="com.kushnir.paperki.dao.CallBackDaoImpl" />
-    <bean id="feedbackDao" class="com.kushnir.paperki.dao.FeedbackDaoImpl" />
-    <bean id="deliveryDao" class="com.kushnir.paperki.dao.DeliveryDaoImpl" />
-    <bean id="paymentDao" class="com.kushnir.paperki.dao.PaymentDaoImpl" />
-    <bean id="orderDao" class="com.kushnir.paperki.dao.OrderDaoImpl" />
 
 </beans>

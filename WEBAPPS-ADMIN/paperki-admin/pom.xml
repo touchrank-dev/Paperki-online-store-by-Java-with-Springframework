@@ -56,6 +56,13 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
+        <!-- Servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!--LOGGING-->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

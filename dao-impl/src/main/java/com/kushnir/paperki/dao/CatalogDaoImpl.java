@@ -15,6 +15,8 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -24,6 +26,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CatalogDaoImpl implements CatalogDao {
 
@@ -63,6 +66,9 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Value("${catalog.getByTName}")
     private String getByTNameSqlQuery;
+
+    @Value("${catalog.batch.add}")
+    private String addCategoriesSqlQuery;
 
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() throws DataAccessException {
@@ -126,6 +132,13 @@ public class CatalogDaoImpl implements CatalogDao {
         categories = (HashMap) jdbcTemplate
                 .query(getAllSqlQuery , new AllCategoriesResultSetExtractor());
         return categories;
+    }
+
+    @Override
+    public int[] addCategories(List<Category> categories) {
+        LOGGER.debug("addCategories({}) >>>", categories);
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories.toArray());
+        return namedParameterJdbcTemplate.batchUpdate(addCategoriesSqlQuery, batch);
     }
 
 
