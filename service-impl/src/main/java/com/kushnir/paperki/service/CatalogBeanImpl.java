@@ -97,7 +97,7 @@ public class CatalogBeanImpl implements CatalogBean {
         ArrayList<Category> CSVcategories = getCategoriesFromCSV();
         HashMap<String, Category> categories = getAllCategories();
 
-        if(CSVcategories != null) {
+        if(CSVcategories != null && categories != null) {
             for (Category CSVCategory : CSVcategories) {
                 try {
                     String translitName = Transliterator.cyr2lat(CSVCategory.getName());
@@ -118,7 +118,6 @@ public class CatalogBeanImpl implements CatalogBean {
                 }
             }
         }
-        LOGGER.debug(sb);
         return sb.toString();
     }
 

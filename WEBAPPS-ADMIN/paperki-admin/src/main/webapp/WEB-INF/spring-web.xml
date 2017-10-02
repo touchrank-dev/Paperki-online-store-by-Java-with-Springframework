@@ -9,7 +9,6 @@
 
     <!-- STATIC RESOURCES -->
     <mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />
-    <!--<mvc:resources mapping="/res/**" location="file:/home/paperki.by/view/resources/" />-->
 
     <bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
@@ -20,15 +19,6 @@
         <property name="templateMode" value="HTML5"/>
         <property name="cacheable" value="false" />
     </bean>
-
-    <!--<bean id="templateResolver"
-          class="org.thymeleaf.templateresolver.FileTemplateResolver">
-        <property name="prefix" value="/home/paperki.by/view/templates/"/>
-        <property name="suffix" value=".html"/>
-        <property name="characterEncoding" value="UTF-8" />
-        <property name="templateMode" value="HTML5"/>
-        <property name="cacheable" value="false" />
-    </bean>-->
 
     <bean id="templateEngine"
           class="org.thymeleaf.spring4.SpringTemplateEngine">
