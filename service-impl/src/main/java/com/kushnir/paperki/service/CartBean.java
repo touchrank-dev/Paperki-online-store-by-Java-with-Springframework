@@ -199,7 +199,7 @@ public class CartBean {
         String link =                       availableProduct.getLink();
         int VAT =                           availableProduct.getVAT();
         int quantity =                      addProductRequest.getQuantity();
-        double currentPrice =               availableProduct.getPrices().get(1).getBasePrice();
+        double currentPrice =               availableProduct.getBasePrice();
         double currentPriceWithVAT =        priceCalculator.getPriceWithVat(currentPrice, VAT);
         double discountAmount =             0d;
         double finalPrice =                 0d;

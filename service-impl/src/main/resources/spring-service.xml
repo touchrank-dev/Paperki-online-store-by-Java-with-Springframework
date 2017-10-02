@@ -5,7 +5,7 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--MODEL-->
-    <import resource="classpath*:spring-model.xml" />
+    <bean id="priceCalculator" class="com.kushnir.paperki.model.calculation.PriceCalculator" />
 
     <!--DAO-->
     <import resource="classpath*:spring-dao.xml" />

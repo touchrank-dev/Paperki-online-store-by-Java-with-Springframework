@@ -39,7 +39,6 @@ com_crashlytics_export_strings.xml
 target/
 
 # other ----------------------
-homework/
 *.odt
 # UI-SOURCE/
 /DB/src/main/resources/paperkiMySQL.properties

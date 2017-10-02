@@ -356,9 +356,13 @@ public class ProductDaoImpl implements ProductDao {
                             quantityAvailable,
                             discount
                     );
-                    availableProduct.getPrices().put(quantityStart, price);
+                    if (price != null) {
+                        availableProduct.getPrices().put(quantityStart, price);
+                    }
                 } else {
-                    availableProduct.getPrices().put(quantityStart, price);
+                    if (price != null) {
+                        availableProduct.getPrices().put(quantityStart, price);
+                    }
                 }
             }
             return availableProduct;
