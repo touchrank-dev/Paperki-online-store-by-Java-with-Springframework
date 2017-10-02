@@ -97,23 +97,25 @@ public class CatalogBeanImpl implements CatalogBean {
         ArrayList<Category> CSVcategories = getCategoriesFromCSV();
         HashMap<String, Category> categories = getAllCategories();
 
-        for (Category CSVCategory: CSVcategories) {
-            try {
-                String translitName = Transliterator.cyr2lat(CSVCategory.getName());
-                CSVCategory.setTranslitName(translitName);
+        if(CSVcategories != null) {
+            for (Category CSVCategory : CSVcategories) {
+                try {
+                    String translitName = Transliterator.cyr2lat(CSVCategory.getName());
+                    CSVCategory.setTranslitName(translitName);
 
-                Category category = categories.get(translitName);
-                if (category == null) {
-                    //TODO add
-                    addCategory(CSVCategory);
-                    sb.append("Категория добавлена: ").append(CSVCategory.getName()).append('\n');
-                } else {
-                    //TODO update
-                    updateCategory(CSVCategory);
-                    sb.append("Категория обновлена: ").append(CSVCategory.getName()).append('\n');
+                    Category category = categories.get(translitName);
+                    if (category == null) {
+                        //TODO add
+                        addCategory(CSVCategory);
+                        sb.append("Категория добавлена: ").append(CSVCategory.getName()).append('\n');
+                    } else {
+                        //TODO update
+                        updateCategory(CSVCategory);
+                        sb.append("Категория обновлена: ").append(CSVCategory.getName()).append('\n');
+                    }
+                } catch (Exception e) {
+                    sb.append("Ошибка обновления категории: ").append(e).append(" MSG >>> ").append(e.getMessage()).append('\n');
                 }
-            } catch (Exception e) {
-                sb.append("Ошибка обновления категории: ").append(e).append(" MSG >>> ").append(e.getMessage()).append('\n');
             }
         }
         LOGGER.debug(sb);

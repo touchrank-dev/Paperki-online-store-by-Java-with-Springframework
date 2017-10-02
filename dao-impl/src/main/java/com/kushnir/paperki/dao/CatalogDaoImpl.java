@@ -82,7 +82,7 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public ArrayList<Category> getCategoriesFromCSV() throws IOException, DataAccessException {
-        LOGGER.debug("Starting retrieve data from CSV file: {}", csvFilesPath+csvFileCatalog);
+        LOGGER.debug("Starting retrieve data from CSV file: {}", csvFilesPath + csvFileCatalog);
         LOGGER.debug(">>> PROGRESS ...");
         ArrayList<Category> categories = new ArrayList<Category>();
         try {
@@ -91,7 +91,7 @@ public class CatalogDaoImpl implements CatalogDao {
                             .newFormat(delimiter)
                             .withEscape(escape)
                             .withFirstRecordAsHeader()
-                            .parse(new FileReader(csvFilesPathTest + csvFileCatalog));
+                            .parse(new FileReader(csvFilesPath + csvFileCatalog));
 
             for (CSVRecord record : records) {
                 try {
