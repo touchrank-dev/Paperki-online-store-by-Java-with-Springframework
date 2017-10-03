@@ -7,6 +7,9 @@
     <!--MAIL-->
     <import resource="spring-mail.xml" />
 
+    <!--MODEL-->
+    <bean id="priceCalculator" class="com.kushnir.paperki.model.calculation.PriceCalculator" />
+
     <!--DAO-->
     <import resource="spring-dao.xml" />
 
