@@ -92,9 +92,8 @@ public class CatalogBeanImpl implements CatalogBean {
         return categories;
     }
 
-    @Override
-    @Transactional
-    public String updateCatalog() throws ServiceException, IOException {
+
+    private String updateCatalog2() throws ServiceException, IOException {
         LOGGER.debug("updateCatalog() START PROCESS >>>");
 
         StringBuilder sb = new StringBuilder();
@@ -179,33 +178,70 @@ public class CatalogBeanImpl implements CatalogBean {
                 throw e;
             }
         }
-
-        // TODO ADD and UPDATE
         return sb.toString();
     }
 
+    @Override
+    @Transactional
+    public String updateCatalog() throws ServiceException, IOException {
+        LOGGER.debug("updateCatalog() START PROCESS >>>");
 
-
-
-
-
-    private String UpdateCatalog() throws IOException {
-        LOGGER.debug("UpdateCatalog() START PROCESS >>>");
-
-        CategoryContainer CSVCategories = getCategoriesFromCSVToContainer();
-        CategoryContainer categories = getCategoriesFromToContainer();
         StringBuilder sb = new StringBuilder();
+        CategoryContainer CSVCategories = getCategoriesFromCSVToContainer();
+        Assert.notNull(CSVCategories, "CSVCategories = null");
+        CategoryContainer categories = getCategoriesToContainer();
+        Assert.notNull(categories, "categories = null");
+
+        List<Category> updCat = new ArrayList<>();
+
+        /*PARENTS*/
+        for (Map.Entry<Integer, Category> entry : CSVCategories.getParents().entrySet()) {
+            try {
+                Category CSVParentCategory = entry.getValue();
+                Assert.notNull(CSVParentCategory, "CSVCategory = null");
+                String translitName = Transliterator.cyr2lat(CSVParentCategory.getName());
+                String link = catalogURL + translitName;
+                CSVParentCategory.setTranslitName(translitName);
+                CSVParentCategory.setLink(link);
+                validateCategory(CSVParentCategory);
+
+                for(Map.Entry<Integer, Category> catEntry : categories.getParents().entrySet()) {
+                    Category category = catEntry.getValue();
+
+                    if(category.getPapId() != null) {
+                        if (CSVParentCategory.getPapId().equals(category.getPapId())) {
+                            CSVParentCategory.setId(category.getId());
+                            updCat.add(CSVParentCategory);
+                            break;
+                        }
+                    } else if (category.getTranslitName() != null){
+                        if (CSVParentCategory.getTranslitName().equals(category.getTranslitName())) {
+                            CSVParentCategory.setId(category.getId());
+                            updCat.add(CSVParentCategory);
+                            break;
+                        }
+                    }
+                }
+
+                if (CSVParentCategory.getId() == null) {
+                    int id = addCategory(CSVParentCategory);
+                    CSVParentCategory.setId(id);
+                    addRefCategory(CSVParentCategory);
+                }
+
+            } catch (Exception e) {
+                LOGGER.error("ERROR >>> {}", e.getMessage());
+                sb.append("ERROR >>> ").append(e.getMessage()).append('\n');
+                continue;
+            }
+        }
 
 
-
-
-
-
-
+        /*CHILDREN*/
+        for (Map.Entry<Integer, Category> entry : CSVCategories.getChildren().entrySet()) {}
 
         return sb.toString();
     }
-
 
 
     public CategoryContainer getCategoriesFromCSVToContainer() throws IOException {
@@ -213,9 +249,19 @@ public class CatalogBeanImpl implements CatalogBean {
         return catalogDao.getCategoriesFromCSVToContainer();
     }
 
-    public CategoryContainer getCategoriesFromToContainer() {
-        LOGGER.debug("getCategoriesFromToContainer() >>>");
-        return catalogDao.getCategoriesFromToContainer();
+    public CategoryContainer getCategoriesToContainer() {
+        LOGGER.debug("getCategoriesToContainer() >>>");
+        return catalogDao.getCategoriesToContainer();
+    }
+
+    private int addCategory(Category category) {
+        LOGGER.debug("addCategory() >>>");
+        return catalogDao.addCategory(category);
+    }
+
+    private int addRefCategory(Category category) {
+        LOGGER.debug("addRefCategory() >>>");
+        return catalogDao.addRefCategory(category);
     }
 
     @Override

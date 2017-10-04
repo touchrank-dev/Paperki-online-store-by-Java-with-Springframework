@@ -18,6 +18,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -31,6 +33,13 @@ public class CatalogDaoImpl implements CatalogDao {
     private static final Logger LOGGER = LogManager.getLogger(CatalogDaoImpl.class);
 
     private static final String P_CATEGORY_T_NAME = "p_category_t_name";
+    private static final String P_ID = "id";
+    private static final String P_PAP_ID = "papId";
+    private static final String P_NAME = "name";
+    private static final String P_TRANSLIT_NAME = "translitName";
+    private static final String P_LINK = "link";
+    private static final String P_ORDER = "order";
+    private static final String P_PARENT_ID = "parent";
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -39,7 +48,6 @@ public class CatalogDaoImpl implements CatalogDao {
     private JdbcTemplate jdbcTemplate;
 
     /* CSV */
-
     @Value("${csv.delimiter}")
     private char delimiter;
 
@@ -217,8 +225,8 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
-    public CategoryContainer getCategoriesFromToContainer() {
-        LOGGER.debug("getCategoriesFromToContainer() >>>");
+    public CategoryContainer getCategoriesToContainer() {
+        LOGGER.debug("getCategoriesToContainer() >>>");
         CategoryContainer cats =
                 (CategoryContainer)jdbcTemplate.query(getAllSqlQuery, new CategoryContainerResultExtractor());
         return cats;
@@ -245,6 +253,31 @@ public class CatalogDaoImpl implements CatalogDao {
         LOGGER.debug("addCategoriesRef({}) >>>", categories);
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
         return namedParameterJdbcTemplate.batchUpdate(addCategoriesRefSqlQuery, batch);
+    }
+
+    @Override
+    public int addCategory(Category category) {
+        LOGGER.debug("addCategory({}) >>>", category);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_PAP_ID, category.getPapId());
+        parameterSource.addValue(P_NAME, category.getName());
+        parameterSource.addValue(P_TRANSLIT_NAME, category.getTranslitName());
+        parameterSource.addValue(P_LINK, category.getLink());
+        parameterSource.addValue(P_ORDER, category.getOrder());
+        namedParameterJdbcTemplate.update(addCategoriesSqlQuery, parameterSource, keyHolder);
+        return keyHolder.getKey().intValue();
+    }
+
+    @Override
+    public int addRefCategory(Category category) {
+        LOGGER.debug("addRefCategory({}) >>>", category);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_ID, category.getId());
+        parameterSource.addValue(P_PARENT_ID, category.getParent());
+        namedParameterJdbcTemplate.update(addCategoriesRefSqlQuery, parameterSource, keyHolder);
+        return keyHolder.getKey().intValue();
     }
 
 
