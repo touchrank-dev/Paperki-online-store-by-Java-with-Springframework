@@ -343,6 +343,6 @@ public class Category {
                 ", parent=" + parent +
                 ", parents=" + parents +
                 ", childs=" + childs +
-                '}';
+                '}'+'\n';
     }
 }

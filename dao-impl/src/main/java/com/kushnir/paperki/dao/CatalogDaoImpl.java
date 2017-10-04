@@ -88,40 +88,73 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public ArrayList<Category> getCategoriesFromCSV() throws IOException, DataAccessException {
-        LOGGER.debug("Starting retrieve data from CSV file: {}", csvFilesPath + csvFileCatalog);
-        LOGGER.debug(">>> PROGRESS ...");
+        String file = csvFilesPath + csvFileCatalog;
+
+        LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
+
         ArrayList<Category> categories = new ArrayList<Category>();
+        HashMap<Integer, HashMap<Integer, Category>> map = new HashMap<Integer, HashMap<Integer, Category>>();
+
+        map.put(0, new HashMap<Integer, Category>());
+
         try {
             Iterable<CSVRecord> records =
                     CSVFormat
                             .newFormat(delimiter)
                             .withEscape(escape)
                             .withFirstRecordAsHeader()
-                            .parse(new FileReader(csvFilesPath + csvFileCatalog));
+                            .parse(new FileReader(file));
 
+            int count = 0;
             for (CSVRecord record : records) {
+                count++;
+
+                HashMap<Integer, Category> mapCategory = new HashMap<Integer, Category>();
+
                 try {
-                    categories.add(new Category(
-                            Integer.parseInt(record.get(0)),
-                            record.get(1),
-                            record.get(2),
-                            record.get(3),
-                            record.get(4),
-                            Integer.parseInt(record.get(5)),
-                            Integer.parseInt(record.get(6)),
-                            record.get(7),
-                            record.get(8)
-                    ));
+                    Integer papId =             Integer.parseInt(record.get(0));
+                    String name =               record.get(1);
+                    String metadesc =           record.get(2);
+                    String metakey =            record.get(3);
+                    String customtitle =        record.get(4);
+                    Integer order =             Integer.parseInt(record.get(5));
+                    Integer parent =            Integer.parseInt(record.get(6));
+                    String shortDescription =   record.get(7);
+                    String fullDescription =    record.get(8);
+
+                    Category category = new Category(
+                            papId,
+                            name,
+                            metadesc,
+                            metakey,
+                            customtitle,
+                            order,
+                            parent,
+                            shortDescription,
+                            fullDescription
+                    );
+
+                    categories.add(category);
+
+                    map.put(category.getPapId(), mapCategory);
+
+                    HashMap<Integer, Category> parentCategory = map.get(category.getParent());
+
+                    if(parentCategory != null) {
+                        parentCategory.put(category.getId(), category);
+                    }
+
                 } catch (Exception e) {
-                    LOGGER.error("ERROR >>> {}", e.getMessage());
+                    LOGGER.error("ERROR >>> row:{} {}", count, e.getMessage());
                     continue;
                 }
             }
         } catch (FileNotFoundException e) {
-            LOGGER.error(">>> File ({}) Not Found! >>> {}",
-                    csvFilesPathTest+csvFileCatalog, e.getMessage());
+            LOGGER.error("ERROR >>> File ({}) Not Found! >>> {}",
+                    file, e.getMessage());
             return null;
         }
+        LOGGER.debug("MAP CATEGORIES: {}", map);
         LOGGER.debug(">>> FINISH");
         return categories;
     }
