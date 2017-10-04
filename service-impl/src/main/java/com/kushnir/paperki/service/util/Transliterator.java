@@ -1,5 +1,7 @@
 package com.kushnir.paperki.service.util;
 
+import org.springframework.util.Assert;
+
 public class Transliterator {
 
     public static String cyr2lat(char ch){
@@ -61,6 +63,7 @@ public class Transliterator {
     }
 
     public static String cyr2lat(String s){
+        Assert.notNull(s, "Пустая срока");
 		StringBuilder sb = new StringBuilder(s.length()*2);
 		for(char ch: s.toCharArray()){
 			sb.append(cyr2lat(ch));

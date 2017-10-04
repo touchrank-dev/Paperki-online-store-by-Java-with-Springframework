@@ -87,12 +87,11 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
-    public ArrayList<Category> getCategoriesFromCSV() throws IOException, DataAccessException {
+    public HashMap<Integer, HashMap<Integer, Category>> getCategoriesFromCSV() throws IOException, DataAccessException {
         String file = csvFilesPath + csvFileCatalog;
 
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
 
-        ArrayList<Category> categories = new ArrayList<Category>();
         HashMap<Integer, HashMap<Integer, Category>> map = new HashMap<Integer, HashMap<Integer, Category>>();
 
         map.put(0, new HashMap<Integer, Category>());
@@ -105,7 +104,7 @@ public class CatalogDaoImpl implements CatalogDao {
                             .withFirstRecordAsHeader()
                             .parse(new FileReader(file));
 
-            int count = 0;
+            int count = 1;
             for (CSVRecord record : records) {
                 count++;
 
@@ -134,14 +133,11 @@ public class CatalogDaoImpl implements CatalogDao {
                             fullDescription
                     );
 
-                    categories.add(category);
-
                     map.put(category.getPapId(), mapCategory);
-
                     HashMap<Integer, Category> parentCategory = map.get(category.getParent());
 
                     if(parentCategory != null) {
-                        parentCategory.put(category.getId(), category);
+                        parentCategory.put(category.getPapId(), category);
                     }
 
                 } catch (Exception e) {
@@ -154,23 +150,22 @@ public class CatalogDaoImpl implements CatalogDao {
                     file, e.getMessage());
             return null;
         }
-        LOGGER.debug("MAP CATEGORIES: {}", map);
         LOGGER.debug(">>> FINISH");
-        return categories;
+        return map;
     }
 
     @Override
-    public HashMap<String, Category> getAllCategories() {
-        HashMap<String, Category> categories;
+    public HashMap<Integer, Category> getAllCategories() {
+        HashMap<Integer, Category> categories;
         categories = (HashMap) jdbcTemplate
                 .query(getAllSqlQuery , new AllCategoriesResultSetExtractor());
         return categories;
     }
 
     @Override
-    public int[] addCategories(List<Category> categories) {
+    public int[] addCategories(Object[] categories) {
         LOGGER.debug("addCategories({}) >>>", categories);
-        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories.toArray());
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
         return namedParameterJdbcTemplate.batchUpdate(addCategoriesSqlQuery, batch);
     }
 
@@ -216,12 +211,14 @@ public class CatalogDaoImpl implements CatalogDao {
 
         @Override
         public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-            HashMap<String, Category> categories = new HashMap<String, Category>();
+            HashMap<Integer, Category> categories = new HashMap<Integer, Category>();
             while (rs.next()) {
                 String translitName = rs.getString("translit_name");
+                Integer papId = rs.getInt("pap_id");
+                Integer id = rs.getInt("id_catalog");
                 Category category = new Category(
-                        rs.getInt("id_catalog"),
-                        rs.getInt("pap_id"),
+                        id,
+                        papId,
                         rs.getString("name"),
                         translitName,
                         rs.getString("link"),
@@ -234,7 +231,7 @@ public class CatalogDaoImpl implements CatalogDao {
                         rs.getInt("order_catalog"),
                         rs.getInt("parent")
                 );
-                categories.put(translitName, category);
+                categories.put(id, category);
             }
             return categories;
         }

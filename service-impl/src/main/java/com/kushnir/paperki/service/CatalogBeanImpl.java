@@ -17,9 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -84,11 +82,10 @@ public class CatalogBeanImpl implements CatalogBean {
         }
     }
 
-
-    private HashMap<String, Category> getAllCategories() {
-        LOGGER.debug("getAllCategories() >>> ");
-        HashMap<String, Category> categoryes = catalogDao.getAllCategories();
-        return categoryes;
+    private HashMap<Integer, HashMap<Integer, Category>> getCategoriesFromCSV() throws IOException, ServiceException {
+        LOGGER.debug("getCategoriesFromCSV() >>> ");
+        HashMap<Integer, HashMap<Integer, Category>> categories = catalogDao.getCategoriesFromCSV();
+        return categories;
     }
 
     @Override
@@ -98,42 +95,85 @@ public class CatalogBeanImpl implements CatalogBean {
 
         StringBuilder sb = new StringBuilder();
 
-        ArrayList<Category> CSVCategories = getCategoriesFromCSV();
-        HashMap<String, Category> categories = getAllCategories();
+        HashMap<Integer, HashMap<Integer, Category>> CSVCategories = getCategoriesFromCSV();
+        Assert.notNull(CSVCategories, "CSVCategories = null");
+        HashMap<Integer, Category> parentCSXCategories = CSVCategories.get(0);
+        Assert.notNull(parentCSXCategories, "parentCSXCategories = null");
 
-        List<Category> catAdd = new ArrayList<>();
-        List<Category> catUpd = new ArrayList<>();
+        HashMap<Integer, HashMap<Integer, Category>> categories = getAll();
+        Assert.notNull(categories, "categories = null");
+        HashMap<Integer, Category> parentCategories = categories.get(0);
+        Assert.notNull(parentCategories, "parentCategories = null");
 
-        if(CSVCategories != null && categories != null) {
-            for (Category CSVCategory : CSVCategories) {
-                try {
+        List<Category> updCat = new ArrayList<>();
+        List<Category> addCat = new ArrayList<>();
 
-                    String translitName = Transliterator.cyr2lat(CSVCategory.getName());
-                    CSVCategory.setTranslitName(translitName);
-                    Category category = categories.get(translitName);
+        // ===== FOR PARENT CATEGORIES =================================================
+        for (Map.Entry<Integer ,Category> CSVCAtEntry : parentCSXCategories.entrySet()) {
+            try {
 
-                    validateCategory(CSVCategory);
+                Category CSVCategory = CSVCAtEntry.getValue();
+                Assert.notNull(CSVCategory, "category = null");
+                String translitName = Transliterator.cyr2lat(CSVCategory.getName());
+                CSVCategory.setTranslitName(translitName);
+                validateCategory(CSVCategory);
 
-                    if (category == null) {
-                        //TODO add
-                        catAdd.add(CSVCategory);
-                    } else {
-                        //TODO update
-                        catUpd.add(CSVCategory);
+                for(Map.Entry<Integer, Category> catEntry : parentCategories.entrySet()) {
+                    Category category = catEntry.getValue();
+
+                    if(category.getPapId() != null) {
+                        if (CSVCategory.getPapId().equals(category.getPapId())) {
+                            CSVCategory.setId(category.getId());
+                            updCat.add(CSVCategory);
+                            break;
+                        }
+                    } else if (category.getTranslitName() != null){
+                        if (CSVCategory.getTranslitName().equals(category.getTranslitName())) {
+                            CSVCategory.setId(category.getId());
+                            updCat.add(CSVCategory);
+                            break;
+                        }
                     }
-                } catch (Exception e) {
-                    sb.append("Ошибка обновления категории: ").append(e).append(" MSG >>> ").append(e.getMessage()).append('\n');
                 }
-            }
 
-            addCategories(catAdd);
+                if (CSVCategory.getId() == null) {
+                    addCat.add(CSVCategory);
+                }
+
+                sb.append("SUCCESS >>>")
+                        .append("papId: ")
+                        .append(CSVCategory.getPapId())
+                        .append(" - ")
+                        .append(CSVCategory.getTranslitName())
+                        .append('\n');
+            } catch (Exception e) {
+                LOGGER.error("ERROR PREPARING >>> {}", e.getMessage());
+                sb.append("ERROR PREPARING >>> ").append(e.getMessage()).append('\n');
+                continue;
+            }
+        }
+
+        // ===== FOR CHILD CATEGORIES =================================================
+        for (Map.Entry<Integer, HashMap<Integer, Category>> entry : CSVCategories.entrySet()) {
 
         }
+
+        if (!addCat.isEmpty() && addCat.size() > 0) {
+            try {
+                addCategories(addCat.toArray());
+                sb.append("SUCCESSFUL ADDED >>>")
+                        .append('\n');
+            } catch (Exception e) {
+                sb.append("ERROR ADDING NEW CATEGORIES >>> ").append(e.getMessage()).append('\n');
+            }
+        }
+
+        // TODO ADD and UPDATE
         return sb.toString();
     }
 
     @Override
-    public int[] addCategories(List<Category> categories) {
+    public int[] addCategories(Object[] categories) {
         LOGGER.debug("addCategories() >>>");
         return catalogDao.addCategories(categories);
     }
@@ -143,18 +183,9 @@ public class CatalogBeanImpl implements CatalogBean {
         return 0;
     }
 
-    private void unPublishAllCategories() {
-        //TODO
-    }
-
-    private ArrayList<Category> getCategoriesFromCSV() throws IOException, ServiceException {
-        LOGGER.debug("getCategoriesFromCSV() >>> ");
-        ArrayList<Category> categories = catalogDao.getCategoriesFromCSV();
-        return categories;
-    }
-
     private void validateCategory(Category category) {
         Assert.notNull(category, "Категория = null");
+        Assert.notNull(category.getPapId(), "PapId = null");
         Assert.notNull(category.getName(), "Имя категории = null");
         Assert.hasText(category.getName() ,"Пустое имя категории");
         Assert.notNull(category.getTranslitName(), "translitName = null");

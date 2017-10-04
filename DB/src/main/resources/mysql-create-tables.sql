@@ -75,11 +75,11 @@ CREATE TABLE addresses (
 DROP TABLE IF EXISTS catalog;
 CREATE TABLE catalog (
     id_catalog                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    pap_id                      INT             UNIQUE,
+    pap_id                      INT             ,
     name                        VARCHAR(180)    NOT NULL,
     translit_name               VARCHAR(200)    NOT NULL UNIQUE,
     link                        VARCHAR(200)    NOT NULL UNIQUE,
-    icon                        VARCHAR(30)     NOT NULL,
+    icon                        VARCHAR(30)     ,
     svg_icon                    VARCHAR(50)     ,
     metadesk                    VARCHAR(400)    ,
     metakey                     VARCHAR(400)    ,
@@ -88,7 +88,7 @@ CREATE TABLE catalog (
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_published                TINYINT         DEFAULT 1,
     is_visible                  TINYINT         DEFAULT 1,
-    order_catalog               INT             NOT NULL
+    order_catalog               INT             DEFAULT 0
 );
 
 CREATE TABLE catalog_description (

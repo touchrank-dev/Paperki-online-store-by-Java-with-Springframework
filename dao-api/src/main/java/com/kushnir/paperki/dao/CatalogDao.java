@@ -11,7 +11,7 @@ public interface CatalogDao {
 
     HashMap<Integer, HashMap<Integer, Category>> getAll();
     Category getCategoryByTName(String categoryTName);
-    ArrayList<Category> getCategoriesFromCSV () throws IOException;
-    HashMap<String, Category> getAllCategories();
-    public int[] addCategories(List<Category> categories);
+    HashMap<Integer, HashMap<Integer, Category>> getCategoriesFromCSV () throws IOException;
+    HashMap<Integer, Category> getAllCategories();
+    public int[] addCategories(Object[] categories);
 }

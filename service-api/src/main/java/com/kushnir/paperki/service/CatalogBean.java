@@ -16,5 +16,5 @@ public interface CatalogBean {
     Product getProductByTName (String productTName) throws ServiceException;
     String updateCatalog() throws ServiceException, IOException;
     int updateCategory(Category category);
-    public int[] addCategories(List<Category> categories);
+    public int[] addCategories(Object[] categories);
 }
