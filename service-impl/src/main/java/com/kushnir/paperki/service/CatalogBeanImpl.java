@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class CatalogBeanImpl implements CatalogBean {
 
     @Autowired
     ProductBean productBean;
+
+    @Value("${catalog.url}")
+    String catalogURL;
 
     @Override
     @Transactional
@@ -115,7 +119,9 @@ public class CatalogBeanImpl implements CatalogBean {
                 Category CSVCategory = CSVCAtEntry.getValue();
                 Assert.notNull(CSVCategory, "category = null");
                 String translitName = Transliterator.cyr2lat(CSVCategory.getName());
+                String link = catalogURL+translitName;
                 CSVCategory.setTranslitName(translitName);
+                CSVCategory.setLink(link);
                 validateCategory(CSVCategory);
 
                 for(Map.Entry<Integer, Category> catEntry : parentCategories.entrySet()) {
@@ -161,7 +167,8 @@ public class CatalogBeanImpl implements CatalogBean {
         if (!addCat.isEmpty() && addCat.size() > 0) {
             try {
                 addCategories(addCat.toArray());
-                sb.append("SUCCESSFUL ADDED >>>")
+                LOGGER.debug("CATEGORIES SUCCESSFUL ADDED >>>");
+                sb.append("CATEGORIES SUCCESSFUL ADDED >>>")
                         .append('\n');
             } catch (Exception e) {
                 sb.append("ERROR ADDING NEW CATEGORIES >>> ").append(e.getMessage()).append('\n');
