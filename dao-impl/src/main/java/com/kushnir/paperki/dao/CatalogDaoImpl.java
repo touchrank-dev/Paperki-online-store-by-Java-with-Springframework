@@ -2,6 +2,7 @@ package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.Category;
 
+import com.kushnir.paperki.model.category.CategoryContainer;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
@@ -23,10 +24,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class CatalogDaoImpl implements CatalogDao {
 
@@ -57,6 +55,7 @@ public class CatalogDaoImpl implements CatalogDao {
     @Value("${csv.file.catalog}")
     private String csvFileCatalog;
 
+
     /* SQL Scripts */
     @Value("${catalog.getAll}")
     private String getAllSqlQuery;
@@ -69,6 +68,9 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Value("${catalog.batch.add}")
     private String addCategoriesSqlQuery;
+
+    @Value("${catalog.batch.addRef}")
+    private String addCategoriesRefSqlQuery;
 
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() throws DataAccessException {
@@ -88,7 +90,7 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getCategoriesFromCSV() throws IOException, DataAccessException {
-        String file = csvFilesPath + csvFileCatalog;
+        String file = csvFilesPathTest + csvFileCatalog;
 
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
 
@@ -155,7 +157,76 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
+    public CategoryContainer getCategoriesFromCSVToContainer() throws IOException, DataAccessException {
+        String file = csvFilesPathTest + csvFileCatalog;
+        LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
+
+        CategoryContainer cats = new CategoryContainer();
+        HashMap<Integer, Category> parents = cats.getParents();
+        HashMap<Integer, Category> children = cats.getChildren();
+
+        try {
+            Iterable<CSVRecord> records =
+                    CSVFormat
+                            .newFormat(delimiter)
+                            .withEscape(escape)
+                            .withFirstRecordAsHeader()
+                            .parse(new FileReader(file));
+
+            for (CSVRecord record : records) {
+                try{
+                    Integer papId =             Integer.parseInt(record.get(0));
+                    String name =               record.get(1);
+                    String metadesc =           record.get(2);
+                    String metakey =            record.get(3);
+                    String customtitle =        record.get(4);
+                    Integer order =             Integer.parseInt(record.get(5));
+                    Integer parent =            Integer.parseInt(record.get(6));
+                    String shortDescription =   record.get(7);
+                    String fullDescription =    record.get(8);
+
+                    Category category = new Category(
+                            papId,
+                            name,
+                            metadesc,
+                            metakey,
+                            customtitle,
+                            order,
+                            parent,
+                            shortDescription,
+                            fullDescription
+                    );
+
+                    if (parent.equals(0)) {
+                        parents.put(papId, category);
+                    } else {
+                        children.put(papId, category);
+                    }
+
+                } catch (Exception e) {
+                    LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
+                    continue;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            LOGGER.error("ERROR >>> File ({}) Not Found! >>> {}", file, e.getMessage());
+            return null;
+        }
+        LOGGER.debug(">>> FINISH");
+        return cats;
+    }
+
+    @Override
+    public CategoryContainer getCategoriesFromToContainer() {
+        LOGGER.debug("getCategoriesFromToContainer() >>>");
+        CategoryContainer cats =
+                (CategoryContainer)jdbcTemplate.query(getAllSqlQuery, new CategoryContainerResultExtractor());
+        return cats;
+    }
+
+    @Override
     public HashMap<Integer, Category> getAllCategories() {
+        LOGGER.debug("getAllCategories() >>>");
         HashMap<Integer, Category> categories;
         categories = (HashMap) jdbcTemplate
                 .query(getAllSqlQuery , new AllCategoriesResultSetExtractor());
@@ -167,6 +238,61 @@ public class CatalogDaoImpl implements CatalogDao {
         LOGGER.debug("addCategories({}) >>>", categories);
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
         return namedParameterJdbcTemplate.batchUpdate(addCategoriesSqlQuery, batch);
+    }
+
+    @Override
+    public int[] addCategoriesRef(Object[] categories) {
+        LOGGER.debug("addCategoriesRef({}) >>>", categories);
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
+        return namedParameterJdbcTemplate.batchUpdate(addCategoriesRefSqlQuery, batch);
+    }
+
+
+    private class CategoryContainerResultExtractor implements ResultSetExtractor {
+
+        @Override
+        public CategoryContainer extractData(ResultSet rs) throws SQLException, DataAccessException {
+            CategoryContainer container = new CategoryContainer();
+            while (rs.next()) {
+
+                Integer papId =             rs.getInt("pap_id");
+                Integer id =                rs.getInt("id_catalog");
+                String name =               rs.getString("name");
+                String translitName =       rs.getString("translit_name");
+                String link =               rs.getString("link");
+                String icon =               rs.getString("icon");
+                String metadesk =           rs.getString("metadesk");
+                String metakey =            rs.getString("metakey");
+                String customtitle =        rs.getString("customtitle");
+                Boolean isPublished =       rs.getBoolean("is_published");
+                Boolean isVisible =         rs.getBoolean("is_visible");
+                int order =                 rs.getInt("order_catalog");
+                int parent =                rs.getInt("parent");
+
+                Category category = new Category(
+                        id,
+                        papId,
+                        name,
+                        translitName,
+                        link,
+                        icon,
+                        metadesk,
+                        metakey,
+                        customtitle,
+                        isPublished,
+                        isVisible,
+                        order,
+                        parent
+                );
+
+                if (parent == 0) {
+                    container.getParents().put(id, category);
+                } else {
+                    container.getChildren().put(id, category);
+                }
+            }
+            return container;
+        }
     }
 
 
@@ -216,6 +342,7 @@ public class CatalogDaoImpl implements CatalogDao {
                 String translitName = rs.getString("translit_name");
                 Integer papId = rs.getInt("pap_id");
                 Integer id = rs.getInt("id_catalog");
+
                 Category category = new Category(
                         id,
                         papId,

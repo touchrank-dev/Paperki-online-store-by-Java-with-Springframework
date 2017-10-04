@@ -17,4 +17,5 @@ public interface CatalogBean {
     String updateCatalog() throws ServiceException, IOException;
     int updateCategory(Category category);
     public int[] addCategories(Object[] categories);
+    int[] addCategoriesRef(Object[] categories);
 }

@@ -3,6 +3,7 @@ package com.kushnir.paperki.service;
 import com.kushnir.paperki.dao.CatalogDao;
 import com.kushnir.paperki.model.Category;
 
+import com.kushnir.paperki.model.category.CategoryContainer;
 import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.util.Transliterator;
@@ -11,12 +12,11 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
 import java.util.*;
 
@@ -159,6 +159,8 @@ public class CatalogBeanImpl implements CatalogBean {
             }
         }
 
+        CSVCategories.remove(0);
+
         // ===== FOR CHILD CATEGORIES =================================================
         for (Map.Entry<Integer, HashMap<Integer, Category>> entry : CSVCategories.entrySet()) {
 
@@ -167,11 +169,14 @@ public class CatalogBeanImpl implements CatalogBean {
         if (!addCat.isEmpty() && addCat.size() > 0) {
             try {
                 addCategories(addCat.toArray());
-                LOGGER.debug("CATEGORIES SUCCESSFUL ADDED >>>");
-                sb.append("CATEGORIES SUCCESSFUL ADDED >>>")
-                        .append('\n');
+
+                // addCategoriesRef(addCat.toArray());
+                sb.append("CATEGORIES SUCCESSFUL ADDED >>>").append('\n');
+                LOGGER.debug(sb);
             } catch (Exception e) {
                 sb.append("ERROR ADDING NEW CATEGORIES >>> ").append(e.getMessage()).append('\n');
+                LOGGER.debug(sb);
+                throw e;
             }
         }
 
@@ -179,10 +184,50 @@ public class CatalogBeanImpl implements CatalogBean {
         return sb.toString();
     }
 
+
+
+
+
+
+    private String UpdateCatalog() throws IOException {
+        LOGGER.debug("UpdateCatalog() START PROCESS >>>");
+
+        CategoryContainer CSVCategories = getCategoriesFromCSVToContainer();
+        CategoryContainer categories = getCategoriesFromToContainer();
+        StringBuilder sb = new StringBuilder();
+
+
+
+
+
+
+
+
+        return sb.toString();
+    }
+
+
+
+    public CategoryContainer getCategoriesFromCSVToContainer() throws IOException {
+        LOGGER.debug("getCategoriesFromCSVToContainer() >>>");
+        return catalogDao.getCategoriesFromCSVToContainer();
+    }
+
+    public CategoryContainer getCategoriesFromToContainer() {
+        LOGGER.debug("getCategoriesFromToContainer() >>>");
+        return catalogDao.getCategoriesFromToContainer();
+    }
+
     @Override
     public int[] addCategories(Object[] categories) {
         LOGGER.debug("addCategories() >>>");
         return catalogDao.addCategories(categories);
+    }
+
+    @Override
+    public int[] addCategoriesRef(Object[] categories) {
+        LOGGER.debug("addCategoriesRef() >>>");
+        return catalogDao.addCategoriesRef(categories);
     }
 
     @Override
