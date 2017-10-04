@@ -97,74 +97,6 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
-    public HashMap<Integer, HashMap<Integer, Category>> getCategoriesFromCSV() throws IOException, DataAccessException {
-        String file = csvFilesPath + csvFileCatalog;
-
-        LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
-
-        HashMap<Integer, HashMap<Integer, Category>> map = new HashMap<Integer, HashMap<Integer, Category>>();
-
-        map.put(0, new HashMap<Integer, Category>());
-
-        try {
-            Iterable<CSVRecord> records =
-                    CSVFormat
-                            .newFormat(delimiter)
-                            .withEscape(escape)
-                            .withFirstRecordAsHeader()
-                            .parse(new FileReader(file));
-
-            int count = 1;
-            for (CSVRecord record : records) {
-                count++;
-
-                HashMap<Integer, Category> mapCategory = new HashMap<Integer, Category>();
-
-                try {
-                    Integer papId =             Integer.parseInt(record.get(0));
-                    String name =               record.get(1);
-                    String metadesc =           record.get(2);
-                    String metakey =            record.get(3);
-                    String customtitle =        record.get(4);
-                    Integer order =             Integer.parseInt(record.get(5));
-                    Integer parent =            Integer.parseInt(record.get(6));
-                    String shortDescription =   record.get(7);
-                    String fullDescription =    record.get(8);
-
-                    Category category = new Category(
-                            papId,
-                            name,
-                            metadesc,
-                            metakey,
-                            customtitle,
-                            order,
-                            parent,
-                            shortDescription,
-                            fullDescription
-                    );
-
-                    map.put(category.getPapId(), mapCategory);
-                    HashMap<Integer, Category> parentCategory = map.get(category.getParent());
-
-                    if(parentCategory != null) {
-                        parentCategory.put(category.getPapId(), category);
-                    }
-
-                } catch (Exception e) {
-                    LOGGER.error("ERROR >>> row:{} {}", count, e.getMessage());
-                    continue;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            LOGGER.error("ERROR >>> File ({}) Not Found! >>> {}",
-                    file, e.getMessage());
-            return null;
-        }
-        LOGGER.debug(">>> FINISH");
-        return map;
-    }
-
-    @Override
     public CategoryContainer getCategoriesFromCSVToContainer() throws IOException, DataAccessException {
         String file = csvFilesPath + csvFileCatalog;
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
@@ -230,15 +162,6 @@ public class CatalogDaoImpl implements CatalogDao {
         CategoryContainer cats =
                 (CategoryContainer)jdbcTemplate.query(getAllSqlQuery, new CategoryContainerResultExtractor());
         return cats;
-    }
-
-    @Override
-    public HashMap<Integer, Category> getAllCategories() {
-        LOGGER.debug("getAllCategories() >>>");
-        HashMap<Integer, Category> categories;
-        categories = (HashMap) jdbcTemplate
-                .query(getAllSqlQuery , new AllCategoriesResultSetExtractor());
-        return categories;
     }
 
     @Override
@@ -366,36 +289,6 @@ public class CatalogDaoImpl implements CatalogDao {
         }
     }
 
-    private class AllCategoriesResultSetExtractor implements ResultSetExtractor {
-
-        @Override
-        public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-            HashMap<Integer, Category> categories = new HashMap<Integer, Category>();
-            while (rs.next()) {
-                String translitName = rs.getString("translit_name");
-                Integer papId = rs.getInt("pap_id");
-                Integer id = rs.getInt("id_catalog");
-
-                Category category = new Category(
-                        id,
-                        papId,
-                        rs.getString("name"),
-                        translitName,
-                        rs.getString("link"),
-                        rs.getString("icon"),
-                        rs.getString("metadesk"),
-                        rs.getString("metakey"),
-                        rs.getString("customtitle"),
-                        rs.getBoolean("is_published"),
-                        rs.getBoolean("is_visible"),
-                        rs.getInt("order_catalog"),
-                        rs.getInt("parent")
-                );
-                categories.put(id, category);
-            }
-            return categories;
-        }
-    }
 
     private class CategoryRowMapper implements RowMapper<Category> {
 

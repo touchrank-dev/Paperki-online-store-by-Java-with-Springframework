@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
 import java.util.*;
 
@@ -84,101 +83,6 @@ public class CatalogBeanImpl implements CatalogBean {
             LOGGER.error(e.getMessage());
             throw new ServiceException(e.getMessage());
         }
-    }
-
-    private HashMap<Integer, HashMap<Integer, Category>> getCategoriesFromCSV() throws IOException, ServiceException {
-        LOGGER.debug("getCategoriesFromCSV() >>> ");
-        HashMap<Integer, HashMap<Integer, Category>> categories = catalogDao.getCategoriesFromCSV();
-        return categories;
-    }
-
-
-    private String updateCatalog2() throws ServiceException, IOException {
-        LOGGER.debug("updateCatalog() START PROCESS >>>");
-
-        StringBuilder sb = new StringBuilder();
-
-        HashMap<Integer, HashMap<Integer, Category>> CSVCategories = getCategoriesFromCSV();
-        Assert.notNull(CSVCategories, "CSVCategories = null");
-        HashMap<Integer, Category> parentCSXCategories = CSVCategories.get(0);
-        Assert.notNull(parentCSXCategories, "parentCSXCategories = null");
-
-        HashMap<Integer, HashMap<Integer, Category>> categories = getAll();
-        Assert.notNull(categories, "categories = null");
-        HashMap<Integer, Category> parentCategories = categories.get(0);
-        Assert.notNull(parentCategories, "parentCategories = null");
-
-        List<Category> updCat = new ArrayList<>();
-        List<Category> addCat = new ArrayList<>();
-
-        // ===== FOR PARENT CATEGORIES =================================================
-        for (Map.Entry<Integer ,Category> CSVCAtEntry : parentCSXCategories.entrySet()) {
-            try {
-
-                Category CSVCategory = CSVCAtEntry.getValue();
-                Assert.notNull(CSVCategory, "category = null");
-                String translitName = Transliterator.cyr2lat(CSVCategory.getName());
-                String link = catalogURL+translitName;
-                CSVCategory.setTranslitName(translitName);
-                CSVCategory.setLink(link);
-                validateCategory(CSVCategory);
-
-                for(Map.Entry<Integer, Category> catEntry : parentCategories.entrySet()) {
-                    Category category = catEntry.getValue();
-
-                    if(category.getPapId() != null) {
-                        if (CSVCategory.getPapId().equals(category.getPapId())) {
-                            CSVCategory.setId(category.getId());
-                            updCat.add(CSVCategory);
-                            break;
-                        }
-                    } else if (category.getTranslitName() != null){
-                        if (CSVCategory.getTranslitName().equals(category.getTranslitName())) {
-                            CSVCategory.setId(category.getId());
-                            updCat.add(CSVCategory);
-                            break;
-                        }
-                    }
-                }
-
-                if (CSVCategory.getId() == null) {
-                    addCat.add(CSVCategory);
-                }
-
-                sb.append("SUCCESS >>>")
-                        .append("papId: ")
-                        .append(CSVCategory.getPapId())
-                        .append(" - ")
-                        .append(CSVCategory.getTranslitName())
-                        .append('\n');
-            } catch (Exception e) {
-                LOGGER.error("ERROR PREPARING >>> {}", e.getMessage());
-                sb.append("ERROR PREPARING >>> ").append(e.getMessage()).append('\n');
-                continue;
-            }
-        }
-
-        CSVCategories.remove(0);
-
-        // ===== FOR CHILD CATEGORIES =================================================
-        for (Map.Entry<Integer, HashMap<Integer, Category>> entry : CSVCategories.entrySet()) {
-
-        }
-
-        if (!addCat.isEmpty() && addCat.size() > 0) {
-            try {
-                addCategories(addCat.toArray());
-
-                // addCategoriesRef(addCat.toArray());
-                sb.append("CATEGORIES SUCCESSFUL ADDED >>>").append('\n');
-                LOGGER.debug(sb);
-            } catch (Exception e) {
-                sb.append("ERROR ADDING NEW CATEGORIES >>> ").append(e.getMessage()).append('\n');
-                LOGGER.debug(sb);
-                throw e;
-            }
-        }
-        return sb.toString();
     }
 
     @Override

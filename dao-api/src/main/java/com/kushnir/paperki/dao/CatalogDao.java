@@ -13,8 +13,6 @@ public interface CatalogDao {
 
     HashMap<Integer, HashMap<Integer, Category>> getAll();
     Category getCategoryByTName(String categoryTName);
-    HashMap<Integer, HashMap<Integer, Category>> getCategoriesFromCSV () throws IOException;
-    HashMap<Integer, Category> getAllCategories();
     int[] addCategories(Object[] categories);
     int[] addCategoriesRef(Object[] categories);
     CategoryContainer getCategoriesFromCSVToContainer() throws IOException, DataAccessException;
