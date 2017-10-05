@@ -41,5 +41,6 @@ target/
 # other ----------------------
 *.odt
 # UI-SOURCE/
-/DB/src/main/resources/paperkiMySQL.properties
 /DB/src/main/resources/paperkiMySQLremote.properties
+/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/spring-properties.xml
+/WEBAPPS-ADMIN/paperki-admin/src/main/webapp/WEB-INF/spring-properties.xml
