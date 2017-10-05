@@ -57,9 +57,6 @@ public class CatalogDaoImpl implements CatalogDao {
     @Value("${path.csv.files}")
     private String csvFilesPath;
 
-    @Value("${path.csv.files.test}")
-    private String csvFilesPathTest;
-
     @Value("${csv.file.catalog}")
     private String csvFileCatalog;
 
@@ -104,7 +101,7 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public CategoryContainer getCategoriesFromCSVToContainer() throws IOException, DataAccessException {
-        String file = csvFilesPathTest + csvFileCatalog;
+        String file = csvFilesPath + csvFileCatalog;
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
 
         CategoryContainer cats = new CategoryContainer();
