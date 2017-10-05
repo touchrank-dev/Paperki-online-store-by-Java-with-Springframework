@@ -26,6 +26,7 @@ public class Category {
     private String fullDescription;
 
     private Integer parent;
+    private Integer parentPapId;
     private HashMap<Integer, Category> parents;
     private HashMap<Integer, Category> childs;
 
@@ -248,6 +249,14 @@ public class Category {
         this.parent = parent;
     }
 
+    public Integer getParentPapId() {
+        return parentPapId;
+    }
+
+    public void setParentPapId(Integer parentPapId) {
+        this.parentPapId = parentPapId;
+    }
+
     public HashMap<Integer, Category> getParents() {
         return parents;
     }
@@ -293,6 +302,8 @@ public class Category {
         if (fullDescription != null ? !fullDescription.equals(category.fullDescription) : category.fullDescription != null)
             return false;
         if (parent != null ? !parent.equals(category.parent) : category.parent != null) return false;
+        if (parentPapId != null ? !parentPapId.equals(category.parentPapId) : category.parentPapId != null)
+            return false;
         if (parents != null ? !parents.equals(category.parents) : category.parents != null) return false;
         return childs != null ? childs.equals(category.childs) : category.childs == null;
     }
@@ -316,6 +327,7 @@ public class Category {
         result = 31 * result + (shortDescription != null ? shortDescription.hashCode() : 0);
         result = 31 * result + (fullDescription != null ? fullDescription.hashCode() : 0);
         result = 31 * result + (parent != null ? parent.hashCode() : 0);
+        result = 31 * result + (parentPapId != null ? parentPapId.hashCode() : 0);
         result = 31 * result + (parents != null ? parents.hashCode() : 0);
         result = 31 * result + (childs != null ? childs.hashCode() : 0);
         return result;
@@ -341,6 +353,7 @@ public class Category {
                 ", shortDescription='" + shortDescription + '\'' +
                 ", fullDescription='" + fullDescription + '\'' +
                 ", parent=" + parent +
+                ", parentPapId=" + parentPapId +
                 ", parents=" + parents +
                 ", childs=" + childs +
                 '}'+'\n';

@@ -19,4 +19,6 @@ public interface CatalogDao {
     CategoryContainer getCategoriesToContainer();
     int addCategory(Category category);
     int addRefCategory(Category category);
+    int[] updateCategories(Object[] categories);
+    int[] updateCategoriesRef(Object[] categories);
 }

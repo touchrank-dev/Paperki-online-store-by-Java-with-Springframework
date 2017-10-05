@@ -6,7 +6,6 @@ import com.kushnir.paperki.service.exceptions.ServiceException;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 public interface CatalogBean {
 
@@ -15,7 +14,12 @@ public interface CatalogBean {
     HashMap<Integer ,Product> getProductsByCategoryTName(String categoryTName) throws ServiceException;
     Product getProductByTName (String productTName) throws ServiceException;
     String updateCatalog() throws ServiceException, IOException;
-    int updateCategory(Category category);
+    int addCategory(Category category);
+    int addRefCategory(Category category);
     int[] addCategories(Object[] categories);
     int[] addCategoriesRef(Object[] categories);
+    int updateCategory(Category category) throws Exception;
+    int updateCategoryRef(Category category) throws Exception;
+    int[] updateCategories(Object[] categories);
+    int[] updateCategoriesRef(Object[] categories);
 }

@@ -2,7 +2,6 @@ package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.dao.CatalogDao;
 import com.kushnir.paperki.model.Category;
-
 import com.kushnir.paperki.model.category.CategoryContainer;
 import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.exceptions.ServiceException;
@@ -99,11 +98,11 @@ public class CatalogBeanImpl implements CatalogBean {
 
         List<Category> updCat = new ArrayList<>();
 
-        /*PARENTS*/
+        /* ========== PARENTS =============================================================*/
         for (Map.Entry<Integer, Category> entry : CSVCategories.getParents().entrySet()) {
             try {
                 Category CSVParentCategory = entry.getValue();
-                Assert.notNull(CSVParentCategory, "CSVCategory = null");
+                Assert.notNull(CSVParentCategory, "CSVParentCategory = null");
                 String translitName = Transliterator.cyr2lat(CSVParentCategory.getName());
                 String link = catalogURL + translitName;
                 CSVParentCategory.setTranslitName(translitName);
@@ -141,9 +140,71 @@ public class CatalogBeanImpl implements CatalogBean {
             }
         }
 
+        /* ========== CHILDREN =============================================================*/
+        for (Map.Entry<Integer, Category> entry : CSVCategories.getChildren().entrySet()) {
+            try {
+                Category CSVChildCategory = entry.getValue();
+                Assert.notNull(CSVChildCategory, "CSVChildCategory = null");
+                String translitName = Transliterator.cyr2lat(CSVChildCategory.getName());
+                String link = catalogURL + translitName;
+                CSVChildCategory.setTranslitName(translitName);
+                CSVChildCategory.setLink(link);
+                validateCategory(CSVChildCategory);
 
-        /*CHILDREN*/
-        for (Map.Entry<Integer, Category> entry : CSVCategories.getChildren().entrySet()) {}
+                int parentPapId = CSVChildCategory.getParent();
+                if (parentPapId > 0) {
+                    Category parent = CSVCategories.getParents().get(parentPapId);
+                    if (parent != null) {
+                        int parentId = parent.getId();
+                        if (parentId > 0) {
+                            CSVChildCategory.setParentPapId(parentPapId);
+                            CSVChildCategory.setParent(parentId);
+                        }
+                    }
+                }
+
+                for(Map.Entry<Integer, Category> catEntry : categories.getChildren().entrySet()) {
+                    Category category = catEntry.getValue();
+
+                    if(category.getPapId() != null) {
+                        if (CSVChildCategory.getPapId().equals(category.getPapId())) {
+                            CSVChildCategory.setId(category.getId());
+                            updCat.add(CSVChildCategory);
+                            break;
+                        }
+                    } else if (category.getTranslitName() != null){
+                        if (CSVChildCategory.getTranslitName().equals(category.getTranslitName())) {
+                            CSVChildCategory.setId(category.getId());
+                            updCat.add(CSVChildCategory);
+                            break;
+                        }
+                    }
+                }
+
+                if (CSVChildCategory.getId() == null) {
+                    int id = addCategory(CSVChildCategory);
+                    if (id > 0) {
+                        CSVChildCategory.setId(id);
+                        addRefCategory(CSVChildCategory);
+                    }
+                }
+            } catch (Exception e) {
+                LOGGER.error("ERROR >>> {}", e.getMessage());
+                sb.append("ERROR >>> ").append(e.getMessage()).append('\n');
+                continue;
+            }
+        }
+
+        /* ========== UPDATE ALL ==========================================================*/
+        try {
+            if (!updCat.isEmpty() && updCat.size() > 0) {
+                updateCategories(updCat.toArray());
+                updateCategoriesRef(updCat.toArray());
+            }
+        } catch (Exception e) {
+            LOGGER.error("ERROR UPDATE >>> {}", e.getMessage());
+            sb.append("ERROR UPDATE>>> ").append(e.getMessage()).append('\n');
+        }
 
         return sb.toString();
     }
@@ -159,12 +220,14 @@ public class CatalogBeanImpl implements CatalogBean {
         return catalogDao.getCategoriesToContainer();
     }
 
-    private int addCategory(Category category) {
+    @Override
+    public int addCategory(Category category) {
         LOGGER.debug("addCategory() >>>");
         return catalogDao.addCategory(category);
     }
 
-    private int addRefCategory(Category category) {
+    @Override
+    public int addRefCategory(Category category) {
         LOGGER.debug("addRefCategory() >>>");
         return catalogDao.addRefCategory(category);
     }
@@ -182,8 +245,25 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    public int updateCategory(Category category) {
-        return 0;
+    public int updateCategory(Category category) throws Exception {
+        throw new Exception("NOT IMPLEMENTED");
+    }
+
+    @Override
+    public int updateCategoryRef(Category category) throws Exception {
+        throw new Exception("NOT IMPLEMENTED");
+    }
+
+    @Override
+    public int[] updateCategories(Object[] categories) {
+        LOGGER.debug("updateCategories() >>>");
+        return catalogDao.updateCategories(categories);
+    }
+
+    @Override
+    public int[] updateCategoriesRef(Object[] categories) {
+        LOGGER.debug("updateCategoriesRef() >>>");
+        return catalogDao.updateCategoriesRef(categories);
     }
 
     private void validateCategory(Category category) {

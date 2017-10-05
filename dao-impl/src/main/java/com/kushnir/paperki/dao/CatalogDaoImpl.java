@@ -80,6 +80,12 @@ public class CatalogDaoImpl implements CatalogDao {
     @Value("${catalog.batch.addRef}")
     private String addCategoriesRefSqlQuery;
 
+    @Value("${catalog.batch.update}")
+    private String updateCategoriesSqlQuery;
+
+    @Value("${catalog.batch.updateRef}")
+    private String updateCategoriesRefSqlQuery;
+
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() throws DataAccessException {
         HashMap<Integer, HashMap<Integer, Category>> map =
@@ -98,7 +104,7 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public CategoryContainer getCategoriesFromCSVToContainer() throws IOException, DataAccessException {
-        String file = csvFilesPath + csvFileCatalog;
+        String file = csvFilesPathTest + csvFileCatalog;
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
 
         CategoryContainer cats = new CategoryContainer();
@@ -114,8 +120,6 @@ public class CatalogDaoImpl implements CatalogDao {
                             .parse(new FileReader(file));
 
             for (CSVRecord record : records) {
-
-                LOGGER.debug(record.toString());
 
                 try{
                     Integer papId =             Integer.parseInt(record.get(0));
@@ -204,6 +208,20 @@ public class CatalogDaoImpl implements CatalogDao {
         parameterSource.addValue(P_PARENT_ID, category.getParent());
         namedParameterJdbcTemplate.update(addCategoriesRefSqlQuery, parameterSource, keyHolder);
         return keyHolder.getKey().intValue();
+    }
+
+    @Override
+    public int[] updateCategories(Object[] categories) {
+        LOGGER.debug("updateCategories({}) >>>", categories);
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
+        return namedParameterJdbcTemplate.batchUpdate(updateCategoriesSqlQuery, batch);
+    }
+
+    @Override
+    public int[] updateCategoriesRef(Object[] categories) {
+        LOGGER.debug("updateCategoriesRef({}) >>>", categories);
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
+        return namedParameterJdbcTemplate.batchUpdate(updateCategoriesRefSqlQuery, batch);
     }
 
 

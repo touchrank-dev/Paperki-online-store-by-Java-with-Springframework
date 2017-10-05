@@ -102,7 +102,7 @@ CREATE TABLE catalog_description (
 CREATE TABLE catalog_ref (
     id_ref_catalog              INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_catalog                  INT             NOT NULL,
-    parent_id_catalog           INT             DEFAULT 0,
+    parent_id_catalog           INT             NOT NULL,
     FOREIGN KEY (id_catalog)                    REFERENCES catalog(id_catalog),
     UNIQUE KEY `c_pc` (id_catalog, parent_id_catalog)
 );

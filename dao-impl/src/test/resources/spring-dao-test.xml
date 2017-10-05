@@ -12,7 +12,6 @@
             <list>
                 <value>classpath:paperkiMySQLremote.properties</value>
                 <value>classpath:sqlQueries.properties</value>
-                <value>classpath:CSVconfig.properties</value>
             </list>
         </property>
     </bean>
@@ -38,8 +37,5 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="catalogDao" class="com.kushnir.paperki.dao.CatalogDaoImpl" />
-    <bean id="menuDao" class="com.kushnir.paperki.dao.MenuDaoImpl"/>
-    <bean id="userDao" class="com.kushnir.paperki.dao.UserDaoImpl" />
 
 </beans>
