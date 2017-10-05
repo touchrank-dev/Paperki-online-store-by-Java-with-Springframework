@@ -45,9 +45,6 @@ public class RESTcontroller {
     FeedbackService feedbackService;
 
     @Autowired
-    CatalogBean catalogBean;
-
-    @Autowired
     Mailer mailer;
 
     @Value("${webapp.host}")
@@ -222,18 +219,6 @@ public class RESTcontroller {
             mailer.toSupportMail(restMessage.toString(), "ERROR REST FEEDBACK");
             return restMessage;
         }
-    }
-
-    //curl -v [host]:8080/api/update
-    @GetMapping("/update")
-    @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage update() throws IOException, ServiceException {
-        LOGGER.debug("{} Rest api update() >>>", host);
-
-        String report = catalogBean.updateCatalog();
-
-        RestMessage restMessage = new RestMessage(HttpStatus.OK, "report" ,report);
-        return restMessage;
     }
 
 }

@@ -7,7 +7,7 @@
                 <a class="menu__link" data-submenu="submenu-1" aria-owns="submenu-1"
                    href="#" 
                    th:attr="data-submenu='submenu-'+${map.value.id},aria-owns='submenu-'+${map.value.id}">
-                    <div>
+                    <div th:if="${map.value.icon} != null">
                         <img src="/res/img/hcm1.png" alt="Название категории"
                              th:attr="src=@{'/res/img/caticons/'+${map.value.icon}},alt=${map.value.name}">
                     </div>
@@ -25,7 +25,7 @@
                     <a class="menu__link" href="#"></a>
                     <a href="/catalog" class="link-cat"
                         th:href="@{${mapitem.value.link}}">
-                        <div>
+                        <div th:if="${mapitem.value.icon} != null">
                             <img src="/res/img/hcm1.png" alt="Название категории" 
                                 th:attr="src=@{'/res/img/caticons/'+${mapitem.value.icon}},alt=${mapitem.value.name}" >
                         </div>
