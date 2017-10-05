@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @CrossOrigin
 @RestController
@@ -42,6 +43,9 @@ public class RESTcontroller {
 
     @Autowired
     FeedbackService feedbackService;
+
+    @Autowired
+    CatalogBean catalogBean;
 
     @Autowired
     Mailer mailer;
@@ -218,6 +222,18 @@ public class RESTcontroller {
             mailer.toSupportMail(restMessage.toString(), "ERROR REST FEEDBACK");
             return restMessage;
         }
+    }
+
+    //curl -v [host]:8080/api/update
+    @GetMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage update() throws IOException, ServiceException {
+        LOGGER.debug("{} Rest api update() >>>", host);
+
+        String report = catalogBean.updateCatalog();
+
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "report" ,report);
+        return restMessage;
     }
 
 }

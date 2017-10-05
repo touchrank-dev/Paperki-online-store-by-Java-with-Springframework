@@ -7,6 +7,7 @@ import com.kushnir.paperki.model.category.CategoryContainer;
 import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.util.Transliterator;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
