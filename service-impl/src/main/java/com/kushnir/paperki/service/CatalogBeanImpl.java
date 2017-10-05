@@ -246,12 +246,12 @@ public class CatalogBeanImpl implements CatalogBean {
 
     @Override
     public int updateCategory(Category category) throws Exception {
-        throw new Exception("NOT IMPLEMENTED");
+        throw new Exception("updateCategory() IS NOT IMPLEMENTED");
     }
 
     @Override
     public int updateCategoryRef(Category category) throws Exception {
-        throw new Exception("NOT IMPLEMENTED");
+        throw new Exception("updateCategoryRef() IS NOT IMPLEMENTED");
     }
 
     @Override
