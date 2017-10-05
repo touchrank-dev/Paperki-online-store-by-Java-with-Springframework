@@ -1,8 +1,8 @@
 package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.Category;
-
 import com.kushnir.paperki.model.category.CategoryContainer;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
@@ -114,6 +114,9 @@ public class CatalogDaoImpl implements CatalogDao {
                             .parse(new FileReader(file));
 
             for (CSVRecord record : records) {
+
+                LOGGER.debug(record.toString());
+
                 try{
                     Integer papId =             Integer.parseInt(record.get(0));
                     String name =               record.get(1);
