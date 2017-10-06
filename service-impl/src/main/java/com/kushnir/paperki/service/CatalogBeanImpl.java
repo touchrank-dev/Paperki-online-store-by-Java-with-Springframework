@@ -46,7 +46,7 @@ public class CatalogBeanImpl implements CatalogBean {
             return categories;
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException(e.getMessage());
+            return null;
         }
     }
 

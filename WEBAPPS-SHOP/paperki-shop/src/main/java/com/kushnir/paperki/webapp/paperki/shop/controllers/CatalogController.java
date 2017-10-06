@@ -43,11 +43,11 @@ public class CatalogController {
         return "index";
     }
 
-    @GetMapping("/{catalorItemTranslitName}")
-    public String catalogItemPage(@PathVariable String catalorItemTranslitName, Model model) throws ServiceException {
+    @GetMapping("/{catalogItemTranslitName}")
+    public String catalogItemPage(@PathVariable String catalogItemTranslitName, Model model) throws ServiceException {
         LOGGER.debug("catalogItemPage() >>>");
-        HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalorItemTranslitName);
-        Category category = catalogBean.getCategoryByTName(catalorItemTranslitName);
+        HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalogItemTranslitName);
+        Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
         model.addAttribute("products", products);
         model.addAttribute("category", category);
         model.addAttribute("templatePathName", contentPath + "product-list");
@@ -55,13 +55,13 @@ public class CatalogController {
         return "index";
     }
 
-    @GetMapping("/{catalorItemTranslitName}/{productTranslitName}")
-    public String productItemPage(@PathVariable String catalorItemTranslitName,
+    @GetMapping("/{catalogItemTranslitName}/{productTranslitName}")
+    public String productItemPage(@PathVariable String catalogItemTranslitName,
                                   @PathVariable String productTranslitName,
                                   Model model) throws ServiceException {
         LOGGER.debug("productItemPage() >>>");
         Product product = catalogBean.getProductByTName(productTranslitName);
-        Category category = catalogBean.getCategoryByTName(catalorItemTranslitName);
+        Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
         model.addAttribute("product", product);
         model.addAttribute("category", category);
         model.addAttribute("templatePathName", contentPath + "product-details");

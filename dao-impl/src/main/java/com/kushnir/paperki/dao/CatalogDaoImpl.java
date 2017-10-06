@@ -85,9 +85,19 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() throws DataAccessException {
+        return getAllOld();
+    }
+
+    private HashMap<Integer, HashMap<Integer, Category>> getAllOld() throws DataAccessException {
         HashMap<Integer, HashMap<Integer, Category>> map =
-                (HashMap) jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
+                jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
         return map;
+    }
+
+    private HashMap<Integer, Category> getAllNew() {
+        HashMap<Integer, Category> categories =
+                jdbcTemplate.query(getAllSqlQuery, new CategoriesResultSetExtractor());
+        return categories;
     }
 
     @Override
@@ -270,14 +280,13 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
 
-    private class CategoryResultSetExtractor implements ResultSetExtractor {
+    private class CategoryResultSetExtractor implements ResultSetExtractor<HashMap<Integer, HashMap<Integer, Category>>> {
 
         @Override
-        public Object extractData(ResultSet rs) throws SQLException {
-            HashMap<Integer, HashMap<Integer, Category>> map =
-                    new HashMap<Integer, HashMap<Integer, Category>>();
+        public HashMap<Integer, HashMap<Integer, Category>> extractData(ResultSet rs) throws SQLException {
+            HashMap<Integer, HashMap<Integer, Category>> map = new HashMap();
             // Инициализируем главную ветку категории под ключом 0
-            map.put(0, new HashMap<Integer, Category>());
+            map.put(0, new HashMap());
 
             while (rs.next()) {
                 int parent = rs.getInt("parent");
@@ -287,12 +296,12 @@ public class CatalogDaoImpl implements CatalogDao {
                         rs.getString("translit_name"),
                         rs.getString("link"),
                         rs.getString("icon"),
-                        rs.getInt("order_catalog")
+                        rs.getInt("order_catalog"),
+                        parent
                 );
 
-                HashMap<Integer, Category> mapCategory = new HashMap<Integer, Category>();
-                // добавляем себя же как ключ = 0
-                // mapCategory.put(0, category);
+                HashMap<Integer, Category> mapCategory = new HashMap();
+
                 // добавляем в список главной ветки
                 map.put(category.getId(), mapCategory);
 
@@ -307,6 +316,57 @@ public class CatalogDaoImpl implements CatalogDao {
         }
     }
 
+    private class CategoriesResultSetExtractor implements ResultSetExtractor<HashMap<Integer, Category>> {
+
+        @Override
+        public HashMap<Integer, Category> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            HashMap<Integer, Category> parents = new HashMap();
+            while (rs.next()) {
+                Integer id =            rs.getInt("id_catalog");
+                Integer papId =         rs.getInt("pap_id");
+                String name =           rs.getString("name");
+                String translitName =   rs.getString("translit_name");
+                String link =           rs.getString("link");
+                Boolean isPublished =   rs.getBoolean("is_published");
+                Boolean isVisible =     rs.getBoolean("is_visible");
+                Integer order =         rs.getInt("order_catalog");
+
+                Integer parent =        rs.getInt("parent");
+
+                Category category = new Category(
+                        id,
+                        papId,
+                        name,
+                        translitName,
+                        link,
+                        isPublished,
+                        isVisible,
+                        order,
+                        parent
+                );
+
+                if (parent == 0) {
+                    parents.put(id, category);
+                } else if (parent > 0) {
+                    Category parentCategory = parents.get(parent);
+                    if (parentCategory != null) {
+                        HashMap<Integer, Category> children = parentCategory.getChildren();
+                        if (children == null) {
+                            children = new HashMap<>();
+                            children.put(id, category);
+                            parentCategory.setChildren(children);
+                        } else {
+                            children.put(id, category);
+                        }
+                    } else LOGGER.warn("Родительская категория id({}), не найдена", parent);
+                }
+
+            }
+
+            return parents;
+        }
+    }
+
 
     private class CategoryRowMapper implements RowMapper<Category> {
 
@@ -318,7 +378,8 @@ public class CatalogDaoImpl implements CatalogDao {
                     rs.getString("translit_name"),
                     rs.getString("link"),
                     rs.getString("icon"),
-                    rs.getInt("order_catalog")
+                    rs.getInt("order_catalog"),
+                    rs.getInt("parent")
             );
             return category;
         }

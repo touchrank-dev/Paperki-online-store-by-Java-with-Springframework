@@ -27,8 +27,7 @@ public class Category {
 
     private Integer parent;
     private Integer parentPapId;
-    private HashMap<Integer, Category> parents;
-    private HashMap<Integer, Category> childs;
+    private HashMap<Integer, Category> children;
 
     public Category() {
     }
@@ -58,13 +57,15 @@ public class Category {
                     String translitName,
                     String link,
                     String icon,
-                    Integer order) {
+                    Integer order,
+                    Integer parent) {
         this.id = id;
         this.name = name;
         this.translitName = translitName;
         this.link = link;
         this.icon = icon;
         this.order = order;
+        this.parent = parent;
     }
 
     public Category(Integer id,
@@ -73,16 +74,14 @@ public class Category {
                     String link,
                     String icon,
                     Integer order,
-                    HashMap<Integer, Category> parents,
-                    HashMap<Integer, Category> childs) {
+                    HashMap<Integer, Category> children) {
         this.id = id;
         this.name = name;
         this.translitName = translitName;
         this.link = link;
         this.icon = icon;
         this.order = order;
-        this.parents = parents;
-        this.childs = childs;
+        this.children = children;
     }
 
     public Category(Integer id,
@@ -107,6 +106,26 @@ public class Category {
         this.metadesk = metadesk;
         this.metakey = metakey;
         this.customtitle = customtitle;
+        this.isPublished = isPublished;
+        this.isVisible = isVisible;
+        this.order = order;
+        this.parent = parent;
+    }
+
+    public Category(Integer id,
+                    Integer papId,
+                    String name,
+                    String translitName,
+                    String link,
+                    Boolean isPublished,
+                    Boolean isVisible,
+                    Integer order,
+                    Integer parent) {
+        this.id = id;
+        this.papId = papId;
+        this.name = name;
+        this.translitName = translitName;
+        this.link = link;
         this.isPublished = isPublished;
         this.isVisible = isVisible;
         this.order = order;
@@ -257,20 +276,12 @@ public class Category {
         this.parentPapId = parentPapId;
     }
 
-    public HashMap<Integer, Category> getParents() {
-        return parents;
+    public HashMap<Integer, Category> getChildren() {
+        return children;
     }
 
-    public void setParents(HashMap<Integer, Category> parents) {
-        this.parents = parents;
-    }
-
-    public HashMap<Integer, Category> getChilds() {
-        return childs;
-    }
-
-    public void setChilds(HashMap<Integer, Category> childs) {
-        this.childs = childs;
+    public void setChildren(HashMap<Integer, Category> children) {
+        this.children = children;
     }
 
     @Override
@@ -304,8 +315,7 @@ public class Category {
         if (parent != null ? !parent.equals(category.parent) : category.parent != null) return false;
         if (parentPapId != null ? !parentPapId.equals(category.parentPapId) : category.parentPapId != null)
             return false;
-        if (parents != null ? !parents.equals(category.parents) : category.parents != null) return false;
-        return childs != null ? childs.equals(category.childs) : category.childs == null;
+        return children != null ? children.equals(category.children) : category.children == null;
     }
 
     @Override
@@ -328,8 +338,7 @@ public class Category {
         result = 31 * result + (fullDescription != null ? fullDescription.hashCode() : 0);
         result = 31 * result + (parent != null ? parent.hashCode() : 0);
         result = 31 * result + (parentPapId != null ? parentPapId.hashCode() : 0);
-        result = 31 * result + (parents != null ? parents.hashCode() : 0);
-        result = 31 * result + (childs != null ? childs.hashCode() : 0);
+        result = 31 * result + (children != null ? children.hashCode() : 0);
         return result;
     }
 
@@ -354,8 +363,7 @@ public class Category {
                 ", fullDescription='" + fullDescription + '\'' +
                 ", parent=" + parent +
                 ", parentPapId=" + parentPapId +
-                ", parents=" + parents +
-                ", childs=" + childs +
+                ", children=" + children +
                 '}'+'\n';
     }
 }
