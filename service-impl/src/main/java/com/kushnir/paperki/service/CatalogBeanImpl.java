@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.Category;
 import com.kushnir.paperki.model.category.CategoryContainer;
 import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.exceptions.ServiceException;
+import com.kushnir.paperki.service.mail.Mailer;
 import com.kushnir.paperki.service.util.Transliterator;
 
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +31,9 @@ public class CatalogBeanImpl implements CatalogBean {
 
     @Autowired
     ProductBean productBean;
+
+    @Autowired
+    Mailer mailer;
 
     @Value("${catalog.url}")
     String catalogURL;
@@ -206,6 +210,7 @@ public class CatalogBeanImpl implements CatalogBean {
             sb.append("ERROR UPDATE>>> ").append(e.getMessage()).append('\n');
         }
 
+        mailer.toSupportMail(sb.toString(), "updateCatalog REPORT");
         return sb.toString();
     }
 
