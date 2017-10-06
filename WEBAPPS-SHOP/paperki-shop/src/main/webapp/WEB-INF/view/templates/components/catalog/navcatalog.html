@@ -3,7 +3,7 @@
         th:if="${mapcategories} != null">
         <!-- КАТЕГОРИИ -->
         <ul data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All"
-            th:if="${mapcategories[0] != null">
+            th:if="${mapcategories[0]} != null">
 
             <div    th:each="map : ${mapcategories[0]}"
                     th:remove="tag">
@@ -28,7 +28,7 @@
 
 
         </ul>
-        <div    th:if="${mapcategories[0] != null" 
+        <div    th:if="${mapcategories[0]} != null" 
                 th:remove="tag">
             <div    th:each="map : ${mapcategories[0]}"
                     th:remove="tag">
