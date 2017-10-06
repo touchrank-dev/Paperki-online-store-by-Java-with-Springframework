@@ -10,7 +10,7 @@
 
 
                 <li class="menu__item" role="menuitem"
-                    th:if="(${mapcategories[__${map.value.id}__]} != null) and (${mapcategories[__${map.value.id}__]}.size() > 0)">
+                    th:if="${${mapcategories[__${map.value.id}__]} != null} and ${${mapcategories[__${map.value.id}__].size()} > 0}">
                     <a class="menu__link" data-submenu="submenu-1" aria-owns="submenu-1"
                        href="#" 
                        th:attr="data-submenu='submenu-'+${map.value.id},aria-owns='submenu-'+${map.value.id}">
@@ -34,7 +34,7 @@
                     th:remove="tag">
 
                 <ul class="catalog-submenu menu__level"
-                    th:if="(${mapcategories[__${map.value.id}__]} != null) and (${mapcategories[__${map.value.id}__]}.size() > 0)"
+                    th:if="${${mapcategories[__${map.value.id}__]} != null} and ${${mapcategories[__${map.value.id}__].size()} > 0}"
                     th:attr="data-menu='submenu-'+${map.value.id}">
                     <div class="submenu-wrap">
                         <li class="menu__item" 
