@@ -116,8 +116,10 @@ public class CatalogBeanImpl implements CatalogBean {
                 for(Map.Entry<Integer, Category> catEntry : categories.getParents().entrySet()) {
                     Category category = catEntry.getValue();
 
-                    if(category.getPapId() != null) {
-                        if (CSVParentCategory.getPapId().equals(category.getPapId())) {
+                    Integer catPapId = category.getPapId();
+
+                    if(catPapId != null && !catPapId.equals(0)) {
+                        if (CSVParentCategory.getPapId().equals(catPapId)) {
                             CSVParentCategory.setId(category.getId());
                             updCat.add(CSVParentCategory);
                             break;
@@ -155,13 +157,12 @@ public class CatalogBeanImpl implements CatalogBean {
                 CSVChildCategory.setLink(link);
                 validateCategory(CSVChildCategory);
 
-                int parentPapId = CSVChildCategory.getParent();
-                if (parentPapId > 0) {
+                Integer parentPapId = CSVChildCategory.getParent();
+                if (parentPapId != null && parentPapId > 0) {
                     Category parent = CSVCategories.getParents().get(parentPapId);
                     if (parent != null) {
-                        int parentId = parent.getId();
-                        if (parentId > 0) {
-                            CSVChildCategory.setParentPapId(parentPapId);
+                        Integer parentId = parent.getId();
+                        if (parentId != null && parentId > 0) {
                             CSVChildCategory.setParent(parentId);
                         }
                     }
@@ -170,8 +171,10 @@ public class CatalogBeanImpl implements CatalogBean {
                 for(Map.Entry<Integer, Category> catEntry : categories.getChildren().entrySet()) {
                     Category category = catEntry.getValue();
 
-                    if(category.getPapId() != null) {
-                        if (CSVChildCategory.getPapId().equals(category.getPapId())) {
+                    Integer catPapId = category.getPapId();
+
+                    if(catPapId != null && !catPapId.equals(0)) {
+                        if (CSVChildCategory.getPapId().equals(catPapId)) {
                             CSVChildCategory.setId(category.getId());
                             updCat.add(CSVChildCategory);
                             break;
@@ -202,8 +205,8 @@ public class CatalogBeanImpl implements CatalogBean {
         /* ========== UPDATE ALL ==========================================================*/
         try {
             if (!updCat.isEmpty() && updCat.size() > 0) {
-                updateCategories(updCat.toArray());
-                updateCategoriesRef(updCat.toArray());
+                sb.append(updateCategories(updCat.toArray())).append('\n');
+                sb.append(updateCategoriesRef(updCat.toArray())).append('\n');
             }
         } catch (Exception e) {
             LOGGER.error("ERROR UPDATE >>> {}", e.getMessage());
@@ -260,15 +263,21 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    public int[] updateCategories(Object[] categories) {
-        LOGGER.debug("updateCategories() >>>");
-        return catalogDao.updateCategories(categories);
+    public String updateCategories(Object[] categories) {
+        LOGGER.debug("updateCategories(count: {}) >>>", categories.length);
+        int[] result = catalogDao.updateCategories(categories);
+        String report = "SUCCESSFUL UPDATED: "+result.length+"/"+categories.length+" categories";
+        LOGGER.debug(report);
+        return report;
     }
 
     @Override
-    public int[] updateCategoriesRef(Object[] categories) {
-        LOGGER.debug("updateCategoriesRef() >>>");
-        return catalogDao.updateCategoriesRef(categories);
+    public String updateCategoriesRef(Object[] categories) {
+        LOGGER.debug("updateCategoriesRef(count: {}) >>>", categories.length);
+        int[] result = catalogDao.updateCategoriesRef(categories);
+        String report = "SUCCESSFUL UPDATED: "+result.length+"/"+categories.length+" ref categories";
+        LOGGER.debug(report);
+        return report;
     }
 
     private void validateCategory(Category category) {

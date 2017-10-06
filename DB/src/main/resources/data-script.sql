@@ -1,6 +1,6 @@
 SET NAMES utf8;
 
-INSERT INTO catalog (name, translit_name, link, icon, order_catalog)
+/*INSERT INTO catalog (name, translit_name, link, icon, order_catalog)
 VALUES  ('Бумага и бумажная продукция', 'bumaga-i-bymazhnaz produkcia', '/catalog/bumaga-i-bymazhnaz produkcia', 'hm1.png', 1),
         ('Канцелярские товары', 'kanceliarskie-tovary', '/catalog/kanceliarskie-tovary', 'hm2.png', 2),
         ('Бумага офисная белая', 'bumaga-ofisnaja-belaja', '/catalog/bumaga-ofisnaja-belaja', 'hcm1.png', 1),
@@ -14,7 +14,7 @@ VALUES  ('Бумага и бумажная продукция', 'bumaga-i-bymazh
 INSERT INTO catalog_ref (id_catalog, parent_id_catalog)
 VALUES  (1, 0),(2, 0),
         (3, 1),(4, 1),(5, 1),(6, 1),
-        (7, 2),(8, 2),(9, 2);
+        (7, 2),(8, 2),(9, 2);*/
 
 INSERT INTO menu (name, translit_name)
 VALUES  ('Главное', 'root'),
@@ -50,6 +50,7 @@ VALUES ('Бренд не определен', 'none', 'none.png'),
 INSERT INTO extra_types (name)
 VALUES ('Хиты продаж'),('Супер цена'),('Новинки'),('Специальное предложение');
 
+/*
 INSERT INTO products (pnt, full_name, short_name, translit_name, id_brand, country_made, measure, base_price, vat)
 VALUES (9491, 'Бумага офисная Ксерокс Перформер А4, 80 г/м², 500 л.', 'А4, 80 г/м², 500 л.', 'bumaga-ofisnaja-xerox-performer-A4-80-gm2-500l', 2, 'РФ', 'пач.', 5.56, 20),
        (9496, 'Бумага офисная Ксерокс Перформер А3, 80 г/м², 500 л.', 'А3, 80 г/м², 500 л.', 'bumaga-ofisnaja-xerox-performer-A3-80-gm2-500l', 2, 'РФ', 'пач.', 11.12, 20),
@@ -63,25 +64,31 @@ VALUES (1, 'Бумага класса С. Надежная и экономичн
        (3, '', ''),
        (4, '', ''),
        (5, '', 'Плотность 80 г/м2, 5 цветов в пачке (желтый, розовый, голубой, оранжевый, зеленый). Предназначена для печати на любых видах принтеров, копирования на ксероксах, для письма. Упаковка в коробку по 8 пачек.');
+*/
 
+/*
 INSERT INTO product_attributes (pnt, name, value, order_attr)
 VALUES  (9491, 'Формат', 'A4', 1),
         (9491, 'Плотность', '80г/м²', 2),
         (9491, 'Кол-во листов в пачке', '500 л.', 3);
+*/
 
 INSERT INTO prices_types (name)
 VALUES ('Стандартная');
 
+/*
 INSERT INTO product_prices (id_product, quantity_start, value)
 VALUES (1, 1, 5.56),
        (1, 20, 5.35),
        (1, 60, 5.26),
        (1, 120, 5.18),
        (1, 240, 5.13);
+*/
 
 INSERT INTO discount_types (type)
 VALUES ('OVERRIDE'),('PROCENT'),('SUBSTRACT');
 
+/*
 INSERT INTO discounts (id_discount_type, id_product, value_double, value_int)
 VALUES (1, 1, 3.3, 0);
 
@@ -89,13 +96,16 @@ INSERT INTO product_catalog (id_product, id_catalog, order_product)
 VALUES (1, 3, 1),(2, 3, 2),
        (3, 3, 3),(4, 3, 4),
        (5, 4, 1);
+*/
 
 INSERT INTO stock_place (name, address, phone, email, description, order_places)
 VALUES ('ООО "Паперки"', 'г. Брест, ул. Янки Купалы, 88 В', '8-0162 54-33-54, 8-0162 54-99-54', 'paperki@paperki.by', 'Пн-Пт с 8.30 до 17.00', 1),
        ('Магазин "Канцелярские штучки" на Карбышева', 'г. Брест, ул. Карбышева, 37', 'мтс. +375 (29) 835-87-95, гор. 8 (0162) 20-87-95', 'paperki2@paperki.by', 'ПН-ПТ: 10.00 - 19.00,</br> СБ: 10.00 - 17.00,</br> ВС: Выходной', 2);
 
+/*
 INSERT INTO stock (id_product, quantity_available)
 VALUES (1, 3086),(2, 54),(3, 1054),(4, 234),(5, 45);
+*/
 
 INSERT INTO mail_lists(name)
 VALUES ('Новостная рассылка');

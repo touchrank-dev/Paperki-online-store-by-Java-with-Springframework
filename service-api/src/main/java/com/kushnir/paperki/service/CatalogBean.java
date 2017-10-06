@@ -20,6 +20,6 @@ public interface CatalogBean {
     int[] addCategoriesRef(Object[] categories);
     int updateCategory(Category category) throws Exception;
     int updateCategoryRef(Category category) throws Exception;
-    int[] updateCategories(Object[] categories);
-    int[] updateCategoriesRef(Object[] categories);
+    String updateCategories(Object[] categories);
+    String updateCategoriesRef(Object[] categories);
 }

@@ -209,14 +209,14 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public int[] updateCategories(Object[] categories) {
-        LOGGER.debug("updateCategories({}) >>>", categories);
+        LOGGER.debug("updateCategories() >>>");
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
         return namedParameterJdbcTemplate.batchUpdate(updateCategoriesSqlQuery, batch);
     }
 
     @Override
     public int[] updateCategoriesRef(Object[] categories) {
-        LOGGER.debug("updateCategoriesRef({}) >>>", categories);
+        LOGGER.debug("updateCategoriesRef() >>>");
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
         return namedParameterJdbcTemplate.batchUpdate(updateCategoriesRefSqlQuery, batch);
     }
@@ -240,8 +240,8 @@ public class CatalogDaoImpl implements CatalogDao {
                 String customtitle =        rs.getString("customtitle");
                 Boolean isPublished =       rs.getBoolean("is_published");
                 Boolean isVisible =         rs.getBoolean("is_visible");
-                int order =                 rs.getInt("order_catalog");
-                int parent =                rs.getInt("parent");
+                Integer order =             rs.getInt("order_catalog");
+                Integer parent =            rs.getInt("parent");
 
                 Category category = new Category(
                         id,
