@@ -4,8 +4,11 @@ import com.kushnir.paperki.model.*;
 import com.kushnir.paperki.model.calculation.PriceCalculator;
 import com.kushnir.paperki.model.product.Attribute;
 import com.kushnir.paperki.model.product.AvailableProduct;
+import com.kushnir.paperki.model.product.CSVProduct;
 import com.kushnir.paperki.model.product.Product;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,6 +21,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,6 +43,21 @@ public class ProductDaoImpl implements ProductDao {
     @Autowired
     private PriceCalculator priceCalculator;
 
+    /* CSV */
+    @Value("${csv.delimiter}")
+    private char delimiter;
+
+    @Value("${csv.escape}")
+    private char escape;
+
+    @Value("${path.csv.files}")
+    private String csvFilesPath;
+
+    @Value("${csv.file.products}")
+    private String csvFileProducts;
+
+
+    /*SQL Scripts*/
     @Value("${product.getByPNT}")
     private String getByPNTSqlQuery;
 
@@ -83,8 +104,7 @@ public class ProductDaoImpl implements ProductDao {
         Product product = (Product) namedParameterJdbcTemplate.query(
                 getProductByTNameSqlQuery,
                 parameterSource,
-                new ProductResultSetExtractor()
-        );
+                new ProductResultSetExtractor());
         return product;
     }
 
@@ -113,6 +133,72 @@ public class ProductDaoImpl implements ProductDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    @Override
+    public HashMap<Integer, CSVProduct> getProductsFromCSV(StringBuilder sb) throws IOException {
+        String file = csvFilesPath + csvFileProducts;
+        sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
+                .append(">>> PROGRESS ...").append('\n');
+        LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
+        HashMap<Integer, CSVProduct> products = new HashMap<>();
+
+        try {
+            Iterable<CSVRecord> records =
+                    CSVFormat
+                            .newFormat(delimiter)
+                            .withEscape(escape)
+                            .withFirstRecordAsHeader()
+                            .parse(new FileReader(file));
+            for (CSVRecord record : records) {
+                try {
+                    Integer pnt =                   Integer.parseInt(record.get(0));
+                    Integer groupPapId =            Integer.parseInt(record.get(1));
+                    String personalGroupName =      record.get(2);
+                    String fullName =               record.get(3);
+                    String shortName =              record.get(4);
+                    Integer brandId =               Integer.parseInt(record.get(5));
+                    String countryFrom =            record.get(6);
+                    String countryMade =            record.get(7);
+                    String barCode =                record.get(8);
+                    String measure =                record.get(9);
+                    Integer availableDay =          Integer.parseInt(record.get(10));
+                    double basePrice =              Double.parseDouble(record.get(11));
+                    Integer VAT =                   Integer.parseInt(record.get(12));
+
+                    CSVProduct csvProduct = new CSVProduct(
+                            pnt,
+                            groupPapId,
+                            personalGroupName,
+                            fullName,
+                            shortName,
+                            brandId,
+                            countryFrom,
+                            countryMade,
+                            barCode,
+                            measure,
+                            availableDay,
+                            basePrice,
+                            VAT
+                    );
+
+                    products.put(pnt, csvProduct);
+
+                } catch (Exception e) {
+                    sb.append("ERROR >>> row: ").append(record.getRecordNumber())
+                            .append(", ").append(e.getMessage()).append('\n');
+                    LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
+                    continue;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            sb.append("ERROR >>> File (").append(file).append(") Not Found! >>> ").append(e.getMessage()).append('\n');
+            LOGGER.error("ERROR >>> File ({}) Not Found! >>> {}", file, e.getMessage());
+            return null;
+        }
+        sb.append(">>> FINISH").append('\n');
+        LOGGER.debug(">>> FINISH");
+        return products;
     }
 
 

@@ -9,12 +9,11 @@ import com.kushnir.paperki.service.exceptions.NotEnoughQuantityAvailableExceptio
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +37,7 @@ public class CartBean {
             throw new NotEnoughQuantityAvailableException("Запрошенное количество меньше нуля");
 
         int PNT = addProductRequest.getPnt();
-        AvailableProduct availableProduct = productBean.getAvailableproductByPNT(PNT);
+        AvailableProduct availableProduct = productBean.getAvailableProductByPNT(PNT);
         if(cart != null) {
             HashMap<Integer, CartProduct> items = cart.getItems();
             if(items != null) {

@@ -12,7 +12,8 @@ public interface ProductBean {
     HashMap<Integer ,Product> getProductListByCategoryTName(String categoryTName);
     Product getProductByPNT(Integer pnt);
     Product getProductByTName(String TName);
-    AvailableProduct getAvailableproductByPNT(Integer pnt);
+    AvailableProduct getAvailableProductByPNT(Integer pnt);
     ArrayList<Attribute> getAttributesByPNT(Integer pnt);
+    String updateProducts();
 
 }

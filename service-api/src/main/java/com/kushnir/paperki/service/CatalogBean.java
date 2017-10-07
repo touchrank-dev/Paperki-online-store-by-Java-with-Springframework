@@ -1,6 +1,7 @@
 package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.model.Category;
+import com.kushnir.paperki.model.category.CategoryContainer;
 import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
@@ -14,6 +15,7 @@ public interface CatalogBean {
     HashMap<Integer ,Product> getProductsByCategoryTName(String categoryTName) throws ServiceException;
     Product getProductByTName (String productTName) throws ServiceException;
     String updateCatalog() throws ServiceException, IOException;
+    CategoryContainer getCategoriesToContainer();
     int addCategory(Category category);
     int addRefCategory(Category category);
     int[] addCategories(Object[] categories);

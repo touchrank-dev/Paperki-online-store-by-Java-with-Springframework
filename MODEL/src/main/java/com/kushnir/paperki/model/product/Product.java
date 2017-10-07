@@ -34,7 +34,7 @@ public class Product {
     private String customtitle;
     private LocalDateTime createDate;
     private LocalDateTime editDate;
-    private Boolean isPublishet;
+    private Boolean isPublished;
     private Boolean isVisible;
     private Brand brand;
     private String shortDescription;
@@ -63,7 +63,7 @@ public class Product {
                    double finalPrice,
                    double finalPriceWithVAT,
                    Integer VAT,
-                   Boolean isPublishet,
+                   Boolean isPublished,
                    Boolean isVisible,
                    Brand brand,
                    HashMap<Integer, Price> prices) {
@@ -86,7 +86,7 @@ public class Product {
         this.finalPriceWithVAT = finalPriceWithVAT;
 
         this.VAT = VAT;
-        this.isPublishet = isPublishet;
+        this.isPublished = isPublished;
         this.isVisible = isVisible;
         this.brand = brand;
         this.prices = prices;
@@ -105,7 +105,7 @@ public class Product {
                    Integer availableDay,
                    Integer quantity,
                    Integer VAT,
-                   Boolean isPublishet,
+                   Boolean isPublished,
                    Boolean isVisible,
                    Brand brand,
                    String shortDescription,
@@ -124,7 +124,7 @@ public class Product {
         this.availableDay = availableDay;
         this.quantity = quantity;
         this.VAT = VAT;
-        this.isPublishet = isPublishet;
+        this.isPublished = isPublished;
         this.isVisible = isVisible;
         this.brand = brand;
         this.shortDescription = shortDescription;
@@ -317,11 +317,11 @@ public class Product {
     }
 
     public Boolean getPublishet() {
-        return isPublishet;
+        return isPublished;
     }
 
     public void setPublishet(Boolean publishet) {
-        isPublishet = publishet;
+        isPublished = publishet;
     }
 
     public Boolean getVisible() {
@@ -412,7 +412,7 @@ public class Product {
         if (customtitle != null ? !customtitle.equals(product.customtitle) : product.customtitle != null) return false;
         if (createDate != null ? !createDate.equals(product.createDate) : product.createDate != null) return false;
         if (editDate != null ? !editDate.equals(product.editDate) : product.editDate != null) return false;
-        if (isPublishet != null ? !isPublishet.equals(product.isPublishet) : product.isPublishet != null) return false;
+        if (isPublished != null ? !isPublished.equals(product.isPublished) : product.isPublished != null) return false;
         if (isVisible != null ? !isVisible.equals(product.isVisible) : product.isVisible != null) return false;
         if (brand != null ? !brand.equals(product.brand) : product.brand != null) return false;
         if (shortDescription != null ? !shortDescription.equals(product.shortDescription) : product.shortDescription != null)
@@ -455,7 +455,7 @@ public class Product {
         result = 31 * result + (customtitle != null ? customtitle.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         result = 31 * result + (editDate != null ? editDate.hashCode() : 0);
-        result = 31 * result + (isPublishet != null ? isPublishet.hashCode() : 0);
+        result = 31 * result + (isPublished != null ? isPublished.hashCode() : 0);
         result = 31 * result + (isVisible != null ? isVisible.hashCode() : 0);
         result = 31 * result + (brand != null ? brand.hashCode() : 0);
         result = 31 * result + (shortDescription != null ? shortDescription.hashCode() : 0);
@@ -492,7 +492,7 @@ public class Product {
                 ", customtitle='" + customtitle + '\'' +
                 ", createDate=" + createDate +
                 ", editDate=" + editDate +
-                ", isPublishet=" + isPublishet +
+                ", isPublished=" + isPublished +
                 ", isVisible=" + isVisible +
                 ", brand=" + brand +
                 ", shortDescription='" + shortDescription + '\'' +

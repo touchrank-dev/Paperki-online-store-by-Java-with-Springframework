@@ -93,124 +93,129 @@ public class CatalogBeanImpl implements CatalogBean {
     @Transactional
     public String updateCatalog() throws ServiceException, IOException {
         LOGGER.debug("updateCatalog() START PROCESS >>>");
-
         StringBuilder sb = new StringBuilder();
-        CategoryContainer CSVCategories = getCategoriesFromCSVToContainer();
-        Assert.notNull(CSVCategories, "CSVCategories = null");
-        CategoryContainer categories = getCategoriesToContainer();
-        Assert.notNull(categories, "categories = null");
 
-        List<Category> updCat = new ArrayList<>();
-
-        /* ========== PARENTS =============================================================*/
-        for (Map.Entry<Integer, Category> entry : CSVCategories.getParents().entrySet()) {
-            try {
-                Category CSVParentCategory = entry.getValue();
-                Assert.notNull(CSVParentCategory, "CSVParentCategory = null");
-                String translitName = Transliterator.cyr2lat(CSVParentCategory.getName());
-                String link = catalogURL + translitName;
-                CSVParentCategory.setTranslitName(translitName);
-                CSVParentCategory.setLink(link);
-                validateCategory(CSVParentCategory);
-
-                for(Map.Entry<Integer, Category> catEntry : categories.getParents().entrySet()) {
-                    Category category = catEntry.getValue();
-
-                    Integer catPapId = category.getPapId();
-
-                    if(catPapId != null && !catPapId.equals(0)) {
-                        if (CSVParentCategory.getPapId().equals(catPapId)) {
-                            CSVParentCategory.setId(category.getId());
-                            updCat.add(CSVParentCategory);
-                            break;
-                        }
-                    } else if (category.getTranslitName() != null){
-                        if (CSVParentCategory.getTranslitName().equals(category.getTranslitName())) {
-                            CSVParentCategory.setId(category.getId());
-                            updCat.add(CSVParentCategory);
-                            break;
-                        }
-                    }
-                }
-
-                if (CSVParentCategory.getId() == null) {
-                    int id = addCategory(CSVParentCategory);
-                    CSVParentCategory.setId(id);
-                    addRefCategory(CSVParentCategory);
-                }
-
-            } catch (Exception e) {
-                LOGGER.error("ERROR >>> {}", e.getMessage());
-                sb.append("ERROR >>> ").append(e.getMessage()).append('\n');
-                continue;
-            }
-        }
-
-        /* ========== CHILDREN =============================================================*/
-        for (Map.Entry<Integer, Category> entry : CSVCategories.getChildren().entrySet()) {
-            try {
-                Category CSVChildCategory = entry.getValue();
-                Assert.notNull(CSVChildCategory, "CSVChildCategory = null");
-                String translitName = Transliterator.cyr2lat(CSVChildCategory.getName());
-                String link = catalogURL + translitName;
-                CSVChildCategory.setTranslitName(translitName);
-                CSVChildCategory.setLink(link);
-                validateCategory(CSVChildCategory);
-
-                Integer parentPapId = CSVChildCategory.getParent();
-                if (parentPapId != null && parentPapId > 0) {
-                    Category parent = CSVCategories.getParents().get(parentPapId);
-                    if (parent != null) {
-                        Integer parentId = parent.getId();
-                        if (parentId != null && parentId > 0) {
-                            CSVChildCategory.setParent(parentId);
-                        }
-                    }
-                }
-
-                for(Map.Entry<Integer, Category> catEntry : categories.getChildren().entrySet()) {
-                    Category category = catEntry.getValue();
-
-                    Integer catPapId = category.getPapId();
-
-                    if(catPapId != null && !catPapId.equals(0)) {
-                        if (CSVChildCategory.getPapId().equals(catPapId)) {
-                            CSVChildCategory.setId(category.getId());
-                            updCat.add(CSVChildCategory);
-                            break;
-                        }
-                    } else if (category.getTranslitName() != null){
-                        if (CSVChildCategory.getTranslitName().equals(category.getTranslitName())) {
-                            CSVChildCategory.setId(category.getId());
-                            updCat.add(CSVChildCategory);
-                            break;
-                        }
-                    }
-                }
-
-                if (CSVChildCategory.getId() == null) {
-                    int id = addCategory(CSVChildCategory);
-                    if (id > 0) {
-                        CSVChildCategory.setId(id);
-                        addRefCategory(CSVChildCategory);
-                    }
-                }
-            } catch (Exception e) {
-                LOGGER.error("ERROR >>> {}", e.getMessage());
-                sb.append("ERROR >>> ").append(e.getMessage()).append('\n');
-                continue;
-            }
-        }
-
-        /* ========== UPDATE ALL ==========================================================*/
         try {
+
+            CategoryContainer CSVCategories = getCategoriesFromCSVToContainer(sb);
+            Assert.notNull(CSVCategories, "CSVCategories = null");
+            CategoryContainer categories = getCategoriesToContainer();
+            Assert.notNull(categories, "categories = null");
+
+            List<Category> updCat = new ArrayList<>();
+
+            /* ========== PARENTS =============================================================*/
+            for (Map.Entry<Integer, Category> entry : CSVCategories.getParents().entrySet()) {
+                try {
+                    Category CSVParentCategory = entry.getValue();
+                    Assert.notNull(CSVParentCategory, "CSVParentCategory = null");
+                    String translitName = Transliterator.cyr2lat(CSVParentCategory.getName());
+                    String link = catalogURL + translitName;
+                    CSVParentCategory.setTranslitName(translitName);
+                    CSVParentCategory.setLink(link);
+                    validateCategory(CSVParentCategory);
+
+                    for(Map.Entry<Integer, Category> catEntry : categories.getParents().entrySet()) {
+                        Category category = catEntry.getValue();
+
+                        Integer catPapId = category.getPapId();
+
+                        if(catPapId != null && !catPapId.equals(0)) {
+                            if (CSVParentCategory.getPapId().equals(catPapId)) {
+                                CSVParentCategory.setId(category.getId());
+                                updCat.add(CSVParentCategory);
+                                break;
+                            }
+                        } else if (category.getTranslitName() != null){
+                            if (CSVParentCategory.getTranslitName().equals(category.getTranslitName())) {
+                                CSVParentCategory.setId(category.getId());
+                                updCat.add(CSVParentCategory);
+                                break;
+                            }
+                        }
+                    }
+
+                    if (CSVParentCategory.getId() == null) {
+                        int id = addCategory(CSVParentCategory);
+                        CSVParentCategory.setId(id);
+                        addRefCategory(CSVParentCategory);
+                    }
+
+                } catch (Exception e) {
+                    LOGGER.error("ERROR >>> {}", e.getMessage());
+                    sb.append("ERROR >>> ").append(e).append(" >>> ").append(e.getMessage()).append('\n');
+                    continue;
+                }
+            }
+
+            /* ========== CHILDREN =============================================================*/
+            for (Map.Entry<Integer, Category> entry : CSVCategories.getChildren().entrySet()) {
+                try {
+                    Category CSVChildCategory = entry.getValue();
+                    Assert.notNull(CSVChildCategory, "CSVChildCategory = null");
+                    String translitName = Transliterator.cyr2lat(CSVChildCategory.getName());
+                    String link = catalogURL + translitName;
+                    CSVChildCategory.setTranslitName(translitName);
+                    CSVChildCategory.setLink(link);
+                    validateCategory(CSVChildCategory);
+
+                    Integer parentPapId = CSVChildCategory.getParent();
+                    if (parentPapId != null && parentPapId > 0) {
+                        Category parent = CSVCategories.getParents().get(parentPapId);
+                        if (parent != null) {
+                            Integer parentId = parent.getId();
+                            if (parentId != null && parentId > 0) {
+                                CSVChildCategory.setParent(parentId);
+                            }
+                        }
+                    }
+
+                    for(Map.Entry<Integer, Category> catEntry : categories.getChildren().entrySet()) {
+                        Category category = catEntry.getValue();
+
+                        Integer catPapId = category.getPapId();
+
+                        if(catPapId != null && !catPapId.equals(0)) {
+                            if (CSVChildCategory.getPapId().equals(catPapId)) {
+                                CSVChildCategory.setId(category.getId());
+                                updCat.add(CSVChildCategory);
+                                break;
+                            }
+                        } else if (category.getTranslitName() != null){
+                            if (CSVChildCategory.getTranslitName().equals(category.getTranslitName())) {
+                                CSVChildCategory.setId(category.getId());
+                                updCat.add(CSVChildCategory);
+                                break;
+                            }
+                        }
+                    }
+
+                    if (CSVChildCategory.getId() == null) {
+                        int id = addCategory(CSVChildCategory);
+                        if (id > 0) {
+                            CSVChildCategory.setId(id);
+                            addRefCategory(CSVChildCategory);
+                        }
+                    }
+
+                } catch (Exception e) {
+                    LOGGER.error("ERROR >>> {}", e.getMessage());
+                    sb.append("ERROR >>> ").append(e).append(" >>> ").append(e.getMessage()).append('\n');
+                    continue;
+                }
+            }
+
+            /* ========== UPDATE ALL ==========================================================*/
             if (!updCat.isEmpty() && updCat.size() > 0) {
                 sb.append(updateCategories(updCat.toArray())).append('\n');
                 sb.append(updateCategoriesRef(updCat.toArray())).append('\n');
             }
+
+            sb.append("========== UPDATE FINISHED ==========");
+
         } catch (Exception e) {
-            LOGGER.error("ERROR UPDATE >>> {}", e.getMessage());
-            sb.append("ERROR UPDATE>>> ").append(e.getMessage()).append('\n');
+            LOGGER.error("UPDATE FINISHED WITH ERROR >>> {}", e.getMessage());
+            sb.append("UPDATE FINISHED WITH ERROR >>> ").append(e).append(" >>> ").append(e.getMessage());
         }
 
         mailer.toSupportMail(sb.toString(), "updateCatalog REPORT");
@@ -218,11 +223,12 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
 
-    public CategoryContainer getCategoriesFromCSVToContainer() throws IOException {
+    public CategoryContainer getCategoriesFromCSVToContainer(StringBuilder sb) throws IOException {
         LOGGER.debug("getCategoriesFromCSVToContainer() >>>");
-        return catalogDao.getCategoriesFromCSVToContainer();
+        return catalogDao.getCategoriesFromCSVToContainer(sb);
     }
 
+    @Override
     public CategoryContainer getCategoriesToContainer() {
         LOGGER.debug("getCategoriesToContainer() >>>");
         return catalogDao.getCategoriesToContainer();

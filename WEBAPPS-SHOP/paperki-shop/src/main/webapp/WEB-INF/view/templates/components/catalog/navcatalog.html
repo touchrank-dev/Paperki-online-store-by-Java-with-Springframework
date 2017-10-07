@@ -4,17 +4,13 @@
         <!-- КАТЕГОРИИ -->
         <ul data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All"
             th:if="${mapcategories[0]} != null">
-
             <div    th:each="map : ${mapcategories[0]}"
                     th:remove="tag">
-
-
                 <li class="menu__item" role="menuitem"
                     th:if="${mapcategories[__${map.value.id}__]} != null and ${mapcategories[__${map.value.id}__].size()} > 0">
                     <a class="menu__link" data-submenu="submenu-1" aria-owns="submenu-1"
                        href="#" 
                        th:attr="data-submenu='submenu-'+${map.value.id},aria-owns='submenu-'+${map.value.id}">
-
                         <div th:if="${map.value.icon} != null">
                             <img src="/res/img/hcm1.png" alt="Название категории"
                                  th:attr="src=@{'/res/img/caticons/'+${map.value.icon}},alt=${map.value.name}">
@@ -22,17 +18,12 @@
                         <span th:text="${map.value.name}" th:remove="tag">Название родительской категории</span>
                     </a>
                 </li>
-
-
             </div>
-
-
         </ul>
         <div    th:if="${mapcategories[0]} != null" 
                 th:remove="tag">
             <div    th:each="map : ${mapcategories[0]}"
                     th:remove="tag">
-
                 <ul class="catalog-submenu menu__level"
                     th:if="${mapcategories[__${map.value.id}__]} != null and ${mapcategories[__${map.value.id}__].size()} > 0"
                     th:attr="data-menu='submenu-'+${map.value.id}">
@@ -55,10 +46,7 @@
                     <div class="submenu-discount"><!--banner--></div>
                     <div class="submenu-bottom"><!--brands bottom--></div>
                 </ul>
-
-
             </div>
-
         </div>
     </div>
 </nav>

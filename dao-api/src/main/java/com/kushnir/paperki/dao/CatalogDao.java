@@ -15,7 +15,7 @@ public interface CatalogDao {
     Category getCategoryByTName(String categoryTName);
     int[] addCategories(Object[] categories);
     int[] addCategoriesRef(Object[] categories);
-    CategoryContainer getCategoriesFromCSVToContainer() throws IOException, DataAccessException;
+    CategoryContainer getCategoriesFromCSVToContainer(StringBuilder sb) throws IOException, DataAccessException;
     CategoryContainer getCategoriesToContainer();
     int addCategory(Category category);
     int addRefCategory(Category category);

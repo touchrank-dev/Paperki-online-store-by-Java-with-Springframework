@@ -110,8 +110,10 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
-    public CategoryContainer getCategoriesFromCSVToContainer() throws IOException, DataAccessException {
+    public CategoryContainer getCategoriesFromCSVToContainer(StringBuilder sb) throws IOException, DataAccessException {
         String file = csvFilesPath + csvFileCatalog;
+        sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
+                .append(">>> PROGRESS ...").append('\n');
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
 
         CategoryContainer cats = new CategoryContainer();
@@ -158,11 +160,14 @@ public class CatalogDaoImpl implements CatalogDao {
                     }
 
                 } catch (Exception e) {
-                    LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
+                    sb.append("ERROR >>> row: ")
+                            .append(record.getRecordNumber()+1).append(", MESSAGE: ").append(e.getMessage()).append('\n');
+                    LOGGER.error("ERROR >>> row: {} {}", record.getRecordNumber(), e.getMessage());
                     continue;
                 }
             }
         } catch (FileNotFoundException e) {
+            sb.append("ERROR >>> File (").append(file).append(") Not Found! >>> ").append(e.getCause()).append('\n');
             LOGGER.error("ERROR >>> File ({}) Not Found! >>> {}", file, e.getMessage());
             return null;
         }

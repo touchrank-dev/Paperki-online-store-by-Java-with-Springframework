@@ -221,4 +221,34 @@ public class RESTcontroller {
         }
     }
 
+    @Autowired
+    CatalogBean catalogBean;
+
+    @Autowired
+    ProductBean productBean;
+
+    //curl -v [host]:8080/api/update
+    @GetMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage update() throws IOException, ServiceException {
+        LOGGER.debug("{} Rest api update() >>>", host);
+
+        String report = catalogBean.updateCatalog();
+
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "successful updated" ,report);
+        return restMessage;
+    }
+
+    //curl -v [host]:8080/api/update
+    @GetMapping("/update/products")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage updateProducts() throws IOException, ServiceException {
+        LOGGER.debug("{} Rest api updateProducts() >>>", host);
+
+        String report = productBean.updateProducts();
+
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "successful updated" ,report);
+        return restMessage;
+    }
+
 }
