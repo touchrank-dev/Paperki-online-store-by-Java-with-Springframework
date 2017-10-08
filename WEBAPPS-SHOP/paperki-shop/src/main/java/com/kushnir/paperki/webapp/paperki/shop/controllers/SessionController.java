@@ -74,28 +74,36 @@ public class SessionController {
     }
 
     @ModelAttribute("ProductImages")
-    public List<String> imageFinder() {
-        List<String> results = new ArrayList<String>();
+    public HashMap<Integer, ArrayList<String>> imageFinder() {
         HashMap<Integer, ArrayList<String>> catImages = new HashMap<>();
         try {
             File[] files = new File("/home/paperki.by/www/images/catalog").listFiles();
 
-            List<String> imgList = new ArrayList<>();
-            Collections.sort(imgList);
-
             for (File file : files) {
                 if (file.isFile()) {
-                    String fileName = file.getName();
-                    String imgName = fileName.replaceFirst("0", "");
-                    String pnt = imgName.replaceAll(".jpg", "");
+                    try {
+                        String fileName = file.getName();
+                        Integer pnt = Integer.parseInt(fileName.replaceAll(".jpg", ""));
 
-                    results.add(fileName+" === "+imgName+" === "+pnt);
+                        ArrayList<String> imgList = catImages.get(pnt);
+                        if (imgList != null) {
+                            imgList.add(fileName);
+                            Collections.sort(imgList);
+                        } else {
+                            imgList = new ArrayList<String>();
+                            imgList.add(fileName);
+                            catImages.put(pnt, imgList);
+                        }
+
+                    } catch (Exception e) {
+
+                    }
                 }
             }
         } catch (Exception e) {
             return null;
         }
-        return results;
+        return catImages;
     }
 
 }
