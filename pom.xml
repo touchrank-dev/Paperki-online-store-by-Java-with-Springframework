@@ -39,6 +39,7 @@
         <h2.version>1.4.193</h2.version>
         <mysql.version>6.0.6</mysql.version>
         <commons-csv.version>1.4</commons-csv.version>
+        <commons-lang.version>2.6</commons-lang.version>
         <java.mail.version>1.4.7</java.mail.version>
         <junit.version>4.12</junit.version>
         <log4j2.version>2.8</log4j2.version>
@@ -131,12 +132,14 @@
                 <artifactId>spring-context-support</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+
             <!--JAVA MAIL-->
             <dependency>
                 <groupId>javax.mail</groupId>
                 <artifactId>mail</artifactId>
                 <version>${java.mail.version}</version>
             </dependency>
+
             <!-- SPRING SECURITY -->
             <dependency>
                 <groupId>org.springframework.security</groupId>
@@ -215,6 +218,13 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-csv</artifactId>
                 <version>${commons-csv.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commons-lang.version}</version>
             </dependency>
 
             <!-- Unit testing -->

@@ -45,6 +45,12 @@
             <artifactId>commons-csv</artifactId>
         </dependency>
 
+        <!-- apache commons -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+
         <!-- for testing -->
         <dependency>
             <groupId>junit</groupId>

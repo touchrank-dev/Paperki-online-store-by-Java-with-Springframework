@@ -21,4 +21,7 @@ public interface ProductDao {
     void unpublishAllProducts();
     int addProduct(CSVProduct product);
     int addProductCatalogRef(CSVProduct product);
+
+    int[] batchUpdateProducts(Object[] categories);
+    int[] batchUpdateProductsCatalogRef(Object[] categories);
 }

@@ -42,10 +42,10 @@ VALUES (1, 1),
        (1, 7),
        (1, 8);
 
-INSERT INTO brands (name, translit_name, icon)
+/*INSERT INTO brands (name, translit_name, icon)
 VALUES ('Бренд не определен', 'none', 'none.png'),
        ('Ксерокс', 'xerox', 'xerox.png'),
-       ('InternationPaper', 'internation-paper', 'internation-paper.png');
+       ('InternationPaper', 'internation-paper', 'internation-paper.png');*/
 
 INSERT INTO extra_types (name)
 VALUES ('Хиты продаж'),('Супер цена'),('Новинки'),('Специальное предложение');

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @ControllerAdvice
 public class SessionController {
@@ -67,4 +70,23 @@ public class SessionController {
     public String imgPref () {
         return imgPref;
     }
+
+    @ModelAttribute("ProductImages")
+    public List<String> imageFinder() {
+        List<String> results = new ArrayList<String>();
+        try {
+            File[] files = new File("/home/paperki.by/www/images/catalog").listFiles();
+            //If this pathname does not denote a directory, then listFiles() returns null.
+
+            for (File file : files) {
+                if (file.isFile()) {
+                    results.add(file.getName());
+                }
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return results;
+    }
+
 }

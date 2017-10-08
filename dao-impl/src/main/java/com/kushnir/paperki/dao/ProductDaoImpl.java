@@ -8,6 +8,7 @@ import com.kushnir.paperki.model.util.Transliterator;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,6 +20,8 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
@@ -107,6 +110,12 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${product.addCatRef}")
     private String addProductCatalogRefSqlQuery;
 
+    @Value("${product.batch.update}")
+    private String updateProductsSqlQuery;
+
+    @Value("${product.batch.updateCAtRef}")
+    private String updateProductsCatalogRefSqlQuery;
+
     @Override
     public HashMap<Integer, ProductSimple> getAll() {
         LOGGER.debug("getAll() >>>");
@@ -193,9 +202,9 @@ public class ProductDaoImpl implements ProductDao {
                     Integer pnt =                   Integer.parseInt(record.get(0));
                     Integer groupPapId =            Integer.parseInt(record.get(1));
                     String personalGroupName =      record.get(2);
-                    String fullName =               record.get(3);
+                    String fullName =               StringEscapeUtils.unescapeHtml(record.get(3));
                     String translitName =           Transliterator.cyr2lat(pnt+" "+fullName);
-                    String shortName =              record.get(4);
+                    String shortName =              StringEscapeUtils.unescapeHtml(record.get(4));
                     Integer brandId =               Integer.parseInt(record.get(5));
                     String countryFrom =            record.get(6);
                     String countryMade =            record.get(7);
@@ -210,8 +219,8 @@ public class ProductDaoImpl implements ProductDao {
                             groupPapId,
                             personalGroupName,
                             fullName,
-                            translitName,
                             shortName,
+                            translitName,
                             brandId,
                             countryFrom,
                             countryMade,
@@ -288,9 +297,19 @@ public class ProductDaoImpl implements ProductDao {
         return keyHolder.getKey().intValue();
     }
 
+    @Override
+    public int[] batchUpdateProducts(Object[] categories) {
+        LOGGER.debug("batchUpdateProducts() >>>");
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
+        return namedParameterJdbcTemplate.batchUpdate(updateProductsSqlQuery, batch);
+    }
 
-
-
+    @Override
+    public int[] batchUpdateProductsCatalogRef(Object[] categories) {
+        LOGGER.debug("batchUpdateProductsCatalogRef() >>>");
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
+        return namedParameterJdbcTemplate.batchUpdate(updateProductsCatalogRefSqlQuery, batch);
+    }
 
     private class ProductsResultSetExtractor implements ResultSetExtractor {
 

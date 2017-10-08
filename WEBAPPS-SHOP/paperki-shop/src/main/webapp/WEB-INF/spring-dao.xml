@@ -6,11 +6,6 @@
 
     <import resource="classpath*:spring-config-db.xml" />
 
-    <!--<jdbc:initialize-database data-source="dataSource">
-        <jdbc:script location="classpath*:mysql-create-tables.sql"/>
-        <jdbc:script location="classpath*:data-script.sql"/>
-    </jdbc:initialize-database>-->
-
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
@@ -35,5 +30,6 @@
     <bean id="deliveryDao" class="com.kushnir.paperki.dao.DeliveryDaoImpl" />
     <bean id="paymentDao" class="com.kushnir.paperki.dao.PaymentDaoImpl" />
     <bean id="orderDao" class="com.kushnir.paperki.dao.OrderDaoImpl" />
+    <bean id="brandDao" class="com.kushnir.paperki.dao.BrandDaoImpl" />
 
 </beans>

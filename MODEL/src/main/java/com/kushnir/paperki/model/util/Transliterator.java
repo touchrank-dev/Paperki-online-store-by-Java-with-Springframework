@@ -41,13 +41,13 @@ public class Transliterator {
             case 'ю': return "ju";
             case 'я': return "ja";
             case ' ': return "-";
-            /*case ',': return "";
+            case ',': return "";
             case '.': return "";
             case '"': return "";
             case '\'': return "";
             case '\\': return "";
             case '|' : return "";
-            case '/' : return "";*/
+            case '/' : return "";
             case '0': return "0";
             case '1': return "1";
             case '2': return "2";
@@ -58,7 +58,7 @@ public class Transliterator {
             case '7': return "7";
             case '8': return "8";
             case '9': return "9";
-            default: return "";
+            default: return String.valueOf(ch);
         }
     }
 
