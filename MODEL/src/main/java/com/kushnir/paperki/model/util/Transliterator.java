@@ -1,4 +1,4 @@
-package com.kushnir.paperki.service.util;
+package com.kushnir.paperki.model.util;
 
 import org.springframework.util.Assert;
 

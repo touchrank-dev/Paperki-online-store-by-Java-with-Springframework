@@ -2,6 +2,7 @@ package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.Category;
 import com.kushnir.paperki.model.category.CategoryContainer;
+import com.kushnir.paperki.model.category.CategorySimple;
 import org.springframework.dao.DataAccessException;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.List;
 public interface CatalogDao {
 
     HashMap<Integer, HashMap<Integer, Category>> getAll();
+    HashMap<Integer, CategorySimple> getAllChildrenWithPapIdKey();
     Category getCategoryByTName(String categoryTName);
     int[] addCategories(Object[] categories);
     int[] addCategoriesRef(Object[] categories);

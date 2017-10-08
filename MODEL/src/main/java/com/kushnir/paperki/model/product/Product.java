@@ -3,6 +3,7 @@ package com.kushnir.paperki.model.product;
 import com.kushnir.paperki.model.Brand;
 import com.kushnir.paperki.model.Discount;
 import com.kushnir.paperki.model.Price;
+import com.kushnir.paperki.model.category.CategorySimple;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +24,13 @@ public class Product {
     private Integer availableDay;
     private Integer quantity;
 
+    private Brand brand;
+    private CategorySimple category;
+
+    private ArrayList<Attribute> attributes;
+    private HashMap<Integer, Price> prices;
+    private Discount discount;
+
     private double basePrice;
     private double basePriceWithVAT;
     private double finalPrice;
@@ -36,12 +44,8 @@ public class Product {
     private LocalDateTime editDate;
     private Boolean isPublished;
     private Boolean isVisible;
-    private Brand brand;
     private String shortDescription;
     private String fullDescription;
-    private ArrayList<Attribute> attributes;
-    private HashMap<Integer, Price> prices;
-    private Discount discount;
 
     public Product() {
     }
@@ -236,6 +240,46 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public CategorySimple getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategorySimple category) {
+        this.category = category;
+    }
+
+    public ArrayList<Attribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(ArrayList<Attribute> attributes) {
+        this.attributes = attributes;
+    }
+
+    public HashMap<Integer, Price> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(HashMap<Integer, Price> prices) {
+        this.prices = prices;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
     public double getBasePrice() {
         return basePrice;
     }
@@ -316,12 +360,12 @@ public class Product {
         this.editDate = editDate;
     }
 
-    public Boolean getPublishet() {
+    public Boolean getPublished() {
         return isPublished;
     }
 
-    public void setPublishet(Boolean publishet) {
-        isPublished = publishet;
+    public void setPublished(Boolean published) {
+        isPublished = published;
     }
 
     public Boolean getVisible() {
@@ -330,14 +374,6 @@ public class Product {
 
     public void setVisible(Boolean visible) {
         isVisible = visible;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
     }
 
     public String getShortDescription() {
@@ -354,30 +390,6 @@ public class Product {
 
     public void setFullDescription(String fullDescription) {
         this.fullDescription = fullDescription;
-    }
-
-    public ArrayList<Attribute> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(ArrayList<Attribute> attributes) {
-        this.attributes = attributes;
-    }
-
-    public HashMap<Integer, Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(HashMap<Integer, Price> prices) {
-        this.prices = prices;
-    }
-
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
     }
 
     @Override
@@ -406,6 +418,11 @@ public class Product {
         if (availableDay != null ? !availableDay.equals(product.availableDay) : product.availableDay != null)
             return false;
         if (quantity != null ? !quantity.equals(product.quantity) : product.quantity != null) return false;
+        if (brand != null ? !brand.equals(product.brand) : product.brand != null) return false;
+        if (category != null ? !category.equals(product.category) : product.category != null) return false;
+        if (attributes != null ? !attributes.equals(product.attributes) : product.attributes != null) return false;
+        if (prices != null ? !prices.equals(product.prices) : product.prices != null) return false;
+        if (discount != null ? !discount.equals(product.discount) : product.discount != null) return false;
         if (VAT != null ? !VAT.equals(product.VAT) : product.VAT != null) return false;
         if (metadesk != null ? !metadesk.equals(product.metadesk) : product.metadesk != null) return false;
         if (metakey != null ? !metakey.equals(product.metakey) : product.metakey != null) return false;
@@ -414,14 +431,9 @@ public class Product {
         if (editDate != null ? !editDate.equals(product.editDate) : product.editDate != null) return false;
         if (isPublished != null ? !isPublished.equals(product.isPublished) : product.isPublished != null) return false;
         if (isVisible != null ? !isVisible.equals(product.isVisible) : product.isVisible != null) return false;
-        if (brand != null ? !brand.equals(product.brand) : product.brand != null) return false;
         if (shortDescription != null ? !shortDescription.equals(product.shortDescription) : product.shortDescription != null)
             return false;
-        if (fullDescription != null ? !fullDescription.equals(product.fullDescription) : product.fullDescription != null)
-            return false;
-        if (attributes != null ? !attributes.equals(product.attributes) : product.attributes != null) return false;
-        if (prices != null ? !prices.equals(product.prices) : product.prices != null) return false;
-        return discount != null ? discount.equals(product.discount) : product.discount == null;
+        return fullDescription != null ? fullDescription.equals(product.fullDescription) : product.fullDescription == null;
     }
 
     @Override
@@ -441,6 +453,11 @@ public class Product {
         result = 31 * result + (measure != null ? measure.hashCode() : 0);
         result = 31 * result + (availableDay != null ? availableDay.hashCode() : 0);
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+        result = 31 * result + (brand != null ? brand.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
+        result = 31 * result + (prices != null ? prices.hashCode() : 0);
+        result = 31 * result + (discount != null ? discount.hashCode() : 0);
         temp = Double.doubleToLongBits(basePrice);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(basePriceWithVAT);
@@ -457,12 +474,8 @@ public class Product {
         result = 31 * result + (editDate != null ? editDate.hashCode() : 0);
         result = 31 * result + (isPublished != null ? isPublished.hashCode() : 0);
         result = 31 * result + (isVisible != null ? isVisible.hashCode() : 0);
-        result = 31 * result + (brand != null ? brand.hashCode() : 0);
         result = 31 * result + (shortDescription != null ? shortDescription.hashCode() : 0);
         result = 31 * result + (fullDescription != null ? fullDescription.hashCode() : 0);
-        result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
-        result = 31 * result + (prices != null ? prices.hashCode() : 0);
-        result = 31 * result + (discount != null ? discount.hashCode() : 0);
         return result;
     }
 
@@ -482,6 +495,11 @@ public class Product {
                 ", measure='" + measure + '\'' +
                 ", availableDay=" + availableDay +
                 ", quantity=" + quantity +
+                ", brand=" + brand +
+                ", category=" + category +
+                ", attributes=" + attributes +
+                ", prices=" + prices +
+                ", discount=" + discount +
                 ", basePrice=" + basePrice +
                 ", basePriceWithVAT=" + basePriceWithVAT +
                 ", finalPrice=" + finalPrice +
@@ -494,12 +512,8 @@ public class Product {
                 ", editDate=" + editDate +
                 ", isPublished=" + isPublished +
                 ", isVisible=" + isVisible +
-                ", brand=" + brand +
                 ", shortDescription='" + shortDescription + '\'' +
                 ", fullDescription='" + fullDescription + '\'' +
-                ", attributes=" + attributes +
-                ", prices=" + prices +
-                ", discount=" + discount +
-                '}' + '\n';
+                '}';
     }
 }

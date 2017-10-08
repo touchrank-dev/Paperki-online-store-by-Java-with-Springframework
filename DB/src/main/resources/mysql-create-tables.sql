@@ -135,19 +135,19 @@ CREATE TABLE products (
     link                        VARCHAR(200)    UNIQUE,
     id_brand                    INT             ,
     country_from                VARCHAR(30)     ,
-    country_made                VARCHAR(30)     NOT NULL,
+    country_made                VARCHAR(30)     ,
     bar_code                    VARCHAR(30)     ,
     measure                     VARCHAR(10)     NOT NULL,
     available_day               INT             DEFAULT 0 NOT NULL,
     base_price                  DOUBLE          NOT NULL,
-    vat                         INT             DEFAULT 0 NOT NULL,
+    vat                         INT             NOT NULL,
     metadesk                    VARCHAR(400)    ,
     metakey                     VARCHAR(400)    ,
     customtitle                 VARCHAR(255)    ,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     is_published                TINYINT         DEFAULT 1,
-    is_visible                  TINYINT         DEFAULT 1,
+    is_visible                  TINYINT         DEFAULT 0,
     FOREIGN KEY (id_brand)                      REFERENCES brands(id_brand)
 );
 
@@ -187,7 +187,7 @@ CREATE TABLE product_feedback (
 CREATE TABLE product_catalog (
     id_product                  INT             NOT NULL,
     id_catalog                  INT             NOT NULL,
-    order_product               INT             NOT NULL,
+    order_product               INT             ,
     FOREIGN KEY (id_product)                    REFERENCES products(id_product),
     FOREIGN KEY (id_catalog)                    REFERENCES catalog(id_catalog),
     UNIQUE KEY `product_catalog` (id_product, id_catalog)

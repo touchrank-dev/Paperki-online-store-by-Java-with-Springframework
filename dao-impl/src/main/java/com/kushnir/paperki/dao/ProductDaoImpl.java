@@ -2,10 +2,9 @@ package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.*;
 import com.kushnir.paperki.model.calculation.PriceCalculator;
-import com.kushnir.paperki.model.product.Attribute;
-import com.kushnir.paperki.model.product.AvailableProduct;
-import com.kushnir.paperki.model.product.CSVProduct;
-import com.kushnir.paperki.model.product.Product;
+import com.kushnir.paperki.model.category.CategorySimple;
+import com.kushnir.paperki.model.product.*;
+import com.kushnir.paperki.model.util.Transliterator;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -15,11 +14,13 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -33,12 +34,33 @@ public class ProductDaoImpl implements ProductDao {
 
     private static final Logger LOGGER = LogManager.getLogger(ProductDaoImpl.class);
 
+    private static final String P_ID = "p_id";
+    private static final String P_PAP_ID = "p_pap_id";
     private static final String P_PNT = "p_pnt";
+    private static final String P_PERSONAL_GROUP_NAME = "p_personal_group_name";
+    private static final String P_FULL_NAME = "p_full_name";
+    private static final String P_SHORT_NAME = "p_short_name";
     private static final String P_PRODUCT_T_NAME = "p_product_t_name";
     private static final String P_CATEGORY_T_NAME = "p_category_t_name";
+    private static final String P_LINK = "p_link";
+    private static final String P_BRAND_ID = "p_id_brand";
+    private static final String P_COUNTRY_FROM = "p_country_from";
+    private static final String P_COUNTRY_MADE = "p_country_made";
+    private static final String P_BAR_CODE = "p_bar_code";
+    private static final String P_MEASURE = "p_measure";
+    private static final String P_AVAILABLE_DAY = "p_available_day";
+    private static final String P_BASE_PRICE = "p_base_price";
+    private static final String P_VAT = "p_vat";
+
+    private static final String P_CATEGORY_ID = "p_id_catalog";
+    private static final String P_ORDER = "p_order";
+
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     private PriceCalculator priceCalculator;
@@ -58,6 +80,9 @@ public class ProductDaoImpl implements ProductDao {
 
 
     /*SQL Scripts*/
+    @Value("${product.getAll}")
+    private String getAllSqlQuery;
+
     @Value("${product.getByPNT}")
     private String getByPNTSqlQuery;
 
@@ -73,6 +98,22 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${product.getAttributesByProductPNT}")
     private String getAttributesByPNTSqlQuery;
 
+    @Value("${product.unpublish}")
+    private String unpublishSqlQuery;
+
+    @Value("${product.add}")
+    private String addProductSqlQuery;
+
+    @Value("${product.addCatRef}")
+    private String addProductCatalogRefSqlQuery;
+
+    @Override
+    public HashMap<Integer, ProductSimple> getAll() {
+        LOGGER.debug("getAll() >>>");
+        HashMap<Integer, ProductSimple> products =
+                namedParameterJdbcTemplate.query(getAllSqlQuery, new AllProductResultSetExtractor());
+        return products;
+    }
 
     @Override
     public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) throws DataAccessException {
@@ -122,17 +163,13 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public ArrayList<Attribute> getAttributesByPNT(Integer pnt) throws DataAccessException {
         LOGGER.debug("getAttributesByPNT({}) >>>", pnt);
-        try {
-            MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_PNT, pnt);
-            ArrayList<Attribute> attributes = (ArrayList<Attribute>)
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_PNT, pnt);
+        ArrayList<Attribute> attributes = (ArrayList<Attribute>)
                     namedParameterJdbcTemplate.query(
                             getAttributesByPNTSqlQuery,
                             parameterSource,
                             new AttributeRowMapper());
-            return attributes;
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+        return attributes;
     }
 
     @Override
@@ -150,12 +187,14 @@ public class ProductDaoImpl implements ProductDao {
                             .withEscape(escape)
                             .withFirstRecordAsHeader()
                             .parse(new FileReader(file));
+
             for (CSVRecord record : records) {
                 try {
                     Integer pnt =                   Integer.parseInt(record.get(0));
                     Integer groupPapId =            Integer.parseInt(record.get(1));
                     String personalGroupName =      record.get(2);
                     String fullName =               record.get(3);
+                    String translitName =           Transliterator.cyr2lat(pnt+" "+fullName);
                     String shortName =              record.get(4);
                     Integer brandId =               Integer.parseInt(record.get(5));
                     String countryFrom =            record.get(6);
@@ -171,6 +210,7 @@ public class ProductDaoImpl implements ProductDao {
                             groupPapId,
                             personalGroupName,
                             fullName,
+                            translitName,
                             shortName,
                             brandId,
                             countryFrom,
@@ -181,6 +221,8 @@ public class ProductDaoImpl implements ProductDao {
                             basePrice,
                             VAT
                     );
+
+                    csvProduct.setOrder(100);
 
                     products.put(pnt, csvProduct);
 
@@ -200,6 +242,54 @@ public class ProductDaoImpl implements ProductDao {
         LOGGER.debug(">>> FINISH");
         return products;
     }
+
+    @Override
+    public void unpublishAllProducts() {
+        LOGGER.debug("unpublishAllProducts() >>>");
+        int count = jdbcTemplate.update(unpublishSqlQuery);
+    }
+
+    @Override
+    public int addProduct(CSVProduct product) {
+        LOGGER.debug("addProduct() >>>");
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+
+        parameterSource.addValue(P_PNT, product.getPnt());
+        parameterSource.addValue(P_PERSONAL_GROUP_NAME, product.getPersonalGroupName());
+        parameterSource.addValue(P_FULL_NAME, product.getFullName());
+        parameterSource.addValue(P_SHORT_NAME, product.getShortName());
+        parameterSource.addValue(P_PRODUCT_T_NAME, product.getTranslitName());
+        parameterSource.addValue(P_LINK, product.getLink());
+        parameterSource.addValue(P_BRAND_ID, product.getBrandId());
+        parameterSource.addValue(P_COUNTRY_FROM, product.getCountryFrom());
+        parameterSource.addValue(P_COUNTRY_MADE, product.getCountryMade());
+        parameterSource.addValue(P_BAR_CODE, product.getBarCode());
+        parameterSource.addValue(P_MEASURE, product.getMeasure());
+        parameterSource.addValue(P_AVAILABLE_DAY, product.getAvailableDay());
+        parameterSource.addValue(P_BASE_PRICE, product.getBasePrice());
+        parameterSource.addValue(P_VAT, product.getVAT());
+
+        namedParameterJdbcTemplate.update(addProductSqlQuery, parameterSource, keyHolder);
+        return keyHolder.getKey().intValue();
+    }
+
+    @Override
+    public int addProductCatalogRef(CSVProduct product) {
+        LOGGER.debug("addProductCatalogRef() >>>");
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+
+        parameterSource.addValue(P_ID, product.getId());
+        parameterSource.addValue(P_CATEGORY_ID, product.getCategoryId());
+        parameterSource.addValue(P_ORDER, product.getOrder());
+
+        namedParameterJdbcTemplate.update(addProductCatalogRefSqlQuery, parameterSource, keyHolder);
+        return keyHolder.getKey().intValue();
+    }
+
+
+
 
 
     private class ProductsResultSetExtractor implements ResultSetExtractor {
@@ -452,6 +542,43 @@ public class ProductDaoImpl implements ProductDao {
                 }
             }
             return availableProduct;
+        }
+    }
+
+    private class AllProductResultSetExtractor implements ResultSetExtractor<HashMap<Integer, ProductSimple>> {
+
+        @Override
+        public HashMap<Integer, ProductSimple> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            HashMap<Integer, ProductSimple> products = new HashMap<>();
+
+            while(rs.next()) {
+                Integer id =                    rs.getInt("id_product");
+                Integer papId =                 rs.getInt("pap_id");
+                Integer pnt =                   rs.getInt("pnt");
+                String translitName =           rs.getString("translit_name");
+
+                Integer catalogId =             rs.getInt("id_catalog");
+                Integer catalogPapID =          rs.getInt("catpapid");
+                String catalogTranslitName =    rs.getString("cattransname");
+
+                CategorySimple categorySimple = new CategorySimple(
+                        catalogId,
+                        catalogPapID,
+                        catalogTranslitName
+                );
+
+                ProductSimple product = new ProductSimple(
+                        id,
+                        papId,
+                        pnt,
+                        translitName,
+                        categorySimple
+                );
+
+                products.put(pnt, product);
+            }
+
+            return products;
         }
     }
 

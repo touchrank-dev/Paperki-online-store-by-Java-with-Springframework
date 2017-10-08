@@ -3,10 +3,11 @@ package com.kushnir.paperki.service;
 import com.kushnir.paperki.dao.CatalogDao;
 import com.kushnir.paperki.model.Category;
 import com.kushnir.paperki.model.category.CategoryContainer;
+import com.kushnir.paperki.model.category.CategorySimple;
 import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
-import com.kushnir.paperki.service.util.Transliterator;
+import com.kushnir.paperki.model.util.Transliterator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,7 +40,6 @@ public class CatalogBeanImpl implements CatalogBean {
     String catalogURL;
 
     @Override
-    @Transactional
     public HashMap<Integer, HashMap<Integer, Category>> getAll() throws ServiceException {
         try {
             HashMap categories = catalogDao.getAll();
@@ -50,8 +50,13 @@ public class CatalogBeanImpl implements CatalogBean {
         }
     }
 
+    public HashMap<Integer, CategorySimple> getAllChildrenWithPapIdKey() {
+        LOGGER.debug("getAllChildrenWithPapIdKey() >>> ");
+        HashMap<Integer, CategorySimple> categories = catalogDao.getAllChildrenWithPapIdKey();
+        return categories;
+    }
+
     @Override
-    @Transactional
     public Category getCategoryByTName(String categoryTName) throws ServiceException {
         LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
         try {

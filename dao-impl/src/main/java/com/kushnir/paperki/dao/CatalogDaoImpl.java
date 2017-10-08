@@ -3,6 +3,7 @@ package com.kushnir.paperki.dao;
 import com.kushnir.paperki.model.Category;
 import com.kushnir.paperki.model.category.CategoryContainer;
 
+import com.kushnir.paperki.model.category.CategorySimple;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
@@ -65,6 +66,9 @@ public class CatalogDaoImpl implements CatalogDao {
     @Value("${catalog.getAll}")
     private String getAllSqlQuery;
 
+    @Value("${catalog.getAllChild}")
+    private String getAllChildSqlQuery;
+
     @Value("${catalog.getAllByStock}")
     private String getAllByStockSqlQuery;
 
@@ -89,14 +93,21 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     private HashMap<Integer, HashMap<Integer, Category>> getAllOld() throws DataAccessException {
-        HashMap<Integer, HashMap<Integer, Category>> map =
+        HashMap<Integer, HashMap<Integer, Category>> categories =
                 jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
-        return map;
+        return categories;
     }
 
     private HashMap<Integer, Category> getAllNew() {
         HashMap<Integer, Category> categories =
                 jdbcTemplate.query(getAllSqlQuery, new CategoriesResultSetExtractor());
+        return categories;
+    }
+
+    public HashMap<Integer, CategorySimple> getAllChildrenWithPapIdKey() {
+        LOGGER.debug("getAllChildrenWithPapIdKey() >>>");
+        HashMap<Integer, CategorySimple> categories =
+                jdbcTemplate.query(getAllChildSqlQuery, new CategoriesSimpleResultSetExtractor());
         return categories;
     }
 
@@ -133,6 +144,9 @@ public class CatalogDaoImpl implements CatalogDao {
                 try{
                     Integer papId =             Integer.parseInt(record.get(0));
                     String name =               record.get(1);
+                    // name to lower case
+                    name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+
                     String metadesc =           record.get(2);
                     String metakey =            record.get(3);
                     String customtitle =        record.get(4);
@@ -241,7 +255,9 @@ public class CatalogDaoImpl implements CatalogDao {
 
         @Override
         public CategoryContainer extractData(ResultSet rs) throws SQLException, DataAccessException {
+
             CategoryContainer container = new CategoryContainer();
+
             while (rs.next()) {
 
                 Integer papId =             rs.getInt("pap_id");
@@ -369,6 +385,29 @@ public class CatalogDaoImpl implements CatalogDao {
             }
 
             return parents;
+        }
+    }
+
+    private class CategoriesSimpleResultSetExtractor implements ResultSetExtractor<HashMap<Integer, CategorySimple>> {
+
+        @Override
+        public HashMap<Integer, CategorySimple> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            HashMap<Integer, CategorySimple> categories = new HashMap<>();
+            while (rs.next()) {
+                Integer id =            rs.getInt("id_catalog");
+                Integer papId =         rs.getInt("pap_id");;
+                String translitName =   rs.getString("translit_name");
+
+                if (id > 0 && papId > 0) {
+                    CategorySimple category = new CategorySimple(
+                            id,
+                            papId,
+                            translitName
+                    );
+                    categories.put(papId, category);
+                }
+            }
+            return categories;
         }
     }
 

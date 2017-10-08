@@ -9,6 +9,7 @@
 
     <!-- STATIC RESOURCES -->
     <mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />
+    <mvc:resources mapping="/favicon.ico" location="/WEB-INF/view/resources/img/favicons/favicon.ico" />
     <!--<mvc:resources mapping="/res/**" location="file:/home/paperki.by/view/resources/" />-->
 
     <bean id="templateResolver"
