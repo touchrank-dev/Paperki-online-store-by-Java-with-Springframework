@@ -115,7 +115,7 @@
                                                          th:attr="alt=${product?.value?.fullName}">
                                                     <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr"
                                                         th:case="${false}"
-                                                        th:attr="src=@{'/catimagesold/'+ ProductImages[__${product?.value?.pnt}__],alt=${product?.value?.fullName}">
+                                                        th:attr="src=@{'/catimagesold/'+ ${ProductImages[__${product?.value?.pnt}__]},alt=${product?.value?.fullName}">
                                                 </div>
                                             </p>
                                             <p class="desc-pr" th:text="${product?.value?.shortDescription}">
