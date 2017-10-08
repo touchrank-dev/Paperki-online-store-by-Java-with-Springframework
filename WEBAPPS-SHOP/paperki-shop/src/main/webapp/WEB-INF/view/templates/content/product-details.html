@@ -39,10 +39,19 @@
                     <div class="single-product-wrap-left">
                         <div class="single-product-pict-slider">
                             <div class="single-product-main-pict">
-                                <div>
+                                <div th:switch="${ProductImages[__${product?.pnt}__]} == null"
+                                     th:remove="tag">
+                                    <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
+                                         th:case="${true}"
+                                         th:attr="alt=${product?.fullName}">
+                                    <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr"
+                                         th:case="${false}"
+                                         th:attr="src=@{'/catimagesold/'+ ${ProductImages[__${product?.pnt}__]}},alt=${product?.fullName}">
+                                </div>
+                                <!--<div>
                                     <img src="/res/img/single-product-pict.png" alt="slide1"
                                          th:attr="src=@{${pip}+${product?.pnt}+${imgPref}},alt=${product?.fullName}">
-                                </div>
+                                </div>-->
                                 <!--<div>
                                     <img src="/res/img/single-product-pict.png" alt="slide1">
                                 </div>
@@ -59,10 +68,19 @@
                             <div class="single-product-pict-slider-thumbs">
                                 <ul class="single-product-pict-slider-thumbs-list">
                                     <li>
-                                        <div>
+                                        <div th:switch="${ProductImages[__${product?.pnt}__]} == null"
+                                             th:remove="tag">
+                                            <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
+                                                 th:case="${true}"
+                                                 th:attr="alt=${product?.fullName}">
+                                            <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr"
+                                                 th:case="${false}"
+                                                 th:attr="src=@{'/catimagesold/'+ ${ProductImages[__${product?.pnt}__]}},alt=${product?.fullName}">
+                                        </div>
+                                        <!--<div>
                                             <img src="/res/img/single-product-pict.png" alt="slide1"
                                                  th:attr="src=@{${pip}+${product?.pnt}+${imgPref}},alt=${product?.fullName}">
-                                        </div>
+                                        </div>-->
                                     </li>
                                     <!--<li>
                                         <div>
