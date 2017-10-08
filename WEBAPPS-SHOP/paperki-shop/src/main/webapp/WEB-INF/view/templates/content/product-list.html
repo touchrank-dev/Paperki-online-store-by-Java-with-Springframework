@@ -109,6 +109,7 @@
                                             </ul>
                                             <p class="al-ph">
                                                 <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr"
+
                                                     th:attr="src=@{${pip}+${product?.value?.pnt}+${imgPref}},alt=${product?.value?.fullName}">
                                             </p>
                                             <p class="desc-pr" th:text="${product?.value?.shortDescription}">
