@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @ControllerAdvice
@@ -74,13 +76,20 @@ public class SessionController {
     @ModelAttribute("ProductImages")
     public List<String> imageFinder() {
         List<String> results = new ArrayList<String>();
+        HashMap<Integer, ArrayList<String>> catImages = new HashMap<>();
         try {
             File[] files = new File("/home/paperki.by/www/images/catalog").listFiles();
-            //If this pathname does not denote a directory, then listFiles() returns null.
+
+            List<String> imgList = new ArrayList<>();
+            Collections.sort(imgList);
 
             for (File file : files) {
                 if (file.isFile()) {
-                    results.add(file.getName());
+                    String fileName = file.getName();
+                    String imgName = fileName.replaceFirst("0", "");
+                    String pnt = imgName.replaceAll(".jpg", "");
+
+                    results.add(fileName+" === "+imgName+" === "+pnt);
                 }
             }
         } catch (Exception e) {
