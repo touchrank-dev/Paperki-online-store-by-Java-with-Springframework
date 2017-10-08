@@ -105,7 +105,6 @@ public class SessionController {
         } catch (Exception e) {
             return null;
         }
-        LOGGER.debug("IMG: {}", catImages);
         return catImages;
     }
 

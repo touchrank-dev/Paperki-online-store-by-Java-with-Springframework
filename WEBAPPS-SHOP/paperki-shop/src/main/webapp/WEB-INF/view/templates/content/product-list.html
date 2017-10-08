@@ -108,7 +108,7 @@
                                                 </li>
                                             </ul>
                                             <p class="al-ph">
-                                                <div th:sqitch="${ProductImages[__${product?.value?.pnt}__]} == null"
+                                                <div th:switch="${ProductImages[__${product?.value?.pnt}__]} == null"
                                                      th:remove="tag">
                                                     <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
                                                          th:case="${true}"
