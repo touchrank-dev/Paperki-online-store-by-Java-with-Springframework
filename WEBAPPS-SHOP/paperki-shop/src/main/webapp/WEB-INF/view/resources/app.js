@@ -44,7 +44,8 @@ function deleteFromCart(pnt) {
             if(response.code == "OK") {
                 console.log(response);
                 mapCart(response.object);
-                alert("Товар под кодом("+pnt+") успено удален из корзины!");
+                location.reload();
+                // alert("Товар под кодом("+pnt+") успено удален из корзины!");
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
                 alert("Не удалось удалить из корзины товар под кодом("+pnt+")");
                 console.log(response.message);
