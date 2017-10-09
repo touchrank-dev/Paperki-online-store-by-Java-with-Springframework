@@ -151,7 +151,7 @@
                                                                 th:remove="tag">
                                                             <img src="/catimagesold/noimage.jpg" alt="" style="max-width: 110px;"
                                                                  th:case="${true}"
-                                                                 th:attr="alt=${product?.fullName}">
+                                                                 th:attr="alt=${item.value.fullName}">
                                                             <img src="/res/img/product1.png" alt="Изображение товара" style="max-width: 110px;"
                                                                  th:case="${false}"
                                                                  th:attr="src=@{'/catimagesold/'+ ${ProductImages[__${item.value.pnt}__]}},alt=${item.value.fullName}">
