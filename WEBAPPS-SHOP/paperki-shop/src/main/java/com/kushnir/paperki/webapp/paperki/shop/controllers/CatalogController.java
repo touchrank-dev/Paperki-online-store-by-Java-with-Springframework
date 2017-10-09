@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -44,14 +45,23 @@ public class CatalogController {
     }
 
     @GetMapping("/{catalogItemTranslitName}")
-    public String catalogItemPage(@PathVariable String catalogItemTranslitName, Model model) throws ServiceException {
+    public String catalogItemPage(@PathVariable String catalogItemTranslitName,
+                                  HttpSession session, Model model) throws ServiceException {
         LOGGER.debug("catalogItemPage() >>>");
+
+        Integer type = (Integer)session.getAttribute("catview");
+
         HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalogItemTranslitName);
         Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
         model.addAttribute("products", products);
         model.addAttribute("category", category);
-        model.addAttribute("templatePathName", contentPath + "product-list");
-        model.addAttribute("fragmentName", "product-list");
+        if (type == null || type == 1) {
+            model.addAttribute("templatePathName", contentPath + "product-list");
+            model.addAttribute("fragmentName", "product-list");
+        } else if (type == 2) {
+            model.addAttribute("templatePathName", contentPath + "product-list-row");
+            model.addAttribute("fragmentName", "product-list-row");
+        }
         return "index";
     }
 
@@ -78,5 +88,13 @@ public class CatalogController {
     public HashMap getCatalog () throws ServiceException {
         return catalogBean.getAll();
     }
+
+    @ModelAttribute("catview")
+    public Integer viewType(HttpSession session) {
+        Integer type = (Integer)session.getAttribute("catview");
+        if (type == null) type = 1;
+        return type;
+    }
+
 
 }

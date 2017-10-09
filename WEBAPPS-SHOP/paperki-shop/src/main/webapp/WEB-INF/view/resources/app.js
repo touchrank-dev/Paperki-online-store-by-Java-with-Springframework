@@ -791,3 +791,26 @@ function mapErrorOrderForm(form) {
 
 	}
 }
+
+
+
+/*===================================================================================*/
+
+
+function seViewType(type) {
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/viewtype",
+        data: JSON.stringify({"type":type}),
+        success: function(response){
+            location.reload();
+        },
+        error: function () {
+            location.reload();
+        }
+    });
+}

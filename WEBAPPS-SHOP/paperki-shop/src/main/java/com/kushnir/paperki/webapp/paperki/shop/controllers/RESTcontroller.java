@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 
 @CrossOrigin
 @RestController
@@ -219,6 +220,18 @@ public class RESTcontroller {
             mailer.toSupportMail(restMessage.toString(), "ERROR REST FEEDBACK");
             return restMessage;
         }
+    }
+
+    //curl -v [host]:8080/api/viewtype
+    @PostMapping("/viewtype")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage setViewType(@RequestBody HashMap<String, Integer> type, HttpSession session) {
+        LOGGER.debug("{} Rest api setViewType({}) >>>", host, type);
+
+        session.setAttribute("catview", type.get("type"));
+
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "");
+        return restMessage;
     }
 
 }

@@ -39,7 +39,8 @@
                     <div class="single-product-wrap-left">
                         <div class="single-product-pict-slider">
                             <div class="single-product-main-pict">
-                                <div th:switch="${ProductImages[__${product?.pnt}__]} == null"
+                                <div    th:if="${ProductImages} != null"
+                                        th:switch="${ProductImages[__${product?.pnt}__]} == null"
                                      th:remove="tag">
                                     <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
                                          th:case="${true}"
@@ -68,7 +69,8 @@
                             <div class="single-product-pict-slider-thumbs">
                                 <ul class="single-product-pict-slider-thumbs-list">
                                     <li>
-                                        <div th:switch="${ProductImages[__${product?.pnt}__]} == null"
+                                        <div    th:if="${ProductImages} != null"
+                                                th:switch="${ProductImages[__${product?.pnt}__]} == null"
                                              th:remove="tag">
                                             <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
                                                  th:case="${true}"
