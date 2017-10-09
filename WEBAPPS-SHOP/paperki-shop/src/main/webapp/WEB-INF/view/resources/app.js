@@ -629,6 +629,7 @@ function orderFormToJSON() {
             "email":            $('#order-input-customer-email').val(),
             "phone":            $('#order-input-customer-phone').val(),
             "shipment_id":      $('#customer-shipment-chosen input[type=radio]:checked').val(),
+            "shipment_address": $('#order-input-customer-address-value').val(),
             "payment_id":       $('#customer-payment-chosen input[type=radio]:checked').val(),
             "comments":         $('#order-customer-comment').val()
         });
@@ -641,6 +642,7 @@ function orderFormToJSON() {
             "unp":              $('#order-input-enterprise-unp').val(),
             "address":          $('#order-input-enterprise-address').val(),
             "shipment_id":      $('#enterprise-shipment-chosen input[type=radio]:checked').val(),
+            "shipment_address": $('#order-input-enterprise-address-value').val(),
             "payment_id":       $('#enterprise-payment-chosen input[type=radio]:checked').val(),
             "comments":         $('#order-enterprise-comment').val()
 
@@ -707,6 +709,84 @@ function mapErrorOrderForm(form) {
 		document.location.href = '#customer-tab';
 		
 	} else if($('#order-type-switcher').val() == 2) {
+        if (form.name != null) {
+            $('#order-input-enterprise-name').addClass("input_error");
+            $('#order-label-enterprise-name').addClass('label_error');
+            $('#order-label-enterprise-name').attr("title", form.name)
+                                             .tooltip('fixTitle')
+                                             .tooltip("show");
+        } else {
+            $('#order-input-enterprise-name').removeClass("input_error");
+            $('#order-label-enterprise-name').removeClass('label_error');
+            $('#order-label-enterprise-name').tooltip("hide");
+        }
+
+        if (form.email != null) {
+            $('#order-input-enterprise-email').addClass("input_error");
+            $('#order-label-enterprise-email').addClass('label_error');
+            $('#order-label-enterprise-email').attr("title", form.email)
+                                              .tooltip('fixTitle')
+                                              .tooltip("show");
+        } else {
+            $('#order-input-enterprise-email').removeClass("input_error");
+            $('#order-label-enterprise-email').removeClass('label_error');
+            $('#order-label-enterprise-email').tooltip("hide");
+        }
+
+        if (form.phone != null) {
+            $('#order-input-enterprise-phone').addClass("input_error");
+            $('#order-label-enterprise-phone').addClass('label_error');
+            $('#order-label-enterprise-phone').attr("title", form.phone)
+                                              .tooltip('fixTitle')
+                                              .tooltip("show");
+        } else {
+            $('#order-input-enterprise-phone').removeClass("input_error");
+            $('#order-label-enterprise-phone').removeClass('label_error');
+            $('#order-label-enterprise-phone').tooltip("hide");
+        }
+
+        if (form.unp != null) {
+            $('#order-input-enterprise-unp').addClass("input_error");
+            $('#order-label-enterprise-unp').addClass('label_error');
+            $('#order-label-enterprise-unp').attr("title", form.unp)
+                                            .tooltip('fixTitle')
+                                            .tooltip("show");
+        } else {
+            $('#order-input-enterprise-unp').removeClass("input_error");
+            $('#order-label-enterprise-unp').removeClass('label_error');
+            $('#order-label-enterprise-unp').tooltip("hide");
+        }
+
+        if (form.address != null) {
+            $('#order-input-enterprise-address').addClass("input_error");
+            $('#order-label-enterprise-address').addClass('label_error');
+            $('#order-label-enterprise-address').attr("title", form.address)
+                                                .tooltip('fixTitle')
+                                                .tooltip("show");
+        } else {
+            $('#order-input-enterprise-address').removeClass("input_error");
+            $('#order-label-enterprise-address').removeClass('label_error');
+            $('#order-label-enterprise-address').tooltip("hide");
+        }
+
+        if (form.shipment != null) {
+            $('#enterprise-shipment-chosen').attr("title", form.shipment)
+                                            .tooltip('fixTitle')
+                                            .tooltip("show");
+        } else {
+            $('#enterprise-shipment-chosen').tooltip("hide");
+        }
+
+        if (form.payment != null) {
+            $('#enterprise-payment-chosen').attr("title", form.payment)
+                                           .tooltip('fixTitle')
+                                           .tooltip("show");
+        } else {
+            $('#enterprise-payment-chosen').tooltip("hide");
+        }
+
+
+        document.location.href = '#enterprise-tab';
 
 	}
 }

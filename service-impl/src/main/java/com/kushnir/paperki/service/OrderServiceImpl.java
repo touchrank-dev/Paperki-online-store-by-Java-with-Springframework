@@ -90,6 +90,7 @@ public class OrderServiceImpl implements OrderService {
                         String email = orderForm.get("email");
                         String phone = orderForm.get("phone");
                         String shipment = orderForm.get("shipment_id");
+                        String shipmentAddress = orderForm.get("shipment_address");
                         String payment = orderForm.get("payment_id");
 
                         try {
@@ -118,6 +119,10 @@ public class OrderServiceImpl implements OrderService {
                             Assert.notNull(shipment, "Пожалуйста, укажите способ получения заказа");
                             Assert.hasText(shipment, "Пожалуйста, укажите способ получения заказа");
                             int shipmentId = Integer.parseInt(shipment);
+                            if (shipmentId > 1) {
+                                Assert.notNull(shipmentAddress, "Пожалуйста, укажите адрес доставки");
+                                Assert.hasText(shipmentAddress, "Пожалуйста, укажите адрес доставки");
+                            }
                         } catch (Exception e) {
                             orderErrorForm.setShipment(e.getMessage());
                         }
@@ -125,10 +130,10 @@ public class OrderServiceImpl implements OrderService {
                         try {
                             Assert.notNull(payment, "Пожалуйста, укажите способ оплаты заказа");
                             Assert.hasText(payment, "Пожалуйста, укажите способ оплаты заказа");
-                            int paymentId = Integer.parseInt(payment);
                         } catch (Exception e) {
                             orderErrorForm.setPayment(e.getMessage());
                         }
+
                     } else if(orderType == 2) {
                         String name = orderForm.get("enterprise-name");
                         String email = orderForm.get("email");
@@ -136,14 +141,65 @@ public class OrderServiceImpl implements OrderService {
                         String unp = orderForm.get("unp");
                         String address = orderForm.get("address");
                         String shipment = orderForm.get("shipment_id");
+                        String shipmentAddress = orderForm.get("shipment_address");
                         String payment = orderForm.get("payment_id");
 
-                        // TODO validate enterprise order
+                        try{
+                            Assert.notNull(name, "Пожалуйста, укажите название Вашей организации");
+                            Assert.hasText(name, "Пожалуйста, укажите название Вашей организации");
+                        } catch (Exception e) {
+                            orderErrorForm.setName(e.getMessage());
+                        }
 
+                        try {
+                            Assert.notNull(email, "Пожалуйста, укажите Ваш адрес электронной почты");
+                            Assert.hasText(email, "Пожалуйста, укажите Ваш адрес электронной почты");
+                            Assert.isTrue(validateEmail(email), "Введен некорректный адрес электронной почты");
+                        } catch (Exception e) {
+                            orderErrorForm.setEmail(e.getMessage());
+                        }
 
+                        try {
+                            Assert.notNull(phone, "Пожалуйста, укажите контактный номер телефона");
+                            Assert.hasText(phone, "Пожалуйста, укажите контактный номер телефона");
+                        } catch (Exception e) {
+                            orderErrorForm.setPhone(e.getMessage());
+                        }
 
+                        try {
+                            Assert.notNull(unp, "Пожалуйста, укажите УНП");
+                            Assert.hasText(unp, "Пожалуйста, укажите УНП");
+                            Assert.isTrue((unp.length() > 9) && (unp.length() < 9),
+                                    "УНП должно быть 9 знаков");
+                        } catch (Exception e) {
+                            orderErrorForm.setUnp(e.getMessage());
+                        }
 
+                        try {
+                            Assert.notNull(address, "Пожалуйста, укажите Юридический адрес организации");
+                            Assert.hasText(address, "Пожалуйста, укажите Юридический адрес организации");
+                        } catch (Exception e) {
+                            orderErrorForm.setAddress(e.getMessage());
+                        }
 
+                        try {
+                            Assert.notNull(shipment, "Пожалуйста, укажите способ получения заказа");
+                            Assert.hasText(shipment, "Пожалуйста, укажите способ получения заказа");
+                            int shipmentId = Integer.parseInt(shipment);
+                            if (shipmentId > 1) {
+                                Assert.notNull(shipmentAddress, "Пожалуйста, укажите адрес доставки");
+                                Assert.hasText(shipmentAddress, "Пожалуйста, укажите адрес доставки");
+                            }
+                        } catch (Exception e) {
+                            orderErrorForm.setShipment(e.getMessage());
+                        }
+
+                        try {
+                            Assert.notNull(payment, "Пожалуйста, укажите способ оплаты заказа");
+                            Assert.hasText(payment, "Пожалуйста, укажите способ оплаты заказа");
+                        } catch (Exception e) {
+                            orderErrorForm.setPayment(e.getMessage());
+                        }
 
                     } else orderErrorForm.setErrors("Тип заказа не определен");
 

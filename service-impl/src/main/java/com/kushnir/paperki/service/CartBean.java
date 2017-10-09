@@ -38,6 +38,7 @@ public class CartBean {
 
         int PNT = addProductRequest.getPnt();
         AvailableProduct availableProduct = productBean.getAvailableProductByPNT(PNT);
+        LOGGER.debug("availableProduct: {}", availableProduct);
         if(cart != null) {
             HashMap<Integer, CartProduct> items = cart.getItems();
             if(items != null) {

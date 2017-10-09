@@ -1,7 +1,5 @@
 package com.kushnir.paperki.model.order;
 
-import java.util.HashMap;
-
 public class OrderErrorForm {
 
     private String message;
@@ -11,6 +9,9 @@ public class OrderErrorForm {
     private String phone;
     private String shipment;
     private String payment;
+
+    private String unp;
+    private String address;
 
     private Boolean isErrors = false;
     public Boolean isErrors(){return this.isErrors;}
@@ -70,6 +71,24 @@ public class OrderErrorForm {
 
     public void setPayment(String payment) {
         this.payment = payment;
+        isErrors = true;
+    }
+
+    public String getUnp() {
+        return unp;
+    }
+
+    public void setUnp(String unp) {
+        this.unp = unp;
+        isErrors = true;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
         isErrors = true;
     }
 }
