@@ -31,8 +31,16 @@
                     </div>
                     <div class="cart-popup-product-choosen">
                         <div class="cart-popup-product-pict">
-                            <img src="/res/img/cart-prod-shadow.png" alt="Product"
-                            	th:attr="src=@{${pip}+${item.value.pnt}+${imgPref}},alt=${item.value.fullName}">
+                            <div    th:if="${ProductImages} != null"
+                                    th:switch="${ProductImages[__${product?.pnt}__]} == null"
+                                    th:remove="tag">
+                                <img src="/catimagesold/noimage.jpg" alt=""
+                                     th:case="${true}"
+                                     th:attr="alt=${product?.fullName}">
+                                <img src="/res/img/product1.png" alt="Изображение товара"
+                                     th:case="${false}"
+                                     th:attr="src=@{'/catimagesold/'+ ${ProductImages[__${item.value.pnt}__]}},alt=${item.value.fullName}">
+                            </div>
                         </div>
                         <div class="cart-popup-product-info">
                             <a href="#">
