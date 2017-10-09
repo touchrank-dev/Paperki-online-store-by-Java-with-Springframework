@@ -14,5 +14,5 @@ public interface ProductBean {
     AvailableProduct getAvailableProductByPNT(Integer pnt);
     ArrayList<Attribute> getAttributesByPNT(Integer pnt);
     String updateProducts();
-
+    String updateStock();
 }

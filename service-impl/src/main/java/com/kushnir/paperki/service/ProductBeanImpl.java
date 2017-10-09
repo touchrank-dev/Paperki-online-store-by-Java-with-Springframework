@@ -29,19 +29,22 @@ public class ProductBeanImpl implements ProductBean {
     private static final Logger LOGGER = LogManager.getLogger(ProductBeanImpl.class);
 
     @Autowired
-    ProductDao productDao;
+    private ProductDao productDao;
 
     @Autowired
-    CatalogBean catalogBean;
+    private CatalogBean catalogBean;
 
     @Autowired
-    BrandService brandService;
+    private BrandService brandService;
 
     @Autowired
-    Mailer mailer;
+    private Mailer mailer;
+
+    @Value("${catalog.sclad}")
+    private Integer idSclad;
 
     @Value("${catalog.url}")
-    String catalogURL;
+    private String catalogURL;
 
     @Override
     public HashMap<Integer, ProductSimple> getAll() {
@@ -147,8 +150,6 @@ public class ProductBeanImpl implements ProductBean {
                     // VALIDATE
                     validateProduct(csvProduct);
 
-                    LOGGER.debug("csvProduct: {}",csvProduct);
-
                     ProductSimple product = products.get(csvProduct.getPnt());
                     if (product != null) {
                         Integer id = product.getId();
@@ -183,6 +184,51 @@ public class ProductBeanImpl implements ProductBean {
         }
 
         mailer.toSupportMail(sb.toString(), "UPDATE PRODUCTS REPORT");
+        return sb.toString();
+    }
+
+    @Override
+    public String updateStock() {
+        StringBuilder sb = new StringBuilder();
+        List<StockItem> addItm = new ArrayList<>();
+
+        try {
+            productDao.clearStock(idSclad);
+
+            HashMap<Integer, ProductSimple> products = getAll();
+            Assert.notNull(products, "products = null");
+
+            HashMap<Integer, StockItem> items = productDao.getStockItemsFromCSV(sb);
+
+            for (Map.Entry<Integer, StockItem> entry : items.entrySet()) {
+                StockItem item = entry.getValue();
+                Integer pnt = item.getPnt();
+                ProductSimple product = products.get(pnt);
+
+                if(product != null) {
+                    Integer id = product.getId();
+                    Assert.notNull(id, "id = null");
+                    Assert.isTrue(id > 0, "id <= 0");
+
+                    item.setId(id);
+                    item.setIsStock(idSclad);
+
+                    addItm.add(item);
+                }
+            }
+
+            int addedCount = productDao.addItemsToStock(addItm.toArray()).length;
+
+            sb.append("ADDED IN STOCK ITEMS: ").append(addItm.size()).append("/")
+                    .append(addedCount).append('\n');
+
+            sb.append("========== UPDATE FINISHED ==========");
+        } catch (Exception e) {
+            sb.append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
+            LOGGER.error("UPDATE FINISHED WITH ERROR: {}, {}", e, e.getMessage());
+        }
+
+        mailer.toSupportMail(sb.toString(), "UPDATE STOCK REPORT");
         return sb.toString();
     }
 

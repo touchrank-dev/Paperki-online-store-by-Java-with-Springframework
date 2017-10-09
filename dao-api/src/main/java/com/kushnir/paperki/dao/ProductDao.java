@@ -16,7 +16,9 @@ public interface ProductDao {
     Product getProductByTName(String TName) throws DataAccessException;
     AvailableProduct getAvailableProductByPNT(Integer pnt) throws DataAccessException;
     ArrayList<Attribute> getAttributesByPNT(Integer pnt) throws DataAccessException;
+
     HashMap<Integer, CSVProduct> getProductsFromCSV(StringBuilder sb) throws IOException;
+    HashMap<Integer, StockItem> getStockItemsFromCSV(StringBuilder sb) throws IOException;
 
     void unpublishAllProducts();
     int addProduct(CSVProduct product);
@@ -24,4 +26,7 @@ public interface ProductDao {
 
     int[] batchUpdateProducts(Object[] categories);
     int[] batchUpdateProductsCatalogRef(Object[] categories);
+
+    void clearStock(Integer id);
+    int[] addItemsToStock(Object[] items);
 }

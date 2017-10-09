@@ -82,4 +82,16 @@ public class RESTUpdater {
         return restMessage;
     }
 
+    //curl -v [host]:8080/update/stock
+    @GetMapping("/stock")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage updateStock() throws IOException, ServiceException {
+        LOGGER.debug("{} Rest update updateStock() >>>", host);
+
+        String report = productBean.updateStock();
+
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "update Products" ,report);
+        return restMessage;
+    }
+
 }

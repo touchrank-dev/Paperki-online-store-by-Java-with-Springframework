@@ -81,6 +81,9 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${csv.file.products}")
     private String csvFileProducts;
 
+    @Value("${csv.file.stock}")
+    private String csvFileStockItems;
+
 
     /*SQL Scripts*/
     @Value("${product.getAll}")
@@ -103,6 +106,12 @@ public class ProductDaoImpl implements ProductDao {
 
     @Value("${product.unpublish}")
     private String unpublishSqlQuery;
+
+    @Value("${product.clearStock}")
+    private String clearStockSqlQuery;
+
+    @Value("${product.batch.addStockItem}")
+    private String addStockItemSqlQuery;
 
     @Value("${product.add}")
     private String addProductSqlQuery;
@@ -253,6 +262,52 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public HashMap<Integer, StockItem> getStockItemsFromCSV(StringBuilder sb) throws IOException {
+        String file = csvFilesPath + csvFileStockItems;
+        sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
+                .append(">>> PROGRESS ...").append('\n');
+        LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
+        HashMap<Integer, StockItem> items = new HashMap<>();
+
+        try {
+            Iterable<CSVRecord> records =
+                    CSVFormat
+                            .newFormat(delimiter)
+                            .withEscape(escape)
+                            .withFirstRecordAsHeader()
+                            .parse(new FileReader(file));
+            for (CSVRecord record : records) {
+                try {
+                    Integer pnt =                   Integer.parseInt(record.get(0));
+                    Integer quantityAvailable =     Integer.parseInt(record.get(1));
+
+                    StockItem stockItem = new StockItem(
+                            pnt,
+                            quantityAvailable
+                    );
+
+                    items.put(pnt, stockItem);
+
+                } catch (Exception e) {
+                    sb.append("ERROR >>> row: ").append(record.getRecordNumber())
+                            .append(", ").append(e.getMessage()).append('\n');
+                    LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
+                    continue;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            sb.append("ERROR >>> File (").append(file).append(") Not Found! >>> ").append(e.getMessage()).append('\n');
+            LOGGER.error("ERROR >>> File ({}) Not Found! >>> {}", file, e.getMessage());
+            return null;
+        }
+
+        sb.append(">>> FINISH").append('\n');
+        LOGGER.debug(">>> FINISH");
+        return items;
+    }
+
+    @Override
     public void unpublishAllProducts() {
         LOGGER.debug("unpublishAllProducts() >>>");
         int count = jdbcTemplate.update(unpublishSqlQuery);
@@ -310,6 +365,26 @@ public class ProductDaoImpl implements ProductDao {
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
         return namedParameterJdbcTemplate.batchUpdate(updateProductsCatalogRefSqlQuery, batch);
     }
+
+    @Override
+    public void clearStock(Integer id) {
+        LOGGER.debug("clearStock({}) >>>", id);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ID, id);
+        int count = namedParameterJdbcTemplate.update(clearStockSqlQuery, parameterSource);
+    }
+
+    @Override
+    public int[] addItemsToStock(Object[] items) {
+        LOGGER.debug("addItemsToStock() >>>");
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items);
+        return namedParameterJdbcTemplate.batchUpdate(addStockItemSqlQuery, batch);
+    }
+
+
+
+
+
+
 
     private class ProductsResultSetExtractor implements ResultSetExtractor {
 

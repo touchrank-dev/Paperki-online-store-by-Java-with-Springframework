@@ -169,8 +169,7 @@ public class OrderServiceImpl implements OrderService {
                         try {
                             Assert.notNull(unp, "Пожалуйста, укажите УНП");
                             Assert.hasText(unp, "Пожалуйста, укажите УНП");
-                            Assert.isTrue((unp.length() > 9) && (unp.length() < 9),
-                                    "УНП должно быть 9 знаков");
+                            Assert.isTrue((unp.length() == 9),"УНП должно быть 9 знаков");
                         } catch (Exception e) {
                             orderErrorForm.setUnp(e.getMessage());
                         }
