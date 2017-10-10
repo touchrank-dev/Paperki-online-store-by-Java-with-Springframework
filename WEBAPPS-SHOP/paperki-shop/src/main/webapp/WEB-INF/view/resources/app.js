@@ -804,7 +804,7 @@ function seViewType(type) {
         type: "POST",
         contentType: "application/json",
         dataType: "json",
-        url: "/api/viewtype",
+        url: "api/catalog/viewtype",
         data: JSON.stringify({"type":type}),
         success: function(response){
             location.reload();

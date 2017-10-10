@@ -221,16 +221,4 @@ public class RESTcontroller {
         }
     }
 
-    //curl -v [host]:8080/api/viewtype
-    @PostMapping("/viewtype")
-    @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage setViewType(@RequestBody HashMap<String, Integer> type, HttpSession session) {
-        LOGGER.debug("{} Rest api setViewType({}) >>>", host, type);
-
-        session.setAttribute("catview", type.get("type"));
-
-        RestMessage restMessage = new RestMessage(HttpStatus.OK, "");
-        return restMessage;
-    }
-
 }

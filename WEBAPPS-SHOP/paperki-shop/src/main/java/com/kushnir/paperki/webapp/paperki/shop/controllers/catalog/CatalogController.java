@@ -1,4 +1,4 @@
-package com.kushnir.paperki.webapp.paperki.shop.controllers;
+package com.kushnir.paperki.webapp.paperki.shop.controllers.catalog;
 
 import com.kushnir.paperki.model.Category;
 import com.kushnir.paperki.model.product.Product;
