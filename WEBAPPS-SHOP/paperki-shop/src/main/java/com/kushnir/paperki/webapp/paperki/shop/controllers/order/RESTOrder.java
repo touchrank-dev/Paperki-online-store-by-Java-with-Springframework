@@ -2,12 +2,10 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers.order;
 
 import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.RestMessage;
-import com.kushnir.paperki.model.User;
-import com.kushnir.paperki.model.order.Order;
+import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.OrderService;
 import com.kushnir.paperki.service.mail.Mailer;
 
-import com.kushnir.paperki.service.mail.HtmlMailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

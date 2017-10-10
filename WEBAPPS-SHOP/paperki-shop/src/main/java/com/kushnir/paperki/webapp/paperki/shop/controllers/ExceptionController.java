@@ -1,6 +1,6 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
-import com.kushnir.paperki.model.User;
+import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.mail.Mailer;
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 

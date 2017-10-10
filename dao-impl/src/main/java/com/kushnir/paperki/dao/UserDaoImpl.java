@@ -3,12 +3,11 @@ package com.kushnir.paperki.dao;
 import com.kushnir.paperki.model.BillingAccount;
 import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.RegistrateForm;
-import com.kushnir.paperki.model.User;
+import com.kushnir.paperki.model.user.User;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import org.h2.result.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;

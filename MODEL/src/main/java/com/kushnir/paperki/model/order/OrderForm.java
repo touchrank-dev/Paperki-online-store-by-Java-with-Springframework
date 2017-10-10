@@ -1,6 +1,6 @@
 package com.kushnir.paperki.model.order;
 
-import com.kushnir.paperki.model.User;
+import com.kushnir.paperki.model.user.User;
 
 public class OrderForm {
 

@@ -1,14 +1,12 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import com.kushnir.paperki.model.MenuItem;
-import com.kushnir.paperki.model.User;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
 
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 
-import com.kushnir.paperki.model.Cart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 

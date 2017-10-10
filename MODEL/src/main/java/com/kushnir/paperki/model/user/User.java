@@ -1,4 +1,4 @@
-package com.kushnir.paperki.model;
+package com.kushnir.paperki.model.user;
 
 import java.time.LocalDate;
 

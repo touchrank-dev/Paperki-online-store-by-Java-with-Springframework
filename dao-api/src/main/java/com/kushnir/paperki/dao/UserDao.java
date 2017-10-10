@@ -3,7 +3,7 @@ package com.kushnir.paperki.dao;
 import com.kushnir.paperki.model.BillingAccount;
 import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.RegistrateForm;
-import com.kushnir.paperki.model.User;
+import com.kushnir.paperki.model.user.User;
 
 public interface UserDao {
     User getUserByLoginPassword(String userName, String password);

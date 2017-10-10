@@ -1,7 +1,7 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import com.kushnir.paperki.model.Cart;
-import com.kushnir.paperki.model.User;
+import com.kushnir.paperki.model.user.User;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 @ControllerAdvice
 public class SessionController {

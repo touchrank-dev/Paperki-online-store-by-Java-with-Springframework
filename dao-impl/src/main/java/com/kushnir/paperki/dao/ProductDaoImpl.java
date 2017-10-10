@@ -24,7 +24,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.w3c.dom.Attr;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -338,7 +337,6 @@ public class ProductDaoImpl implements ProductDao {
                     String name =       StringEscapeUtils.unescapeHtml(record.get(1));
                     String value =      StringEscapeUtils.unescapeHtml(record.get(2));
                     Integer order =     Integer.parseInt(record.get(3));
-
 
                     Attribute attribute = new Attribute(
                             name,

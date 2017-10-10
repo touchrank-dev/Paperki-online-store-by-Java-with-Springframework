@@ -7,8 +7,8 @@ import com.kushnir.paperki.model.feedback.FeedbackErrorResponse;
 import com.kushnir.paperki.model.feedback.FeedbackRequest;
 import com.kushnir.paperki.model.subscribe.SubscribeErrorResponse;
 import com.kushnir.paperki.model.subscribe.SubscribeRequest;
+import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.*;
-import com.kushnir.paperki.service.exceptions.NotEnoughQuantityAvailableException;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
 
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.HashMap;
 
 @CrossOrigin

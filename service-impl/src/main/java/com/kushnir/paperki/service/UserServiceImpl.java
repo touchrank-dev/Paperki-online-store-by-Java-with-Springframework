@@ -3,6 +3,8 @@ package com.kushnir.paperki.service;
 import com.kushnir.paperki.dao.UserDao;
 import com.kushnir.paperki.model.*;
 
+import com.kushnir.paperki.model.user.User;
+import com.kushnir.paperki.model.user.UserType;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
