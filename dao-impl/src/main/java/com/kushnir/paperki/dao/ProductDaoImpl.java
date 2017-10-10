@@ -24,6 +24,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.w3c.dom.Attr;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -84,6 +85,9 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${csv.file.stock}")
     private String csvFileStockItems;
 
+    @Value("${csv.file.attributes}")
+    private String csvFileProductAttributes;
+
 
     /*SQL Scripts*/
     @Value("${product.getAll}")
@@ -101,8 +105,14 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${product.getAvailableProductByPNT}")
     private String getAvailableProductByPNTSqlQuery;
 
-    @Value("${product.getAttributesByProductPNT}")
+    @Value("${product.attributes.getByPNT}")
     private String getAttributesByPNTSqlQuery;
+
+    @Value("${product.attributes.deleteAll}")
+    private String deleteAllAttributesSqlQuery;
+
+    @Value("${product.attributes.batch.add}")
+    private String addAttributeSqlQuery;
 
     @Value("${product.unpublish}")
     private String unpublishSqlQuery;
@@ -210,7 +220,7 @@ public class ProductDaoImpl implements ProductDao {
                 try {
                     Integer pnt =                   Integer.parseInt(record.get(0));
                     Integer groupPapId =            Integer.parseInt(record.get(1));
-                    String personalGroupName =      record.get(2);
+                    String personalGroupName =      StringEscapeUtils.unescapeHtml(record.get(2));
                     String fullName =               StringEscapeUtils.unescapeHtml(record.get(3));
                     String translitName =           Transliterator.cyr2lat(pnt+" "+fullName);
                     String shortName =              StringEscapeUtils.unescapeHtml(record.get(4));
@@ -308,6 +318,58 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public ArrayList<Attribute> getAttributesFromCSV(StringBuilder sb) throws IOException {
+        String file = csvFilesPath + csvFileProductAttributes;
+        sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
+                .append(">>> PROGRESS ...").append('\n');
+        LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
+
+        ArrayList<Attribute> attributes = new ArrayList<>();
+        try {
+            Iterable<CSVRecord> records =
+                    CSVFormat
+                            .newFormat(delimiter)
+                            .withEscape(escape)
+                            .withFirstRecordAsHeader()
+                            .parse(new FileReader(file));
+            for (CSVRecord record : records) {
+                try {
+                    Integer pnt =       Integer.parseInt(record.get(0));
+                    String name =       StringEscapeUtils.unescapeHtml(record.get(1));
+                    String value =      StringEscapeUtils.unescapeHtml(record.get(2));
+                    Integer order =     Integer.parseInt(record.get(3));
+
+
+                    Attribute attribute = new Attribute(
+                            name,
+                            value ,
+                            order,
+                            pnt
+                    );
+
+                    attributes.add(attribute);
+
+                } catch (Exception e) {
+                    sb.append("ERROR >>> row: ").append(record.getRecordNumber())
+                            .append(", ").append(e.getMessage()).append('\n');
+                    LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
+                    continue;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            sb.append("ERROR >>> File (").append(file).append(") Not Found! >>> ").append(e.getMessage()).append('\n');
+            LOGGER.error("ERROR >>> File ({}) Not Found! >>> {}", file, e.getMessage());
+            return null;
+        }
+
+        sb.append(">>> FINISH").append('\n');
+        LOGGER.debug(">>> FINISH");
+        return attributes;
+    }
+
+
+    @Override
     public void unpublishAllProducts() {
         LOGGER.debug("unpublishAllProducts() >>>");
         int count = jdbcTemplate.update(unpublishSqlQuery);
@@ -378,6 +440,19 @@ public class ProductDaoImpl implements ProductDao {
         LOGGER.debug("addItemsToStock() >>>");
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items);
         return namedParameterJdbcTemplate.batchUpdate(addStockItemSqlQuery, batch);
+    }
+
+    @Override
+    public void deleteAllAttributes() {
+        LOGGER.debug("deleteAllAttributes() >>>");
+        int count = jdbcTemplate.update(deleteAllAttributesSqlQuery);
+    }
+
+    @Override
+    public int[] batchAddAttributes(Object[] attributes) {
+        LOGGER.debug("batchAddAttributes() >>>");
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(attributes);
+        return namedParameterJdbcTemplate.batchUpdate(addAttributeSqlQuery, batch);
     }
 
 

@@ -2,12 +2,15 @@ package com.kushnir.paperki.model.product;
 
 public class Attribute {
     private Integer id;
+    private Integer pnt;
     private String name;
     private String value;
     private Integer order;
 
     public Attribute() {
     }
+
+
 
     public Attribute(String name, String value, Integer order) {
         this.name = name;
@@ -22,12 +25,36 @@ public class Attribute {
         this.order = order;
     }
 
+    public Attribute(String name, String value, Integer order, Integer pnt) {
+        this.pnt = pnt;
+        this.name = name;
+        this.value = value;
+        this.order = order;
+    }
+
+
+    public Attribute(Integer id, Integer pnt, String name, String value, Integer order) {
+        this.id = id;
+        this.pnt = pnt;
+        this.name = name;
+        this.value = value;
+        this.order = order;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getPnt() {
+        return pnt;
+    }
+
+    public void setPnt(Integer pnt) {
+        this.pnt = pnt;
     }
 
     public String getName() {
@@ -62,6 +89,7 @@ public class Attribute {
         Attribute attribute = (Attribute) o;
 
         if (id != null ? !id.equals(attribute.id) : attribute.id != null) return false;
+        if (pnt != null ? !pnt.equals(attribute.pnt) : attribute.pnt != null) return false;
         if (name != null ? !name.equals(attribute.name) : attribute.name != null) return false;
         if (value != null ? !value.equals(attribute.value) : attribute.value != null) return false;
         return order != null ? order.equals(attribute.order) : attribute.order == null;
@@ -70,6 +98,7 @@ public class Attribute {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (pnt != null ? pnt.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (value != null ? value.hashCode() : 0);
         result = 31 * result + (order != null ? order.hashCode() : 0);
@@ -80,6 +109,7 @@ public class Attribute {
     public String toString() {
         return "Attribute{" +
                 "id=" + id +
+                ", pnt=" + pnt +
                 ", name='" + name + '\'' +
                 ", value='" + value + '\'' +
                 ", order=" + order +

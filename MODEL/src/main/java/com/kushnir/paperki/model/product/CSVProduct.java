@@ -270,6 +270,7 @@ public class CSVProduct {
                 ", pnt=" + pnt +
                 ", papId=" + papId +
                 ", groupPapId=" + groupPapId +
+                ", categoryId=" + categoryId +
                 ", personalGroupName='" + personalGroupName + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", shortName='" + shortName + '\'' +
@@ -283,7 +284,6 @@ public class CSVProduct {
                 ", availableDay=" + availableDay +
                 ", basePrice=" + basePrice +
                 ", VAT=" + VAT +
-                ", categoryId=" + categoryId +
                 ", order=" + order +
                 '}';
     }

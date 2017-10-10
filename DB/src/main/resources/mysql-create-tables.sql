@@ -155,8 +155,8 @@ CREATE TABLE product_description (
     id_product_desc             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_product                  INT             NOT NULL UNIQUE,
     short_description           VARCHAR(2000)   ,
-    full_description            VARCHAR(7000)   ,
-    FOREIGN KEY (id_product)                    REFERENCES products(id_product)
+    full_description            VARCHAR(7000)   
+    -- FOREIGN KEY (id_product)                    REFERENCES products(id_product)
 );
 
 CREATE TABLE product_attributes (
@@ -164,8 +164,8 @@ CREATE TABLE product_attributes (
     pnt                         INT             NOT NULL,
     name                        VARCHAR(100)    NOT NULL,
     value                       VARCHAR(120)    ,
-    order_attr                  INT             NOT NULL,
-    FOREIGN KEY (pnt)                           REFERENCES products(pnt)
+    order_attr                  INT             NOT NULL
+    -- FOREIGN KEY (pnt)                           REFERENCES products(pnt)
 );
 
 CREATE TABLE product_feedback (
@@ -185,7 +185,7 @@ CREATE TABLE product_feedback (
 );
 
 CREATE TABLE product_catalog (
-    id_product                  INT             NOT NULL,
+    id_product                  INT             NOT NULL UNIQUE,
     id_catalog                  INT             NOT NULL,
     order_product               INT             DEFAULT 999,
     FOREIGN KEY (id_product)                    REFERENCES products(id_product),

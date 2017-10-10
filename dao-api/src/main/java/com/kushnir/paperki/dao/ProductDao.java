@@ -19,6 +19,7 @@ public interface ProductDao {
 
     HashMap<Integer, CSVProduct> getProductsFromCSV(StringBuilder sb) throws IOException;
     HashMap<Integer, StockItem> getStockItemsFromCSV(StringBuilder sb) throws IOException;
+    ArrayList<Attribute> getAttributesFromCSV(StringBuilder sb) throws IOException;
 
     void unpublishAllProducts();
     int addProduct(CSVProduct product);
@@ -29,4 +30,7 @@ public interface ProductDao {
 
     void clearStock(Integer id);
     int[] addItemsToStock(Object[] items);
+
+    void deleteAllAttributes();
+    int[] batchAddAttributes(Object[] attributes);
 }

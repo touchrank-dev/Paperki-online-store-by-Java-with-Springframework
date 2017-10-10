@@ -124,33 +124,51 @@ public class ProductBeanImpl implements ProductBean {
             for (Map.Entry<Integer, CSVProduct> entry : CSVProducts.entrySet()) {
                 try {
                     CSVProduct csvProduct = entry.getValue();
-                    // PAP_ID
-                    Integer papId = csvProduct.getGroupPapId();
-                    Assert.notNull(papId, "papId = null");
-                    Assert.isTrue(papId > 0, "papId <= 0");
+
+                    // pnt
+                    Integer csvPnt = csvProduct.getPnt();
+                    Assert.notNull(csvPnt, "csvPnt = null");
+                    Assert.isTrue(csvPnt > 0, "csvPnt <= 0");
 
                     // SET CATEGORY ID
-                    CategorySimple categorySimple = categories.get(papId);
-                    Assert.notNull(categorySimple, "Категория PapId: "+papId+
-                            ", для pnt: "+csvProduct.getPnt()+" не найдена");
-                    Assert.notNull(categorySimple.getId(), "Категория Id = null");
-                    Assert.isTrue(categorySimple.getId() > 0, "Категория Id <= 0");
-                    csvProduct.setCategoryId(categorySimple.getId());
+                    Integer groupPapIdPapId = csvProduct.getGroupPapId();
+                    Assert.notNull(groupPapIdPapId, "groupPapIdPapId = null");
+                    Assert.isTrue(groupPapIdPapId > 0, "groupPapIdPapId <= 0");
+
+                    CategorySimple categorySimple = categories.get(groupPapIdPapId);
+                    Assert.notNull(categorySimple, "Категория PapId: "+groupPapIdPapId+
+                            ", для pnt: "+csvPnt+" не найдена");
+                    Integer categoryId = categorySimple.getId();
+                    Assert.notNull(categoryId, "Категория Id = null");
+                    Assert.isTrue(categoryId > 0, "Категория Id <= 0");
+                    csvProduct.setCategoryId(categoryId);
+
                     // SET LINK
                     String catTranslitName = categorySimple.getTranslitName();
+                    String csvTranslitName = csvProduct.getTranslitName();
+                    Assert.notNull(csvTranslitName, "csvTranslitName = Null");
+                    Assert.hasText(csvTranslitName,"csvTranslitName пустое");
                     Assert.notNull(catTranslitName, "Имя категории = Null");
                     Assert.hasText(catTranslitName,"Имя категории пустое");
-                    csvProduct.setLink(catalogURL+catTranslitName+"/"+csvProduct.getTranslitName());
+                    csvProduct.setLink(catalogURL+catTranslitName+"/"+csvTranslitName);
+
                     // SET BRAND ID
-                    Brand brand = brands.get(csvProduct.getBrandId());
-                    Assert.notNull(brand, "Бренд papId("+csvProduct.getBrandId()+") не найден");
-                    Assert.notNull(brand.getId(), "Идентификатор бренда = null");
-                    Assert.isTrue(brand.getId() > 0, "Идентификатор бренда <= 0");
-                    csvProduct.setBrandId(brand.getId());
+                    Integer csvPapBrandId = csvProduct.getBrandId();
+                    Assert.notNull(csvPapBrandId, "csvPapBrandId = null");
+                    Assert.isTrue(csvPapBrandId > 0, "csvPapBrandId <= 0");
+
+                    Brand brand = brands.get(csvPapBrandId);
+                    Assert.notNull(brand, "Бренд papId("+csvPapBrandId+") не найден");
+
+                    Integer brandId = brand.getId();
+                    Assert.notNull(brandId, "Идентификатор бренда = null");
+                    Assert.isTrue(brandId > 0, "Идентификатор бренда <= 0");
+                    csvProduct.setBrandId(brandId);
+
                     // VALIDATE
                     validateProduct(csvProduct);
 
-                    ProductSimple product = products.get(csvProduct.getPnt());
+                    ProductSimple product = products.get(csvPnt);
                     if (product != null) {
                         Integer id = product.getId();
                         Assert.notNull(id, "Идентификатор продукта = null");
@@ -197,23 +215,31 @@ public class ProductBeanImpl implements ProductBean {
 
             HashMap<Integer, ProductSimple> products = getAll();
             Assert.notNull(products, "products = null");
+            Assert.isTrue(products.size() > 0, "products <= 0");
 
             HashMap<Integer, StockItem> items = productDao.getStockItemsFromCSV(sb);
+            Assert.notNull(items, "items = null");
+            Assert.isTrue(items.size() > 0, "items <= 0");
 
             for (Map.Entry<Integer, StockItem> entry : items.entrySet()) {
-                StockItem item = entry.getValue();
-                Integer pnt = item.getPnt();
-                ProductSimple product = products.get(pnt);
+                try {
+                    StockItem item = entry.getValue();
+                    Integer pnt = item.getPnt();
+                    ProductSimple product = products.get(pnt);
 
-                if(product != null) {
-                    Integer id = product.getId();
-                    Assert.notNull(id, "id = null");
-                    Assert.isTrue(id > 0, "id <= 0");
+                    if (product != null) {
+                        Integer id = product.getId();
+                        Assert.notNull(id, "id = null");
+                        Assert.isTrue(id > 0, "id <= 0");
 
-                    item.setId(id);
-                    item.setIsStock(idSclad);
+                        item.setId(id);
+                        item.setIsStock(idSclad);
 
-                    addItm.add(item);
+                        addItm.add(item);
+                    }
+                } catch (Exception e) {
+                    sb.append("ERROR :").append(e).append(", ").append(e.getMessage()).append('\n');
+                    LOGGER.error("ERROR: {}, {}", e, e.getMessage());
                 }
             }
 
@@ -229,6 +255,49 @@ public class ProductBeanImpl implements ProductBean {
         }
 
         mailer.toSupportMail(sb.toString(), "UPDATE STOCK REPORT");
+        return sb.toString();
+    }
+
+    @Override
+    public String updateProductAttributes() {
+        StringBuilder sb = new StringBuilder();
+        List<Attribute> addAttr = new ArrayList<>();
+
+        try {
+            productDao.deleteAllAttributes();
+
+            List<Attribute> attributes = productDao.getAttributesFromCSV(sb);
+            Assert.notNull(attributes, "attributes = null");
+            Assert.isTrue(attributes.size() > 0, "attributes.size = 0");
+
+            for (Attribute attribute : attributes) {
+                try {
+
+                    validateAttribute(attribute);
+                    addAttr.add(attribute);
+
+                } catch (Exception e) {
+                    sb.append("ERROR :").append(e).append(", ").append(e.getMessage()).append('\n');
+                    LOGGER.error("ERROR: {}, {}", e, e.getMessage());
+                }
+            }
+
+            if (addAttr.size() > 0) {
+                int addedCount = productDao.batchAddAttributes(addAttr.toArray()).length;
+                sb.append("ADDED ATTRIBUTES: ").append(attributes.size()).append("/")
+                        .append(addedCount).append('\n');
+            } else {
+                sb.append("ERROR addAttr = null").append('\n');
+            }
+
+            sb.append("========== UPDATE FINISHED ==========");
+
+        } catch (Exception e) {
+            sb.append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
+            LOGGER.error("UPDATE FINISHED WITH ERROR: {}, {}", e, e.getMessage());
+        }
+
+        mailer.toSupportMail(sb.toString(), "UPDATE PRODUCTS ATTRIBUTES REPORT");
         return sb.toString();
     }
 
@@ -291,5 +360,16 @@ public class ProductBeanImpl implements ProductBean {
         Assert.notNull(product.getVAT(), "vat = null");
         Assert.notNull(product.getBrandId(), "brand = null");
         Assert.isTrue(product.getBrandId() > 0, "brand <= 0");
+    }
+
+    private void validateAttribute(Attribute attribute) {
+        Assert.notNull(attribute,"attribute = null");
+        Assert.notNull(attribute.getPnt(), "attribute.pnt = null");
+        Assert.isTrue(attribute.getPnt() > 0, "attribute.pnt <= 0");
+        Assert.notNull(attribute.getName(), "attribute.name = null");
+        Assert.hasText(attribute.getName(), "attribute.name is blank");
+        Assert.notNull(attribute.getValue(), "attribute.value = null");
+
+        Assert.notNull(attribute.getOrder(), "attribute.order = null");
     }
 }
