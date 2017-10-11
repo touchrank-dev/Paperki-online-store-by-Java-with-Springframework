@@ -572,13 +572,13 @@ function printCartItems(products) {
             $('#cart-cont').append(
                 '<li style="left: 0px;">'+
                     '<div class="drop-pr">'+
-                        '<span class="  drop-pr" aria-hidden="true">✖</span>'+
+                        '<span class="drop-pr" aria-hidden="true" onclick="deleteFromCart('+product.pnt+')">✖</span>'+
                     '</div>'+
                     '<div class="img-cart">'+
                         '<img src="/res/img/products/'+product.pnt+'.jpg" alt="'+product.fullName+'" style="max-width: 110px;">'+
                     '</div>'+
                     '<div class="desc-cart">'+
-                        '<a href="/catalog/null" class="name-pr-cart">'+product.fullName+'</a>'+
+                        '<a href="" class="name-pr-cart">'+product.fullName+'</a>'+
                         '<ul class="char-cart">'+
                             '<li>'+product.shortName+'</li>'+
                         '</ul>'+
