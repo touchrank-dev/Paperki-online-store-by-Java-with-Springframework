@@ -9,14 +9,26 @@ $(function() {
         e.preventDefault();
     });
     //product hover
-    $ (".al-ph").mouseover(function(e){	 
+    /*$ (".al-ph").mouseover(function(e){	 
         $(this).closest('.product-content').siblings('.block').addClass('active');   
         e.preventDefault();
     });
     $ (".thumbnail").mouseleave(function(e){	 
         $(this).children('.block').removeClass('active');
         e.preventDefault();
+    });*/
+
+
+    $("li.add-btn").mouseover(function(e){
+        $(this).children("div.add-area").css('display', 'block');
+        e.preventDefault();
     });
+    $(".add-area").mouseleave(function(e){   
+        $(this).css('display', 'none');
+        e.preventDefault();
+    });
+
+
     //recommend goods tabs
     $ (".box-bl").click(function(){
         $('.box-bl').removeClass('active');

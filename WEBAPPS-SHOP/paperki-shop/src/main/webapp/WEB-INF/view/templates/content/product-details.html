@@ -9,9 +9,9 @@
                     <a href="/catalog" 
                         th:href="@{${catalogurl}+${category?.translitName}}" 
                         th:text="${category?.name}">Название категории</a></li>
-                <li th:text="${product?.fullName}">Название продукта</li>
+                <li th:if="${product} != null" th:text="${product?.fullName}">Название продукта</li>
             </ul>
-            <div class="single-product-page-content">
+            <div class="single-product-page-content" th:if="${product} != null">
                 <div class="single-product-page__title">
                     <h1 th:text="${product?.fullName}">Заголовок Название продукта</h1>
                 </div>

@@ -221,7 +221,7 @@ public class ProductDaoImpl implements ProductDao {
                     Integer groupPapId =            Integer.parseInt(record.get(1));
                     String personalGroupName =      StringEscapeUtils.unescapeHtml(record.get(2));
                     String fullName =               StringEscapeUtils.unescapeHtml(record.get(3));
-                    String translitName =           Transliterator.cyr2lat(pnt+" "+fullName);
+                    String translitName =           Transliterator.cyr2lat(pnt+" "+personalGroupName);
                     String shortName =              StringEscapeUtils.unescapeHtml(record.get(4));
                     Integer brandId =               Integer.parseInt(record.get(5));
                     String countryFrom =            record.get(6);

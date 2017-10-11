@@ -50,72 +50,7 @@
                                 th:each="product : ${products}">
 
                                 <div class="thumbnail order-product">
-                                    <div class="block">
-                                        <div class="caption cap-normal product-detail">
-                                            <div class="product-detail-top">
-                                                <ul class="top-l-cat">
-                                                    <li>
-                                                        <a href="#" class="link-name-cat"
-                                                           th:href="@{${catalogurl}+${category?.translitName}+'/'+${product?.value?.translitName}}"
-                                                           th:text="${product?.value?.fullName}">Полное название товара</a>
-                                                    </li>
-                                                </ul>
-
-
-
-                                                <div class="clearfix"></div>
-                                                <div class="ill-t">
-                                                    <p>Наличие:</p>
-                                                    <ul class="ill-it">
-                                                        <li>
-                                                            <span class="ill-it-1"></span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="ill-it-1"></span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="ill-it-1"></span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="ill-it-0"></span>
-                                                        </li>
-                                                        <li>
-                                                            <span class="ill-it-0"></span>
-                                                        </li>
-                                                    </ul>
-                                                    <span class="availability"
-                                                    th:text="${product?.value?.quantity}+' '+${product?.value?.measure}">1 шт.</span>
-                                                </div>
-                                            </div>
-                                            <div class="product-detail-bottom">
-                                                <a href="#" class="btn c-button btn-more-h"
-                                                   th:href="@{${catalogurl}+${category?.translitName}+'/'+${product?.value?.translitName}}">
-                                                    <div class="c-ripple js-ripple">
-                                                        <span class="c-ripple__circle"></span>
-                                                    </div>
-                                                    подробнее
-                                                </a>
-                                                <!--<div class="btn-in-cart__is-added">
-                                                    <div class="btn-in-cart__is-added__title">
-                                                        <p>добавлено</p>
-                                                    </div>
-                                                    <div class="btn-in-cart__is-added__number">
-                                                        <p>
-                                                            <span>
-                                                    3
-                                                    </span> шт
-                                                        </p>
-                                                    </div>
-                                                </div>-->
-                                                <!--<a href="#" class="btn c-button btn-click">
-                                                    <div class="c-ripple js-ripple">
-                                                        <span class="c-ripple__circle"></span>
-                                                    </div>
-                                                    купить в 1 клик
-                                                </a>-->
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="caption cap-normal product-content">
                                         <div class="product-content__top">
                                             <ul class="top-l-cat">
@@ -179,26 +114,60 @@
                                             </div>
 
                                             <div class="btns">
-                                                <ul class="list-bt">
-                                                    <li>
-                                                        <a href="#" class="btn c-button btn-in-cart"
-                                                           th:attr="onclick='addToCart('+${product?.value?.pnt}+')'">
-                                                            <div class="c-ripple js-ripple">
-                                                                <span class="c-ripple__circle"></span>
+                                                    <ul class="list-bt">
+                                                        <li class="add-btn">
+                                                            <a href="#" class="btn c-button btn-to-cart" title="В корзину">
+                                                                <div class="c-ripple js-ripple">
+                                                                    <span class="c-ripple__circle"></span>
+                                                                </div>
+                                                                <img src="/res/img/cart-icon.png" alt="Cart">
+                                                            </a>
+                                                            <div class="add-area">
+                                                                <ul class="list-bt">
+                                                                    <li>
+                                                                        <a class="btn c-button btn-in-cart"
+                                                                           th:attr="onclick='addToCart('+${product?.value?.pnt}+')'">
+                                                                            <div class="c-ripple js-ripple">
+                                                                                <span class="c-ripple__circle"></span>
+                                                                            </div>
+                                                                            в корзину
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="single-product__number">
+                                                                            <div class="dec">-</div>
+                                                                            <input id="null" name="french-hens" class="inde" value="1" type="text"
+                                                                                   th:attr="id=${product?.value?.pnt}">
+                                                                            <div class="inc">+</div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
-                                                            в корзину
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <div class="single-product__number">
-                                                            <div class="dec">-</div>
-                                                                <input id="null" name="french-hens" class="inde" value="1" type="text"
-                                                                    th:attr="id=${product?.value?.pnt}">
-                                                            <div class="inc">+</div>
-                                                        </div>
-                                                    </li>
+                                                        </li>
+                                                        <li th:attr="id='in-cart-item-'+${product?.value?.pnt}">
+                                                            <div th:if="${cart.items[__${product?.value?.pnt}__]} != null" th:remove="tag">
+                                                                <div class="cart-is-added"
+                                                                        th:if="${cart.items[__${product?.value?.pnt}__].quantity} > 0">
+                                                                    <div class="cart-is-added__pict">
+                                                                        <img src="/res/img/cart-is-added.png" alt="added to cart">
+                                                                    </div>
+                                                                    <div class="cart-is-added__number">
+                                                                        <p><span th:text="${cart.items[__${product?.value?.pnt}__].quantity}">0</span> ед.</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <a class="btn c-button btn-bookmark bnt-ic" title="Добавить в закладки"
+                                                                th:attr="onclick='toFavorites('+${product?.value?.pnt}+')'">
+                                                                <div class="c-ripple js-ripple">
+                                                                    <span class="c-ripple__circle"></span>
+                                                                </div>
+                                                            </a>
+                                                        </li>
                                                 </ul>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
