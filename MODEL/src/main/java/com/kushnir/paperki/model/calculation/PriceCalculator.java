@@ -7,6 +7,7 @@ import com.kushnir.paperki.model.Price;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
+import java.util.Map;
 
 public class PriceCalculator {
 
@@ -44,7 +45,18 @@ public class PriceCalculator {
         } else return basePrice;
     }
 
-    public double calculateQuantityPrice (HashMap<Integer, Price> prices, int quantity) {
-        return 0d;
+    public double calculateQuantityPrice (HashMap<Integer, Price> prices, int quantity, double currentPrice) {
+        double finalPrice = currentPrice;
+        for (Map.Entry<Integer, Price> entry : prices.entrySet()) {
+            Price price = entry.getValue();
+
+            int quantityStart = price.getQuantityStart();
+
+            if (quantity >= quantityStart) {
+                finalPrice = price.getBasePrice();
+            }
+
+        }
+        return finalPrice;
     }
 }

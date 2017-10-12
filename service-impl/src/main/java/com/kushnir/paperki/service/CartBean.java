@@ -29,7 +29,6 @@ public class CartBean {
     @Autowired
     private PriceCalculator priceCalculator;
 
-    @Transactional
     public void addToCart (Cart cart, AddProductRequest addProductRequest) throws NotEnoughQuantityAvailableException {
         LOGGER.debug("addToCart({}) >>>", addProductRequest);
 
@@ -149,7 +148,7 @@ public class CartBean {
         if (discount != null) {
             finalPrice =                    priceCalculator.calculateDiscountedPrice(discount, currentPrice);
         } else if(prices != null && prices.size() > 0) {
-            finalPrice =                    priceCalculator.calculateQuantityPrice(prices, quantity);
+            finalPrice =                    priceCalculator.calculateQuantityPrice(prices, quantity, currentPrice);
         } else {
             finalPrice =                    currentPrice;
         }
@@ -217,7 +216,7 @@ public class CartBean {
         if (discount != null) {
             finalPrice =                    priceCalculator.calculateDiscountedPrice(discount, currentPrice);
         } else if(prices != null && prices.size() > 0) {
-            finalPrice =                    priceCalculator.calculateQuantityPrice(prices, quantity);
+            finalPrice =                    priceCalculator.calculateQuantityPrice(prices, quantity, currentPrice);
         } else {
             finalPrice =                    currentPrice;
         }
