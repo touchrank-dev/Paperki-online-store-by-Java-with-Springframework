@@ -153,6 +153,7 @@ public class CartBean {
         } else {
             finalPrice =                    currentPrice;
         }
+        // ========================================================================
 
         finalPriceWithVAT =                 priceCalculator.getPriceWithVat(finalPrice, VAT);
         discountAmount =                    currentPrice - finalPrice;

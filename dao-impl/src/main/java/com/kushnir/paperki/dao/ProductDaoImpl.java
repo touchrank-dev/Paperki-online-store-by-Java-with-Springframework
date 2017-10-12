@@ -24,6 +24,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.util.Assert;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -87,6 +88,9 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${csv.file.attributes}")
     private String csvFileProductAttributes;
 
+    @Value("${csv.file.prices}")
+    private String csvFileQuantityPrices;
+
 
     /*SQL Scripts*/
     @Value("${product.getAll}")
@@ -133,6 +137,12 @@ public class ProductDaoImpl implements ProductDao {
 
     @Value("${product.batch.updateCAtRef}")
     private String updateProductsCatalogRefSqlQuery;
+
+    @Value("${product.prices.deleteAll}")
+    private String deleteAllPricesSqlQuery;
+
+    @Value("${product.prices.add}")
+    private String addPriceSqlQuery;
 
     @Override
     public HashMap<Integer, ProductSimple> getAll() {
@@ -366,6 +376,56 @@ public class ProductDaoImpl implements ProductDao {
         return attributes;
     }
 
+    @Override
+    public ArrayList<Price> getQuantityPricesFromCSV(StringBuilder sb) throws IOException {
+        String file = csvFilesPath + csvFileQuantityPrices;
+        sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
+                .append(">>> PROGRESS ...").append('\n');
+        LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
+
+        ArrayList<Price> prices = new ArrayList<>();
+
+        try {
+            Iterable<CSVRecord> records =
+                    CSVFormat
+                            .newFormat(delimiter)
+                            .withEscape(escape)
+                            .withFirstRecordAsHeader()
+                            .parse(new FileReader(file));
+
+            for (CSVRecord record : records) {
+                try {
+                    Integer pnt =               Integer.parseInt(record.get(0));
+                    Assert.isTrue(pnt > 0, "pnt <= 0");
+
+                    int quantityStart =         Integer.parseInt(record.get(1));
+                    double basePrice =          Double.parseDouble(record.get(2));
+
+                    prices.add(new Price(
+                            pnt,
+                            quantityStart,
+                            basePrice
+                    ));
+
+                } catch (Exception e) {
+                    sb.append("ERROR >>> row: ").append(record.getRecordNumber())
+                            .append(", ").append(e.getMessage()).append('\n');
+                    LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
+                    continue;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            sb.append("ERROR >>> File (").append(file).append(") Not Found! >>> ").append(e.getMessage()).append('\n');
+            LOGGER.error("ERROR >>> File ({}) Not Found! >>> {}", file, e.getMessage());
+            return null;
+        }
+
+        sb.append(">>> FINISH").append('\n');
+        LOGGER.debug(">>> FINISH");
+        return prices;
+    }
+
 
     @Override
     public void unpublishAllProducts() {
@@ -453,7 +513,18 @@ public class ProductDaoImpl implements ProductDao {
         return namedParameterJdbcTemplate.batchUpdate(addAttributeSqlQuery, batch);
     }
 
+    @Override
+    public void deleteAllQuantityPrices() {
+        LOGGER.debug("deleteAllQuantityPrices() >>>");
+        int count = jdbcTemplate.update(deleteAllPricesSqlQuery);
+    }
 
+    @Override
+    public int[] batchAddQuantityPrices(Object[] prices) {
+        LOGGER.debug("batchAddQuantityPrices() >>>");
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(prices);
+        return namedParameterJdbcTemplate.batchUpdate(addPriceSqlQuery, batch);
+    }
 
 
 

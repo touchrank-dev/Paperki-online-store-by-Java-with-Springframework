@@ -1,5 +1,6 @@
 package com.kushnir.paperki.dao;
 
+import com.kushnir.paperki.model.Price;
 import com.kushnir.paperki.model.product.*;
 
 import org.springframework.dao.DataAccessException;
@@ -20,6 +21,7 @@ public interface ProductDao {
     HashMap<Integer, CSVProduct> getProductsFromCSV(StringBuilder sb) throws IOException;
     HashMap<Integer, StockItem> getStockItemsFromCSV(StringBuilder sb) throws IOException;
     ArrayList<Attribute> getAttributesFromCSV(StringBuilder sb) throws IOException;
+    ArrayList<Price> getQuantityPricesFromCSV(StringBuilder sb) throws IOException;
 
     void unpublishAllProducts();
     int addProduct(CSVProduct product);
@@ -33,4 +35,7 @@ public interface ProductDao {
 
     void deleteAllAttributes();
     int[] batchAddAttributes(Object[] attributes);
+
+    void deleteAllQuantityPrices();
+    int[] batchAddQuantityPrices(Object[] prices);
 }

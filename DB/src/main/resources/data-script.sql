@@ -74,7 +74,7 @@ VALUES  (9491, 'Формат', 'A4', 1),
 */
 
 INSERT INTO prices_types (name)
-VALUES ('Стандартная');
+VALUES ('Цена от количества');
 
 /*
 INSERT INTO product_prices (id_product, quantity_start, value)

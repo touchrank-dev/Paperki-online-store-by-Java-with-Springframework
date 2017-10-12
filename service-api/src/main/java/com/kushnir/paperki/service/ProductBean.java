@@ -16,4 +16,5 @@ public interface ProductBean {
     String updateProducts();
     String updateStock();
     String updateProductAttributes();
+    String updateProductPrices();
 }

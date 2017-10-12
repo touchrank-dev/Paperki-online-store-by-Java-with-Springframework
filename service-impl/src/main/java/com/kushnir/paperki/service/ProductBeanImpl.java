@@ -2,6 +2,7 @@ package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.dao.ProductDao;
 import com.kushnir.paperki.model.Brand;
+import com.kushnir.paperki.model.Price;
 import com.kushnir.paperki.model.category.CategorySimple;
 import com.kushnir.paperki.model.product.*;
 
@@ -104,8 +105,6 @@ public class ProductBeanImpl implements ProductBean {
 
         try {
 
-            unpublishAllProducts();
-
             HashMap<Integer, CategorySimple> categories = catalogBean.getAllChildrenWithPapIdKey();
             Assert.notNull(categories, "categories = null");
             Assert.isTrue(categories.size() > 0, "categories size = 0");
@@ -120,6 +119,8 @@ public class ProductBeanImpl implements ProductBean {
 
             HashMap<Integer, ProductSimple> products =  getAll();
             Assert.notNull(products, "products = null");
+
+            unpublishAllProducts();
 
             for (Map.Entry<Integer, CSVProduct> entry : CSVProducts.entrySet()) {
                 try {
@@ -211,7 +212,6 @@ public class ProductBeanImpl implements ProductBean {
         List<StockItem> addItm = new ArrayList<>();
 
         try {
-            productDao.clearStock(idSclad);
 
             HashMap<Integer, ProductSimple> products = getAll();
             Assert.notNull(products, "products = null");
@@ -220,6 +220,8 @@ public class ProductBeanImpl implements ProductBean {
             HashMap<Integer, StockItem> items = productDao.getStockItemsFromCSV(sb);
             Assert.notNull(items, "items = null");
             Assert.isTrue(items.size() > 0, "items <= 0");
+
+            productDao.clearStock(idSclad);
 
             for (Map.Entry<Integer, StockItem> entry : items.entrySet()) {
                 try {
@@ -264,11 +266,12 @@ public class ProductBeanImpl implements ProductBean {
         List<Attribute> addAttr = new ArrayList<>();
 
         try {
-            productDao.deleteAllAttributes();
 
             List<Attribute> attributes = productDao.getAttributesFromCSV(sb);
             Assert.notNull(attributes, "attributes = null");
             Assert.isTrue(attributes.size() > 0, "attributes.size = 0");
+
+            productDao.deleteAllAttributes();
 
             for (Attribute attribute : attributes) {
                 try {
@@ -300,6 +303,37 @@ public class ProductBeanImpl implements ProductBean {
         mailer.toSupportMail(sb.toString(), "UPDATE PRODUCTS ATTRIBUTES REPORT");
         return sb.toString();
     }
+
+
+    @Override
+    public String updateProductPrices() {
+        LOGGER.debug("updateProductPrices() >>>");
+        StringBuilder sb = new StringBuilder();
+
+        try {
+
+            ArrayList<Price> prices = productDao.getQuantityPricesFromCSV(sb);
+            productDao.deleteAllQuantityPrices();
+
+            if (prices != null && prices.size() > 0) {
+                int[] count = productDao.batchAddQuantityPrices(prices.toArray());
+                sb.append("ADDED QUANTITY PRICES: ").append(prices.size()).append("/")
+                        .append(count.length).append('\n');
+            } else {
+                sb.append("NO QUANTITY PRICES").append('\n');
+            }
+
+            sb.append("========== UPDATE FINISHED ==========");
+
+        } catch (Exception e) {
+            sb.append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
+            LOGGER.error("UPDATE FINISHED WITH ERROR: {}, {}", e, e.getMessage());
+        }
+
+        mailer.toSupportMail(sb.toString(), "UPDATE PRODUCTS QUANTITY PRICES REPORT");
+        return sb.toString();
+    }
+
 
     private void unpublishAllProducts() {
         LOGGER.debug("unpublishAllProducts() >>>");

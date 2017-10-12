@@ -2,6 +2,7 @@ package com.kushnir.paperki.model;
 
 public class Price {
 
+    private Integer pnt;
     private int quantityStart;
     private double basePrice;
     private double basePriceWithVAT;
@@ -9,10 +10,24 @@ public class Price {
     public Price() {
     }
 
+    public Price(Integer pnt, int quantityStart, double basePrice) {
+        this.pnt = pnt;
+        this.quantityStart = quantityStart;
+        this.basePrice = basePrice;
+    }
+
     public Price(int quantityStart, double basePrice, double basePriceWithVAT) {
         this.quantityStart = quantityStart;
         this.basePrice = basePrice;
         this.basePriceWithVAT = basePriceWithVAT;
+    }
+
+    public Integer getPnt() {
+        return pnt;
+    }
+
+    public void setPnt(Integer pnt) {
+        this.pnt = pnt;
     }
 
     public int getQuantityStart() {
@@ -48,14 +63,16 @@ public class Price {
 
         if (quantityStart != price.quantityStart) return false;
         if (Double.compare(price.basePrice, basePrice) != 0) return false;
-        return Double.compare(price.basePriceWithVAT, basePriceWithVAT) == 0;
+        if (Double.compare(price.basePriceWithVAT, basePriceWithVAT) != 0) return false;
+        return pnt != null ? pnt.equals(price.pnt) : price.pnt == null;
     }
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        result = quantityStart;
+        result = pnt != null ? pnt.hashCode() : 0;
+        result = 31 * result + quantityStart;
         temp = Double.doubleToLongBits(basePrice);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(basePriceWithVAT);
@@ -66,7 +83,8 @@ public class Price {
     @Override
     public String toString() {
         return "Price{" +
-                "quantityStart=" + quantityStart +
+                "pnt=" + pnt +
+                ", quantityStart=" + quantityStart +
                 ", basePrice=" + basePrice +
                 ", basePriceWithVAT=" + basePriceWithVAT +
                 '}';

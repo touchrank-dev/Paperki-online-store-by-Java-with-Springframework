@@ -202,12 +202,11 @@ CREATE TABLE prices_types (
 CREATE TABLE product_prices (
     id_price                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_price_type               INT             DEFAULT 1 NOT NULL,
-    id_product					INT				NOT NULL,
+    pnt					        INT				NOT NULL,
     quantity_start              INT             DEFAULT 1 NOT NULL,
     value                       DOUBLE          NOT NULL,
     FOREIGN KEY (id_price_type)                 REFERENCES prices_types(id_price_type),
-    FOREIGN KEY (id_product)                 	REFERENCES products(id_product),
-    UNIQUE KEY `p_qs` (id_product, quantity_start)
+    UNIQUE KEY `p_qs` (pnt, quantity_start)
 );
 
 DROP TABLE IF EXISTS discount_types;
