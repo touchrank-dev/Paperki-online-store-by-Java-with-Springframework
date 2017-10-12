@@ -3,7 +3,12 @@ $( document ).ready(function() {
 });
 
 function addToCart(pnt) {
-    quantity = $('#'+pnt).val();
+    var pntinput = $('#'+pnt);
+    var loader = pntinput.parents('.btns').children('.cart-add-loader');
+
+    loader.show();
+
+    quantity = pntinput.val();
     $.ajax({
         cache: false,
         async: false,
@@ -17,12 +22,12 @@ function addToCart(pnt) {
                 console.log(response);
                 mapCart(response.object);
                 printAddedItem(response.object, pnt);
-                alert("Товар под кодом("+pnt+") успено добавлен в корзину!");
+                // alert("Товар под кодом("+pnt+") успено добавлен в корзину!");
             } else if (response.code == "NOT_FOUND") {
                 console.log(response);
                 alert("На складе недостаточное количество товара");
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
-                console.log(response.message);
+                console.log(response);
                 serverAlert();
             }
         },
@@ -30,6 +35,7 @@ function addToCart(pnt) {
             serverAlert();
         }
     });
+    loader.hide();
 }
 
 

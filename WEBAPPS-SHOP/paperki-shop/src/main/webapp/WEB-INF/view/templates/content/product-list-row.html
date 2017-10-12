@@ -109,7 +109,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="btns">
+                                            <div class="btns" style="position: relative;">
+                                                <div class="cart-add-loader">
+                                                    <div class="loader"></div>
+                                                </div>
                                                 <ul class="list-bt">
                                                         <li class="add-btn">
                                                             <a href="#" class="btn c-button btn-to-cart" title="В корзину">
@@ -129,8 +132,8 @@
                                                                             в корзину
                                                                         </a>
                                                                     </li>
-                                                                    <li>
-                                                                        <div class="single-product__number">
+                                                                    <li style="margin: 0px;">
+                                                                        <div class="single-product__number" style="margin: 0px;">
                                                                             <div class="dec">-</div>
                                                                             <input id="null" name="french-hens" class="inde" value="1" type="text"
                                                                                    th:attr="id=${product?.value?.pnt}">
