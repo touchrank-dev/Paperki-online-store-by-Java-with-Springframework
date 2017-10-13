@@ -23,8 +23,7 @@ public class PriceCalculator {
         return getDouble(price + getVatValue(price, VAT));
     }
 
-    public double calculateTotalWithVAT(double price, int quantity, int VAT) {
-        double total = getDouble(price * quantity);
+    public double calculateTotalWithVAT(double total, int quantity, int VAT) {
         double totalVAT = getVatValue(total, VAT);
         return total + totalVAT;
     }
