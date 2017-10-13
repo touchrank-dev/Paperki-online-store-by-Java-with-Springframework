@@ -544,13 +544,13 @@ public class ProductDaoImpl implements ProductDao {
                 // цена =======================================================================
                 int VAT =                   rs.getInt("vat");
                 double basePrice =          rs.getDouble("base_price");
-                double basePriceWithVAT =   priceCalculator.getPriceWithVat(basePrice, VAT);
+                double basePriceWithVAT =   priceCalculator.getPriceWithVAT(basePrice, VAT);
 
                 // цена от количества =========================================================
                 Price price =               null;
                 int quantityStart =         rs.getInt("quantity_start");
                 double value =              rs.getDouble("value");
-                double valueWithVAT =       priceCalculator.getPriceWithVat(value, VAT);
+                double valueWithVAT =       priceCalculator.getPriceWithVAT(value, VAT);
 
                 if (quantityStart > 0 && value > 0d) {
                     price = new Price(quantityStart, value, valueWithVAT);
@@ -574,7 +574,7 @@ public class ProductDaoImpl implements ProductDao {
                 // ============================================================================
 
                 double finalPrice =         priceCalculator.calculateDiscountedPrice(discount, basePrice);
-                double finalPriceWithVAT =  priceCalculator.getPriceWithVat(finalPrice, VAT);
+                double finalPriceWithVAT =  priceCalculator.getPriceWithVAT(finalPrice, VAT);
 
                 Product product = products.get(idProduct);
 
@@ -633,13 +633,13 @@ public class ProductDaoImpl implements ProductDao {
                 // цена =======================================================================
                 int VAT =                   rs.getInt("vat");
                 double basePrice =          rs.getDouble("base_price");
-                double basePriceWithVAT =   priceCalculator.getPriceWithVat(basePrice, VAT);
+                double basePriceWithVAT =   priceCalculator.getPriceWithVAT(basePrice, VAT);
 
                 // цена от количества =========================================================
                 Price price =               null;
                 int quantityStart =         rs.getInt("quantity_start");
                 double value =              rs.getDouble("value");
-                double valueWithVAT =       priceCalculator.getPriceWithVat(value, VAT);
+                double valueWithVAT =       priceCalculator.getPriceWithVAT(value, VAT);
 
                 if (quantityStart > 0 && value > 0d) {
                     price = new Price(quantityStart, value, valueWithVAT);
@@ -663,7 +663,7 @@ public class ProductDaoImpl implements ProductDao {
                 // ============================================================================
 
                 double finalPrice = priceCalculator.calculateDiscountedPrice(discount, basePrice);
-                double finalPriceWithVAT = priceCalculator.getPriceWithVat(finalPrice, VAT);
+                double finalPriceWithVAT = priceCalculator.getPriceWithVAT(finalPrice, VAT);
 
                 if(product == null) {
                     product = new Product(
@@ -723,13 +723,13 @@ public class ProductDaoImpl implements ProductDao {
                 // цена =======================================================================
                 int VAT =                   rs.getInt("vat");
                 double basePrice =          rs.getDouble("base_price");
-                double basePriceWithVAT =   priceCalculator.getPriceWithVat(basePrice, VAT);
+                double basePriceWithVAT =   priceCalculator.getPriceWithVAT(basePrice, VAT);
 
                 // цена от количества =========================================================
                 Price price =               null;
                 int quantityStart =         rs.getInt("quantity_start");
                 double value =              rs.getDouble("value");
-                double valueWithVAT =       priceCalculator.getPriceWithVat(value, VAT);
+                double valueWithVAT =       priceCalculator.getPriceWithVAT(value, VAT);
 
                 if (quantityStart > 0 && value > 0d) {
                     price = new Price(quantityStart, value, valueWithVAT);
@@ -754,7 +754,7 @@ public class ProductDaoImpl implements ProductDao {
                 // ============================================================================
 
                 double finalPrice = priceCalculator.calculateDiscountedPrice(discount, basePrice);
-                double finalPriceWithVAT = priceCalculator.getPriceWithVat(finalPrice, VAT);
+                double finalPriceWithVAT = priceCalculator.getPriceWithVAT(finalPrice, VAT);
 
                 if(availableProduct == null) {
                     availableProduct = new AvailableProduct(

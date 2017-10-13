@@ -12,15 +12,21 @@ import java.util.Map;
 public class PriceCalculator {
 
     public double getDouble(double value) {
-        return new BigDecimal(value).setScale(2, RoundingMode.UP).doubleValue();
+        return new BigDecimal(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
-    private double getVatValue(int VAT) {
-        return getDouble(1 + (VAT/100.0));
+    public double getVatValue(double price, int VAT) {
+        return getDouble(price * VAT/100d);
     }
 
-    public double getPriceWithVat(double price, int VAT) {
-        return getDouble(price * getVatValue(VAT));
+    public double getPriceWithVAT(double price, int VAT) {
+        return getDouble(price + getVatValue(price, VAT));
+    }
+
+    public double calculateTotalWithVAT(double price, int quantity, int VAT) {
+        double total = getDouble(price * quantity);
+        double totalVAT = getVatValue(total, VAT);
+        return total + totalVAT;
     }
 
     public double calculateDiscountedPrice(Discount discount, double basePrice) {
