@@ -66,9 +66,9 @@ public class NewPasswordErrorForm {
     @Override
     public String toString() {
         return "NewPasswordErrorForm{" +
-                "oldPassword='" + oldPassword + '\'' +
-                ", newPassword='" + newPassword + '\'' +
-                ", newPasswordConfirm='" + newPasswordConfirm + '\'' +
+                "oldPassword='" + "******" + '\'' +
+                ", newPassword='" + "******" + '\'' +
+                ", newPasswordConfirm='" + "******" + '\'' +
                 ", isErrors=" + isErrors +
                 '}';
     }

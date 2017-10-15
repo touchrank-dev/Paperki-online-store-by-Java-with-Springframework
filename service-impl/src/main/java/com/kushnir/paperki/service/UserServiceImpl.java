@@ -250,7 +250,7 @@ public class UserServiceImpl implements UserService {
             Assert.hasText(newPasswordForm.getNewPassword(),"Введите новый пароль");
             Assert.isTrue(newPasswordForm.getNewPassword().length() > 5,
                     "Длина нового пароля не должна быть меньше 6 символов");
-            Assert.isTrue(encoding(newPasswordForm.getNewPassword()).equals(user.getPassword()),
+            Assert.isTrue(!encoding(newPasswordForm.getNewPassword()).equals(user.getPassword()),
                     "Новый пароль не должен быть равен старому");
         } catch (Exception e) {
             errorForm.setNewPassword(e.getMessage());
