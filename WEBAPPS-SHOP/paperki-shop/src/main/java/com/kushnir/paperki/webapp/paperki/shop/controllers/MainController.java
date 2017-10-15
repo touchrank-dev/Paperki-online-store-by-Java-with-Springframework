@@ -44,6 +44,18 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/favicon.ico")
+    public String favicon () {
+        LOGGER.debug("favicon()");
+        return null;
+    }
+
+    @GetMapping("/robots.txt")
+    public String robots () {
+        LOGGER.debug("robots()");
+        return null;
+    }
+
     // страницы главного меню
     @GetMapping("/{pageName}")
     public String mainMenu(@PathVariable String pageName, Model model) throws Exception {
