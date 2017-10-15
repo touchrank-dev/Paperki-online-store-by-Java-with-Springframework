@@ -1,5 +1,5 @@
 <main id="wrapp" th:fragment="profile" xmlns:th="http://www.thymeleaf.org">
-    <div class="profile-page">
+    <div class="profile-page" th:if="${!user?.isAnonimus()}">
         <div class="wrapper">
             <ul class="breadCrumbs">
                 <li><a href="/">Главная</a></li>

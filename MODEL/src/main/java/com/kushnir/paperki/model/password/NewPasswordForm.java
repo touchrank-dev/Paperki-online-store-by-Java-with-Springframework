@@ -62,9 +62,9 @@ public class NewPasswordForm {
     @Override
     public String toString() {
         return "NewPasswordForm{" +
-                "oldPassword='" + "******" + '\'' +
-                ", newPassword='" + "******" + '\'' +
-                ", newPasswordConfirm='" + "******" + '\'' +
+                "oldPassword='" + oldPassword + '\'' +
+                ", newPassword='" + newPassword + '\'' +
+                ", newPasswordConfirm='" + newPasswordConfirm + '\'' +
                 '}';
     }
 }

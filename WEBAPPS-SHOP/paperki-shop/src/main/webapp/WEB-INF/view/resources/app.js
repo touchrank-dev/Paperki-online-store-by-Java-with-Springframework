@@ -882,7 +882,7 @@ function changePasswordDataFormToJSON() {
     return JSON.stringify({
         "oldPassword":          $('change-password-current-password').val(),
         "newPassword":          $('change-password-new-password').val(),
-        "newPasswordConfirm":   $('change-password-new-password-confirm').val(),
+        "newPasswordConfirm":   $('change-password-new-password-confirm').val()
     });
 }
 
@@ -913,13 +913,13 @@ function mapErrorChangePassword (form) {
 
     if (form.newPasswordConfirm != null) {
         $('#change-password-new-password-confirm').addClass("input_error");
-        $('#label-change-password-new-password-confirmd').addClass('label_error');
+        $('#label-change-password-new-password-confirm').addClass('label_error');
         $('#label-change-password-new-password-confirm').attr("title", form.newPasswordConfirm)
                                                         .tooltip('fixTitle')
                                                         .tooltip("show");
     } else {
         $('#change-password-new-password-confirm').removeClass("input_error");
         $('#label-change-password-new-password-confirm').removeClass('label_error');
-        $('#label-change-password-new-password-confirmd').tooltip("hide");
+        $('#label-change-password-new-password-confirm').tooltip("hide");
     }
 }
