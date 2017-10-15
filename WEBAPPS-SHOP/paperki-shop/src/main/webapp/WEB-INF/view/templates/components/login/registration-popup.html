@@ -20,8 +20,6 @@
                 <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" id="registration-label-email">Ваш e-mail *</span>
             </label>
         </span>
-        <input type="checkbox" name="subscribe" id="check-subscribe">
-        <label for="check-subscribe">Уведомлять о доступных промокодах, подарках и спецпредложениях</label>
         <span class="input input--ichiro registration-form-field">
             <input class="input__field input__field--ichiro" type="password" name="password" id="registration-input-password" />
             <label class="input__label input__label--ichiro" for="registration-input-password">
@@ -36,16 +34,19 @@
             </label>
             <button type="button" class="show-password"></button>
         </span>
-        <input type="checkbox" name="autopassword" id="check-autopassword">
-        <label for="check-autopassword">Сформировать пароль автоматически</label>
         <span class="input input--ichiro registration-form-field">
             <input class="input__field input__field--ichiro phone" type="text" name="phone" id="registration-input-phone" />
             <label class="input__label input__label--ichiro" for="registration-input-phone">
                 <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" id="registration-label-phone">Мобильный телефон</span>
             </label>
         </span>
+
+        <input type="checkbox" name="subscribe" id="check-subscribe">
+        <label for="check-subscribe">Уведомлять о доступных промокодах, подарках и спецпредложениях</label>
+
         <input type="checkbox" name="isEnterprise" id="check-isenterprise" onclick="showEnterpriseForm()">
         <label for="check-isenterprise">регистрироваться как Юридическое лицо</label>
+        
         <div id="enterpriseForm">
             <span class="input input--ichiro registration-form-field">
                 <input class="input__field input__field--ichiro" type="text" name="entrp-reg-unp" id="registration-input-enterprise-unp" />

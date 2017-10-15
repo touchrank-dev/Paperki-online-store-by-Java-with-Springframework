@@ -136,6 +136,8 @@ public class UserServiceImpl implements UserService {
             try {
                 Assert.notNull(form.getPassword(), "Пароль не может быть пустым");
                 Assert.hasText(form.getPassword(), "Пароль не может быть пустым");
+                Assert.isTrue(form.getPassword().length() > 5,
+                        "Длина пароля не должна быть меньше 6 символов");
                 //TODO проверка на регулярное выражение (паттерн)
                 /*Assert.isTrue(validatePassword(form.getPassword()),
                     "Пароль не соответствует регулярному выражению");*/
@@ -149,6 +151,8 @@ public class UserServiceImpl implements UserService {
             try {
                 Assert.notNull(form.getUNP(), "УНП не может быть пустым");
                 Assert.hasText(form.getUNP(), "УНП не может быть пустым");
+                Assert.isTrue(form.getUNP().length() == 9, "УНП должно быть 9 знаков");
+                Assert.isTrue(form.getUNP().matches("^\\D*$"), "Введено недопустиаое значение УНП");
             } catch (Exception e) {
                 errorRegistrateForm.setUNP(e.getMessage());
             }

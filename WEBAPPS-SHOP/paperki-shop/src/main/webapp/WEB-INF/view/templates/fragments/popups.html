@@ -17,6 +17,7 @@
     <!--cart emty popup-->
     <!--<div id="cart-empty-popup" class="cart-empty-popup-content mfp-hide"
          th:include="/components/cart/cart-empty-popup :: cart-empty-popup"/>-->
+
     <!--search popup-->
     <div id="search-popup" class="search-popup-content mfp-hide"
          th:include="/components/search/search-popup :: search-popup"/>
@@ -53,5 +54,47 @@
             </button>
         </form>
     </div>
-    <!--send feedback popup end-->
+    <!--редактирование личных данных-->
+    <div id="update-profile" class="update-profile-popup-content mfp-hide">
+        <p>Редактирование личных данных</p>
+        <form>
+            <div class="my-personal-data__fields">
+                <span class="input input--ichiro">
+                    <input class="input__field input__field--ichiro" type="text" name="update-personal-data-person" id="update-personal-data-person"
+                        th:value="${user?.name}" />
+                    <label class="input__label input__label--ichiro" for="update-personal-data-person">
+                        <span class="input__label-content input__label-content--ichiro">Имя ползователя *</span>
+                    </label>
+                </span>
+                <span class="input input--ichiro">
+                    <input class="input__field input__field--ichiro" type="email" name="update-personal-data-email" id="update-personal-data-email" 
+                        th:value="${user?.email}"/>
+                    <label class="input__label input__label--ichiro" for="update-personal-data-email">
+                        <span class="input__label-content input__label-content--ichiro">Адрес электронной почты *</span>
+                    </label>
+                </span>
+                <span class="input input--ichiro">
+                    <input class="input__field input__field--ichiro phone" type="text" name="update-personal-data-phone" id="update-personal-data-phone" 
+                        th:value="${user?.phone}" />
+                    <label class="input__label input__label--ichiro" for="update-personal-data-phone">
+                        <span class="input__label-content input__label-content--ichiro">Контактный номер телефона</span>
+                    </label>
+                </span>
+                <p class="t-label">
+                    <label>день рождения</label>
+                </p>
+                <div class="for-input">
+                    <input type="text" id="datepicker" class="inp-main">
+                </div>
+            </div>
+            <div class="my-personal-data-form-bottom">
+                <button class="c-button" type="subscribe" onclick="updatePersonalData()">
+                    <div class="c-ripple js-ripple">
+                        <span class="c-ripple__circle"></span>
+                    </div>
+                    Сохранить
+                </button>
+            </div>
+        </form>
+    </div>
 </section>

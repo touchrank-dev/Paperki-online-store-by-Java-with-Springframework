@@ -68,7 +68,7 @@ CREATE TABLE addresses (
     id_address                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_address_type             INT             NOT NULL,
     id_user                     INT             NOT NULL,
-    value                       VARCHAR(50)     NOT NULL,
+    value                       VARCHAR(150)    NOT NULL,
     FOREIGN KEY (id_address_type)               REFERENCES addresses_types(id_address_type)
 );
 

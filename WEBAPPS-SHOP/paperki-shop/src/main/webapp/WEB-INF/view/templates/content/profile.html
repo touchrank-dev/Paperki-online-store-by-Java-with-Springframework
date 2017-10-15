@@ -18,15 +18,7 @@
                         </button>
                     </li>
                     <!--for all info (is hidden) end-->
-                    <li class="personal-data">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Личные данные</p>
-                        </button>
-                    </li>
+
                     <li class="password-change">
                         <button class="c-button">
                             <div class="c-ripple js-ripple">
@@ -100,96 +92,36 @@
                                 <div class="my-profile-personal-data-text">
                                     <ul>
                                         <li>
-                                            <p>
-                                                Имя ползователя:
-                                            </p>
-                                            <span th:text="${user?.name}">
-                                                    Имя
-                                                </span>
-                                            <a href="#" onclick="changeName()">изменить</a>
+                                            <p>Имя ползователя:</p>
+                                            <span th:text="${user?.name}">Имя</span>
                                         </li>
                                         <li>
-                                            <p>
-                                                Логин:
-                                            </p>
-                                            <span th:text="${user?.login}">
-                                                    Логин
-                                            </span>
-                                        </li>                                        
+                                            <p>Логин:</p>
+                                            <span th:text="${user?.login}">Логин</span>
+                                        </li>
+                                        <li>
+                                            <p>Адрес электронной почты:</p>
+                                            <span th:text="${user?.email}">Email</span>
+                                        </li>
+                                        <li>
+                                            <p>Контактный номер телефона:</p>
+                                            <span th:text="${user?.phone}">Телефон</span>
+                                        </li>
                                     </ul>
                                     <ul>
                                     <!-- второй ряд -->
                                     </ul>
                                 </div>
                             </div>
-                            <a href="#" class="c-button activate-promo" onclick="activatePromo()">
-                                <div class="c-ripple js-ripple">
-                                    <span class="c-ripple__circle"></span>
-                                </div>
-                                <img src="/res/img/activate-promo-icon.png" alt="Activate">
-                                <p>Активировать промокод</p>
-                            </a>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="my-personal-data profile-tab">
-                        <a href="#" class="back-to-personal-profile">
-                            Назад к личному кабинету
-                        </a>
-                        <h2>Личные данные</h2>
-                        <form action="">
-                            <div class="my-personal-data__fields">
-                                    <span class="input input--ichiro">
-                                        <input class="input__field input__field--ichiro" type="text" name="personal-data-person" id="personal-data-person"
-                                            th:value="${user?.name}" onchange="alert('cahange!')" />
-                                        <label class="input__label input__label--ichiro" for="personal-data-person">
-                                                <span class="input__label-content input__label-content--ichiro">Контактное лицо *</span>
-                                        </label>
-                                    </span>
-                                <span class="input input--ichiro">
-                                        <input class="input__field input__field--ichiro" type="email" name="personal-data-email" id="personal-data-email" 
-                                            th:value="${user?.email}"/>
-                                        <label class="input__label input__label--ichiro" for="personal-data-email">
-                                                <span class="input__label-content input__label-content--ichiro">Ваш e-mail *</span>
-                                        </label>
-                                    </span>
-                                <!-- <span class="input input--ichiro">
-                                        <input class="input__field input__field--ichiro" type="email" name="personal-data-email-conf" id="personal-data-email-conf" />
-                                        <label class="input__label input__label--ichiro" for="personal-data-email-conf">
-                                                <span class="input__label-content input__label-content--ichiro">Подтверждение e-mail *</span>
-                                        </label>
-                                    </span> -->
-                                <span class="input input--ichiro">
-                                        <input class="input__field input__field--ichiro phone" type="text" name="personal-data-phone" id="personal-data-phone" th:value="${user?.phone}" />
-                                        <label class="input__label input__label--ichiro" for="personal-data-phone">
-                                                <span class="input__label-content input__label-content--ichiro">Мобильный телефон</span>
-                                        </label>
-                                    </span>
-                                <!-- <span class="input input--ichiro">
-                                        <input class="input__field input__field--ichiro" type="text" name="personal-data-phone-other" id="personal-data-phone-other" />
-                                        <label class="input__label input__label--ichiro" for="personal-data-phone-other">
-                                                <span class="input__label-content input__label-content--ichiro">Доп. телефон</span>
-                                        </label>
-                                </span> -->
-                                <p class="t-label">
-                                    <label>день рождения</label>
-                                </p>
-                                <div class="for-input">
-                                    <input type="text" id="datepicker" class="inp-main">
-                                </div>
-                            </div>
                             <div class="my-personal-data-form-bottom">
-                                <button class="c-button" type="subscribe" onclick="updateUser()">
+                                <button class="c-button" type="subscribe" data-target="#update-profile>
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>
-                                    Сохранить
+                                    Редактировать
                                 </button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     
                     <div class="change-password profile-tab">
@@ -201,20 +133,18 @@
                         <p>Если ваш пароль для входа в интернет-магазин PAPERKI.BY совпадает хотя бы с одним другим интернет-магазином, электронной почтой или социальной сетью, PAPERKI.BY не может гарантировать Вам сохранность Ваших личных данных.</p>
                         <form action="">
                             <div class="change-password-form-fields">
-                                    <span class="input input--ichiro">
-                                        <input class="input__field input__field--ichiro" type="password" name="your-current-password" id="change-password-current-password" />
-                                        <label class="input__label input__label--ichiro" for="change-password-current-password">
-                                                <span class="input__label-content input__label-content--ichiro">Текущий пароль *</span>
-                                        </label>
-                                    </span>
                                 <span class="input input--ichiro">
-                                        <input class="input__field input__field--ichiro" type="password" name="your-new-password" id="change-password-new-password" />
-                                        <label class="input__label input__label--ichiro" for="change-password-new-password">
-                                            <span class="input__label-content input__label-content--ichiro">Новый пароль *</span>
-                                        </label>
-                                    </span>
-                                <input type="checkbox" name="form-automatically" id="form-automatically">
-                                <label for="form-automatically">Сформировать автоматически</label>
+                                    <input class="input__field input__field--ichiro" type="password" name="your-current-password" id="change-password-current-password" />
+                                    <label class="input__label input__label--ichiro" for="change-password-current-password">
+                                               <span class="input__label-content input__label-content--ichiro">Текущий пароль *</span>
+                                    </label>
+                                </span>
+                                <span class="input input--ichiro">
+                                    <input class="input__field input__field--ichiro" type="password" name="your-new-password" id="change-password-new-password" />
+                                    <label class="input__label input__label--ichiro" for="change-password-new-password">
+                                        <span class="input__label-content input__label-content--ichiro">Новый пароль *</span>
+                                    </label>
+                                </span>
                             </div>
                             <div class="change-password-form-bottom">
                                 <button class="c-button" type="subscribe">
