@@ -72,7 +72,7 @@ function register() {
         type: "POST",
         contentType: "application/json",
         dataType: "json",
-        url: "/api/registration",
+        url: "/api/user/registration",
         data: regFormToJSON(),
         success: function(response){
             if(response.code == "CREATED") {
@@ -99,11 +99,11 @@ function logout() {
         type: "POST",
         contentType: "application/json",
         dataType: "json",
-        url: "/api/logout",
+        url: "/api/user/logout",
         data: {"logout":true},
         success: function(response){
             if(response.code == "OK") {
-                alert(response.message);
+                // alert(response.message);
                 location.reload();
             }
             else if(response.code == "INTERNAL_SERVER_ERROR") {
@@ -124,11 +124,11 @@ function login() {
         type: "POST",
         contentType: "application/json",
         dataType: "json",
-        url: "/api/login",
+        url: "/api/user/login",
         data: authFormToJSON(),
         success: function(response){
             if(response.code == "FOUND") {
-                alert(response.message);
+                // alert(response.message);
                 location.reload();
             }else if(response.code == "NOT_FOUND") {
                 mapErrorLoginForm(response.object);
