@@ -843,10 +843,10 @@ function updatePersonalData() {
 
 function updatePersonalDataFormToJSON() {
     return JSON.stringify({
-        "name":     $('update-personal-data-person').val(),
-        "email":    $('update-personal-data-email').val(),
-        "phone":    $('update-personal-data-phone').val(),
-        "birthday": $('datepicker').val()
+        "name":     $('#update-personal-data-person').val(),
+        "email":    $('#update-personal-data-email').val(),
+        "phone":    $('#update-personal-data-phone').val(),
+        "birthday": $('#datepicker').val()
     });
 }
 
