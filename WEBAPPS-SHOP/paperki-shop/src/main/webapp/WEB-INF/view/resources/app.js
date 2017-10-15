@@ -887,10 +887,10 @@ function changePasswordDataFormToJSON() {
 }
 
 function mapErrorChangePassword (form) {
-    if (form.currentpassword != null) {
+    if (form.currentPassword != null) {
         $('#change-password-current-password').addClass("input_error");
         $('#label-change-password-current-password').addClass('label_error');
-        $('#label-change-password-current-password').attr("title", form.currentpassword)
+        $('#label-change-password-current-password').attr("title", form.currentPassword)
                                                         .tooltip('fixTitle')
                                                         .tooltip("show");
     } else {
@@ -899,10 +899,10 @@ function mapErrorChangePassword (form) {
         $('#label-change-password-current-password').tooltip("hide");
     }
 
-    if (form.newpassword != null) {
+    if (form.newPassword != null) {
         $('#change-password-new-password').addClass("input_error");
         $('#label-change-password-new-password').addClass('label_error');
-        $('#label-change-password-new-password').attr("title", form.newpassword)
+        $('#label-change-password-new-password').attr("title", form.newPassword)
                                                 .tooltip('fixTitle')
                                                 .tooltip("show");
     } else {
@@ -911,10 +911,10 @@ function mapErrorChangePassword (form) {
         $('#label-change-password-new-password').tooltip("hide");
     }
 
-    if (form.newpasswordconfirm != null) {
+    if (form.newPasswordConfirm != null) {
         $('#change-password-new-password-confirm').addClass("input_error");
         $('#label-change-password-new-password-confirmd').addClass('label_error');
-        $('#label-change-password-new-password-confirm').attr("title", form.newpasswordconfirm)
+        $('#label-change-password-new-password-confirm').attr("title", form.newPasswordConfirm)
                                                         .tooltip('fixTitle')
                                                         .tooltip("show");
     } else {
