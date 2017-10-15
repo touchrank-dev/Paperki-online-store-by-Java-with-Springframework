@@ -35,17 +35,17 @@ div.add-area {
   margin-top: 39px;
 }
 
-.my-personal-data .my-personal-data-form-bottom button {
-    border: none;
-    width: 165px;
-    height: 50px;
-    background-color: #a2ba1f;
-    border-radius: 5px;
-    color: white;
-    font-family: ProximaNovaBold;
-    font-size: 18px;
-    font-weight: 700;
-    text-transform: uppercase;
+.my-personal-data-form-bottom .my-personal-data-form-bottom button {
+  border: none;
+  width: 165px;
+  height: 50px;
+  background-color: #a2ba1f;
+  border-radius: 5px;
+  color: white;
+  font-family: ProximaNovaBold;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 
