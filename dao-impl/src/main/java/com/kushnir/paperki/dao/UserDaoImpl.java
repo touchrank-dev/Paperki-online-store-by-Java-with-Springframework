@@ -61,6 +61,9 @@ public class UserDaoImpl implements UserDao {
     @Value("${user.add}")
     private String addUserSqlQuery;
 
+    @Value("${user.update.password}")
+    private String updateUserPasswordSqlQuery;
+
     @Value("${enterprise.getByUNP}")
     private String getEnterpriseByUNPSqlQuery;
 
@@ -185,6 +188,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
     public Enterprise getEnterpriseByUNP(String unp) throws DataAccessException {
         LOGGER.debug("getEnterpriseByUNP({}) >>>", unp);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ENTERPRISE_UNP, unp);
@@ -238,6 +242,18 @@ public class UserDaoImpl implements UserDao {
             throw e;
         }
     }
+
+    @Override
+    public Integer updateUserPassword(String newPassword, Integer userId) {
+        LOGGER.debug("updateUserPassword()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        parameterSource.addValue(P_USER_ID, userId);
+        parameterSource.addValue(P_USER_PASSWORD, newPassword);
+        namedParameterJdbcTemplate.update(updateUserPasswordSqlQuery, parameterSource, keyHolder);
+        return keyHolder.getKey().intValue();
+    }
+
 
 
     private class UserRowMapper implements RowMapper<User> {

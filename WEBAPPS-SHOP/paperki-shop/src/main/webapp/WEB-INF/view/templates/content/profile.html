@@ -140,20 +140,33 @@
                         <form action="">
                             <div class="change-password-form-fields">
                                 <span class="input input--ichiro">
-                                    <input class="input__field input__field--ichiro" type="password" name="your-current-password" id="change-password-current-password" />
+                                    <input class="input__field input__field--ichiro" type="password" name="your-current-password" 
+                                        id="change-password-current-password" />
                                     <label class="input__label input__label--ichiro" for="change-password-current-password">
-                                               <span class="input__label-content input__label-content--ichiro">Текущий пароль *</span>
+                                        <span class="input__label-content input__label-content--ichiro"
+                                        id="label-change-password-current-password">Текущий пароль *</span>
                                     </label>
                                 </span>
                                 <span class="input input--ichiro">
-                                    <input class="input__field input__field--ichiro" type="password" name="your-new-password" id="change-password-new-password" />
+                                    <input class="input__field input__field--ichiro" type="password" name="your-new-password" 
+                                        id="change-password-new-password" />
                                     <label class="input__label input__label--ichiro" for="change-password-new-password">
-                                        <span class="input__label-content input__label-content--ichiro">Новый пароль *</span>
+                                        <span class="input__label-content input__label-content--ichiro"
+                                        id="label-change-password-new-password">Новый пароль *</span>
                                     </label>
+                                </span>
+                                <span class="input input--ichiro">
+                                    <input class="input__field input__field--ichiro" type="password" name="confirm-password" 
+                                        id="change-password-new-password-confirm" />
+                                    <label class="input__label input__label--ichiro" for="change-password-new-password-confirm">
+                                        <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                        id="label-change-password-new-password-confirm">Подтвердите пароль *</span>
+                                    </label>
+                                    <button type="button" class="show-password"></button>
                                 </span>
                             </div>
                             <div class="change-password-form-bottom">
-                                <button class="c-button" type="subscribe">
+                                <button class="c-button" type="subscribe" onclick="changePassword()">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>

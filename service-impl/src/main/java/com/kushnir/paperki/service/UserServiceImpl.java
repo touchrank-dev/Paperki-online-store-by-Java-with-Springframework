@@ -3,6 +3,8 @@ package com.kushnir.paperki.service;
 import com.kushnir.paperki.dao.UserDao;
 import com.kushnir.paperki.model.*;
 
+import com.kushnir.paperki.model.password.NewPasswordErrorForm;
+import com.kushnir.paperki.model.password.NewPasswordForm;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.user.UserType;
 import com.kushnir.paperki.service.exceptions.ServiceException;
@@ -203,6 +205,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer addEnterpriseByUser (RegistrateForm form, Integer userId) throws ServiceException {
+        LOGGER.debug("addEnterpriseByUser({})", userId);
         Enterprise enterprise = new Enterprise(
                 userId,
                 form.getUNP(),
@@ -227,7 +230,49 @@ public class UserServiceImpl implements UserService {
         return newEnterpriseId;
     }
 
+    @Override
+    public Object changePassword(NewPasswordForm newPasswordForm, Integer userId) {
+        LOGGER.debug("changePassword({})", newPasswordForm);
+        NewPasswordErrorForm errorForm = new NewPasswordErrorForm();
+        User user = userDao.getUserById(userId);
+
+        try {
+            Assert.notNull(newPasswordForm.getOldPassword(),"Введите старый пароль");
+            Assert.hasText(newPasswordForm.getOldPassword(),"Введите старый пароль");
+            Assert.isTrue(encoding(newPasswordForm.getOldPassword()).equals(user.getPassword()),
+                    "Неверный старый пароль");
+        } catch (Exception e) {
+            errorForm.setOldPassword(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(newPasswordForm.getNewPassword(),"Введите новый пароль");
+            Assert.hasText(newPasswordForm.getNewPassword(),"Введите новый пароль");
+            Assert.isTrue(newPasswordForm.getNewPassword().length() > 5,
+                    "Длина нового пароля не должна быть меньше 6 символов");
+        } catch (Exception e) {
+            errorForm.setNewPassword(e.getMessage());
+        }
+
+        try {
+            Assert.isTrue(newPasswordForm.getNewPassword().equals(newPasswordForm.getOldPassword()),
+                    "Пароли не совпадают");
+        } catch (Exception e) {
+            if(!errorForm.isErrors()) errorForm.setNewPasswordConfirm(e.getMessage());
+        }
+
+        if (errorForm.isErrors()) return errorForm;
+
+        else {
+            String newPassword = encoding(newPasswordForm.getNewPassword());
+            return userDao.updateUserPassword(newPassword, userId);
+        }
+    }
+
+
+
     // UTIL's
+
     private boolean validatePassword(String password) {
         matcher = passwordPattern.matcher(password);
         return matcher.matches();

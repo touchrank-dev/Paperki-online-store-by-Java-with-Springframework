@@ -1,7 +1,10 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers.user;
 
 import com.kushnir.paperki.model.*;
+import com.kushnir.paperki.model.password.NewPasswordErrorForm;
+import com.kushnir.paperki.model.password.NewPasswordForm;
 import com.kushnir.paperki.model.user.User;
+import com.kushnir.paperki.model.user.UserType;
 import com.kushnir.paperki.service.UserService;
 import com.kushnir.paperki.service.mail.Mailer;
 
@@ -104,7 +107,6 @@ public class RESTUser {
             } else {
                 LOGGER.debug("REGISTRATION FAILED >>>\nERROR FORM: {}", (ErrorRegistrateForm)user);
                 restMessage = new RestMessage(HttpStatus.NOT_ACCEPTABLE, "REGISTRATION FAILED", (ErrorRegistrateForm)user);
-                mailer.toSupportMail(restMessage.toString(), "ERROR REST REGISTRATION");
                 return restMessage;
             }
         } catch (Exception e) {
@@ -117,16 +119,33 @@ public class RESTUser {
 
     @PostMapping("/changepassword")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage changePassword(@RequestBody String email, HttpSession httpSession) {
-        LOGGER.debug("PASSWORD CHANGE >>>\nEMAIL RECEIVED: {}", email);
+    public @ResponseBody RestMessage changePassword(@RequestBody NewPasswordForm newPasswordForm,
+                                                    HttpSession httpSession) {
+        LOGGER.debug("PASSWORD CHANGE >>>\nFORM RECEIVED: {}", newPasswordForm);
         RestMessage restMessage;
-        try{
-            restMessage = new RestMessage(HttpStatus.OK, "PASSWORD CHANGE ACCEPTED!", null);
-            return restMessage;
+        try {
+
+            User user = (User) httpSession.getAttribute("user");
+            Integer userId;
+            if(user == null) throw new Exception("EMPTY USER SESSION");
+            if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
+
+            Object obj = userService.changePassword(newPasswordForm, user.getId());
+
+            if(obj instanceof Integer) {
+                httpSession.setAttribute("user", new User(UserType.ANONIMUS));
+                LOGGER.debug("PASSWORD CHANGED SUCCESSFUL! >>>\n:{}", obj);
+                restMessage = new RestMessage(HttpStatus.OK, "PASSWORD CHANGED SUCCESSFUL!", obj);
+                return restMessage;
+            } else {
+                LOGGER.debug("PASSWORD CHANGE FAILED >>>\nERROR FORM: {}", (NewPasswordErrorForm) obj);
+                restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "PASSWORD CHANGE FAILED", (NewPasswordErrorForm) obj);
+                return restMessage;
+            }
         } catch (Exception e) {
             LOGGER.error("PASSWORD CHANGE FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
-            mailer.toSupportMail(restMessage.toString(), "ERROR REST PASSWORD CHANGE");
+            mailer.toSupportMail(restMessage.toString(), "PASSWORD CHANGE FAILED");
             return restMessage;
         }
     }

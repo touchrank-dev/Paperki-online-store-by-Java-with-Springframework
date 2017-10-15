@@ -849,3 +849,76 @@ function updatePersonalDataFormToJSON() {
         "birthday": $('datepicker').val()
     });
 }
+
+function changePassword() {
+    $.ajax({
+         cache: false,
+         async: false,
+         type: "POST",
+         contentType: "application/json",
+         dataType: "json",
+         url: "/api/user/changepassword",
+         data: changePasswordDataFormToJSON(),
+         success: function(response){
+             if(response.code == "OK") {
+                alert("пароль успешно изменен");
+                location.reload();
+                // document.location.href = '#enterprise-tab';
+             } else if(response.code == "BAD_REQUEST") {
+                mapErrorChangePassword(response.object);
+             } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
+                serverAlert();
+             }
+         },
+         error: function () {
+             serverAlert();
+         }
+    });
+}
+
+function changePasswordDataFormToJSON() {
+    return JSON.stringify({
+        "oldpassword":          $('change-password-current-password').val(),
+        "newpassword":          $('change-password-new-password').val(),
+        "newpasswordconfirm":   $('change-password-new-password-confirm').val(),
+    });
+}
+
+function mapErrorChangePassword (form) {
+    if (form.currentpassword != null) {
+        $('#change-password-current-password').addClass("input_error");
+        $('#label-change-password-current-password').addClass('label_error');
+        $('#label-change-password-current-password').attr("title", form.currentpassword)
+                                                        .tooltip('fixTitle')
+                                                        .tooltip("show");
+    } else {
+        $('#change-password-current-password').removeClass("input_error");
+        $('#label-change-password-current-password').removeClass('label_error');
+        $('#label-change-password-current-password').tooltip("hide");
+    }
+
+    if (form.newpassword != null) {
+        $('#change-password-new-password').addClass("input_error");
+        $('#label-change-password-new-password').addClass('label_error');
+        $('#label-change-password-new-password').attr("title", form.newpassword)
+                                                .tooltip('fixTitle')
+                                                .tooltip("show");
+    } else {
+        $('#change-password-new-password').removeClass("input_error");
+        $('#label-change-password-new-password').removeClass('label_error');
+        $('#label-change-password-new-password').tooltip("hide");
+    }
+
+    if (form.newpasswordconfirm != null) {
+        $('#change-password-new-password-confirm').addClass("input_error");
+        $('#label-change-password-new-password-confirmd').addClass('label_error');
+        $('#label-change-password-new-password-confirm').attr("title", form.newpasswordconfirm)
+                                                        .tooltip('fixTitle')
+                                                        .tooltip("show");
+    } else {
+        $('#change-password-new-password-confirm').removeClass("input_error");
+        $('#label-change-password-new-password-confirm').removeClass('label_error');
+        $('#label-change-password-new-password-confirmd').tooltip("hide");
+    }
+}

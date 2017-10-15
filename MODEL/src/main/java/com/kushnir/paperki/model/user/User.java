@@ -18,6 +18,10 @@ public class User {
     public User() {
     }
 
+    public User(UserType userType) {
+        this.userType = userType;
+    }
+
     public User(String login, String name, UserType userType, String password) {
         this.login = login;
         this.name = name;
