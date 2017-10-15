@@ -866,6 +866,7 @@ function changePassword() {
                 // document.location.href = '#enterprise-tab';
              } else if(response.code == "BAD_REQUEST") {
                 mapErrorChangePassword(response.object);
+                console.log(response);
              } else if(response.code == "INTERNAL_SERVER_ERROR") {
                 console.log(response);
                 serverAlert();
