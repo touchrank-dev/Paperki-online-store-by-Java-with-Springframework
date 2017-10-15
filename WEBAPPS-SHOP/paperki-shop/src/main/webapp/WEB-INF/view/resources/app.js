@@ -880,17 +880,17 @@ function changePassword() {
 
 function changePasswordDataFormToJSON() {
     return JSON.stringify({
-        "oldpassword":          $('change-password-current-password').val(),
-        "newpassword":          $('change-password-new-password').val(),
-        "newpasswordconfirm":   $('change-password-new-password-confirm').val(),
+        "oldPassword":          $('change-password-current-password').val(),
+        "newPassword":          $('change-password-new-password').val(),
+        "newPasswordConfirm":   $('change-password-new-password-confirm').val(),
     });
 }
 
 function mapErrorChangePassword (form) {
-    if (form.currentPassword != null) {
+    if (form.oldPassword != null) {
         $('#change-password-current-password').addClass("input_error");
         $('#label-change-password-current-password').addClass('label_error');
-        $('#label-change-password-current-password').attr("title", form.currentPassword)
+        $('#label-change-password-current-password').attr("title", form.oldPassword)
                                                         .tooltip('fixTitle')
                                                         .tooltip("show");
     } else {
