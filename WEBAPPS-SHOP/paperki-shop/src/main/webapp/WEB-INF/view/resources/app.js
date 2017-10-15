@@ -880,9 +880,9 @@ function changePassword() {
 
 function changePasswordDataFormToJSON() {
     return JSON.stringify({
-        "oldPassword":          $('change-password-current-password').val(),
-        "newPassword":          $('change-password-new-password').val(),
-        "newPasswordConfirm":   $('change-password-new-password-confirm').val()
+        "oldPassword":          $('#change-password-current-password').val(),
+        "newPassword":          $('#change-password-new-password').val(),
+        "newPasswordConfirm":   $('#change-password-new-password-confirm').val()
     });
 }
 
