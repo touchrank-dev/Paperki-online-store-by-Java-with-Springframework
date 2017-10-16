@@ -105,6 +105,9 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${product.getProductsByCategoryTName}")
     private String getProductsByCategoryTNameSqlQuery;
 
+    @Value("${product.extraTypes.getAll}")
+    private String getAllExtraTypesProductsSqlQuery;
+
     @Value("${product.getAvailableProductByPNT}")
     private String getAvailableProductByPNTSqlQuery;
 
@@ -208,6 +211,17 @@ public class ProductDaoImpl implements ProductDao {
                             new AttributeRowMapper());
         return attributes;
     }
+
+    @Override
+    public HashMap<Integer, ExtraType> getAllExtraTypeProducts() {
+        LOGGER.debug("getAllExtraTypeProducts() >>>");
+        HashMap<Integer, ExtraType> products =
+                (HashMap<Integer, ExtraType>) namedParameterJdbcTemplate.query(
+                        getAllExtraTypesProductsSqlQuery,
+                        new ExtraProductsResultSetExtractor());
+        return products;
+    }
+
 
     @Override
     public HashMap<Integer, CSVProduct> getProductsFromCSV(StringBuilder sb) throws IOException {
@@ -831,6 +845,21 @@ public class ProductDaoImpl implements ProductDao {
                     rs.getInt("order_attr")
             );
             return attribute;
+        }
+    }
+
+
+
+    private class ExtraProductsResultSetExtractor implements ResultSetExtractor<HashMap<Integer, ExtraType>> {
+
+        @Override
+        public HashMap<Integer, ExtraType> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            HashMap<Integer, ExtraType> products = new HashMap<Integer ,ExtraType>();
+
+            while (rs.next()) {
+
+            }
+            return products;
         }
     }
 

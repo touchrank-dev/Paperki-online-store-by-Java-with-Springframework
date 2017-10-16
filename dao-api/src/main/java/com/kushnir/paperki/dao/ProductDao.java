@@ -18,6 +18,8 @@ public interface ProductDao {
     AvailableProduct getAvailableProductByPNT(Integer pnt) throws DataAccessException;
     ArrayList<Attribute> getAttributesByPNT(Integer pnt) throws DataAccessException;
 
+    HashMap<Integer, ExtraType> getAllExtraTypeProducts();
+
     HashMap<Integer, CSVProduct> getProductsFromCSV(StringBuilder sb) throws IOException;
     HashMap<Integer, StockItem> getStockItemsFromCSV(StringBuilder sb) throws IOException;
     ArrayList<Attribute> getAttributesFromCSV(StringBuilder sb) throws IOException;

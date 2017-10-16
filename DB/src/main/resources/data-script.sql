@@ -50,6 +50,22 @@ VALUES ('Бренд не определен', 'none', 'none.png'),
 INSERT INTO extra_types (name)
 VALUES ('Хиты продаж'),('Супер цена'),('Новинки'),('Специальное предложение');
 
+/*update products
+SET extra_type = 1
+where pnt IN (30, 36180, 9491, 9496, 9498);
+
+update products
+SET extra_type = 2
+where pnt IN (43, 20092, 19910, 17465, 37349);
+
+update products
+SET extra_type = 3
+where pnt IN (7918, 410, 431, 433, 7437);
+
+update products
+SET extra_type = 4
+where pnt IN (21665, 44133, 7359, 4162, 21299);*/
+
 /*
 INSERT INTO products (pnt, full_name, short_name, translit_name, id_brand, country_made, measure, base_price, vat)
 VALUES (9491, 'Бумага офисная Ксерокс Перформер А4, 80 г/м², 500 л.', 'А4, 80 г/м², 500 л.', 'bumaga-ofisnaja-xerox-performer-A4-80-gm2-500l', 2, 'РФ', 'пач.', 5.56, 20),

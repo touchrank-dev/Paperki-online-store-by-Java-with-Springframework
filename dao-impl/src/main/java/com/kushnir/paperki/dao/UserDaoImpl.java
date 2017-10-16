@@ -247,11 +247,9 @@ public class UserDaoImpl implements UserDao {
     public Integer updateUserPassword(String newPassword, Integer userId) {
         LOGGER.debug("updateUserPassword()");
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        KeyHolder keyHolder = new GeneratedKeyHolder();
         parameterSource.addValue(P_USER_ID, userId);
         parameterSource.addValue(P_USER_PASSWORD, newPassword);
-        namedParameterJdbcTemplate.update(updateUserPasswordSqlQuery, parameterSource, keyHolder);
-        return keyHolder.getKey().intValue();
+        return namedParameterJdbcTemplate.update(updateUserPasswordSqlQuery, parameterSource);
     }
 
 

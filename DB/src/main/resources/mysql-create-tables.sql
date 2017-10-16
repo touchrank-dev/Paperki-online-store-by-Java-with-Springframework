@@ -141,6 +141,7 @@ CREATE TABLE products (
     available_day               INT             DEFAULT 0 NOT NULL,
     base_price                  DOUBLE          NOT NULL,
     vat                         INT             NOT NULL,
+    extra_type                  INT,
     metadesk                    VARCHAR(400)    ,
     metakey                     VARCHAR(400)    ,
     customtitle                 VARCHAR(400)    ,

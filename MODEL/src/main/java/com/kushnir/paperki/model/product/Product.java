@@ -36,6 +36,25 @@ public class Product {
     private double finalPrice;
     private double finalPriceWithVAT;
 
+    private ExtraType extraType;
+    private Integer ExtraTypeId;
+
+    public ExtraType getExtraType() {
+        return extraType;
+    }
+
+    public void setExtraType(ExtraType extraType) {
+        this.extraType = extraType;
+    }
+
+    public Integer getExtraTypeId() {
+        return ExtraTypeId;
+    }
+
+    public void setExtraTypeId(Integer extraTypeId) {
+        ExtraTypeId = extraTypeId;
+    }
+
     private Integer VAT;
     private String metadesk;
     private String metakey;
@@ -504,6 +523,8 @@ public class Product {
                 ", basePriceWithVAT=" + basePriceWithVAT +
                 ", finalPrice=" + finalPrice +
                 ", finalPriceWithVAT=" + finalPriceWithVAT +
+                ", extraType=" + extraType +
+                ", ExtraTypeId=" + ExtraTypeId +
                 ", VAT=" + VAT +
                 ", metadesk='" + metadesk + '\'' +
                 ", metakey='" + metakey + '\'' +

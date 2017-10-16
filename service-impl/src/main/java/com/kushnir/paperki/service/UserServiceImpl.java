@@ -267,7 +267,8 @@ public class UserServiceImpl implements UserService {
 
         else {
             String newPassword = encoding(newPasswordForm.getNewPassword());
-            return userDao.updateUserPassword(newPassword, userId);
+            Integer count = userDao.updateUserPassword(newPassword, userId);
+            return count;
         }
     }
 
