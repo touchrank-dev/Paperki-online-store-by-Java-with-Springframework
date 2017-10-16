@@ -11,24 +11,24 @@ import java.util.Map;
 
 public class PriceCalculator {
 
-    public double getDouble(double value) {
+    public static double getDouble(double value) {
         return new BigDecimal(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
-    public double getVatValue(double price, int VAT) {
+    public static double getVatValue(double price, int VAT) {
         return getDouble(price * VAT/100d);
     }
 
-    public double getPriceWithVAT(double price, int VAT) {
+    public static double getPriceWithVAT(double price, int VAT) {
         return getDouble(price + getVatValue(price, VAT));
     }
 
-    public double calculateTotalWithVAT(double total, int quantity, int VAT) {
+    public static double calculateTotalWithVAT(double total, int quantity, int VAT) {
         double totalVAT = getVatValue(total, VAT);
         return total + totalVAT;
     }
 
-    public double calculateDiscountedPrice(Discount discount, double basePrice) {
+    public static double calculateDiscountedPrice(Discount discount, double basePrice) {
         if (discount != null) {
             DiscountType discountType = discount.getDiscountType();
             double dValue = discount.getValueDouble();
@@ -50,7 +50,7 @@ public class PriceCalculator {
         } else return basePrice;
     }
 
-    public double calculateQuantityPrice (HashMap<Integer, Price> prices, int quantity, double currentPrice) {
+    public static double calculateQuantityPrice (HashMap<Integer, Price> prices, int quantity, double currentPrice) {
         double finalPrice = currentPrice;
         for (Map.Entry<Integer, Price> entry : prices.entrySet()) {
             Price price = entry.getValue();

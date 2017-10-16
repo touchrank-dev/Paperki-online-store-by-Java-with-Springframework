@@ -1,8 +1,7 @@
 package com.kushnir.paperki.dao;
 
+import com.kushnir.paperki.dao.product.datamapper.*;
 import com.kushnir.paperki.model.*;
-import com.kushnir.paperki.model.calculation.PriceCalculator;
-import com.kushnir.paperki.model.category.CategorySimple;
 import com.kushnir.paperki.model.product.*;
 import com.kushnir.paperki.model.util.Transliterator;
 
@@ -16,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -29,8 +26,6 @@ import org.springframework.util.Assert;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -65,9 +60,6 @@ public class ProductDaoImpl implements ProductDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    private PriceCalculator priceCalculator;
 
     /* CSV */
     @Value("${csv.delimiter}")
@@ -213,10 +205,10 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public HashMap<Integer, ExtraType> getAllExtraTypeProducts() {
+    public HashMap<Integer, HashMap<Integer, Product>> getAllExtraTypeProducts() {
         LOGGER.debug("getAllExtraTypeProducts() >>>");
-        HashMap<Integer, ExtraType> products =
-                (HashMap<Integer, ExtraType>) namedParameterJdbcTemplate.query(
+        HashMap<Integer, HashMap<Integer, Product>> products =
+                namedParameterJdbcTemplate.query(
                         getAllExtraTypesProductsSqlQuery,
                         new ExtraProductsResultSetExtractor());
         return products;
@@ -538,329 +530,6 @@ public class ProductDaoImpl implements ProductDao {
         LOGGER.debug("batchAddQuantityPrices() >>>");
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(prices);
         return namedParameterJdbcTemplate.batchUpdate(addPriceSqlQuery, batch);
-    }
-
-
-
-
-
-    private class ProductsResultSetExtractor implements ResultSetExtractor {
-
-        @Override
-        public Object extractData(ResultSet rs) throws SQLException {
-
-            HashMap<Integer, Product> products = new HashMap<Integer ,Product>();
-
-            while (rs.next()) {
-
-                int idProduct =             rs.getInt("id_product");
-
-                // цена =======================================================================
-                int VAT =                   rs.getInt("vat");
-                double basePrice =          rs.getDouble("base_price");
-                double basePriceWithVAT =   priceCalculator.getPriceWithVAT(basePrice, VAT);
-
-                // цена от количества =========================================================
-                Price price =               null;
-                int quantityStart =         rs.getInt("quantity_start");
-                double value =              rs.getDouble("value");
-                double valueWithVAT =       priceCalculator.getPriceWithVAT(value, VAT);
-
-                if (quantityStart > 0 && value > 0d) {
-                    price = new Price(quantityStart, value, valueWithVAT);
-                }
-
-                // скидка =====================================================================
-                Discount discount =         null;
-                String discountTypeValue =  rs.getString("dtype");
-
-                if(discountTypeValue != null) {
-                    DiscountType discountType = DiscountType.valueOf(discountTypeValue);
-                    double dValue =         rs.getDouble("value_double");
-                    int iValue =            rs.getInt("value_int");
-
-                    discount = new Discount(
-                            discountType,
-                            dValue,
-                            iValue
-                    );
-                }
-                // ============================================================================
-
-                double finalPrice =         priceCalculator.calculateDiscountedPrice(discount, basePrice);
-                double finalPriceWithVAT =  priceCalculator.getPriceWithVAT(finalPrice, VAT);
-
-                Product product = products.get(idProduct);
-
-                if(product == null) {
-                    product = new Product(
-                            idProduct,
-                            rs.getInt("pap_id"),
-                            rs.getInt("pnt"),
-                            rs.getString("full_name"),
-                            rs.getString("short_name"),
-                            rs.getString("translit_name"),
-                            rs.getString("link"),
-                            rs.getString("country_from"),
-                            rs.getString("country_made"),
-                            rs.getString("measure"),
-                            rs.getInt("available_day"),
-                            rs.getInt("quantity_available"),
-
-                            basePrice,
-                            basePriceWithVAT,
-                            finalPrice,
-                            finalPriceWithVAT,
-
-                            VAT,
-                            rs.getBoolean("is_published"),
-                            rs.getBoolean("is_visible"),
-                            new Brand(rs.getString("bname"), rs.getString("btname")),
-                            new HashMap<Integer, Price>()
-                    );
-
-                    if (price != null) {
-                        product.getPrices().put(quantityStart, price);
-                    }
-                    product.setDiscount(discount);
-                    products.put(idProduct, product);
-
-                } else {
-                    if (price != null) {
-                        product.getPrices().put(quantityStart, price);
-                    }
-                }
-            }
-            return products;
-        }
-    }
-
-    private class ProductResultSetExtractor implements ResultSetExtractor {
-
-        @Override
-        public Product extractData(ResultSet rs) throws SQLException {
-            Product product = null;
-
-            while (rs.next()) {
-                int idProduct =             rs.getInt("id_product");
-
-                // цена =======================================================================
-                int VAT =                   rs.getInt("vat");
-                double basePrice =          rs.getDouble("base_price");
-                double basePriceWithVAT =   priceCalculator.getPriceWithVAT(basePrice, VAT);
-
-                // цена от количества =========================================================
-                Price price =               null;
-                int quantityStart =         rs.getInt("quantity_start");
-                double value =              rs.getDouble("value");
-                double valueWithVAT =       priceCalculator.getPriceWithVAT(value, VAT);
-
-                if (quantityStart > 0 && value > 0d) {
-                    price = new Price(quantityStart, value, valueWithVAT);
-                }
-
-                // скидки =====================================================================
-                Discount discount =         null;
-                String discountTypeValue =  rs.getString("dtype");
-
-                if(discountTypeValue != null) {
-                    DiscountType discountType = DiscountType.valueOf(discountTypeValue);
-                    double dValue =         rs.getDouble("value_double");
-                    int iValue =            rs.getInt("value_int");
-
-                    discount = new Discount(
-                            discountType,
-                            dValue,
-                            iValue
-                    );
-                }
-                // ============================================================================
-
-                double finalPrice = priceCalculator.calculateDiscountedPrice(discount, basePrice);
-                double finalPriceWithVAT = priceCalculator.getPriceWithVAT(finalPrice, VAT);
-
-                if(product == null) {
-                    product = new Product(
-                            idProduct,
-                            rs.getInt("pap_id"),
-                            rs.getInt("pnt"),
-                            rs.getString("full_name"),
-                            rs.getString("short_name"),
-                            rs.getString("translit_name"),
-                            rs.getString("link"),
-                            rs.getString("country_from"),
-                            rs.getString("country_made"),
-                            rs.getString("measure"),
-                            rs.getInt("available_day"),
-                            rs.getInt("quantity_available"),
-
-                            basePrice,
-                            basePriceWithVAT,
-                            finalPrice,
-                            finalPriceWithVAT,
-
-                            VAT,
-                            rs.getBoolean("is_published"),
-                            rs.getBoolean("is_visible"),
-                            new Brand(rs.getString("bname"), rs.getString("btname")),
-                            new HashMap<Integer, Price>()
-                    );
-
-                    if (price != null) {
-                        product.getPrices().put(quantityStart, price);
-                    }
-                    product.setDiscount(discount);
-
-                } else {
-                    if (price != null) {
-                        product.getPrices().put(quantityStart, price);
-                    }
-                }
-            }
-            return product;
-        }
-    }
-
-    private class AvailableProductResultSetExtractor implements ResultSetExtractor {
-
-        @Override
-        public AvailableProduct extractData(ResultSet rs) throws SQLException {
-            AvailableProduct availableProduct = null;
-            while(rs.next()) {
-
-                int id =                    rs.getInt("id_product");
-                int pnt =                   rs.getInt("pnt");
-                String fullName =           rs.getString("full_name");
-                String shortName =          rs.getString("short_name");
-                int quantityAvailable =     rs.getInt("quantity_available");
-
-                // цена =======================================================================
-                int VAT =                   rs.getInt("vat");
-                double basePrice =          rs.getDouble("base_price");
-                double basePriceWithVAT =   priceCalculator.getPriceWithVAT(basePrice, VAT);
-
-                // цена от количества =========================================================
-                Price price =               null;
-                int quantityStart =         rs.getInt("quantity_start");
-                double value =              rs.getDouble("value");
-                double valueWithVAT =       priceCalculator.getPriceWithVAT(value, VAT);
-
-                if (quantityStart > 0 && value > 0d) {
-                    price = new Price(quantityStart, value, valueWithVAT);
-                }
-
-                // скидки =====================================================================
-                Discount discount =         null;
-                String discountTypeValue =  rs.getString("dtype");
-
-                if(discountTypeValue != null) {
-                    DiscountType discountType = DiscountType.valueOf(discountTypeValue);
-                    double dValue =         rs.getDouble("value_double");
-                    int iValue =            rs.getInt("value_int");
-
-                    discount = new Discount(
-                            discountType,
-                            dValue,
-                            iValue
-                    );
-                }
-
-                // ============================================================================
-
-                double finalPrice = priceCalculator.calculateDiscountedPrice(discount, basePrice);
-                double finalPriceWithVAT = priceCalculator.getPriceWithVAT(finalPrice, VAT);
-
-                if(availableProduct == null) {
-                    availableProduct = new AvailableProduct(
-                            id,
-                            pnt,
-                            fullName,
-                            shortName,
-                            basePrice,
-                            basePriceWithVAT,
-                            finalPrice,
-                            finalPriceWithVAT,
-                            VAT,
-                            quantityAvailable,
-                            discount
-                    );
-                    if (price != null) {
-                        availableProduct.getPrices().put(quantityStart, price);
-                    }
-                } else {
-                    if (price != null) {
-                        availableProduct.getPrices().put(quantityStart, price);
-                    }
-                }
-            }
-            return availableProduct;
-        }
-    }
-
-    private class AllProductResultSetExtractor implements ResultSetExtractor<HashMap<Integer, ProductSimple>> {
-
-        @Override
-        public HashMap<Integer, ProductSimple> extractData(ResultSet rs) throws SQLException, DataAccessException {
-            HashMap<Integer, ProductSimple> products = new HashMap<>();
-
-            while(rs.next()) {
-                Integer id =                    rs.getInt("id_product");
-                Integer papId =                 rs.getInt("pap_id");
-                Integer pnt =                   rs.getInt("pnt");
-                String translitName =           rs.getString("translit_name");
-
-                Integer catalogId =             rs.getInt("id_catalog");
-                Integer catalogPapID =          rs.getInt("catpapid");
-                String catalogTranslitName =    rs.getString("cattransname");
-
-                CategorySimple categorySimple = new CategorySimple(
-                        catalogId,
-                        catalogPapID,
-                        catalogTranslitName
-                );
-
-                ProductSimple product = new ProductSimple(
-                        id,
-                        papId,
-                        pnt,
-                        translitName,
-                        categorySimple
-                );
-
-                products.put(pnt, product);
-            }
-
-            return products;
-        }
-    }
-
-    private class AttributeRowMapper implements RowMapper<Attribute> {
-
-        @Override
-        public Attribute mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Attribute attribute = new Attribute(
-                    rs.getInt("id_product_attributes"),
-                    rs.getString("name"),
-                    rs.getString("value"),
-                    rs.getInt("order_attr")
-            );
-            return attribute;
-        }
-    }
-
-
-
-    private class ExtraProductsResultSetExtractor implements ResultSetExtractor<HashMap<Integer, ExtraType>> {
-
-        @Override
-        public HashMap<Integer, ExtraType> extractData(ResultSet rs) throws SQLException, DataAccessException {
-            HashMap<Integer, ExtraType> products = new HashMap<Integer ,ExtraType>();
-
-            while (rs.next()) {
-
-            }
-            return products;
-        }
     }
 
 }

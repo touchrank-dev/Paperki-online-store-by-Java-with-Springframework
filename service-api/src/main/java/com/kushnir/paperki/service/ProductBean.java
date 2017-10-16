@@ -9,6 +9,9 @@ public interface ProductBean {
 
     HashMap<Integer, ProductSimple> getAll();
     HashMap<Integer ,Product> getProductListByCategoryTName(String categoryTName);
+
+    HashMap<Integer, HashMap<Integer, Product>> getAllExtraTypeProducts();
+
     Product getProductByPNT(Integer pnt);
     Product getProductByTName(String TName);
     AvailableProduct getAvailableProductByPNT(Integer pnt);

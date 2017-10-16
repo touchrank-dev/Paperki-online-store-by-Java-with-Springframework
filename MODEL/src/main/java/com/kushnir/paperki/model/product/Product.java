@@ -26,6 +26,7 @@ public class Product {
 
     private Brand brand;
     private CategorySimple category;
+    private String categoryTranslitName;
 
     private ArrayList<Attribute> attributes;
     private HashMap<Integer, Price> prices;
@@ -35,25 +36,6 @@ public class Product {
     private double basePriceWithVAT;
     private double finalPrice;
     private double finalPriceWithVAT;
-
-    private ExtraType extraType;
-    private Integer ExtraTypeId;
-
-    public ExtraType getExtraType() {
-        return extraType;
-    }
-
-    public void setExtraType(ExtraType extraType) {
-        this.extraType = extraType;
-    }
-
-    public Integer getExtraTypeId() {
-        return ExtraTypeId;
-    }
-
-    public void setExtraTypeId(Integer extraTypeId) {
-        ExtraTypeId = extraTypeId;
-    }
 
     private Integer VAT;
     private String metadesk;
@@ -102,12 +84,10 @@ public class Product {
         this.measure = measure;
         this.availableDay = availableDay;
         this.quantity = quantity;
-
         this.basePrice = basePrice;
         this.basePriceWithVAT = basePriceWithVAT;
         this.finalPrice = finalPrice;
         this.finalPriceWithVAT = finalPriceWithVAT;
-
         this.VAT = VAT;
         this.isPublished = isPublished;
         this.isVisible = isVisible;
@@ -275,6 +255,14 @@ public class Product {
         this.category = category;
     }
 
+    public String getCategoryTranslitName() {
+        return categoryTranslitName;
+    }
+
+    public void setCategoryTranslitName(String categoryTranslitName) {
+        this.categoryTranslitName = categoryTranslitName;
+    }
+
     public ArrayList<Attribute> getAttributes() {
         return attributes;
     }
@@ -439,6 +427,8 @@ public class Product {
         if (quantity != null ? !quantity.equals(product.quantity) : product.quantity != null) return false;
         if (brand != null ? !brand.equals(product.brand) : product.brand != null) return false;
         if (category != null ? !category.equals(product.category) : product.category != null) return false;
+        if (categoryTranslitName != null ? !categoryTranslitName.equals(product.categoryTranslitName) : product.categoryTranslitName != null)
+            return false;
         if (attributes != null ? !attributes.equals(product.attributes) : product.attributes != null) return false;
         if (prices != null ? !prices.equals(product.prices) : product.prices != null) return false;
         if (discount != null ? !discount.equals(product.discount) : product.discount != null) return false;
@@ -474,6 +464,7 @@ public class Product {
         result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
         result = 31 * result + (brand != null ? brand.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + (categoryTranslitName != null ? categoryTranslitName.hashCode() : 0);
         result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
         result = 31 * result + (prices != null ? prices.hashCode() : 0);
         result = 31 * result + (discount != null ? discount.hashCode() : 0);
@@ -516,6 +507,7 @@ public class Product {
                 ", quantity=" + quantity +
                 ", brand=" + brand +
                 ", category=" + category +
+                ", categoryTranslitName='" + categoryTranslitName + '\'' +
                 ", attributes=" + attributes +
                 ", prices=" + prices +
                 ", discount=" + discount +
@@ -523,8 +515,6 @@ public class Product {
                 ", basePriceWithVAT=" + basePriceWithVAT +
                 ", finalPrice=" + finalPrice +
                 ", finalPriceWithVAT=" + finalPriceWithVAT +
-                ", extraType=" + extraType +
-                ", ExtraTypeId=" + ExtraTypeId +
                 ", VAT=" + VAT +
                 ", metadesk='" + metadesk + '\'' +
                 ", metakey='" + metakey + '\'' +

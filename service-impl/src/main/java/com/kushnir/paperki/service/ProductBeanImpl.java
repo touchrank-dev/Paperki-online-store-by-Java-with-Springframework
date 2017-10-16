@@ -63,6 +63,13 @@ public class ProductBeanImpl implements ProductBean {
     }
 
     @Override
+    public HashMap<Integer, HashMap<Integer, Product>> getAllExtraTypeProducts() {
+        LOGGER.debug("getAllExtraTypeProducts() >>>");
+        HashMap<Integer, HashMap<Integer, Product>> products = productDao.getAllExtraTypeProducts();
+        return products;
+    }
+
+    @Override
     public Product getProductByPNT(Integer pnt) {
         LOGGER.debug("getProductByPNT({}) >>>", pnt);
         Product product = productDao.getProductByPNT(pnt);
@@ -403,7 +410,6 @@ public class ProductBeanImpl implements ProductBean {
         Assert.notNull(attribute.getName(), "attribute.name = null");
         Assert.hasText(attribute.getName(), "attribute.name is blank");
         Assert.notNull(attribute.getValue(), "attribute.value = null");
-
         Assert.notNull(attribute.getOrder(), "attribute.order = null");
     }
 }

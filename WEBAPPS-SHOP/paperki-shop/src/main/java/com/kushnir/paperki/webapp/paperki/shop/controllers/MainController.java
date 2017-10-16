@@ -4,6 +4,7 @@ import com.kushnir.paperki.model.MenuItem;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
 
+import com.kushnir.paperki.service.ProductBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 
@@ -32,6 +33,9 @@ public class MainController {
     @Autowired
     CatalogBean catalogBean;
 
+    @Autowired
+    ProductBean productBean;
+
     @Value("${content.path}")
     String contentPath;
 
@@ -39,6 +43,7 @@ public class MainController {
     @GetMapping()
     public String mainPage(Model model) {
         LOGGER.debug("mainPage() >>>");
+        model.addAttribute("extraProducts", productBean.getAllExtraTypeProducts());
         model.addAttribute("templatePathName", contentPath + MAIN_MENU_NAME);
         model.addAttribute("fragmentName", MAIN_MENU_NAME);
         return "index";

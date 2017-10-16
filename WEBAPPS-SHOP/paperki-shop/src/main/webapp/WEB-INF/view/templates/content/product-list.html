@@ -68,7 +68,7 @@
                                             <p class="al-ph">
                                                 <div    th:if="${ProductImages} != null"
                                                         th:switch="${ProductImages[__${product?.value?.pnt}__]} == null"
-                                                     th:remove="tag">
+                                                        th:remove="tag">
                                                     <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
                                                          th:case="${true}"
                                                          th:attr="alt=${product?.value?.fullName}">
