@@ -42,8 +42,6 @@ target/
 *.odt
 # UI-SOURCE/
 
-/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/spring-properties.xml
-/WEBAPPS-ADMIN/paperki-admin/src/main/webapp/WEB-INF/spring-properties.xml
-/WEBAPPS-SHOP/paperki-shop/src/main/resources/db.remote.properties
-/WEBAPPS-SHOP/paperki-shop/src/main/resources/db.properties
-/dao-impl/src/test/resources/test.db.remote.properties
+#/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/spring-properties.xml
+#/WEBAPPS-ADMIN/paperki-admin/src/main/webapp/WEB-INF/spring-properties.xml
+#/WEBAPPS-SHOP/paperki-shop/src/main/resources/db.properties
