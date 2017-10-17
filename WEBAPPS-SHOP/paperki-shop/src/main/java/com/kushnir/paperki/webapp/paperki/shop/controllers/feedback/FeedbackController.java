@@ -41,8 +41,8 @@ public class FeedbackController {
     FeedbackService feedbackService;
 
     @GetMapping
-    public String catalogPage(Model model) {
-        LOGGER.debug("catalogPage() >>>");
+    public String feedbackPage(Model model) {
+        LOGGER.debug("feedbackPage() >>>");
         model.addAttribute("templatePathName", contentPath + FEEDBACK_MENU_NAME);
         model.addAttribute("fragmentName", FEEDBACK_MENU_NAME);
         return "index";
