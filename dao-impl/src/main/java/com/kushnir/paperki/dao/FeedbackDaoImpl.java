@@ -16,8 +16,6 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class FeedbackDaoImpl implements FeedbackDao {
@@ -74,9 +72,6 @@ public class FeedbackDaoImpl implements FeedbackDao {
 
         @Override
         public Feedback mapRow(ResultSet rs, int i) throws SQLException {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-            LocalDate createDate = LocalDate.parse(rs.getString("create_date"), formatter);
-
             Feedback feedback = new Feedback(
                     rs.getInt("id_user"),
                     rs.getString("user_name"),
@@ -84,7 +79,7 @@ public class FeedbackDaoImpl implements FeedbackDao {
                     rs.getString("ip_address"),
                     rs.getInt("rate"),
                     rs.getString("text"),
-                    createDate,
+                    rs.getDate("create_date").toLocalDate(),
                     rs.getBoolean("approve"),
                     rs.getBoolean("is_published")
             );

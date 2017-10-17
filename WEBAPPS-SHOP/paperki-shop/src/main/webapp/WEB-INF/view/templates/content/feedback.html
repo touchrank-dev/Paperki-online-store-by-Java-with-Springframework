@@ -41,7 +41,7 @@
                                         <div class="feedback-info">
                                             <h3>
                                                 <span th:text="${feedback?.userName}" th:remove="tag">Name</span>
-                                                <span class="feedback-time" th:text="${feedback?.createDate}">13.03.2017</span>
+                                                <span class="feedback-time" th:text="${feedback?.getStringCreateDate()}">13.03.2017</span>
                                             </h3>
                                         </div>
                                     </div>

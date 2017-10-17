@@ -1,6 +1,7 @@
 package com.kushnir.paperki.model.feedback;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Feedback {
 
@@ -138,6 +139,10 @@ public class Feedback {
 
     public LocalDate getCreateDate() {
         return createDate;
+    }
+    public String getStringCreateDate(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        return this.createDate.format(formatter);
     }
 
     public void setCreateDate(LocalDate createDate) {
