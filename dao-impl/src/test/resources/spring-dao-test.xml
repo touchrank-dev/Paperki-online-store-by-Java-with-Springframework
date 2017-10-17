@@ -10,7 +10,7 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:paperkiMySQLremote.properties</value>
+                <value>classpath:test.db.remote.properties</value>
                 <value>classpath:sqlQueries.properties</value>
             </list>
         </property>
