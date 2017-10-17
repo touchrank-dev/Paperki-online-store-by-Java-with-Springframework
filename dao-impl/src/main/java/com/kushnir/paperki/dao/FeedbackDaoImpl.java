@@ -8,10 +8,15 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class FeedbackDaoImpl implements FeedbackDao {
 
@@ -28,6 +33,9 @@ public class FeedbackDaoImpl implements FeedbackDao {
 
     @Value("${feedback.add}")
     private String addFeedbackSqlQuery;
+
+        @Value("${feedback.getAllApprove}")
+    private String getAllApproveSqlQuery;
 
     @Override
     public Integer addFeedback(Feedback feedback) throws DataAccessException {
@@ -47,6 +55,35 @@ public class FeedbackDaoImpl implements FeedbackDao {
             LOGGER.error("Не удалось записать запро на отзыв!," +
                     "\nError message: {}", e.getMessage());
             throw e;
+        }
+    }
+
+    @Override
+    public ArrayList<Feedback> getAllFeedback() {
+        LOGGER.debug("getAllFeedback()");
+        ArrayList<Feedback> feedbacks;
+        feedbacks = (ArrayList<Feedback>)
+                namedParameterJdbcTemplate.query(getAllApproveSqlQuery, new FeedbackRowMapper());
+        return feedbacks;
+    }
+
+
+    private class FeedbackRowMapper implements RowMapper<Feedback> {
+
+        @Override
+        public Feedback mapRow(ResultSet rs, int i) throws SQLException {
+            Feedback feedback = new Feedback(
+                    rs.getInt("id_user"),
+                    rs.getString("user_name"),
+                    rs.getString("email"),
+                    rs.getString("ip_address"),
+                    rs.getInt("rate"),
+                    rs.getString("text"),
+                    rs.getDate("create_date").toLocalDate(),
+                    rs.getBoolean("approve"),
+                    rs.getBoolean("is_published")
+            );
+            return feedback;
         }
     }
 }

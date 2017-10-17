@@ -18,6 +18,7 @@ import org.springframework.util.Assert;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import java.util.ArrayList;
 
 @Service
 @Transactional
@@ -80,6 +81,18 @@ public class FeedbackServiceImpl implements FeedbackService {
                 LOGGER.error("ОШИБКА ОТЗЫВА", e.getMessage());
                 throw new ServiceException(e.getMessage());
             }
+        }
+    }
+
+    @Override
+    public ArrayList<Feedback> getAllFeedback() {
+        LOGGER.debug("getAllFeedback()");
+        try {
+            ArrayList<Feedback> feedbacks = feedbackDao.getAllFeedback();
+            return feedbacks;
+        } catch (Exception e) {
+            LOGGER.error("getAllFeedback() ERROR >>> {},\nERROR MESSAGE: {}", e, e.getMessage());
+            return null;
         }
     }
 
