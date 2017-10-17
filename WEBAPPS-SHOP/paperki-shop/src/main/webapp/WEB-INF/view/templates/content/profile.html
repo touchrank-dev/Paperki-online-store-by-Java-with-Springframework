@@ -93,19 +93,23 @@
                                     <ul>
                                         <li>
                                             <p>Имя ползователя:</p>
-                                            <span th:text="${user?.name}">Имя</span>
+                                            <span th:text="${userProfile?.name}">Имя</span>
                                         </li>
                                         <li>
                                             <p>Логин:</p>
-                                            <span th:text="${user?.login}">Логин</span>
+                                            <span th:text="${userProfile?.login}">Логин</span>
                                         </li>
                                         <li>
                                             <p>Адрес электронной почты:</p>
-                                            <span th:text="${user?.email}">Email</span>
+                                            <span th:text="${userProfile?.email}">Email</span>
                                         </li>
                                         <li>
                                             <p>Контактный номер телефона:</p>
-                                            <span th:text="${user?.phone}">Телефон</span>
+                                            <span th:text="${userProfile?.phone}">Телефон</span>
+                                        </li>
+                                        <li>
+                                            <p>День рождения:</p>
+                                            <span th:text="${userProfile?.birthDay}">01/01/1999</span>
                                         </li>
                                     </ul>
                                     <ul>
@@ -120,10 +124,7 @@
                                     </div>
                                     Редактировать
                                 </button> -->
-                                <a href="#update-profile-popup" class="my-personal-data-form-button c-button">
-                                    <div class="c-ripple js-ripple">
-                                        <span class="c-ripple__circle"></span>
-                                    </div>
+                                <a href="#update-profile-popup" class="my-personal-data-form-button update-profile-popup">
                                     Редактировать
                                 </a>
                             </div>

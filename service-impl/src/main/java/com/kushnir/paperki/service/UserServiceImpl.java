@@ -7,6 +7,8 @@ import com.kushnir.paperki.model.password.NewPasswordErrorForm;
 import com.kushnir.paperki.model.password.NewPasswordForm;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.user.UserType;
+import com.kushnir.paperki.model.user.UserUpdateErrorResponse;
+import com.kushnir.paperki.model.user.UserUpdateRequest;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +22,9 @@ import org.springframework.util.Assert;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.security.MessageDigest;
@@ -97,6 +102,18 @@ public class UserServiceImpl implements UserService {
                 throw e;
             }
         }
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        LOGGER.debug("GET USER BY LOGIN >>>\nLOGIN: {}", login);
+        return userDao.getUserByLogin(login);
+    }
+
+    @Override
+    public User getUserById(Integer id) {
+        LOGGER.debug("GET USER BY ID >>>\nID: {}", id);
+        return userDao.getUserById(id);
     }
 
     @Override
@@ -232,15 +249,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Object changePassword(NewPasswordForm newPasswordForm, Integer userId) {
-        LOGGER.debug("changePassword({})", newPasswordForm);
+        LOGGER.debug("changePassword({}, {})", newPasswordForm, userId);
         NewPasswordErrorForm errorForm = new NewPasswordErrorForm();
         User user = userDao.getUserById(userId);
 
         try {
-            Assert.notNull(newPasswordForm.getOldPassword(),"Введите старый пароль");
-            Assert.hasText(newPasswordForm.getOldPassword(),"Введите старый пароль");
+            Assert.notNull(newPasswordForm.getOldPassword(),"Введите текущий пароль");
+            Assert.hasText(newPasswordForm.getOldPassword(),"Введите текущий пароль");
             Assert.isTrue(encoding(newPasswordForm.getOldPassword()).equals(user.getPassword()),
-                    "Неверный старый пароль");
+                    "Неверный текущий пароль");
         } catch (Exception e) {
             errorForm.setOldPassword(e.getMessage());
         }
@@ -251,7 +268,7 @@ public class UserServiceImpl implements UserService {
             Assert.isTrue(newPasswordForm.getNewPassword().length() > 5,
                     "Длина нового пароля не должна быть меньше 6 символов");
             Assert.isTrue(!encoding(newPasswordForm.getNewPassword()).equals(user.getPassword()),
-                    "Новый пароль не должен быть равен старому");
+                    "Новый пароль не должен быть равен текущему");
         } catch (Exception e) {
             errorForm.setNewPassword(e.getMessage());
         }
@@ -268,6 +285,56 @@ public class UserServiceImpl implements UserService {
         else {
             String newPassword = encoding(newPasswordForm.getNewPassword());
             Integer count = userDao.updateUserPassword(newPassword, userId);
+            return count;
+        }
+    }
+
+    @Override
+    public Object updateUser(UserUpdateRequest userUpdateRequest, Integer UserId) {
+        LOGGER.debug("updateUser({}, {})", userUpdateRequest, UserId);
+        UserUpdateErrorResponse userUpdateErrorResponse = new UserUpdateErrorResponse();
+
+        try {
+            Assert.notNull(userUpdateRequest.getName(),"Имя пользователя не должно быть пустым");
+            Assert.hasText(userUpdateRequest.getName(),"Имя пользователя не должно быть пустым");
+        } catch (Exception e) {
+            userUpdateErrorResponse.setName(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(userUpdateRequest.getEmail(),
+                    "Адрес электронной почты не может быть пустым");
+            Assert.hasText(userUpdateRequest.getEmail(),
+                    "Адрес электронной почты не может быть пустым");
+            Assert.isTrue(validateEmail(userUpdateRequest.getEmail()),
+                    "Введен некорректный адрес электронной почты");
+        } catch (Exception e) {
+            userUpdateErrorResponse.setEmail(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(userUpdateRequest.getPhone(),"Номер телефона не должен быть пустым");
+            Assert.hasText(userUpdateRequest.getPhone(),"Номер телефона не должен быть пустым");
+        } catch (Exception e) {
+            userUpdateErrorResponse.setPhone(e.getMessage());
+        }
+
+        try {
+            if(userUpdateRequest.getBirthday() != null
+                    || !userUpdateRequest.getBirthday().isEmpty()
+                    || !userUpdateRequest.getBirthday().equals("")) {
+                String str = userUpdateRequest.getBirthday();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                LocalDate date = LocalDate.parse(str, formatter);
+                userUpdateRequest.setBirthday(date.toString());
+            }
+        } catch (Exception e) {
+            userUpdateErrorResponse.setBirthday(e.getMessage());
+        }
+
+        if (userUpdateErrorResponse.isErrors()) return userUpdateErrorResponse;
+        else {
+            Integer count = userDao.updateUser(userUpdateRequest, UserId);
             return count;
         }
     }

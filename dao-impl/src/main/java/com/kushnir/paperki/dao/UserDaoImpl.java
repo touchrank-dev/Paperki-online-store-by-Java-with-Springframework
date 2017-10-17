@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.RegistrateForm;
 import com.kushnir.paperki.model.user.User;
 
+import com.kushnir.paperki.model.user.UserUpdateRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +21,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class UserDaoImpl implements UserDao {
 
@@ -60,6 +62,9 @@ public class UserDaoImpl implements UserDao {
 
     @Value("${user.add}")
     private String addUserSqlQuery;
+
+    @Value("${user.update}")
+    private String updateUserSqlQuery;
 
     @Value("${user.update.password}")
     private String updateUserPasswordSqlQuery;
@@ -252,12 +257,24 @@ public class UserDaoImpl implements UserDao {
         return namedParameterJdbcTemplate.update(updateUserPasswordSqlQuery, parameterSource);
     }
 
+    @Override
+    public Integer updateUser (UserUpdateRequest userUpdateRequest, Integer userId) {
+        LOGGER.debug("updateUserPassword()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_USER_ID, userId);
+        parameterSource.addValue(P_USER_NAME, userUpdateRequest.getName());
+        parameterSource.addValue(P_USER_EMAIL, userUpdateRequest.getEmail());
+        parameterSource.addValue(P_USER_PHONE, userUpdateRequest.getPhone());
+        parameterSource.addValue(P_USER_BIRTH_DAY, userUpdateRequest.getBirthday());
+        return namedParameterJdbcTemplate.update(updateUserSqlQuery, parameterSource);
+    }
 
 
     private class UserRowMapper implements RowMapper<User> {
 
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+            LocalDate birthDay = rs.getDate("birth_day").toLocalDate();
             User user = new User(
                     rs.getInt("id_user"),
                     rs.getString("login_user"),
@@ -267,6 +284,7 @@ public class UserDaoImpl implements UserDao {
                     rs.getString("phone"),
                     rs.getBoolean("subscribe")
             );
+            user.setBirthDay(birthDay);
             return user;
         }
     }

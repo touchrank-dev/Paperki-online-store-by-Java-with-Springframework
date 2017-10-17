@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.order.Order;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
+import com.kushnir.paperki.service.UserService;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
 import org.apache.logging.log4j.LogManager;
@@ -35,6 +36,9 @@ public class UserController {
     @Autowired
     MenuBean menuBean;
 
+    @Autowired
+    UserService userService;
+
     @Value("${content.path}")
     String contentPath;
 
@@ -46,7 +50,18 @@ public class UserController {
         return "index";
     }
 
-    @ModelAttribute
+    @ModelAttribute("userProfile")
+    public User getUserProfile (HttpSession httpSession) {
+        User sessionUser = (User)httpSession.getAttribute("user");
+        User user = null;
+        if (sessionUser != null || sessionUser.getId() != null || sessionUser.getId() > 0) {
+            Integer id = sessionUser.getId();
+            user = userService.getUserById(id);
+        }
+        return user;
+    }
+
+    @ModelAttribute("userEnterprise")
     public Enterprise getEnterprise(HttpSession httpSession) {
         User user = (User)httpSession.getAttribute("user");
         Enterprise enterprise = null;
@@ -56,7 +71,7 @@ public class UserController {
         return enterprise;
     }
 
-    @ModelAttribute
+    @ModelAttribute("orders")
     public HashMap<Integer, Order> getOrders(HttpSession httpSession) {
         User user = (User)httpSession.getAttribute("user");
         HashMap<Integer, Order> orders = null;

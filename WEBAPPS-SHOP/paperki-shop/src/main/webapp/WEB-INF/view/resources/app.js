@@ -838,7 +838,30 @@ function seViewType(type) {
 
 
 function updatePersonalData() {
-    alert(updatePersonalDataFormToJSON());
+    $.ajax({
+         cache: false,
+         async: false,
+         type: "POST",
+         contentType: "application/json",
+         dataType: "json",
+         url: "/api/user/update",
+         data: updatePersonalDataFormToJSON(),
+         success: function(response){
+             if(response.code == "OK") {
+                location.reload();
+                // document.location.href = '#enterprise-tab';
+             } else if(response.code == "BAD_REQUEST") {
+                mapErrorUpdatePerson(response.object);
+                console.log(response);
+             } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
+                serverAlert();
+             }
+         },
+         error: function () {
+             serverAlert();
+         }
+    });
 }
 
 function updatePersonalDataFormToJSON() {
@@ -846,8 +869,59 @@ function updatePersonalDataFormToJSON() {
         "name":     $('#update-personal-data-person').val(),
         "email":    $('#update-personal-data-email').val(),
         "phone":    $('#update-personal-data-phone').val(),
-        "birthday": $('#datepicker').val()
+        "birthday": $('.update-personal-data-birthday').val()
     });
+}
+
+function mapErrorUpdatePerson (form) {
+    if (form.name != null) {
+        $('#update-personal-data-person').addClass("input_error");
+        $('#label-update-personal-data-person').addClass('label_error');
+        $('#label-update-personal-data-person').attr("title", form.name)
+                                                .tooltip('fixTitle')
+                                                .tooltip("show");
+    } else {
+        $('#update-personal-data-person').removeClass("input_error");
+        $('#label-update-personal-data-person').removeClass('label_error');
+        $('#label-update-personal-data-person').tooltip("hide");
+    }
+
+    if (form.email != null) {
+        $('#update-personal-data-email').addClass("input_error");
+        $('#label-update-personal-data-email').addClass('label_error');
+        $('#label-update-personal-data-email').attr("title", form.email)
+                                                .tooltip('fixTitle')
+                                                .tooltip("show");
+    } else {
+        $('#update-personal-data-email').removeClass("input_error");
+        $('#label-update-personal-data-email').removeClass('label_error');
+        $('#label-update-personal-data-email').tooltip("hide");
+    }
+
+    if (form.phone != null) {
+        $('#update-personal-data-phone').addClass("input_error");
+        $('#label-update-personal-data-phone').addClass('label_error');
+        $('#label-update-personal-data-phone').attr("title", form.phone)
+                                                .tooltip('fixTitle')
+                                                .tooltip("show");
+    } else {
+        $('#update-personal-data-phone').removeClass("input_error");
+        $('#label-update-personal-data-phone').removeClass('label_error');
+        $('#label-update-personal-data-phone').tooltip("hide");
+    }
+
+    if (form.birthday != null) {
+        $('.update-personal-data-birthday').addClass("input_error");
+        $('#label-update-personal-data-birthday').addClass('label_error');
+        $('#label-update-personal-data-birthday').attr("title", form.birthday)
+                                                .tooltip('fixTitle')
+                                                .tooltip("show");
+    } else {
+        $('.update-personal-data-birthday').removeClass("input_error");
+        $('#label-update-personal-data-birthday').removeClass('label_error');
+        $('#label-update-personal-data-birthday').tooltip("hide");
+    }
+
 }
 
 function changePassword() {
@@ -862,8 +936,8 @@ function changePassword() {
          success: function(response){
              if(response.code == "OK") {
                 alert("пароль успешно изменен");
-                location.reload();
-                // document.location.href = '#enterprise-tab';
+                // location.reload();
+                document.location.href = '/';
              } else if(response.code == "BAD_REQUEST") {
                 mapErrorChangePassword(response.object);
                 console.log(response);

@@ -5,6 +5,8 @@ import com.kushnir.paperki.model.password.NewPasswordErrorForm;
 import com.kushnir.paperki.model.password.NewPasswordForm;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.user.UserType;
+import com.kushnir.paperki.model.user.UserUpdateErrorResponse;
+import com.kushnir.paperki.model.user.UserUpdateRequest;
 import com.kushnir.paperki.service.UserService;
 import com.kushnir.paperki.service.mail.Mailer;
 
@@ -126,7 +128,6 @@ public class RESTUser {
         try {
 
             User user = (User) httpSession.getAttribute("user");
-            Integer userId;
             if(user == null) throw new Exception("EMPTY USER SESSION");
             if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
 
@@ -146,6 +147,37 @@ public class RESTUser {
             LOGGER.error("PASSWORD CHANGE FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
             mailer.toSupportMail(restMessage.toString(), "PASSWORD CHANGE FAILED");
+            return restMessage;
+        }
+    }
+
+    @PostMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage update(@RequestBody UserUpdateRequest userUpdateRequest,
+                                                    HttpSession httpSession) {
+        LOGGER.debug("USER UPDATE >>>\nFORM RECEIVED: {}", userUpdateRequest);
+        RestMessage restMessage;
+        try {
+
+            User user = (User) httpSession.getAttribute("user");
+            if(user == null) throw new Exception("EMPTY USER SESSION");
+            if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
+
+            Object obj = userService.updateUser(userUpdateRequest, user.getId());
+
+            if(obj instanceof Integer) {
+                LOGGER.debug("USER UPDATED SUCCESSFUL! >>>\n:{}", obj);
+                restMessage = new RestMessage(HttpStatus.OK, "USER UPDATED SUCCESSFUL!", obj);
+                return restMessage;
+            } else {
+                LOGGER.debug("USER UPDATE FAILED >>>\nERROR FORM: {}", (UserUpdateErrorResponse) obj);
+                restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "USER UPDATE FAILED", (UserUpdateErrorResponse) obj);
+                return restMessage;
+            }
+        } catch (Exception e) {
+            LOGGER.error("USER UPDATE FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
+            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            mailer.toSupportMail(restMessage.toString(), "USER UPDATE FAILED");
             return restMessage;
         }
     }

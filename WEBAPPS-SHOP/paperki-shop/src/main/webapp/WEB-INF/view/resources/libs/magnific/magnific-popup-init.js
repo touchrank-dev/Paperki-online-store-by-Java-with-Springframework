@@ -1,4 +1,11 @@
 $(document).ready(function() {
+    $('.update-profile-popup').magnificPopup({
+        type:'inline',
+        removalDelay: 400,
+        midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+        // other options
+    });
+
     $('.open-reg-popup').magnificPopup({
         type:'inline',
         removalDelay: 400,
