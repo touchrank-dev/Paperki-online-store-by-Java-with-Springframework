@@ -162,6 +162,7 @@ $(function() {
         ],
         dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
         firstDay: 1,
+        dateFormat: "yy-mm-dd"
     });  
 //    show/hide password
     $ (".show-password").click(function(e){

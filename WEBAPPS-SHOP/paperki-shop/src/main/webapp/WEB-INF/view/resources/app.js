@@ -838,6 +838,7 @@ function seViewType(type) {
 
 
 function updatePersonalData() {
+    alert(updatePersonalDataFormToJSON());
     $.ajax({
          cache: false,
          async: false,

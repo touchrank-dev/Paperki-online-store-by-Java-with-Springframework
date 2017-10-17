@@ -324,12 +324,12 @@ public class UserServiceImpl implements UserService {
                     || !userUpdateRequest.getBirthday().isEmpty()
                     || !userUpdateRequest.getBirthday().equals("")) {
                 String str = userUpdateRequest.getBirthday();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 LocalDate date = LocalDate.parse(str, formatter);
                 userUpdateRequest.setBirthday(date.toString());
             }
         } catch (Exception e) {
-            userUpdateErrorResponse.setBirthday(e.getMessage());
+            userUpdateErrorResponse.setBirthday("Ошибка в формате даты");
         }
 
         if (userUpdateErrorResponse.isErrors()) return userUpdateErrorResponse;
