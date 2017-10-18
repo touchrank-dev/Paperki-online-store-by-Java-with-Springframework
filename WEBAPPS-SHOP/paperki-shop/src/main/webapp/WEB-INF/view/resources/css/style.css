@@ -33,17 +33,25 @@ div.add-area {
 }
 
 .my-personal-data-form-bottom .my-personal-data-form-button {
-  border: none;
-  width: 165px;
-  height: 50px;
+  margin-top: 33px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 299px;
+  height: 60px;
+  border-radius: 10px;
   background-color: #a2ba1f;
-  border-radius: 5px;
-  color: white;
-  font-family: ProximaNovaBold;
-  font-size: 18px;
-  font-weight: 700;
-  text-transform: uppercase;
+  color: #ffffff;
+  font-family: ProximaNovaBlack;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 24px;
 }
+
+
 
 .update-profile-popup-content {
   position: relative;

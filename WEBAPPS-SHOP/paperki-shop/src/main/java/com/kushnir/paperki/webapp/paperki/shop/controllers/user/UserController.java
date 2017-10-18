@@ -3,6 +3,7 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers.user;
 import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.order.Order;
 import com.kushnir.paperki.model.user.User;
+import com.kushnir.paperki.model.user.UserType;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.service.UserService;
@@ -43,11 +44,14 @@ public class UserController {
     String contentPath;
 
     @GetMapping
-    public String personalUserPage(Model model) {
+    public String personalUserPage(Model model, HttpSession httpSession) {
         LOGGER.debug("personalUserPage() >>>");
-        model.addAttribute("templatePathName", contentPath + PROFILE_MENU_NAME);
-        model.addAttribute("fragmentName", PROFILE_MENU_NAME);
-        return "index";
+        User user = (User) httpSession.getAttribute("user");
+        if (user != null || !user.getUserType().equals(UserType.ANONIMUS)) {
+            model.addAttribute("templatePathName", contentPath + PROFILE_MENU_NAME);
+            model.addAttribute("fragmentName", PROFILE_MENU_NAME);
+            return "index";
+        } else return "redirect:/";
     }
 
     @ModelAttribute("userProfile")

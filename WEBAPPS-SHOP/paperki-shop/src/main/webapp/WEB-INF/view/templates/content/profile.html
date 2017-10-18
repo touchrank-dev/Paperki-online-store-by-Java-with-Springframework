@@ -109,22 +109,19 @@
                                         </li>
                                         <li>
                                             <p>День рождения:</p>
-                                            <span th:text="${userProfile?.birthDay}">01/01/1999</span>
+                                            <span th:text="${userProfile?.birthDay}">2000-11-11</span>
                                         </li>
                                     </ul>
                                     <ul>
-                                    <!-- второй ряд -->
+                                        <!-- второй ряд -->
                                     </ul>
                                 </div>
                             </div>
                             <div class="my-personal-data-form-bottom">
-                                <!-- <button class="my-personal-data-form-button c-button" type="subscribe" data-target="#update-profile-popup">
+                                <a href="#update-profile-popup" class="my-personal-data-form-button update-profile-popup c-button">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>
-                                    Редактировать
-                                </button> -->
-                                <a href="#update-profile-popup" class="my-personal-data-form-button update-profile-popup">
                                     Редактировать
                                 </a>
                             </div>
@@ -192,6 +189,7 @@
                             <p>
                                 Для вашего удобства Вы можете указать реквизиты вашей организации, и сохранив их при заказе выбрав "покупка на юридическое лицо" реквизиты будут указываться автоматически.
                             </p>
+                            <p>Вернуться на <a href="#" class="back-to-main back-to-personal-profile">главную страницу личного кабинета.</a></p>
                             <!-- <p>Вы можете добавить несколько организаций, и выбирать их реквизиты при оформлении заказа.</p> -->
                             <!-- <p>Вернуться на <a href="#" class="back-to-main back-to-personal-profile">главную страницу личного кабинета.</a></p>
                             <ul class="my-organizations-list">
