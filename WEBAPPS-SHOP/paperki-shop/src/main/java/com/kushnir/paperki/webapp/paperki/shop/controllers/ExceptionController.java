@@ -4,6 +4,7 @@ import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.mail.Mailer;
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,7 +54,8 @@ public class ExceptionController {
                      .append("\nAuthType: ").append(req.getAuthType())
                      .append("\nContentType: ").append(req.getContentType())
                      .append("\nException class: ").append(e)
-                     .append("\nError Message: ").append(e.getMessage());
+                     .append("\nError Message: ").append(e.getMessage())
+                     .append("\nStack Trace:").append(ExceptionUtils.getStackTrace(e));
         LOGGER.error(stringBuilder);
         mailer.toSupportMail(stringBuilder.toString(), hostMame+", Ошибка сервера!");
     }
