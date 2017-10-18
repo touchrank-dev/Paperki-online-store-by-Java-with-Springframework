@@ -22,6 +22,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.sql.Date;
 
 public class UserDaoImpl implements UserDao {
 
@@ -274,7 +275,13 @@ public class UserDaoImpl implements UserDao {
 
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-            LocalDate birthDay = rs.getDate("birth_day").toLocalDate();
+            LocalDate birthDay = null;
+
+            Date bd = rs.getDate("birth_day");
+            if (bd != null) {
+                birthDay = bd.toLocalDate();
+            }
+
             User user = new User(
                     rs.getInt("id_user"),
                     rs.getString("login_user"),
