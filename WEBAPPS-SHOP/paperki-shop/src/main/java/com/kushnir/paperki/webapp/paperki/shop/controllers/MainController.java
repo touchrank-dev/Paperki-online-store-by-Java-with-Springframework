@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,13 +51,13 @@ public class MainController {
     }
 
     @GetMapping("/favicon.ico")
-    public String favicon () {
+    public FileSystemResource favicon () {
         LOGGER.debug("favicon()");
-        return null;
+        return new FileSystemResource("WEB-INF/view/resources/img/favicons/favicon.ico");
     }
 
     @GetMapping("/robots.txt")
-    public String robots () {
+    public FileSystemResource robots () {
         LOGGER.debug("robots()");
         return null;
     }
