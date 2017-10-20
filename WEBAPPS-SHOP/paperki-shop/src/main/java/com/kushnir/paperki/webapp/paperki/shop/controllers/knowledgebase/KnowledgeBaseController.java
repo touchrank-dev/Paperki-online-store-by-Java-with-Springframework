@@ -46,7 +46,7 @@ public class KnowledgeBaseController {
     public String article(@PathVariable String articleName, Model model) throws ServiceException {
         LOGGER.debug("article() >>>");
         model.addAttribute("templatePathName", contentPath + ARTICLE_FOLDER + articleName);
-        model.addAttribute("fragmentName", articleName);
+        model.addAttribute("fragmentName", "article");
         return "index";
     }
 
