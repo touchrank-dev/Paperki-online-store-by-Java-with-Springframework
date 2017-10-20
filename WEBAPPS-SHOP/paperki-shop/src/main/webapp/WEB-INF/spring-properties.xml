@@ -9,8 +9,7 @@
             <list>
                 <value>classpath:CSVconfig.properties</value>
                 <value>classpath:sqlQueries.properties</value>
-                <!--<value>classpath:db.properties</value>-->
-                <value>file:/home/paperki.by/properties/db.remote.properties</value>
+                <value>classpath:db.properties</value>
                 <value>file:/home/paperki.by/properties/app.properties</value>
             </list>
         </property>
