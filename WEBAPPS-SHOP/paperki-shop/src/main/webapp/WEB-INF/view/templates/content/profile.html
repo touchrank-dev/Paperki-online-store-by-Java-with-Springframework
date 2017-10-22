@@ -7,18 +7,16 @@
             </ul>
             <div class="profile-page-content">
                 <ul class="profile-tabs-titles">
-                    <!--for all info (is hidden)-->
-                    <li class="personal-account">
+
+                    <li class="personal-data">
                         <button class="c-button">
                             <div class="c-ripple js-ripple">
                                 <span class="c-ripple__circle"></span>
-                            </div>
+                            </div>                            
                             <div class="profile-tabs-title__icon"></div>
-                            <p>Главная страница личного кабинета</p>
+                            <p>Личные данные</p>
                         </button>
                     </li>
-                    <!--for all info (is hidden) end-->
-
                     <li class="password-change">
                         <button class="c-button">
                             <div class="c-ripple js-ripple">
@@ -26,24 +24,6 @@
                             </div>
                             <div class="profile-tabs-title__icon"></div>
                             <p>Смена пароля</p>
-                        </button>
-                    </li>
-                    <li class="my-organizations">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Мои организации</p>
-                        </button>
-                    </li>
-                    <li class="delivery-addresses">
-                        <button class="c-button">
-                            <div class="c-ripple js-ripple">
-                                <span class="c-ripple__circle"></span>
-                            </div>
-                            <div class="profile-tabs-title__icon"></div>
-                            <p>Адреса доставки</p>
                         </button>
                     </li>
                     <li class="notifications">
@@ -55,7 +35,6 @@
                             <p>Уведомления</p>
                         </button>
                     </li>
-
                     <li class="orders">
                         <button class="c-button">
                             <div class="c-ripple js-ripple">
@@ -65,7 +44,6 @@
                             <p>Заказы</p>
                         </button>
                     </li>
-
                     <li class="bookmarks">
                         <button class="c-button">
                             <div class="c-ripple js-ripple">
@@ -75,14 +53,12 @@
                             <p>Избранный товар</p>
                         </button>
                     </li>
-
                 </ul>
-
 
 
                 <div class="profile-tabs-content">
                     
-                    <div class="my-profile">
+                    <div class="my-profile profile-tab">
                         <div class="my-profile-content">
                             <h2>Личный кабинет</h2>
                             <div class="my-profile-personal-data">
@@ -114,11 +90,16 @@
                                     </ul>
                                     <ul>
                                         <!-- второй ряд -->
+                                        <li>
+                                            <p>Количество заказов:</p>
+                                            <span>0</span>
+                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </div>
                             <div class="my-personal-data-form-bottom">
-                                <a href="#update-profile-popup" class="my-personal-data-form-button update-profile-popup c-button">
+                                <a href="#update-profile-popup" class="my-personal-data-form-button update-profile-popup c-button" style="margin-top: 0px;">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>
@@ -126,6 +107,90 @@
                                 </a>
                             </div>
                         </div>
+
+                        <ul class="my-profile-links">
+
+                            <li class="personal-data">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Личные данные
+                                        </h3>
+                                        <p>
+                                            В этом разделе вы можете изменить свои личные даные.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="password-change">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Смена пароля
+                                        </h3>
+                                        <p>
+                                            Здесь вы можете сменить свои данные для доступа в личный кабинет.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="notifications">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Уведомления
+                                        </h3>
+                                        <p>
+                                            Раздел уведомлений о новых товарах, ценах и, конечно, специальных предложениях для наших клиентов.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="orders">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Заказы
+                                        </h3>
+                                        <p>
+                                            Порекомендуй нас – дополнительная программа премирования постоянных покупателей.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>                            
+                            <li class="bookmarks">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Избранное
+                                        </h3>
+                                        <p>
+                                            Здесь хранятся Ваши избранные товары.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                     
                     <div class="change-password profile-tab">
@@ -174,205 +239,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="my-organizations profile-tab">
-                        <a href="#" class="back-to-personal-profile">
-                            Назад к личному кабинету
-                        </a>
-                        <div class="my-organizations-content">
-                            <h2>
-                                Моя организация
-                            </h2>
-                            <!-- <div class="success-notification">
-                                <img src="/res/img/reg-success-icon.png" alt="Реквизиты были успешно добавлены">
-                                <p>Реквизиты были успешно добавлены</p>
-                            </div> -->
-                            <p>
-                                Для вашего удобства Вы можете указать реквизиты вашей организации, и сохранив их при заказе выбрав "покупка на юридическое лицо" реквизиты будут указываться автоматически.
-                            </p>
-                            <p>Вернуться на <a href="#" class="back-to-main back-to-personal-profile">главную страницу личного кабинета.</a></p>
-                            <!-- <p>Вы можете добавить несколько организаций, и выбирать их реквизиты при оформлении заказа.</p> -->
-                            <!-- <p>Вернуться на <a href="#" class="back-to-main back-to-personal-profile">главную страницу личного кабинета.</a></p>
-                            <ul class="my-organizations-list">
-                                <li>
-                                    <a href="#">New-Level</a>
-                                    <div class="action-buttons">
-                                        <a href="#" class="edit-button" title="Редактировать"></a>
-                                        <a href="#" class="delete-button" title="Удалить"></a>
-                                    </div>
-                                </li>
-                            </ul>
-                            <a href="#" class="add-organization-button">добавить организацию</a> -->
-                        </div>
-                        <div class="add-organization">
-                            <h3>Реквизиты</h3>
-                            <form>
-                                <div class="add-organization-form-fields">
-                                        <span class="input input--ichiro with-hint">
-                                            <input class="input__field input__field--ichiro" type="text" name="company-name" id="add-organization-name" />
-                                            <label class="input__label input__label--ichiro" for="add-organization-name">
-                                                    <span class="input__label-content input__label-content--ichiro">Название компании *</span>
-                                            </label>
-                                            <p>Например: ООО «ПАПЕРКИ» или ИП Иванов Иван Иванович</p>
-                                        </span>
-                                    <span class="input input--ichiro with-hint">
-                                            <input class="input__field input__field--ichiro" type="text" name="company-unp" id="add-organization-unp" />
-                                            <label class="input__label input__label--ichiro" for="add-organization-unp">
-                                                    <span class="input__label-content input__label-content--ichiro">УНП</span>
-                                            </label>
-                                            <p>Например: 7735092378</p>
-                                        </span>
-                                    <span class="input input--ichiro with-hint">
-                                            <input class="input__field input__field--ichiro" type="text" name="company-bik" id="add-organization-bik" />
-                                            <label class="input__label input__label--ichiro" for="add-organization-bik">
-                                                    <span class="input__label-content input__label-content--ichiro">БИК банка</span>
-                                            </label>
-                                            <p>Например: 044525823</p>
-                                        </span>
-                                    <span class="input input--ichiro with-hint">
-                                            <input class="input__field input__field--ichiro" type="text" name="company-settlement-account" id="add-organization-settlement-account" />
-                                            <label class="input__label input__label--ichiro" for="add-organization-settlement-account">
-                                                    <span class="input__label-content input__label-content--ichiro">Расчетный счет</span>
-                                            </label>
-                                            <p>Например: 40702810292000005704</p>
-                                        </span>
-                                    <span class="input input--ichiro with-hint">
-                                            <input class="input__field input__field--ichiro" type="text" name="company-legal-address" id="add-organization-legal-address" />
-                                            <label class="input__label input__label--ichiro" for="add-organization-legal-address">
-                                                    <span class="input__label-content input__label-content--ichiro">Юридический адрес</span>
-                                            </label>
-                                            <p>Например: 125190 г. Брест, Ленинградский пр-т. д.80, корп.17</p>
-                                        </span>
-                                    <span class="input input--ichiro with-hint">
-                                            <input class="input__field input__field--ichiro" type="text" name="company-actual-address" id="add-organization-actual-address" />
-                                            <label class="input__label input__label--ichiro" for="add-organization-actual-address">
-                                                    <span class="input__label-content input__label-content--ichiro">Фактический адрес</span>
-                                            </label>
-                                            <p>Например: 125190 г. Брест, ул. Ленина. д.10, корп.1</p>
-                                        </span>
-                                    <span class="input input--ichiro with-hint">
-                                            <input class="input__field input__field--ichiro" type="text" name="company-actual-address2" id="add-organization-actual-address2" />
-                                            <label class="input__label input__label--ichiro" for="add-organization-actual-address2">
-                                                    <span class="input__label-content input__label-content--ichiro">Фактический адрес</span>
-                                            </label>
-                                            <p>Например: 125190 г. Брест, ул. Ленина. д.10, корп.1</p>
-                                        </span>
-                                    <span class="input input--ichiro">
-                                            <input class="input__field input__field--ichiro phone" type="text" name="company-phone" id="add-organization-phone" />
-                                            <label class="input__label input__label--ichiro" for="add-organization-phone">
-                                                    <span class="input__label-content input__label-content--ichiro">Телефон</span>
-                                            </label>
-                                        </span>
-                                    <span class="input input--ichiro">
-                                            <input class="input__field input__field--ichiro" type="email" name="company-email" id="add-organization-email" />
-                                            <label class="input__label input__label--ichiro" for="add-organization-email">
-                                                    <span class="input__label-content input__label-content--ichiro">E-mail</span>
-                                            </label>
-                                        </span>
-                                    <!-- <span class="input input--ichiro">
-                                            <input class="input__field input__field--ichiro" type="text" name="company-contact-person" id="add-organization-contact-person" />
-                                            <label class="input__label input__label--ichiro" for="add-organization-contact-person">
-                                                    <span class="input__label-content input__label-content--ichiro">Контактное лицо</span>
-                                            </label>
-                                        </span> -->
-                                </div>
-                                <div class="add-organization-form-bottom">
-                                    <button class="c-button" type="subscribe">
-                                        <div class="c-ripple js-ripple">
-                                            <span class="c-ripple__circle"></span>
-                                        </div>
-                                        Сохранить
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="delivery-address profile-tab">
-                        <a href="#" class="back-to-personal-profile">
-                            Назад к личному кабинету
-                        </a>
-                        <div class="delivery-address-content">
-                            <h2>
-                                Адреса доставки
-                            </h2>
-                            <!-- <div class="success-notification">
-                                <img src="/res/img/reg-success-icon.png" alt="Информация об адресе доставки была успешно добавлена">
-                                <p>Информация об адресе доставки была успешно добавлена</p>
-                            </div> -->
-                            <p>
-                                Добавьте важные адреса доставки товара и Вам не придётся вводить их каждый раз в процессе осуществления заказа.
-                            </p>
-                            <p>Вы можете добавить несколько адресов и выбирать необходимый при оформлении заказа.</p>
-                            <p>Вернуться на <a href="#" class="back-to-main back-to-personal-profile">главную страницу личного кабинета.</a></p>
-                            <ul class="delivery-address-list">
-                                <!-- <li>
-                                    <a href="#">ул.Ясеневая д.8/1 к.в 35</a>
-                                    <div class="action-buttons">
-                                        <a href="#" class="edit-button" title="Редактировать"></a>
-                                        <a href="#" class="delete-button" title="Удалить"></a>
-                                    </div>
-                                </li> -->
-                            </ul>
-                            <a href="#add-delivery-address-form" class="add-delivery-address-button">добавить адрес</a>
-                        </div>
-                        <div class="add-delivery-address" id="add-delivery-address-form">
-                            <h3>Адрес доставки</h3>
-                            <form action="">
-                                <div class="add-delivery-address-form-fields">
-                                        <span class="input input--ichiro with-hint">
-                                            <input class="input__field input__field--ichiro" type="text" name="delivery-name" id="delivery-name" />
-                                            <label class="input__label input__label--ichiro" for="delivery-name">
-                                                    <span class="input__label-content input__label-content--ichiro">Название доставки</span>
-                                            </label>
-                                            <p>Например, «Дом» или «В Офис»</p>
-                                        </span>
-                                    <span class="input input--ichiro">
-                                            <input class="input__field input__field--ichiro" type="text" name="delivery-contact-person" id="delivery-contact-person" />
-                                            <label class="input__label input__label--ichiro" for="delivery-contact-person">
-                                                    <span class="input__label-content input__label-content--ichiro">Контактное лицо *</span>
-                                            </label>
-                                        </span>
-                                    <span class="input input--ichiro">
-                                            <input class="input__field input__field--ichiro" type="text" name="delivery-state" id="delivery-state" />
-                                            <label class="input__label input__label--ichiro" for="delivery-state">
-                                                    <span class="input__label-content input__label-content--ichiro">Область</span>
-                                            </label>
-                                        </span>
-                                    <span class="input input--ichiro">
-                                            <input class="input__field input__field--ichiro" type="text" name="delivery-city" id="delivery-city" />
-                                            <label class="input__label input__label--ichiro" for="delivery-city">
-                                                    <span class="input__label-content input__label-content--ichiro">Город</span>
-                                            </label>
-                                        </span>
-                                    <span class="input input--ichiro">
-                                            <input class="input__field input__field--ichiro" type="text" name="delivery-metro" id="delivery-metro" />
-                                            <label class="input__label input__label--ichiro" for="delivery-metro">
-                                                    <span class="input__label-content input__label-content--ichiro">Метро</span>
-                                            </label>
-                                        </span>
-                                    <span class="input input--ichiro">
-                                            <input class="input__field input__field--ichiro" type="text" name="delivery-index" id="delivery-index" />
-                                            <label class="input__label input__label--ichiro" for="delivery-index">
-                                                    <span class="input__label-content input__label-content--ichiro">Индекс</span>
-                                            </label>
-                                        </span>
-                                    <span class="input input--ichiro callback-form-field message-field">
-                                            <textarea class="input__field input__field--ichiro" name="delivery-address" id="delivery-address"></textarea>
-                                            <label class="input__label input__label--ichiro" for="delivery-address">
-                                                <span class="input__label-content input__label-content--ichiro">Адрес доставки *</span>
-                                            </label>
-                                        </span>
-                                </div>
-                                <div class="add-delivery-address-form-bottom">
-                                    <button class="c-button" type="subscribe">
-                                        <div class="c-ripple js-ripple">
-                                            <span class="c-ripple__circle"></span>
-                                        </div>
-                                        Сохранить
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    
                     <div class="my-notification profile-tab">
                         <a href="#" class="back-to-personal-profile">
                             Назад к личному кабинету

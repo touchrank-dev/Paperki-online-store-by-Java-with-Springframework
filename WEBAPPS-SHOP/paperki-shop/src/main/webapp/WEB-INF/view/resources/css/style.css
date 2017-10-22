@@ -4342,7 +4342,7 @@ a.link-name-cat:hover {
   height: 2px;
   border-bottom: 1px dotted #fb6a4b; }
 
-.product__super-price:before {
+.product_super-price:before {
   content: 'супер цена!';
   display: -moz-flex;
   display: -ms-flex;
@@ -4363,7 +4363,7 @@ a.link-name-cat:hover {
   font-size: 14px;
   font-weight: 400; }
 
-.product__hit:before {
+.product_hit:before {
   content: 'хит!';
   display: -moz-flex;
   display: -ms-flex;
@@ -4406,8 +4406,8 @@ a.link-name-cat:hover {
   font-weight: 400; }
 
 .new-product div.caption.cap-normal,
-.product__super-price div.caption.cap-normal,
-.product__hit div.caption.cap-normal {
+.product_super-price div.caption.cap-normal,
+.product_hit div.caption.cap-normal {
   padding-top: 28px; }
 
 div.caption.cap-normal {
@@ -5388,7 +5388,7 @@ a.btn.btn-ord.active {
   outline: none; }
 
 .articles-content {
-  margin-top: 70px; }
+  margin-top: 0px; }
 
 .articles-slider > div {
   display: none; }
@@ -12715,7 +12715,7 @@ li .single-product__number .dec {
   flex-wrap: wrap;
   -ms-flex-direction: column;
   flex-direction: column;
-  height: 1122px;
+  /*height: 1122px;*/
   padding: 0;
   margin: 30px 0 0 0;
   width: 100%;
@@ -12723,7 +12723,7 @@ li .single-product__number .dec {
   border: 1px solid #e0e0e0;
   border-radius: 10px; }
   .my-profile .my-profile-links li {
-    width: 50%;
+    width: 100%;
     height: 140px;
     border-bottom: 1px solid #e0e0e0;
     padding: 0 35px; }
@@ -12767,7 +12767,7 @@ li .single-product__number .dec {
       -ms-flex-negative: 0;
       flex-shrink: 0; }
     .my-profile .my-profile-links li:nth-child(-n + 9) {
-      border-right: 1px solid #e0e0e0; }
+      /*border-right: 1px solid #e0e0e0;*/ }
     .my-profile .my-profile-links li:nth-of-type(9) {
       border-bottom: none; }
     .my-profile .my-profile-links li:last-of-type {
