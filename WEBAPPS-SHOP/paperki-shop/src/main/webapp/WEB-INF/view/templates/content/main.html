@@ -58,7 +58,7 @@
             <div class="row cat-row"
                 th:if="${extraProducts.size()} > 0">
                 
-                <div class="col-lg-8 col-md-7 left-cat">
+                <div class="left-cat">
 
                     <div class="catalog__navigation">
                         <ul class="nav nav-tabs nav-brd">
@@ -98,7 +98,9 @@
                                             th:each="product : ${products.value}">
 
 
-                                        <div class="thumbnail order-product product__hit">                                            
+                                        <div class="thumbnail order-product product_hit"
+                                            th:class="(${products.key} == 1 ? 'thumbnail order-product product_hit' : (${products.key} == 2 ? 'thumbnail order-product product_super-price' : (${products.key} == 3 ? 'thumbnail order-product new-product' : 'thumbnail order-product')))">
+
                                             <div class="caption cap-normal product-content">
                                                 <div class="product-content__top">
 
