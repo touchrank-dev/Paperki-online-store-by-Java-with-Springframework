@@ -1,12 +1,10 @@
-package com.kushnir.paperki.webapp.paperki.shop.controllers.knowledgebase;
+package com.kushnir.paperki.webapp.paperki.shop.controllers.help;
 
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,12 +18,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping("/knowledgebase")
-public class KnowledgeBaseController {
+@RequestMapping("/help")
+public class HelpController {
 
-    private static final Logger LOGGER = LogManager.getLogger(KnowledgeBaseController.class);
-    private static final String ARTICLE_FOLDER = "knowledgebase/";
-    private static final String MENU_NAME = "knowledgebase";
+    private static final Logger LOGGER = LogManager.getLogger(HelpController.class);
+    private static final String ARTICLE_FOLDER = "help/";
+    private static final String MENU_NAME = "help";
 
     @Autowired
     CatalogBean catalogBean;
@@ -37,8 +35,8 @@ public class KnowledgeBaseController {
     String contentPath;
 
     @GetMapping
-    public String knowledgeBasePage(Model model) {
-        LOGGER.debug("knowledgeBasePage() >>>");
+    public String helpPage(Model model) {
+        LOGGER.debug("helpPage() >>>");
         model.addAttribute("templatePathName", contentPath + MENU_NAME);
         model.addAttribute("fragmentName", MENU_NAME);
         return "index";
@@ -61,4 +59,5 @@ public class KnowledgeBaseController {
     public HashMap getCatalog () throws ServiceException {
         return catalogBean.getAll();
     }
+
 }
