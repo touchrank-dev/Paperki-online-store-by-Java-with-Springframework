@@ -1,5 +1,7 @@
 package com.kushnir.paperki.model;
 
+import java.util.ArrayList;
+
 public class Enterprise {
     private Integer id;
     private Integer userId;
@@ -9,6 +11,16 @@ public class Enterprise {
     private String accountNumber;
     private String bankName;
     private Integer bankCode;
+
+    private ArrayList<BillingAccount> billingAccounts = new ArrayList<>();
+
+    public ArrayList<BillingAccount> getBillingAccount() {
+        return billingAccounts;
+    }
+
+    public void setBillingAccount(ArrayList<BillingAccount> billingAccount) {
+        this.billingAccounts = billingAccount;
+    }
 
     public Enterprise() {
     }
@@ -154,6 +166,7 @@ public class Enterprise {
                 ", accountNumber='" + accountNumber + '\'' +
                 ", bankName='" + bankName + '\'' +
                 ", bankCode=" + bankCode +
+                ", billingAccounts=" + billingAccounts +
                 '}';
     }
 }

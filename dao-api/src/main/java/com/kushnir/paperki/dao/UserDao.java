@@ -14,6 +14,7 @@ public interface UserDao {
     Integer addUser(RegistrateForm form);
     Integer addUser(User user);
     Enterprise getEnterpriseByUNP(String unp);
+    Enterprise getEnterpriseByUserId(Integer userId);
     Integer addEnterprise(Enterprise enterprise);
     Integer addBillingAccount(BillingAccount billingAccount);
     Integer updateUserPassword(String newPassword, Integer userId);

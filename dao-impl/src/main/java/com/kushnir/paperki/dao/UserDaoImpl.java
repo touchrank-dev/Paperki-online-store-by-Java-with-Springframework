@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -72,6 +73,9 @@ public class UserDaoImpl implements UserDao {
 
     @Value("${enterprise.getByUNP}")
     private String getEnterpriseByUNPSqlQuery;
+
+    @Value("${enterprise.getByUserId}")
+    private String getEnterpriseByUserIdSqlQuery;
 
     @Value("${enterprise.add}")
     private String addEnterpriseByUserIdSqlQuery;
@@ -213,6 +217,21 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Enterprise getEnterpriseByUserId(Integer userId) {
+        LOGGER.debug("getEnterpriseByUserId({}) >>>", userId);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_USER_ID, userId);
+        try {
+            Enterprise enterprise = namedParameterJdbcTemplate
+                    .query(getEnterpriseByUserIdSqlQuery, parameterSource, new EnterpriseResultSetExtractor());
+            return enterprise;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.debug("Юридическое лицо для пользователя id {} - не найдено >>>\n ERROR: {}",
+                    userId, e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
     public Integer addEnterprise(Enterprise enterprise) throws DataAccessException {
         LOGGER.debug("addEnterprise() >>>\nENTERPRISE DATA: {}", enterprise);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
@@ -306,6 +325,52 @@ public class UserDaoImpl implements UserDao {
                     rs.getString("unp"),
                     rs.getString("name")
             );
+            return enterprise;
+        }
+    }
+
+    private class EnterpriseResultSetExtractor implements ResultSetExtractor<Enterprise> {
+
+        @Override
+        public Enterprise extractData(ResultSet rs) throws SQLException, DataAccessException {
+            Enterprise enterprise = null;
+            while(rs.next()) {
+                Integer id =                rs.getInt("id");
+                Integer userId =            rs.getInt("id_user");
+                String unp =                rs.getString("unp");
+                String enterpriseName =     rs.getString("name");
+
+                Integer accId =             rs.getInt("id_payment_account");
+                String bankName =           rs.getString("bank_name");
+                Integer bankCode =          rs.getInt("bank_code");
+                String accountNumber =      rs.getString("account_number");
+                Boolean isPrimary =         rs.getBoolean("is_primary");
+
+                BillingAccount billingAccount = null;
+                if (accId > 0) {
+                    billingAccount = new BillingAccount(
+                            accId,
+                            id,
+                            accountNumber,
+                            bankName,
+                            bankCode,
+                            isPrimary
+                    );
+                }
+
+                if(enterprise == null) {
+                    enterprise = new Enterprise(
+                            id,
+                            userId,
+                            unp,
+                            enterpriseName
+                    );
+                    enterprise.getBillingAccount().add(billingAccount);
+                } else {
+                    enterprise.getBillingAccount().add(billingAccount);
+                }
+
+            }
             return enterprise;
         }
     }

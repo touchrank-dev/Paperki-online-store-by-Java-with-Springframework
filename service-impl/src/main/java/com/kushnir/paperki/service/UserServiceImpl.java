@@ -117,6 +117,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Enterprise getEnterpriseByUserId(Integer userId) {
+        LOGGER.debug("getEnterpriseByUserId ({})", userId);
+        try {
+            Enterprise enterprise = userDao.getEnterpriseByUserId(userId);
+            return enterprise;
+        } catch (Exception e) {
+            LOGGER.error("ERROR: {}\nERROR MESSAGE: {}", e, e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
     public Object registrateUser(RegistrateForm form) throws ServiceException {
         LOGGER.debug("NEW USER REGISTRATION >>>");
         ErrorRegistrateForm errorRegistrateForm = new ErrorRegistrateForm();

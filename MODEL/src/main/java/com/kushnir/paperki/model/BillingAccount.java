@@ -6,6 +6,7 @@ public class BillingAccount {
     private String accountNumber;
     private String bankName;
     private Integer bankCode;
+    private Boolean isPrimary;
 
     public BillingAccount() {
     }
@@ -29,6 +30,20 @@ public class BillingAccount {
         this.accountNumber = accountNumber;
         this.bankName = bankName;
         this.bankCode = bankCode;
+    }
+
+    public BillingAccount(Integer id,
+                          Integer enterpriseId,
+                          String accountNumber,
+                          String bankName,
+                          Integer bankCode,
+                          Boolean isPrimary) {
+        this.id = id;
+        this.enterpriseId = enterpriseId;
+        this.accountNumber = accountNumber;
+        this.bankName = bankName;
+        this.bankCode = bankCode;
+        this.isPrimary = isPrimary;
     }
 
     public Integer getId() {
@@ -71,6 +86,14 @@ public class BillingAccount {
         this.bankCode = bankCode;
     }
 
+    public Boolean getPrimary() {
+        return isPrimary;
+    }
+
+    public void setPrimary(Boolean primary) {
+        isPrimary = primary;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,12 +102,12 @@ public class BillingAccount {
         BillingAccount that = (BillingAccount) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (enterpriseId != null ? !enterpriseId.equals(that.enterpriseId) : that.enterpriseId != null)
-            return false;
+        if (enterpriseId != null ? !enterpriseId.equals(that.enterpriseId) : that.enterpriseId != null) return false;
         if (accountNumber != null ? !accountNumber.equals(that.accountNumber) : that.accountNumber != null)
             return false;
         if (bankName != null ? !bankName.equals(that.bankName) : that.bankName != null) return false;
-        return bankCode != null ? bankCode.equals(that.bankCode) : that.bankCode == null;
+        if (bankCode != null ? !bankCode.equals(that.bankCode) : that.bankCode != null) return false;
+        return isPrimary != null ? isPrimary.equals(that.isPrimary) : that.isPrimary == null;
     }
 
     @Override
@@ -94,6 +117,7 @@ public class BillingAccount {
         result = 31 * result + (accountNumber != null ? accountNumber.hashCode() : 0);
         result = 31 * result + (bankName != null ? bankName.hashCode() : 0);
         result = 31 * result + (bankCode != null ? bankCode.hashCode() : 0);
+        result = 31 * result + (isPrimary != null ? isPrimary.hashCode() : 0);
         return result;
     }
 
@@ -105,6 +129,7 @@ public class BillingAccount {
                 ", accountNumber='" + accountNumber + '\'' +
                 ", bankName='" + bankName + '\'' +
                 ", bankCode=" + bankCode +
+                ", isPrimary=" + isPrimary +
                 '}';
     }
 }

@@ -69,8 +69,8 @@ public class UserController {
     public Enterprise getEnterprise(HttpSession httpSession) {
         User user = (User)httpSession.getAttribute("user");
         Enterprise enterprise = null;
-        if(user.getId() != null) {
-
+        if(user.getId() != null || user.getId() > 0) {
+            enterprise = userService.getEnterpriseByUserId(user.getId());
         }
         return enterprise;
     }
@@ -79,7 +79,7 @@ public class UserController {
     public HashMap<Integer, Order> getOrders(HttpSession httpSession) {
         User user = (User)httpSession.getAttribute("user");
         HashMap<Integer, Order> orders = null;
-        if(user.getId() != null) {
+        if(user.getId() != null || user.getId() > 0) {
 
         }
         return orders;

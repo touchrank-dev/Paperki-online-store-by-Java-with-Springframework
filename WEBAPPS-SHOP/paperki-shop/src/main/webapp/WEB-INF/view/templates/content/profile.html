@@ -106,6 +106,25 @@
                                     Редактировать
                                 </a>
                             </div>
+                            <div class="my-profile-personal-data">
+                                <h4>Моя организация</h4>
+                                <div class="my-profile-personal-data-text"
+                                    th:if="${userEnterprise} != null">
+                                    <ul>
+                                        <li>
+                                            <p>Название организации:</p>
+                                            <span th:text="${userEnterprise?.enterpriseName}">Имя</span>
+                                        </li>
+                                        <li>
+                                            <p>УНП:</p>
+                                            <span th:text="${userEnterprise?.UNP}">Логин</span>
+                                        </li>                                        
+                                    </ul>
+                                    <ul>
+                                        <!-- второй ряд -->
+                                    </ul>
+                                </div>                            
+                            </div>
                         </div>
 
                         <ul class="my-profile-links">
