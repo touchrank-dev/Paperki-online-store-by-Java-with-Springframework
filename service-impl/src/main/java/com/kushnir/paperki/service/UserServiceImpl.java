@@ -183,7 +183,7 @@ public class UserServiceImpl implements UserService {
                 Assert.notNull(form.getUNP(), "УНП не может быть пустым");
                 Assert.hasText(form.getUNP(), "УНП не может быть пустым");
                 Assert.isTrue(form.getUNP().length() == 9, "УНП должно быть 9 знаков");
-                Assert.isTrue(form.getUNP().matches("^\\D*$"), "Введено недопустиаое значение УНП");
+                /*Assert.isTrue(form.getUNP().matches("^\\D*$"), "Введено недопустиаое значение УНП");*/
             } catch (Exception e) {
                 errorRegistrateForm.setUNP(e.getMessage());
             }

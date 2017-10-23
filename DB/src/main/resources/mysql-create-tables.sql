@@ -53,7 +53,7 @@ CREATE TABLE payment_accounts(
     bank_name                   VARCHAR(150)    NOT NULL,
     bank_code                   INT             NOT NULL,
     account_number              VARCHAR(20)     NOT NULL,
-    is_primary                  TINYINT         DEFAULT 1,
+    is_primary                  TINYINT         DEFAULT 0,
     FOREIGN KEY (id_enterprise)                 REFERENCES enterprise(id_enterprise),
     UNIQUE KEY `e_a` (id_enterprise, account_number)
 );

@@ -79,7 +79,7 @@ public class UserController {
     public HashMap<Integer, Order> getOrders(HttpSession httpSession) {
         User user = (User)httpSession.getAttribute("user");
         HashMap<Integer, Order> orders = null;
-        if(user.getId() != null || user.getId() > 0) {
+        if(user != null || user.getId() != null || user.getId() > 0) {
 
         }
         return orders;
