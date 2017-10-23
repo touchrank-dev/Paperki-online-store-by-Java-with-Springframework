@@ -335,7 +335,7 @@ public class UserDaoImpl implements UserDao {
         public Enterprise extractData(ResultSet rs) throws SQLException, DataAccessException {
             Enterprise enterprise = null;
             while(rs.next()) {
-                Integer id =                rs.getInt("id");
+                Integer id =                rs.getInt("id_enterprise");
                 Integer userId =            rs.getInt("id_user");
                 String unp =                rs.getString("unp");
                 String enterpriseName =     rs.getString("name");
