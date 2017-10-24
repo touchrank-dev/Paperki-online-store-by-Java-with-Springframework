@@ -1,3 +1,94 @@
+div.my-personal-data-delivery-address-content {
+  border-top: 1px solid #e0e0e0;
+  /*padding: 31px 0 30px 36px;*/
+  margin-top: 39px;
+}
+
+.my-personal-data-delivery-address-content .delivery-address-list {
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.my-personal-data-delivery-address-content .delivery-address-list li {
+  width: 100%;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: center;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding-left: 37px;
+}
+
+.my-personal-data-delivery-address-content .delivery-address-list li a {
+  color: #495685;
+  font-family: ProximaNovaRegular;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+.my-personal-data-delivery-address-content .delivery-address-list li .action-buttons{
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.my-personal-data-delivery-address-content .delivery-address-list li .edit-button {
+  border-left: 1px solid #e0e0e0;
+  display: block;
+  width: 40px;
+  height: 39px;
+  background: url("/res/img/pencil-icon.png") no-repeat 50% 50% #fafafa;
+}
+
+.my-personal-data-delivery-address-content .delivery-address-list li .delete-button {
+  border-left: 1px solid #e0e0e0;
+  display: block;
+  width: 40px;
+  height: 39px;
+  background: url("/res/img/product-char-close-icon.png") no-repeat 50% 50%;
+}
+
+.my-personal-data-delivery-address-content .add-delivery-address-button {
+  margin-left: 37px;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 297px;
+  height: 50px;
+  background-color: #a2ba1f;
+  border-radius: 5px;
+  color: white;
+  font-family: ProximaNovaBold;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 33px;
+  margin-bottom: 33px;
+}
+
+
+
+
+
+
+
+
+
 div.cart-add-loader {
   position: absolute; 
   width: 100%; 
@@ -51,7 +142,7 @@ div.add-area {
   line-height: 24px;
 }
 
-
+/*================================================*/
 
 .update-profile-popup-content {
   position: relative;
@@ -99,6 +190,55 @@ div.add-area {
     align-items: center;
     padding-bottom: 46px;
 }
+/*=============================================================*/
+
+.enterprise-new-add-popup {
+  position: relative;
+  margin: 86px auto 0 auto;
+  width: 586px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.enterprise-new-add-popup-head {
+  position: relative;
+  padding: 32px 45px 13px 47px;
+}
+
+.enterprise-new-add-popup h4 {
+  padding: 0;
+  margin: 0;
+  color: #373b44;
+  font-family: ProximaNovaBlack;
+  font-size: 30px;
+  font-weight: 900;
+  margin: 0 0 25px 0;
+}
+
+.enterprise-new-add-popup form {
+    padding: 15px 49px 0 47px;
+}
+
+.enterprise-new-add-popup .update-profile-popup-form-field {
+    width: 100%;
+    max-width: none;
+    margin: 55px 0 12px 0;
+}
+
+.enterprise-new-add-popup .update-profile-popup-footer {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-bottom: 46px;
+}
+
 /*=============================================================*/
 
 

@@ -17,6 +17,15 @@
                             <p>Личные данные</p>
                         </button>
                     </li>
+                    <li class="my-organizations">
+                        <button class="c-button">
+                            <div class="c-ripple js-ripple">
+                                <span class="c-ripple__circle"></span>
+                            </div>  
+                            <div class="profile-tabs-title__icon"></div>
+                            <p>Моя организация</p>
+                        </button>
+                    </li>
                     <li class="password-change">
                         <button class="c-button">
                             <div class="c-ripple js-ripple">
@@ -106,24 +115,20 @@
                                     Редактировать
                                 </a>
                             </div>
-                            <div class="my-profile-personal-data">
-                                <h2>Моя организация</h2>
-                                <div class="my-profile-personal-data-text"
-                                    th:if="${userEnterprise} != null">
-                                    <ul>
-                                        <li>
-                                            <p>Название организации:</p>
-                                            <span th:text="${userEnterprise?.enterpriseName}">Имя</span>
-                                        </li>
-                                        <li>
-                                            <p>УНП:</p>
-                                            <span th:text="${userEnterprise?.UNP}">Логин</span>
-                                        </li>                                        
-                                    </ul>
-                                    <ul>
-                                        <!-- второй ряд -->
-                                    </ul>
-                                </div>                            
+                            <div class="my-personal-data-delivery-address-content">
+                                <h2 style="margin-top: 20px;">
+                                    Адреса доставки:
+                                </h2>
+                                <ul class="delivery-address-list">
+                                    <li>
+                                        <a href="#">ул.Ясеневая д.8/1 к.в 35</a>
+                                        <div class="action-buttons">
+                                            <a href="#" class="edit-button" title="Редактировать"></a>
+                                            <a href="#" class="delete-button" title="Удалить"></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <a href="#" class="add-delivery-address-button">добавить адрес</a>
                             </div>
                         </div>
 
@@ -141,6 +146,22 @@
                                         </h3>
                                         <p>
                                             В этом разделе вы можете изменить свои личные даные.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="my-organizations">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Моя организация
+                                        </h3>
+                                        <p>
+                                            Добавьте реквизиты вашей организации для быстрого оформления заказа на юр. лицо.
                                         </p>
                                     </div>
                                 </a>
@@ -210,6 +231,86 @@
                                 </a>
                             </li>
                         </ul>
+                    </div>
+
+                    <div class="my-organizations profile-tab">
+                        <a href="#" class="back-to-personal-profile">
+                            Назад к личному кабинету
+                        </a>
+
+                        <div class="my-organizations-content">
+                            <h2>Моя организация</h2>
+                            <div th:switch="${userEnterprise} == null" th:remove="tag">
+
+                                <a href="#enterprise-new-add-popup" class="add-organization-button enterprise-new-add-popup c-button"
+                                    th:case="${true}">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    Добавить организацию
+                                </a>
+
+                                <div th:case="${false}" th:remove="tag">
+                                    <div class="my-profile-personal-data">
+                                        <div class="my-profile-personal-data-text">
+                                            <ul>
+                                                <li>
+                                                    <p>Название организации:</p>
+                                                    <span th:text="${userEnterprise?.enterpriseName}">Имя</span>
+                                                </li>
+                                                <li>
+                                                    <p>УНП:</p>
+                                                    <span th:text="${userEnterprise?.UNP}">Логин</span>
+                                                </li>                                        
+                                            </ul>
+                                            <ul>
+                                                <!-- второй ряд -->
+                                            </ul>
+                                        </div> 
+                                    </div>
+                                    <div class="my-personal-data-form-bottom">
+                                        <a href="#enterprise-update-profile-popup" class="my-personal-data-form-button enterprise-update-profile-popup c-button" style="margin-top: 0px;">
+                                            <div class="c-ripple js-ripple">
+                                                <span class="c-ripple__circle"></span>
+                                            </div>
+                                            Редактировать
+                                        </a>
+                                    </div>
+                                    <div class="my-personal-data-delivery-address-content">
+                                        <h2 style="margin-top: 20px;">
+                                            Рассчетные счета:
+                                        </h2>
+                                        <ul class="delivery-address-list">
+                                            <li>
+                                                <a href="#">р/с 12345678901234 в ОАО Беларусбанк</a>
+                                                <div class="action-buttons">
+                                                    <a href="#" class="edit-button" title="Редактировать"></a>
+                                                    <a href="#" class="delete-button" title="Удалить"></a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <a href="#" class="add-delivery-address-button">добавить адрес</a>
+                                    </div> 
+                                    <div class="my-personal-data-delivery-address-content">
+                                        <h2 style="margin-top: 20px;">
+                                            Адреса доставки:
+                                        </h2>
+                                        <ul class="delivery-address-list">
+                                            <li>
+                                                <a href="#">ул.Ясеневая д.8/1 к.в 35</a>
+                                                <div class="action-buttons">
+                                                    <a href="#" class="edit-button" title="Редактировать"></a>
+                                                    <a href="#" class="delete-button" title="Удалить"></a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <a href="#" class="add-delivery-address-button">добавить адрес</a>
+                                    </div> 
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
                     
                     <div class="change-password profile-tab">
@@ -294,21 +395,6 @@
                         <h2>Уведомления</h2>
                         <p>Уважаемый клиент, обращаем Ваше внимание на то, что Ваши контактные данные используются исключительно для рассылки уведомлений, подарочных промокодов, подарков и спецпредложений и не передаются другим лицам или компаниям.</p>
                         <form action="">
-                            <div class="notices-on-orders">
-                                <h3>Уведомления по заказам</h3>
-                                <ul>
-                                    <li>
-                                        <input type="checkbox" name="sms-notification" id="sms-notification">
-                                        <label for="sms-notification">Уведомлять о состоянии заказа по SMS</label>
-                                        <p>Сейчас вы не получаете уведомления о состоянии заказа по SMS</p>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" name="email-notification" id="email-notification">
-                                        <label for="email-notification">Уведомлять по e-mail о возможности написания отзывов на товары, подробнее</label>
-                                        <p>Сейчас вы не получаете уведомления о возможности написания отзывов на товары</p>
-                                    </li>
-                                </ul>
-                            </div>
                             <div class="notices-on-actions">
                                 <h3>Уведомления по акциям</h3>
                                 <ul>

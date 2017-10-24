@@ -6,12 +6,18 @@ $(document).ready(function() {
         // other options
     });
 
+    $('.enterprise-new-add-popup').magnificPopup({
+        type:'inline',
+        removalDelay: 400,
+        midClick: true
+    });
+
     $('.open-reg-popup').magnificPopup({
         type:'inline',
         removalDelay: 400,
-        midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
-        // other options
+        midClick: true
     });	
+
     $('.open-password-recovery-popup').magnificPopup({
         type:'inline',
         removalDelay: 400,
