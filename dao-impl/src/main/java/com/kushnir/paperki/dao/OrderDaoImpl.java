@@ -20,9 +20,12 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
@@ -36,6 +39,9 @@ public class OrderDaoImpl implements OrderDao {
 
     @Value("${order.getByToken}")
     private String getOrderByTokenSqlQuery;
+
+    @Value("${order.getByUseId}")
+    private String getUserOrdersSqlQuery;
 
     @Value("${order.getAttributes}")
     private String getOrderAttributeSqlQuery;
@@ -103,6 +109,15 @@ public class OrderDaoImpl implements OrderDao {
                                                             parameterSource,
                                                             new OrderResultSetExtractor());
         return order;
+    }
+
+    @Override
+    public HashMap<String, HashMap<Integer, Order>> getOrdersByUserId(Integer userId) {
+        LOGGER.debug("getOrdersByUserId({}) >>>", userId);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_ID_USER, userId);
+        HashMap<String, HashMap<Integer, Order>> userOrders =
+                namedParameterJdbcTemplate.query(getUserOrdersSqlQuery, parameterSource, new OrdersResultSetExtractor());
+        return userOrders;
     }
 
     @Override
@@ -222,6 +237,113 @@ public class OrderDaoImpl implements OrderDao {
             return order;
         }
     }
+
+
+    private class OrdersResultSetExtractor implements ResultSetExtractor<HashMap<String, HashMap<Integer, Order>>> {
+
+        @Override
+        public HashMap<String, HashMap<Integer, Order>> extractData(ResultSet rs)
+                throws SQLException, DataAccessException {
+            HashMap<String, HashMap<Integer, Order>> userOrders = new HashMap<>();
+            while(rs.next()) {
+
+                Integer idOrder =           rs.getInt("id_order");
+                Integer idOrderStatus =     rs.getInt("id_order_status");
+                String statusCode =         rs.getString("status_code");
+                String statusName =         rs.getString("status_name");
+
+                // order_status.description
+
+                Integer idOrderType =       rs.getInt("id_order_type");
+                String tokenOrder =         rs.getString("token_order");
+                String orderNumber =        rs.getString("order_number");
+                String papOrderNumber =     rs.getString("pap_order_number");
+                Integer idUser =            rs.getInt("id_user");
+
+                double total =              rs.getDouble("total");
+                double totalWithVat =       rs.getDouble("total_with_vat");
+                double totalVat =           rs.getDouble("vat_total");
+                double totalDiscount =      rs.getDouble("total_discount");
+                Integer couponId =          rs.getInt("coupon_id");
+                double paymentCost =        rs.getDouble("payment_cost");
+                double shipmentCost =       rs.getDouble("shipmentcost");
+                double finalTotal =         rs.getDouble("final_total");
+                double finalTotalWithVat =  rs.getDouble("final_total_with_vat");
+
+                Date createDate =           rs.getDate("create_date");
+                Date updateDate =           rs.getDate("edit_date");
+
+                String name =               rs.getString("name");
+                String value =              rs.getString("value");
+                Integer orderAttribute =    rs.getInt("order_attribute");
+
+                Attribute attribute = new Attribute(
+                        name,
+                        value,
+                        orderAttribute
+                );
+
+                HashMap<Integer, Order> orders = userOrders.get(statusName);
+                if(orders == null || orders.size() < 1) {
+                    orders = new HashMap<>();
+                    Order order = new Order(
+                            idOrder,
+                            idOrderStatus,
+                            idOrderType,
+                            tokenOrder,
+                            orderNumber,
+                            papOrderNumber,
+                            idUser,
+                            total,
+                            totalWithVat,
+                            totalVat,
+                            totalDiscount,
+                            couponId,
+                            paymentCost,
+                            shipmentCost,
+                            finalTotal,
+                            finalTotalWithVat
+                    );
+
+                    List<Attribute> attributes = new ArrayList<>();
+                    attributes.add(attribute);
+                    order.setAttributes(attributes);
+                    orders.put(idOrder, order);
+                    userOrders.put(statusName, orders);
+                } else {
+                    Order order = orders.get(idOrder);
+                    if(order == null) {
+                        orders.put(idOrder, new Order(
+                                idOrder,
+                                idOrderStatus,
+                                idOrderType,
+                                tokenOrder,
+                                orderNumber,
+                                papOrderNumber,
+                                idUser,
+                                total,
+                                totalWithVat,
+                                totalVat,
+                                totalDiscount,
+                                couponId,
+                                paymentCost,
+                                shipmentCost,
+                                finalTotal,
+                                finalTotalWithVat
+                        ));
+                        List<Attribute> attributes = new ArrayList<>();
+                        attributes.add(attribute);
+                        order.setAttributes(attributes);
+                        orders.put(idOrder, order);
+                    } else {
+                        order.getAttributes().add(attribute);
+                    }
+                }
+            }
+            return userOrders;
+        }
+    }
+
 
     private class AttributeRowMapper implements RowMapper {
 

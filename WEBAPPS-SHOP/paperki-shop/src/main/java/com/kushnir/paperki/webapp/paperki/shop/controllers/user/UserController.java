@@ -6,6 +6,7 @@ import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.user.UserType;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
+import com.kushnir.paperki.service.OrderService;
 import com.kushnir.paperki.service.UserService;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
@@ -39,6 +40,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    OrderService orderService;
 
     @Value("${content.path}")
     String contentPath;
@@ -76,11 +80,11 @@ public class UserController {
     }
 
     @ModelAttribute("orders")
-    public HashMap<Integer, Order> getOrders(HttpSession httpSession) {
+    public HashMap<String, HashMap<Integer, Order>> getOrders(HttpSession httpSession) {
         User user = (User)httpSession.getAttribute("user");
-        HashMap<Integer, Order> orders = null;
+        HashMap<String, HashMap<Integer, Order>> orders = null;
         if(user != null || user.getId() != null || user.getId() > 0) {
-
+            orders = orderService.getOrdersByUserId(user.getId());
         }
         return orders;
     }

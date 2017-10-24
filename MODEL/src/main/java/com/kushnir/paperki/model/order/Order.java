@@ -38,6 +38,47 @@ public class Order {
 
     public Order() {
     }
+    public Order(Integer id,
+                 Integer id_order_status,
+                 Integer id_order_type,
+                 String token_order,
+                 String order_number,
+                 String pap_order_number,
+                 Integer id_user,
+                 double total,
+                 double total_with_vat,
+                 double vat_total,
+                 double total_discount,
+                 Integer coupon_id,
+                 double paymentCost,
+                 double deliveryCost,
+                 double final_total,
+                 double final_total_with_vat
+                 /*LocalDateTime create_date,
+                 LocalDateTime edit_date*/
+                 ) {
+        this.id = id;
+        this.id_order_status = id_order_status;
+        this.id_order_type = id_order_type;
+        this.token_order = token_order;
+        this.order_number = order_number;
+        this.pap_order_number = pap_order_number;
+        this.id_user = id_user;
+        this.total = total;
+        this.total_with_vat = total_with_vat;
+        this.vat_total = vat_total;
+        this.total_discount = total_discount;
+        this.coupon_id = coupon_id;
+        this.paymentCost = paymentCost;
+        this.deliveryCost = deliveryCost;
+        this.final_total = final_total;
+        this.final_total_with_vat = final_total_with_vat;
+        /*this.create_date = create_date;
+        this.edit_date = edit_date;*/
+    }
+
+
+
 
     public int getId() {
         return id;

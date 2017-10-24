@@ -5,11 +5,13 @@ import com.kushnir.paperki.model.order.Order;
 import com.kushnir.paperki.model.order.OrderInfo;
 import com.kushnir.paperki.model.product.CartProduct;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public interface OrderDao {
     Order getOrderByToken(String token);
+    HashMap<String, HashMap<Integer, Order>> getOrdersByUserId(Integer userId);
     List<Attribute> getOrderAttributes (int idOrder);
     List<CartProduct> getOrderItems(int idOrder);
     Integer addOrder(Order order);

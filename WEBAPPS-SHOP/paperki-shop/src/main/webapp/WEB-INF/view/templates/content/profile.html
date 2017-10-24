@@ -242,7 +242,7 @@
                             <h2>Моя организация</h2>
                             <div th:switch="${userEnterprise} == null" th:remove="tag">
 
-                                <a href="#enterprise-new-add-popup" class="add-organization-button enterprise-new-add-popup c-button"
+                                <a href="#enterprise-new-add-popup" class="add-organization-button c-button"
                                     th:case="${true}">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
@@ -421,353 +421,346 @@
                             Назад к личному кабинету
                         </a>
                         <h2>Заказы</h2>
-                        <div class="my-orders-content">
-                            <ul class="my-orders-tabs-titles">
-                                <li>
-                                    Активные
-                                </li>
-                                <li>
-                                    Выполненные
-                                </li>
-                                <li>
-                                    Отмененные
-                                </li>
-                                <li>
-                                    Список моих покупок
-                                </li>
-                            </ul>
-                            <div class="my-orders-tabs-content">
-                                <div class="active-orders">
-                                    <div class="orders-list-table">
-                                        <div class="table-head">
-                                            <ul class="table-row">
-                                                <li>
-                                                    Номер заказа
-                                                </li>
-                                                <li>
-                                                    Дата заказа
-                                                </li>
-                                                <li>
-                                                    Состояние
-                                                </li>
-                                                <li>
-                                                    Вид оплаты
-                                                </li>
-                                                <li>
-                                                    Сумма заказа
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="table-body">
-                                           <ul class="table-row">
-                                                <p class="empty-list">У вас нет купленных товаров.</p>
-                                                <li></li>
-                                                <li>
+                        <div th:if="${orders} != null">
+                            <div class="my-orders-content">
+                                <ul class="my-orders-tabs-titles">
+                                    <li th:each="orderstatus : ${orders}">
+                                        <span th:remove="tag" th:text="${orderstatus?.key}">Активные</span>
+                                    </li>
+                                </ul>
+                                <div class="my-orders-tabs-content">
+                                    <div class="active-orders">
+                                        <div class="orders-list-table">
+                                            <div class="table-head">
+                                                <ul class="table-row">
+                                                    <li>
+                                                        Номер заказа
+                                                    </li>
+                                                    <li>
+                                                        Дата заказа
+                                                    </li>
+                                                    <li>
+                                                        Состояние
+                                                    </li>
+                                                    <li>
+                                                        Вид оплаты
+                                                    </li>
+                                                    <li>
+                                                        Сумма заказа
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="table-body">
+                                               <ul class="table-row">
+                                                    <p class="empty-list">У вас нет купленных товаров.</p>
+                                                    <li></li>
+                                                    <li>
 
-                                                </li>
-                                                <li>
+                                                    </li>
+                                                    <li>
 
-                                                </li>
-                                                <li>
+                                                    </li>
+                                                    <li>
 
-                                                </li>
-                                                <li>
+                                                    </li>
+                                                    <li>
 
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="orders-list-showed">
-                                            Показано: <span>0–1 из 0</span>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="choosen-order">
-                                        <h3>Заказ №465214587: <span>Обрабатывается</span></h3>
-                                        <div class="choosen-order-actions">
-                                            <p>Доступные действия:</p>
-                                            <a href="#" class="c-button">
-                                                <div class="c-ripple js-ripple">
-                                                    <span class="c-ripple__circle"></span>
-                                                </div>
-                                                Отменить заказ
-                                            </a>
-                                        </div>
-                                        <div class="choosen-order-info">
-                                            <h4>Информация о заказе</h4>
-                                            <ul>
-                                                <li>
-                                                    <div>
-                                                        <p>Регион:</p>
-                                                    </div>
-                                                    <span>Брест</span>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <p>Способ получения:</p>
-                                                    </div>
-                                                    <span>Доставка по Бресту</span>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <p>Адрес:</p>
-                                                    </div>
-                                                    <span>Ленинградский проспект, дом. 74, кв. 77</span>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <p>Дата получения:</p>
-                                                    </div>
-                                                    <span>05.05.2017</span>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <p>Стоимость доставки:</p>
-                                                    </div>
-                                                    <span>300р.</span>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <p>Вид оплаты:</p>
-                                                    </div>
-                                                    <span>Наличными</span>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <p>Контактное лицо:</p>
-                                                    </div>
-                                                    <span>Роман</span>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <p>Мобильный телефон:</p>
-                                                    </div>
-                                                    <span>+8 (029) 215-65-35</span>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <p>Контактный телефон:</p>
-                                                    </div>
-                                                    <span>+8 (0162) 25-65-35</span>
-                                                </li>
-                                                <li>
-                                                    <div>
-                                                        <p>Адрес электронной почты:</p>
-                                                    </div>
-                                                    <span>support@new-level.by</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="composition-order">
-                                            <h4>Состав заказа</h4>
-                                            <div class="composition-order-table">
-                                                <div class="table-head">
-                                                    <ul class="table-row">
-                                                        <li>
-                                                            Код
-                                                        </li>
-                                                        <li>
-                                                            Товар
-                                                        </li>
-                                                        <li>
-                                                            Цена
-                                                        </li>
-                                                        <li>
-                                                            Количество
-                                                        </li>
-                                                        <li>
-                                                            PAP-бонусов
-                                                        </li>
-                                                        <li>
-                                                            Сумма
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="table-body">
-                                                    <ul class="table-row">
-                                                        <li>
-                                                            74114
-                                                        </li>
-                                                        <li>
-                                                            <a href="#">Бумага SVETOCOPY A4, 80г/м2, 146%CIE, 500л.</a>
-                                                        </li>
-                                                        <li>
-                                                            123 руб
-                                                        </li>
-                                                        <li>
-                                                            1шт.
-                                                        </li>
-                                                        <li>
-                                                            10
-                                                        </li>
-                                                        <li>
-                                                            123 руб
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="orders-list-showed">
+                                                Показано: <span>0–1 из 0</span>
                                             </div>
                                         </div>
-                                        <ul class="choosen-order-total">
-                                            <li class="cost">
-                                                <p>Стоимость товаров:</p>
-                                                <span>300 руб</span>
-                                            </li>
-                                            <li class="delivery">
-                                                <p>Доставка:</p>
-                                                <span>519 руб</span>
-                                            </li>
-                                            <li class="total-sum">
-                                                <p>
-                                                    Итого:
-                                                </p>
-                                                <span>
-                                                        10
-                                                    </span>
-                                            </li>
-                                            <li class="pap">
-                                                <p>
-                                                    ON-бонусов за заказ:
-                                                </p>
-                                                <span>10</span>
-                                            </li>
-                                        </ul>
-                                        <div class="choosen-order-bottom">
-                                            <button class="c-button">
-                                                <div class="c-ripple js-ripple">
-                                                    <span class="c-ripple__circle"></span>
+                                        <!-- <div class="choosen-order">
+                                            <h3>Заказ №465214587: <span>Обрабатывается</span></h3>
+                                            <div class="choosen-order-actions">
+                                                <p>Доступные действия:</p>
+                                                <a href="#" class="c-button">
+                                                    <div class="c-ripple js-ripple">
+                                                        <span class="c-ripple__circle"></span>
+                                                    </div>
+                                                    Отменить заказ
+                                                </a>
+                                            </div>
+                                            <div class="choosen-order-info">
+                                                <h4>Информация о заказе</h4>
+                                                <ul>
+                                                    <li>
+                                                        <div>
+                                                            <p>Регион:</p>
+                                                        </div>
+                                                        <span>Брест</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Способ получения:</p>
+                                                        </div>
+                                                        <span>Доставка по Бресту</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Адрес:</p>
+                                                        </div>
+                                                        <span>Ленинградский проспект, дом. 74, кв. 77</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Дата получения:</p>
+                                                        </div>
+                                                        <span>05.05.2017</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Стоимость доставки:</p>
+                                                        </div>
+                                                        <span>300р.</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Вид оплаты:</p>
+                                                        </div>
+                                                        <span>Наличными</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Контактное лицо:</p>
+                                                        </div>
+                                                        <span>Роман</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Мобильный телефон:</p>
+                                                        </div>
+                                                        <span>+8 (029) 215-65-35</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Контактный телефон:</p>
+                                                        </div>
+                                                        <span>+8 (0162) 25-65-35</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Адрес электронной почты:</p>
+                                                        </div>
+                                                        <span>support@new-level.by</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="composition-order">
+                                                <h4>Состав заказа</h4>
+                                                <div class="composition-order-table">
+                                                    <div class="table-head">
+                                                        <ul class="table-row">
+                                                            <li>
+                                                                Код
+                                                            </li>
+                                                            <li>
+                                                                Товар
+                                                            </li>
+                                                            <li>
+                                                                Цена
+                                                            </li>
+                                                            <li>
+                                                                Количество
+                                                            </li>
+                                                            <li>
+                                                                PAP-бонусов
+                                                            </li>
+                                                            <li>
+                                                                Сумма
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="table-body">
+                                                        <ul class="table-row">
+                                                            <li>
+                                                                74114
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">Бумага SVETOCOPY A4, 80г/м2, 146%CIE, 500л.</a>
+                                                            </li>
+                                                            <li>
+                                                                123 руб
+                                                            </li>
+                                                            <li>
+                                                                1шт.
+                                                            </li>
+                                                            <li>
+                                                                10
+                                                            </li>
+                                                            <li>
+                                                                123 руб
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                                Распечатать
-                                            </button>
-                                        </div>
-                                    </div>-->
-                                </div>
-                                <div class="done-orders empty">
-                                    <div class="orders-list-table">
-                                        <div class="table-head">
-                                            <ul class="table-row">
-                                                <li>
-                                                    Номер заказа
+                                            </div>
+                                            <ul class="choosen-order-total">
+                                                <li class="cost">
+                                                    <p>Стоимость товаров:</p>
+                                                    <span>300 руб</span>
                                                 </li>
-                                                <li>
-                                                    Дата заказа
+                                                <li class="delivery">
+                                                    <p>Доставка:</p>
+                                                    <span>519 руб</span>
                                                 </li>
-                                                <li>
-                                                    Состояние
+                                                <li class="total-sum">
+                                                    <p>
+                                                        Итого:
+                                                    </p>
+                                                    <span>
+                                                            10
+                                                        </span>
                                                 </li>
-                                                <li>
-                                                    Вид оплаты
-                                                </li>
-                                                <li>
-                                                    Сумма заказа
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="table-body">
-                                            <ul class="table-row">
-                                                <p class="empty-list">У вас нет купленных товаров.</p>
-                                                <li></li>
-                                                <li>
-
-                                                </li>
-                                                <li>
-
-                                                </li>
-                                                <li>
-
-                                                </li>
-                                                <li>
-
+                                                <li class="pap">
+                                                    <p>
+                                                        ON-бонусов за заказ:
+                                                    </p>
+                                                    <span>10</span>
                                                 </li>
                                             </ul>
-                                        </div>
-                                        <div class="orders-list-showed">
-                                            Показано: <span>0–1 из 0</span>
+                                            <div class="choosen-order-bottom">
+                                                <button class="c-button">
+                                                    <div class="c-ripple js-ripple">
+                                                        <span class="c-ripple__circle"></span>
+                                                    </div>
+                                                    Распечатать
+                                                </button>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                    <div class="done-orders empty">
+                                        <div class="orders-list-table">
+                                            <div class="table-head">
+                                                <ul class="table-row">
+                                                    <li>
+                                                        Номер заказа
+                                                    </li>
+                                                    <li>
+                                                        Дата заказа
+                                                    </li>
+                                                    <li>
+                                                        Состояние
+                                                    </li>
+                                                    <li>
+                                                        Вид оплаты
+                                                    </li>
+                                                    <li>
+                                                        Сумма заказа
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="table-body">
+                                                <ul class="table-row">
+                                                    <p class="empty-list">У вас нет купленных товаров.</p>
+                                                    <li></li>
+                                                    <li>
+
+                                                    </li>
+                                                    <li>
+
+                                                    </li>
+                                                    <li>
+
+                                                    </li>
+                                                    <li>
+
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="orders-list-showed">
+                                                Показано: <span>0–1 из 0</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="canceled-orders empty">
-                                    <div class="orders-list-table">
-                                        <div class="table-head">
-                                            <ul class="table-row">
-                                                <li>
-                                                    Номер заказа
-                                                </li>
-                                                <li>
-                                                    Дата заказа
-                                                </li>
-                                                <li>
-                                                    Состояние
-                                                </li>
-                                                <li>
-                                                    Вид оплаты
-                                                </li>
-                                                <li>
-                                                    Сумма заказа
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="table-body">
-                                            <ul class="table-row">
-                                                <p class="empty-list">У вас нет купленных товаров.</p>
-                                                <li></li>
-                                                <li>
+                                    <div class="canceled-orders empty">
+                                        <div class="orders-list-table">
+                                            <div class="table-head">
+                                                <ul class="table-row">
+                                                    <li>
+                                                        Номер заказа
+                                                    </li>
+                                                    <li>
+                                                        Дата заказа
+                                                    </li>
+                                                    <li>
+                                                        Состояние
+                                                    </li>
+                                                    <li>
+                                                        Вид оплаты
+                                                    </li>
+                                                    <li>
+                                                        Сумма заказа
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="table-body">
+                                                <ul class="table-row">
+                                                    <p class="empty-list">У вас нет купленных товаров.</p>
+                                                    <li></li>
+                                                    <li>
 
-                                                </li>
-                                                <li>
+                                                    </li>
+                                                    <li>
 
-                                                </li>
-                                                <li>
+                                                    </li>
+                                                    <li>
 
-                                                </li>
-                                                <li>
+                                                    </li>
+                                                    <li>
 
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="orders-list-showed">
-                                            Показано: <span>0–1 из 0</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="orders-list-showed">
+                                                Показано: <span>0–1 из 0</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="list-of-orders empty">
-                                    <div class="orders-list-table">
-                                        <div class="table-head">
-                                            <ul class="table-row">
-                                                <li>
-                                                    Номер заказа
-                                                </li>
-                                                <li>
-                                                    Дата заказа
-                                                </li>
-                                                <li>
-                                                    Состояние
-                                                </li>
-                                                <li>
-                                                    Вид оплаты
-                                                </li>
-                                                <li>
-                                                    Сумма заказа
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="table-body">
-                                            <ul class="table-row">
-                                                <p class="empty-list">У вас нет купленных товаров.</p>
-                                                <li></li>
-                                                <li>
+                                    <div class="list-of-orders empty">
+                                        <div class="orders-list-table">
+                                            <div class="table-head">
+                                                <ul class="table-row">
+                                                    <li>
+                                                        Номер заказа
+                                                    </li>
+                                                    <li>
+                                                        Дата заказа
+                                                    </li>
+                                                    <li>
+                                                        Состояние
+                                                    </li>
+                                                    <li>
+                                                        Вид оплаты
+                                                    </li>
+                                                    <li>
+                                                        Сумма заказа
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="table-body">
+                                                <ul class="table-row">
+                                                    <p class="empty-list">У вас нет купленных товаров.</p>
+                                                    <li></li>
+                                                    <li>
 
-                                                </li>
-                                                <li>
+                                                    </li>
+                                                    <li>
 
-                                                </li>
-                                                <li>
+                                                    </li>
+                                                    <li>
 
-                                                </li>
-                                                <li>
+                                                    </li>
+                                                    <li>
 
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="orders-list-showed">
-                                            Показано: <span>0–1 из 0</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="orders-list-showed">
+                                                Показано: <span>0–1 из 0</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

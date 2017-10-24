@@ -64,6 +64,19 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
+    @Override
+    public HashMap<String, HashMap<Integer, Order>> getOrdersByUserId(Integer userId) {
+        LOGGER.debug("getOrdersByUserId({})", userId);
+        try {
+            HashMap<String, HashMap<Integer, Order>> userOrders = orderDao.getOrdersByUserId(userId);
+            return userOrders;
+        } catch (Exception e) {
+            LOGGER.error("getOrdersByUserId({})", userId);
+            return null;
+        }
+    }
+
+
     private List<Attribute> getOrderAttributes(int idOrder) {
         LOGGER.debug("getOrderAttributes({})", idOrder);
         List<Attribute> attributes = orderDao.getOrderAttributes(idOrder);
