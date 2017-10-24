@@ -248,6 +248,19 @@ public class ProductDaoImpl implements ProductDao {
                     double basePrice =              Double.parseDouble(record.get(11));
                     Integer VAT =                   Integer.parseInt(record.get(12));
 
+                    //TODO VALIDATE ===========================================================
+                    Assert.notNull(pnt, "pnt is null");
+                    Assert.isTrue(pnt > 0, "pnt <= 0");
+
+                    Assert.notNull(groupPapId, "groupPapId is null");
+                    Assert.isTrue(groupPapId > 0, "groupPapId <= 0");
+
+                    Assert.notNull(translitName, "translitName is null");
+                    Assert.hasText(translitName, "translitName is blank");
+
+                    Assert.isTrue(basePrice > 0, "basePrice <= 0");
+                    // TODO ===================================================================
+
                     CSVProduct csvProduct = new CSVProduct(
                             pnt,
                             groupPapId,
@@ -272,7 +285,7 @@ public class ProductDaoImpl implements ProductDao {
                 } catch (Exception e) {
                     sb.append("ERROR >>> row: ").append(record.getRecordNumber())
                             .append(", ").append(e.getMessage()).append('\n');
-                    LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
+                    LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber()+1, e.getMessage());
                     continue;
                 }
             }
