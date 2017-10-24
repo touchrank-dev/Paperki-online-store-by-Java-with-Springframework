@@ -429,7 +429,9 @@
                                     </li>
                                 </ul>
                                 <div class="my-orders-tabs-content">
-                                    <div class="active-orders">
+                                    <div class="active-orders" th:each="orderstatus : ${orders}">
+
+
                                         <div class="orders-list-table">
                                             <div class="table-head">
                                                 <ul class="table-row">
@@ -451,27 +453,28 @@
                                                 </ul>
                                             </div>
                                             <div class="table-body">
-                                               <ul class="table-row">
+                                                <ul class="table-row"
+                                                    th:each="order : ${orderstatus.value}">
                                                     <p class="empty-list">У вас нет купленных товаров.</p>
+                                                    <li>
+                                                        <a href="#" th:text="${order?.value.order_number}">465214587</a>
+                                                    </li>
+                                                    <li th:text="${order.value.create_date}"></li>
+                                                    <li th:text="${orderstatus?.key}"></li>
                                                     <li></li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
+                                                    <li th:text="${order.value.final_total_with_vat}"></li>
                                                 </ul>
                                             </div>
                                             <div class="orders-list-showed">
-                                                Показано: <span>0–1 из 0</span>
+                                                <!-- Показано: <span>0–1 из 0</span> -->
                                             </div>
                                         </div>
+
+
+
+
+
+
                                         <!-- <div class="choosen-order">
                                             <h3>Заказ №465214587: <span>Обрабатывается</span></h3>
                                             <div class="choosen-order-actions">
@@ -631,138 +634,9 @@
                                             </div>
                                         </div>-->
                                     </div>
-                                    <div class="done-orders empty">
-                                        <div class="orders-list-table">
-                                            <div class="table-head">
-                                                <ul class="table-row">
-                                                    <li>
-                                                        Номер заказа
-                                                    </li>
-                                                    <li>
-                                                        Дата заказа
-                                                    </li>
-                                                    <li>
-                                                        Состояние
-                                                    </li>
-                                                    <li>
-                                                        Вид оплаты
-                                                    </li>
-                                                    <li>
-                                                        Сумма заказа
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="table-body">
-                                                <ul class="table-row">
-                                                    <p class="empty-list">У вас нет купленных товаров.</p>
-                                                    <li></li>
-                                                    <li>
+                                                                        
+                                    
 
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="orders-list-showed">
-                                                Показано: <span>0–1 из 0</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="canceled-orders empty">
-                                        <div class="orders-list-table">
-                                            <div class="table-head">
-                                                <ul class="table-row">
-                                                    <li>
-                                                        Номер заказа
-                                                    </li>
-                                                    <li>
-                                                        Дата заказа
-                                                    </li>
-                                                    <li>
-                                                        Состояние
-                                                    </li>
-                                                    <li>
-                                                        Вид оплаты
-                                                    </li>
-                                                    <li>
-                                                        Сумма заказа
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="table-body">
-                                                <ul class="table-row">
-                                                    <p class="empty-list">У вас нет купленных товаров.</p>
-                                                    <li></li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="orders-list-showed">
-                                                Показано: <span>0–1 из 0</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-of-orders empty">
-                                        <div class="orders-list-table">
-                                            <div class="table-head">
-                                                <ul class="table-row">
-                                                    <li>
-                                                        Номер заказа
-                                                    </li>
-                                                    <li>
-                                                        Дата заказа
-                                                    </li>
-                                                    <li>
-                                                        Состояние
-                                                    </li>
-                                                    <li>
-                                                        Вид оплаты
-                                                    </li>
-                                                    <li>
-                                                        Сумма заказа
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="table-body">
-                                                <ul class="table-row">
-                                                    <p class="empty-list">У вас нет купленных товаров.</p>
-                                                    <li></li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                    <li>
-
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="orders-list-showed">
-                                                Показано: <span>0–1 из 0</span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
