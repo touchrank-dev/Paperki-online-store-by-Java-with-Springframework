@@ -9,6 +9,7 @@ import static com.kushnir.paperki.model.order.OrderAttributes.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.HtmlMailer;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -71,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
             HashMap<String, HashMap<Integer, Order>> userOrders = orderDao.getOrdersByUserId(userId);
             return userOrders;
         } catch (Exception e) {
-            LOGGER.error("getOrdersByUserId({})", userId);
+            LOGGER.error("ERROR >>> {}", ExceptionUtils.getStackTrace(e));
             return null;
         }
     }
