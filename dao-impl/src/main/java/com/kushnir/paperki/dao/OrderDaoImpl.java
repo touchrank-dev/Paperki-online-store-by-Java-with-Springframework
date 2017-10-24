@@ -313,7 +313,7 @@ public class OrderDaoImpl implements OrderDao {
                 } else {
                     Order order = orders.get(idOrder);
                     if(order == null) {
-                        orders.put(idOrder, new Order(
+                        order = new Order(
                                 idOrder,
                                 idOrderStatus,
                                 idOrderType,
@@ -330,13 +330,16 @@ public class OrderDaoImpl implements OrderDao {
                                 shipmentCost,
                                 finalTotal,
                                 finalTotalWithVat
-                        ));
+                        );
                         List<Attribute> attributes = new ArrayList<>();
                         attributes.add(attribute);
                         order.setAttributes(attributes);
                         orders.put(idOrder, order);
                     } else {
-                        order.getAttributes().add(attribute);
+                        List<Attribute> attributes = order.getAttributes();
+                        if (attributes != null) {
+                            attributes.add(attribute);
+                        }
                     }
                 }
             }
