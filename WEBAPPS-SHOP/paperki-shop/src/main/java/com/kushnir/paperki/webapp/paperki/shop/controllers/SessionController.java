@@ -78,7 +78,7 @@ public class SessionController {
 
     @ModelAttribute("ProductImages")
     public HashMap<Integer, String> imageFinder() {
-
+        LOGGER.debug("imageFinder()");
 
         HashMap<Integer, String> catImages = new HashMap<>();
         try {
@@ -91,16 +91,6 @@ public class SessionController {
                         Integer pnt = Integer.parseInt(fileName.replaceAll(".jpg", ""));
 
                         catImages.put(pnt, fileName);
-
-                        /*ArrayList<String> imgList = catImages.get(pnt);
-                        if (imgList != null) {
-                            imgList.add(fileName);
-                            Collections.sort(imgList);
-                        } else {
-                            imgList = new ArrayList<String>();
-                            imgList.add(fileName);
-                            catImages.put(pnt, imgList);
-                        }*/
 
                     } catch (Exception e) {
 

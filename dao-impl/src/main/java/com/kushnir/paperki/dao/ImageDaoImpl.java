@@ -1,12 +1,12 @@
 package com.kushnir.paperki.dao;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class ImageDaoImpl implements ImageDao {
@@ -48,6 +48,7 @@ public class ImageDaoImpl implements ImageDao {
                             oldImages.put(pnt, images);
                         } else {
                             images.add(fileName);
+                            Collections.sort(images, Collections.reverseOrder());
                         }
 
                     } catch (Exception e) { }
