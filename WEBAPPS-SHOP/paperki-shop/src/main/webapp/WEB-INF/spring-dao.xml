@@ -31,5 +31,6 @@
     <bean id="paymentDao" class="com.kushnir.paperki.dao.PaymentDaoImpl" />
     <bean id="orderDao" class="com.kushnir.paperki.dao.OrderDaoImpl" />
     <bean id="brandDao" class="com.kushnir.paperki.dao.BrandDaoImpl" />
+    <bean id="imageDao" class="com.kushnir.paperki.dao.ImageDaoImpl" />
 
 </beans>

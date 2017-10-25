@@ -26,6 +26,7 @@ public class AvailableProductResultSetExtractor implements ResultSetExtractor {
             String fullName =           rs.getString("full_name");
             String shortName =          rs.getString("short_name");
             int quantityAvailable =     rs.getInt("quantity_available");
+            String link =               rs.getString("link");
 
             // цена =======================================================================
             int VAT =                   rs.getInt("vat");
@@ -69,6 +70,7 @@ public class AvailableProductResultSetExtractor implements ResultSetExtractor {
                         pnt,
                         fullName,
                         shortName,
+                        link,
                         basePrice,
                         basePriceWithVAT,
                         finalPrice,

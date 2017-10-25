@@ -584,7 +584,7 @@ function printCartItems(products) {
                         '<img src="/res/img/products/'+product.pnt+'.jpg" alt="'+product.fullName+'" style="max-width: 110px;">'+
                     '</div>'+
                     '<div class="desc-cart">'+
-                        '<a href="" class="name-pr-cart">'+product.fullName+'</a>'+
+                        '<a href="'+product.link+'" class="name-pr-cart">'+product.fullName+'</a>'+
                         '<ul class="char-cart">'+
                             '<li>'+product.shortName+'</li>'+
                         '</ul>'+
