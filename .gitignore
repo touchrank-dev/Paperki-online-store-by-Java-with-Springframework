@@ -45,3 +45,12 @@ target/
 #/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/spring-properties.xml
 #/WEBAPPS-ADMIN/paperki-admin/src/main/webapp/WEB-INF/spring-properties.xml
 #/WEBAPPS-SHOP/paperki-shop/src/main/resources/db.properties
+
+
+
+# git update-index --assume-unchanged [<file> ...]
+
+# To undo and start tracking again (if you forgot what files were untracked, see this question):
+
+# git update-index --no-assume-unchanged [<file> ...]
+
