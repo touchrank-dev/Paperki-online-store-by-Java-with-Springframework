@@ -51,6 +51,7 @@ public class AvailableProduct {
                             int pnt,
                             String fullName,
                             String shortName,
+                            String link,
                             double basePrice,
                             double basePriceWithVAT,
                             double finalPrice,
@@ -62,6 +63,7 @@ public class AvailableProduct {
         this.pnt = pnt;
         this.fullName = fullName;
         this.shortName = shortName;
+        this.link = link;
         this.basePrice = basePrice;
         this.basePriceWithVAT = basePriceWithVAT;
         this.finalPrice = finalPrice;

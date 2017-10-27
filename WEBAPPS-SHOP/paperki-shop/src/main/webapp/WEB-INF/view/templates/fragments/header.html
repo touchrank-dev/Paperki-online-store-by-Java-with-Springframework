@@ -159,13 +159,13 @@
                                                     </div>
                                                     <div class="desc-cart">
                                                         <a href="#" class="name-pr-cart"
-                                                            th:href="@{${catalogurl}+${item.value.link}}"
+                                                            th:href="@{${item.value.link}}"
                                                             th:text="${item.value.fullName}">Имя товара</a>
                                                         <ul class="char-cart">
                                                             <li th:text="${item.value.shortName}">Короткое имя</li>
                                                         </ul>
                                                         <p class="price-in-cart"
-                                                           th:text="${item.value.finalPriceWithVAT}+ ' руб x '+${item.value.quantity}">0,00 руб x 4</p>
+                                                           th:text="${item.value.finalPriceWithVAT}+ ' руб x '+${item.value.quantity} + ' ед.'">0,00 руб x 4</p>
                                                     </div>
                                                 </li>
                                             </div>

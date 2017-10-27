@@ -3,15 +3,18 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers;
 import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.user.User;
 
+import com.kushnir.paperki.service.ImageService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @ControllerAdvice
@@ -27,6 +30,9 @@ public class SessionController {
     String brandImagePath;
     @Value("${product.image.prefix}")
     String imgPref;
+
+    @Autowired
+    ImageService imageService;
 
     @ModelAttribute("user")
     public User setUser(HttpSession httpSession) {
@@ -72,6 +78,8 @@ public class SessionController {
 
     @ModelAttribute("ProductImages")
     public HashMap<Integer, String> imageFinder() {
+        LOGGER.debug("imageFinder()");
+
         HashMap<Integer, String> catImages = new HashMap<>();
         try {
             File[] files = new File("/home/paperki.by/www/images/catalog").listFiles();
@@ -84,16 +92,6 @@ public class SessionController {
 
                         catImages.put(pnt, fileName);
 
-                        /*ArrayList<String> imgList = catImages.get(pnt);
-                        if (imgList != null) {
-                            imgList.add(fileName);
-                            Collections.sort(imgList);
-                        } else {
-                            imgList = new ArrayList<String>();
-                            imgList.add(fileName);
-                            catImages.put(pnt, imgList);
-                        }*/
-
                     } catch (Exception e) {
 
                     }
@@ -103,6 +101,14 @@ public class SessionController {
             return null;
         }
         return catImages;
+    }
+
+    @ModelAttribute("oldImages")
+    public HashMap<Integer, ArrayList<String>> getOldImages() {
+        LOGGER.debug("getOldImages()");
+        HashMap<Integer, ArrayList<String>> oldImages = imageService.getAllOldImages();
+        // LOGGER.debug("OLD IMAGES:\n{}", oldImages);
+        return oldImages;
     }
 
 }
