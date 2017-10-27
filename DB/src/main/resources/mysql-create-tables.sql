@@ -68,6 +68,12 @@ CREATE TABLE addresses (
     id_address                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_address_type             INT             NOT NULL,
     id_user                     INT             NOT NULL,
+    post_index                  VARCHAR(10),
+    city                        VARCHAR(30),
+    street                      VARCHAR(100),
+    house                       VARCHAR(5),
+    house_part                  VARCHAR(5),
+    house_office                VARCHAR(5),
     value                       VARCHAR(150)    NOT NULL,
     FOREIGN KEY (id_address_type)               REFERENCES addresses_types(id_address_type)
 );

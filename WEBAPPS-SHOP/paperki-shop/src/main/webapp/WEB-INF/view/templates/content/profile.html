@@ -128,7 +128,12 @@
                                         </div>
                                     </li>
                                 </ul>
-                                <a href="#" class="add-delivery-address-button">добавить адрес</a>
+                                <a href="#add-address-popup" class="add-delivery-address-button c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    добавить адрес
+                                </a>
                             </div>
                         </div>
 
@@ -242,7 +247,7 @@
                             <h2>Моя организация</h2>
                             <div th:switch="${userEnterprise} == null" th:remove="tag">
 
-                                <a href="#enterprise-new-add-popup" class="add-organization-button c-button"
+                                <a href="#enterprise-new-add-popup" class="add-organization-button open-enterprise-new-add-popup c-button"
                                     th:case="${true}">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>

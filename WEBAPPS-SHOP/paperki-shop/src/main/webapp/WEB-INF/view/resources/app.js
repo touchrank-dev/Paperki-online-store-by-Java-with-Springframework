@@ -997,3 +997,59 @@ function mapErrorChangePassword (form) {
         $('#label-change-password-new-password-confirm').tooltip("hide");
     }
 }
+
+
+function AddAddress() {
+    $.ajax({
+         cache: false,
+         async: false,
+         type: "POST",
+         contentType: "application/json",
+         dataType: "json",
+         url: "/api/user/addressadd",
+         data: addressFormToJSON(),
+         success: function(response){
+             if(response.code == "OK") {
+                location.reload();
+                // document.location.href = '#enterprise-tab';
+             } else if(response.code == "BAD_REQUEST") {
+                mapErrorAddressForm(response.object);
+                console.log(response);
+             } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
+                serverAlert();
+             }
+         },
+         error: function () {
+             serverAlert();
+         }
+    });
+}
+
+function addressFormToJSON() {
+    return JSON.stringify({
+        "index":            $('#input-add-address-index').val(),
+        "city":             $('#input-add-address-city').val(),
+        "street":           $('#input-add-address-street').val(),
+        "house":            $('#input-add-address-house').val(),
+        "housePart":        $('#input-add-address-house-part').val(),
+        "houseOffice":      $('#input-add-address-house-office').val()
+    });
+}
+
+function mapErrorAddressForm (form) {
+    alert("ERROR FORM");
+    /*if (form.oldPassword != null) {
+        $('#change-password-current-password').addClass("input_error");
+        $('#label-change-password-current-password').addClass('label_error');
+        $('#label-change-password-current-password').attr("title", form.oldPassword)
+                                                        .tooltip('fixTitle')
+                                                        .tooltip("show");
+    } else {
+        $('#change-password-current-password').removeClass("input_error");
+        $('#label-change-password-current-password').removeClass('label_error');
+        $('#label-change-password-current-password').tooltip("hide");
+    }*/
+
+
+}

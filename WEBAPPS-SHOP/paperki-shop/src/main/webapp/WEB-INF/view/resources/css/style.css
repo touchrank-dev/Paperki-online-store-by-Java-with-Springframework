@@ -1,3 +1,82 @@
+/*============ POPUPS =============*/
+
+.popup-content {
+  position: relative;
+  margin: 86px auto 0 auto;
+  width: 586px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.popup-content form {
+  padding: 15px 49px 0 47px;
+}
+
+.popup-content .popup-head {
+  position: relative;
+  padding: 32px 45px 13px 47px;
+}
+
+.popup-content .popup-head h4 {
+  padding: 0;
+  margin: 0;
+  color: #373b44;
+  font-family: ProximaNovaBlack;
+  font-size: 30px;
+  font-weight: 900;
+  margin: 0 0 25px 0;
+}
+
+.popup-content .form-field {
+  width: 100%;
+  max-width: none;
+  margin: 34px 0 12px 0;
+}
+
+.popup-content .form-field .small-form-field {
+  float: left;
+  width: 33.333%;
+  padding: 0 10px 0 0;
+}
+
+.popup-content .popup-footer {
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -ms-flexbox;
+  /*display: flex;*/
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-bottom: 46px;
+}
+
+@media only screen and (max-width: 768px) {
+  .popup-content {
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%; 
+  }
+
+  .popup-content .mfp-close {
+    right: 20px;
+    top: 20px; 
+  }
+
+  .popup-content .popup-footer {
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    align-items: center; 
+  }
+}
+
+/*=================================*/
+
 div.my-personal-data-delivery-address-content {
   border-top: 1px solid #e0e0e0;
   /*padding: 31px 0 30px 36px;*/
@@ -18441,6 +18520,22 @@ a.btn.likeBtnIncart {
     margin: 0;
     width: 100%;
     height: 100%; }
+  .update-profile-popup-content {
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .update-profile-popup-content .mfp-close {
+    right: 20px;
+    top: 20px; }
+  .update-profile-popup-footer {
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    align-items: center;
+  }
   .registration-popup-content .mfp-close {
     right: 20px;
     top: 20px; }

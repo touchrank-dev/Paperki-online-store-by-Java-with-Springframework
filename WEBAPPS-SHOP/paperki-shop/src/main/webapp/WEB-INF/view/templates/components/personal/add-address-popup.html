@@ -1,0 +1,84 @@
+<div id="add-address-popup" class="add-address-popup popup-content mfp-hide"
+        th:fragment="add-address-popup" xmlns:th="http://www.thymeleaf.org">
+        <div class="popup-head">
+            <h4>Добавить адрес доставки</h4>
+        </div>
+        <form>
+            <div class="form-field">
+                <div class="small-form-field">
+                    <span class="input input--ichiro form-field">
+                        <input class="input__field input__field--ichiro" 
+                            id="input-add-address-index" type="text">
+                        <label class="input__label input__label--ichiro" 
+                            for="input-add-address-index">
+                            <span class="input__label-content input__label-content--ichiro"
+                                id="label-add-address-index">Индекс</span>
+                        </label>
+                    </span>                              
+                </div>
+            </div>
+            <span class="input input--ichiro form-field">
+                <input class="input__field input__field--ichiro"
+                    id="input-add-address-city" type="text">
+                <label class="input__label input__label--ichiro" 
+                    for="input-add-address-city">
+                    <span class="input__label-content input__label-content--ichiro" 
+                        id="label-add-city">Город *</span>
+                </label>
+            </span>
+            <span class="input input--ichiro form-field">
+                <input class="input__field input__field--ichiro" 
+                    id="input-add-address-street" type="text">
+                <label class="input__label input__label--ichiro" 
+                    for="input-add-address-street">
+                    <span class="input__label-content input__label-content--ichiro" 
+                        id="label-add-street">Улица *</span>
+                </label>
+            </span>
+            <div class="form-field">
+                <div class="small-form-field">
+                    <span class="input input--ichiro form-field">
+                        <input class="input__field input__field--ichiro" 
+                            id="input-add-address-house" type="text">
+                        <label class="input__label input__label--ichiro" 
+                            for="input-add-address-house">
+                            <span class="input__label-content input__label-content--ichiro"
+                                id="label-add-address-house">Номер дома *</span>
+                        </label>
+                    </span>                              
+                </div>
+                <div class="small-form-field">
+                    <span class="input input--ichiro form-field">
+                        <input class="input__field input__field--ichiro" 
+                            id="input-add-address-house-part" type="text">
+                        <label class="input__label input__label--ichiro" 
+                            for="input-add-address-house-part">
+                            <span class="input__label-content input__label-content--ichiro"
+                                id="label-add-address-house-part">Корпус</span>
+                        </label>
+                    </span>
+                </div>
+                <div class="small-form-field">
+                    <span class="input input--ichiro form-field">
+                        <input class="input__field input__field--ichiro" 
+                            id="input-add-address-house-office" type="text">
+                        <label class="input__label input__label--ichiro" 
+                            for="input-add-address-house-office">
+                            <span class="input__label-content input__label-content--ichiro"
+                                id="label-add-address-house-office">Офис</span>
+                        </label>
+                    </span> 
+                </div>
+            </div>
+
+            <div class="popup-footer">
+                <button class="btn c-button btn-sign btn-reg" type="subscribe" >
+                    <div class="c-ripple js-ripple">
+                        <span class="c-ripple__circle"></span>
+                    </div>
+                    Добавить
+                </button>
+            </div>
+        </form>
+        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+    </div>

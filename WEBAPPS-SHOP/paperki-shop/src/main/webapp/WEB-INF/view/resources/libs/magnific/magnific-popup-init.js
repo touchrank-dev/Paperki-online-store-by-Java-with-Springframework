@@ -1,12 +1,17 @@
 $(document).ready(function() {
+    $('.add-delivery-address-button').magnificPopup({
+        type:'inline',
+        removalDelay: 400,
+        midClick: true
+    });
+
     $('.update-profile-popup').magnificPopup({
         type:'inline',
         removalDelay: 400,
-        midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
-        // other options
+        midClick: true
     });
 
-    $('.enterprise-new-add-popup').magnificPopup({
+    $('.open-enterprise-new-add-popup').magnificPopup({
         type:'inline',
         removalDelay: 400,
         midClick: true
