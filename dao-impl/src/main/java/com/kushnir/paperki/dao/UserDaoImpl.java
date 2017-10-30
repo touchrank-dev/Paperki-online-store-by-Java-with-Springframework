@@ -3,6 +3,7 @@ package com.kushnir.paperki.dao;
 import com.kushnir.paperki.model.BillingAccount;
 import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.RegistrateForm;
+import com.kushnir.paperki.model.user.Address;
 import com.kushnir.paperki.model.user.User;
 
 import com.kushnir.paperki.model.user.UserUpdateRequest;
@@ -24,6 +25,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UserDaoImpl implements UserDao {
 
@@ -46,6 +51,17 @@ public class UserDaoImpl implements UserDao {
     private static final String P_BILLING_ACCOUNT_BANK_NAME = "p_bank_name";
     private static final String P_BILLING_ACCOUNT_BANK_CODE = "p_bank_code";
     private static final String P_BILLING_ACCOUNT_NUMBER = "p_account_number";
+
+    private static final String P_ADDRESS_TYPE = "p_id_address_type";
+    private static final String P_OWNER_ID = "p_owner_id";
+    private static final String P_POST_INDEX = "p_post_index";
+    private static final String P_CITY = "p_city";
+    private static final String P_STREET = "p_street";
+    private static final String P_HOUSE = "p_house";
+    private static final String P_HOUSE_PART = "p_house_part";
+    private static final String P_HOUSE_OFFICE = "p_house_office";
+    private static final String P_ADDRESS_VALUE = "p_value";
+    private static final String P_DESCRIPTION = "p_description";
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -82,6 +98,12 @@ public class UserDaoImpl implements UserDao {
 
     @Value("${payment.account.add}")
     private String addBillingAccountByEnterpriseIdSqlQuery;
+
+    @Value("${address.add}")
+    private String addAddressSqlQuery;
+
+    @Value("${address.getByUserId}")
+    private String getAllUsersAddressesSqlQuery;
 
     @Override
     public User getUserByLoginPassword(String userName, String password) throws DataAccessException {
@@ -289,16 +311,55 @@ public class UserDaoImpl implements UserDao {
         return namedParameterJdbcTemplate.update(updateUserSqlQuery, parameterSource);
     }
 
+    @Override
+    public Integer addAddress(Address address, Integer userId) {
+        LOGGER.debug("addAddress()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_ADDRESS_TYPE, address.getType());
+        parameterSource.addValue(P_OWNER_ID, address.getOwnerId());
+        parameterSource.addValue(P_USER_ID, userId);
+        parameterSource.addValue(P_POST_INDEX, address.getIndex());
+        parameterSource.addValue(P_CITY, address.getCity());
+        parameterSource.addValue(P_STREET, address.getStreet());
+        parameterSource.addValue(P_HOUSE, address.getHouse());
+        parameterSource.addValue(P_HOUSE_PART, address.getHousePart());
+        parameterSource.addValue(P_HOUSE_OFFICE, address.getHouseOffice());
+        parameterSource.addValue(P_ADDRESS_VALUE, address.getValue());
+        parameterSource.addValue(P_DESCRIPTION, address.getDescription());
+        return namedParameterJdbcTemplate.update(addAddressSqlQuery, parameterSource);
+    }
+
+    @Override
+    public HashMap<Integer,ArrayList<Address>> getUserAddresses(Integer userId) {
+        LOGGER.debug("getUserAddresses()");
+        HashMap<Integer,ArrayList<Address>> addresses = null;
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_USER_ID, userId);
+        addresses = namedParameterJdbcTemplate.query(getAllUsersAddressesSqlQuery, parameterSource, new AddressesResultSetExtractor());
+        return addresses;
+    }
+
+
 
     private class UserRowMapper implements RowMapper<User> {
 
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-            LocalDate birthDay = null;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-            Date bd = rs.getDate("birth_day");
-            if (bd != null) {
-                birthDay = bd.toLocalDate();
+            LocalDate birthDay = null;
+            LocalDateTime createDate = null;
+            LocalDateTime editDate = null;
+
+            Date bd =               rs.getDate("birth_day");
+            String createDateStr =  rs.getString("create_date");
+            String editDateStr =    rs.getString("edit_date");
+
+            try {
+                birthDay =          bd.toLocalDate();
+                createDate =        LocalDateTime.parse(createDateStr, formatter);
+                editDate =          LocalDateTime.parse(editDateStr, formatter);
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage());
             }
 
             User user = new User(
@@ -308,9 +369,11 @@ public class UserDaoImpl implements UserDao {
                     rs.getString("name_user"),
                     rs.getString("email"),
                     rs.getString("phone"),
-                    rs.getBoolean("subscribe")
+                    rs.getBoolean("subscribe"),
+                    birthDay,
+                    createDate,
+                    editDate
             );
-            user.setBirthDay(birthDay);
             return user;
         }
     }
@@ -372,6 +435,56 @@ public class UserDaoImpl implements UserDao {
 
             }
             return enterprise;
+        }
+    }
+
+
+    private class AddressesResultSetExtractor implements ResultSetExtractor<HashMap<Integer,ArrayList<Address>>> {
+
+        @Override
+        public HashMap<Integer, ArrayList<Address>> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            HashMap<Integer, ArrayList<Address>> addresses = new HashMap();
+            while(rs.next()) {
+
+                Integer id =                rs.getInt("id_address");
+                Integer typeId =            rs.getInt("id_address_type");
+                Integer ownerId =           rs.getInt("owner_id");
+                Integer userId =            rs.getInt("id_user");
+
+                String index =              rs.getString("post_index");
+                String city =               rs.getString("city");
+                String street =             rs.getString("street");
+                String house =              rs.getString("house");
+                String housePart =          rs.getString("house_part");
+                String houseOffice =        rs.getString("house_office");
+                String value =              rs.getString("value");
+                String description =        rs.getString("description");
+
+                Address address = new Address(
+                        ownerId,
+                        typeId,
+                        index,
+                        city,
+                        street,
+                        house,
+                        housePart,
+                        houseOffice,
+                        userId,
+                        value,
+                        description,
+                        id
+                );
+
+                ArrayList<Address> addressList = addresses.get(ownerId);
+                if (addressList == null) {
+                    addressList = new ArrayList();
+                    addressList.add(address);
+                    addresses.put(ownerId, addressList);
+                } else {
+                    addressList.add(address);
+                }
+            }
+            return addresses;
         }
     }
 }

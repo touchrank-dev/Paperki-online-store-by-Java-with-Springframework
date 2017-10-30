@@ -1,6 +1,7 @@
 package com.kushnir.paperki.model.user;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class User {
 
@@ -14,6 +15,13 @@ public class User {
     private LocalDate birthDay;
     private UserType userType = UserType.ANONIMUS;
     private Boolean isEnterprise;
+
+    private LocalDateTime createDate;
+    private LocalDateTime editDate;
+
+    public boolean isAnonimus() {
+        return userType == UserType.ANONIMUS;
+    }
 
     public User() {
     }
@@ -42,7 +50,10 @@ public class User {
                 String name,
                 String email,
                 String phone,
-                Boolean subscribe) {
+                Boolean subscribe,
+                LocalDate birthDay,
+                LocalDateTime createDate,
+                LocalDateTime editDate) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -50,6 +61,9 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.subscribe = subscribe;
+        this.birthDay = birthDay;
+        this.createDate = createDate;
+        this.editDate = editDate;
     }
 
     public User(String login,
@@ -58,8 +72,6 @@ public class User {
                 String email,
                 String phone,
                 Boolean subscribe,
-                /*LocalDate birthDay,*/
-                /*UserType userType, */
                 Boolean isEnterprise) {
         this.login = login;
         this.password = password;
@@ -67,8 +79,6 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.subscribe = subscribe;
-        /*this.birthDay = birthDay;*/
-/*        this.userType = userType;*/
         this.isEnterprise = isEnterprise;
     }
 
@@ -92,10 +102,6 @@ public class User {
         this.birthDay = birthDay;
         this.userType = userType;
         this.isEnterprise = isEnterprise;
-    }
-
-    public boolean isAnonimus() {
-        return userType == UserType.ANONIMUS;
     }
 
     public Integer getId() {
@@ -178,6 +184,22 @@ public class User {
         isEnterprise = enterprise;
     }
 
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public LocalDateTime getEditDate() {
+        return editDate;
+    }
+
+    public void setEditDate(LocalDateTime editDate) {
+        this.editDate = editDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -194,7 +216,9 @@ public class User {
         if (subscribe != null ? !subscribe.equals(user.subscribe) : user.subscribe != null) return false;
         if (birthDay != null ? !birthDay.equals(user.birthDay) : user.birthDay != null) return false;
         if (userType != user.userType) return false;
-        return isEnterprise != null ? isEnterprise.equals(user.isEnterprise) : user.isEnterprise == null;
+        if (isEnterprise != null ? !isEnterprise.equals(user.isEnterprise) : user.isEnterprise != null) return false;
+        if (createDate != null ? !createDate.equals(user.createDate) : user.createDate != null) return false;
+        return editDate != null ? editDate.equals(user.editDate) : user.editDate == null;
     }
 
     @Override
@@ -209,6 +233,8 @@ public class User {
         result = 31 * result + (birthDay != null ? birthDay.hashCode() : 0);
         result = 31 * result + (userType != null ? userType.hashCode() : 0);
         result = 31 * result + (isEnterprise != null ? isEnterprise.hashCode() : 0);
+        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
+        result = 31 * result + (editDate != null ? editDate.hashCode() : 0);
         return result;
     }
 
@@ -217,7 +243,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", password='" + "********" + '\'' +
+                ", password='" + "******" + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
@@ -225,6 +251,8 @@ public class User {
                 ", birthDay=" + birthDay +
                 ", userType=" + userType +
                 ", isEnterprise=" + isEnterprise +
+                ", createDate=" + createDate +
+                ", editDate=" + editDate +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers.user;
 
 import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.order.Order;
+import com.kushnir.paperki.model.user.Address;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.user.UserType;
 import com.kushnir.paperki.service.CatalogBean;
@@ -87,6 +88,16 @@ public class UserController {
             orders = orderService.getOrdersByUserId(user.getId());
         }
         return orders;
+    }
+
+    @ModelAttribute("addresses")
+    public HashMap<Integer, ArrayList<Address>> getAddresses(HttpSession httpSession) {
+        User user = (User)httpSession.getAttribute("user");
+        HashMap<Integer, ArrayList<Address>> addresses = null;
+        if(user != null || user.getId() != null || user.getId() > 0) {
+            addresses = userService.getUserAddresses(user.getId());
+        }
+        return addresses;
     }
 
     @ModelAttribute("mainmenu")

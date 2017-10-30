@@ -117,18 +117,22 @@
                             </div>
                             <div class="my-personal-data-delivery-address-content">
                                 <h2 style="margin-top: 20px;">
-                                    Адреса доставки:
+                                    Персональные адреса доставки:
                                 </h2>
-                                <ul class="delivery-address-list">
-                                    <li>
-                                        <a href="#">ул.Ясеневая д.8/1 к.в 35</a>
-                                        <div class="action-buttons">
-                                            <a href="#" class="edit-button" title="Редактировать"></a>
-                                            <a href="#" class="delete-button" title="Удалить"></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <a href="#add-address-popup" class="add-delivery-address-button c-button">
+                                <div th:switch="${addresses} == null or ${addresses.size()} < 1 or ${addresses[1]} == null" th:remove="tag">
+                                     <ul class="delivery-address-list"
+                                        th:case="${false}">
+                                        <li th:each="address : ${addresses[1]}">
+                                            <a href="#" th:text="${address.value}">value</a>
+                                            <div class="action-buttons">
+                                                <!-- <a href="#" class="edit-button" title="Редактировать"></a> -->
+                                                <a href="#" class="delete-button" title="Удалить"></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <span th:case="${true}">У Вас еще нет персональных адресов доставки</span>
+                                </div>
+                                <a href="#add-address-popup" class="add-delivery-address-button c-button" onclick="setOwnerAndType(1, 1)">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
                                     </div>
@@ -281,6 +285,8 @@
                                             Редактировать
                                         </a>
                                     </div>
+
+
                                     <div class="my-personal-data-delivery-address-content">
                                         <h2 style="margin-top: 20px;">
                                             Рассчетные счета:
@@ -294,22 +300,33 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                        <a href="#" class="add-delivery-address-button">добавить адрес</a>
+                                        <a href="#" class="add-delivery-address-button">добавить рассчетный счет</a>
                                     </div> 
+
+
                                     <div class="my-personal-data-delivery-address-content">
                                         <h2 style="margin-top: 20px;">
                                             Адреса доставки:
                                         </h2>
-                                        <ul class="delivery-address-list">
-                                            <li>
-                                                <a href="#">ул.Ясеневая д.8/1 к.в 35</a>
-                                                <div class="action-buttons">
-                                                    <a href="#" class="edit-button" title="Редактировать"></a>
-                                                    <a href="#" class="delete-button" title="Удалить"></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <a href="#" class="add-delivery-address-button">добавить адрес</a>
+                                        <div th:switch="${addresses} == null or ${addresses.size()} < 1 or ${addresses[2]} == null" th:remove="tag">
+                                             <ul class="delivery-address-list"
+                                                th:case="${false}">
+                                                <li th:each="address : ${addresses[2]}">
+                                                    <a href="#" th:text="${address.value}">value</a>
+                                                    <div class="action-buttons">
+                                                        <!-- <a href="#" class="edit-button" title="Редактировать"></a> -->
+                                                        <a href="#" class="delete-button" title="Удалить"></a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <span th:case="${true}">У Вас еще нет адресов доставки</span>
+                                        </div>
+                                        <a href="#add-address-popup" class="add-delivery-address-button c-button" onclick="setOwnerAndType(2, 1)">
+                                            <div class="c-ripple js-ripple">
+                                                <span class="c-ripple__circle"></span>
+                                            </div>
+                                            добавить адрес
+                                        </a>
                                     </div> 
                                 </div>
 
@@ -435,7 +452,6 @@
                                 </ul>
                                 <div class="my-orders-tabs-content">
                                     <div class="active-orders" th:each="orderstatus : ${orders}">
-
 
                                         <div class="orders-list-table">
                                             <div class="table-head">

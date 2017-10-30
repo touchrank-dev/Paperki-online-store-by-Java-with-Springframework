@@ -4,9 +4,13 @@ import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.LoginData;
 import com.kushnir.paperki.model.RegistrateForm;
 import com.kushnir.paperki.model.password.NewPasswordForm;
+import com.kushnir.paperki.model.user.Address;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.user.UserUpdateRequest;
 import com.kushnir.paperki.service.exceptions.ServiceException;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface UserService {
     Object getUserByLoginPassword(LoginData loginData);
@@ -17,4 +21,6 @@ public interface UserService {
     Integer addEnterpriseByUser (RegistrateForm form, Integer userId) throws ServiceException;
     Object changePassword(NewPasswordForm newPasswordForm, Integer UserId);
     Object updateUser(UserUpdateRequest userUpdateRequest, Integer UserId);
+    Object addAddress(Address address, Integer userId);
+    HashMap<Integer,ArrayList<Address>> getUserAddresses(Integer userId);
 }

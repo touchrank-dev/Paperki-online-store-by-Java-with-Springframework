@@ -2,6 +2,18 @@ $( document ).ready(function() {
     $('#enterpriseForm').hide();
 });
 
+function mapErrorToField(formField, input, label) {
+    if(formField != null) {
+        input.addClass("input_error");
+        label.addClass('label_error');
+        label.attr("title", formField).tooltip('fixTitle').tooltip("show");
+    } else {
+        input.removeClass("input_error");
+        label.removeClass('label_error');
+        label.tooltip("hide");
+    }
+}
+
 function addToCart(pnt) {
     var pntinput = $('#'+pnt);
     var loader = pntinput.parents('.btns').children('.cart-add-loader');
@@ -277,7 +289,6 @@ function regFormToJSON() {
 }
 
 function mapErrorFeedbackForm(form) {
-    console.log(form);
     if(form.userName != null) {
         $('#send-feedback-input-name').addClass("input_error");
         $('#send-feedback-label-name').addClass('label_error');
@@ -671,41 +682,10 @@ function orderFormToJSON() {
 
 function mapErrorOrderForm(form) {
 	if($('#order-type-switcher').val() == 1) {
-		if (form.name != null) {
-			$('#order-input-customer-name').addClass("input_error");
-			$('#order-label-customer-name').addClass('label_error');
-			$('#order-label-customer-name').attr("title", form.name)
-                                 		   .tooltip('fixTitle')
-                                           .tooltip("show");
-		} else {
-			$('#order-input-customer-name').removeClass("input_error");
-			$('#order-label-customer-name').removeClass('label_error');
-			$('#order-label-customer-name').tooltip("hide");
-		}
 
-		if (form.email != null) {
-			$('#order-input-customer-email').addClass("input_error");
-			$('#order-label-customer-email').addClass('label_error');
-			$('#order-label-customer-email').attr("title", form.email)
-                                 		    .tooltip('fixTitle')
-                                            .tooltip("show");
-		} else {
-			$('#order-input-customer-email').removeClass("input_error");
-			$('#order-label-customer-email').removeClass('label_error');
-			$('#order-label-customer-email').tooltip("hide");
-		}
-
-		if (form.phone != null) {
-			$('#order-input-customer-phone').addClass("input_error");
-			$('#order-label-customer-phone').addClass('label_error');
-			$('#order-label-customer-phone').attr("title", form.phone)
-                                 		    .tooltip('fixTitle')
-                                            .tooltip("show");
-		} else {
-			$('#order-input-customer-phone').removeClass("input_error");
-			$('#order-label-customer-phone').removeClass('label_error');
-			$('#order-label-customer-phone').tooltip("hide");
-		}
+        mapErrorToField(form.name, $('#order-input-customer-name'), $('#order-label-customer-name'));
+        mapErrorToField(form.email, $('#order-input-customer-email'), $('#order-label-customer-email'));
+        mapErrorToField(form.phone, $('#order-input-customer-phone'), $('#order-label-customer-phone'));
 
 		if (form.shipment != null) {
 			$('#customer-shipment-chosen').attr("title", form.shipment)
@@ -726,65 +706,12 @@ function mapErrorOrderForm(form) {
 		document.location.href = '#customer-tab';
 		
 	} else if($('#order-type-switcher').val() == 2) {
-        if (form.name != null) {
-            $('#order-input-enterprise-name').addClass("input_error");
-            $('#order-label-enterprise-name').addClass('label_error');
-            $('#order-label-enterprise-name').attr("title", form.name)
-                                             .tooltip('fixTitle')
-                                             .tooltip("show");
-        } else {
-            $('#order-input-enterprise-name').removeClass("input_error");
-            $('#order-label-enterprise-name').removeClass('label_error');
-            $('#order-label-enterprise-name').tooltip("hide");
-        }
 
-        if (form.email != null) {
-            $('#order-input-enterprise-email').addClass("input_error");
-            $('#order-label-enterprise-email').addClass('label_error');
-            $('#order-label-enterprise-email').attr("title", form.email)
-                                              .tooltip('fixTitle')
-                                              .tooltip("show");
-        } else {
-            $('#order-input-enterprise-email').removeClass("input_error");
-            $('#order-label-enterprise-email').removeClass('label_error');
-            $('#order-label-enterprise-email').tooltip("hide");
-        }
-
-        if (form.phone != null) {
-            $('#order-input-enterprise-phone').addClass("input_error");
-            $('#order-label-enterprise-phone').addClass('label_error');
-            $('#order-label-enterprise-phone').attr("title", form.phone)
-                                              .tooltip('fixTitle')
-                                              .tooltip("show");
-        } else {
-            $('#order-input-enterprise-phone').removeClass("input_error");
-            $('#order-label-enterprise-phone').removeClass('label_error');
-            $('#order-label-enterprise-phone').tooltip("hide");
-        }
-
-        if (form.unp != null) {
-            $('#order-input-enterprise-unp').addClass("input_error");
-            $('#order-label-enterprise-unp').addClass('label_error');
-            $('#order-label-enterprise-unp').attr("title", form.unp)
-                                            .tooltip('fixTitle')
-                                            .tooltip("show");
-        } else {
-            $('#order-input-enterprise-unp').removeClass("input_error");
-            $('#order-label-enterprise-unp').removeClass('label_error');
-            $('#order-label-enterprise-unp').tooltip("hide");
-        }
-
-        if (form.address != null) {
-            $('#order-input-enterprise-address').addClass("input_error");
-            $('#order-label-enterprise-address').addClass('label_error');
-            $('#order-label-enterprise-address').attr("title", form.address)
-                                                .tooltip('fixTitle')
-                                                .tooltip("show");
-        } else {
-            $('#order-input-enterprise-address').removeClass("input_error");
-            $('#order-label-enterprise-address').removeClass('label_error');
-            $('#order-label-enterprise-address').tooltip("hide");
-        }
+        mapErrorToField(form.name, $('#order-input-enterprise-name'), $('#order-label-enterprise-name'));
+        mapErrorToField(form.email, $('#order-input-enterprise-email'), $('#order-label-enterprise-email'));
+        mapErrorToField(form.phone, $('#order-input-enterprise-phone'), $('#order-label-enterprise-phone'));
+        mapErrorToField(form.unp, $('#order-input-enterprise-unp'), $('#order-label-enterprise-unp'));
+        mapErrorToField(form.address, $('#order-input-enterprise-address'), $('#order-label-enterprise-address'));
 
         if (form.shipment != null) {
             $('#enterprise-shipment-chosen').attr("title", form.shipment)
@@ -801,7 +728,6 @@ function mapErrorOrderForm(form) {
         } else {
             $('#enterprise-payment-chosen').tooltip("hide");
         }
-
 
         document.location.href = '#enterprise-tab';
 
@@ -831,11 +757,7 @@ function seViewType(type) {
     });
 }
 
-
-
 /*===================================================================================*/
-
-
 
 function updatePersonalData() {
     $.ajax({
@@ -874,55 +796,14 @@ function updatePersonalDataFormToJSON() {
 }
 
 function mapErrorUpdatePerson (form) {
-    if (form.name != null) {
-        $('#update-personal-data-person').addClass("input_error");
-        $('#label-update-personal-data-person').addClass('label_error');
-        $('#label-update-personal-data-person').attr("title", form.name)
-                                                .tooltip('fixTitle')
-                                                .tooltip("show");
-    } else {
-        $('#update-personal-data-person').removeClass("input_error");
-        $('#label-update-personal-data-person').removeClass('label_error');
-        $('#label-update-personal-data-person').tooltip("hide");
-    }
-
-    if (form.email != null) {
-        $('#update-personal-data-email').addClass("input_error");
-        $('#label-update-personal-data-email').addClass('label_error');
-        $('#label-update-personal-data-email').attr("title", form.email)
-                                                .tooltip('fixTitle')
-                                                .tooltip("show");
-    } else {
-        $('#update-personal-data-email').removeClass("input_error");
-        $('#label-update-personal-data-email').removeClass('label_error');
-        $('#label-update-personal-data-email').tooltip("hide");
-    }
-
-    if (form.phone != null) {
-        $('#update-personal-data-phone').addClass("input_error");
-        $('#label-update-personal-data-phone').addClass('label_error');
-        $('#label-update-personal-data-phone').attr("title", form.phone)
-                                                .tooltip('fixTitle')
-                                                .tooltip("show");
-    } else {
-        $('#update-personal-data-phone').removeClass("input_error");
-        $('#label-update-personal-data-phone').removeClass('label_error');
-        $('#label-update-personal-data-phone').tooltip("hide");
-    }
-
-    if (form.birthday != null) {
-        $('.update-personal-data-birthday').addClass("input_error");
-        $('#label-update-personal-data-birthday').addClass('label_error');
-        $('#label-update-personal-data-birthday').attr("title", form.birthday)
-                                                .tooltip('fixTitle')
-                                                .tooltip("show");
-    } else {
-        $('.update-personal-data-birthday').removeClass("input_error");
-        $('#label-update-personal-data-birthday').removeClass('label_error');
-        $('#label-update-personal-data-birthday').tooltip("hide");
-    }
-
+    mapErrorToField(form.name, $('#update-personal-data-person'), $('#label-update-personal-data-person'));
+    mapErrorToField(form.email, $('#update-personal-data-email'), $('#label-update-personal-data-email'));
+    mapErrorToField(form.phone, $('#update-personal-data-phone'), $('#label-update-personal-data-phone'));
+    mapErrorToField(form.birthday, $('.update-personal-data-birthday'), $('#label-update-personal-data-birthday'));
 }
+
+/*=========================================================================================*/
+
 
 function changePassword() {
     $.ajax({
@@ -935,7 +816,7 @@ function changePassword() {
          data: changePasswordDataFormToJSON(),
          success: function(response){
              if(response.code == "OK") {
-                alert("пароль успешно изменен");
+                alert("пароль успешно изменен!");
                 // location.reload();
                 document.location.href = '/';
              } else if(response.code == "BAD_REQUEST") {
@@ -961,43 +842,18 @@ function changePasswordDataFormToJSON() {
 }
 
 function mapErrorChangePassword (form) {
-    if (form.oldPassword != null) {
-        $('#change-password-current-password').addClass("input_error");
-        $('#label-change-password-current-password').addClass('label_error');
-        $('#label-change-password-current-password').attr("title", form.oldPassword)
-                                                        .tooltip('fixTitle')
-                                                        .tooltip("show");
-    } else {
-        $('#change-password-current-password').removeClass("input_error");
-        $('#label-change-password-current-password').removeClass('label_error');
-        $('#label-change-password-current-password').tooltip("hide");
-    }
-
-    if (form.newPassword != null) {
-        $('#change-password-new-password').addClass("input_error");
-        $('#label-change-password-new-password').addClass('label_error');
-        $('#label-change-password-new-password').attr("title", form.newPassword)
-                                                .tooltip('fixTitle')
-                                                .tooltip("show");
-    } else {
-        $('#change-password-new-password').removeClass("input_error");
-        $('#label-change-password-new-password').removeClass('label_error');
-        $('#label-change-password-new-password').tooltip("hide");
-    }
-
-    if (form.newPasswordConfirm != null) {
-        $('#change-password-new-password-confirm').addClass("input_error");
-        $('#label-change-password-new-password-confirm').addClass('label_error');
-        $('#label-change-password-new-password-confirm').attr("title", form.newPasswordConfirm)
-                                                        .tooltip('fixTitle')
-                                                        .tooltip("show");
-    } else {
-        $('#change-password-new-password-confirm').removeClass("input_error");
-        $('#label-change-password-new-password-confirm').removeClass('label_error');
-        $('#label-change-password-new-password-confirm').tooltip("hide");
-    }
+    mapErrorToField(form.oldPassword, $('#change-password-current-password'), $('#label-change-password-current-password'));
+    mapErrorToField(form.newPassword, $('#change-password-new-password'), $('#label-change-password-new-password'));
+    mapErrorToField(form.newPasswordConfirm, $('#change-password-new-password-confirm'), $('#label-change-password-new-password-confirm'));
 }
 
+/*=========================================================================================*/
+
+
+function setOwnerAndType(owner, type) {
+    $('#input-add-address-owner').val(owner),
+    $('#input-add-address-type').val(type)
+}
 
 function AddAddress() {
     $.ajax({
@@ -1028,28 +884,22 @@ function AddAddress() {
 
 function addressFormToJSON() {
     return JSON.stringify({
+        "ownerId":          $('#input-add-address-owner').val(),
+        "type":             $('#input-add-address-type').val(),
         "index":            $('#input-add-address-index').val(),
         "city":             $('#input-add-address-city').val(),
         "street":           $('#input-add-address-street').val(),
         "house":            $('#input-add-address-house').val(),
         "housePart":        $('#input-add-address-house-part').val(),
-        "houseOffice":      $('#input-add-address-house-office').val()
+        "houseOffice":      $('#input-add-address-house-office').val(),
+        "description":      $('#input-add-address-description').val()
     });
 }
 
 function mapErrorAddressForm (form) {
-    alert("ERROR FORM");
-    /*if (form.oldPassword != null) {
-        $('#change-password-current-password').addClass("input_error");
-        $('#label-change-password-current-password').addClass('label_error');
-        $('#label-change-password-current-password').attr("title", form.oldPassword)
-                                                        .tooltip('fixTitle')
-                                                        .tooltip("show");
-    } else {
-        $('#change-password-current-password').removeClass("input_error");
-        $('#label-change-password-current-password').removeClass('label_error');
-        $('#label-change-password-current-password').tooltip("hide");
-    }*/
-
-
+    mapErrorToField(form.city, $('#input-add-address-city'), $('#label-add-address-city'));
+    mapErrorToField(form.street, $('#input-add-address-street'), $('#label-add-address-street'));
+    mapErrorToField(form.house, $('#input-add-address-house'), $('#label-add-address-house'));
 }
+
+/*=========================================================================================*/

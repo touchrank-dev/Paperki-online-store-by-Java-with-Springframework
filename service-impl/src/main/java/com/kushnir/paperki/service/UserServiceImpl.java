@@ -5,10 +5,7 @@ import com.kushnir.paperki.model.*;
 
 import com.kushnir.paperki.model.password.NewPasswordErrorForm;
 import com.kushnir.paperki.model.password.NewPasswordForm;
-import com.kushnir.paperki.model.user.User;
-import com.kushnir.paperki.model.user.UserType;
-import com.kushnir.paperki.model.user.UserUpdateErrorResponse;
-import com.kushnir.paperki.model.user.UserUpdateRequest;
+import com.kushnir.paperki.model.user.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
@@ -25,6 +22,8 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.security.MessageDigest;
@@ -89,16 +88,16 @@ public class UserServiceImpl implements UserService {
             if(!errorLoginData.isErrors()) errorLoginData.setPassword(e.getMessage());
         }
         if(errorLoginData.isErrors()) {
-            LOGGER.error("LOGIN FAILED! >>>\nERROR FORM: {}", errorLoginData);
+            LOGGER.error("LOGIN FAILED!");
             return errorLoginData;
         } else {
             try {
                 // TODO !!! HARDCODE !!! SET USER TYPE
                 user.setUserType(UserType.CUSTOMER);
-                LOGGER.debug("USER WAS VALIDATED SUCCESSFUL >>> \nRETURNED USER: {}", user);
+                LOGGER.debug("USER WAS VALIDATED SUCCESSFUL >>>");
                 return user;
             } catch (Exception e) {
-                LOGGER.error("LOGIN FAILED! >>>\nERROR MESSAGE: {}", e.getMessage());
+                LOGGER.error("LOGIN FAILED! >>>");
                 throw e;
             }
         }
@@ -302,8 +301,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object updateUser(UserUpdateRequest userUpdateRequest, Integer UserId) {
-        LOGGER.debug("updateUser({}, {})", userUpdateRequest, UserId);
+    public Object updateUser(UserUpdateRequest userUpdateRequest, Integer userId) {
+        LOGGER.debug("updateUser({}, {})", userUpdateRequest, userId);
         UserUpdateErrorResponse userUpdateErrorResponse = new UserUpdateErrorResponse();
 
         try {
@@ -346,8 +345,69 @@ public class UserServiceImpl implements UserService {
 
         if (userUpdateErrorResponse.isErrors()) return userUpdateErrorResponse;
         else {
-            Integer count = userDao.updateUser(userUpdateRequest, UserId);
+            Integer count = userDao.updateUser(userUpdateRequest, userId);
             return count;
+        }
+    }
+
+    @Override
+    @Transactional
+    public Object addAddress(Address address, Integer userId) {
+        LOGGER.debug("addAddress({}, {})", address, userId);
+        AddressErrorResponse addressErrorResponse = new AddressErrorResponse();
+
+        try {
+            Assert.notNull(address.getCity(), "Пожалуйста укажите город доставки");
+            Assert.hasText(address.getCity(), "Пожалуйста укажите город доставки");
+        } catch (Exception e) {
+            addressErrorResponse.setCity(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(address.getStreet(), "Пожалуйста укажите улицу");
+            Assert.hasText(address.getStreet(), "Пожалуйста укажите улицу");
+        } catch (Exception e) {
+            addressErrorResponse.setStreet(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(address.getHouse(), "Пожалуйста укажите номер дома");
+            Assert.hasText(address.getHouse(), "Пожалуйста укажите номер дома");
+        } catch (Exception e) {
+            addressErrorResponse.setHouse(e.getMessage());
+        }
+
+        if (addressErrorResponse.isErrors()) return addressErrorResponse;
+        else {
+            try {
+                String value =
+                        (address.getIndex() != null && !address.getIndex().equals("") ? address.getIndex():"")
+                        +(address.getCity() != null && !address.getCity().equals("") ? " "+address.getCity():"")
+                        +(address.getStreet() != null && !address.getStreet().equals("") ? " "+address.getStreet():"")
+                        +(address.getHouse() != null && !address.getHouse().equals("") ? " "+address.getHouse():"")
+                        +(address.getHousePart() != null && !address.getHousePart().equals("") ? "/"+address.getHousePart():"")
+                        +(address.getHouseOffice() != null && !address.getHouseOffice().equals("") ? ", "+address.getHouseOffice():"");
+
+                address.setValue(value);
+                Integer count = userDao.addAddress(address, userId);
+                return count;
+            } catch (Exception e) {
+                LOGGER.error("ERROR>>> {}, {}", e, e.getMessage());
+                throw e;
+            }
+        }
+    }
+
+    @Override
+    public HashMap<Integer,ArrayList<Address>> getUserAddresses(Integer userId) {
+        LOGGER.debug("getUserAddresses({})", userId);
+        HashMap<Integer,ArrayList<Address>> addresses = null;
+        try {
+            addresses = userDao.getUserAddresses(userId);
+            return addresses;
+        } catch (Exception e) {
+            LOGGER.error("ERROR >>> {}", e.getMessage());
+            return null;
         }
     }
 

@@ -3,10 +3,7 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers.user;
 import com.kushnir.paperki.model.*;
 import com.kushnir.paperki.model.password.NewPasswordErrorForm;
 import com.kushnir.paperki.model.password.NewPasswordForm;
-import com.kushnir.paperki.model.user.User;
-import com.kushnir.paperki.model.user.UserType;
-import com.kushnir.paperki.model.user.UserUpdateErrorResponse;
-import com.kushnir.paperki.model.user.UserUpdateRequest;
+import com.kushnir.paperki.model.user.*;
 import com.kushnir.paperki.service.UserService;
 import com.kushnir.paperki.service.mail.Mailer;
 
@@ -105,6 +102,7 @@ public class RESTUser {
                 httpSession.setAttribute("user", (User)user);
                 LOGGER.debug("REGISTRATION AND AUTHORIZATION WAS FINISHED SUCCESSFUL! >>>\nUSER:{}", user);
                 restMessage = new RestMessage(HttpStatus.CREATED, "REGISTRATION SUCCESSFUL!", null);
+                // TODO email
                 return restMessage;
             } else {
                 LOGGER.debug("REGISTRATION FAILED >>>\nERROR FORM: {}", (ErrorRegistrateForm)user);
@@ -137,6 +135,7 @@ public class RESTUser {
                 httpSession.setAttribute("user", new User(UserType.ANONIMUS));
                 LOGGER.debug("PASSWORD CHANGED SUCCESSFUL! >>>\n:{}", obj);
                 restMessage = new RestMessage(HttpStatus.OK, "PASSWORD CHANGED SUCCESSFUL!", obj);
+                // TODO email
                 return restMessage;
             } else {
                 LOGGER.debug("PASSWORD CHANGE FAILED >>>\nERROR FORM: {}", (NewPasswordErrorForm) obj);
@@ -158,7 +157,6 @@ public class RESTUser {
         LOGGER.debug("USER UPDATE >>>\nFORM RECEIVED: {}", userUpdateRequest);
         RestMessage restMessage;
         try {
-
             User user = (User) httpSession.getAttribute("user");
             if(user == null) throw new Exception("EMPTY USER SESSION");
             if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
@@ -168,6 +166,7 @@ public class RESTUser {
             if(obj instanceof Integer) {
                 LOGGER.debug("USER UPDATED SUCCESSFUL! >>>\n:{}", obj);
                 restMessage = new RestMessage(HttpStatus.OK, "USER UPDATED SUCCESSFUL!", obj);
+                // TODO email
                 return restMessage;
             } else {
                 LOGGER.debug("USER UPDATE FAILED >>>\nERROR FORM: {}", (UserUpdateErrorResponse) obj);
@@ -178,6 +177,36 @@ public class RESTUser {
             LOGGER.error("USER UPDATE FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
             mailer.toSupportMail(restMessage.toString(), "USER UPDATE FAILED");
+            return restMessage;
+        }
+    }
+
+    @PostMapping("/addressadd")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage addAddress(@RequestBody Address address, HttpSession httpSession) {
+        LOGGER.debug("ADD ADDRESS >>>\nADDRESS RECEIVED: {}", address);
+        RestMessage restMessage;
+        try {
+            User user = (User) httpSession.getAttribute("user");
+            if(user == null) throw new Exception("EMPTY USER SESSION");
+            if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
+
+            Object obj = userService.addAddress(address, user.getId());
+
+            if(obj instanceof Integer) {
+                LOGGER.debug("ADDRESS ADDED SUCCESSFUL! >>>\n:{}", obj);
+                restMessage = new RestMessage(HttpStatus.OK, "ADDRESS ADDED SUCCESSFUL!", obj);
+                // TODO email
+                return restMessage;
+            } else {
+                LOGGER.debug("ADD ADDRESS FAILED >>>\nERROR FORM: {}", (AddressErrorResponse) obj);
+                restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "ADD ADDRESS FAILED", (AddressErrorResponse) obj);
+                return restMessage;
+            }
+        } catch (Exception e) {
+            LOGGER.error("ADD ADDRESS FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
+            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            mailer.toSupportMail(restMessage.toString(), "ADD ADDRESS FAILED");
             return restMessage;
         }
     }

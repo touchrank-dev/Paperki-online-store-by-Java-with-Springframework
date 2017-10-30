@@ -3,8 +3,12 @@ package com.kushnir.paperki.dao;
 import com.kushnir.paperki.model.BillingAccount;
 import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.RegistrateForm;
+import com.kushnir.paperki.model.user.Address;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.user.UserUpdateRequest;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface UserDao {
     User getUserByLoginPassword(String userName, String password);
@@ -19,4 +23,6 @@ public interface UserDao {
     Integer addBillingAccount(BillingAccount billingAccount);
     Integer updateUserPassword(String newPassword, Integer userId);
     Integer updateUser (UserUpdateRequest userUpdateRequest, Integer userId);
+    Integer addAddress (Address address, Integer userId);
+    HashMap<Integer,ArrayList<Address>> getUserAddresses(Integer userId);
 }
