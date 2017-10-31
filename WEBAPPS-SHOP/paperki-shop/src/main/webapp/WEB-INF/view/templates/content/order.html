@@ -77,12 +77,12 @@
                                       Юридическое лицо
                                     </li>
                                 </ul>
-                                <input type="hidden" id="order-type-switcher" value="1">
+                                <input name="type" type="hidden" id="order-type-switcher" value="1">
 
                                 <!--Как физ. лицо-->
                                 <div class="single-product-tabs-content" id="customer-tab">
                                     <div class="single-product-tabs__char brb">
-                                        <form class="orderingContent">
+                                        <form class="orderingContent" id="order-customer-form">
 
                                             <!-- CONTACTS -->
                                             <div class="orderingTabsSection">
@@ -94,7 +94,8 @@
                                                     <h4 class="orderingTabsSectionTitle">Контактная информация</h4>
                                                     <br>
                                                     <span class="input input--ichiro callback-form-field">
-                                                        <input class="input__field input__field--ichiro" type="text" name="reg-name" 
+                                                        <input class="input__field input__field--ichiro" type="text" 
+                                                            name="name"
                                                             id="order-input-customer-name"
                                                             th:value="${user?.name}" />
                                                         <label class="input__label input__label--ichiro" for="order-input-customer-name">
@@ -103,7 +104,9 @@
                                                         </label>
                                                     </span>
                                                     <span class="input input--ichiro callback-form-field">
-                                                        <input class="input__field input__field--ichiro" type="email" id="order-input-customer-email"
+                                                        <input class="input__field input__field--ichiro" type="email" 
+                                                            name="email"
+                                                            id="order-input-customer-email"
                                                             th:value="${user?.email}" />
                                                         <label class="input__label input__label--ichiro" for="order-input-customer-email">
                                                             <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
@@ -111,7 +114,9 @@
                                                         </label>
                                                     </span>
                                                     <span class="input input--ichiro callback-form-field">
-                                                        <input class="input__field input__field--ichiro" type="text" id="order-input-customer-phone"
+                                                        <input class="input__field input__field--ichiro" type="text"
+                                                            name="phone"
+                                                            id="order-input-customer-phone"
                                                             th:value="${user?.phone}" />
                                                         <label class="input__label input__label--ichiro" for="order-input-customer-phone">
                                                             <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
@@ -148,12 +153,12 @@
                                                                 <p class="deliveryTimePrice"></p>
                                                             </label>
                                                             <div class="orderingdeliveryTimeHolder clearfix">
-                                                                <span th:text="${dilivery?.value?.shortDescription}" th:remove="tag">Описание</span>
+                                                                <span th:text="${dilivery?.value?.shortDescription}" th:remove="tag">Описание</span></br>
                                                                 <span th:if="${dilivery?.value?.id} > 1">
-                                                                    <input id="order-input-customer-address-value" type="text">
-                                                                    <label class="deliveryTimeSelect" for="order-input-customer-address-value">
+                                                                    <label or="order-input-customer-address-value">
                                                                         Укажите адрес доставки
                                                                     </label>
+                                                                    <input id="order-input-customer-address-value" type="text">
                                                                 </span>
                                                             </div>
                                                         </li>

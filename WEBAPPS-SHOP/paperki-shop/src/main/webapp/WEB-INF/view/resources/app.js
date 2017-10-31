@@ -14,6 +14,15 @@ function mapErrorToField(formField, input, label) {
     }
 }
 
+function FormToJson(formArray) {
+
+  var arr = {};
+  for (var i = 0; i < formArray.length; i++){
+    arr[formArray[i]['name']] = formArray[i]['value'];
+  }
+  return arr;
+}
+
 function addToCart(pnt) {
     var pntinput = $('#'+pnt);
     var loader = pntinput.parents('.btns').children('.cart-add-loader');
@@ -235,31 +244,31 @@ function feedback() {
 
 function feedbackToJSON () {
     return JSON.stringify({
-        "userName": $('#send-feedback-input-name').val(),
-        "email": $('#send-feedback-input-email').val(),
-        "text": $('#send-description-textarea').val()
+        "userName":         $('#send-feedback-input-name').val(),
+        "email":            $('#send-feedback-input-email').val(),
+        "text":             $('#send-description-textarea').val()
     });
 }
 
 function callBackToJSON () {
     return JSON.stringify({
-         "name": $('#callback-input-name').val(),
-         "phone": $('#callback-input-phone').val(),
-         "comment": $('#callback-textarea').val()
+        "name":             $('#callback-input-name').val(),
+        "phone":            $('#callback-input-phone').val(),
+        "comment":          $('#callback-textarea').val()
     });
 }
 
 function subscribeToJSON() {
     return JSON.stringify({
-         "name": $('#name-subscribe').val(),
-         "email": $('#email-subscribe').val()
+        "name":             $('#name-subscribe').val(),
+        "email":            $('#email-subscribe').val()
     });
 }
 
 function addItemToJson(pnt, quantity) {
     return JSON.stringify({
-        "pnt": pnt, 
-        "quantity": quantity
+        "pnt":              pnt, 
+        "quantity":         quantity
     });
 }
 
@@ -545,14 +554,6 @@ function toFavorites(pnt) {
     alert('Функциональность временно недоступна');
 }
 
-function changeName() {
-    alert('Функциональность временно недоступна');
-}
-
-function updateUser() {
-    alert('Функциональность временно недоступна');
-}
-
 function activatePromo() {
     alert('Функциональность временно недоступна');
 }
@@ -624,6 +625,7 @@ function switchOrderType(type) {
 }
 
 function submitOrder() {
+    // console.log(FormToJson($('#order-customer-form').serializeArray()));
     $.ajax({
         cache: false,
         async: false,

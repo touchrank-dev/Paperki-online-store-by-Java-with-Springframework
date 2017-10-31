@@ -11,7 +11,7 @@ $(document).ready(function() {
         midClick: true
     });
 
-    $('.open-enterprise-new-add-popup').magnificPopup({
+    $('#open-add-enterprise-popup').magnificPopup({
         type:'inline',
         removalDelay: 400,
         midClick: true

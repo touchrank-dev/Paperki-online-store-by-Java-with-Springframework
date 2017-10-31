@@ -1,25 +1,38 @@
-<div id="enterprise-new-add-popup" class="enterprise-new-add-popup mfp-hide"
-     th:fragment="enterprise-new-add-popup" xmlns:th="http://www.thymeleaf.org">
-     <div class="enterprise-new-add-popup-head">
+<div id="add-enterprise-popup" class="add-enterprise-popup popup-content mfp-hide"
+     th:fragment="add-enterprise-popup" xmlns:th="http://www.thymeleaf.org">
+     <div class="popup-head">
 		<h4>Радактирование личных данных</h4>
 	</div>
 	<form>
-		<span class="input input--ichiro update-profile-popup-form-field">
-			<input class="input__field input__field--ichiro" type="text" name="update-personal-data-person" id="update-personal-data-person"/>
-			<label class="input__label input__label--ichiro" for="update-personal-data-person">
+		<span class="input input--ichiro form-field">
+			<input class="input__field input__field--ichiro" type="text" 
+				id="update-personal-data-person"/>
+			<label class="input__label input__label--ichiro" 
+				for="update-personal-data-person">
 				<span class="input__label-content input__label-content--ichiro"
-				id="label-update-personal-data-person">Название организации *</span>
+					id="label-update-personal-data-person">Название организации *</span>
 			</label>
 		</span>
-		<span class="input input--ichiro update-profile-popup-form-field">
-			<input class="input__field input__field--ichiro" type="email" name="update-personal-data-email" id="update-personal-data-email" />
-			<label class="input__label input__label--ichiro" for="update-personal-data-email">
+		<span class="input input--ichiro form-field">
+			<input class="input__field input__field--ichiro" type="text" 
+				id="update-personal-data-email" />
+			<label class="input__label input__label--ichiro" 
+				for="update-personal-data-email">
 				<span class="input__label-content input__label-content--ichiro"
-				id="label-update-personal-data-email">УНП *</span>
+					id="label-update-personal-data-email">УНП *</span>
+			</label>
+		</span>
+		<span class="input input--ichiro form-field">
+			<input class="input__field input__field--ichiro" type="text" 
+				id="update-personal-data-address" />
+			<label class="input__label input__label--ichiro" 
+				for="update-personal-data-address">
+				<span class="input__label-content input__label-content--ichiro"
+					id="label-update-personal-data-address">Юридический адрес *</span>
 			</label>
 		</span>
 
-		<div class="update-profile-popup-footer">
+		<div class="popup-footer">
 			<button class="btn c-button btn-sign btn-reg" type="subscribe" onclick="addEnterprise()">
 				<div class="c-ripple js-ripple">
 					<span class="c-ripple__circle"></span>

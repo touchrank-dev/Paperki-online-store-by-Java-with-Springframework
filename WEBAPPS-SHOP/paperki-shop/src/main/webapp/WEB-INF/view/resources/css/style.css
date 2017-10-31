@@ -269,54 +269,6 @@ div.add-area {
     align-items: center;
     padding-bottom: 46px;
 }
-/*=============================================================*/
-
-.enterprise-new-add-popup {
-  position: relative;
-  margin: 86px auto 0 auto;
-  width: 586px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-}
-
-.enterprise-new-add-popup-head {
-  position: relative;
-  padding: 32px 45px 13px 47px;
-}
-
-.enterprise-new-add-popup h4 {
-  padding: 0;
-  margin: 0;
-  color: #373b44;
-  font-family: ProximaNovaBlack;
-  font-size: 30px;
-  font-weight: 900;
-  margin: 0 0 25px 0;
-}
-
-.enterprise-new-add-popup form {
-    padding: 15px 49px 0 47px;
-}
-
-.enterprise-new-add-popup .update-profile-popup-form-field {
-    width: 100%;
-    max-width: none;
-    margin: 55px 0 12px 0;
-}
-
-.enterprise-new-add-popup .update-profile-popup-footer {
-    display: -moz-flex;
-    display: -ms-flex;
-    display: -o-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -ms-flex-align: center;
-    align-items: center;
-    padding-bottom: 46px;
-}
 
 /*=============================================================*/
 

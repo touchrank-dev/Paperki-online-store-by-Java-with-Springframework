@@ -251,7 +251,7 @@
                             <h2>Моя организация</h2>
                             <div th:switch="${userEnterprise} == null" th:remove="tag">
 
-                                <a href="#enterprise-new-add-popup" class="add-organization-button open-enterprise-new-add-popup c-button"
+                                <a href="#add-enterprise-popup" id="open-add-enterprise-popup" class="add-organization-button c-button"
                                     th:case="${true}">
                                     <div class="c-ripple js-ripple">
                                         <span class="c-ripple__circle"></span>
@@ -265,12 +265,16 @@
                                             <ul>
                                                 <li>
                                                     <p>Название организации:</p>
-                                                    <span th:text="${userEnterprise?.enterpriseName}">Имя</span>
+                                                    <span th:text="${userEnterprise?.enterpriseName}">Название организации</span>
                                                 </li>
                                                 <li>
                                                     <p>УНП:</p>
-                                                    <span th:text="${userEnterprise?.UNP}">Логин</span>
-                                                </li>                                        
+                                                    <span th:text="${userEnterprise?.UNP}">УНП</span>
+                                                </li>   
+                                                <li>
+                                                    <p>Юридический адрес:</p>
+                                                    <span th:text="${userEnterprise?.billingAddress}">Юридический адрес</span>
+                                                </li>                                     
                                             </ul>
                                             <ul>
                                                 <!-- второй ряд -->
