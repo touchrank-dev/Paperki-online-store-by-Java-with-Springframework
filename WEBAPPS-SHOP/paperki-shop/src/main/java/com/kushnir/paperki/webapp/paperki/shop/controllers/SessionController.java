@@ -103,12 +103,12 @@ public class SessionController {
         return catImages;
     }
 
-    @ModelAttribute("oldImages")
+    /*@ModelAttribute("oldImages")
     public HashMap<Integer, ArrayList<String>> getOldImages() {
         LOGGER.debug("getOldImages()");
         HashMap<Integer, ArrayList<String>> oldImages = imageService.getAllOldImages();
         // LOGGER.debug("OLD IMAGES:\n{}", oldImages);
         return oldImages;
-    }
+    }*/
 
 }

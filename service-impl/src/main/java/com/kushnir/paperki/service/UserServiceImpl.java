@@ -259,6 +259,47 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Object addEnterpriseByUser (HashMap data, Integer userId) throws ServiceException {
+        LOGGER.debug("addEnterpriseByUser({}, {})", data, userId);
+        EnterpriseErrorForm enterpriseErrorForm = new EnterpriseErrorForm();
+        try {
+            Assert.notNull(data.get("name"), "Введите название организации");
+            Assert.hasText((String) data.get("name"), "Введите название организации");
+        } catch (Exception e) {
+            enterpriseErrorForm.setName(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(data.get("unp"), "Введите УНП организации");
+            Assert.hasText((String) data.get("unp"), "Введите УНП организации");
+            Assert.isNull(userDao.getEnterpriseByUNP((String) data.get("unp")), "Органзация с таким УНП уже присутствует");
+            Assert.isTrue(((String) data.get("unp")).length() == 9, "УНП должно быть 9 знаков");
+        } catch (Exception e) {
+            enterpriseErrorForm.setUnp(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(data.get("address"), "Адрес организации не может быть пустым");
+            Assert.hasText((String)data.get("address"), "Адрес организации не может быть пустым");
+        } catch (Exception e) {
+            enterpriseErrorForm.setAddress(e.getMessage());
+        }
+
+        if (enterpriseErrorForm.isErrors()) return enterpriseErrorForm;
+        else {
+            Enterprise enterprise = new Enterprise(
+                    userId,
+                    (String) data.get("unp"),
+                    (String) data.get("name"),
+                    (String) data.get("address")
+            );
+
+            Integer newEnterpriseId = userDao.addEnterprise(enterprise);
+            return newEnterpriseId;
+        }
+    }
+
+    @Override
     public Object changePassword(NewPasswordForm newPasswordForm, Integer userId) {
         LOGGER.debug("changePassword({}, {})", newPasswordForm, userId);
         NewPasswordErrorForm errorForm = new NewPasswordErrorForm();

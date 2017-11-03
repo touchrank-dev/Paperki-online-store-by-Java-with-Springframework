@@ -8,12 +8,12 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- STATIC RESOURCES -->
-    <!--<mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />-->
-    <mvc:resources mapping="/res/**" location="file:/home/paperki.by/view/resources/" />
+    <mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />
+    <!--<mvc:resources mapping="/res/**" location="file:/home/paperki.by/view/resources/" />-->
     <mvc:resources mapping="/favicon.ico" location="/WEB-INF/view/resources/img/favicons/favicon.ico" />
-    <mvc:resources mapping="/catimagesold/**" location="file:/home/paperki.by/www/images/catalog/" />
+    <!--<mvc:resources mapping="/catimagesold/**" location="file:/home/paperki.by/www/images/catalog/" />-->
 
-    <!--<bean id="templateResolver"
+    <bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
         <constructor-arg ref="servletContext"/>
         <property name="prefix" value="${webapp.viewResurcePath}templates/"/>
@@ -21,16 +21,16 @@
         <property name="characterEncoding" value="UTF-8" />
         <property name="templateMode" value="HTML5"/>
         <property name="cacheable" value="false" />
-    </bean>-->
+    </bean>
 
-    <bean id="templateResolver"
+    <!--<bean id="templateResolver"
           class="org.thymeleaf.templateresolver.FileTemplateResolver">
         <property name="prefix" value="/home/paperki.by/view/templates/"/>
         <property name="suffix" value=".html"/>
         <property name="characterEncoding" value="UTF-8" />
         <property name="templateMode" value="HTML5"/>
         <property name="cacheable" value="false" />
-    </bean>
+    </bean>-->
 
     <bean id="templateEngine"
           class="org.thymeleaf.spring4.SpringTemplateEngine">

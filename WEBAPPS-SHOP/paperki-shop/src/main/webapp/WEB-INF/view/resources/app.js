@@ -905,3 +905,46 @@ function mapErrorAddressForm (form) {
 }
 
 /*=========================================================================================*/
+
+function addEnterprise() {
+  $.ajax({
+    cache: false,
+    async: false,
+    type: "POST",
+    contentType: "application/json",
+    dataType: "json",
+    url: "/api/user/addenterprise",
+    data: enterpriseFormToJSON(),
+    success: function(response){
+      if(response.code == "OK") {
+        location.reload();
+        // document.location.href = '#enterprise-tab';
+      } else if(response.code == "BAD_REQUEST") {
+        mapErrorEnterpriseForm(response.object);
+        console.log(response);
+      } else if(response.code == "INTERNAL_SERVER_ERROR") {
+        console.log(response);
+        serverAlert();
+      }
+    },
+    error: function () {
+      serverAlert();
+    }
+  });
+}
+
+function enterpriseFormToJSON() {
+  return JSON.stringify({
+    "name":           $('#input-add-enterprise-name').val(),
+    "unp":            $('#input-add-enterprise-unp').val(),
+    "address":        $('#input-add-enterprise-address').val()
+  });
+}
+
+function mapErrorEnterpriseForm (form) {
+  mapErrorToField(form.name, $('#input-add-enterprise-name'), $('#label-add-enterprise-name'));
+  mapErrorToField(form.unp, $('#input-add-enterprise-unp'), $('#label-add-enterprise-unp'));
+  mapErrorToField(form.address, $('#input-add-enterprise-address'), $('#label-add-enterprise-address'));
+}
+
+/*=========================================================================================*/

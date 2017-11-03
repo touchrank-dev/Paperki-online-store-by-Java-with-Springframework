@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @CrossOrigin
 @RestController
@@ -207,6 +208,36 @@ public class RESTUser {
             LOGGER.error("ADD ADDRESS FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
             mailer.toSupportMail(restMessage.toString(), "ADD ADDRESS FAILED");
+            return restMessage;
+        }
+    }
+
+    @PostMapping("/addenterprise")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage addEnterprise(@RequestBody HashMap<String, String> enterprise, HttpSession httpSession) {
+        LOGGER.debug("ADD ENTERPRISE >>>\nDATA RECEIVED: {}", enterprise);
+        RestMessage restMessage = null;
+        try {
+            User user = (User) httpSession.getAttribute("user");
+            if(user == null) throw new Exception("EMPTY USER SESSION");
+            if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
+
+            Object obj = userService.addEnterpriseByUser(enterprise, user.getId());
+
+            if(obj instanceof Integer) {
+                LOGGER.debug("ENTERPRISE ADDED SUCCESSFUL! >>>\n:{}", obj);
+                restMessage = new RestMessage(HttpStatus.OK, "ENTERPRISE ADDED SUCCESSFUL!", obj);
+                // TODO email
+                return restMessage;
+            } else {
+                LOGGER.debug("ADD ENTERPRISE FAILED >>>\nERROR FORM: {}", (EnterpriseErrorForm) obj);
+                restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "ADD ENTERPRISE FAILED", (EnterpriseErrorForm) obj);
+                return restMessage;
+            }
+        } catch (Exception e) {
+            LOGGER.error("ADD ENTERPRISE FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
+            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            mailer.toSupportMail(restMessage.toString(), "ADD ENTERPRISE FAILED");
             return restMessage;
         }
     }

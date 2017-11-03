@@ -19,6 +19,7 @@ public interface UserService {
     Enterprise getEnterpriseByUserId(Integer userId);
     Object registrateUser(RegistrateForm form) throws ServiceException;
     Integer addEnterpriseByUser (RegistrateForm form, Integer userId) throws ServiceException;
+    Object addEnterpriseByUser (HashMap data, Integer userId) throws ServiceException;
     Object changePassword(NewPasswordForm newPasswordForm, Integer UserId);
     Object updateUser(UserUpdateRequest userUpdateRequest, Integer UserId);
     Object addAddress(Address address, Integer userId);
