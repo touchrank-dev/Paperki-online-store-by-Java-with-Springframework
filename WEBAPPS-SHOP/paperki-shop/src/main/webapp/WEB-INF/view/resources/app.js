@@ -948,3 +948,64 @@ function mapErrorEnterpriseForm (form) {
 }
 
 /*=========================================================================================*/
+var delayTimer;
+function searchProducts(str) {
+    // setTimeout(function(){sendSearchRequest($('.search-inp').val())}, 2000);
+    clearTimeout(delayTimer);
+    delayTimer = setTimeout(function() {
+        sendSearchRequest(str);
+    }, 2000);
+}
+
+function sendSearchRequest(str) {
+    $.ajax({
+        cache: false,
+        async: true,
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/search?str="+str,
+        success: function(response){
+            if(response.code == "FOUND") {
+                mapSearchResult(response.object);
+            } else if(response.code == "BAD_REQUEST") {
+                console.log(response);
+            } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
+                serverAlert();
+            }
+        },
+        error: function () {
+            serverAlert();
+        }
+    });
+}
+
+function mapSearchResult(array) {
+    $('.drop-search-catalog').html('');
+    if(array != null) {
+        $.each( array, function(i, product) {
+            $('.drop-search-catalog').append(
+                '<div class="cont-row">'+
+                    '<div class="col1">'+
+                        '<img src="/res/img/pr1.png" alt="'+product.fullName+'">'+
+                        '<h5><a href="'+product.link+'">'+product.fullName+'</a></h5>'+
+                        '<div class="rating"></div>'+
+                        '<p>Код: '+product.pnt+'</p>'+
+                    '</div>'+
+                    '<div class="col2">'+product.finalPriceWithVAT+' руб</div>'+
+                    '<div class="col3">' +
+                        '<div>'+
+                            '<div class="dec">-</div>'+
+                            '<input type="text" name="french-hens" class="inde" value="1">'+
+                            '<div class="inc">+</div>'+
+                        '</div>'+
+                    '</div>'+
+                    '<div class="btn-to-cart" onclick="addToCart('+product.pnt+')">' +
+                        '<img src="/res/img/buy.png" alt="Купить">' +
+                    '</div>'+
+                '</div>'
+            );
+        });
+    }
+}

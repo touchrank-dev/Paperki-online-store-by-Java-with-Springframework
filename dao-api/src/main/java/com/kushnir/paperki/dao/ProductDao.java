@@ -25,6 +25,8 @@ public interface ProductDao {
     ArrayList<Attribute> getAttributesFromCSV(StringBuilder sb) throws IOException;
     ArrayList<Price> getQuantityPricesFromCSV(StringBuilder sb) throws IOException;
 
+    ArrayList<AvailableProduct> searchProducts(String str);
+
     void unpublishAllProducts();
     int addProduct(CSVProduct product);
     int addProductCatalogRef(CSVProduct product);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Properties>
-        <Property name="log-path">/home/test.paperki.by/logs/</Property>
+        <Property name="log-path">/home/test.paperki.by/logs</Property>
     </Properties>
     <Appenders>
         <RollingFile name="trace-log" fileName="${log-path}/paperki-trace.log"

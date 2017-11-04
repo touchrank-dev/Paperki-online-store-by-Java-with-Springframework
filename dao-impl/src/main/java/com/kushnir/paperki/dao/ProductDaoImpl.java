@@ -139,6 +139,9 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${product.prices.add}")
     private String addPriceSqlQuery;
 
+    @Value("${product.search}")
+    private String searchProductSqlQuery;
+
     @Override
     public HashMap<Integer, ProductSimple> getAll() {
         LOGGER.debug("getAll() >>>");
@@ -443,6 +446,14 @@ public class ProductDaoImpl implements ProductDao {
         sb.append(">>> FINISH").append('\n');
         LOGGER.debug(">>> FINISH");
         return prices;
+    }
+
+    @Override
+    public ArrayList<AvailableProduct> searchProducts(String str) {
+        LOGGER.debug("searchProducts() >>>");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource("p_str", '%'+str+'%');
+        ArrayList products = namedParameterJdbcTemplate.query(searchProductSqlQuery, parameterSource, new SearchProductResultSetExtractor());
+        return products;
     }
 
 

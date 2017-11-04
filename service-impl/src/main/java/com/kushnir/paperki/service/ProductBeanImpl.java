@@ -341,6 +341,12 @@ public class ProductBeanImpl implements ProductBean {
         return sb.toString();
     }
 
+    @Override
+    public ArrayList<AvailableProduct> searchProducts(String str) {
+        LOGGER.debug("searchProducts({}) >>>", str);
+        return productDao.searchProducts(str);
+    }
+
 
     private void unpublishAllProducts() {
         LOGGER.debug("unpublishAllProducts() >>>");
