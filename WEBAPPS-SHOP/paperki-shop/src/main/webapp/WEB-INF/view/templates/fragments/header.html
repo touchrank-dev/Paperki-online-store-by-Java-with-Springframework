@@ -6,7 +6,8 @@
                 <!-- Меню -->
                 <ul class="nav navbar-nav nav-mainMenu"
                     th:if="${mainmenu} != null">
-                    <li th:each="menuitem : ${mainmenu}">
+                    <li th:each="menuitem : ${mainmenu}"
+                        th:class="${#request.getRequestURI()} == ${menuitem.link} ? 'active-link':''">
                         <a href="/" th:href="@{${menuitem.link}}" th:text="${menuitem.name}">Menu item</a> 
                         <!-- class="active-link" -->
                     </li>
