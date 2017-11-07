@@ -26,6 +26,10 @@ public class ProductsResultSetExtractor implements ResultSetExtractor {
         while (rs.next()) {
 
             int idProduct =             rs.getInt("id_product");
+            int availableDay =          rs.getInt("available_day");
+            int quantityAvailable =     rs.getInt("quantity_available");
+
+            if (quantityAvailable < 1 && availableDay < 1) continue;
 
             // цена =======================================================================
             int VAT =                   rs.getInt("vat");
@@ -76,8 +80,8 @@ public class ProductsResultSetExtractor implements ResultSetExtractor {
                         rs.getString("country_from"),
                         rs.getString("country_made"),
                         rs.getString("measure"),
-                        rs.getInt("available_day"),
-                        rs.getInt("quantity_available"),
+                        availableDay,
+                        quantityAvailable,
 
                         basePrice,
                         basePriceWithVAT,
