@@ -1064,8 +1064,9 @@ function getAndMapAddress(idAddress) {
         dataType: "json",
         url: "/api/user/getaddress?id="+idAddress,
         success: function(response){
-            if(response.code == "FOUND") {
+            if(response.code == "OK") {
                 mapAddressToUpdateForm(response.object);
+                console.log(response);
             } else if(response.code == "BAD_REQUEST") {
                 console.log(response);
             } else if(response.code == "INTERNAL_SERVER_ERROR") {

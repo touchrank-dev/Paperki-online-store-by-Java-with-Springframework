@@ -280,7 +280,7 @@ public class RESTUser {
         if(user == null) throw new Exception("EMPTY USER SESSION");
         if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
         Address address = userService.getUserAddress(id);
-        RestMessage restMessage = new RestMessage(HttpStatus.OK, version, address);
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "ADDRESS", address);
         return restMessage;
     }
 }
