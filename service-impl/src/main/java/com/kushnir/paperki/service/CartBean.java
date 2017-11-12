@@ -179,7 +179,7 @@ public class CartBean {
         inCartProduct.setFinalPrice(finalPrice);
         inCartProduct.setFinalPriceWithVAT(finalPriceWithVAT);
         inCartProduct.setTotal(total);
-        inCartProduct.setTotalWithVAT(totalWithVAT);
+        inCartProduct.setTotalWithVAT(priceCalculator.getDouble(totalWithVAT));
         inCartProduct.setTotalDiscount(totalDiscount);
         inCartProduct.setTotalVAT(totalVAT);
     }
