@@ -31,9 +31,9 @@ function ResetForm(event) {
 
 function addToCart(pnt) {
     var pntinput = $('#'+pnt);
-    var loader = pntinput.parents('.btns').children('.cart-add-loader');
+    var loader = $(pntinput).parents('.btns').children('.cart-add-loader');
 
-    loader.show();
+    $(loader).show();
 
     quantity = pntinput.val();
     $.ajax({
@@ -1105,5 +1105,5 @@ function mapAddresUpdateField(value, input) {
 }
 
 function UpdateAddress() {
-    console.log();
+
 }
