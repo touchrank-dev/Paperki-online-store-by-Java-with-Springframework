@@ -1083,14 +1083,25 @@ function getAndMapAddress(idAddress) {
 function mapAddressToUpdateForm(address) {
     $('#input-edit-address-owner').val(address.ownerId);
     $('#input-edit-address-type').val(address.type);
-    $('#input-edit-address-index').val(address.index);
-    $('#input-edit-address-city').val(address.city);
-    $('#input-edit-address-street').val(address.street);
-    $('#input-edit-address-house').val(address.house);
-    $('#input-edit-address-house-part').val(address.housePart);
-    $('#input-edit-address-house-office').val(address.houseOffice);
-    $('#input-edit-address-description').val(address.description);
     $('#input-edit-address-id').val(address.id);
+
+    mapAddresUpdateField(address.index, $('#input-edit-address-index'));
+    mapAddresUpdateField(address.index, $('#input-edit-address-city'));
+    mapAddresUpdateField(address.street, $('#input-edit-address-street'));
+    mapAddresUpdateField(address.house, $('#input-edit-address-house'));
+    mapAddresUpdateField(address.housePart, $('#input-edit-address-house-part'));
+    mapAddresUpdateField(address.houseOffice, $('#input-edit-address-house-office'));
+    mapAddresUpdateField(address.description, $('#input-edit-address-description'));
+}
+
+function mapAddresUpdateField(value, input) {
+    if(value == "") {
+        $(input).parents('span').removeClass('input--filled');
+    } 
+    else {
+        $(input).parents('span').addClass('input--filled');
+        $(input).val(value);
+    } 
 }
 
 function UpdateAddress() {
