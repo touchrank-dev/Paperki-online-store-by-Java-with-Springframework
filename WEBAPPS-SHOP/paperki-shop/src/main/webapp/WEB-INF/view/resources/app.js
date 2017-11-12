@@ -23,8 +23,8 @@ function FormToJson(formArray) {
   return arr;
 }
 
-function ResetForm(closeButton) {
-    console.log(closeButton.parents('.popup-content'));
+function ResetForm(event) {
+    console.log($(event.target));
 
 }
 
