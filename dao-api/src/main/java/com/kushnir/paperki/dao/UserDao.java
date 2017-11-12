@@ -25,5 +25,6 @@ public interface UserDao {
     Integer updateUserPassword(String newPassword, Integer userId);
     Integer updateUser (UserUpdateRequest userUpdateRequest, Integer userId);
     Integer addAddress (Address address, Integer userId);
+    Address getAddressById(Integer addressId);
     HashMap<Integer,ArrayList<Address>> getUserAddresses(Integer userId);
 }

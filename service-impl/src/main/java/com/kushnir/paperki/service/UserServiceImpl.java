@@ -458,6 +458,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Address getUserAddress(Integer id) {
+        LOGGER.debug("getUserAddress({})", id);
+        try {
+            Assert.notNull(id, "Идентификатор адреса = null");
+            Assert.isTrue(id > 0, "Идентификатор адреса <= 0");
+            return userDao.getAddressById(id);
+        } catch (Exception e) {
+            LOGGER.error("ERROR >>> {}", e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
     public HashMap<Integer,ArrayList<Address>> getUserAddresses(Integer userId) {
         LOGGER.debug("getUserAddresses({})", userId);
         HashMap<Integer,ArrayList<Address>> addresses = null;
@@ -473,7 +486,6 @@ public class UserServiceImpl implements UserService {
 
 
     // UTIL's
-
     private boolean validatePassword(String password) {
         matcher = passwordPattern.matcher(password);
         return matcher.matches();

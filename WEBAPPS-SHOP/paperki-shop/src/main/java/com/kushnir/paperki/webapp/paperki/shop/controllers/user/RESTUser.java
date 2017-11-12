@@ -271,4 +271,16 @@ public class RESTUser {
             return restMessage;
         }
     }
+
+    @GetMapping("/getaddress")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage getAddressById(@RequestParam Integer id, HttpSession httpSession) throws Exception {
+        LOGGER.debug("getAddressById ({}) >>>", id);
+        User user = (User) httpSession.getAttribute("user");
+        if(user == null) throw new Exception("EMPTY USER SESSION");
+        if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
+        Address address = userService.getUserAddress(id);
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, version, address);
+        return restMessage;
+    }
 }

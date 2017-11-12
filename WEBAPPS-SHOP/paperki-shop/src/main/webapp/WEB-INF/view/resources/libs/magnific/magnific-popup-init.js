@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    $('.open-edit-address-popup').magnificPopup({
+        type:'inline',
+        removalDelay: 100,
+        midClick: true
+    });
+
     $('.add-delivery-address-button').magnificPopup({
         type:'inline',
         removalDelay: 400,
@@ -7,19 +13,19 @@ $(document).ready(function() {
 
     $('.update-profile-popup').magnificPopup({
         type:'inline',
-        removalDelay: 400,
+        removalDelay: 100,
         midClick: true
     });
 
     $('#open-add-enterprise-popup').magnificPopup({
         type:'inline',
-        removalDelay: 400,
+        removalDelay: 100,
         midClick: true
     });
 
     $('#open-update-enterprise-popup').magnificPopup({
         type:'inline',
-        removalDelay: 400,
+        removalDelay: 100,
         midClick: true
     });
 

@@ -1050,3 +1050,48 @@ function mapSearchResult(array) {
         });
     }
 }
+
+
+/*=========================================================================================*/
+
+
+function getAndMapAddress(idAddress) {
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/user/getaddress?id="+idAddress,
+        success: function(response){
+            if(response.code == "FOUND") {
+                mapAddressToUpdateForm(response.object);
+            } else if(response.code == "BAD_REQUEST") {
+                console.log(response);
+            } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
+                serverAlert();
+            }
+        },
+        error: function () {
+            serverAlert();
+        }
+    });
+}
+
+function mapAddressToUpdateForm(address) {
+    $('#input-edit-address-owner').val(address.ownerId);
+    $('#input-edit-address-type').val(address.type);
+    $('#input-edit-address-index').val(address.index);
+    $('#input-edit-address-city').val(address.city);
+    $('#input-edit-address-street').val(address.street);
+    $('#input-edit-address-house').val(address.house);
+    $('#input-edit-address-house-part').val(address.housePart);
+    $('#input-edit-address-house-office').val(address.houseOffice);
+    $('#input-edit-address-description').val(address.description);
+    $('#input-edit-address-id').val(address.id);
+}
+
+function UpdateAddress() {
+    console.log();
+}

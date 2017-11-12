@@ -53,6 +53,7 @@ public class UserDaoImpl implements UserDao {
     private static final String P_BILLING_ACCOUNT_NUMBER = "p_account_number";
 
     private static final String P_ADDRESS_TYPE = "p_id_address_type";
+    private static final String P_ADDRESS_ID = "p_address_id";
     private static final String P_OWNER_ID = "p_owner_id";
     private static final String P_POST_INDEX = "p_post_index";
     private static final String P_CITY = "p_city";
@@ -104,6 +105,9 @@ public class UserDaoImpl implements UserDao {
 
     @Value("${address.add}")
     private String addAddressSqlQuery;
+
+    @Value("${address.getById}")
+    private String getAddressByIdSqlQuery;
 
     @Value("${address.getByUserId}")
     private String getAllUsersAddressesSqlQuery;
@@ -342,12 +346,57 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Address getAddressById(Integer addressId) {
+        LOGGER.debug("getAddressById()");
+        Address address;
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ADDRESS_ID, addressId);
+        address = namedParameterJdbcTemplate
+                .queryForObject(getAddressByIdSqlQuery, parameterSource, new AddressRowMapper());
+
+        return address;
+    }
+
+    @Override
     public HashMap<Integer,ArrayList<Address>> getUserAddresses(Integer userId) {
         LOGGER.debug("getUserAddresses()");
         HashMap<Integer,ArrayList<Address>> addresses = null;
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_USER_ID, userId);
         addresses = namedParameterJdbcTemplate.query(getAllUsersAddressesSqlQuery, parameterSource, new AddressesResultSetExtractor());
         return addresses;
+    }
+
+    private class AddressRowMapper implements RowMapper<Address> {
+
+        @Override
+        public Address mapRow(ResultSet rs, int i) throws SQLException {
+            Integer ownerId =           rs.getInt("owner_id");
+            Integer type =              rs.getInt("id_address_type");
+            String index =              rs.getString("post_index");
+            String city =               rs.getString("city");
+            String street =             rs.getString("street");
+            String house =              rs.getString("house");
+            String housePart =          rs.getString("house_part");
+            String houseOffice =        rs.getString("house_office");
+            Integer userId =            rs.getInt("id_user");
+            String value =              rs.getString("value");
+            String description =        rs.getString("description");
+            Integer id =                rs.getInt("id_address");
+
+            return new Address(
+                    ownerId,
+                    type,
+                    index,
+                    city,
+                    street,
+                    house,
+                    housePart,
+                    houseOffice,
+                    userId,
+                    value,
+                    description,
+                    id
+            );
+        }
     }
 
 

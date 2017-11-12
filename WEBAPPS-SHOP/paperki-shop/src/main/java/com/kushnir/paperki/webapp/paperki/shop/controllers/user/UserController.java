@@ -74,7 +74,7 @@ public class UserController {
     public Enterprise getEnterprise(HttpSession httpSession) {
         User user = (User)httpSession.getAttribute("user");
         Enterprise enterprise = null;
-        if(user != null || user.getId() != null || user.getId() > 0) {
+        if(user != null | user.getId() != null | user.getId() > 0) {
             enterprise = userService.getEnterpriseByUserId(user.getId());
         }
         return enterprise;

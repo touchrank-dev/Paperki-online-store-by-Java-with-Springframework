@@ -24,5 +24,6 @@ public interface UserService {
     Object changePassword(NewPasswordForm newPasswordForm, Integer UserId);
     Object updateUser(UserUpdateRequest userUpdateRequest, Integer UserId);
     Object addAddress(Address address, Integer userId);
+    Address getUserAddress(Integer id);
     HashMap<Integer,ArrayList<Address>> getUserAddresses(Integer userId);
 }
