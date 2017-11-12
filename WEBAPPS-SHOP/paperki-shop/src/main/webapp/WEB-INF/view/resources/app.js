@@ -24,7 +24,9 @@ function FormToJson(formArray) {
 }
 
 function ResetForm(event) {
-    console.log($(event).parents('.popup-content').html());
+    var form = $(event).parents('.popup-content').children('form');
+    form.find('input:text, input:hidden, input:password, input:file, select, textarea').val('');
+    form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
 
 }
 
