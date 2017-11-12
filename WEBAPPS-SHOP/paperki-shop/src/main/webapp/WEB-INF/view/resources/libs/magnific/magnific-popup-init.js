@@ -17,6 +17,12 @@ $(document).ready(function() {
         midClick: true
     });
 
+    $('#open-update-enterprise-popup').magnificPopup({
+        type:'inline',
+        removalDelay: 400,
+        midClick: true
+    });
+
     $('.open-reg-popup').magnificPopup({
         type:'inline',
         removalDelay: 400,

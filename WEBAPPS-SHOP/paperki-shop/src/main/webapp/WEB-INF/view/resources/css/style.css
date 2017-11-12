@@ -17619,17 +17619,17 @@ a.btn.likeBtnIncart {
 
 
 
-.my-organizations .my-organizations-conten .my-profile-personal-data {
+.my-organizations .my-organizations-content .my-profile-personal-data {
     padding: 18px 15px 21px 15px; }
-    .my-organizations .my-organizations-conten .my-profile-personal-data .my-profile-personal-data-text {
+    .my-organizations .my-organizations-content .my-profile-personal-data .my-profile-personal-data-text {
       margin-left: 40px;
       -ms-flex-pack: justify;
       justify-content: space-between;
       width: 100%; }
-    .my-organizations .my-organizations-conten .my-profile-personal-data ul:first-of-type {
+    .my-organizations .my-organizations-content .my-profile-personal-data ul:first-of-type {
       margin-right: 0; }
 
-      
+
 
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {

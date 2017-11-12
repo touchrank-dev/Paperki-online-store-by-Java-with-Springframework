@@ -96,6 +96,9 @@ public class UserDaoImpl implements UserDao {
     @Value("${enterprise.add}")
     private String addEnterpriseByUserIdSqlQuery;
 
+    @Value("${enterprise.update}")
+    private String updateEnterpriseByUserIdSqlQuery;
+
     @Value("${payment.account.add}")
     private String addBillingAccountByEnterpriseIdSqlQuery;
 
@@ -272,6 +275,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Integer updateEnterprise(Enterprise enterprise) {
+        LOGGER.debug("updateEnterprise() >>>\nENTERPRISE DATA: {}", enterprise);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_USER_ID, enterprise.getUserId());
+        parameterSource.addValue(P_ENTERPRISE_NAME, enterprise.getEnterpriseName());
+        return namedParameterJdbcTemplate.update(updateEnterpriseByUserIdSqlQuery, parameterSource);
+    }
+
+    @Override
     public Integer addBillingAccount(BillingAccount billingAccount) throws DataAccessException {
         LOGGER.debug("addBillingAccount() >>>\nBILLING ACCOUNT DATA: {}", billingAccount);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
@@ -301,7 +313,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Integer updateUser (UserUpdateRequest userUpdateRequest, Integer userId) {
-        LOGGER.debug("updateUserPassword()");
+        LOGGER.debug("updateUser()");
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(P_USER_ID, userId);
         parameterSource.addValue(P_USER_NAME, userUpdateRequest.getName());

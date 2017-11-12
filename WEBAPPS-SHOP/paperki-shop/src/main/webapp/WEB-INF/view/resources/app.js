@@ -951,6 +951,45 @@ function mapErrorEnterpriseForm (form) {
 }
 
 /*=========================================================================================*/
+
+function updateEnterprise() {
+    $.ajax({
+    cache: false,
+    async: false,
+    type: "POST",
+    contentType: "application/json",
+    dataType: "json",
+    url: "/api/user/updateenterprise",
+    data: enterpriseUpdateFormToJSON(),
+    success: function(response){
+      if(response.code == "OK") {
+        location.reload();
+      } else if(response.code == "BAD_REQUEST") {
+        mapErrorEnterpriseUpdateForm(response.object);
+        console.log(response);
+      } else if(response.code == "INTERNAL_SERVER_ERROR") {
+        console.log(response);
+        serverAlert();
+      }
+    },
+    error: function () {
+      serverAlert();
+    }
+  });
+}
+
+function enterpriseUpdateFormToJSON() {
+  return JSON.stringify({
+    "name":           $('#input-update-enterprise-name').val()
+  });
+}
+
+function mapErrorEnterpriseUpdateForm (form) {
+  mapErrorToField(form.name, $('#input-update-enterprise-name'), $('#label-update-enterprise-name'));
+}
+
+/*=========================================================================================*/
+
 var delayTimer;
 function searchProducts(str) {
     clearTimeout(delayTimer);

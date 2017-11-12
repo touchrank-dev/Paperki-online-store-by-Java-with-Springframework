@@ -20,6 +20,7 @@ public interface UserDao {
     Enterprise getEnterpriseByUNP(String unp);
     Enterprise getEnterpriseByUserId(Integer userId);
     Integer addEnterprise(Enterprise enterprise);
+    Integer updateEnterprise(Enterprise enterprise);
     Integer addBillingAccount(BillingAccount billingAccount);
     Integer updateUserPassword(String newPassword, Integer userId);
     Integer updateUser (UserUpdateRequest userUpdateRequest, Integer userId);

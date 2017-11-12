@@ -295,6 +295,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Object updateEnterpriseByUser (HashMap data, Integer userId) throws Exception {
+        LOGGER.debug("updateEnterpriseByUser({}, {})", data, userId);
+        EnterpriseErrorForm enterpriseErrorForm = new EnterpriseErrorForm();
+        try {
+            Assert.notNull(data.get("name"), "Введите название организации");
+            Assert.hasText((String) data.get("name"), "Введите название организации");
+            Assert.isTrue(((String) data.get("name")).length() < 400,
+                    "Длина названия не должна превышать 400 символов");
+        } catch (Exception e) {
+            enterpriseErrorForm.setName(e.getMessage());
+        }
+
+        if (enterpriseErrorForm.isErrors()) return enterpriseErrorForm;
+        else {
+            Enterprise userEnterprise = userDao.getEnterpriseByUserId(userId);
+            if (userEnterprise == null || userEnterprise.getId() == null) throw new Exception("USER HAVEN'T ENTERPRISE");
+            userEnterprise.setEnterpriseName((String) data.get("name"));
+            Integer numRowsUpdated = userDao.updateEnterprise(userEnterprise);
+            return numRowsUpdated;
+        }
+    }
+
+    @Override
     public Object changePassword(NewPasswordForm newPasswordForm, Integer userId) {
         LOGGER.debug("changePassword({}, {})", newPasswordForm, userId);
         NewPasswordErrorForm errorForm = new NewPasswordErrorForm();
