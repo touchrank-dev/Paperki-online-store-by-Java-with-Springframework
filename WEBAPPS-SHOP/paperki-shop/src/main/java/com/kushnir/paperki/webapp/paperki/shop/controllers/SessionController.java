@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
@@ -35,13 +36,18 @@ public class SessionController {
     ImageService imageService;
 
     @ModelAttribute("user")
-    public User setUser(HttpSession httpSession) {
+    public User setUser(HttpSession httpSession, HttpServletRequest req) {
         User user = (User)httpSession.getAttribute("user");
         if(user == null) {
             user = new User();
             httpSession.setAttribute("user", user);
-            LOGGER.debug("SET NEW EMPTY USER: {}", user);
+            LOGGER.debug("SET NEW EMPTY USER");
         }
+        LOGGER.debug("SessionId: {}, RequestedSessionID: {}, isValid: {}, isFromCookie: {}",
+                httpSession.getId(),
+                req.getRequestedSessionId(),
+                req.isRequestedSessionIdValid(),
+                req.isRequestedSessionIdFromCookie());
         return user;
     }
 
@@ -51,7 +57,6 @@ public class SessionController {
         if (cart == null) {
             cart = new Cart();
             httpSession.setAttribute("cart", cart);
-            LOGGER.debug("SET NEW EMPTY CART: {}", cart);
         }
         return cart;
     }

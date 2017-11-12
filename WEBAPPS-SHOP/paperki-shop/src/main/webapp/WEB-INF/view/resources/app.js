@@ -24,7 +24,8 @@ function FormToJson(formArray) {
 }
 
 function ResetForm(closeButton) {
-    console.log(closeButton);
+    console.log(closeButton.parents('.popup-content'));
+
 }
 
 function addToCart(pnt) {
