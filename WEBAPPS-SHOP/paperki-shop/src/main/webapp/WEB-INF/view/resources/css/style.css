@@ -17615,6 +17615,22 @@ a.btn.likeBtnIncart {
     .grouped-type .products-list-page__product-item-wrap .product-types-list .product-types-list-item .btns {
       padding-right: 0; } }
 
+
+
+
+
+.my-organizations .my-organizations-conten .my-profile-personal-data {
+    padding: 18px 15px 21px 15px; }
+    .my-organizations .my-organizations-conten .my-profile-personal-data .my-profile-personal-data-text {
+      margin-left: 40px;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      width: 100%; }
+    .my-organizations .my-organizations-conten .my-profile-personal-data ul:first-of-type {
+      margin-right: 0; }
+
+      
+
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
   .cap-pad .al-ph {

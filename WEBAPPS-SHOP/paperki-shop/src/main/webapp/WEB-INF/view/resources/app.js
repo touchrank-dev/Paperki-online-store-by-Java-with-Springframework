@@ -27,7 +27,6 @@ function ResetForm(event) {
     var form = $(event).parents('.popup-content').children('form');
     form.find('input:text, input:hidden, input:password, input:file, select, textarea').val('');
     form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
-
 }
 
 function addToCart(pnt) {
@@ -50,7 +49,6 @@ function addToCart(pnt) {
                 console.log(response);
                 mapCart(response.object);
                 printAddedItem(response.object, pnt);
-                // alert("Товар под кодом("+pnt+") успено добавлен в корзину!");
             } else if (response.code == "NOT_FOUND") {
                 console.log(response);
                 alert("На складе недостаточное количество товара");
