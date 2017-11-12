@@ -25,6 +25,12 @@ public class Enterprise {
     public Enterprise() {
     }
 
+    public Enterprise(Integer userId, String UNP, String enterpriseName) {
+        this.userId = userId;
+        this.UNP = UNP;
+        this.enterpriseName = enterpriseName;
+    }
+
     public Enterprise(Integer id, Integer userId, String UNP, String enterpriseName) {
         this.id = id;
         this.userId = userId;

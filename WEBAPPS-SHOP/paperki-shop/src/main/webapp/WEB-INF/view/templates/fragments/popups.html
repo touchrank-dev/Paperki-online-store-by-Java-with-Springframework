@@ -1,22 +1,16 @@
 <section th:fragment="popups" xmlns:th="http://www.thymeleaf.org">
+
     <!-- Форма Авторизации -->
     <div id="enter-popup" class="enter-popup-content morphbutton-content"
          th:include="/components/login/login-popup :: login-popup" />
+
     <!-- Форма регистрации -->
     <div id="registration-popup" class="registration-popup-content mfp-hide"
          th:include="/components/login/registration-popup :: registration-popup" />
+
     <!-- Форма восстановления пароля -->
     <div id="password-recovery-popup" class="password-recovery-popup-content mfp-hide"
          th:include="/components/login/password-recovery-popup :: password-recovery-popup"/>
-    <!-- cart popup -->
-    <!-- <div id="cart-popup" class="cart-popup-content mfp-hide"
-         th:include="/components/cart/cart-popup :: cart-popup"/> -->
-    <!--cart added popup-->
-    <!--<div id="cart-added-popup" class="cart-added-popup-content mfp-hide"
-         th:include="/components/cart/cart-added-popup :: cart-added-popup"/>-->
-    <!--cart emty popup-->
-    <!--<div id="cart-empty-popup" class="cart-empty-popup-content mfp-hide"
-         th:include="/components/cart/cart-empty-popup :: cart-empty-popup"/>-->
 
     <!--search popup-->
     <div id="search-popup" class="search-popup-content mfp-hide"

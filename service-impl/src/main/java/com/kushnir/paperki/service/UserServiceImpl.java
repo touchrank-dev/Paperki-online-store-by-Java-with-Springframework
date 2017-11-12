@@ -265,6 +265,8 @@ public class UserServiceImpl implements UserService {
         try {
             Assert.notNull(data.get("name"), "Введите название организации");
             Assert.hasText((String) data.get("name"), "Введите название организации");
+            Assert.isTrue(((String) data.get("name")).length() < 400,
+                    "Длина названия не должна превышать 400 символов");
         } catch (Exception e) {
             enterpriseErrorForm.setName(e.getMessage());
         }
@@ -272,17 +274,11 @@ public class UserServiceImpl implements UserService {
         try {
             Assert.notNull(data.get("unp"), "Введите УНП организации");
             Assert.hasText((String) data.get("unp"), "Введите УНП организации");
-            Assert.isNull(userDao.getEnterpriseByUNP((String) data.get("unp")), "Органзация с таким УНП уже присутствует");
+            Assert.isNull(userDao.getEnterpriseByUNP((String) data.get("unp")),
+                    "Органзация с таким УНП уже присутствует");
             Assert.isTrue(((String) data.get("unp")).length() == 9, "УНП должно быть 9 знаков");
         } catch (Exception e) {
             enterpriseErrorForm.setUnp(e.getMessage());
-        }
-
-        try {
-            Assert.notNull(data.get("address"), "Адрес организации не может быть пустым");
-            Assert.hasText((String)data.get("address"), "Адрес организации не может быть пустым");
-        } catch (Exception e) {
-            enterpriseErrorForm.setAddress(e.getMessage());
         }
 
         if (enterpriseErrorForm.isErrors()) return enterpriseErrorForm;
@@ -290,8 +286,7 @@ public class UserServiceImpl implements UserService {
             Enterprise enterprise = new Enterprise(
                     userId,
                     (String) data.get("unp"),
-                    (String) data.get("name"),
-                    (String) data.get("address")
+                    (String) data.get("name")
             );
 
             Integer newEnterpriseId = userDao.addEnterprise(enterprise);

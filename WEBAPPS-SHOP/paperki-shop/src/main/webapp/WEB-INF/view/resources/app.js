@@ -23,6 +23,10 @@ function FormToJson(formArray) {
   return arr;
 }
 
+function ResetForm(closeButton) {
+    console.log(closeButton);
+}
+
 function addToCart(pnt) {
     var pntinput = $('#'+pnt);
     var loader = pntinput.parents('.btns').children('.cart-add-loader');
@@ -937,20 +941,17 @@ function enterpriseFormToJSON() {
   return JSON.stringify({
     "name":           $('#input-add-enterprise-name').val(),
     "unp":            $('#input-add-enterprise-unp').val(),
-    "address":        $('#input-add-enterprise-address').val()
   });
 }
 
 function mapErrorEnterpriseForm (form) {
   mapErrorToField(form.name, $('#input-add-enterprise-name'), $('#label-add-enterprise-name'));
   mapErrorToField(form.unp, $('#input-add-enterprise-unp'), $('#label-add-enterprise-unp'));
-  mapErrorToField(form.address, $('#input-add-enterprise-address'), $('#label-add-enterprise-address'));
 }
 
 /*=========================================================================================*/
 var delayTimer;
 function searchProducts(str) {
-    // setTimeout(function(){sendSearchRequest($('.search-inp').val())}, 2000);
     clearTimeout(delayTimer);
     delayTimer = setTimeout(function() {
         sendSearchRequest(str);
