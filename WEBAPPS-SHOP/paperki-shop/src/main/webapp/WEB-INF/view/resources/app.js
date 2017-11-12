@@ -24,7 +24,7 @@ function FormToJson(formArray) {
 }
 
 function ResetForm(event) {
-    console.log($(event.target));
+    console.log($(event).parents('.popup-content').html());
 
 }
 
