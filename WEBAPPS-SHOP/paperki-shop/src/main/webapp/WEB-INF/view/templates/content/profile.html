@@ -315,7 +315,10 @@
                                              <ul class="delivery-address-list"
                                                 th:case="${false}">
                                                 <li th:each="address : ${addresses[2]}">
-                                                    <a href="#" th:text="${address.value}">value</a>
+                                                    <a  href="#edit-address-popup" 
+                                                        class="open-edit-address-popup"
+                                                        th:text="${address.value}"
+                                                        th:attr="onclick='getAndMapAddress('+${address.id}+')'">value</a>
                                                     <div class="action-buttons">
                                                         <!-- <a href="#" class="edit-button" title="Редактировать"></a> -->
                                                         <a href="#" class="delete-button" title="Удалить"></a>
