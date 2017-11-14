@@ -75,6 +75,7 @@ public class OrderDaoImpl implements OrderDao {
     private static final String P_ORDER_TOTAL_DISCOUNT = "p_total_discount";
     private static final String P_ORDER_FINAL_TOTAL = "p_final_total";
     private static final String P_ORDER_FINAL_TOTAL_WITH_VAT = "p_final_total_with_vat";
+    private static final String P_ORDER_COMMENT = "p_comment";
 
 
     @Value("${order.addInfo}")
@@ -161,7 +162,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Integer addOrder(Order order) {
-        LOGGER.debug("addOrder({}) >>>", order);
+        LOGGER.debug("addOrder() >>>");
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         KeyHolder keyHolder = new GeneratedKeyHolder();
         parameterSource.addValue(P_ORDER_ID_ORDER_TYPE, order.getId_order_type());
@@ -174,6 +175,7 @@ public class OrderDaoImpl implements OrderDao {
         parameterSource.addValue(P_ORDER_TOTAL_DISCOUNT, order.getTotal_discount());
         parameterSource.addValue(P_ORDER_FINAL_TOTAL, order.getFinal_total());
         parameterSource.addValue(P_ORDER_FINAL_TOTAL_WITH_VAT, order.getFinal_total_with_vat());
+        parameterSource.addValue(P_ORDER_COMMENT, order.getComments());
 
         namedParameterJdbcTemplate.update(addOrderSqlQuery, parameterSource, keyHolder);
 

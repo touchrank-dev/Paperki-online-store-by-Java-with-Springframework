@@ -253,7 +253,7 @@ public class OrderServiceImpl implements OrderService {
         order.setFinal_total(cart.getFinalTotal());
         order.setFinal_total_with_vat(cart.getFinalTotalWithVAT());
 
-        order.setComments(orderForm.get("comments"));
+        order.setComments(orderForm.get("comment"));
 
         order.setPayment(paymentService.getById(getInt(orderForm.get("payment_id"))));
         order.setDelivery(deliveryService.getById(getInt(orderForm.get("shipment_id"))));
@@ -277,7 +277,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private Integer addOrder(Order order) {
-        LOGGER.debug("addOrder()");
+        LOGGER.debug("addOrder({})", order);
         int idOrder = orderDao.addOrder(order);
         return idOrder;
     }

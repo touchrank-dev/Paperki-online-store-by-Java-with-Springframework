@@ -340,195 +340,31 @@ function regFormToJSON() {
 }
 
 function mapErrorFeedbackForm(form) {
-    if(form.userName != null) {
-        $('#send-feedback-input-name').addClass("input_error");
-        $('#send-feedback-label-name').addClass('label_error');
-        $('#send-feedback-label-name').attr("title", form.userName)
-                                      .tooltip('fixTitle')
-                                      .tooltip("show");
-    } else {
-        $('#send-feedback-input-name').removeClass("input_error");
-        $('#send-feedback-label-name').removeClass('label_error');
-        $('#send-feedback-label-name').tooltip("hide");
-    }
-    if (form.email != null) {
-        $('#send-feedback-input-email').addClass("input_error");
-        $('#send-feedback-label-email').addClass('label_error');
-        $('#send-feedback-label-email').attr("title", form.email)
-                                       .tooltip('fixTitle')
-                                       .tooltip("show");
-    } else {
-        $('#send-feedback-input-email').removeClass("input_error");
-        $('#send-feedback-label-email').removeClass('label_error');
-        $('#send-feedback-label-email').tooltip("hide");
-    }
-    if (form.text != null) {
-        $('#send-description-textarea').addClass("input_error");
-        $('#send-description-label').addClass('label_error');
-        $('#send-description-label').attr("title", form.text)
-                                    .tooltip('fixTitle')
-                                    .tooltip("show");
-    } else {
-        $('#send-description-textarea').removeClass("input_error");
-        $('#send-description-label').removeClass('label_error');
-        $('#send-description-label').tooltip("hide");
-    }
+    mapErrorToField(form.userName, $('#send-feedback-input-name'), $('#send-feedback-label-name'));
+    mapErrorToField(form.email, $('#send-feedback-input-email'), $('#send-feedback-label-email'));
+    mapErrorToField(form.text, $('#send-description-textarea'), $('#send-description-label'));
 }
 
 function mapErrorRegisterForm(form) {
-    console.log(form);
-    if(form.name != null) {
-        $('#registration-input-name').addClass("input_error");
-        $('#registration-label-name').addClass('label_error');
-        $('#registration-label-name').attr("title", form.name)
-                                     .tooltip('fixTitle')
-                                     .tooltip("show");
-    } else {
-        $('#registration-input-name').removeClass("input_error");
-        $('#registration-label-name').removeClass('label_error');
-        $('#registration-label-name').tooltip("hide");
-    }
-    if(form.email != null) {
-        $('#registration-input-email').addClass("input_error");
-        $('#registration-label-email').addClass('label_error');
-        $('#registration-label-email').attr("title", form.email)
-                                     .tooltip('fixTitle')
-                                     .tooltip("show");
-    } else {
-        $('#registration-input-email').removeClass("input_error");
-        $('#registration-label-email').removeClass('label_error');
-        $('#registration-label-email').tooltip("hide");
-    }
-    if(form.password != null) {
-        $('#registration-input-password').addClass("input_error");
-        $('#registration-label-password').addClass('label_error');
-        $('#registration-label-password').attr("title", form.password)
-                                         .tooltip('fixTitle')
-                                         .tooltip("show");
-    } else {
-        $('#registration-input-password').removeClass("input_error");
-        $('#registration-label-password').removeClass('label_error');
-        $('#registration-label-password').tooltip("hide");
-    }
-    if(form.confirmPassword != null) {
-        $('#registration-input-confirm-password').addClass("input_error");
-        $('#registration-label-confirm-password').addClass('label_error');
-        $('#registration-label-confirm-password').attr("title", form.password)
-                                                 .tooltip('fixTitle')
-                                                 .tooltip("show");
-    } else {
-        $('#registration-input-confirm-password').removeClass("input_error");
-        $('#registration-label-confirm-password').removeClass('label_error');
-        $('#registration-label-confirm-password').tooltip("hide");
-    }
-    if(form.phone != null) {
-        $('#registration-input-phone').addClass("input_error");
-        $('#registration-label-phone').addClass('label_error');
-        $('#registration-label-phone').attr("title", form.phone)
-                                      .tooltip('fixTitle')
-                                      .tooltip("show");
-    } else {
-        $('#registration-input-phone').removeClass("input_error");
-        $('#registration-label-phone').removeClass('label_error');
-        $('#registration-label-phone').tooltip("hide");
-    }
+    mapErrorToField(form.name, $('#registration-input-name'), $('#registration-label-name'));
+    mapErrorToField(form.email, $('#registration-input-email'), $('#registration-label-email'));
+    mapErrorToField(form.password, $('#registration-input-password'), $('#registration-label-password'));
+    mapErrorToField(form.confirmPassword, $('#registration-input-confirm-password'), $('#registration-label-confirm-password'));
+    mapErrorToField(form.phone, $('#registration-input-phone'), $('#registration-label-phone'));
 
     if($('#check-isenterprise').attr("checked") == "checked") {
-
-        if(form.unp != null) {
-            $('#registration-input-enterprise-unp').addClass("input_error");
-            $('#registration-label-enterprise-unp').addClass('label_error');
-            $('#registration-label-enterprise-unp').attr("title", form.unp)
-                                                   .tooltip('fixTitle')
-                                                   .tooltip("show");
-        } else {
-            $('#registration-input-enterprise-unp').removeClass("input_error");
-            $('#registration-label-enterprise-unp').removeClass('label_error');
-            $('#registration-label-enterprise-unp').tooltip("hide");
-        }
-        if(form.enterpriseName != null) {
-            $('#registration-input-enterprise-name').addClass("input_error");
-            $('#registration-label-enterprise-name').addClass('label_error');
-            $('#registration-label-enterprise-name').attr("title", form.enterpriseName)
-                                                    .tooltip('fixTitle')
-                                                    .tooltip("show");
-        } else {
-            $('#registration-input-enterprise-name').removeClass("input_error");
-            $('#registration-label-enterprise-name').removeClass('label_error');
-            $('#registration-label-enterprise-name').tooltip("hide");
-        }
-        if(form.billingAddress != null) {
-            $('#registration-input-enterprise-address').addClass("input_error");
-            $('#registration-label-enterprise-address').addClass('label_error');
-            $('#registration-label-enterprise-address').attr("title", form.billingAddress)
-                                                       .tooltip('fixTitle')
-                                                       .tooltip("show");
-        } else {
-            $('#registration-input-enterprise-address').removeClass("input_error");
-            $('#registration-label-enterprise-address').removeClass('label_error');
-            $('#registration-label-enterprise-address').tooltip("hide");
-        }
-        if(form.bankName != null) {
-            $('#registration-input-enterprise-account-bank').addClass("input_error");
-            $('#registration-label-enterprise-account-bank').addClass('label_error');
-            $('#registration-label-enterprise-account-bank').attr("title", form.bankName)
-                                                            .tooltip('fixTitle')
-                                                            .tooltip("show");
-        } else {
-            $('#registration-input-enterprise-account-bank').removeClass("input_error");
-            $('#registration-label-enterprise-account-bank').removeClass('label_error');
-            $('#registration-label-enterprise-account-bank').tooltip("hide");
-        }
-        if(form.accountNumber != null) {
-            $('#registration-input-enterprise-account').addClass("input_error");
-            $('#registration-label-enterprise-account').addClass('label_error');
-            $('#registration-label-enterprise-account').attr("title", form.accountNumber)
-                                                       .tooltip('fixTitle')
-                                                       .tooltip("show");
-        } else {
-            $('#registration-input-enterprise-account').removeClass("input_error");
-            $('#registration-label-enterprise-account').removeClass('label_error');
-            $('#registration-label-enterprise-account').tooltip("hide");
-        }
-        if(form.bankCode != null) {
-            $('#registration-input-enterprise-account-bank-code').addClass("input_error");
-            $('#registration-label-enterprise-account-bank-code').addClass('label_error');
-            $('#registration-label-enterprise-account-bank-code').attr("title", form.bankCode)
-                                                                 .tooltip('fixTitle')
-                                                                 .tooltip("show");
-        } else {
-            $('#registration-input-enterprise-account-bank-code').removeClass("input_error");
-            $('#registration-label-enterprise-account-bank-code').removeClass('label_error');
-            $('#registration-label-enterprise-account-bank-code').tooltip("hide");
-        }
+        mapErrorToField(form.unp, $('#registration-input-enterprise-unp'), $('#registration-label-enterprise-unp'));
+        mapErrorToField(form.enterpriseName, $('#registration-input-enterprise-name'), $('#registration-label-enterprise-name'));
+        mapErrorToField(form.billingAddress, $('#registration-input-enterprise-address'), $('#registration-label-enterprise-address'));
+        mapErrorToField(form.bankName, $('#registration-input-enterprise-account-bank'), $('#registration-label-enterprise-account-bank'));
+        mapErrorToField(form.accountNumber, $('#registration-input-enterprise-account'), $('#registration-label-enterprise-account'));
+        mapErrorToField(form.bankCode, $('#registration-input-enterprise-account-bank-code'), $('#registration-label-enterprise-account-bank-code'));
     }
 }
 
 function mapErrorLoginForm(form) {
-    console.log(form);
-    if(form.login != null) {
-        $('#enter-input-email').addClass("input_error");
-        $("#enter-input-email-title").addClass('label_error');
-        $("#enter-input-email-title").attr("title", form.login)
-                                     .tooltip('fixTitle')
-                                     .tooltip("show");
-    } else {
-        $('#enter-input-email').removeClass("input_error");
-        $("#enter-input-email-title").removeClass('label_error');
-        $("#enter-input-email-title").tooltip("hide");
-    }
-
-    if(form.password != null) {
-        $('#enter-input-password').addClass("input_error");
-        $("#enter-input-password-title").addClass('label_error');
-        $("#enter-input-password-title").attr("title", form.password)
-                                        .tooltip('fixTitle')
-                                        .tooltip("show");
-    } else {
-        $('#enter-input-password').removeClass("input_error");
-        $("#enter-input-password-title").removeClass('label_error');
-        $("#enter-input-password-title").tooltip("hide");
-    }
+    mapErrorToField(form.login, $('#enter-input-email'), $("#enter-input-email-title"));
+    mapErrorToField(form.password, $('#enter-input-password'), $("#enter-input-password-title"));
 }
 
 function mapErrorSubscribe(object){
@@ -550,31 +386,9 @@ function mapErrorSubscribe(object){
 }
 
 function mapErrorCallBackForm(object) {
-    if(object.name != null) {
-        $('#callback-input-name').addClass("input_error");
-        $('#callback-label-name').addClass('label_error');
-        $('#callback-label-name').attr("title", object.name)
-                                 .tooltip('fixTitle')
-                                 .tooltip("show");
-    } else {
-        $('#callback-input-name').removeClass("input_error");
-        $('#callback-label-name').removeClass('label_error');
-        $('#callback-label-name').tooltip("hide");
-    }
-    if(object.phone != null) {
-        $('#callback-input-phone').addClass("input_error");
-        $('#callback-label-phone').addClass('label_error');
-        $('#callback-label-phone').attr("title", object.phone)
-                                  .tooltip('fixTitle')
-                                  .tooltip("show");
-    } else {
-        $('#callback-input-phone').removeClass("input_error");
-        $('#callback-label-phone').removeClass('label_error');
-        $('#callback-label-phone').tooltip("hide");
-    }
+    mapErrorToField(object.name, $('#callback-input-name'), $('#callback-label-name'));
+    mapErrorToField(object.phone, $('#callback-input-phone'), $('#callback-label-phone'));
 }
-
-
 
 function serverAlert() {
     alert('Возникла непредвиденная ошибка сервера или сервер недоступен.\n' +
@@ -599,8 +413,6 @@ function toFavorites(pnt) {
 function activatePromo() {
     alert('Функциональность временно недоступна');
 }
-
-
 
 
 
@@ -705,7 +517,7 @@ function orderFormToJSON() {
             "shipment_id":      $('#customer-shipment-chosen input[type=radio]:checked').val(),
             "shipment_address": $('#order-input-customer-address-value').val(),
             "payment_id":       $('#customer-payment-chosen input[type=radio]:checked').val(),
-            "comments":         $('#order-customer-comment').val()
+            "comment":          $('#order-customer-comment').val()
         });
     } else if($('#order-type-switcher').val() == 2) {
         return JSON.stringify({
@@ -718,7 +530,7 @@ function orderFormToJSON() {
             "shipment_id":      $('#enterprise-shipment-chosen input[type=radio]:checked').val(),
             "shipment_address": $('#order-input-enterprise-address-value').val(),
             "payment_id":       $('#enterprise-payment-chosen input[type=radio]:checked').val(),
-            "comments":         $('#order-enterprise-comment').val()
+            "comment":          $('#order-enterprise-comment').val()
 
             // "subscribe":        $('#check-subscribe').attr("checked") == "checked" ? true:false
         
