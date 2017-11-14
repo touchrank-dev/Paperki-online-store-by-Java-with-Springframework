@@ -129,7 +129,8 @@
                                                 th:attr="onclick='getAndMapAddress('+${address.id}+')'">value</a>
                                             <div class="action-buttons">
                                                 <!-- <a href="#" class="edit-button" title="Редактировать"></a> -->
-                                                <a href="#" class="delete-button" title="Удалить"></a>
+                                                <a href="#" class="delete-button" title="Удалить"
+                                                   th:attr="onclick='deleteAddress('+${address.id}+')'"></a>
                                             </div>
                                         </li>
                                     </ul>
@@ -321,7 +322,8 @@
                                                         th:attr="onclick='getAndMapAddress('+${address.id}+')'">value</a>
                                                     <div class="action-buttons">
                                                         <!-- <a href="#" class="edit-button" title="Редактировать"></a> -->
-                                                        <a href="#" class="delete-button" title="Удалить"></a>
+                                                        <a href="#" class="delete-button" title="Удалить"
+                                                           th:attr="onclick='deleteAddress('+${address.id}+')'"></a>
                                                     </div>
                                                 </li>
                                             </ul>

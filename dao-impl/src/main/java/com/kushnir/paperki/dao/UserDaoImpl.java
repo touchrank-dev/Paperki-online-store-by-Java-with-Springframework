@@ -106,6 +106,12 @@ public class UserDaoImpl implements UserDao {
     @Value("${address.add}")
     private String addAddressSqlQuery;
 
+    @Value("${address.update}")
+    private String updateAddressSqlQuery;
+
+    @Value("${address.delete}")
+    private String deleteAddressSqlQuery;
+
     @Value("${address.getById}")
     private String getAddressByIdSqlQuery;
 
@@ -344,6 +350,33 @@ public class UserDaoImpl implements UserDao {
         parameterSource.addValue(P_DESCRIPTION, address.getDescription());
         return namedParameterJdbcTemplate.update(addAddressSqlQuery, parameterSource);
     }
+
+    @Override
+    public Integer updateAddress(Address address, Integer userId) {
+        LOGGER.debug("addAddress()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_POST_INDEX, address.getIndex());
+        parameterSource.addValue(P_CITY, address.getCity());
+        parameterSource.addValue(P_STREET, address.getStreet());
+        parameterSource.addValue(P_HOUSE, address.getHouse());
+        parameterSource.addValue(P_HOUSE_PART, address.getHousePart());
+        parameterSource.addValue(P_HOUSE_OFFICE, address.getHouseOffice());
+        parameterSource.addValue(P_ADDRESS_VALUE, address.getValue());
+        parameterSource.addValue(P_DESCRIPTION, address.getDescription());
+        parameterSource.addValue(P_ADDRESS_ID, address.getId());
+        parameterSource.addValue(P_USER_ID, userId);
+        return namedParameterJdbcTemplate.update(updateAddressSqlQuery, parameterSource);
+    }
+
+    @Override
+    public Integer deleteAddress(Integer idAddress, Integer userId) {
+        LOGGER.debug("deleteAddress()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_ADDRESS_ID, idAddress);
+        parameterSource.addValue(P_USER_ID, userId);
+        return namedParameterJdbcTemplate.update(deleteAddressSqlQuery, parameterSource);
+    }
+
 
     @Override
     public Address getAddressById(Integer addressId) {

@@ -34,7 +34,7 @@ public class Address {
         this.type = type;
         this.index = index;
         this.city = city;
-        Street = street;
+        this.Street = street;
         this.house = house;
         this.housePart = housePart;
         this.houseOffice = houseOffice;
@@ -56,7 +56,7 @@ public class Address {
         this.type = type;
         this.index = index;
         this.city = city;
-        Street = street;
+        this.Street = street;
         this.house = house;
         this.housePart = housePart;
         this.houseOffice = houseOffice;
@@ -79,7 +79,7 @@ public class Address {
         this.type = type;
         this.index = index;
         this.city = city;
-        Street = street;
+        this.Street = street;
         this.house = house;
         this.housePart = housePart;
         this.houseOffice = houseOffice;

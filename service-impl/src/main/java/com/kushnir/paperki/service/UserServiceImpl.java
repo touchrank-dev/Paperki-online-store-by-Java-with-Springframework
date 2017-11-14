@@ -458,6 +458,70 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
+    public Object updateAddress(Address address, Integer userId) {
+        LOGGER.debug("updateAddress({}, {})", address, userId);
+        AddressErrorResponse addressErrorResponse = new AddressErrorResponse();
+
+        Assert.notNull(address.getId(), "address id = null");
+        Assert.isTrue(address.getId() > 0, "address id <= 0");
+
+        // TODO check if id is from current user
+
+        try {
+            Assert.notNull(address.getCity(), "Пожалуйста укажите город доставки");
+            Assert.hasText(address.getCity(), "Пожалуйста укажите город доставки");
+        } catch (Exception e) {
+            addressErrorResponse.setCity(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(address.getStreet(), "Пожалуйста укажите улицу");
+            Assert.hasText(address.getStreet(), "Пожалуйста укажите улицу");
+        } catch (Exception e) {
+            addressErrorResponse.setStreet(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(address.getHouse(), "Пожалуйста укажите номер дома");
+            Assert.hasText(address.getHouse(), "Пожалуйста укажите номер дома");
+        } catch (Exception e) {
+            addressErrorResponse.setHouse(e.getMessage());
+        }
+
+        if (addressErrorResponse.isErrors()) return addressErrorResponse;
+        else {
+            try {
+                String value =
+                        (address.getIndex() != null && !address.getIndex().equals("") ? address.getIndex():"")
+                                +(address.getCity() != null && !address.getCity().equals("") ? " "+address.getCity():"")
+                                +(address.getStreet() != null && !address.getStreet().equals("") ? " "+address.getStreet():"")
+                                +(address.getHouse() != null && !address.getHouse().equals("") ? " "+address.getHouse():"")
+                                +(address.getHousePart() != null && !address.getHousePart().equals("") ? "/"+address.getHousePart():"")
+                                +(address.getHouseOffice() != null && !address.getHouseOffice().equals("") ? ", "+address.getHouseOffice():"");
+
+                address.setValue(value);
+                Integer count = userDao.updateAddress(address, userId);
+                return count;
+            } catch (Exception e) {
+                LOGGER.error("ERROR>>> {}, {}", e, e.getMessage());
+                throw e;
+            }
+        }
+    }
+
+    @Override
+    public Integer deleteAddress(Integer idAddress, Integer userId) {
+        LOGGER.debug("deleteAddress({}, {})", idAddress, userId);
+        Assert.notNull(idAddress, "idAddress = null");
+        Assert.isTrue(idAddress > 0, "idAddress <= 0");
+        Assert.notNull(userId, "userId = null");
+        Assert.isTrue(userId > 0, "userId <= 0");
+        return userDao.deleteAddress(idAddress, userId);
+    }
+
+
+    @Override
     public Address getUserAddress(Integer id) {
         LOGGER.debug("getUserAddress({})", id);
         try {

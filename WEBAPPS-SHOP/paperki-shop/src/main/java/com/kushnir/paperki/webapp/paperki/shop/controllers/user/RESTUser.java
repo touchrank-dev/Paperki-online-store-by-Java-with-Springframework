@@ -212,6 +212,36 @@ public class RESTUser {
         }
     }
 
+    @PostMapping("/addressupdate")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage updateAddress(@RequestBody Address address, HttpSession httpSession) {
+        LOGGER.debug("UPDATE ADDRESS >>>\nADDRESS RECEIVED: {}", address);
+        RestMessage restMessage;
+        try {
+            User user = (User) httpSession.getAttribute("user");
+            if(user == null) throw new Exception("EMPTY USER SESSION");
+            if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
+
+            Object obj = userService.updateAddress(address, user.getId());
+
+            if(obj instanceof Integer) {
+                LOGGER.debug("UPDATE ADDED SUCCESSFUL! >>>\n:{}", obj);
+                restMessage = new RestMessage(HttpStatus.OK, "UPDATE ADDED SUCCESSFUL!", obj);
+                // TODO email
+                return restMessage;
+            } else {
+                LOGGER.debug("UPDATE ADDRESS FAILED >>>\nERROR FORM: {}", (AddressErrorResponse) obj);
+                restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "UPDATE ADDRESS FAILED", (AddressErrorResponse) obj);
+                return restMessage;
+            }
+        } catch (Exception e) {
+            LOGGER.error("UPDATE ADDRESS FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
+            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            mailer.toSupportMail(restMessage.toString(), "UPDATE ADDRESS FAILED");
+            return restMessage;
+        }
+    }
+
     @PostMapping("/addenterprise")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage addEnterprise(@RequestBody HashMap<String, String> enterprise, HttpSession httpSession) {
@@ -225,7 +255,7 @@ public class RESTUser {
             Object obj = userService.addEnterpriseByUser(enterprise, user.getId());
 
             if(obj instanceof Integer) {
-                LOGGER.debug("ENTERPRISE ADDED SUCCESSFUL! >>>\n:{}", obj);
+                LOGGER.debug("ENTERPRISE ADDED SUCCESSFUL! >>>\n{}", obj);
                 restMessage = new RestMessage(HttpStatus.OK, "ENTERPRISE ADDED SUCCESSFUL!", obj);
                 // TODO email
                 return restMessage;
@@ -255,7 +285,7 @@ public class RESTUser {
             Object obj = userService.updateEnterpriseByUser(enterprise, user.getId());
 
             if(obj instanceof Integer) {
-                LOGGER.debug("ENTERPRISE UPDATED SUCCESSFUL! >>>\n:{}", obj);
+                LOGGER.debug("ENTERPRISE UPDATED SUCCESSFUL! >>>\n{}", obj);
                 restMessage = new RestMessage(HttpStatus.OK, "ENTERPRISE UPDATED SUCCESSFUL!", obj);
                 // TODO email
                 return restMessage;
@@ -268,6 +298,29 @@ public class RESTUser {
             LOGGER.error("UPDATE ENTERPRISE FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
             mailer.toSupportMail(restMessage.toString(), "UPDATE ENTERPRISE FAILED");
+            return restMessage;
+        }
+    }
+
+    @DeleteMapping("/addressdelete")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage deleteEnterprise(@RequestParam Integer id, HttpSession httpSession) {
+        LOGGER.debug("deleteEnterprise ({}) >>>", id);
+        RestMessage restMessage = null;
+        try {
+            User user = (User) httpSession.getAttribute("user");
+            if(user == null) throw new Exception("EMPTY USER SESSION");
+            if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
+
+            Integer count = userService.deleteAddress(id, user.getId());
+
+            LOGGER.error("ADDRESS SUCCESSFULLY DELETED >>>\n{}", count);
+            return new RestMessage(HttpStatus.OK, "ADDRESS SUCCESSFULLY DELETED", count);
+
+        } catch (Exception e) {
+            LOGGER.error("DELETE ADDRESS FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
+            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            mailer.toSupportMail(restMessage.toString(), "DELETE ADDRESS FAILED");
             return restMessage;
         }
     }

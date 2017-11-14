@@ -25,8 +25,19 @@ function FormToJson(formArray) {
 
 function ResetForm(event) {
     var form = $(event).parents('.popup-content').children('form');
-    form.find('input:text, input:hidden, input:password, input:file, select, textarea').val('');
-    form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+    internalResetForm(form);
+}
+
+function internalResetForm(form) {
+    form.find('input:text, input:hidden, input:password, input:file, select, textarea').val('')
+        .removeClass("input_error");
+
+    form.find('input:radio, input:checkbox')
+        .removeAttr('checked')
+        .removeAttr('selected')
+        .removeClass("input_error");
+
+    form.find('.input__label-content').removeClass('label_error').tooltip("hide");
 }
 
 function addToCart(pnt) {
@@ -1066,7 +1077,6 @@ function getAndMapAddress(idAddress) {
         success: function(response){
             if(response.code == "OK") {
                 mapAddressToUpdateForm(response.object);
-                console.log(response);
             } else if(response.code == "BAD_REQUEST") {
                 console.log(response);
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
@@ -1086,12 +1096,27 @@ function mapAddressToUpdateForm(address) {
     $('#input-edit-address-id').val(address.id);
 
     mapAddresUpdateField(address.index, $('#input-edit-address-index'));
-    mapAddresUpdateField(address.index, $('#input-edit-address-city'));
+    mapAddresUpdateField(address.city, $('#input-edit-address-city'));
     mapAddresUpdateField(address.street, $('#input-edit-address-street'));
     mapAddresUpdateField(address.house, $('#input-edit-address-house'));
     mapAddresUpdateField(address.housePart, $('#input-edit-address-house-part'));
     mapAddresUpdateField(address.houseOffice, $('#input-edit-address-house-office'));
     mapAddresUpdateField(address.description, $('#input-edit-address-description'));
+}
+
+function addressEditFormToJSON() {
+    return JSON.stringify({
+        "ownerId":          $('#input-edit-address-owner').val(),
+        "type":             $('#input-edit-address-type').val(),
+        "index":            $('#input-edit-address-index').val(),
+        "city":             $('#input-edit-address-city').val(),
+        "street":           $('#input-edit-address-street').val(),
+        "house":            $('#input-edit-address-house').val(),
+        "housePart":        $('#input-edit-address-house-part').val(),
+        "houseOffice":      $('#input-edit-address-house-office').val(),
+        "description":      $('#input-edit-address-description').val(),
+        "id":               $('#input-edit-address-id').val()
+    });
 }
 
 function mapAddresUpdateField(value, input) {
@@ -1104,6 +1129,62 @@ function mapAddresUpdateField(value, input) {
     } 
 }
 
-function UpdateAddress() {
+/*=========================================================================================*/
 
+function UpdateAddress() {
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/user/addressupdate",
+        data: addressEditFormToJSON(),
+        success: function(response){
+            if(response.code == "OK") {
+                internalResetForm($('#address-edit-form'));
+                location.reload();
+            } else if(response.code == "BAD_REQUEST") {
+                mapErrorAddressUpdateForm(response.object);
+                console.log(response);
+            } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
+                serverAlert();
+            }
+        },
+        error: function () {
+            serverAlert();
+        }
+    });
+}
+
+function mapErrorAddressUpdateForm (form) {
+    mapErrorToField(form.city, $('#input-update-address-city'), $('#label-update-address-city'));
+    mapErrorToField(form.street, $('#input-update-address-street'), $('#label-update-address-street'));
+    mapErrorToField(form.house, $('#input-update-address-house'), $('#label-update-address-house'));
+}
+
+/*=========================================================================================*/
+
+
+function deleteAddress(idAddress) {
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "DELETE",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/user/addressdelete?id="+idAddress,
+        success: function(response){
+            if(response.code == "OK") {
+                location.reload();
+            } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
+                serverAlert();
+            }
+        },
+        error: function () {
+            serverAlert();
+        }
+    });
 }
