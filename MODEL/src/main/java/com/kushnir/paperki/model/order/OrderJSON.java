@@ -4,7 +4,6 @@ import com.kushnir.paperki.model.delivery.ShipmentInfo;
 import com.kushnir.paperki.model.payment.PaymentInfo;
 import com.kushnir.paperki.model.product.Item;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderJSON {

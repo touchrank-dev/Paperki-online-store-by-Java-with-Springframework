@@ -291,6 +291,8 @@ public class OrderDaoImpl implements OrderDao {
                 double finalTotal =         rs.getDouble("final_total");
                 double finalTotalWithVat =  rs.getDouble("final_total_with_vat");
 
+                String comment =            rs.getString("comment");
+
                 Date createDate =           rs.getDate("create_date");
                 Date updateDate =           rs.getDate("edit_date");
 
@@ -329,6 +331,7 @@ public class OrderDaoImpl implements OrderDao {
                     List<Attribute> attributes = new ArrayList<>();
                     attributes.add(attribute);
                     order.setAttributes(attributes);
+                    order.setComments(comment);
                     orders.put(idOrder, order);
                     userOrders.put(statusName, orders);
                 } else {
@@ -355,6 +358,7 @@ public class OrderDaoImpl implements OrderDao {
                         List<Attribute> attributes = new ArrayList<>();
                         attributes.add(attribute);
                         order.setAttributes(attributes);
+                        order.setComments(comment);
                         orders.put(idOrder, order);
                     } else {
                         List<Attribute> attributes = order.getAttributes();
@@ -384,6 +388,8 @@ public class OrderDaoImpl implements OrderDao {
 
                 int orderType =             rs.getInt("id_order_type");
 
+                String comment =            rs.getString("comment");
+
                 PaymentInfo payment = new PaymentInfo();
                 ShipmentInfo shipment = new ShipmentInfo();
                 Object customerInfo;
@@ -392,7 +398,6 @@ public class OrderDaoImpl implements OrderDao {
                     case 2: customerInfo = new EnterpriseInfo(); break;
                     default: customerInfo = null; break;
                 }
-                String comments = null;
                 List<Item> items = new ArrayList<>();
 
 
@@ -409,13 +414,13 @@ public class OrderDaoImpl implements OrderDao {
                        payment,
                        shipment,
                        customerInfo,
-                       comments,
+                       comment,
                        items
                     ));
+                } else {
+
                 }
             }
-
-
 
             return new ArrayList(ordersMap.values());
         }
