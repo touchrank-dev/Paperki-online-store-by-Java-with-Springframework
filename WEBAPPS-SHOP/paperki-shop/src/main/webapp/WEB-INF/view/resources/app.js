@@ -1,6 +1,15 @@
 $( document ).ready(function() {
     $('#enterpriseForm').hide();
+    hideLoader();
 });
+
+function showLoader() {
+    $('#loader-popup').removeClass('hide').addClass('show');
+}
+
+function hideLoader() {
+    $('#loader-popup').removeClass('show').addClass('hide');
+}
 
 function mapErrorToField(formField, input, label) {
     if(formField != null) {
@@ -44,6 +53,7 @@ function addToCart(pnt) {
     var pntinput = $('#'+pnt);
     var loader = $(pntinput).parents('.btns').children('.cart-add-loader');
 
+    showLoader();
     $(loader).show();
 
     quantity = pntinput.val();
@@ -60,6 +70,7 @@ function addToCart(pnt) {
                 console.log(response);
                 mapCart(response.object);
                 printAddedItem(response.object, pnt);
+                // pntinput.parents('.add-area').hide();
             } else if (response.code == "NOT_FOUND") {
                 console.log(response);
                 alert("На складе недостаточное количество товара");
@@ -72,11 +83,13 @@ function addToCart(pnt) {
             serverAlert();
         }
     });
+    hideLoader();
     loader.hide();
 }
 
 
 function deleteFromCart(pnt) {
+    showLoader();
     $.ajax({
         cache: false,
         async: true,
@@ -100,9 +113,11 @@ function deleteFromCart(pnt) {
             serverAlert();
         }
     });
+    hideLoader();
 }
 
 function register() {
+    showLoader();
     $.ajax({
         cache: false,
         async: false,
@@ -127,9 +142,11 @@ function register() {
             serverAlert();
         }
     });
+    hideLoader();
 }
 
 function logout() {
+    showLoader();
     $.ajax({
         cache: false,
         async: false,
@@ -152,9 +169,11 @@ function logout() {
             serverAlert();
         }
     });
+    hideLoader();
 }
 
 function login() {
+    showLoader();
     $.ajax({
         cache: false,
         async: false,
@@ -178,9 +197,11 @@ function login() {
             serverAlert();
         }
     });
+    hideLoader();
 }
 
 function subscribe() {
+    showLoader();
     $.ajax({
          cache: false,
          async: false,
@@ -204,9 +225,11 @@ function subscribe() {
              serverAlert();
          }
     });
+    hideLoader();
 }
 
 function callback() {
+    showLoader();
     $.ajax({
          cache: false,
          async: false,
@@ -230,9 +253,11 @@ function callback() {
              serverAlert();
          }
     });
+    hideLoader();
 }
 
 function feedback() {
+    showLoader();
     $.ajax({
          cache: false,
          async: false,
@@ -256,6 +281,7 @@ function feedback() {
              serverAlert();
          }
     });
+    hideLoader();
 }
 
 function feedbackToJSON () {
@@ -642,6 +668,7 @@ function switchOrderType(type) {
 
 function submitOrder() {
     // console.log(FormToJson($('#order-customer-form').serializeArray()));
+    showLoader();
     $.ajax({
         cache: false,
         async: false,
@@ -665,6 +692,7 @@ function submitOrder() {
             serverAlert();
         }
     });
+    hideLoader();
 }
 
 function orderFormToJSON() {
@@ -758,6 +786,7 @@ function mapErrorOrderForm(form) {
 
 
 function seViewType(type) {
+    showLoader();
     $.ajax({
         cache: false,
         async: false,
@@ -773,11 +802,13 @@ function seViewType(type) {
             location.reload();
         }
     });
+    hideLoader();
 }
 
 /*===================================================================================*/
 
 function updatePersonalData() {
+    showLoader();
     $.ajax({
          cache: false,
          async: false,
@@ -802,6 +833,7 @@ function updatePersonalData() {
              serverAlert();
          }
     });
+    hideLoader();
 }
 
 function updatePersonalDataFormToJSON() {
@@ -824,6 +856,7 @@ function mapErrorUpdatePerson (form) {
 
 
 function changePassword() {
+    showLoader();
     $.ajax({
          cache: false,
          async: false,
@@ -849,6 +882,7 @@ function changePassword() {
              serverAlert();
          }
     });
+    hideLoader();
 }
 
 function changePasswordDataFormToJSON() {
@@ -874,6 +908,7 @@ function setOwnerAndType(owner, type) {
 }
 
 function AddAddress() {
+    showLoader();
     $.ajax({
          cache: false,
          async: false,
@@ -898,6 +933,7 @@ function AddAddress() {
              serverAlert();
          }
     });
+    hideLoader();
 }
 
 function addressFormToJSON() {
@@ -923,6 +959,7 @@ function mapErrorAddressForm (form) {
 /*=========================================================================================*/
 
 function addEnterprise() {
+    showLoader();
   $.ajax({
     cache: false,
     async: false,
@@ -947,6 +984,7 @@ function addEnterprise() {
       serverAlert();
     }
   });
+  hideLoader();
 }
 
 function enterpriseFormToJSON() {
@@ -964,6 +1002,7 @@ function mapErrorEnterpriseForm (form) {
 /*=========================================================================================*/
 
 function updateEnterprise() {
+    showLoader();
     $.ajax({
     cache: false,
     async: false,
@@ -987,6 +1026,7 @@ function updateEnterprise() {
       serverAlert();
     }
   });
+    hideLoader();
 }
 
 function enterpriseUpdateFormToJSON() {
@@ -1010,6 +1050,7 @@ function searchProducts(str) {
 }
 
 function sendSearchRequest(str) {
+    showLoader();
     $.ajax({
         cache: false,
         async: true,
@@ -1031,6 +1072,7 @@ function sendSearchRequest(str) {
             serverAlert();
         }
     });
+    hideLoader();
 }
 
 function mapSearchResult(array) {
@@ -1067,6 +1109,7 @@ function mapSearchResult(array) {
 
 
 function getAndMapAddress(idAddress) {
+    showLoader();
     $.ajax({
         cache: false,
         async: false,
@@ -1088,6 +1131,7 @@ function getAndMapAddress(idAddress) {
             serverAlert();
         }
     });
+    hideLoader();
 }
 
 function mapAddressToUpdateForm(address) {
@@ -1132,6 +1176,7 @@ function mapAddresUpdateField(value, input) {
 /*=========================================================================================*/
 
 function UpdateAddress() {
+    showLoader();
     $.ajax({
         cache: false,
         async: false,
@@ -1156,6 +1201,7 @@ function UpdateAddress() {
             serverAlert();
         }
     });
+    hideLoader();
 }
 
 function mapErrorAddressUpdateForm (form) {
@@ -1168,6 +1214,7 @@ function mapErrorAddressUpdateForm (form) {
 
 
 function deleteAddress(idAddress) {
+    showLoader();
     $.ajax({
         cache: false,
         async: false,
@@ -1187,4 +1234,5 @@ function deleteAddress(idAddress) {
             serverAlert();
         }
     });
+    hideLoader();
 }
