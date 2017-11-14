@@ -5,10 +5,12 @@ import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.order.Order;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface OrderService {
     Object submitOrder(HashMap<String, String> orderForm, Cart cart, User user) throws ServiceException;
     Order getOrderByToken(String token) throws ServiceException;
     HashMap<String, HashMap<Integer, Order>> getOrdersByUserId(Integer userId);
+    ArrayList getAllNewOrders();
 }

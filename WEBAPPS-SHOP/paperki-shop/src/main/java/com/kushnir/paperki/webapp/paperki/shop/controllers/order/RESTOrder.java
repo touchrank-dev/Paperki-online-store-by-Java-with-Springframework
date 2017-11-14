@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @CrossOrigin
@@ -58,5 +59,12 @@ public class RESTOrder {
             mailer.toSupportMail(restMessage.toString(), "ERROR REST ORDER SUBMIT");
             return restMessage;
         }
+    }
+
+    @GetMapping("/getorders")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody ArrayList getOrders() throws Exception {
+        LOGGER.debug("getOrders () >>>");
+        return orderService.getAllNewOrders();
     }
 }

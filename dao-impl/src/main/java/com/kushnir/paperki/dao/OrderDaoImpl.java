@@ -1,16 +1,20 @@
 package com.kushnir.paperki.dao;
 
+import com.kushnir.paperki.model.delivery.ShipmentInfo;
+import com.kushnir.paperki.model.order.*;
+import com.kushnir.paperki.model.payment.PaymentInfo;
 import com.kushnir.paperki.model.product.CartProduct;
-import com.kushnir.paperki.model.order.Attribute;
-import com.kushnir.paperki.model.order.Order;
-import com.kushnir.paperki.model.order.OrderInfo;
 
+import com.kushnir.paperki.model.product.Item;
+import com.kushnir.paperki.model.user.CustomerInfo;
+import com.kushnir.paperki.model.user.EnterpriseInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -35,6 +39,12 @@ public class OrderDaoImpl implements OrderDao {
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Value("${webapp.host}")
+    String host;
+
     private static final String P_ORDER_ID = "p_id_order";
 
     @Value("${order.getByToken}")
@@ -42,6 +52,9 @@ public class OrderDaoImpl implements OrderDao {
 
     @Value("${order.getByUseId}")
     private String getUserOrdersSqlQuery;
+
+    @Value("${order.getAllNew}")
+    private String getAllNewSqlQuery;
 
     @Value("${order.getAttributes}")
     private String getOrderAttributeSqlQuery;
@@ -118,6 +131,12 @@ public class OrderDaoImpl implements OrderDao {
         HashMap<String, HashMap<Integer, Order>> userOrders =
                 namedParameterJdbcTemplate.query(getUserOrdersSqlQuery, parameterSource, new OrdersResultSetExtractor());
         return userOrders;
+    }
+
+    @Override
+    public ArrayList getAllNewOrders() {
+        LOGGER.debug("getAllNewOrders() >>>");
+        return jdbcTemplate.query(getAllNewSqlQuery, new NewOrdersResultSetExtractor());
     }
 
     @Override
@@ -344,6 +363,59 @@ public class OrderDaoImpl implements OrderDao {
                 }
             }
             return userOrders;
+        }
+    }
+
+    private class NewOrdersResultSetExtractor implements ResultSetExtractor<ArrayList> {
+
+        @Override
+        public ArrayList extractData(ResultSet rs) throws SQLException, DataAccessException {
+            HashMap<Integer, OrderJSON> ordersMap = new HashMap<>();
+
+            while (rs.next()) {
+                Integer id =                rs.getInt("id_order");
+                String orderToken =         rs.getString("token_order");
+                String link =               host+"/order/"+orderToken;
+                String orderNumber =        rs.getString("order_number");
+                String papOrderNumber =     rs.getString("pap_order_number");
+                String orderDate =          rs.getString("create_date");
+
+                int orderType =             rs.getInt("id_order_type");
+
+                PaymentInfo payment = new PaymentInfo();
+                ShipmentInfo shipment = new ShipmentInfo();
+                Object customerInfo;
+                switch (orderType) {
+                    case 1: customerInfo = new CustomerInfo(); break;
+                    case 2: customerInfo = new EnterpriseInfo(); break;
+                    default: customerInfo = null; break;
+                }
+                String comments = null;
+                List<Item> items = new ArrayList<>();
+
+
+                OrderJSON order = ordersMap.get(id);
+                if (order == null) {
+                    ordersMap.put(id, new OrderJSON(
+                       id,
+                       link,
+                       orderToken,
+                       orderNumber,
+                       papOrderNumber,
+                       orderDate,
+                       orderType,
+                       payment,
+                       shipment,
+                       customerInfo,
+                       comments,
+                       items
+                    ));
+                }
+            }
+
+
+
+            return new ArrayList(ordersMap.values());
         }
     }
 

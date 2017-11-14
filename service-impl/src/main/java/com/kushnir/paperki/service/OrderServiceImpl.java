@@ -77,6 +77,12 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public ArrayList getAllNewOrders() {
+        LOGGER.debug("getAllNewOrders()");
+        return orderDao.getAllNewOrders();
+    }
+
 
     private List<Attribute> getOrderAttributes(int idOrder) {
         LOGGER.debug("getOrderAttributes({})", idOrder);

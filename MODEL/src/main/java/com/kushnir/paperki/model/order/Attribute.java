@@ -4,6 +4,7 @@ public class Attribute {
     private int p_id_order;
     private String p_name;
     private String p_value;
+    private int typeId;
     private int order;
 
     public Attribute() {
