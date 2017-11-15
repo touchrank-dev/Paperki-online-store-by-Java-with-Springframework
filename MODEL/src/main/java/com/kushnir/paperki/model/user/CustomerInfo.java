@@ -9,6 +9,17 @@ public class CustomerInfo {
     public CustomerInfo() {
     }
 
+    public CustomerInfo(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
+
+    public CustomerInfo(String name, String email, String phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public CustomerInfo(String login, String name, String email, String phone) {
         this.login = login;
         this.name = name;

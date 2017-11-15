@@ -13,6 +13,19 @@ public class EnterpriseInfo {
     public EnterpriseInfo() {
     }
 
+    public EnterpriseInfo(String phone, String unp, String orgName) {
+        this.phone = phone;
+        this.unp = unp;
+        this.orgName = orgName;
+    }
+
+    public EnterpriseInfo(String email, String phone, String unp, String orgName) {
+        this.email = email;
+        this.phone = phone;
+        this.unp = unp;
+        this.orgName = orgName;
+    }
+
     public EnterpriseInfo(String login,
                           String name,
                           String email,

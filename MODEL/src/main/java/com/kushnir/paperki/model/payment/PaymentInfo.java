@@ -8,6 +8,10 @@ public class PaymentInfo {
     public PaymentInfo() {
     }
 
+    public PaymentInfo(String name) {
+        this.name = name;
+    }
+
     public PaymentInfo(int type, String name, double cost) {
         this.type = type;
         this.name = name;

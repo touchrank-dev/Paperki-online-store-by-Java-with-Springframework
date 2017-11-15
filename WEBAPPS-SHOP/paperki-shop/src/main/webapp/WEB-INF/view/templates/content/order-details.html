@@ -25,9 +25,9 @@
 						<li th:if="${order?.attributes} != null"
 							th:each="attribute : ${order?.attributes}">
 							<div>
-								<p th:text="${attribute?.p_name}">Имя атрибута</p>
+								<p th:text="${attribute?.name}">Имя атрибута</p>
 							</div>
-							<span th:text="${attribute?.p_value}">x</span>
+							<span th:text="${attribute?.value}">x</span>
 						</li>
 
 					</ul>

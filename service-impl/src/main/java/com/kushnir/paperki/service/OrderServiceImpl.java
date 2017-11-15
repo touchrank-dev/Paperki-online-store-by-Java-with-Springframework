@@ -289,25 +289,41 @@ public class OrderServiceImpl implements OrderService {
         int idOrder = order.getId();
         int orderTypeId = order.getId_order_type();
 
+        attributes.add(createAttribute(idOrder, AttributeType.EMAIL,          orderForm.get("email"),         3));
+        attributes.add(createAttribute(idOrder, AttributeType.PAYMENT_NAME,   order.getPayment().getName(),   4));
+        attributes.add(createAttribute(idOrder, AttributeType.SHIPMENT_NAME,  order.getDelivery().getName(),  5));
+        attributes.add(createAttribute(idOrder, AttributeType.CONTACT_PHONE,  orderForm.get("phone"),         6));
+
+        attributes.add(createAttribute(idOrder, AttributeType.SHIPMENT_ADDRESS, orderForm.get("shipment_address"), 7));
+
+        attributes.add(createAttribute(idOrder, AttributeType.ORDER_TYPE_ID,  String.valueOf(orderTypeId),    8));
+        attributes.add(createAttribute(idOrder, AttributeType.PAYMENT_ID, String.valueOf(order.getPayment().getId()), 9));
+        attributes.add(createAttribute(idOrder, AttributeType.SHIPMENT_ID, String.valueOf(order.getDelivery().getId()), 10));
+
         if(orderTypeId == 1) {
-            attributes.add(new Attribute(idOrder, CONTACT_NAME, orderForm.get("name")));
-            attributes.add(new Attribute(idOrder, CONTACT_PHONE, orderForm.get("phone")));
-            attributes.add(new Attribute(idOrder, EMAIL, orderForm.get("email")));
-            attributes.add(new Attribute(idOrder, SHIPMENT_NAME, order.getDelivery().getName()));
-            attributes.add(new Attribute(idOrder, PAYMENT_NAME, order.getPayment().getName()));
+            attributes.add(createAttribute(idOrder, AttributeType.CONTACT_NAME, orderForm.get("name"), 1));
 
         } else if (orderTypeId == 2){
-            attributes.add(new Attribute(idOrder, ENTERPRISE_NAME, orderForm.get("enterprise-name")));
-            attributes.add(new Attribute(idOrder, UNP, orderForm.get("unp")));
-            attributes.add(new Attribute(idOrder, CONTACT_PHONE, orderForm.get("phone")));
-            attributes.add(new Attribute(idOrder, EMAIL, orderForm.get("email")));
-            attributes.add(new Attribute(idOrder, SHIPMENT_NAME, order.getDelivery().getName()));
-            attributes.add(new Attribute(idOrder, PAYMENT_NAME, order.getPayment().getName()));
+            attributes.add(createAttribute(idOrder, AttributeType.ENTERPRISE_NAME, orderForm.get("enterprise-name"), 1));
+            attributes.add(createAttribute(idOrder, AttributeType.UNP, orderForm.get("unp"), 2));
 
         } else throw new ServiceException("Тип заказа не существует");
 
         return orderDao.addOrderAttributes(attributes);
     }
+
+    private Attribute createAttribute(int idOrder, AttributeType type, String value, int order) {
+        return new Attribute(
+                idOrder,
+                type.getDescription(),
+                value,
+                order,
+                type.name(),
+                type.getType()
+        );
+    }
+
+
 
     private int[] addOrderItems(HashMap<Integer, CartProduct> items, Integer idOrder) {
         LOGGER.debug("addOrderItems()");

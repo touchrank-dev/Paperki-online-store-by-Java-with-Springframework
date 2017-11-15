@@ -236,7 +236,9 @@ public class OrderDaoImpl implements OrderDao {
                 double totalWithVat =   rs.getDouble("final_total_with_vat");
 
                 Attribute attribute = new Attribute(
-                        rs.getString("name"), rs.getString("value"));
+                        rs.getString("name"),
+                        rs.getString("value")
+                );
 
                 if(order.getId() == 0 ) {
                     order.setId(idOrder);
@@ -385,24 +387,69 @@ public class OrderDaoImpl implements OrderDao {
                 String orderNumber =        rs.getString("order_number");
                 String papOrderNumber =     rs.getString("pap_order_number");
                 String orderDate =          rs.getString("create_date");
-
                 int orderType =             rs.getInt("id_order_type");
-
                 String comment =            rs.getString("comment");
 
-                PaymentInfo payment = new PaymentInfo();
-                ShipmentInfo shipment = new ShipmentInfo();
+                int pnt =                   rs.getInt("pnt");
+                int quantity =              rs.getInt("quantity");
+                double basePrice =          rs.getDouble("base_price");
+                double basePriceWithVat =   rs.getDouble("base_price_with_vat");
+                double discountAmount =     rs.getDouble("discount_amount");
+                double finalPrice =         rs.getDouble("final_price");
+                double finalPriceWithVat =  rs.getDouble("final_price_with_vat");
+                double total =              rs.getDouble("total");
+                double totalWithVat =       rs.getDouble("total_with_vat");
+                double totalDiscount =      rs.getDouble("total_discount");
+
+                Item item = new Item(
+                        pnt,
+                        quantity,
+                        basePrice,
+                        basePriceWithVat,
+                        discountAmount,
+                        finalPrice,
+                        finalPriceWithVat,
+                        total,
+                        totalWithVat,
+                        totalDiscount
+                );
+
+                PaymentInfo payment = new PaymentInfo(
+                        rs.getString(AttributeType.PAYMENT_NAME.name())
+                );
+                ShipmentInfo shipment = new ShipmentInfo(
+                        rs.getString(AttributeType.SHIPMENT_NAME.name()),
+                        rs.getString(AttributeType.SHIPMENT_ADDRESS.name())
+                );
                 Object customerInfo;
+
+                String phone = rs.getString(AttributeType.CONTACT_PHONE.name());
+                String email = rs.getString(AttributeType.EMAIL.name());
+
                 switch (orderType) {
-                    case 1: customerInfo = new CustomerInfo(); break;
-                    case 2: customerInfo = new EnterpriseInfo(); break;
+                    case 1: customerInfo = new CustomerInfo(
+                            rs.getString(AttributeType.CONTACT_NAME.name()),
+                            email,
+                            phone
+                    ); break;
+                    case 2: customerInfo = new EnterpriseInfo(
+                            email,
+                            phone,
+                            rs.getString(AttributeType.UNP.name()),
+                            rs.getString(AttributeType.ENTERPRISE_NAME.name())
+                    ); break;
                     default: customerInfo = null; break;
                 }
-                List<Item> items = new ArrayList<>();
 
+                List<Item> items;
 
                 OrderJSON order = ordersMap.get(id);
                 if (order == null) {
+
+                    items = new ArrayList<Item>();
+
+                    items.add(item);
+
                     ordersMap.put(id, new OrderJSON(
                        id,
                        link,
@@ -418,7 +465,10 @@ public class OrderDaoImpl implements OrderDao {
                        items
                     ));
                 } else {
-
+                    items = order.getItems();
+                    if (items != null) {
+                        items.add(item);
+                    }
                 }
             }
 

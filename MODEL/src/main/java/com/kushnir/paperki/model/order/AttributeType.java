@@ -12,6 +12,7 @@ public enum AttributeType {
     PAYMENT_SHORT_DESCRIPTION("Описание способа оплаты", 1),
     PAYMENT_ACCOUNT("р/с", 1),
     SHIPMENT_NAME("Способ доставки", 1),
+    SHIPMENT_ADDRESS("Адрес доставки", 2),
     COMMENTS("Комментарий к заказу", 1),
 
     // ===== type 2 (используемые только системой)
@@ -19,10 +20,8 @@ public enum AttributeType {
     PAYMENT_ID("PAYMENT_ID", 2),
     PAYMENT_COST("PAYMENT_COST", 2),
     SHIPMENT_ID("SHIPMENT_ID", 2),
-    SHIPMENT_ADDRESS("SHIPMENT_ADDRESS", 2),
     SHIPMENT_COST("SHIPMENT_COST", 2),
     USER_ID("USER_ID", 2);
-
 
     private String description;
     private int type;
@@ -35,16 +34,7 @@ public enum AttributeType {
     public String getDescription() {
         return description;
     }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getType() {
         return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 }

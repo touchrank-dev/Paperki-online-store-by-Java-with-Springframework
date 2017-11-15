@@ -9,6 +9,15 @@ public class ShipmentInfo {
     public ShipmentInfo() {
     }
 
+    public ShipmentInfo(String name) {
+        this.name = name;
+    }
+
+    public ShipmentInfo(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
+
     public ShipmentInfo(int type, String name, String address, double cost) {
         this.type = type;
         this.name = name;

@@ -45,7 +45,8 @@ public class HtmlMailer {
 
             message.setSubject("Благодарим за заказ на paperki.by");
             message.setFrom(USER_SERVICE_EMAIL_ADDRESS);
-            message.setTo(new String[] {email, SUPPORT_SERVICE_EMAIL_ADDRES});
+            message.setTo(new String[] {email});
+            message.setBcc(SUPPORT_SERVICE_EMAIL_ADDRES);
             message.setText(htmlContent, true);
             mailSender.send(mimeMessage);
         } catch (Exception e) {
