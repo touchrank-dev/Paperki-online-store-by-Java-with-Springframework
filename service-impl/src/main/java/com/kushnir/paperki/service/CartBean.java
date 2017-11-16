@@ -155,13 +155,13 @@ public class CartBean {
         // ========================================================================
 
         finalPriceWithVAT =                 priceCalculator.getPriceWithVAT(finalPrice, VAT);
-        discountAmount =                    currentPrice - finalPrice;
+        discountAmount =                    priceCalculator.getDouble(currentPrice - finalPrice);
 
         // TOTAL ==================================================================
 
         total =                             priceCalculator.getDouble(finalPrice * quantity);
         totalWithVAT =                      priceCalculator.calculateTotalWithVAT(total, quantity, VAT);
-        totalDiscount =                     discountAmount * quantity;
+        totalDiscount =                     priceCalculator.getDouble(discountAmount * quantity);
         totalVAT =                          priceCalculator.getVatValue(total, VAT);
 
         // ========================================================================
@@ -222,13 +222,13 @@ public class CartBean {
         }
 
         finalPriceWithVAT =                 priceCalculator.getPriceWithVAT(finalPrice, VAT);
-        discountAmount =                    currentPrice - finalPrice;
+        discountAmount =                    priceCalculator.getDouble(currentPrice - finalPrice);
 
         // TOTAL ==================================================================
 
         total =                             priceCalculator.getDouble(finalPrice * quantity);
         totalWithVAT =                      priceCalculator.calculateTotalWithVAT(total, quantity, VAT);
-        totalDiscount =                     discountAmount * quantity;
+        totalDiscount =                     priceCalculator.getDouble(discountAmount * quantity);
         totalVAT =                          priceCalculator.getVatValue(total, VAT);
 
         // ========================================================================
