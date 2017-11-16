@@ -4,10 +4,10 @@ import com.kushnir.paperki.model.delivery.ShipmentInfo;
 import com.kushnir.paperki.model.order.*;
 import com.kushnir.paperki.model.payment.PaymentInfo;
 import com.kushnir.paperki.model.product.CartProduct;
-
 import com.kushnir.paperki.model.product.Item;
 import com.kushnir.paperki.model.user.CustomerInfo;
 import com.kushnir.paperki.model.user.EnterpriseInfo;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,9 +27,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
@@ -378,7 +378,7 @@ public class OrderDaoImpl implements OrderDao {
 
         @Override
         public ArrayList extractData(ResultSet rs) throws SQLException, DataAccessException {
-            HashMap<Integer, OrderJSON> ordersMap = new HashMap<>();
+            HashMap<Integer, OrderJSON> ordersMap = new LinkedHashMap<>();
 
             while (rs.next()) {
                 Integer id =                rs.getInt("id_order");
@@ -446,7 +446,7 @@ public class OrderDaoImpl implements OrderDao {
                 OrderJSON order = ordersMap.get(id);
                 if (order == null) {
 
-                    items = new ArrayList<Item>();
+                    items = new ArrayList();
 
                     items.add(item);
 
