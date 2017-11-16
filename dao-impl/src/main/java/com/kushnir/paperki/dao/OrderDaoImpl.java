@@ -393,13 +393,13 @@ public class OrderDaoImpl implements OrderDao {
                 int pnt =                   rs.getInt("pnt");
                 int quantity =              rs.getInt("quantity");
                 double basePrice =          rs.getDouble("base_price");
-                double basePriceWithVat =   rs.getDouble("base_price_with_vat");
-                double discountAmount =     rs.getDouble("discount_amount");
-                double finalPrice =         rs.getDouble("final_price");
-                double finalPriceWithVat =  rs.getDouble("final_price_with_vat");
-                double total =              rs.getDouble("total");
-                double totalWithVat =       rs.getDouble("total_with_vat");
-                double totalDiscount =      rs.getDouble("total_discount");
+                double basePriceWithVat =   rs.getDouble("item_bpwv");
+                double discountAmount =     rs.getDouble("item_da");
+                double finalPrice =         rs.getDouble("item_fp");
+                double finalPriceWithVat =  rs.getDouble("item_fpwv");
+                double total =              rs.getDouble("item_total");
+                double totalWithVat =       rs.getDouble("item_total_with_vat");
+                double totalDiscount =      rs.getDouble("item_total_discount");
 
                 Item item = new Item(
                         pnt,
