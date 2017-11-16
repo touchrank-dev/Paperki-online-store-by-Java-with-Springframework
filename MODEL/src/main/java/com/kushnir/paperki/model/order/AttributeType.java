@@ -12,7 +12,7 @@ public enum AttributeType {
     PAYMENT_SHORT_DESCRIPTION("Описание способа оплаты", 1),
     PAYMENT_ACCOUNT("р/с", 1),
     SHIPMENT_NAME("Способ доставки", 1),
-    SHIPMENT_ADDRESS("Адрес доставки", 2),
+    SHIPMENT_ADDRESS("Адрес доставки", 1),
     COMMENTS("Комментарий к заказу", 1),
 
     // ===== type 2 (используемые только системой)
