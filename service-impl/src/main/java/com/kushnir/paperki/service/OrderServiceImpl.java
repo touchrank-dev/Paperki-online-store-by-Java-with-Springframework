@@ -9,6 +9,7 @@ import static com.kushnir.paperki.model.order.OrderAttributes.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.HtmlMailer;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -252,9 +253,7 @@ public class OrderServiceImpl implements OrderService {
         order.setTotal_discount(cart.getTotalDiscount());
         order.setFinal_total(cart.getFinalTotal());
         order.setFinal_total_with_vat(cart.getFinalTotalWithVAT());
-
-        order.setComments(orderForm.get("comment"));
-
+        order.setComments(StringUtils.isBlank(orderForm.get("comment"))? null:orderForm.get("comment"));
         order.setPayment(paymentService.getById(getInt(orderForm.get("payment_id"))));
         order.setDelivery(deliveryService.getById(getInt(orderForm.get("shipment_id"))));
 

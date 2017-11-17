@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.payment.Payment;
 import com.kushnir.paperki.model.product.CartProduct;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Cart {
 
@@ -22,7 +23,7 @@ public class Cart {
     private double shipmentCost;                // стоимость доставки
     private double finalTotal;                  // окончательная сумма
     private double finalTotalWithVAT;           // окончательная сумма с учетом налога
-    private HashMap<Integer, CartProduct> items = new HashMap<Integer, CartProduct>();
+    private HashMap<Integer, CartProduct> items = new LinkedHashMap();
 
     public Cart() {
     }

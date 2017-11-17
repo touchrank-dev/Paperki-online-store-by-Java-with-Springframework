@@ -1,6 +1,7 @@
 package com.kushnir.paperki.model.user;
 
 public class EnterpriseInfo {
+    private Integer id;
     private String login;
     private String name;
     private String email;
@@ -26,6 +27,14 @@ public class EnterpriseInfo {
         this.orgName = orgName;
     }
 
+    public EnterpriseInfo(Integer id, String email, String phone, String unp, String orgName) {
+        this.id = id;
+        this.email = email;
+        this.phone = phone;
+        this.unp = unp;
+        this.orgName = orgName;
+    }
+
     public EnterpriseInfo(String login,
                           String name,
                           String email,
@@ -42,6 +51,14 @@ public class EnterpriseInfo {
         this.orgName = orgName;
         this.billingAddress = billingAddress;
         this.account = account;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getLogin() {
@@ -115,6 +132,7 @@ public class EnterpriseInfo {
 
         EnterpriseInfo that = (EnterpriseInfo) o;
 
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (login != null ? !login.equals(that.login) : that.login != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
@@ -128,7 +146,8 @@ public class EnterpriseInfo {
 
     @Override
     public int hashCode() {
-        int result = login != null ? login.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
@@ -142,7 +161,8 @@ public class EnterpriseInfo {
     @Override
     public String toString() {
         return "EnterpriseInfo{" +
-                "login='" + login + '\'' +
+                "id=" + id +
+                ", login='" + login + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +

@@ -1,6 +1,7 @@
 package com.kushnir.paperki.model.user;
 
 public class CustomerInfo {
+    private Integer id;
     private String login;
     private String name;
     private String email;
@@ -25,6 +26,22 @@ public class CustomerInfo {
         this.name = name;
         this.email = email;
         this.phone = phone;
+    }
+
+    public CustomerInfo(Integer id, String login, String name, String email, String phone) {
+        this.id = id;
+        this.login = login;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getLogin() {
@@ -66,6 +83,7 @@ public class CustomerInfo {
 
         CustomerInfo that = (CustomerInfo) o;
 
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (login != null ? !login.equals(that.login) : that.login != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
@@ -74,7 +92,8 @@ public class CustomerInfo {
 
     @Override
     public int hashCode() {
-        int result = login != null ? login.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
@@ -84,7 +103,8 @@ public class CustomerInfo {
     @Override
     public String toString() {
         return "CustomerInfo{" +
-                "login='" + login + '\'' +
+                "id=" + id +
+                ", login='" + login + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +

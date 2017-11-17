@@ -25,7 +25,7 @@ public class PriceCalculator {
 
     public static double calculateTotalWithVAT(double total, int quantity, int VAT) {
         double totalVAT = getVatValue(total, VAT);
-        return total + totalVAT;
+        return getDouble(total + totalVAT);
     }
 
     public static double calculateDiscountedPrice(Discount discount, double basePrice) {

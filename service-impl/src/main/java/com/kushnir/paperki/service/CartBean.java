@@ -33,7 +33,7 @@ public class CartBean {
         LOGGER.debug("addToCart({}) >>>", addProductRequest);
 
         if(addProductRequest.getQuantity() < 1)
-            throw new NotEnoughQuantityAvailableException("Запрошенное количество меньше нуля");
+            throw new NotEnoughQuantityAvailableException("Запрошенное количество меньше одного");
 
         int PNT = addProductRequest.getPnt();
         AvailableProduct availableProduct = productBean.getAvailableProductByPNT(PNT);
@@ -51,6 +51,21 @@ public class CartBean {
                 }
             }
         }
+        calculate(cart);
+    }
+
+    public void updateCartProduct (Cart cart, AddProductRequest addProductRequest) throws NotEnoughQuantityAvailableException {
+        LOGGER.debug("updateCartProduct({}) >>>", addProductRequest);
+
+        if(addProductRequest.getQuantity() < 1)
+            throw new NotEnoughQuantityAvailableException("Запрошенное количество меньше одного");
+
+        int PNT = addProductRequest.getPnt();
+        AvailableProduct availableProduct = productBean.getAvailableProductByPNT(PNT);
+        LOGGER.debug("availableProduct: {}", availableProduct);
+
+
+
         calculate(cart);
     }
 
@@ -106,7 +121,7 @@ public class CartBean {
         cart.setTotalWithVAT(priceCalculator.getDouble(totalWithVAT));
         cart.setTotalDiscount(totalDiscount);
         cart.setFinalTotal(finalTotal);
-        cart.setFinalTotalWithVAT(priceCalculator.getDouble(finalTotalWithVAT));
+        cart.setFinalTotalWithVAT(finalTotalWithVAT);
         cart.setTotalVAT(totalVAT);
     }
 
@@ -179,7 +194,7 @@ public class CartBean {
         inCartProduct.setFinalPrice(finalPrice);
         inCartProduct.setFinalPriceWithVAT(finalPriceWithVAT);
         inCartProduct.setTotal(total);
-        inCartProduct.setTotalWithVAT(priceCalculator.getDouble(totalWithVAT));
+        inCartProduct.setTotalWithVAT(totalWithVAT);
         inCartProduct.setTotalDiscount(totalDiscount);
         inCartProduct.setTotalVAT(totalVAT);
     }

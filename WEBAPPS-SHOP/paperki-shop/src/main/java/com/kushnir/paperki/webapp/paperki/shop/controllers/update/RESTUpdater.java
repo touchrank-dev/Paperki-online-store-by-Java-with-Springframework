@@ -102,7 +102,7 @@ public class RESTUpdater {
 
         String report = brandService.updateBrands();
 
-        RestMessage restMessage = new RestMessage(HttpStatus.OK, "update Products" ,report);
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "update Brands" ,report);
         return restMessage;
     }
 
@@ -114,7 +114,7 @@ public class RESTUpdater {
 
         String report = productBean.updateStock();
 
-        RestMessage restMessage = new RestMessage(HttpStatus.OK, "update Products" ,report);
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "update Stock" ,report);
         return restMessage;
     }
 

@@ -387,11 +387,16 @@ public class OrderDaoImpl implements OrderDao {
                 String orderNumber =        rs.getString("order_number");
                 String papOrderNumber =     rs.getString("pap_order_number");
                 String orderDate =          rs.getString("create_date");
-                int orderType =             rs.getInt("id_order_type");
+                Integer orderType =         rs.getInt("id_order_type");
                 String comment =            rs.getString("comment");
 
-                int pnt =                   rs.getInt("pnt");
-                int quantity =              rs.getInt("quantity");
+                Integer userId =            rs.getInt("id_user");
+                String userLogin =          rs.getString("login_user");
+
+                Integer enterpriseId =      rs.getInt("id_enterprise");
+
+                Integer pnt =               rs.getInt("pnt");
+                Integer quantity =          rs.getInt("quantity");
                 double basePrice =          rs.getDouble("base_price");
                 double basePriceWithVat =   rs.getDouble("item_bpwv");
                 double discountAmount =     rs.getDouble("item_da");
@@ -428,11 +433,14 @@ public class OrderDaoImpl implements OrderDao {
 
                 switch (orderType) {
                     case 1: customerInfo = new CustomerInfo(
+                            userId,
+                            userLogin,
                             rs.getString(AttributeType.CONTACT_NAME.name()),
                             email,
                             phone
                     ); break;
                     case 2: customerInfo = new EnterpriseInfo(
+                            enterpriseId,
                             email,
                             phone,
                             rs.getString(AttributeType.UNP.name()),

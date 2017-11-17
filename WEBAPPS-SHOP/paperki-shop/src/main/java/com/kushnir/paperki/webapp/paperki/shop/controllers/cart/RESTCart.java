@@ -26,7 +26,7 @@ public class RESTCart {
     @Autowired
     CartBean cartBean;
 
-    // curl -H "Content-Type: application/json" -d '{"pnt":9491,"quantity":1}' -v localhost:8080/api/addtocart
+    // curl -H "Content-Type: application/json" -d '{"pnt":9491,"quantity":1}' -v localhost:8080/api/cart/addtocart
     @PostMapping("/addtocart")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody
@@ -36,11 +36,9 @@ public class RESTCart {
         RestMessage restMessage;
         try {
             Cart cart = (Cart)httpSession.getAttribute("cart");
-            // LOGGER.debug("CART FROM SESSION BEFORE ADDING: {}", cart);
 
             cartBean.addToCart(cart, addProductRequest);
 
-            // LOGGER.debug("CART AFTER ADDING: {}", cart);
             httpSession.setAttribute("cart", cart);
             restMessage = new RestMessage(HttpStatus.OK, "ADDED TO CART", cart);
             return restMessage;
@@ -54,6 +52,7 @@ public class RESTCart {
         }
     }
 
+    // curl -H "Content-Type: application/json" -d '{"pnt":9491}' -v localhost:8080/api/cart/deletefromcart
     @PostMapping("/deletefromcart")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage deleteFromCart(@RequestBody DeleteRequest pnt, HttpSession httpSession) {
@@ -61,16 +60,38 @@ public class RESTCart {
         RestMessage restMessage;
         try{
             Cart cart = (Cart)httpSession.getAttribute("cart");
-            // LOGGER.debug("CART FROM SESSION BEFORE DELETE: {}", cart);
 
             cartBean.deleteFromCart(cart, pnt.getPnt());
 
-            // LOGGER.debug("CART AFTER DELETE: {}", cart);
             httpSession.setAttribute("cart", cart);
             restMessage = new RestMessage(HttpStatus.OK, "PRODUCT SUCCESSFULLY DELETED", cart);
             return restMessage;
         } catch (Exception e) {
             LOGGER.error("FAILED DELETE FROM CART >>>\nERROR MESSAGE: {}", e.getMessage());
+            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            return restMessage;
+        }
+    }
+
+    // curl -H "Content-Type: application/json" -d '{"pnt":9491}' -v localhost:8080/api/cart/update
+    @PostMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage updateCartProduct (@RequestBody AddProductRequest addProductRequest,
+                                                        HttpSession httpSession) {
+        LOGGER.debug("REST UPDATE CART PRODUCT >>>\nREQUEST DATA: {}", addProductRequest);
+        RestMessage restMessage;
+
+        try {
+
+            Cart cart = (Cart)httpSession.getAttribute("cart");
+
+            cartBean.updateCartProduct(cart, addProductRequest);
+
+            httpSession.setAttribute("cart", cart);
+            restMessage = new RestMessage(HttpStatus.OK, "PRODUCT SUCCESSFULLY UPDATED", cart);
+            return restMessage;
+        } catch (Exception e) {
+            LOGGER.error("FAILED UPDATE CART PRODUCT >>>\nERROR MESSAGE: {}", e.getMessage());
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
             return restMessage;
         }
