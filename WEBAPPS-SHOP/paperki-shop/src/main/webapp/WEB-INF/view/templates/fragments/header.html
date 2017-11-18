@@ -147,16 +147,9 @@
                                                             th:attr="onclick='deleteFromCart('+${item.value.pnt}+')'">&#10006;</span>
                                                     </div>
                                                     <div class="img-cart">
-                                                        <div    th:if="${ProductImages} != null"
-                                                                th:switch="${ProductImages[__${item.value.pnt}__]} == null"
-                                                                th:remove="tag">
-                                                            <img src="/catimagesold/noimage.jpg" alt="" style="max-width: 110px;"
-                                                                 th:case="${true}"
-                                                                 th:attr="alt=${item.value.fullName}">
-                                                            <img src="/res/img/product1.png" alt="Изображение товара" style="max-width: 110px;"
-                                                                 th:case="${false}"
-                                                                 th:attr="src=@{'/catimagesold/'+ ${ProductImages[__${item.value.pnt}__]}},alt=${item.value.fullName}">
-                                                        </div>
+                                                        <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr"
+                                                             th:case="${false}"
+                                                             th:attr="src=@{'/catimagesold/'+ ${item?.value?.imageName}},alt=${product?.value?.fullName}">
                                                     </div>
                                                     <div class="desc-cart">
                                                         <a href="#" class="name-pr-cart"
