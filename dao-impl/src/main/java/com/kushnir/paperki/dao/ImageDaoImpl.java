@@ -3,6 +3,7 @@ package com.kushnir.paperki.dao;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,6 +14,15 @@ public class ImageDaoImpl implements ImageDao {
 
     private static final Logger LOGGER = LogManager.getLogger(ImageDaoImpl.class);
 
+    @Value("${product.image.path}")
+    String productImagePath;
+
+    @Value("${brand.image.path}")
+    String brandImagePath;
+
+    @Value("${product.image.prefix}")
+    String imgPref;
+
     @Override
     public HashMap<Integer, ArrayList<String>> getAllOldImages() {
         LOGGER.debug("getAllOldImages()");
@@ -20,14 +30,14 @@ public class ImageDaoImpl implements ImageDao {
         HashMap<Integer, ArrayList<String>> oldImages = new HashMap<>();
 
         try {
-            File[] files = new File("/home/paperki.by/www/images/catalog").listFiles();
+            File[] files = new File(productImagePath).listFiles();
 
             for (File file : files) {
                 if (file.isFile()) {
                     try {
                         String fileName = file.getName();
 
-                        String name = fileName.replaceAll(".jpg", "");
+                        String name = fileName.replaceAll(imgPref, "");
                         String strPnt = name.replaceFirst("0", "");
 
                         if (strPnt.endsWith("-1")
@@ -54,10 +64,10 @@ public class ImageDaoImpl implements ImageDao {
                     } catch (Exception e) { }
                 }
             }
+            return oldImages;
         } catch (Exception e) {
             LOGGER.error("ERROR getAllOldImages()>>> {}, MESSAGE: {}", e, ExceptionUtils.getStackTrace(e));
             return null;
         }
-        return oldImages;
     }
 }

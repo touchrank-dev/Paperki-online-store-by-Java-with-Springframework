@@ -3,10 +3,13 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers.catalog;
 import com.kushnir.paperki.model.Category;
 import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.CatalogBean;
+import com.kushnir.paperki.service.ImageService;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,9 @@ public class CatalogController {
 
     @Autowired
     MenuBean menuBean;
+
+    @Autowired
+    ImageService imageService;
 
     @Value("${content.path}")
     String contentPath;
@@ -94,6 +100,13 @@ public class CatalogController {
         Integer type = (Integer)session.getAttribute("catview");
         if (type == null) type = 1;
         return type;
+    }
+
+    @ModelAttribute("oldImages")
+    public HashMap<Integer, ArrayList<String>> getOldImages() {
+        LOGGER.debug("getOldImages()");
+        HashMap<Integer, ArrayList<String>> oldImages = imageService.getAllOldImages();
+        return oldImages;
     }
 
 

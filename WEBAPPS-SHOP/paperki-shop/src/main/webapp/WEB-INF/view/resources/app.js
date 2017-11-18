@@ -447,7 +447,7 @@ function printCartItems(products) {
                         '<span class="drop-pr" aria-hidden="true" onclick="deleteFromCart('+product.pnt+')">✖</span>'+
                     '</div>'+
                     '<div class="img-cart">'+
-                        '<img src="/res/img/products/'+product.pnt+'.jpg" alt="'+product.fullName+'" style="max-width: 110px;">'+
+                        '<img src="/catimagesold/'+product.imageName+'" alt="'+product.fullName+'" style="max-width: 110px;">'+
                     '</div>'+
                     '<div class="desc-cart">'+
                         '<a href="'+product.link+'" class="name-pr-cart">'+product.fullName+'</a>'+
@@ -894,7 +894,7 @@ function mapSearchResult(array) {
             $('.drop-search-catalog').append(
                 '<div class="cont-row">'+
                     '<div class="col1">'+
-                        '<img src="/res/img/pr1.png" alt="'+product.fullName+'">'+
+                        '<img src="/catimagesold/'+product.imageName+'" alt="'+product.fullName+'">'+
                         '<h5><a href="'+product.link+'">'+product.fullName+'</a></h5>'+
                         '<div class="rating"></div>'+
                         '<p>Код: '+product.pnt+'</p>'+

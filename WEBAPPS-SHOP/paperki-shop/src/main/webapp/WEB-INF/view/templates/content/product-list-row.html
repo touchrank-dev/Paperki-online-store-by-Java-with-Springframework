@@ -12,18 +12,19 @@
                 </div>
                 <div class="products-list-page__sort-block">
                     <select name="sort-by" class="products-list-page__dropdown">
-                        <option value="Сначала популярные">Сначала популярные</option>
-                        <option value="Сначала популярные">Сначала дешевые</option>
-                        <option value="Сначала популярные">Сначала дорогие</option>
+                        <option value="1">По умолчанию</option>
+                        <option value="2">Сначала популярные</option>
+                        <option value="3">Сначала дешевые</option>
+                        <option value="4">Сначала дорогие</option>
                     </select>
                     <div class="sort-block-right"
                          th:switch="${catview}">
                         <ul class="product-list-view" th:case="${1}">
                             <li class="product-list-view-tile active">
-                                <a href="#" onclick="seViewType(1)"></a>
+                                <a onclick="seViewType(1)"></a>
                             </li>
                             <li class="product-list-view-list ">
-                                <a href="#" onclick="seViewType(2)"></a>
+                                <a onclick="seViewType(2)"></a>
                             </li>
                         </ul>
                         <ul class="product-list-view" th:case="${2}">
@@ -63,16 +64,16 @@
                                                 </li>
                                             </ul>
                                             <p class="al-ph">
-                                            <div    th:if="${ProductImages} != null"
-                                                    th:switch="${ProductImages[__${product?.value?.pnt}__]} == null"
-                                                    th:remove="tag">
-                                                <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
-                                                     th:case="${true}"
-                                                     th:attr="alt=${product?.value?.fullName}">
-                                                <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr"
-                                                     th:case="${false}"
-                                                     th:attr="src=@{'/catimagesold/'+ ${ProductImages[__${product?.value?.pnt}__]}},alt=${product?.value?.fullName}">
-                                            </div>
+                                                <div    th:if="${oldImages} != null"
+                                                        th:switch="${oldImages[__${product?.value?.pnt}__]} == null"
+                                                        th:remove="tag">
+                                                    <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
+                                                         th:case="${true}"
+                                                         th:attr="alt=${product?.value?.fullName}">
+                                                    <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr"
+                                                         th:case="${false}"
+                                                         th:attr="src=@{'/catimagesold/'+ ${oldImages[__${product?.value?.pnt}__][0]}},alt=${product?.value?.fullName}">
+                                                </div>
                                             </p>
                                             <p class="desc-pr" th:text="${product?.value?.shortDescription}">
                                                 Короткое описание товара

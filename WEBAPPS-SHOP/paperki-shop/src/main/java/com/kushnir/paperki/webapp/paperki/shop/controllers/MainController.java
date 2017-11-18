@@ -2,8 +2,8 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers;
 
 import com.kushnir.paperki.model.MenuItem;
 import com.kushnir.paperki.service.CatalogBean;
+import com.kushnir.paperki.service.ImageService;
 import com.kushnir.paperki.service.MenuBean;
-
 import com.kushnir.paperki.service.ProductBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
@@ -36,6 +36,9 @@ public class MainController {
 
     @Autowired
     ProductBean productBean;
+
+    @Autowired
+    ImageService imageService;
 
     @Value("${content.path}")
     String contentPath;
@@ -89,6 +92,13 @@ public class MainController {
     @ModelAttribute("mapcategories")
     public HashMap getCatalog () throws ServiceException {
         return catalogBean.getAll();
+    }
+
+    @ModelAttribute("oldImages")
+    public HashMap<Integer, ArrayList<String>> getOldImages() {
+        LOGGER.debug("getOldImages()");
+        HashMap<Integer, ArrayList<String>> oldImages = imageService.getAllOldImages();
+        return oldImages;
     }
 
 }

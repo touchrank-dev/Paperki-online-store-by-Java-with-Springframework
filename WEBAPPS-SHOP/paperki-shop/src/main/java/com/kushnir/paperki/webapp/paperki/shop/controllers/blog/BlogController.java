@@ -3,8 +3,10 @@ package com.kushnir.paperki.webapp.paperki.shop.controllers.blog;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -49,7 +51,6 @@ public class BlogController {
         model.addAttribute("fragmentName", "article");
         return "index";
     }
-
 
     @ModelAttribute("mainmenu")
     public ArrayList getMainMenu () {

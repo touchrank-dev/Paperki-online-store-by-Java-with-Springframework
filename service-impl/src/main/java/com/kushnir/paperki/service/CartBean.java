@@ -27,6 +27,9 @@ public class CartBean {
     ProductBean productBean;
 
     @Autowired
+    ImageService imageService;
+
+    @Autowired
     private PriceCalculator priceCalculator;
 
     public void addToCart (Cart cart, AddProductRequest addProductRequest) throws NotEnoughQuantityAvailableException {
@@ -197,6 +200,8 @@ public class CartBean {
         inCartProduct.setTotalWithVAT(totalWithVAT);
         inCartProduct.setTotalDiscount(totalDiscount);
         inCartProduct.setTotalVAT(totalVAT);
+
+        inCartProduct.setImageName(imageService.generateImageName(pnt));
     }
 
     private CartProduct createCartProduct (AvailableProduct availableProduct, AddProductRequest addProductRequest)
@@ -251,6 +256,7 @@ public class CartBean {
         return new CartProduct(
                 id,
                 pnt,
+                imageService.generateImageName(pnt),
                 fullName,
                 shortName,
                 link,

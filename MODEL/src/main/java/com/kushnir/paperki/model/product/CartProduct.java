@@ -8,6 +8,7 @@ public class CartProduct {
     private int id;
     private int idOrder;
     private int pnt;
+    private String imageName;
     private String fullName;
     private String shortName;
     private String link;
@@ -59,6 +60,7 @@ public class CartProduct {
 
     public CartProduct(int id,
                        int pnt,
+                       String imageName,
                        String fullName,
                        String shortName,
                        String link,
@@ -76,6 +78,7 @@ public class CartProduct {
                        HashMap<Integer, Price> prices) {
         this.id = id;
         this.pnt = pnt;
+        this.imageName = imageName;
         this.fullName = fullName;
         this.shortName = shortName;
         this.link = link;
@@ -115,6 +118,14 @@ public class CartProduct {
 
     public void setPnt(int pnt) {
         this.pnt = pnt;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public String getFullName() {
@@ -244,6 +255,8 @@ public class CartProduct {
 
         CartProduct that = (CartProduct) o;
 
+        if (id != that.id) return false;
+        if (idOrder != that.idOrder) return false;
         if (pnt != that.pnt) return false;
         if (VAT != that.VAT) return false;
         if (quantity != that.quantity) return false;
@@ -254,7 +267,9 @@ public class CartProduct {
         if (Double.compare(that.finalPriceWithVAT, finalPriceWithVAT) != 0) return false;
         if (Double.compare(that.total, total) != 0) return false;
         if (Double.compare(that.totalWithVAT, totalWithVAT) != 0) return false;
+        if (Double.compare(that.totalDiscount, totalDiscount) != 0) return false;
         if (Double.compare(that.totalVAT, totalVAT) != 0) return false;
+        if (imageName != null ? !imageName.equals(that.imageName) : that.imageName != null) return false;
         if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
         if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) return false;
         if (link != null ? !link.equals(that.link) : that.link != null) return false;
@@ -265,7 +280,10 @@ public class CartProduct {
     public int hashCode() {
         int result;
         long temp;
-        result = pnt;
+        result = id;
+        result = 31 * result + idOrder;
+        result = 31 * result + pnt;
+        result = 31 * result + (imageName != null ? imageName.hashCode() : 0);
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
         result = 31 * result + (link != null ? link.hashCode() : 0);
@@ -296,7 +314,10 @@ public class CartProduct {
     @Override
     public String toString() {
         return "CartProduct{" +
-                "pnt=" + pnt +
+                "id=" + id +
+                ", idOrder=" + idOrder +
+                ", pnt=" + pnt +
+                ", imageName='" + imageName + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", shortName='" + shortName + '\'' +
                 ", link='" + link + '\'' +
