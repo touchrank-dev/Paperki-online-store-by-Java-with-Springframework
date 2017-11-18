@@ -118,15 +118,15 @@
                                                     </ul>
 
                                                     <p class="al-ph">
-                                                        <div    th:if="${ProductImages} != null"
-                                                                th:switch="${ProductImages[__${product?.value?.pnt}__]} == null"
+                                                        <div    th:if="${oldImages} != null"
+                                                                th:switch="${oldImages[__${product?.value?.pnt}__]} == null"
                                                                 th:remove="tag">
                                                             <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
                                                                  th:case="${true}"
                                                                  th:attr="alt=${product?.value?.fullName}">
                                                             <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr"
                                                                 th:case="${false}"
-                                                                th:attr="src=@{'/catimagesold/'+ ${ProductImages[__${product?.value?.pnt}__]}},alt=${product?.value?.fullName}">
+                                                                th:attr="src=@{'/catimagesold/'+ ${oldImages[__${product?.value?.pnt}__][0]}},alt=${product?.value?.fullName}">
                                                         </div>
                                                     </p>
 
