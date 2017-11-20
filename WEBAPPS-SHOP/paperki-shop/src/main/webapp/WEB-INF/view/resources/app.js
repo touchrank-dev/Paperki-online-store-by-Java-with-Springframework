@@ -51,10 +51,13 @@ function internalResetForm(form) {
 
 function addToCart(pnt) {
     var pntinput = $('#'+pnt);
-    var loader = $(pntinput).parents('.btns').children('.cart-add-loader');
+    var popupConfirm = pntinput.parents('.btns').children('.product-add-popup-confirm');
+    popupConfirm.removeClass('is-visible');
+    popupConfirm.children('.textarea').html('');
+    // var loader = pntinput.parents('.btns').children('.cart-add-loader');
 
     showLoader();
-    $(loader).show();
+    // loader.show();
 
     quantity = pntinput.val();
     $.ajax({
@@ -67,15 +70,14 @@ function addToCart(pnt) {
         data: addItemToJson(pnt, quantity),
         success: function(response) {
             if(response.code == "OK") {
-                console.log(response);
                 mapCart(response.object);
                 printAddedItem(response.object, pnt);
-                // pntinput.parents('.add-area').hide();
+                pntinput.val(1);
+            } else if (response.code == "LOCKED") {
+                mapConfirmQuantity(pntinput, pnt, response.object);
             } else if (response.code == "NOT_FOUND") {
-                console.log(response);
-                alert("На складе недостаточное количество товара");
+                alert("Запрошенный товар недоступен");
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
-                console.log(response);
                 serverAlert();
             }
         },
@@ -84,7 +86,21 @@ function addToCart(pnt) {
         }
     });
     hideLoader();
-    loader.hide();
+    // loader.hide();
+}
+
+
+function mapConfirmQuantity(pntinput, pnt, quantityAvailable) {
+    var popupConfirm = pntinput.parents('.btns').children('.product-add-popup-confirm');
+    // var addBtn = pntinput.parents('.btns').children('.add-btn');
+
+    popupConfirm.children('.textarea').html('В наличии только: <a onclick="confirmAdToCart('+pnt+', '+quantityAvailable+')">'+quantityAvailable+'</a> ед.');
+    popupConfirm.addClass('is-visible');
+}
+
+function confirmAdToCart(pnt, quantity) {
+    $('#'+pnt).val(quantity);
+    addToCart(pnt);
 }
 
 

@@ -2,11 +2,12 @@ package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.model.*;
 import com.kushnir.paperki.model.calculation.PriceCalculator;
-import com.kushnir.paperki.model.payment.Payment;
 import com.kushnir.paperki.model.product.AvailableProduct;
 import com.kushnir.paperki.model.product.CartProduct;
+import com.kushnir.paperki.service.exceptions.BadAttributeValueException;
 import com.kushnir.paperki.service.exceptions.NotEnoughQuantityAvailableException;
 
+import com.kushnir.paperki.service.exceptions.ProductUnavailableException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
@@ -32,36 +34,50 @@ public class CartBean {
     @Autowired
     private PriceCalculator priceCalculator;
 
-    public void addToCart (Cart cart, AddProductRequest addProductRequest) throws NotEnoughQuantityAvailableException {
+    public Integer addToCart (Cart cart, AddProductRequest addProductRequest) throws BadAttributeValueException,
+            ProductUnavailableException {
         LOGGER.debug("addToCart({}) >>>", addProductRequest);
 
         if(addProductRequest.getQuantity() < 1)
-            throw new NotEnoughQuantityAvailableException("Запрошенное количество меньше одного");
+            throw new BadAttributeValueException("Запрошенное количество меньше одного");
 
         int PNT = addProductRequest.getPnt();
         AvailableProduct availableProduct = productBean.getAvailableProductByPNT(PNT);
-        LOGGER.debug("availableProduct: {}", availableProduct);
+        if (availableProduct == null) throw new ProductUnavailableException("Запрошенный товар недоступен");
+
         if(cart != null) {
             HashMap<Integer, CartProduct> items = cart.getItems();
-            if(items != null) {
-                if(availableProduct != null) {
+            try {
+                if (items != null) {
                     CartProduct inCartProduct = items.get(PNT);
                     if (inCartProduct != null) {
                         calculateCartProduct(inCartProduct, addProductRequest, availableProduct);
                     } else {
-                        items.put(PNT, createCartProduct(availableProduct, addProductRequest));
+                        inCartProduct = new CartProduct();
+                        calculateCartProduct(inCartProduct, addProductRequest, availableProduct);
+                        items.put(PNT, inCartProduct);
                     }
+                } else {
+                    items = new LinkedHashMap();
+                    CartProduct inCartProduct = new CartProduct();
+                    calculateCartProduct(inCartProduct, addProductRequest, availableProduct);
+                    items.put(PNT, inCartProduct);
+                    cart.setItems(items);
                 }
+            } catch (NotEnoughQuantityAvailableException e) {
+                return availableProduct.getQuantityAvailable();
             }
         }
         calculate(cart);
+        return null;
     }
 
-    public void updateCartProduct (Cart cart, AddProductRequest addProductRequest) throws NotEnoughQuantityAvailableException {
+
+    public void updateCartProduct (Cart cart, AddProductRequest addProductRequest) throws BadAttributeValueException {
         LOGGER.debug("updateCartProduct({}) >>>", addProductRequest);
 
         if(addProductRequest.getQuantity() < 1)
-            throw new NotEnoughQuantityAvailableException("Запрошенное количество меньше одного");
+            throw new BadAttributeValueException("Запрошенное количество меньше одного");
 
         int PNT = addProductRequest.getPnt();
         AvailableProduct availableProduct = productBean.getAvailableProductByPNT(PNT);
@@ -88,10 +104,10 @@ public class CartBean {
         double totalWithVAT =                   0d;
         double totalDiscount =                  0d;
         double totalVAT =                       0d;
-        Coupon coupon =                         cart.getCoupon();
-        Present present =                       cart.getPresent();
-        Payment payment =                       cart.getPayment();
-        Shipment shipment =                     cart.getShipment();
+        // Coupon coupon =                         cart.getCoupon();
+        // Present present =                       cart.getPresent();
+        // Payment payment =                       cart.getPayment();
+        // Shipment shipment =                     cart.getShipment();
         double paymentCost =                    0d;
         double shipmentCost =                   0d;
         double finalTotal =                     0d;
@@ -136,11 +152,11 @@ public class CartBean {
         int quantityOld =                   inCartProduct.getQuantity();
         int requestedQuantity =             addProductRequest.getQuantity();
         int newQuantity =                   quantityOld + requestedQuantity;
+        int availableQuantity =             availableProduct.getQuantityAvailable();
 
-        /*if(     availableProduct.getQuantityAvailable() < 1 ||
-                newQuantity > availableProduct.getQuantityAvailable()) {
+        if(availableQuantity < 1 || newQuantity > availableQuantity) {
             throw new NotEnoughQuantityAvailableException("На складе недостаточно запрашиваемого количества товара");
-        }*/
+        }
 
         int id =                            availableProduct.getId();
         int pnt =                           availableProduct.getPnt();
@@ -202,77 +218,6 @@ public class CartBean {
         inCartProduct.setTotalVAT(totalVAT);
 
         inCartProduct.setImageName(imageService.generateImageName(pnt));
-    }
-
-    private CartProduct createCartProduct (AvailableProduct availableProduct, AddProductRequest addProductRequest)
-            throws NotEnoughQuantityAvailableException {
-
-        /*if(availableProduct.getQuantityAvailable() < 1 ||
-                availableProduct.getQuantityAvailable() < addProductRequest.getQuantity()) {
-            throw new NotEnoughQuantityAvailableException("На складе недостаточно запрашиваемого количества товара");
-        }*/
-
-        int id =                            availableProduct.getId();
-        int pnt =                           availableProduct.getPnt();
-        String fullName =                   availableProduct.getFullName();
-        String shortName =                  availableProduct.getShortName();
-        String link =                       availableProduct.getLink();
-        int VAT =                           availableProduct.getVAT();
-        int quantity =                      addProductRequest.getQuantity();
-        double currentPrice =               availableProduct.getBasePrice();
-        double currentPriceWithVAT =        priceCalculator.getPriceWithVAT(currentPrice, VAT);
-        double discountAmount =             0d;
-        double finalPrice =                 0d;
-        double finalPriceWithVAT =          0d;
-        double total =                      0d;
-        double totalWithVAT =               0d;
-        double totalDiscount =              0d;
-        double totalVAT =                   0d;
-
-        Discount discount =                 availableProduct.getDiscount();
-        HashMap<Integer, Price> prices =    availableProduct.getPrices();
-
-        // СКИДКИ =================================================================
-        if (discount != null) {
-            finalPrice =                    priceCalculator.calculateDiscountedPrice(discount, currentPrice);
-        } else if(prices != null && prices.size() > 0) {
-            finalPrice =                    priceCalculator.calculateQuantityPrice(prices, quantity, currentPrice);
-        } else {
-            finalPrice =                    currentPrice;
-        }
-
-        finalPriceWithVAT =                 priceCalculator.getPriceWithVAT(finalPrice, VAT);
-        discountAmount =                    priceCalculator.getDouble(currentPrice - finalPrice);
-
-        // TOTAL ==================================================================
-
-        total =                             priceCalculator.getDouble(finalPrice * quantity);
-        totalWithVAT =                      priceCalculator.calculateTotalWithVAT(total, quantity, VAT);
-        totalDiscount =                     priceCalculator.getDouble(discountAmount * quantity);
-        totalVAT =                          priceCalculator.getVatValue(total, VAT);
-
-        // ========================================================================
-
-        return new CartProduct(
-                id,
-                pnt,
-                imageService.generateImageName(pnt),
-                fullName,
-                shortName,
-                link,
-                VAT,
-                quantity,
-                currentPrice,
-                currentPriceWithVAT,
-                discountAmount,
-                finalPrice,
-                finalPriceWithVAT,
-                total,
-                totalWithVAT,
-                totalDiscount,
-                totalVAT,
-                prices
-        );
     }
 
 }

@@ -89,8 +89,13 @@ public class ProductBeanImpl implements ProductBean {
     @Override
     public AvailableProduct getAvailableProductByPNT(Integer pnt) {
         LOGGER.debug("getAvailableProductByPNT({}) >>>", pnt);
-        AvailableProduct availableProduct = productDao.getAvailableProductByPNT(pnt);
-        return availableProduct;
+        try {
+            AvailableProduct availableProduct = productDao.getAvailableProductByPNT(pnt);
+            return availableProduct;
+        } catch (EmptyResultDataAccessException e) {
+            LOGGER.warn("Prodict pnt: {}, is unavailable", pnt);
+            return null;
+        }
     }
 
     @Override

@@ -5,8 +5,9 @@ import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.DeleteRequest;
 import com.kushnir.paperki.model.RestMessage;
 import com.kushnir.paperki.service.CartBean;
-import com.kushnir.paperki.service.exceptions.NotEnoughQuantityAvailableException;
 
+import com.kushnir.paperki.service.exceptions.BadAttributeValueException;
+import com.kushnir.paperki.service.exceptions.ProductUnavailableException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -37,12 +38,17 @@ public class RESTCart {
         try {
             Cart cart = (Cart)httpSession.getAttribute("cart");
 
-            cartBean.addToCart(cart, addProductRequest);
+            Integer quantityAvailable = cartBean.addToCart(cart, addProductRequest);
 
-            httpSession.setAttribute("cart", cart);
-            restMessage = new RestMessage(HttpStatus.OK, "ADDED TO CART", cart);
-            return restMessage;
-        }catch (NotEnoughQuantityAvailableException e) {
+            if (quantityAvailable == null) {
+                httpSession.setAttribute("cart", cart);
+                restMessage = new RestMessage(HttpStatus.OK, "ADDED TO CART", cart);
+                return restMessage;
+            } else {
+                restMessage = new RestMessage(HttpStatus.LOCKED, "INSUFFICIENT QUANTITY", quantityAvailable);
+                return restMessage;
+            }
+        } catch (ProductUnavailableException | BadAttributeValueException e) {
             restMessage = new RestMessage(HttpStatus.NOT_FOUND, e.getMessage(), null);
             return restMessage;
         } catch (Exception e) {

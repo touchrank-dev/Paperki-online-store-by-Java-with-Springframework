@@ -7,6 +7,7 @@ import com.kushnir.paperki.service.ImageService;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
+import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,15 +53,22 @@ public class CatalogController {
 
     @GetMapping("/{catalogItemTranslitName}")
     public String catalogItemPage(@PathVariable String catalogItemTranslitName,
-                                  HttpSession session, Model model) throws ServiceException {
+                                  HttpSession session, Model model) throws ServiceException, PageNotFound {
         LOGGER.debug("catalogItemPage() >>>");
 
         Integer type = (Integer)session.getAttribute("catview");
-
-        HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalogItemTranslitName);
-        Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
-        model.addAttribute("products", products);
-        model.addAttribute("category", category);
+        try {
+            HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalogItemTranslitName);
+            Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
+            model.addAttribute("products", products);
+            model.addAttribute("category", category);
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new PageNotFound();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            throw e;
+        }
         if (type == null || type == 1) {
             model.addAttribute("templatePathName", contentPath + "product-list");
             model.addAttribute("fragmentName", "product-list");
@@ -74,12 +82,20 @@ public class CatalogController {
     @GetMapping("/{catalogItemTranslitName}/{productTranslitName}")
     public String productItemPage(@PathVariable String catalogItemTranslitName,
                                   @PathVariable String productTranslitName,
-                                  Model model) throws ServiceException {
+                                  Model model) throws ServiceException, PageNotFound {
         LOGGER.debug("productItemPage() >>>");
-        Product product = catalogBean.getProductByTName(productTranslitName);
-        Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
-        model.addAttribute("product", product);
-        model.addAttribute("category", category);
+        try {
+            Product product = catalogBean.getProductByTName(productTranslitName);
+            Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
+            model.addAttribute("product", product);
+            model.addAttribute("category", category);
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new PageNotFound();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            throw e;
+        }
         model.addAttribute("templatePathName", contentPath + "product-details");
         model.addAttribute("fragmentName", "product-details");
         return "index";

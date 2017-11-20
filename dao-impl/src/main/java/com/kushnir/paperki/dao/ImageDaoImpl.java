@@ -31,37 +31,40 @@ public class ImageDaoImpl implements ImageDao {
 
         try {
             File[] files = new File(productImagePath).listFiles();
+            if (files != null) {
 
-            for (File file : files) {
-                if (file.isFile()) {
-                    try {
-                        String fileName = file.getName();
+                for (File file : files) {
+                    if (file.isFile()) {
+                        try {
+                            String fileName = file.getName();
 
-                        String name = fileName.replaceAll(imgPref, "");
-                        String strPnt = name.replaceFirst("0", "");
+                            String name = fileName.replaceAll(imgPref, "");
+                            String strPnt = name.replaceFirst("0", "");
 
-                        if (strPnt.endsWith("-1")
-                                || strPnt.endsWith("-2")
-                                || strPnt.endsWith("-3")
-                                || strPnt.endsWith("-4")
-                                || strPnt.endsWith("-5")) {
+                            if (strPnt.endsWith("-1")
+                                    || strPnt.endsWith("-2")
+                                    || strPnt.endsWith("-3")
+                                    || strPnt.endsWith("-4")
+                                    || strPnt.endsWith("-5")) {
 
-                            strPnt = strPnt.substring(0, strPnt.length() - 2);
+                                strPnt = strPnt.substring(0, strPnt.length() - 2);
+                            }
+
+                            Integer pnt = Integer.parseInt(strPnt);
+
+                            ArrayList<String> images = oldImages.get(pnt);
+                            if (images == null) {
+                                images = new ArrayList<String>();
+                                images.add(fileName);
+                                oldImages.put(pnt, images);
+                            } else {
+                                images.add(fileName);
+                                Collections.sort(images, Collections.reverseOrder());
+                            }
+
+                        } catch (Exception e) {
                         }
-
-                        Integer pnt = Integer.parseInt(strPnt);
-
-                        ArrayList<String> images = oldImages.get(pnt);
-                        if (images == null) {
-                            images = new ArrayList<String>();
-                            images.add(fileName);
-                            oldImages.put(pnt, images);
-                        } else {
-                            images.add(fileName);
-                            Collections.sort(images, Collections.reverseOrder());
-                        }
-
-                    } catch (Exception e) { }
+                    }
                 }
             }
             return oldImages;
