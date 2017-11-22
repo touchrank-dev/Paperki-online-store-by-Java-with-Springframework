@@ -16,7 +16,6 @@ DROP TABLE IF EXISTS menu_item_ref;
 DROP TABLE IF EXISTS feedbacks;
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS order_attributes;
-DROP TABLE IF EXISTS order_info;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS enterprise_users;
 DROP TABLE IF EXISTS stock;
@@ -36,7 +35,7 @@ CREATE TABLE users (
     birth_day                   DATE            ,
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_enabled                  TINYINT         DEFAULT 0
+    is_enabled                  TINYINT         DEFAULT 1
 );
 
 CREATE TABLE enterprise (
@@ -162,7 +161,8 @@ CREATE TABLE products (
 
 CREATE TABLE product_description (
     id_product_desc             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_product                  INT             NOT NULL UNIQUE,
+    id_product                  INT             ,
+    pnt                         INT             NOT NULL UNIQUE,
     short_description           VARCHAR(2000)   ,
     full_description            VARCHAR(7000)   
     -- FOREIGN KEY (id_product)                    REFERENCES products(id_product)
@@ -211,8 +211,8 @@ CREATE TABLE prices_types (
 CREATE TABLE product_prices (
     id_price                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_price_type               INT             DEFAULT 1 NOT NULL,
-    pnt					        INT				NOT NULL,
-    quantity_start              INT             DEFAULT 1 NOT NULL,
+    pnt					                INT				      NOT NULL,
+    quantity_start              INT             DEFAULT 0 NOT NULL,
     value                       DOUBLE          NOT NULL,
     FOREIGN KEY (id_price_type)                 REFERENCES prices_types(id_price_type),
     UNIQUE KEY `p_qs` (pnt, quantity_start)
@@ -228,10 +228,11 @@ CREATE TABLE discounts (
     id_discount                 INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_discount_type            INT             NOT NULL,
     id_product                  INT             NOT NULL UNIQUE,
+    pnt                         INT             ,
     value_double                DOUBLE          DEFAULT 0.0,
     value_int                   INT             DEFAULT 0,
-    FOREIGN KEY (id_discount_type)              REFERENCES discount_types(id_discount_type),
-    FOREIGN KEY (id_product)                    REFERENCES products(id_product)
+    FOREIGN KEY (id_discount_type)              REFERENCES discount_types(id_discount_type)
+    -- FOREIGN KEY (id_product)                    REFERENCES products(id_product)
 ); 
 
 DROP TABLE IF EXISTS coupons;
@@ -360,25 +361,10 @@ CREATE TABLE order_attributes (
     name                        VARCHAR(250)    NOT NULL,
     value                       VARCHAR(1000)   ,
     order_attribute             INT             ,
+    type_name                   VARCHAR(50)     NOT NULL,
+    type_id                     INT             NOT NULL,
     FOREIGN KEY (id_order)      REFERENCES orders(id_order),
     UNIQUE KEY `o_n` (id_order, name)
-);
-
-CREATE TABLE order_info (
-    id_order                    INT             NOT NULL,
-    customer_name               VARCHAR(250)    ,
-    enterprise_name             VARCHAR(450)    ,
-    unp                         VARCHAR(20)     ,
-    email                       VARCHAR(100)    NOT NULL,
-    phone                       VARCHAR(20)     ,
-    payment_name                VARCHAR(250)    ,
-    payment_account             VARCHAR(30)     ,
-    payment_bank_name           VARCHAR(450)    ,
-    payment_bank_code           VARCHAR(8)      ,
-    shipment_name               VARCHAR(250)    ,
-    shipment_address            VARCHAR(250)    ,
-    user_notes                  VARCHAR(2000)   ,
-    FOREIGN KEY (id_order)      REFERENCES orders(id_order)
 );
 
 DROP TABLE IF EXISTS stock_place;
@@ -396,6 +382,7 @@ CREATE TABLE stock (
     id_stock                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_stock_place              INT             DEFAULT 1 NOT NULL,
     id_product                  INT             NOT NULL,
+    pnt                         INT             ,
     quantity_available          INT             DEFAULT 0 NOT NULL,
     FOREIGN KEY (id_stock_place)                REFERENCES stock_place(id_stock_place),
     UNIQUE KEY `s_p` (id_stock_place, id_product)
