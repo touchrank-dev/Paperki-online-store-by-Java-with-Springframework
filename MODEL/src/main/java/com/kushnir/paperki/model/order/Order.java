@@ -32,7 +32,6 @@ public class Order {
     private LocalDateTime edit_date;
     private String comments;
 
-    private OrderInfo orderInfo;
     private List<Attribute> attributes;
     private List<CartProduct> items;
 
@@ -248,14 +247,6 @@ public class Order {
         this.edit_date = edit_date;
     }
 
-    public OrderInfo getOrderInfo() {
-        return orderInfo;
-    }
-
-    public void setOrderInfo(OrderInfo orderInfo) {
-        this.orderInfo = orderInfo;
-    }
-
     public List<Attribute> getAttributes() {
         return attributes;
     }
@@ -309,7 +300,6 @@ public class Order {
         if (create_date != null ? !create_date.equals(order.create_date) : order.create_date != null) return false;
         if (edit_date != null ? !edit_date.equals(order.edit_date) : order.edit_date != null) return false;
         if (comments != null ? !comments.equals(order.comments) : order.comments != null) return false;
-        if (orderInfo != null ? !orderInfo.equals(order.orderInfo) : order.orderInfo != null) return false;
         if (attributes != null ? !attributes.equals(order.attributes) : order.attributes != null) return false;
         return items != null ? items.equals(order.items) : order.items == null;
     }
@@ -347,7 +337,6 @@ public class Order {
         result = 31 * result + (create_date != null ? create_date.hashCode() : 0);
         result = 31 * result + (edit_date != null ? edit_date.hashCode() : 0);
         result = 31 * result + (comments != null ? comments.hashCode() : 0);
-        result = 31 * result + (orderInfo != null ? orderInfo.hashCode() : 0);
         result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
         result = 31 * result + (items != null ? items.hashCode() : 0);
         return result;
@@ -377,7 +366,6 @@ public class Order {
                 ", create_date=" + create_date +
                 ", edit_date=" + edit_date +
                 ", comments='" + comments + '\'' +
-                ", orderInfo=" + orderInfo +
                 ", attributes=" + attributes +
                 ", items=" + items +
                 '}';

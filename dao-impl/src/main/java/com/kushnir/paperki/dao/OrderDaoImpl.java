@@ -77,10 +77,6 @@ public class OrderDaoImpl implements OrderDao {
     private static final String P_ORDER_FINAL_TOTAL_WITH_VAT = "p_final_total_with_vat";
     private static final String P_ORDER_COMMENT = "p_comment";
 
-
-    @Value("${order.addInfo}")
-    private String addOrderInfoSqlQuery;
-
     private static final String P_CUSTOMER_NAME = "p_customer_name";
     private static final String P_ENTERPRISE_NAME = "p_enterprise_name";
     private static final String P_UNP = "p_unp";
@@ -178,30 +174,6 @@ public class OrderDaoImpl implements OrderDao {
         parameterSource.addValue(P_ORDER_COMMENT, order.getComments());
 
         namedParameterJdbcTemplate.update(addOrderSqlQuery, parameterSource, keyHolder);
-
-        return keyHolder.getKey().intValue();
-    }
-
-    @Override
-    public Integer addOrderIfo(OrderInfo orderInfo, Integer idOrder) {
-        LOGGER.debug("addOrderIfo({}, {}) >>>", orderInfo, idOrder);
-        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        parameterSource.addValue(P_ORDER_ID, idOrder);
-        parameterSource.addValue(P_CUSTOMER_NAME, orderInfo.getCustomerName());
-        parameterSource.addValue(P_ENTERPRISE_NAME, orderInfo.getEnterpriseName());
-        parameterSource.addValue(P_UNP, orderInfo.getUNP());
-        parameterSource.addValue(P_EMAIL, orderInfo.getEmail());
-        parameterSource.addValue(P_PHONE, orderInfo.getPhone());
-        parameterSource.addValue(P_PAYMENT_NAME, orderInfo.getPaymentName());
-        parameterSource.addValue(P_PAYMENT_ACCOUNT, orderInfo.getPaymentAccount());
-        parameterSource.addValue(P_PAYMENT_BANK_NAME, orderInfo.getPaymentBankName());
-        parameterSource.addValue(P_PAYMENT_BANK_CODE, orderInfo.getPaymentBankCode());
-        parameterSource.addValue(P_SHIPMENT_NAME, orderInfo.getShipmentName());
-        parameterSource.addValue(P_SHIPMENT_ADDRESS, orderInfo.getShipmentAddress());
-        parameterSource.addValue(P_USER_NOTES, orderInfo.getUserComment());
-
-        namedParameterJdbcTemplate.update(addOrderInfoSqlQuery, parameterSource, keyHolder);
 
         return keyHolder.getKey().intValue();
     }
