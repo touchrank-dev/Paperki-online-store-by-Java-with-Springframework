@@ -1,5 +1,7 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers.order;
 
+import com.kushnir.paperki.model.user.Address;
+import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,16 +42,20 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    UserService userService;
+
     @Value("${content.path}")
     String contentPath;
 
     @GetMapping
-    public String orderPage(Model model) {
+    public String orderPage(Model model, HttpSession httpSession) {
         LOGGER.debug("orderPage() >>>");
         model.addAttribute("templatePathName", contentPath + "order");
         model.addAttribute("fragmentName", "order");
         model.addAttribute("deliveries", deliveryService.getAll());
         model.addAttribute("payments", paymentService.getAll());
+        model.addAttribute("addresses", getAddresses(httpSession));
         return "index";
     }
 
@@ -69,6 +76,16 @@ public class OrderController {
     @ModelAttribute("mapcategories")
     public HashMap getCatalog () throws ServiceException {
         return catalogBean.getAll();
+    }
+
+
+    private HashMap<Integer, ArrayList<Address>> getAddresses(HttpSession httpSession) {
+        User user = (User)httpSession.getAttribute("user");
+        HashMap<Integer, ArrayList<Address>> addresses = null;
+        if(user != null || user.getId() != null || user.getId() > 0) {
+            addresses = userService.getUserAddresses(user.getId());
+        }
+        return addresses;
     }
 
 }

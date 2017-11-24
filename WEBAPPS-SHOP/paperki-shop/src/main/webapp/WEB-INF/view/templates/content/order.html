@@ -155,10 +155,21 @@
                                                             <div class="orderingdeliveryTimeHolder clearfix">
                                                                 <span th:text="${dilivery?.value?.shortDescription}" th:remove="tag">Описание</span></br>
                                                                 <span th:if="${dilivery?.value?.id} > 1">
-                                                                    <label or="order-input-customer-address-value">
+                                                                    <div th:if="${addresses} != null and ${addresses.size()} > 1 and ${addresses[1]} != null and ${addresses[1].size()} > 0"
+                                                                         th:remove="tag">
+                                                                        <select name="orderingCall" class="orderingCall__dropdown">
+                                                                              <option th:each="address : ${addresses[1]}"
+                                                                                      th:value="${address.value}"
+                                                                                      th:text="${address.value}">AddressValue</option>
+
+                                                                        </select>
+                                                                        <label class="deliveryTimeSelect" for="deliveryTimeSelect2">Выберите <br>адрес доставки</label>
+                                                                    </div>
+
+                                                                    <input id="order-input-customer-address-value" type="text">
+                                                                    <label for="order-input-customer-address-value">
                                                                         Укажите адрес доставки
                                                                     </label>
-                                                                    <input id="order-input-customer-address-value" type="text">
                                                                 </span>
                                                             </div>
                                                         </li>
@@ -190,7 +201,7 @@
                                                                    th:attr="for='payment-id-' + ${payment?.value?.id}">
                                                                 <p class="paymentTypeTitle"
                                                                     th:text="${payment?.value?.name}">Название оплаты
-                                                                    <!--<img class="paymentPic" src="/res/img/icons/focus.min.svg">-->
+                                                                    <img class="paymentPic" src="/res/img/icons/focus.min.svg">
                                                                 </p>
                                                                 <p class="paymentTimePrice"></p>
                                                             </label>
@@ -311,10 +322,23 @@
                                                         <div class="orderingdeliveryTimeHolder clearfix">
                                                             <span th:text="${dilivery?.value?.shortDescription}" th:remove="tag">Описание</span>
                                                             <span th:if="${dilivery?.value?.id} > 1">
+
+                                                                <div th:if="${addresses} != null and ${addresses.size()} > 1 and ${addresses[2]} != null and ${addresses[2].size()} > 0"
+                                                                     th:remove="tag">
+                                                                        <select name="orderingCall" class="orderingCall__dropdown">
+                                                                              <option th:each="address : ${addresses[2]}"
+                                                                                      th:value="${address.value}"
+                                                                                      th:text="${address.value}">AddressValue</option>
+
+                                                                        </select>
+                                                                        <label class="deliveryTimeSelect" for="deliveryTimeSelect2">Выберите <br>адрес доставки</label>
+                                                                </div>
+
                                                                 <input id="order-input-enterprise-address-value" type="text">
                                                                 <label class="deliveryTimeSelect" for="order-input-enterprise-address-value">
                                                                     Укажите адрес доставки
                                                                 </label>
+
                                                             </span>                                                              
                                                         </div>
                                                     </li>
@@ -346,6 +370,7 @@
                                                                th:attr="for='payment-id-e-' + ${payment?.value?.id}">
                                                             <p class="paymentTypeTitle"
                                                                th:text="${payment?.value?.name}">Название оплаты
+                                                                <img class="paymentPic" src="/res/img/icons/focus.min.svg">
                                                             </p>
                                                             <p class="paymentTimePrice"></p>
                                                         </label>
