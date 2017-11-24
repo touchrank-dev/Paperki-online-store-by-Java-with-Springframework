@@ -90,7 +90,9 @@
                                         <div class="prod-info">
                                             <div class="prod-info-top">
                                                 <p class="desc-pr" th:text="${product.shortName}">
-                                                    shortName
+                                                    <a href="#"
+                                                       th:href="@{${catalogurl}+${category?.translitName}+'/'+${product.translitName}}"
+                                                       th:text="${product.shortName}">shortName</a>
                                                 </p>
                                                 <div class="prices-block">
                                                     <span   th:switch="${product.basePrice} > ${product.finalPrice}"
