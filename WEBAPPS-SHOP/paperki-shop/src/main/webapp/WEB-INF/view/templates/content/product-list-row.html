@@ -26,6 +26,9 @@
                             <li class="product-list-view-list ">
                                 <a onclick="seViewType(2)"></a>
                             </li>
+                            <li class="product-list-view-grouped">
+                                <a onclick="seViewType(3)"></a>
+                            </li>
                         </ul>
                         <ul class="product-list-view" th:case="${2}">
                             <li class="product-list-view-tile">
@@ -33,6 +36,20 @@
                             </li>
                             <li class="product-list-view-list active">
                                 <a onclick="seViewType(2)"></a>
+                            </li>
+                            <li class="product-list-view-grouped">
+                                <a onclick="seViewType(3)"></a>
+                            </li>
+                        </ul>
+                        <ul class="product-list-view" th:case="${3}">
+                            <li class="product-list-view-tile">
+                                <a onclick="seViewType(1)"></a>
+                            </li>
+                            <li class="product-list-view-list">
+                                <a onclick="seViewType(2)"></a>
+                            </li>
+                            <li class="product-list-view-grouped active">
+                                <a onclick="seViewType(3)"></a>
                             </li>
                         </ul>
                         <form action="" class="sort-block-subscribe">

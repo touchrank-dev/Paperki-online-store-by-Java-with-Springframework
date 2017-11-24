@@ -13,6 +13,7 @@ public class Product {
     private Integer id;
     private Integer papId;
     private Integer pnt;
+    private String personalGroupName;
     private String fullName;
     private String shortName;
     private String translitName;
@@ -98,6 +99,52 @@ public class Product {
     public Product(Integer id,
                    Integer papId,
                    Integer pnt,
+                   String personalGroupName,
+                   String fullName,
+                   String shortName,
+                   String translitName,
+                   String link,
+                   String countryFrom,
+                   String countryMade,
+                   String measure,
+                   Integer availableDay,
+                   Integer quantity,
+                   double basePrice,
+                   double basePriceWithVAT,
+                   double finalPrice,
+                   double finalPriceWithVAT,
+                   Integer VAT,
+                   Boolean isPublished,
+                   Boolean isVisible,
+                   Brand brand,
+                   HashMap<Integer, Price> prices) {
+        this.id = id;
+        this.papId = papId;
+        this.pnt = pnt;
+        this.personalGroupName = personalGroupName;
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.translitName = translitName;
+        this.link = link;
+        this.countryFrom = countryFrom;
+        this.countryMade = countryMade;
+        this.measure = measure;
+        this.availableDay = availableDay;
+        this.quantity = quantity;
+        this.basePrice = basePrice;
+        this.basePriceWithVAT = basePriceWithVAT;
+        this.finalPrice = finalPrice;
+        this.finalPriceWithVAT = finalPriceWithVAT;
+        this.VAT = VAT;
+        this.isPublished = isPublished;
+        this.isVisible = isVisible;
+        this.brand = brand;
+        this.prices = prices;
+    }
+
+    public Product(Integer id,
+                   Integer papId,
+                   Integer pnt,
                    String fullName,
                    String shortName,
                    String translitName,
@@ -157,6 +204,14 @@ public class Product {
 
     public void setPnt(Integer pnt) {
         this.pnt = pnt;
+    }
+
+    public String getPersonalGroupName() {
+        return personalGroupName;
+    }
+
+    public void setPersonalGroupName(String personalGroupName) {
+        this.personalGroupName = personalGroupName;
     }
 
     public String getFullName() {
@@ -413,6 +468,8 @@ public class Product {
         if (id != null ? !id.equals(product.id) : product.id != null) return false;
         if (papId != null ? !papId.equals(product.papId) : product.papId != null) return false;
         if (pnt != null ? !pnt.equals(product.pnt) : product.pnt != null) return false;
+        if (personalGroupName != null ? !personalGroupName.equals(product.personalGroupName) : product.personalGroupName != null)
+            return false;
         if (fullName != null ? !fullName.equals(product.fullName) : product.fullName != null) return false;
         if (shortName != null ? !shortName.equals(product.shortName) : product.shortName != null) return false;
         if (translitName != null ? !translitName.equals(product.translitName) : product.translitName != null)
@@ -452,6 +509,7 @@ public class Product {
         result = id != null ? id.hashCode() : 0;
         result = 31 * result + (papId != null ? papId.hashCode() : 0);
         result = 31 * result + (pnt != null ? pnt.hashCode() : 0);
+        result = 31 * result + (personalGroupName != null ? personalGroupName.hashCode() : 0);
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         result = 31 * result + (shortName != null ? shortName.hashCode() : 0);
         result = 31 * result + (translitName != null ? translitName.hashCode() : 0);
@@ -495,6 +553,7 @@ public class Product {
                 "id=" + id +
                 ", papId=" + papId +
                 ", pnt=" + pnt +
+                ", personalGroupName='" + personalGroupName + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", shortName='" + shortName + '\'' +
                 ", translitName='" + translitName + '\'' +

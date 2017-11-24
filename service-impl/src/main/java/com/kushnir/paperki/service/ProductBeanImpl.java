@@ -56,7 +56,7 @@ public class ProductBeanImpl implements ProductBean {
 
     @Override
     public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) {
-        LOGGER.debug("getProductListByCategoryTName({}) >>>", categoryTName);
+        LOGGER.debug("getProductListByCategoryTName() >>>");
         HashMap<Integer, Product> products =
                     productDao.getProductListByCategoryTName(categoryTName);
         return products;

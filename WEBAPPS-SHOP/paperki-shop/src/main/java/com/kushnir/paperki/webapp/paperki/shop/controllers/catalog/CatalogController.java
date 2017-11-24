@@ -56,7 +56,7 @@ public class CatalogController {
                                   HttpSession session, Model model) throws ServiceException, PageNotFound {
         LOGGER.debug("catalogItemPage() >>>");
 
-        Integer type = (Integer)session.getAttribute("catview");
+        Integer type = (Integer) session.getAttribute("catview");
         try {
             HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalogItemTranslitName);
             Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
@@ -69,9 +69,14 @@ public class CatalogController {
             LOGGER.error(e.getMessage());
             throw e;
         }
-        if (type == null || type == 1) {
+
+        if (type == null || type == 1){
             model.addAttribute("templatePathName", contentPath + "product-list");
             model.addAttribute("fragmentName", "product-list");
+        } else if (type == 3) {
+            model.addAttribute("products", catalogBean.getProductsByGroupView(catalogItemTranslitName));
+            model.addAttribute("templatePathName", contentPath + "product-list-group");
+            model.addAttribute("fragmentName", "product-list-group");
         } else if (type == 2) {
             model.addAttribute("templatePathName", contentPath + "product-list-row");
             model.addAttribute("fragmentName", "product-list-row");
@@ -114,8 +119,7 @@ public class CatalogController {
     @ModelAttribute("catview")
     public Integer viewType(HttpSession session) {
         Integer type = (Integer)session.getAttribute("catview");
-        if (type == null) type = 1;
-        return type;
+        return type == null ? 1:type;
     }
 
     @ModelAttribute("oldImages")

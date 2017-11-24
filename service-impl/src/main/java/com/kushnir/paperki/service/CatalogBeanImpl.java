@@ -69,7 +69,6 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    @Transactional
     public HashMap<Integer, Product> getProductsByCategoryTName(String categoryTName) throws ServiceException {
         LOGGER.debug("getProductsByCategoryTName({}) >>> ", categoryTName);
         try {
@@ -82,7 +81,30 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    @Transactional
+    public HashMap<String, List<Product>> getProductsByGroupView(String categoryTName) throws ServiceException {
+        LOGGER.debug("getProductsByGroupView({}) >>> ", categoryTName);
+        HashMap<String, List<Product>> products = new LinkedHashMap();
+        Product product;
+        String groupName;
+        List<Product> listProducts;
+        for(Map.Entry<Integer, Product> entry : getProductsByCategoryTName(categoryTName).entrySet()) {
+            product = entry.getValue();
+            groupName = product.getPersonalGroupName();
+
+            listProducts = products.get(groupName);
+            if(listProducts == null) {
+                listProducts = new ArrayList<>();
+                listProducts.add(product);
+                products.put(groupName, listProducts);
+            } else {
+                listProducts.add(product);
+            }
+        }
+        return products;
+    }
+
+
+    @Override
     public Product getProductByTName(String productTName) throws ServiceException {
         LOGGER.debug("getProductByTName({}) >>> ", productTName);
         try {
@@ -95,7 +117,6 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    @Transactional
     public String updateCatalog() throws ServiceException, IOException {
         LOGGER.debug("updateCatalog() START PROCESS >>>");
         StringBuilder sb = new StringBuilder();

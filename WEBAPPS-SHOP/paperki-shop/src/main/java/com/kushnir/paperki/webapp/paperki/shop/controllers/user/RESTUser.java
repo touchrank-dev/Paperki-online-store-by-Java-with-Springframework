@@ -151,6 +151,26 @@ public class RESTUser {
         }
     }
 
+    @PostMapping("/passwordrestore")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage restorePassword (@RequestBody HashMap<String, String> userName) {
+        LOGGER.debug("PASSWORD RESTORE REQUEST >>>\nREQUEST RECEIVED: {}", userName);
+        RestMessage restMessage;
+
+        try {
+
+            //Object obj = userService.restorePassword(userName.get("login"));
+
+            restMessage = new RestMessage(HttpStatus.METHOD_NOT_ALLOWED, null, null);
+            return restMessage;
+        } catch (Exception e) {
+            LOGGER.error("PASSWORD RESTORE REQUEST FAILED >>>\nERROR MESSAGE: {}", e.getMessage());
+            restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            mailer.toSupportMail(restMessage.toString(), "PASSWORD RESTORE REQUEST FAILED");
+            return restMessage;
+        }
+    }
+
     @PostMapping("/update")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage update(@RequestBody UserUpdateRequest userUpdateRequest,

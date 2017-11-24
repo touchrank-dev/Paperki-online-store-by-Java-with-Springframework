@@ -73,6 +73,7 @@ public class ProductsResultSetExtractor implements ResultSetExtractor {
                         idProduct,
                         rs.getInt("pap_id"),
                         rs.getInt("pnt"),
+                        rs.getString("personal_group_name"),
                         rs.getString("full_name"),
                         rs.getString("short_name"),
                         rs.getString("translit_name"),
