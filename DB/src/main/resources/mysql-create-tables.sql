@@ -457,3 +457,17 @@ CREATE TABLE payment_order_type (
     FOREIGN KEY (id_order_type)                 REFERENCES order_types(id_order_type),
     UNIQUE KEY `p_o_c_p` (id_payment, id_order_type, min_cart_total, price)
 );
+
+DROP TABLE IF EXISTS password_recovery_requests;
+CREATE TABLE password_recovery_requests (
+    id_request                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    token                       VARCHAR(100)    NOT NULL UNIQUE,
+    id_user                     INT             NOT NULL,
+    user_login                  VARCHAR(100)    NOT NULL,
+    email                       VARCHAR(50)     NOT NULL,
+    ip_address                  VARCHAR(16)     ,
+    create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
+    is_expired                  TINYINT         DEFAULT 0,
+    is_performed                TINYINT         DEFAULT 0,
+    FOREIGN KEY (id_user)                       REFERENCES users(id_user)
+);

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
@@ -153,15 +154,25 @@ public class RESTUser {
 
     @PostMapping("/passwordrestore")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody RestMessage restorePassword (@RequestBody HashMap<String, String> userName) {
-        LOGGER.debug("PASSWORD RESTORE REQUEST >>>\nREQUEST RECEIVED: {}", userName);
+    public @ResponseBody RestMessage restorePassword (@RequestBody PasswordRecoveryRequest passwordRecoveryRequest,
+                                                      HttpServletRequest httpServletRequest,
+                                                      HttpSession httpSession) {
+        LOGGER.debug("PASSWORD RESTORE REQUEST >>>\nREQUEST RECEIVED: {}", passwordRecoveryRequest);
         RestMessage restMessage;
 
         try {
 
-            //Object obj = userService.restorePassword(userName.get("login"));
+            passwordRecoveryRequest.setIpAddress(httpServletRequest.getRemoteAddr());
+            Object obj = userService.addPasswordRecoveryRequest(passwordRecoveryRequest);
 
-            restMessage = new RestMessage(HttpStatus.METHOD_NOT_ALLOWED, null, null);
+            if (obj instanceof ErrorMessages) {
+                LOGGER.debug("UNSUCCESSFUL: {}", obj);
+                restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "Запрос на восстановление пароля не принят", obj);
+            } else {
+                LOGGER.debug("SUCCESSFULLY: {}", obj);
+                httpSession.setAttribute("passwordRequestId", (Integer)obj);
+                restMessage = new RestMessage(HttpStatus.OK, "Запрос на восстановление пароля принят", obj);
+            }
             return restMessage;
         } catch (Exception e) {
             LOGGER.error("PASSWORD RESTORE REQUEST FAILED >>>\nERROR MESSAGE: {}", e.getMessage());

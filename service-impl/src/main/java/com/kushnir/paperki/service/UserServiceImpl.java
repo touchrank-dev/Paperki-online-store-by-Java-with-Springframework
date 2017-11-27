@@ -8,6 +8,7 @@ import com.kushnir.paperki.model.password.NewPasswordForm;
 import com.kushnir.paperki.model.user.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.jws.soap.SOAPBinding;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.math.BigInteger;
@@ -24,6 +26,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.security.MessageDigest;
@@ -67,7 +70,7 @@ public class UserServiceImpl implements UserService {
             errorLoginData.setLogin(e.getMessage());
         }
         try {
-            user = userDao.getUserByLogin(loginData.getLogin());
+            user = getUserByLogin(loginData.getLogin());
             if(user == null) {
                 user = userDao.getUserByEnterpriseUNP(loginData.getLogin());
             }
@@ -547,6 +550,50 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public Object addPasswordRecoveryRequest(PasswordRecoveryRequest passwordRecoveryRequest) {
+        LOGGER.debug("addPasswordRecoveryRequest()");
+
+        try {
+            Assert.isTrue(!StringUtils.isBlank(passwordRecoveryRequest.getUserLogin()),
+                    "Укажите свой логин или УНП при регистрации");
+            User user = getUserByLogin(passwordRecoveryRequest.getUserLogin());
+            if(user == null) {
+                user = userDao.getUserByEnterpriseUNP(passwordRecoveryRequest.getUserLogin());
+            }
+            Assert.notNull(user, "Пользователь не найден");
+
+            LOGGER.debug("Пользователь найден: {}", user);
+
+            passwordRecoveryRequest.setUserId(user.getId());
+            passwordRecoveryRequest.setEmail(user.getEmail());
+            passwordRecoveryRequest.setToken(UUID.randomUUID().toString());
+
+            passwordRecoveryRequest.setId(userDao.addPasswordRecoveryRequest(passwordRecoveryRequest));
+
+            return passwordRecoveryRequest.getId();
+
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("VALIDATE EXCEPTION >>>\nERROR MESSAGE: {}", e.getMessage());
+            return new ErrorMessages(e.getMessage());
+        } catch (Exception e) {
+            LOGGER.error("addPasswordRecoveryRequest EXCEPTION >>>\nERROR MESSAGE: {}", e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public PasswordRecoveryRequest getPasswordRecoveryRequestById (Integer id) {
+        LOGGER.debug("getPasswordRecoveryRequestById({})", id);
+        try {
+            Assert.notNull(id);
+            Assert.isTrue(id > 0);
+            return userDao.getPasswordRecoveryRequestById(id);
+        } catch (Exception e) {
+            LOGGER.debug("ERROR: {}", e);
+            return null;
+        }
+    }
 
 
     // UTIL's

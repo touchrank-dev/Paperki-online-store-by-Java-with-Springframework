@@ -4,6 +4,7 @@ import com.kushnir.paperki.model.BillingAccount;
 import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.RegistrateForm;
 import com.kushnir.paperki.model.user.Address;
+import com.kushnir.paperki.model.user.PasswordRecoveryRequest;
 import com.kushnir.paperki.model.user.User;
 
 import com.kushnir.paperki.model.user.UserUpdateRequest;
@@ -64,6 +65,11 @@ public class UserDaoImpl implements UserDao {
     private static final String P_ADDRESS_VALUE = "p_value";
     private static final String P_DESCRIPTION = "p_description";
 
+    private static final String P_ID = "p_id";
+    private static final String P_TOKEN = "p_token";
+    private static final String P_IP_ADDRESS = "p_ip_address";
+
+
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -117,6 +123,12 @@ public class UserDaoImpl implements UserDao {
 
     @Value("${address.getByUserId}")
     private String getAllUsersAddressesSqlQuery;
+
+    @Value("${password.request.add}")
+    private String addPasswordRequestSqlQuery;
+
+    @Value("${password.request.getById}")
+    private String getPasswordRequestByIdSqlQuery;
 
     @Override
     public User getUserByLoginPassword(String userName, String password) throws DataAccessException {
@@ -397,6 +409,51 @@ public class UserDaoImpl implements UserDao {
         addresses = namedParameterJdbcTemplate.query(getAllUsersAddressesSqlQuery, parameterSource, new AddressesResultSetExtractor());
         return addresses;
     }
+
+    @Override
+    public Integer addPasswordRecoveryRequest(PasswordRecoveryRequest passwordRecoveryRequest) {
+        LOGGER.debug("addPasswordRecoveryRequest()");
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue(P_TOKEN, passwordRecoveryRequest.getToken());
+        parameterSource.addValue(P_USER_ID, passwordRecoveryRequest.getUserId());
+        parameterSource.addValue(P_USER_LOGIN, passwordRecoveryRequest.getUserLogin());
+        parameterSource.addValue(P_USER_EMAIL, passwordRecoveryRequest.getEmail());
+        parameterSource.addValue(P_IP_ADDRESS, passwordRecoveryRequest.getIpAddress());
+        namedParameterJdbcTemplate.update(addPasswordRequestSqlQuery, parameterSource, keyHolder);
+        return keyHolder.getKey().intValue();
+    }
+
+    @Override
+    public PasswordRecoveryRequest getPasswordRecoveryRequestById (Integer id) {
+        LOGGER.debug("getPasswordRecoveryRequestById()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ID, id);
+        return namedParameterJdbcTemplate.queryForObject(
+                getPasswordRequestByIdSqlQuery,
+                parameterSource,
+                new PasswordRecoveryRequestRowMapper());
+    }
+
+
+    private class PasswordRecoveryRequestRowMapper implements RowMapper<PasswordRecoveryRequest> {
+
+        @Override
+        public PasswordRecoveryRequest mapRow(ResultSet rs, int i) throws SQLException {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            return new PasswordRecoveryRequest (
+                    rs.getInt("id_request"),
+                    rs.getString("token"),
+                    rs.getInt("id_user"),
+                    rs.getString("user_login"),
+                    rs.getString("email"),
+                    rs.getString("ip_address"),
+                    LocalDateTime.parse(rs.getString("create_date"), formatter),
+                    rs.getBoolean("is_expired"),
+                    rs.getBoolean("is_performed")
+            );
+        }
+    }
+
 
     private class AddressRowMapper implements RowMapper<Address> {
 

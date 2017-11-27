@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.LoginData;
 import com.kushnir.paperki.model.RegistrateForm;
 import com.kushnir.paperki.model.password.NewPasswordForm;
 import com.kushnir.paperki.model.user.Address;
+import com.kushnir.paperki.model.user.PasswordRecoveryRequest;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.user.UserUpdateRequest;
 import com.kushnir.paperki.service.exceptions.ServiceException;
@@ -28,4 +29,7 @@ public interface UserService {
     Integer deleteAddress(Integer idAddress, Integer userId);
     Address getUserAddress(Integer id);
     HashMap<Integer,ArrayList<Address>> getUserAddresses(Integer userId);
+
+    Object addPasswordRecoveryRequest(PasswordRecoveryRequest passwordRecoveryRequest);
+    PasswordRecoveryRequest getPasswordRecoveryRequestById (Integer id);
 }
