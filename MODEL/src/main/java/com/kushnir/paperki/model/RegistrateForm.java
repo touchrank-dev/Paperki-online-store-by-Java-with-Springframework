@@ -6,6 +6,7 @@ public class RegistrateForm {
     private String email;
     private Boolean subscribe;
     private String password;
+    private String passwordConfirm;
     private Boolean autopass;
     private String phone;
     private String birthDate;
@@ -64,6 +65,36 @@ public class RegistrateForm {
         this.bankCode = bankCode;
     }
 
+    public RegistrateForm(String name,
+                          String email,
+                          Boolean subscribe,
+                          String password,
+                          String passwordConfirm,
+                          Boolean autopass,
+                          String phone,
+                          Boolean enterprise,
+                          String UNP,
+                          String enterpriseName,
+                          String billingAddress,
+                          String accountNumber,
+                          String bankName,
+                          String bankCode) {
+        this.name = name;
+        this.email = email;
+        this.subscribe = subscribe;
+        this.password = password;
+        this.passwordConfirm = passwordConfirm;
+        this.autopass = autopass;
+        this.phone = phone;
+        this.enterprise = enterprise;
+        this.UNP = UNP;
+        this.enterpriseName = enterpriseName;
+        this.billingAddress = billingAddress;
+        this.accountNumber = accountNumber;
+        this.bankName = bankName;
+        this.bankCode = bankCode;
+    }
+
     public String getName() {
         return name;
     }
@@ -94,6 +125,14 @@ public class RegistrateForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     public Boolean getAutopass() {
@@ -187,6 +226,8 @@ public class RegistrateForm {
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (subscribe != null ? !subscribe.equals(that.subscribe) : that.subscribe != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
+        if (passwordConfirm != null ? !passwordConfirm.equals(that.passwordConfirm) : that.passwordConfirm != null)
+            return false;
         if (autopass != null ? !autopass.equals(that.autopass) : that.autopass != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
         if (birthDate != null ? !birthDate.equals(that.birthDate) : that.birthDate != null) return false;
@@ -208,6 +249,7 @@ public class RegistrateForm {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (subscribe != null ? subscribe.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (passwordConfirm != null ? passwordConfirm.hashCode() : 0);
         result = 31 * result + (autopass != null ? autopass.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
@@ -227,17 +269,18 @@ public class RegistrateForm {
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", subscribe=" + subscribe +
-                ", password='" + "******" + '\'' +
+                ", password='" + "********" + '\'' +
+                ", passwordConfirm='" + "********" + '\'' +
                 ", autopass=" + autopass +
                 ", phone='" + phone + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", enterprise=" + enterprise +
-                ", UNP=" + UNP +
+                ", UNP='" + UNP + '\'' +
                 ", enterpriseName='" + enterpriseName + '\'' +
                 ", billingAddress='" + billingAddress + '\'' +
                 ", accountNumber='" + accountNumber + '\'' +
                 ", bankName='" + bankName + '\'' +
-                ", bankCode=" + bankCode +
+                ", bankCode='" + bankCode + '\'' +
                 '}';
     }
 }

@@ -143,13 +143,13 @@ public class UserServiceImpl implements UserService {
                     "Введен некорректный адрес электронной почты");
             Assert.isNull(userDao.getUserByLogin(form.getEmail()),
                     "Пользователь под таким логином уже присутствует в базе даннных");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             errorRegistrateForm.setEmail(e.getMessage());
         }
         try {
             Assert.notNull(form.getName(), "Имя пользователя не должно быть пустым");
             Assert.hasText(form.getName(), "Имя пользователя не должно быть пустым");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             errorRegistrateForm.setName(e.getMessage());
         }
         // подписка на рассылку
@@ -171,13 +171,20 @@ public class UserServiceImpl implements UserService {
                 Assert.hasText(form.getPassword(), "Пароль не может быть пустым");
                 Assert.isTrue(form.getPassword().length() > 5,
                         "Длина пароля не должна быть меньше 6 символов");
+
                 //TODO проверка на регулярное выражение (паттерн)
                 /*Assert.isTrue(validatePassword(form.getPassword()),
                     "Пароль не соответствует регулярному выражению");*/
-                form.setPassword(encoding(form.getPassword()));
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 errorRegistrateForm.setPassword(e.getMessage());
             }
+
+            try {
+                Assert.isTrue(form.getPasswordConfirm().equals(form.getPassword()), "Пароли не совпадают");
+            } catch (IllegalArgumentException e) {
+                errorRegistrateForm.setConfirmPassword(e.getMessage());
+            }
+
         }
         // TODO проверка на юр-лицо form.enterprize
         if(form.getEnterprise()){
@@ -186,20 +193,20 @@ public class UserServiceImpl implements UserService {
                 Assert.hasText(form.getUNP(), "УНП не может быть пустым");
                 Assert.isTrue(form.getUNP().length() == 9, "УНП должно быть 9 знаков");
                 /*Assert.isTrue(form.getUNP().matches("^\\D*$"), "Введено недопустиаое значение УНП");*/
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 errorRegistrateForm.setUNP(e.getMessage());
             }
             try {
                 Assert.notNull(form.getEnterpriseName(), "Название организации не может быть пустым");
                 Assert.hasText(form.getEnterpriseName(), "Название организации не может быть пустым");
                 Assert.isNull(userDao.getEnterpriseByUNP(form.getUNP()), "Органзация с таким УНП уже присутствует");
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 errorRegistrateForm.setEnterpriseName(e.getMessage());
             }
             try {
                 Assert.notNull(form.getBillingAddress(), "Адрес организации не может быть пустым");
                 Assert.hasText(form.getBillingAddress(), "Адрес организации не может быть пустым");
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 errorRegistrateForm.setBillingAddress(e.getMessage());
             }
         }
@@ -209,6 +216,7 @@ public class UserServiceImpl implements UserService {
             LOGGER.error("REGISTRATION FAILED! >>>\nERROR FORM: {}", errorRegistrateForm);
                 return errorRegistrateForm;
         } else {
+                form.setPassword(encoding(form.getPassword()));
                 User user = new User(form.getEmail(),
                         form.getPassword(),
                         form.getName(),

@@ -116,7 +116,6 @@ function deleteFromCart(pnt) {
         data: JSON.stringify({"pnt":pnt}),
         success: function(response) {
             if(response.code == "OK") {
-                console.log(response);
                 mapCart(response.object);
                 location.reload();
                 // alert("Товар под кодом("+pnt+") успено удален из корзины!");
@@ -144,7 +143,6 @@ function register() {
         data: regFormToJSON(),
         success: function(response){
             if(response.code == "CREATED") {
-                alert(response.message);
                 location.reload();
             } else if(response.code == "NOT_ACCEPTABLE") {
                 mapErrorRegisterForm(response.object);
@@ -343,6 +341,7 @@ function regFormToJSON() {
         "email":            $('#registration-input-email').val(),
         "subscribe":        $('#check-subscribe').attr("checked") == "checked" ? true:false,
         "password":         $('#registration-input-password').val(),
+        "passwordConfirm":  $('#registration-input-confirm-password').val(),
         "autopass":         $('#check-autopassword').attr("checked") == "checked" ? true:false,
         "phone":            $('#registration-input-phone').val(),
         "enterprise":       $('#check-isenterprise').attr("checked") == "checked" ? true:false,
