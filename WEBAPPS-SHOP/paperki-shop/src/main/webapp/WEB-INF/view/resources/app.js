@@ -146,17 +146,19 @@ function register() {
                 location.reload();
             } else if(response.code == "NOT_ACCEPTABLE") {
                 mapErrorRegisterForm(response.object);
+                hideLoader();
             }
             else if(response.code == "INTERNAL_SERVER_ERROR") {
                 console.log(response);
+                hideLoader();
                 serverAlert();
             }
         },
         error: function () {
+            hideLoader();
             serverAlert();
         }
     });
-    hideLoader();
 }
 
 function logout() {
