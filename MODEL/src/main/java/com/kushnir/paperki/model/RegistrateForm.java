@@ -15,7 +15,7 @@ public class RegistrateForm {
     private String billingAddress;
     private String accountNumber;
     private String bankName;
-    private Integer bankCode;
+    private String bankCode;
 
     public RegistrateForm() {
     }
@@ -48,7 +48,7 @@ public class RegistrateForm {
                           String billingAddress,
                           String accountNumber,
                           String bankName,
-                          Integer bankCode) {
+                          String bankCode) {
         this.name = name;
         this.email = email;
         this.subscribe = subscribe;
@@ -168,11 +168,11 @@ public class RegistrateForm {
         this.bankName = bankName;
     }
 
-    public Integer getBankCode() {
+    public String getBankCode() {
         return bankCode;
     }
 
-    public void setBankCode(Integer bankCode) {
+    public void setBankCode(String bankCode) {
         this.bankCode = bankCode;
     }
 

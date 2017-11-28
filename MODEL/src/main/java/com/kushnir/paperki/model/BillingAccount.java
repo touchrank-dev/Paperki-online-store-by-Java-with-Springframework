@@ -5,26 +5,26 @@ public class BillingAccount {
     private Integer enterpriseId;
     private String accountNumber;
     private String bankName;
-    private Integer bankCode;
+    private String bankCode;
     private Boolean isPrimary;
 
     public BillingAccount() {
     }
 
-    public BillingAccount(String accountNumber, String bankName, Integer bankCode) {
+    public BillingAccount(String accountNumber, String bankName, String bankCode) {
         this.accountNumber = accountNumber;
         this.bankName = bankName;
         this.bankCode = bankCode;
     }
 
-    public BillingAccount(Integer enterpriseId, String accountNumber, String bankName, Integer bankCode) {
+    public BillingAccount(Integer enterpriseId, String accountNumber, String bankName, String bankCode) {
         this.enterpriseId = enterpriseId;
         this.accountNumber = accountNumber;
         this.bankName = bankName;
         this.bankCode = bankCode;
     }
 
-    public BillingAccount(Integer id, Integer enterpriseId, String accountNumber, String bankName, Integer bankCode) {
+    public BillingAccount(Integer id, Integer enterpriseId, String accountNumber, String bankName, String bankCode) {
         this.id = id;
         this.enterpriseId = enterpriseId;
         this.accountNumber = accountNumber;
@@ -36,7 +36,7 @@ public class BillingAccount {
                           Integer enterpriseId,
                           String accountNumber,
                           String bankName,
-                          Integer bankCode,
+                          String bankCode,
                           Boolean isPrimary) {
         this.id = id;
         this.enterpriseId = enterpriseId;
@@ -78,11 +78,11 @@ public class BillingAccount {
         this.bankName = bankName;
     }
 
-    public Integer getBankCode() {
+    public String getBankCode() {
         return bankCode;
     }
 
-    public void setBankCode(Integer bankCode) {
+    public void setBankCode(String bankCode) {
         this.bankCode = bankCode;
     }
 

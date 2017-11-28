@@ -730,60 +730,6 @@ function mapErrorChangePassword (form) {
 /*=========================================================================================*/
 
 
-function setOwnerAndType(owner, type) {
-    $('#input-add-address-owner').val(owner),
-    $('#input-add-address-type').val(type)
-}
-
-function AddAddress() {
-    showLoader();
-    $.ajax({
-         cache: false,
-         async: false,
-         type: "POST",
-         contentType: "application/json",
-         dataType: "json",
-         url: "/api/user/addressadd",
-         data: addressFormToJSON(),
-         success: function(response){
-             if(response.code == "OK") {
-                location.reload();
-                // document.location.href = '#enterprise-tab';
-             } else if(response.code == "BAD_REQUEST") {
-                mapErrorAddressForm(response.object);
-                console.log(response);
-             } else if(response.code == "INTERNAL_SERVER_ERROR") {
-                console.log(response);
-                serverAlert();
-             }
-         },
-         error: function () {
-             serverAlert();
-         }
-    });
-    hideLoader();
-}
-
-function addressFormToJSON() {
-    return JSON.stringify({
-        "ownerId":          $('#input-add-address-owner').val(),
-        "type":             $('#input-add-address-type').val(),
-        "index":            $('#input-add-address-index').val(),
-        "city":             $('#input-add-address-city').val(),
-        "street":           $('#input-add-address-street').val(),
-        "house":            $('#input-add-address-house').val(),
-        "housePart":        $('#input-add-address-house-part').val(),
-        "houseOffice":      $('#input-add-address-house-office').val(),
-        "description":      $('#input-add-address-description').val()
-    });
-}
-
-function mapErrorAddressForm (form) {
-    mapErrorToField(form.city, $('#input-add-address-city'), $('#label-add-address-city'));
-    mapErrorToField(form.street, $('#input-add-address-street'), $('#label-add-address-street'));
-    mapErrorToField(form.house, $('#input-add-address-house'), $('#label-add-address-house'));
-}
-
 /*=========================================================================================*/
 
 function addEnterprise() {
@@ -1001,6 +947,68 @@ function mapAddresUpdateField(value, input) {
     } 
 }
 
+
+/*=========================================================================================*/
+
+
+function setOwnerAndType(owner, type) {
+    $('#input-add-address-owner').val(owner),
+        $('#input-add-address-type').val(type)
+}
+
+function AddAddress() {
+    showLoader();
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/user/addressadd",
+        data: addressFormToJSON(),
+        success: function(response){
+            if(response.code == "OK") {
+                location.reload();
+                // document.location.href = '#enterprise-tab';
+            } else if(response.code == "BAD_REQUEST") {
+                mapErrorAddressForm(response.object);
+                console.log(response);
+            } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
+                serverAlert();
+            }
+        },
+        error: function () {
+            serverAlert();
+        }
+    });
+    hideLoader();
+}
+
+function addressFormToJSON() {
+    return JSON.stringify({
+        "ownerId":          $('#input-add-address-owner').val(),
+        "type":             $('#input-add-address-type').val(),
+        "index":            $('#input-add-address-index').val(),
+        "city":             $('#input-add-address-city').val(),
+        "street":           $('#input-add-address-street').val(),
+        "house":            $('#input-add-address-house').val(),
+        "housePart":        $('#input-add-address-house-part').val(),
+        "houseOffice":      $('#input-add-address-house-office').val(),
+        "description":      $('#input-add-address-description').val()
+    });
+}
+
+function mapErrorAddressForm (form) {
+    mapErrorToField(form.index, $('#input-add-address-index'), $('#label-add-address-index'));
+    mapErrorToField(form.city, $('#input-add-address-city'), $('#label-add-address-city'));
+    mapErrorToField(form.street, $('#input-add-address-street'), $('#label-add-address-street'));
+    mapErrorToField(form.house, $('#input-add-address-house'), $('#label-add-address-house'));
+    mapErrorToField(form.housePart, $('#input-add-address-house-part'), $('#label-add-address-house-part'));
+    mapErrorToField(form.houseOffice, $('#input-add-address-house-office'), $('#label-add-address-house-office'));
+    mapErrorToField(form.description, $('#input-add-address-description'), $('#label-add-address-description'));
+}
+
 /*=========================================================================================*/
 
 function UpdateAddress() {
@@ -1033,9 +1041,13 @@ function UpdateAddress() {
 }
 
 function mapErrorAddressUpdateForm (form) {
+    mapErrorToField(form.index, $('#input-edit-address-index'), $('#label-edit-address-index'));
     mapErrorToField(form.city, $('#input-update-address-city'), $('#label-update-address-city'));
     mapErrorToField(form.street, $('#input-update-address-street'), $('#label-update-address-street'));
     mapErrorToField(form.house, $('#input-update-address-house'), $('#label-update-address-house'));
+    mapErrorToField(form.housePart, $('#input-edit-address-house-part'), $('#label-edit-address-house-part'));
+    mapErrorToField(form.houseOffice, $('#input-edit-address-house-office'), $('#label-edit-address-house-office'));
+    mapErrorToField(form.description, $('#input-edit-address-description'), $('#label-edit-address-description'));
 }
 
 /*=========================================================================================*/

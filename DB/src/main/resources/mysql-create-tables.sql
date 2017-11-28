@@ -50,7 +50,7 @@ CREATE TABLE payment_accounts(
     id_payment_account          INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_enterprise               INT             NOT NULL,
     bank_name                   VARCHAR(150)    NOT NULL,
-    bank_code                   INT             NOT NULL,
+    bank_code                   VARCHAR(10)     NOT NULL,
     account_number              VARCHAR(20)     NOT NULL,
     is_primary                  TINYINT         DEFAULT 0,
     FOREIGN KEY (id_enterprise)                 REFERENCES enterprise(id_enterprise),

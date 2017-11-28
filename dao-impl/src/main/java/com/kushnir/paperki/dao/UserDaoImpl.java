@@ -556,7 +556,7 @@ public class UserDaoImpl implements UserDao {
 
                 Integer accId =             rs.getInt("id_payment_account");
                 String bankName =           rs.getString("bank_name");
-                Integer bankCode =          rs.getInt("bank_code");
+                String bankCode =           rs.getString("bank_code");
                 String accountNumber =      rs.getString("account_number");
                 Boolean isPrimary =         rs.getBoolean("is_primary");
 

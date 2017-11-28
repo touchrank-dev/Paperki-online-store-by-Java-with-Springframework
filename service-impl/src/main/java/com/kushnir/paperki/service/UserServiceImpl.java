@@ -418,26 +418,7 @@ public class UserServiceImpl implements UserService {
         LOGGER.debug("addAddress({}, {})", address, userId);
         AddressErrorResponse addressErrorResponse = new AddressErrorResponse();
 
-        try {
-            Assert.notNull(address.getCity(), "Пожалуйста укажите город доставки");
-            Assert.hasText(address.getCity(), "Пожалуйста укажите город доставки");
-        } catch (Exception e) {
-            addressErrorResponse.setCity(e.getMessage());
-        }
-
-        try {
-            Assert.notNull(address.getStreet(), "Пожалуйста укажите улицу");
-            Assert.hasText(address.getStreet(), "Пожалуйста укажите улицу");
-        } catch (Exception e) {
-            addressErrorResponse.setStreet(e.getMessage());
-        }
-
-        try {
-            Assert.notNull(address.getHouse(), "Пожалуйста укажите номер дома");
-            Assert.hasText(address.getHouse(), "Пожалуйста укажите номер дома");
-        } catch (Exception e) {
-            addressErrorResponse.setHouse(e.getMessage());
-        }
+        validateAddress(address, addressErrorResponse);
 
         if (addressErrorResponse.isErrors()) return addressErrorResponse;
         else {
@@ -471,26 +452,7 @@ public class UserServiceImpl implements UserService {
 
         // TODO check if id is from current user
 
-        try {
-            Assert.notNull(address.getCity(), "Пожалуйста укажите город доставки");
-            Assert.hasText(address.getCity(), "Пожалуйста укажите город доставки");
-        } catch (Exception e) {
-            addressErrorResponse.setCity(e.getMessage());
-        }
-
-        try {
-            Assert.notNull(address.getStreet(), "Пожалуйста укажите улицу");
-            Assert.hasText(address.getStreet(), "Пожалуйста укажите улицу");
-        } catch (Exception e) {
-            addressErrorResponse.setStreet(e.getMessage());
-        }
-
-        try {
-            Assert.notNull(address.getHouse(), "Пожалуйста укажите номер дома");
-            Assert.hasText(address.getHouse(), "Пожалуйста укажите номер дома");
-        } catch (Exception e) {
-            addressErrorResponse.setHouse(e.getMessage());
-        }
+        validateAddress(address, addressErrorResponse);
 
         if (addressErrorResponse.isErrors()) return addressErrorResponse;
         else {
@@ -586,8 +548,8 @@ public class UserServiceImpl implements UserService {
     public PasswordRecoveryRequest getPasswordRecoveryRequestById (Integer id) {
         LOGGER.debug("getPasswordRecoveryRequestById({})", id);
         try {
-            Assert.notNull(id);
-            Assert.isTrue(id > 0);
+            Assert.notNull(id, "id = null");
+            Assert.isTrue(id > 0, "id =< 0");
             return userDao.getPasswordRecoveryRequestById(id);
         } catch (Exception e) {
             LOGGER.debug("ERROR: {}", e);
@@ -611,6 +573,59 @@ public class UserServiceImpl implements UserService {
             return false;
         }
     }
+
+    private void validateAddress(Address address, AddressErrorResponse addressErrorResponse) {
+
+        try {
+            Assert.isTrue(address.getIndex().length() < 10, "Слишком длинное значение (не более 10 символов)");
+        } catch (Exception e) {
+            addressErrorResponse.setIndex(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(address.getCity(), "Пожалуйста укажите город доставки");
+            Assert.hasText(address.getCity(), "Пожалуйста укажите город доставки");
+            Assert.isTrue(address.getCity().length() < 30, "Слишком длинное значение (не более 30 символов)");
+        } catch (Exception e) {
+            addressErrorResponse.setCity(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(address.getStreet(), "Пожалуйста укажите улицу");
+            Assert.hasText(address.getStreet(), "Пожалуйста укажите улицу");
+            Assert.isTrue(address.getStreet().length() < 100, "Слишком длинное значение (не более 100 символов)");
+        } catch (Exception e) {
+            addressErrorResponse.setStreet(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(address.getHouse(), "Пожалуйста укажите номер дома");
+            Assert.hasText(address.getHouse(), "Пожалуйста укажите номер дома");
+            Assert.isTrue(address.getHouse().length() < 5, "Слишком длинное значение (не более 5 символов)");
+
+        } catch (Exception e) {
+            addressErrorResponse.setHouse(e.getMessage());
+        }
+
+        try {
+            Assert.isTrue(address.getHousePart().length() < 5, "Слишком длинное значение (не более 5 символов)");
+        } catch (Exception e) {
+            addressErrorResponse.setHousePart(e.getMessage());
+        }
+
+        try {
+            Assert.isTrue(address.getHouseOffice().length() < 5, "Слишком длинное значение (не более 5 символов)");
+        } catch (Exception e) {
+            addressErrorResponse.setHouseOffice(e.getMessage());
+        }
+
+        try {
+            Assert.isTrue(address.getDescription().length() < 1500, "Слишком длинное значение (не более 1500 символов)");
+        } catch (Exception e) {
+            addressErrorResponse.setDescription(e.getMessage());
+        }
+    }
+
 
     public static String encoding(String input) {
         String str = null;

@@ -7,6 +7,7 @@ public class AddressErrorResponse {
     private String house;
     private String housePart;
     private String houseOffice;
+    private String description;
 
     private Boolean isErrors = false;
 
@@ -78,6 +79,15 @@ public class AddressErrorResponse {
         this.isErrors = true;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+        this.isErrors = true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,6 +101,7 @@ public class AddressErrorResponse {
         if (house != null ? !house.equals(that.house) : that.house != null) return false;
         if (housePart != null ? !housePart.equals(that.housePart) : that.housePart != null) return false;
         if (houseOffice != null ? !houseOffice.equals(that.houseOffice) : that.houseOffice != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         return isErrors != null ? isErrors.equals(that.isErrors) : that.isErrors == null;
     }
 
@@ -102,6 +113,7 @@ public class AddressErrorResponse {
         result = 31 * result + (house != null ? house.hashCode() : 0);
         result = 31 * result + (housePart != null ? housePart.hashCode() : 0);
         result = 31 * result + (houseOffice != null ? houseOffice.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (isErrors != null ? isErrors.hashCode() : 0);
         return result;
     }
@@ -115,6 +127,7 @@ public class AddressErrorResponse {
                 ", house='" + house + '\'' +
                 ", housePart='" + housePart + '\'' +
                 ", houseOffice='" + houseOffice + '\'' +
+                ", description='" + description + '\'' +
                 ", isErrors=" + isErrors +
                 '}';
     }
