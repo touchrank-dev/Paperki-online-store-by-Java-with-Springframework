@@ -1042,9 +1042,9 @@ function UpdateAddress() {
 
 function mapErrorAddressUpdateForm (form) {
     mapErrorToField(form.index, $('#input-edit-address-index'), $('#label-edit-address-index'));
-    mapErrorToField(form.city, $('#input-update-address-city'), $('#label-update-address-city'));
-    mapErrorToField(form.street, $('#input-update-address-street'), $('#label-update-address-street'));
-    mapErrorToField(form.house, $('#input-update-address-house'), $('#label-update-address-house'));
+    mapErrorToField(form.city, $('#input-edit-address-city'), $('#label-edit-address-city'));
+    mapErrorToField(form.street, $('#input-edit-address-street'), $('#label-edit-address-street'));
+    mapErrorToField(form.house, $('#input-edit-address-house'), $('#label-edit-address-house'));
     mapErrorToField(form.housePart, $('#input-edit-address-house-part'), $('#label-edit-address-house-part'));
     mapErrorToField(form.houseOffice, $('#input-edit-address-house-office'), $('#label-edit-address-house-office'));
     mapErrorToField(form.description, $('#input-edit-address-description'), $('#label-edit-address-description'));
