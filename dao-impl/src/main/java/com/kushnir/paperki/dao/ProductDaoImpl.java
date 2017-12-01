@@ -28,6 +28,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class ProductDaoImpl implements ProductDao {
 
@@ -224,7 +225,7 @@ public class ProductDaoImpl implements ProductDao {
         sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
                 .append(">>> PROGRESS ...").append('\n');
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
-        HashMap<Integer, CSVProduct> products = new HashMap<>();
+        HashMap<Integer, CSVProduct> products = new LinkedHashMap<>();
 
         try {
             Iterable<CSVRecord> records =
@@ -308,7 +309,7 @@ public class ProductDaoImpl implements ProductDao {
         sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
                 .append(">>> PROGRESS ...").append('\n');
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
-        HashMap<Integer, StockItem> items = new HashMap<>();
+        HashMap<Integer, StockItem> items = new LinkedHashMap<>();
 
         try {
             Iterable<CSVRecord> records =

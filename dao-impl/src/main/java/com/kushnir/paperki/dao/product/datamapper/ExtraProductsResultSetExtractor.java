@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import static com.kushnir.paperki.model.calculation.PriceCalculator.calculateDiscountedPrice;
 import static com.kushnir.paperki.model.calculation.PriceCalculator.getPriceWithVAT;
@@ -21,7 +22,7 @@ public class ExtraProductsResultSetExtractor implements ResultSetExtractor<HashM
 
     @Override
     public HashMap<Integer, HashMap<Integer, Product>> extractData(ResultSet rs) throws SQLException, DataAccessException {
-        HashMap<Integer, HashMap<Integer, Product>> products = new HashMap();
+        HashMap<Integer, HashMap<Integer, Product>> products = new LinkedHashMap();
 
         while (rs.next()) {
             int idProduct =                 rs.getInt("id_product");
@@ -103,7 +104,7 @@ public class ExtraProductsResultSetExtractor implements ResultSetExtractor<HashM
                         isPublished,
                         isVisible,
                         brand,
-                        new HashMap()
+                        new LinkedHashMap()
                 );
                 product.setCategoryTranslitName(catalogTranslitName);
 
@@ -139,7 +140,7 @@ public class ExtraProductsResultSetExtractor implements ResultSetExtractor<HashM
                             isPublished,
                             isVisible,
                             brand,
-                            new HashMap()
+                            new LinkedHashMap()
                     );
                     product.setCategoryTranslitName(catalogTranslitName);
 

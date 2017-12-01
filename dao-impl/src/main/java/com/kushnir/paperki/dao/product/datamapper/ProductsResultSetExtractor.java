@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import static com.kushnir.paperki.model.calculation.PriceCalculator.calculateDiscountedPrice;
 import static com.kushnir.paperki.model.calculation.PriceCalculator.getPriceWithVAT;
@@ -21,7 +22,7 @@ public class ProductsResultSetExtractor implements ResultSetExtractor {
     @Override
     public Object extractData(ResultSet rs) throws SQLException {
 
-        HashMap<Integer, Product> products = new HashMap<Integer ,Product>();
+        HashMap<Integer, Product> products = new LinkedHashMap();
 
         while (rs.next()) {
 
@@ -93,7 +94,7 @@ public class ProductsResultSetExtractor implements ResultSetExtractor {
                         rs.getBoolean("is_published"),
                         rs.getBoolean("is_visible"),
                         new Brand(rs.getString("bname"), rs.getString("btname")),
-                        new HashMap<Integer, Price>()
+                        new LinkedHashMap<Integer, Price>()
                 );
 
                 if (price != null) {
