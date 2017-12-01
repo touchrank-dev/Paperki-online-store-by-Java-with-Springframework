@@ -122,6 +122,13 @@ public class CatalogController {
         return type == null ? 1:type;
     }
 
+    @ModelAttribute("sortedby")
+    public Integer sortType(HttpSession session) {
+        Integer type = (Integer)session.getAttribute("sortedby");
+        return type == null ? 1:type;
+    }
+
+
     @ModelAttribute("oldImages")
     public HashMap<Integer, ArrayList<String>> getOldImages() {
         LOGGER.debug("getOldImages()");

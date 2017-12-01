@@ -612,7 +612,28 @@ function mapErrorOrderForm(form) {
 
 
 /*===================================================================================*/
+function sendSortType() {
+    setSortType($('select[name=sort-by]').val());
+}
 
+function setSortType(type) {
+    showLoader();
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/catalog/sortedby",
+        data: JSON.stringify({"type":type}),
+        success: function(response){
+            location.reload();
+        },
+        error: function () {
+            location.reload();
+        }
+    });
+}
 
 function seViewType(type) {
     showLoader();
@@ -631,7 +652,6 @@ function seViewType(type) {
             location.reload();
         }
     });
-    hideLoader();
 }
 
 /*===================================================================================*/
@@ -765,7 +785,7 @@ function addEnterprise() {
 function enterpriseFormToJSON() {
   return JSON.stringify({
     "name":           $('#input-add-enterprise-name').val(),
-    "unp":            $('#input-add-enterprise-unp').val(),
+    "unp":            $('#input-add-enterprise-unp').val()
   });
 }
 
@@ -953,8 +973,8 @@ function mapAddresUpdateField(value, input) {
 
 
 function setOwnerAndType(owner, type) {
-    $('#input-add-address-owner').val(owner),
-        $('#input-add-address-type').val(type)
+    $('#input-add-address-owner').val(owner);
+    $('#input-add-address-type').val(type);
 }
 
 function AddAddress() {

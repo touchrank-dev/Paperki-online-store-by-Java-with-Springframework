@@ -12,10 +12,10 @@
                 </div>
                 <div class="products-list-page__sort-block">
                     <select name="sort-by" class="products-list-page__dropdown">
-                        <option value="1">По умолчанию</option>
-                        <option value="2">Сначала популярные</option>
-                        <option value="3">Сначала дешевые</option>
-                        <option value="4">Сначала дорогие</option>
+                        <option value="1" th:selected="${sortedby} == 1">По умолчанию</option>
+                        <option value="2" th:selected="${sortedby} == 2">Сначала популярные</option>
+                        <option value="3" th:selected="${sortedby} == 3">Сначала дешевые</option>
+                        <option value="4" th:selected="${sortedby} == 4">Сначала дорогие</option>
                     </select>
                     <div class="sort-block-right"
                         th:switch="${catview}">

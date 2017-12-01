@@ -44,4 +44,16 @@ public class RESTCatalog {
         RestMessage restMessage = new RestMessage(HttpStatus.OK, "");
         return restMessage;
     }
+
+    //curl -v [host]:8080/api/catalog/sortedby
+    @PostMapping("/sortedby")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage setSortType(@RequestBody HashMap<String, Integer> type, HttpSession session) {
+        LOGGER.debug("{} Rest api setSortType({}) >>>", host, type);
+
+        session.setAttribute("sortedby", type.get("type"));
+
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "");
+        return restMessage;
+    }
 }
