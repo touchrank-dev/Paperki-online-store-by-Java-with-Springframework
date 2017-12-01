@@ -173,7 +173,6 @@ function logout() {
         data: {"logout":true},
         success: function(response){
             if(response.code == "OK") {
-                // alert(response.message);
                 location.reload();
             }
             else if(response.code == "INTERNAL_SERVER_ERROR") {
@@ -200,7 +199,6 @@ function login() {
         data: authFormToJSON(),
         success: function(response){
             if(response.code == "FOUND") {
-                // alert(response.message);
                 location.reload();
             }else if(response.code == "NOT_FOUND") {
                 mapErrorLoginForm(response.object);
@@ -1096,4 +1094,42 @@ function deleteAddress(idAddress) {
         }
     });
     hideLoader();
+}
+
+function sendPasswordRestoreRequest() {
+    restorePassword($('#input-password-recovery-request').val());
+}
+
+function restorePassword(login) {
+    showLoader();
+    $.ajax({
+        cache: false,
+        async: false,
+        type: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        url: "/api/user/passwordrestore",
+        data: JSON.stringify({"userLogin":login}),
+        success: function(response){
+            if(response.code == "OK") {
+                document.location.href = '/password';
+            } else if(response.code == "BAD_REQUEST") {
+                mapBadPasswordRecoveryRequest(response.object);
+                hideLoader();
+            } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                console.log(response);
+                hideLoader();
+                serverAlert();
+            }
+        },
+        error: function () {
+            hideLoader();
+            serverAlert();
+        }
+    });
+
+}
+
+function mapBadPasswordRecoveryRequest(errorForm) {
+    mapErrorToField(errorForm.message, $('#input-password-recovery-request'), $('#label-password-recovery-request'));
 }

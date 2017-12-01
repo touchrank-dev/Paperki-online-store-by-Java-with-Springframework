@@ -43,7 +43,7 @@ public class PasswordController {
 
 
     @GetMapping
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public String passwordRecoveryPage(Model model, HttpSession httpSession) {
         LOGGER.debug("passwordRecoveryPage() >>>");
 
@@ -57,7 +57,6 @@ public class PasswordController {
         model.addAttribute("fragmentName", "password");
         return "index";
     }
-
 
 
     @ModelAttribute("mainmenu")
