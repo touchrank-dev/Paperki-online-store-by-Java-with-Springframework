@@ -8,7 +8,7 @@ import java.util.HashMap;
 public interface ProductBean {
 
     HashMap<Integer, ProductSimple> getAll();
-    HashMap<Integer ,Product> getProductListByCategoryTName(String categoryTName);
+    HashMap<Integer ,Product> getProductListByCategoryTName(String categoryTName, Integer sortType);
 
     HashMap<Integer, HashMap<Integer, Product>> getAllExtraTypeProducts();
 

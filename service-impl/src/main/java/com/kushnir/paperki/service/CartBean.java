@@ -110,6 +110,7 @@ public class CartBean {
         // Shipment shipment =                     cart.getShipment();
         double paymentCost =                    0d;
         double shipmentCost =                   0d;
+
         double finalTotal =                     0d;
         double finalTotalWithVAT =              0d;
 

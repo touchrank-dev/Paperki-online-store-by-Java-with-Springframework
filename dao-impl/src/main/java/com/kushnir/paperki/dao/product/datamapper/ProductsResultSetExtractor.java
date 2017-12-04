@@ -16,11 +16,11 @@ import java.util.LinkedHashMap;
 import static com.kushnir.paperki.model.calculation.PriceCalculator.calculateDiscountedPrice;
 import static com.kushnir.paperki.model.calculation.PriceCalculator.getPriceWithVAT;
 
-public class ProductsResultSetExtractor implements ResultSetExtractor {
+public class ProductsResultSetExtractor implements ResultSetExtractor<HashMap<Integer, Product>> {
 
 
     @Override
-    public Object extractData(ResultSet rs) throws SQLException {
+    public HashMap<Integer, Product> extractData(ResultSet rs) throws SQLException {
 
         HashMap<Integer, Product> products = new LinkedHashMap();
 

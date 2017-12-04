@@ -57,10 +57,23 @@ public class CatalogController {
         LOGGER.debug("catalogItemPage() >>>");
 
         Integer type = (Integer) session.getAttribute("catview");
+        Integer sortType = (Integer)session.getAttribute("sortedby") == null ? 1:(Integer)session.getAttribute("sortedby");
+
         try {
-            HashMap<Integer, Product> products = catalogBean.getProductsByCategoryTName(catalogItemTranslitName);
+            if (type == null || type == 1){
+                model.addAttribute("products", catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType));
+                model.addAttribute("templatePathName", contentPath + "product-list");
+                model.addAttribute("fragmentName", "product-list");
+            } else if (type == 2) {
+                model.addAttribute("products", catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType));
+                model.addAttribute("templatePathName", contentPath + "product-list-row");
+                model.addAttribute("fragmentName", "product-list-row");
+            } else if (type == 3) {
+                model.addAttribute("products", catalogBean.getProductsByGroupView(catalogItemTranslitName, sortType));
+                model.addAttribute("templatePathName", contentPath + "product-list-group");
+                model.addAttribute("fragmentName", "product-list-group");
+            }
             Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
-            model.addAttribute("products", products);
             model.addAttribute("category", category);
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
@@ -70,17 +83,6 @@ public class CatalogController {
             throw e;
         }
 
-        if (type == null || type == 1){
-            model.addAttribute("templatePathName", contentPath + "product-list");
-            model.addAttribute("fragmentName", "product-list");
-        } else if (type == 3) {
-            model.addAttribute("products", catalogBean.getProductsByGroupView(catalogItemTranslitName));
-            model.addAttribute("templatePathName", contentPath + "product-list-group");
-            model.addAttribute("fragmentName", "product-list-group");
-        } else if (type == 2) {
-            model.addAttribute("templatePathName", contentPath + "product-list-row");
-            model.addAttribute("fragmentName", "product-list-row");
-        }
         return "index";
     }
 

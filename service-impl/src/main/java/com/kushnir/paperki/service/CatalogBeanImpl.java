@@ -69,10 +69,10 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    public HashMap<Integer, Product> getProductsByCategoryTName(String categoryTName) throws ServiceException {
+    public HashMap<Integer, Product> getProductsByCategoryTName(String categoryTName, Integer sortType) throws ServiceException {
         LOGGER.debug("getProductsByCategoryTName({}) >>> ", categoryTName);
         try {
-            HashMap<Integer, Product> products = productBean.getProductListByCategoryTName(categoryTName);
+            HashMap<Integer, Product> products = productBean.getProductListByCategoryTName(categoryTName, sortType);
             return products;
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
@@ -81,13 +81,13 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    public HashMap<String, List<Product>> getProductsByGroupView(String categoryTName) throws ServiceException {
+    public HashMap<String, List<Product>> getProductsByGroupView(String categoryTName, Integer sortType) throws ServiceException {
         LOGGER.debug("getProductsByGroupView({}) >>> ", categoryTName);
         HashMap<String, List<Product>> products = new LinkedHashMap();
         Product product;
         String groupName;
         List<Product> listProducts;
-        for(Map.Entry<Integer, Product> entry : getProductsByCategoryTName(categoryTName).entrySet()) {
+        for(Map.Entry<Integer, Product> entry : getProductsByCategoryTName(categoryTName, sortType).entrySet()) {
             product = entry.getValue();
             groupName = product.getPersonalGroupName();
 

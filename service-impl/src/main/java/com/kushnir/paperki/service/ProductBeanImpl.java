@@ -55,10 +55,10 @@ public class ProductBeanImpl implements ProductBean {
     }
 
     @Override
-    public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) {
+    public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName, Integer sortType) {
         LOGGER.debug("getProductListByCategoryTName() >>>");
         HashMap<Integer, Product> products =
-                    productDao.getProductListByCategoryTName(categoryTName);
+                    productDao.getProductListByCategoryTName(categoryTName, sortType);
         return products;
     }
 

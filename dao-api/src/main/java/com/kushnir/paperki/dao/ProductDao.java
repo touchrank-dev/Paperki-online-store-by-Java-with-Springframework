@@ -12,7 +12,7 @@ import java.util.HashMap;
 public interface ProductDao {
 
     HashMap<Integer, ProductSimple> getAll();
-    HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) throws DataAccessException;
+    HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName, Integer sortType) throws DataAccessException;
     Product getProductByPNT(Integer pnt) throws DataAccessException;
     Product getProductByTName(String TName) throws DataAccessException;
     AvailableProduct getAvailableProductByPNT(Integer pnt) throws DataAccessException;

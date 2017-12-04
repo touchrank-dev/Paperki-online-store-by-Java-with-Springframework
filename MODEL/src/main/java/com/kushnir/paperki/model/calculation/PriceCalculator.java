@@ -64,4 +64,27 @@ public class PriceCalculator {
         }
         return finalPrice;
     }
+
+    public static double calculateCartDiscount(double amount) {
+
+        if (amount >= 2000d) {
+            return getDouble(amount - (amount * (8/100)));
+        } else if (amount >= 1650d) {
+            return getDouble(amount - (amount * (7/100)));
+        } else if (amount >= 1300d) {
+            return getDouble(amount - (amount * (6/100)));
+        } else if (amount >= 950d) {
+            return getDouble(amount - (amount * (5/100)));
+        } else if (amount >= 650d) {
+            return getDouble(amount - (amount * (4/100)));
+        } else if (amount >= 400d) {
+            return getDouble(amount - (amount * (3/100)));
+        } else if (amount >= 200d) {
+            return getDouble(amount - (amount * (2/100)));
+        } else if (amount >= 100d) {
+            return getDouble(amount - (amount * (1/100)));
+        } else {
+            return amount;
+        }
+    }
 }

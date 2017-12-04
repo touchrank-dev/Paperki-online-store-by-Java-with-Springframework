@@ -152,15 +152,32 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName) throws DataAccessException {
+    public HashMap<Integer, Product> getProductListByCategoryTName(String categoryTName, Integer sortType) throws DataAccessException {
         LOGGER.debug("getProductListByCategoryTName({}) >>>", categoryTName);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_CATEGORY_T_NAME, categoryTName);
-        HashMap<Integer, Product> products =
-                (HashMap<Integer, Product>) namedParameterJdbcTemplate.query(
-                        getProductsByCategoryTNameSqlQuery,
+
+        String sqlQuery = getSQLQueryWithSortType(getProductsByCategoryTNameSqlQuery, sortType);
+
+        HashMap<Integer, Product> products = namedParameterJdbcTemplate.query(
+                        sqlQuery,
                         parameterSource,
                         new ProductsResultSetExtractor());
         return products;
+    }
+
+    private String getSQLQueryWithSortType(String SqlQuery, Integer sortType) {
+        switch (sortType) {
+            // По умолчанию
+            case 1: return SqlQuery+" ORDER BY pc.order_product, p.full_name, pp.quantity_start;";
+            // Сначала популярные
+            case 2: return SqlQuery+" ORDER BY pc.order_product, p.full_name, pp.quantity_start;";
+            // Сначала дешевые
+            case 3: return SqlQuery+" ORDER BY p.base_price DESC, pc.order_product, p.full_name, pp.quantity_start;";
+            // Сначала дорогие
+            case 4: return SqlQuery+" ORDER BY p.base_price ASC, pc.order_product, p.full_name, pp.quantity_start;";
+            // По умолчанию
+            default: return SqlQuery+" ORDER BY pc.order_product, p.full_name, pp.quantity_start;";
+        }
     }
 
     @Override
