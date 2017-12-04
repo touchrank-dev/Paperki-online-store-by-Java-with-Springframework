@@ -94,7 +94,8 @@ function mapConfirmQuantity(pntinput, pnt, quantityAvailable) {
     var popupConfirm = pntinput.parents('.btns').children('.product-add-popup-confirm');
     // var addBtn = pntinput.parents('.btns').children('.add-btn');
 
-    popupConfirm.children('.textarea').html('В наличии только: '+quantityAvailable+' ед.');
+    popupConfirm.children('.textarea').html('В наличии только: <strong>'+quantityAvailable+'</strong> ед.');
+    popupConfirm.children('a.confirm').attr('confirmAddToCart('+pnt+', '+quantityAvailable+')');
     popupConfirm.addClass('is-visible');
 }
 
@@ -118,8 +119,8 @@ function deleteFromCart(pnt) {
             if(response.code == "OK") {
                 mapCart(response.object);
                 location.reload();
-                // alert("Товар под кодом("+pnt+") успено удален из корзины!");
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
+                hideLoader();
                 alert("Не удалось удалить из корзины товар под кодом("+pnt+")");
                 console.log(response.message);
             }
@@ -128,7 +129,6 @@ function deleteFromCart(pnt) {
             serverAlert();
         }
     });
-    hideLoader();
 }
 
 function register() {
