@@ -95,7 +95,7 @@ function mapConfirmQuantity(pntinput, pnt, quantityAvailable) {
     // var addBtn = pntinput.parents('.btns').children('.add-btn');
 
     popupConfirm.children('.textarea').html('В наличии только: <strong>'+quantityAvailable+'</strong> ед.');
-    popupConfirm.children('a.confirm').attr('confirmAddToCart('+pnt+', '+quantityAvailable+')');
+    popupConfirm.children('a.confirm').attr('onclick', 'confirmAddToCart(\'+pnt+\', \'+quantityAvailable+\')\'');
     popupConfirm.addClass('is-visible');
 }
 
