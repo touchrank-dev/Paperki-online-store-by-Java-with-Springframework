@@ -115,9 +115,10 @@ public class OrderDaoImpl implements OrderDao {
     public Order getOrderByToken(String token) {
         LOGGER.debug("getOrderByToken({}) >>>", token);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_TOKEN, token);
-        Order order = (Order) namedParameterJdbcTemplate.query(   getOrderByTokenSqlQuery,
-                                                            parameterSource,
-                                                            new OrderResultSetExtractor());
+        Order order =  namedParameterJdbcTemplate.query(
+                getOrderByTokenSqlQuery,
+                parameterSource,
+                new OrderResultSetExtractor());
         return order;
     }
 
@@ -194,7 +195,7 @@ public class OrderDaoImpl implements OrderDao {
 
 
 
-    private class OrderResultSetExtractor implements ResultSetExtractor {
+    private class OrderResultSetExtractor implements ResultSetExtractor<Order> {
 
         @Override
         public Order extractData(ResultSet rs) throws SQLException, DataAccessException {

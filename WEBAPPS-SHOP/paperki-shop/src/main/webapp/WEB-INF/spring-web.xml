@@ -47,10 +47,16 @@
         <property name="prettyPrint" value="true" />
     </bean>
 
+    <!--<bean id="xmlConverter" class="org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter" >
+        <property name="supportedMediaTypes" value="application/xml" />
+        <property name="prettyPrint" value="true" />
+    </bean>-->
+
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
                 <ref bean="jsonConverter"/>
+                <!--<ref bean="xmlConverter" />-->
             </list>
         </property>
     </bean>

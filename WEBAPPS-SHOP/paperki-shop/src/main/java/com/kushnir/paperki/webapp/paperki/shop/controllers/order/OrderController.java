@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
+import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -60,11 +61,16 @@ public class OrderController {
     }
 
     @GetMapping("/{token}")
-    public String orderByToken(@PathVariable String token, Model model) throws ServiceException {
+    public String orderByToken(@PathVariable String token, Model model) throws ServiceException, PageNotFound {
         LOGGER.debug("orderByToken({}) >>>", token);
         model.addAttribute("templatePathName", contentPath + "order-details");
         model.addAttribute("fragmentName", "order-details");
-        model.addAttribute("order", orderService.getOrderByToken(token));
+        try {
+            model.addAttribute("order", orderService.getOrderByToken(token));
+        } catch (IllegalArgumentException e) {
+            LOGGER.error(e.getMessage());
+            throw new PageNotFound();
+        }
         return "index";
     }
 

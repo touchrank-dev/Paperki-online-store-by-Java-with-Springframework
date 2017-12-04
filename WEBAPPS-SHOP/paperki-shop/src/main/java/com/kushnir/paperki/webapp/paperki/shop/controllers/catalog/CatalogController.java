@@ -73,6 +73,7 @@ public class CatalogController {
                 model.addAttribute("templatePathName", contentPath + "product-list-group");
                 model.addAttribute("fragmentName", "product-list-group");
             }
+
             Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
             model.addAttribute("category", category);
         } catch (IllegalArgumentException e) {
