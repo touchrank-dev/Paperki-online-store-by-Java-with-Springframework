@@ -85,25 +85,16 @@
 
                     <div class="tab-content">
                         <div th:each="products : ${extraProducts}" th:remove="tag">
-
-
                             <div id="panel1" class="tab-pane fade in"
                                 th:attr="id='panel'+ ${products.key}" 
                                 th:class="${products.key} == 1 ? 'tab-pane fade active in' : 'tab-pane fade'">
-
                                 <div class="row cat-row row-eq-height">
-
-
                                     <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12"
                                             th:each="product : ${products.value}">
-
-
                                         <div class="thumbnail order-product product_hit"
                                             th:class="(${products.key} == 1 ? 'thumbnail order-product product_hit' : (${products.key} == 2 ? 'thumbnail order-product product_super-price' : (${products.key} == 3 ? 'thumbnail order-product new-product' : 'thumbnail order-product')))">
-
                                             <div class="caption cap-normal product-content">
                                                 <div class="product-content__top">
-
                                                     <ul class="top-l-cat">
                                                         <li>
                                                             <a href="#" class="link-name-cat"
@@ -116,7 +107,6 @@
                                                                th:text="${product?.value?.shortName}">Короткое название товара</a>
                                                         </li>
                                                     </ul>
-
                                                     <p class="al-ph">
                                                         <div    th:if="${oldImages} != null"
                                                                 th:switch="${oldImages[__${product?.value?.pnt}__]} == null"
@@ -129,13 +119,10 @@
                                                                 th:attr="src=@{'/catimagesold/'+ ${oldImages[__${product?.value?.pnt}__][0]}},alt=${product?.value?.fullName}">
                                                         </div>
                                                     </p>
-
                                                     <p class="desc-pr" th:text="${product?.value?.shortDescription}">
                                                         Короткое описание товара
                                                     </p>
                                                 </div>
-
-
                                                 <div class="product-content__bottom">
                                                     <div class="prices-block">
                                                         <span   th:switch="${product?.value?.basePrice} > ${product?.value?.finalPrice}" 
@@ -158,11 +145,10 @@
                                                                 <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
                                                                 <h5>Цена зависит от<br>количества!</h5>
                                                                 <div>
-                                                                    <p  th:each="price : ${product?.value?.prices}" 
-                                                                        th:remove="tag" >
-                                                                        <p th:text="'от '+${price?.value?.quantityStart}+' ед. :'">от 1 ед. :</p>
+                                                                    <span th:each="price : ${product?.value?.prices}" th:remove="tag">
+                                                                        <p th:text="'от '+${price?.key}+' ед. :'">от 1 ед. :</p>
                                                                         <p th:text="${price?.value?.basePriceWithVAT}+' руб.'">0,00 руб</p>
-                                                                    </p>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -232,16 +218,12 @@
                                                             </ul>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
-                                    
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

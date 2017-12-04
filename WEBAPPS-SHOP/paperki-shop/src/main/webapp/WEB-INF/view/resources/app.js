@@ -94,11 +94,11 @@ function mapConfirmQuantity(pntinput, pnt, quantityAvailable) {
     var popupConfirm = pntinput.parents('.btns').children('.product-add-popup-confirm');
     // var addBtn = pntinput.parents('.btns').children('.add-btn');
 
-    popupConfirm.children('.textarea').html('В наличии только: <a onclick="confirmAdToCart('+pnt+', '+quantityAvailable+')">'+quantityAvailable+'</a> ед.');
+    popupConfirm.children('.textarea').html('В наличии только: '+quantityAvailable+' ед.');
     popupConfirm.addClass('is-visible');
 }
 
-function confirmAdToCart(pnt, quantity) {
+function confirmAddToCart(pnt, quantity) {
     $('#'+pnt).val(quantity);
     addToCart(pnt);
 }
