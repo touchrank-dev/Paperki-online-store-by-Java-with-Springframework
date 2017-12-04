@@ -172,9 +172,9 @@ public class ProductDaoImpl implements ProductDao {
             // Сначала популярные
             case 2: return SqlQuery+" ORDER BY pc.order_product, p.full_name, pp.quantity_start;";
             // Сначала дешевые
-            case 3: return SqlQuery+" ORDER BY p.base_price DESC, pc.order_product, p.full_name, pp.quantity_start;";
+            case 3: return SqlQuery+" ORDER BY p.base_price ASC, pc.order_product, p.full_name, pp.quantity_start;";
             // Сначала дорогие
-            case 4: return SqlQuery+" ORDER BY p.base_price ASC, pc.order_product, p.full_name, pp.quantity_start;";
+            case 4: return SqlQuery+" ORDER BY p.base_price DESC, pc.order_product, p.full_name, pp.quantity_start;";
             // По умолчанию
             default: return SqlQuery+" ORDER BY pc.order_product, p.full_name, pp.quantity_start;";
         }
@@ -470,7 +470,10 @@ public class ProductDaoImpl implements ProductDao {
     public ArrayList<AvailableProduct> searchProducts(String str) {
         LOGGER.debug("searchProducts() >>>");
         MapSqlParameterSource parameterSource = new MapSqlParameterSource("p_str", '%'+str+'%');
-        ArrayList products = namedParameterJdbcTemplate.query(searchProductSqlQuery, parameterSource, new SearchProductResultSetExtractor());
+        ArrayList products = namedParameterJdbcTemplate.query(
+                searchProductSqlQuery,
+                parameterSource,
+                new SearchProductResultSetExtractor());
         return products;
     }
 
