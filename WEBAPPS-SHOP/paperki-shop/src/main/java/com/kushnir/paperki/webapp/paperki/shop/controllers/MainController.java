@@ -11,6 +11,7 @@ import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import org.h2.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -54,9 +57,19 @@ public class MainController {
     }
 
     @GetMapping("/favicon.ico")
-    public FileSystemResource favicon () {
+    public void favicon (HttpServletResponse response) throws IOException, PageNotFound {
         LOGGER.debug("favicon()");
-        return new FileSystemResource("WEB-INF/view/resources/img/favicons/favicon.ico");
+        String filePathToBeServed =
+                "/papsource/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/view/resources/img/favicons/favicon.ico";
+        try {
+            InputStream is = new FileInputStream(new File(filePathToBeServed));
+            IOUtils.copy(is, response.getOutputStream());
+            response.flushBuffer();
+            is.close();
+        } catch (Exception e) {
+            LOGGER.error("ERROR: ", e);
+            throw new PageNotFound();
+        }
     }
 
     @GetMapping("/robots.txt")
