@@ -835,10 +835,10 @@ function mapErrorEnterpriseUpdateForm (form) {
 /*=========================================================================================*/
 
 var delayTimer;
-function searchProducts(str) {
+function searchProducts() {
     clearTimeout(delayTimer);
     delayTimer = setTimeout(function() {
-        sendSearchRequest(str);
+        sendSearchRequest($('#search-popup-input').val());
     }, 2000);
 }
 
@@ -849,23 +849,25 @@ function sendSearchRequest(str) {
         async: true,
         type: "GET",
         contentType: "application/json",
-        dataType: "json",
         url: "/api/search?str="+str,
         success: function(response){
             if(response.code == "FOUND") {
                 mapSearchResult(response.object);
+                hideLoader();
             } else if(response.code == "BAD_REQUEST") {
                 console.log(response);
+                hideLoader();
             } else if(response.code == "INTERNAL_SERVER_ERROR") {
                 console.log(response);
                 serverAlert();
+                hideLoader();
             }
         },
         error: function () {
             serverAlert();
+            hideLoader();
         }
     });
-    hideLoader();
 }
 
 function mapSearchResult(array) {

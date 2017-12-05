@@ -470,6 +470,7 @@ public class ProductDaoImpl implements ProductDao {
     public ArrayList<AvailableProduct> searchProducts(String str) {
         LOGGER.debug("searchProducts() >>>");
         MapSqlParameterSource parameterSource = new MapSqlParameterSource("p_str", '%'+str+'%');
+        parameterSource.addValue("p_pnt", str);
         ArrayList products = namedParameterJdbcTemplate.query(
                 searchProductSqlQuery,
                 parameterSource,

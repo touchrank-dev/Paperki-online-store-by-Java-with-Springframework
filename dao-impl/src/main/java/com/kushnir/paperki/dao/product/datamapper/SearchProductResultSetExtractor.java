@@ -3,6 +3,7 @@ package com.kushnir.paperki.dao.product.datamapper;
 import com.kushnir.paperki.model.Discount;
 import com.kushnir.paperki.model.DiscountType;
 import com.kushnir.paperki.model.product.SearchProduct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -59,6 +60,7 @@ public class SearchProductResultSetExtractor implements ResultSetExtractor<Array
             products.add(new SearchProduct(
                     id,
                     pnt,
+                    generateImageName(pnt),
                     fullName,
                     shortName,
                     link,
@@ -74,5 +76,19 @@ public class SearchProductResultSetExtractor implements ResultSetExtractor<Array
             ));
         }
         return products;
+    }
+
+    private String generateImageName(Integer pnt) {
+        String pntStr = String.valueOf(pnt);
+        switch(pntStr.length()) {
+            case 1: return "0000000"+pntStr+".jpg";
+            case 2: return "000000"+pntStr+".jpg";
+            case 3: return "00000"+pntStr+".jpg";
+            case 4: return "0000"+pntStr+".jpg";
+            case 5: return "000"+pntStr+".jpg";
+            case 6: return "00"+pntStr+".jpg";
+            case 7: return "0"+pntStr+".jpg";
+            default: return pntStr+".jpg";
+        }
     }
 }

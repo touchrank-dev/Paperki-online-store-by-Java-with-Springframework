@@ -5,10 +5,10 @@
             <form>
                 <div class="input-group hgt-in">
                     <span class="input-group-btn">
-                        <button class="btn btn-search" type="button"><img src="/res/img/search.png" alt="Поиск"></button>
+                        <button class="btn btn-search" type="button"><img src="/res/img/search.png" alt="Поиск" onclick="searchProducts()"></button>
                     </span>
-                    <input type="text" id="search-popup-input" class="search-popup-input prod-src-input" placeholder="Введите название товара"
-                           onkeypress="searchProducts(this.value)">
+                    <input type="text" id="search-popup-input" class="search-popup-input prod-src-input" placeholder="Введите название или код товара"
+                           onkeydown="searchProducts()">
                 </div>
                 <button title="Close (Esc)" type="button" class="mfp-close">×</button>
             </form>
