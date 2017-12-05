@@ -877,7 +877,7 @@ function mapSearchResult(array) {
             $('.drop-search-catalog').append(
                 '<div class="cont-row">'+
                     '<div class="col1">'+
-                        '<img src="/catimagesold/'+product.imageName+'" alt="'+product.fullName+'">'+
+                        '<img style="max-width: 55px;" src="/catimagesold/'+product.imageName+'" alt="'+product.fullName+'">'+
                         '<h5><a href="'+product.link+'">'+product.fullName+'</a></h5>'+
                         '<div class="rating"></div>'+
                         '<p>Код: '+product.pnt+'</p>'+
