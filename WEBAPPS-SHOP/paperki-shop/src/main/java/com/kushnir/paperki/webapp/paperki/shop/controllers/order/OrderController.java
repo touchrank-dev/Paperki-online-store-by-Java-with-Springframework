@@ -1,5 +1,6 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers.order;
 
+import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.user.Address;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.*;
@@ -82,6 +83,16 @@ public class OrderController {
     @ModelAttribute("mapcategories")
     public HashMap getCatalog () throws ServiceException {
         return catalogBean.getAll();
+    }
+
+    @ModelAttribute("enterprise")
+    public Enterprise getEnterprise(HttpSession httpSession) {
+        User user = (User)httpSession.getAttribute("user");
+        Enterprise enterprise = null;
+        if(user != null || user.getId() != null || user.getId() > 0) {
+            enterprise = userService.getEnterpriseByUserId(user.getId());
+        }
+        return enterprise;
     }
 
 

@@ -247,7 +247,8 @@
 
                                                 <span class="input input--ichiro callback-form-field">
                                                     <input class="input__field input__field--ichiro" type="email" 
-                                                        id="order-input-enterprise-email" />
+                                                        id="order-input-enterprise-email"
+                                                        th:value="${user?.email}"/>
                                                     <label class="input__label input__label--ichiro" for="order-input-enterprise-email">
                                                         <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
                                                             id="order-label-enterprise-email">e-mail *</span>
@@ -255,7 +256,8 @@
                                                 </span>
                                                  <span class="input input--ichiro callback-form-field">
                                                     <input class="input__field input__field--ichiro" type="text" 
-                                                        id="order-input-enterprise-phone" />
+                                                        id="order-input-enterprise-phone"
+                                                        th:value="${user?.phone}"/>
                                                     <label class="input__label input__label--ichiro" for="order-input-enterprise-phone">
                                                         <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
                                                             id="order-label-enterprise-phone">Телефон *</span>
@@ -263,7 +265,8 @@
                                                 </span>
                                                 <span class="input input--ichiro callback-form-field">
                                                     <input class="input__field input__field--ichiro" type="text" 
-                                                        id="order-input-enterprise-name" />
+                                                        id="order-input-enterprise-name"
+                                                        th:value="${enterprise?.enterpriseName}"/>
                                                     <label class="input__label input__label--ichiro" for="order-input-enterprise-name">
                                                         <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro"
                                                             id="order-label-enterprise-name">
@@ -273,7 +276,8 @@
                                                 </span>
                                                 <span class="input input--ichiro callback-form-field">
                                                     <input class="input__field input__field--ichiro" type="text" 
-                                                        id="order-input-enterprise-unp" />
+                                                        id="order-input-enterprise-unp"
+                                                        th:value="${enterprise?.UNP}"/>
                                                     <label class="input__label input__label--ichiro" for="order-input-enterprise-unp">
                                                         <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro"
                                                             id="order-label-enterprise-unp">
@@ -283,7 +287,8 @@
                                                 </span>
                                                 <span class="input input--ichiro callback-form-field">
                                                     <input class="input__field input__field--ichiro" type="text" 
-                                                        id="order-input-enterprise-address" />
+                                                        id="order-input-enterprise-address"
+                                                        th:value="${enterprise?.billingAddress}"/>
                                                     <label class="input__label input__label--ichiro" for="order-input-enterprise-address">
                                                         <span data-toggle="tooltip" 
                                                             class="input__label-content input__label-content--ichiro" 
