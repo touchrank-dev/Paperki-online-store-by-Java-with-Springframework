@@ -1,4 +1,4 @@
-package com.kushnir.paperki.admin.controllers.update;
+package com.kushnir.paperki.admin.controllers;
 
 import com.kushnir.paperki.model.RestMessage;
 import com.kushnir.paperki.service.BrandService;
@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/update")
+@RequestMapping("/api/update")
 public class RESTUpdater {
 
     private static final Logger LOGGER = LogManager.getLogger(RESTUpdater.class);
@@ -36,7 +36,7 @@ public class RESTUpdater {
     @Autowired
     BrandService brandService;
 
-    //curl -v [host]:8080/update
+    //curl -v [host]:8080/api/update
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody
@@ -46,7 +46,7 @@ public class RESTUpdater {
         return restMessage;
     }
 
-    //curl -v [host]:8080/update/catalog
+    //curl -v [host]:8080/api/update/catalog
     @GetMapping("/catalog")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage updateCatalog() throws IOException, ServiceException {
@@ -58,7 +58,7 @@ public class RESTUpdater {
         return restMessage;
     }
 
-    //curl -v [host]:8080/update/products
+    //curl -v [host]:8080/api/update/products
     @GetMapping("/products")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage updateProducts() throws IOException, ServiceException {
@@ -70,7 +70,7 @@ public class RESTUpdater {
         return restMessage;
     }
 
-    //curl -v [host]:8080/update/products/attributes
+    //curl -v [host]:8080/api/update/products/attributes
     @GetMapping("/products/attributes")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage updateProductAttributes() throws IOException, ServiceException {
@@ -82,7 +82,7 @@ public class RESTUpdater {
         return restMessage;
     }
 
-    //curl -v [host]:8080/update/products/prices
+    //curl -v [host]:8080/api/update/products/prices
     @GetMapping("/products/prices")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage updateProductPrices() throws IOException, ServiceException {
@@ -94,7 +94,7 @@ public class RESTUpdater {
         return restMessage;
     }
 
-    //curl -v [host]:8080/update/brands
+    //curl -v [host]:8080/api/update/brands
     @GetMapping("/brands")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage updateBrands() throws IOException, ServiceException {
@@ -106,7 +106,7 @@ public class RESTUpdater {
         return restMessage;
     }
 
-    //curl -v [host]:8080/update/stock
+    //curl -v [host]:8080/api/update/stock
     @GetMapping("/stock")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage updateStock() throws IOException, ServiceException {
