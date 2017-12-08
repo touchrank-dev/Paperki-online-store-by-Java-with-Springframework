@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS stock;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS stock;
 DROP TABLE IF EXISTS subscribes;
+DROP TABLE IF EXISTS password_recovery_requests;
 
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
@@ -329,6 +330,7 @@ CREATE TABLE orders (
     shipmentcost                DOUBLE          DEFAULT 0.0 NOT NULL,
     final_total                 DOUBLE          NOT NULL,
     final_total_with_vat        DOUBLE          NOT NULL,
+    comment                     VARCHAR(2000),
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_order_type)                 REFERENCES order_types(id_order_type),
@@ -458,7 +460,6 @@ CREATE TABLE payment_order_type (
     UNIQUE KEY `p_o_c_p` (id_payment, id_order_type, min_cart_total, price)
 );
 
-DROP TABLE IF EXISTS password_recovery_requests;
 CREATE TABLE password_recovery_requests (
     id_request                  INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     token                       VARCHAR(100)    NOT NULL UNIQUE,

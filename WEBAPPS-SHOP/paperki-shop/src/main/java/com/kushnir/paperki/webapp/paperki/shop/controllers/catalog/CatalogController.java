@@ -56,8 +56,8 @@ public class CatalogController {
                                   HttpSession session, Model model) throws ServiceException, PageNotFound {
         LOGGER.debug("catalogItemPage() >>>");
 
-        Integer type = (Integer) session.getAttribute("catview");
-        Integer sortType = (Integer)session.getAttribute("sortedby") == null ? 1:(Integer)session.getAttribute("sortedby");
+        Integer type =      session.getAttribute("catview") == null ? 1:(Integer)session.getAttribute("catview");
+        Integer sortType =  session.getAttribute("sortedby") == null ? 1:(Integer)session.getAttribute("sortedby");
 
         try {
             if (type == null || type == 1){
@@ -93,10 +93,12 @@ public class CatalogController {
                                   Model model) throws ServiceException, PageNotFound {
         LOGGER.debug("productItemPage() >>>");
         try {
-            Product product = catalogBean.getProductByTName(productTranslitName);
-            Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
+
+            Integer pnt = Integer.parseInt(productTranslitName.split("-")[0]);
+
+            Product product = catalogBean.getProductByPNT(pnt);
             model.addAttribute("product", product);
-            model.addAttribute("category", category);
+            model.addAttribute("category", null);
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new PageNotFound();

@@ -155,7 +155,7 @@
                                                             <div class="orderingdeliveryTimeHolder clearfix">
                                                                 <span th:text="${dilivery?.value?.shortDescription}" th:remove="tag">Описание</span></br>
                                                                 <span th:if="${dilivery?.value?.id} > 1">
-                                                                    <div th:if="${addresses} != null and ${addresses.size()} > 1 and ${addresses[1]} != null and ${addresses[1].size()} > 0"
+                                                                    <div th:if="${addresses} != null and ${addresses.size()} > 0 and ${addresses[1]} != null and ${addresses[1].size()} > 0"
                                                                          th:remove="tag">
                                                                         <select name="orderingCall" class="orderingCall__dropdown">
                                                                               <option th:each="address : ${addresses[1]}"

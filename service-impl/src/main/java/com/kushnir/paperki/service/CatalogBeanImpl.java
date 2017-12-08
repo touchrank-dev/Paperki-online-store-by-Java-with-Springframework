@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -117,6 +118,18 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
+    public Product getProductByPNT(Integer pnt) throws ServiceException {
+        LOGGER.debug("getProductByPNT({}) >>> ", pnt);
+        try {
+            Product product = productBean.getProductByPNT(pnt);
+            return product;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    @Override
     public String updateCatalog() throws ServiceException, IOException {
         LOGGER.debug("updateCatalog() START PROCESS >>>");
         StringBuilder sb = new StringBuilder();
@@ -162,9 +175,16 @@ public class CatalogBeanImpl implements CatalogBean {
                     }
 
                     if (CSVParentCategory.getId() == null) {
-                        int id = addCategory(CSVParentCategory);
-                        CSVParentCategory.setId(id);
-                        addRefCategory(CSVParentCategory);
+                        try {
+                            int id = addCategory(CSVParentCategory);
+                            CSVParentCategory.setId(id);
+                            addRefCategory(CSVParentCategory);
+                        } catch (DuplicateKeyException e) {
+                            LOGGER.error("ERROR >>> {}", "Вероятно категория '"+CSVParentCategory.getName()+"' уже существует");
+                            sb.append("ERROR >>> ")
+                                    .append("Вероятно категория '"+CSVParentCategory.getName()+"' уже существует")
+                                    .append('\n');
+                        }
                     }
 
                 } catch (Exception e) {
@@ -217,10 +237,17 @@ public class CatalogBeanImpl implements CatalogBean {
                     }
 
                     if (CSVChildCategory.getId() == null) {
-                        int id = addCategory(CSVChildCategory);
-                        if (id > 0) {
-                            CSVChildCategory.setId(id);
-                            addRefCategory(CSVChildCategory);
+                        try {
+                            int id = addCategory(CSVChildCategory);
+                            if (id > 0) {
+                                CSVChildCategory.setId(id);
+                                addRefCategory(CSVChildCategory);
+                            }
+                        } catch (DuplicateKeyException e) {
+                            LOGGER.error("ERROR >>> {}", "Вероятно категория '"+CSVChildCategory.getName()+"' уже существует");
+                            sb.append("ERROR >>> ")
+                                    .append("Вероятно категория '"+CSVChildCategory.getName()+"' уже существует")
+                                    .append('\n');
                         }
                     }
 

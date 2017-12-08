@@ -10,7 +10,7 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>file:/home/paperki.by/properties/db.remote.properties</value>
+                <value>classpath:db.remote.properties</value>
                 <value>classpath:sqlQueries.properties</value>
             </list>
         </property>
@@ -22,20 +22,5 @@
         <jdbc:script location="classpath*:mysql-create-tables.sql"/>
         <jdbc:script location="classpath*:data-script.sql"/>
     </jdbc:initialize-database>
-
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-
-    <bean id="namedParameterJdbcTemplate"
-          class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-
 
 </beans>

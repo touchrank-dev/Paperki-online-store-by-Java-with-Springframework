@@ -219,16 +219,17 @@ public class OrderDaoImpl implements OrderDao {
                     order.setOrder_number(number);
                     order.setId_order_status(status);
                     order.setFinal_total_with_vat(totalWithVat);
-                } else {
-                    List<Attribute> attributes = order.getAttributes();
-                    if (attributes == null) {
-                        attributes = new ArrayList<>();
-                        attributes.add(attribute);
-                        order.setAttributes(attributes);
-                    } else {
-                        order.getAttributes().add(attribute);
-                    }
                 }
+
+                List<Attribute> attributes = order.getAttributes();
+                if (attributes == null) {
+                    attributes = new ArrayList<>();
+                    attributes.add(attribute);
+                    order.setAttributes(attributes);
+                } else {
+                    attributes.add(attribute);
+                }
+
             }
             return order;
         }

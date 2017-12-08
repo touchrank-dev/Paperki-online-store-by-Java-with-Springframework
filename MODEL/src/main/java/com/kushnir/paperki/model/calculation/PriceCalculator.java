@@ -41,7 +41,7 @@ public class PriceCalculator {
                         return getDouble(basePrice - val);
                     case OVERRIDE:
                         return getDouble(dValue);
-                    case SUBSTRACT:
+                    case SUBTRACT:
                         return getDouble(basePrice - dValue);
                     default:
                         return basePrice;

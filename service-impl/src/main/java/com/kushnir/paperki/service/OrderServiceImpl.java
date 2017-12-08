@@ -289,9 +289,9 @@ public class OrderServiceImpl implements OrderService {
         int orderTypeId = order.getId_order_type();
 
         attributes.add(createAttribute(idOrder, AttributeType.EMAIL,          orderForm.get("email"),         3));
-        attributes.add(createAttribute(idOrder, AttributeType.PAYMENT_NAME,   order.getPayment().getName(),   4));
-        attributes.add(createAttribute(idOrder, AttributeType.SHIPMENT_NAME,  order.getDelivery().getName(),  5));
-        attributes.add(createAttribute(idOrder, AttributeType.CONTACT_PHONE,  orderForm.get("phone"),         6));
+        attributes.add(createAttribute(idOrder, AttributeType.CONTACT_PHONE,  orderForm.get("phone"),         4));
+        attributes.add(createAttribute(idOrder, AttributeType.PAYMENT_NAME,   order.getPayment().getName(),   5));
+        attributes.add(createAttribute(idOrder, AttributeType.SHIPMENT_NAME,  order.getDelivery().getName(),  6));
 
         attributes.add(createAttribute(idOrder, AttributeType.ORDER_TYPE_ID,  String.valueOf(orderTypeId),    8));
         attributes.add(createAttribute(idOrder, AttributeType.PAYMENT_ID, String.valueOf(order.getPayment().getId()), 9));

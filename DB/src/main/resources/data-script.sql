@@ -102,7 +102,7 @@ VALUES (1, 1, 5.56),
 */
 
 INSERT INTO discount_types (type)
-VALUES ('OVERRIDE'),('PROCENT'),('SUBSTRACT');
+VALUES ('OVERRIDE'),('PROCENT'),('SUBTRACT');
 
 /*
 INSERT INTO discounts (id_discount_type, id_product, value_double, value_int)

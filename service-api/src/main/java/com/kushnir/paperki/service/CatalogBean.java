@@ -18,6 +18,7 @@ public interface CatalogBean {
     HashMap<Integer ,Product> getProductsByCategoryTName(String categoryTName, Integer sortType) throws ServiceException;
     HashMap<String, List<Product>> getProductsByGroupView(String categoryTName, Integer sortType) throws ServiceException;
     Product getProductByTName (String productTName) throws ServiceException;
+    Product getProductByPNT (Integer pnt) throws ServiceException;
     String updateCatalog() throws ServiceException, IOException;
     CategoryContainer getCategoriesToContainer();
     int addCategory(Category category);
