@@ -7,7 +7,6 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:CSVconfig.properties</value>
                 <value>classpath:db.remote.properties</value>
                 <!--<value>classpath:db.properties</value>-->
                 <value>classpath:sqlQueries.properties</value>
