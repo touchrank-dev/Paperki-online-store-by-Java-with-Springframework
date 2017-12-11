@@ -8,7 +8,8 @@
     <meta name="viewport"                   content="width=device-width, initial-scale=1">
     <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://ajax.googleapis.com/">-->
     <!-- Short description of the page (limit to 150 characters) -->
-    <meta name="description"                content="A description of the page">
+    <meta name="description"                content="Паперки - бумага и канцтовары с доставкой"
+        th:content="${description}">
     <meta name="robots"                     content="index,follow,noodp">
     <meta name="googlebot"                  content="index,follow">
     <meta name="google"                     content="nositelinkssearchbox">
@@ -30,7 +31,7 @@
     <meta property="og:title"               content="Site Name" />
     <meta property="og:type"                content="website" />
     <meta property="og:url"                 content="Site url" />
-    <title>Паперки | Главная страница</title>
+    <title th:text="${appTitle}+' '+${title}">Паперки |</title>
     <link rel="shortcut icon"               href="/res/img/favicons/favicon.png" />
     <link rel="icon" type="image/png"       href="/res/img/favicons/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png"       href="/res/img/favicons/favicon-96x96.png" sizes="96x96">

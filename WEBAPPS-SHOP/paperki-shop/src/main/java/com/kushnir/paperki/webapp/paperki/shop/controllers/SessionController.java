@@ -30,30 +30,40 @@ public class SessionController {
     @Value("${product.image.prefix}")
     String imgPref;
 
+    @Value("${seo.title}")
+    String title;
+
     @ModelAttribute("user")
     public User setUser(HttpSession httpSession, HttpServletRequest req) {
-        User user = (User)httpSession.getAttribute("user");
-        if(user == null) {
-            user = new User();
-            httpSession.setAttribute("user", user);
-            LOGGER.debug("SET NEW EMPTY USER");
-        }
-        LOGGER.debug("SessionId: {}, isValid: {}, isFromCookie: {}",
-                req.getRequestedSessionId(),
-                req.isRequestedSessionIdValid(),
-                req.isRequestedSessionIdFromCookie());
-        return user;
+        if (req.getRequestedSessionId() != null) {
+            User user = (User) httpSession.getAttribute("user");
+            if (user == null) {
+                user = new User();
+                httpSession.setAttribute("user", user);
+                LOGGER.debug("SET NEW EMPTY USER");
+            }
+            LOGGER.debug("SessionId: {}, isValid: {}, isFromCookie: {}",
+                    req.getRequestedSessionId(),
+                    req.isRequestedSessionIdValid(),
+                    req.isRequestedSessionIdFromCookie());
+            return user;
+        } else return null;
     }
 
     @ModelAttribute("cart")
-    public Cart setCart (HttpSession httpSession) {
-        Cart cart = (Cart)httpSession.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-            httpSession.setAttribute("cart", cart);
-        }
-        return cart;
+    public Cart setCart (HttpSession httpSession, HttpServletRequest req) {
+        if (req.getRequestedSessionId() != null) {
+            Cart cart = (Cart) httpSession.getAttribute("cart");
+            if (cart == null) {
+                cart = new Cart();
+                httpSession.setAttribute("cart", cart);
+            }
+            return cart;
+        } else return null;
     }
+
+    @ModelAttribute("appTitle")
+    public String appTitle() {return title;}
 
     @ModelAttribute("pip")
     public String productImagePath() {

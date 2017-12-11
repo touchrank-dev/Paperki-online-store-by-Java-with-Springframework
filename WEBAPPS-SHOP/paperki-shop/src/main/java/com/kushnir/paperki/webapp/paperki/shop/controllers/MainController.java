@@ -56,6 +56,8 @@ public class MainController {
         model.addAttribute("fragmentName", MAIN_MENU_NAME);
         model.addAttribute("mapcategories", catalogBean.getAll());
         model.addAttribute("oldImages", imageService.getAllOldImages());
+        model.addAttribute("title", "Главная страница");
+        model.addAttribute("description", "Бумага канцелярские товары и офисные принадлежности с доставкой");
         return "index";
     }
 
