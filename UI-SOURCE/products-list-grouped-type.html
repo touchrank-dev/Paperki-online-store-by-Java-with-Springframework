@@ -249,7 +249,7 @@
                                                                         <span class="input__label-content input__label-content--ichiro">Ваш комментарий к заявке</span>
                                                                     </label>
                                                                 </span>
-                                                            <button class="btn c-button btn-sign" type="subscribe">
+                                                            <button class="btn c-button btn-sign" type="submit">
                                                                 <div class="c-ripple js-ripple">
                                                                     <span class="c-ripple__circle"></span>
                                                                 </div>
@@ -398,6 +398,93 @@
                         </button>
                       </span>
                         <input type="text" class="form-control search-inp" placeholder="Введите название товара">
+                    </div>
+                    <div class="fixed-basket">
+                        <div class="dropdown cart">
+                            <a href="#" class="dropdown-toggle cartLink" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <div class="dropdown-cart__current-products">
+                                    <p><span class="total-sum">12 590</span> руб </p>
+                                    <span class="pr-main">товаров: 365</span>
+                                </div>
+                                <div class="cartIconHolder">
+                                    <img class="cartIcon" src="img/cart1_mini_select.png" alt="cart">
+                                    <img class="cartOK emptyCart" src="img/cartOK_mini.png" alt="added to cart">
+                                </div>
+                            </a>
+                            <ul class="Mydropdown-menu menu-cart">
+                                <div class="title-cart">
+                                    <p>Ваша&nbsp;корзина</p>
+                                    <img class="closeCart" src="img/catalog-close-icon.png" alt="close">
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="cart-cont">
+                                    <li>
+                                        <div class="drop-pr"><span class="  drop-pr" aria-hidden="true">&#10006;</span></div>
+                                        <div class="img-cart"><img src="img/product1.png" alt="Стеклянная доска NAGA белая"></div>
+                                        <div class="desc-cart"><a href="#" class="name-pr-cart">Стеклянная доска NAGA белая</a>
+                                            <ul class="char-cart">
+                                                <li>Производство: Китай</li>
+                                                <li>Код: 015144</li>
+                                                <li>Цвет: <span class="color-c"></span></li>
+                                            </ul>
+                                            <p class="price-in-cart">6,50 руб x 4</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="drop-pr">
+                                            <span class="  drop-pr" aria-hidden="true">&#10006;</span>
+                                        </div>
+                                        <div class="img-cart">
+                                            <img src="img/product1.png" alt="Стеклянная доска NAGA белая">
+                                        </div>
+                                        <div class="desc-cart">
+                                            <a href="#" class="name-pr-cart">Стеклянная доска NAGA белая</a>
+                                            <ul class="char-cart">
+                                                <li>Производство: Китай</li>
+                                                <li>Код: 015144</li>
+                                                <li>Цвет: <span class="color-c"></span></li>
+                                            </ul>
+                                            <p class="price-in-cart">6,50 руб x 4</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="drop-pr">
+                                            <span class="  drop-pr" aria-hidden="true">&#10006;</span>
+                                        </div>
+                                        <div class="img-cart">
+                                            <img src="img/product1.png" alt="Стеклянная доска NAGA белая">
+                                        </div>
+                                        <div class="desc-cart">
+                                            <a href="#" class="name-pr-cart">Стеклянная доска NAGA белая</a>
+                                            <ul class="char-cart">
+                                                <li>Производство: Китай</li>
+                                                <li>Код: 015144</li>
+                                                <li>Цвет: <span class="color-c"></span></li>
+                                            </ul>
+                                            <p class="price-in-cart">6,50 руб x 4</p>
+                                        </div>
+                                    </li>
+                                </div>
+                                <div class="down-cart">
+                                    <div class="row">
+                                        <div class="col-md-5 col-sm-5">
+                                            <ul class="all-pr">
+                                                <li>10 товаров</li>
+                                                <li class="summa-c">Сумма: 1 250 руб</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-7 col-sm-7">
+                                            <a href="#cart-popup" class="btn c-button btn-ea-c popup-close-cart">
+                                                <div class="c-ripple js-ripple">
+                                                    <span class="c-ripple__circle"></span>
+                                                </div>
+                                                Просмотреть корзину
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <nav id="ml-menu" class="menu">
@@ -3998,7 +4085,7 @@
                             </ul>
                             <form action="" class="sort-block-subscribe">
                                 <input type="email" name="your-email" placeholder="Подписаться на новинки раздела" />
-                                <button type="subscribe"></button>
+                                <button type="submit"></button>
                             </form>
                         </div>
                     </div>
@@ -4023,32 +4110,12 @@
                             </ul>
                             <div class="products-list-page-products grouped-type">
                                 <div class="products-list-page__product-item-wrap">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                     <div class="view-product">
                                         <a href="#" class="link-name-cat">Клей ПВА OfficeSpace 65 грамм, с дозатором</a>
                                         <div class="prod-pict">
-
                                             <img src="/img/product1.png" alt="Product">
                                         </div>
                                     </div>
-
-
-
-
                                     <ul class="product-types-list">
                                         <li class="product-types-list-item">
                                             <div class="prod-info">
@@ -4779,7 +4846,7 @@
                     <form>
                         <input type="text" class="name-sub" name="your-name" placeholder="Имя Фамилия">
                         <input type="email" class="name-sub" name="your-email" placeholder="Электронная почта">
-                        <button class="c-button btn-sub" type="subscribe">
+                        <button class="c-button btn-sub" type="submit">
                             <div class="c-ripple js-ripple">
                                 <span class="c-ripple__circle"></span>
                             </div>
@@ -5066,7 +5133,7 @@
                 </label>
                 </span>
                 <div class="enter-form-buttons">
-                    <button class="c-button" type="subscribe">
+                    <button class="c-button" type="submit">
                         <div class="c-ripple js-ripple">
                             <span class="c-ripple__circle"></span>
                         </div>
@@ -5145,7 +5212,7 @@
                 <p>Регистрация на сайте подразумевает обязательное согласие с <a href="#">политикой конфиденциальности</a></p>
             </div>
             <div class="registration-popup-footer">
-                <button class="btn c-button btn-sign btn-reg" type="subscribe">
+                <button class="btn c-button btn-sign btn-reg" type="submit">
                     <div class="c-ripple js-ripple">
                         <span class="c-ripple__circle"></span>
                     </div>
@@ -5172,7 +5239,7 @@
                         <span class="input__label-content input__label-content--ichiro">Ваш e-mail *</span>
                 </label>
                 </span>
-                <button class="c-button" type="subscribe">
+                <button class="c-button" type="submit">
                     <div class="c-ripple js-ripple">
                         <span class="c-ripple__circle"></span>
                     </div>
@@ -5308,18 +5375,27 @@
                     </li>
                 </ul>
                 <div class="cart-popup-products-total-price">
-                    <div>
+                    <div class="card-popup-top">
                         <div class="total">
-                            <p>Итого:</p>
-                            <span>352 руб</span>
+                            <p class="total-title">Итого</p>
+                            <div class="total-all"><span>товаров на суму:</span><span>13,94 руб</span></div>
                         </div>
                     </div>
-                    <button class="cart-popup-form-order c-button" type="subscribe">
-                        <div class="c-ripple js-ripple">
-                            <span class="c-ripple__circle"></span>
+                    <div class="card-popup-bot">
+                        <div class="total-bot-top">
+                            Всего к оплате: <span>13,94 руб</span>
                         </div>
-                        ОФОРМИТЬ ЗАКАЗ
-                    </button>
+                        <button class="cart-popup-form-order c-button" type="submit">
+                            <div class="c-ripple js-ripple">
+                                <span class="c-ripple__circle"></span>
+                            </div>
+                            Заказ подтверждаю
+                        </button>
+                        <div class="total-user">
+                            <p>Подтверждая заказ, я принимаю условия</p>
+                            <a href="#">пользовательского соглашения</a>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -5332,7 +5408,7 @@
             </a>
             <form action="">
                 <input type="text" placeholder="Код купона / промо слово" />
-                <button class="c-button" type="subscribe">
+                <button class="c-button" type="submit">
                     <div class="c-ripple js-ripple">
                         <span class="c-ripple__circle"></span>
                     </div>
@@ -6592,7 +6668,7 @@
                             За эту покупку будет начислено - <span>173 бонуса</span>
                         </div>
                     </div>
-                    <button class="cart-popup-form-order c-button" type="subscribe">
+                    <button class="cart-popup-form-order c-button" type="submit">
                         <div class="c-ripple js-ripple">
                             <span class="c-ripple__circle"></span>
                         </div>
@@ -6610,7 +6686,7 @@
             </a>
             <form action="">
                 <input type="text" placeholder="Код купона / промо слово" />
-                <button class="c-button" type="subscribe">
+                <button class="c-button" type="submit">
                     <div class="c-ripple js-ripple">
                         <span class="c-ripple__circle"></span>
                     </div>

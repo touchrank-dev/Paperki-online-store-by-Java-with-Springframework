@@ -1,4 +1,11 @@
 /*mobile css*/
+@media only screen and (max-width: 1920px) {
+    .orderingSidebar{
+        &.orderfix{
+            right: 186px;
+        }
+    }
+}
 @media only screen and (max-width: 1590px) {
     button.btn-number {
         font-size: 20px;
@@ -72,8 +79,16 @@
             }
         }
     }
+
+
 }
+
 @media only screen and (max-width: 1390px) {
+    .orderingSidebar{
+        &.orderfix{
+            right: 104px;
+        }
+    }
     .nav-navbar-main .row > div .row > .col-lg-7 {
         width: 53%;
     }
@@ -326,6 +341,15 @@
 @media only screen and (max-width: 1200px){
     .morph-button{
         margin: 0;
+    }
+    .orderingBlock-left{
+        width: 100%;
+        padding-right: 0;
+        float: none;
+    }
+    .orderBlock-right{
+        width: 100%;
+        float: none;
     }
 	.cap-pad .al-ph {
 	    margin-top: 48px;
@@ -592,6 +616,10 @@
         width: 100%;
         margin-bottom: 30px;
         margin-top: 60px;
+        &.orderfix{
+            position: static;
+            width: 100%;
+        }
     }
     .orderingPage{
         padding-right: 0;
@@ -829,6 +857,16 @@
 @media only screen and (max-width: 992px) {
     span.time-head{
         padding: 0;
+    }
+    .article{
+        height: auto;
+    }
+    .cart-popup-content .cart-popup-continue-shopping{
+        justify-content: space-around;
+    }
+    .fixed-basket{
+        display: none;
+        visibility: hidden;
     }
     .mainMenu-wrap{
         display: -webkit-flex;
@@ -1505,6 +1543,12 @@
     .nav-profile li.login .login-user-button{
         overflow: hidden;
     }
+    .cart-popup-products-total-price .cart-popup-form-order{
+        font-size: 18px;
+    }
+    .cart-popup-products-total-price > div .total-title{
+        font-size: 24px;
+    }
 	.head-row {
 		display: none;
 	}
@@ -1761,7 +1805,6 @@
         .cart-popup-continue-shopping{
             padding-right: 0;
             padding-left: 15px;
-            padding-top: 160px;
         }
         .cart-popup-reg{
             height: auto;
@@ -1776,6 +1819,15 @@
                 padding-right: 0;
             }
         }
+    }
+    .cart-popup-products-total-price{
+        position: relative;
+        top: auto;
+        left: 15px;
+        margin-top: 15px;
+    }
+    .cart-popup-content .cart-popup-continue-shopping{
+        padding-bottom: 0;
     }
     .cart-added-popup-content{
         .cart-popup-products-list{
@@ -2977,6 +3029,22 @@
 }
 /* Extra Small Devices, Phones */
 @media only screen and (max-width: 480px) {
+
+    .cart-popup-products-total-price .cart-popup-form-order{
+        font-size: 16px;
+    }
+    .cart-popup-products-total-price{
+        left: 0;
+    }
+    .cart-popup-continue-shopping_left, .cart-popup-continue-shopping_right{
+        padding: 0;
+    }
+    .cart-popup-products-total-price .total-bot-top{
+        font-size: 15px;
+    }
+    .cart-popup-products-total-price .total-bot-top span{
+        font-size: 18px;
+    }
     .btn-call{
         font-size: 14px;
     }
@@ -3010,8 +3078,13 @@
     }
     .btn-bl-sl {
         margin-top: 17px;
-        width: 100%;
+        max-width: 90%;
+        width: 200px;
         text-align: center;
+    }
+    a.btn.btn-slider{
+        font-size: 16px;
+        padding: 10px;
     }
     a.btn-slider {
         width: 100%;
@@ -3021,6 +3094,10 @@
     }
     a.btn-slider .c-ripple {
         white-space: normal;
+    }
+    .main-carousel .slick-slide-item{
+        height: auto;
+        padding-bottom: 100px;
     }
     .slick-thumbs-list .slick-slide {
         padding: 0 3px;
@@ -3536,7 +3613,7 @@
             top: 0;
             width: 100%;
             .cart-popup-form-order{
-                border-radius: 0;
+                height: 50px;
             }
         }
         .cart-popup-reg{

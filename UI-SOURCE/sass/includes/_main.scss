@@ -1759,8 +1759,8 @@ ul.nav.navbar-nav.nav-navbar-btn {
     position: relative;
 }
 ul.nav.navbar-nav.nav-navbar-btn li {
+    padding: 0 15px;
     box-sizing: border-box;
-    padding: 0 15px 0 15px;
     position: relative;
 }
 ul.nav.navbar-nav.nav-navbar-btn > li > a {
@@ -1804,9 +1804,17 @@ span.time-head {
     margin-bottom: -5px;
     overflow: hidden;
 }
+.clearfx::after{
+    content: " ";
+    position: absolute;
+    overflow: hidden;
+    visibility: hidden;
+    clear: both;
+    height: 0;
+}
 .cart img.cartOK{
     position: absolute;
-    top: 5%;
+    top: 1%;
     left: 40%;
 }
 .cart img.cartOK.emptyCart{
@@ -2702,6 +2710,8 @@ button.btn.btn-pr {
     border: 1px solid #ededed;
     border-bottom: 5px solid #ededed;
     padding: 25px;
+    height: 260px;
+    overflow: hidden;
 }
 .title-art {
     font-size: 16px;
@@ -2720,6 +2730,8 @@ button.btn.btn-pr {
     line-height: 16px;
     margin: 0px;
     margin-bottom: 20px;
+    max-height: 68px;
+    overflow: hidden;
 }
 .img {
     position: absolute;
@@ -3246,9 +3258,41 @@ p.price-in-cart {
 }
 .nav-right-mn li:last-child {
     margin: 0 0 0 0;
+
 }
 .dropdown.cart{
     padding: 0;
+}
+.fixed-basket{
+    position: absolute;
+    display: none;
+    background: #f9f9f9;
+    top: 2px;
+    right: 2px;
+    height: 57px;
+    z-index: 9999;
+    width: 100%;
+    max-width: 175px;
+    text-align: left;
+    padding: 5px 10px;
+    border-left: 1px solid #e0e0e0;
+    ul.Mydropdown-menu.menu-cart{
+        right: -12px;
+        top: 53px;
+    }
+    .cart{
+        border-right: none;
+        border-left: none;
+        a{
+            text-align: left;
+        }
+    }
+    .cartIconHolder{
+        margin-left: 10px;
+    }
+    .dropdown-cart__current-products{
+        display: inline-block;
+    }
 }
 .nav-right-mn li a {
     width: 100%;
@@ -3360,7 +3404,7 @@ ul div span.time-head {
     text-align: center;
     width: 100%;
     font-size: 15px;
-    padding: 21px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
     border-radius: 8px;
     border: 1px solid #e0e0e0;
     font-family: ProximaNovaBlack;
@@ -6357,8 +6401,8 @@ header {
 	visibility: visible;
 }
 .animate-outToRight .menu__item {
-	-webkit-animation: outToRight 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
-	animation: outToRight 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+	-webkit-animation: outToRight 0.3s both cubic-bezier(0.7, 0, 0.3, 1);
+	animation: outToRight 0.3s both cubic-bezier(0.7, 0, 0.3, 1);
 }
 @-webkit-keyframes outToRight {
 	to {
@@ -6376,8 +6420,8 @@ header {
 }
 .animate-outToLeft .menu__item,
 .animate-outToLeft .submenu-discount{
-	-webkit-animation: outToLeft 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
-	animation: outToLeft 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+	-webkit-animation: outToLeft 0.3s both cubic-bezier(0.7, 0, 0.3, 1);
+	animation: outToLeft 0.3s both cubic-bezier(0.7, 0, 0.3, 1);
 }
 @-webkit-keyframes outToLeft {
 	to {
@@ -6423,8 +6467,8 @@ header {
 }
 .animate-inFromRight .menu__item,
 .animate-inFromRight .submenu-discount{
-	-webkit-animation: inFromRight 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
-	animation: inFromRight 0.6s both cubic-bezier(0.7, 0, 0.3, 1);
+	-webkit-animation: inFromRight 0.3s both cubic-bezier(0.7, 0, 0.3, 1);
+	animation: inFromRight 0.3s both cubic-bezier(0.7, 0, 0.3, 1);
 }
 @-webkit-keyframes inFromRight {
 	from {

@@ -10,6 +10,8 @@ $(document).ready(function(){
         slidesToScroll: 1,
         arrows: false,
         asNavFor: slickSliderNav,
+        autoplay: true,
+        autoplaySpeed: 2000,
     });
     slickSliderNav.slick({
         slidesToShow: 9,
