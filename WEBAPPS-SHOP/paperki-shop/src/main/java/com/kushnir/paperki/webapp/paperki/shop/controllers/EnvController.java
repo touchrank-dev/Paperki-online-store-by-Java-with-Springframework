@@ -27,9 +27,9 @@ public class EnvController {
         return "env";
     }
 
-    @ModelAttribute("product")
-    public Product getTestProduct() throws ServiceException {
-        return null;
+    @ModelAttribute("fileEncoding")
+    public String encoding() {
+        return System.getProperty("file.encoding");
     }
 
 }
