@@ -295,15 +295,19 @@
                                         <h2 style="margin-top: 20px;">
                                             Рассчетные счета:
                                         </h2>
-                                        <ul class="delivery-address-list">
-                                            <li>
-                                                <a href="#">р/с 12345678901234 в ОАО Беларусбанк</a>
-                                                <div class="action-buttons">
-                                                    <a href="#" class="edit-button" title="Редактировать"></a>
-                                                    <a href="#" class="delete-button" title="Удалить"></a>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                        <div th:switch="${accounts} == null or ${accounts.size()} < 1" th:remove="tag">
+                                            <ul class="delivery-address-list"
+                                                th:case="${false}">
+                                                <li th:each="account : ${accounts}">
+                                                    <a href="#"
+                                                       th:text="${account.value}"></a>
+                                                    <div class="action-buttons">
+                                                        <a href="#" class="delete-button" title="Удалить"></a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <span th:case="${true}">У Вас еще нет рассчетных счетов</span>
+                                        </div>
                                         <a href="#" class="add-delivery-address-button">добавить рассчетный счет</a>
                                     </div> 
 
