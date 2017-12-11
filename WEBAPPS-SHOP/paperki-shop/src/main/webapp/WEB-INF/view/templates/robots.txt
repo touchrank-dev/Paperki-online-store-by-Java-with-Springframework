@@ -5,8 +5,8 @@
 # http://www.sxw.org.uk/computing/robots/check.html
 
 User-agent: *
-Disallow: /api/
-Disallow: /env/
-Disallow: /password/
-Disallow: /profile/
-Disallow: /order/
+Disallow: /api
+Disallow: /env
+Disallow: /password
+Disallow: /profile
+Disallow: /order
