@@ -48,11 +48,14 @@ public class MainController {
 
     // главная страница
     @GetMapping()
-    public String mainPage(Model model) {
+    public String mainPage(Model model) throws ServiceException {
         LOGGER.debug("mainPage() >>>");
+        model.addAttribute("mainmenu", menuBean.getAll("root"));
         model.addAttribute("extraProducts", productBean.getAllExtraTypeProducts());
         model.addAttribute("templatePathName", contentPath + MAIN_MENU_NAME);
         model.addAttribute("fragmentName", MAIN_MENU_NAME);
+        model.addAttribute("mapcategories", catalogBean.getAll());
+        model.addAttribute("oldImages", imageService.getAllOldImages());
         return "index";
     }
 
@@ -73,9 +76,19 @@ public class MainController {
     }
 
     @GetMapping("/robots.txt")
-    public FileSystemResource robots () {
+    public void robots (HttpServletResponse response) throws PageNotFound {
         LOGGER.debug("robots()");
-        return null;
+        String filePathToBeServed =
+                "/papsource/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/view/templates/robots.txt";
+        try {
+            InputStream is = new FileInputStream(new File(filePathToBeServed));
+            IOUtils.copy(is, response.getOutputStream());
+            response.flushBuffer();
+            is.close();
+        } catch (Exception e) {
+            LOGGER.error("ERROR: ", e);
+            throw new PageNotFound();
+        }
     }
 
     // страницы главного меню
@@ -94,24 +107,10 @@ public class MainController {
         }
         model.addAttribute("templatePathName", contentPath + pageName);
         model.addAttribute("fragmentName", pageName);
+        model.addAttribute("mainmenu", menuBean.getAll("root"));
+        model.addAttribute("mapcategories", catalogBean.getAll());
+        model.addAttribute("oldImages", imageService.getAllOldImages());
         return "index";
-    }
-
-    @ModelAttribute("mainmenu")
-    public ArrayList getMainMenu () {
-        return menuBean.getAll("root");
-    }
-
-    @ModelAttribute("mapcategories")
-    public HashMap getCatalog () throws ServiceException {
-        return catalogBean.getAll();
-    }
-
-    @ModelAttribute("oldImages")
-    public HashMap<Integer, ArrayList<String>> getOldImages() {
-        LOGGER.debug("getOldImages()");
-        HashMap<Integer, ArrayList<String>> oldImages = imageService.getAllOldImages();
-        return oldImages;
     }
 
 }
