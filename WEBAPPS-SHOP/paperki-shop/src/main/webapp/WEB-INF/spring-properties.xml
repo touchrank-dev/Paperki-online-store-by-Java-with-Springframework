@@ -5,6 +5,7 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="fileEncoding" value="UTF-8" />
         <property name="locations">
             <list>
                 <value>classpath:sqlQueries.properties</value>

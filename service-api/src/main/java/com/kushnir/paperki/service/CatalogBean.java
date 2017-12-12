@@ -20,6 +20,8 @@ public interface CatalogBean {
     Product getProductByTName (String productTName) throws ServiceException;
     Product getProductByPNT (Integer pnt) throws ServiceException;
     String updateCatalog() throws ServiceException, IOException;
+
+    CategoryContainer getCategoriesFromCSVToContainer(StringBuilder sb) throws IOException;
     CategoryContainer getCategoriesToContainer();
     int addCategory(Category category);
     int addRefCategory(Category category);
