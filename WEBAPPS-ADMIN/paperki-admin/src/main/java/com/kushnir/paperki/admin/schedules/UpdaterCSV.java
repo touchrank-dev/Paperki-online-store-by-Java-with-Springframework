@@ -24,19 +24,24 @@ public class UpdaterCSV {
     }
 
     public void productUpdate() {
-        LOGGER.debug("===== Started Products update ==== >>> ");
+        LOGGER.debug("===== START Products update ==== >>> ");
+        LOGGER.debug("===== FINISH Products update ==== ");
     }
     public void pricesUpdate() {
-        LOGGER.debug("===== Started Prices update ==== >>> ");
+        LOGGER.debug("===== START Prices update ==== >>> ");
+        LOGGER.debug("===== FINISH Prices update ==== ");
     }
     public void customersUpdate() {
-        LOGGER.debug("===== Started Customers update ==== >>> ");
+        LOGGER.debug("===== START Customers update ==== >>> ");
+        LOGGER.debug("===== FINISH Customers update ==== ");
     }
     public void discountsUpdate() {
-        LOGGER.debug("===== Started Discounts update ==== >>> ");
+        LOGGER.debug("===== START Discounts update ==== >>> ");
+        LOGGER.debug("===== FINISH Discounts update ==== ");
     }
     public void stockUpdate() {
-        LOGGER.debug("===== Started Stock update ==== >>> ");
+        LOGGER.debug("===== START Stock update ==== >>> ");
+        LOGGER.debug("===== FINISH Stock update ==== ");
     }
 
 }
