@@ -1,4 +1,4 @@
-package com.kushnir.paperki.admin.controllers;
+package com.kushnir.paperki.admin.controllers.update;
 
 import com.kushnir.paperki.model.RestMessage;
 import com.kushnir.paperki.service.BrandService;
