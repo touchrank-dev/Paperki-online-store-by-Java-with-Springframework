@@ -2,6 +2,7 @@ package com.kushnir.paperki.admin.controllers.app;
 
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.user.UserType;
+
 import org.h2.util.IOUtils;
 
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class MainController {
     public String login(@RequestParam HashMap<String, String> attributes, HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("user");
         login(attributes.get("login"), attributes.get("password"), user);
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/favicon.ico")
