@@ -22,7 +22,11 @@ public class UpdaterCSV {
         // catalogBean.updateCatalog();
         LOGGER.debug("===== FINISH Catalog update ==== ");
     }
-
+    public void brandsUpdate() throws IOException, ServiceException {
+        LOGGER.debug("===== START Brands update ==== >>> ");
+        // catalogBean.updateCatalog();
+        LOGGER.debug("===== FINISH Brands update ==== ");
+    }
     public void productUpdate() {
         LOGGER.debug("===== START Products update ==== >>> ");
         LOGGER.debug("===== FINISH Products update ==== ");
