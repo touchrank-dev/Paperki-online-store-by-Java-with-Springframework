@@ -35,31 +35,27 @@ public class SessionController {
 
     @ModelAttribute("user")
     public User setUser(HttpSession httpSession, HttpServletRequest req) {
-        if (req.getRequestedSessionId() != null) {
-            User user = (User) httpSession.getAttribute("user");
-            if (user == null) {
-                user = new User();
-                httpSession.setAttribute("user", user);
-                LOGGER.debug("SET NEW EMPTY USER");
-            }
-            LOGGER.debug("SessionId: {}, isValid: {}, isFromCookie: {}",
+        User user = (User) httpSession.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            httpSession.setAttribute("user", user);
+            LOGGER.debug("SET NEW EMPTY USER");
+        }
+        LOGGER.debug("SessionId: {}, isValid: {}, isFromCookie: {}",
                     req.getRequestedSessionId(),
                     req.isRequestedSessionIdValid(),
                     req.isRequestedSessionIdFromCookie());
-            return user;
-        } else return null;
+        return user;
     }
 
     @ModelAttribute("cart")
     public Cart setCart (HttpSession httpSession, HttpServletRequest req) {
-        if (req.getRequestedSessionId() != null) {
-            Cart cart = (Cart) httpSession.getAttribute("cart");
-            if (cart == null) {
-                cart = new Cart();
-                httpSession.setAttribute("cart", cart);
-            }
-            return cart;
-        } else return null;
+        Cart cart = (Cart) httpSession.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
+            httpSession.setAttribute("cart", cart);
+        }
+        return cart;
     }
 
     @ModelAttribute("appTitle")
