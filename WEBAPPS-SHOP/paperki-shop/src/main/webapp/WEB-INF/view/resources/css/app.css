@@ -659,3 +659,122 @@ div.add-area {
 .order-details-total {
 
 }
+
+
+/* =========================================================== */
+
+.input_error {
+    border: 1px solid #ff0000;
+    color: #ff0000;
+}
+
+.label_error {
+    color: #ff0000;
+}
+
+.btn-call {
+    color: #ff8d38;
+    font-size: 16px;
+    padding: 10px 20px; }
+
+.btn-call:hover {
+    box-shadow: 0px 10px 20px 0px rgba(145, 68, 0, 0.1);
+    background: white;
+    color: #ff8d38;
+    border-color: #ccc; }
+
+button.btn.btn-call {
+    color: #ff831d;
+    line-height: 38px;
+    font-size: 20px;
+    width: 100%;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background: #fff;
+    /* Old browsers */
+    background: -webkit-linear-gradient(top, #ff821d 33%, #ffae00 66%);
+    /* Chrome10-25,Safari5.1-6 */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-color: #ccc;
+    font-family: ProximaNovaBlack; }
+
+.btn-to-cart-simple {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    /*width: 55px;*/
+    height: 35px;
+    background-color: #a8c600;
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    color: #fff;
+    font-weight: 900;
+    font-size: 16px;
+    text-shadow: 1px 1px #777;
+}
+
+/* 4921   width: 6.654%;*/
+.col-md-1.box-bl {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 6.654%;
+    border-bottom: 1px solid #e0e0e0;
+    float: none;}
+
+@media only screen and (max-width: 1390px) {
+    .my-organizations .my-organizations-content .my-profile-personal-data {
+        padding: 18px 15px 21px 15px;
+    }
+
+    .my-organizations .my-organizations-content .my-profile-personal-data .my-profile-personal-data-text {
+        margin-left: 40px;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .my-organizations .my-organizations-content .my-profile-personal-data ul:first-of-type {
+        margin-right: 0;
+    }
+
+}
+
+
+@media only screen and (max-width: 768px) {
+    .update-profile-popup-content {
+        top: 0;
+        left: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .update-profile-popup-content .mfp-close {
+        right: 20px;
+        top: 20px;
+    }
+
+    .update-profile-popup-footer {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+}
