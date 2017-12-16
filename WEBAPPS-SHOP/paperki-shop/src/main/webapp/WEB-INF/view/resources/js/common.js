@@ -204,6 +204,7 @@ $(function() {
     $('.cart-popup-del__cancel').click(function(e){
         $('.cart-popup-del-prod').removeClass('js-active');
         $('.cart-popup-del-prod-confirm').removeClass('is-visible');
+        $('.product-add-popup-confirm').removeClass('is-visible');
         e.preventDefault();
     });
     // cart page end
