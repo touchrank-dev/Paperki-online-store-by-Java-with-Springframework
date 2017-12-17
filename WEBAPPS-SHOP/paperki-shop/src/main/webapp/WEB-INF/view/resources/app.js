@@ -54,10 +54,8 @@ function addToCart(pnt) {
     var popupConfirm = pntinput.parents('.btns').children('.product-add-popup-confirm');
     popupConfirm.removeClass('is-visible');
     popupConfirm.children('.textarea').html('');
-    // var loader = pntinput.parents('.btns').children('.cart-add-loader');
 
     showLoader();
-    // loader.show();
 
     quantity = pntinput.val();
     $.ajax({
@@ -86,7 +84,6 @@ function addToCart(pnt) {
         }
     });
     hideLoader();
-    // loader.hide();
 }
 
 
@@ -434,10 +431,11 @@ function activatePromo() {
 
 function mapCart(cart) {
     $('#cart-total-with-vat').html('');
+    $('#nav-cart-total-with-vat').html('');
     if(cart.finalTotalWithVAT > 0.0) {
         $('#cart-total-with-vat').html('<span class="total-sum">'+cart.finalTotalWithVAT+'</span> руб</p>');
-/*        $('#summa-c').text('Сумма: '+cart.finalTotalWithVAT+ ' руб');
-*/    }
+        $('#nav-cart-total-with-vat').html('<span class="total-sum">'+cart.finalTotalWithVAT+'</span> руб</p>');
+    }
     printCartItems(cart.items);
 }
 
@@ -454,25 +452,27 @@ function printAddedItem(cart, pnt) {
 
 function printCartItems(products) {
     $('#cart-cont').html('');
+    $('#nav-cart-cont').html('');
     if(products != null) {
         $.each( products, function( pnt, product ) {
-            $('#cart-cont').append(
+            var cartProductHtml =
                 '<li style="left: 0px;">'+
-                    '<div class="drop-pr">'+
-                        '<span class="drop-pr" aria-hidden="true" onclick="deleteFromCart('+product.pnt+')">✖</span>'+
-                    '</div>'+
-                    '<div class="img-cart">'+
-                        '<img src="/catimagesold/'+product.imageName+'" alt="'+product.fullName+'" style="max-width: 110px;">'+
-                    '</div>'+
-                    '<div class="desc-cart">'+
-                        '<a href="'+product.link+'" class="name-pr-cart">'+product.fullName+'</a>'+
-                        '<ul class="char-cart">'+
-                            '<li>'+product.shortName+'</li>'+
-                        '</ul>'+
-                        '<p class="price-in-cart">'+product.finalPriceWithVAT+' руб X '+product.quantity+' ед.</p>'+
-                    '</div>'+
-                '</li>'
-            );
+                '<div class="drop-pr">'+
+                '<span class="drop-pr" aria-hidden="true" onclick="deleteFromCart('+product.pnt+')">✖</span>'+
+                '</div>'+
+                '<div class="img-cart">'+
+                '<img src="/catimagesold/'+product.imageName+'" alt="'+product.fullName+'" style="max-width: 110px;">'+
+                '</div>'+
+                '<div class="desc-cart">'+
+                '<a href="'+product.link+'" class="name-pr-cart">'+product.fullName+'</a>'+
+                '<ul class="char-cart">'+
+                '<li>'+product.shortName+'</li>'+
+                '</ul>'+
+                '<p class="price-in-cart">'+product.finalPriceWithVAT+' руб X '+product.quantity+' ед.</p>'+
+                '</div>'+
+                '</li>';
+            $('#cart-cont').append(cartProductHtml);
+            $('#nav-cart-cont').append(cartProductHtml);
         });
     }
 }

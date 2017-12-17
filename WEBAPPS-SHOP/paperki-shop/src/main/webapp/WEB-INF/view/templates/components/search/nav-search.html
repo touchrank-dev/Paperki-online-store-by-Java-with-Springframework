@@ -14,11 +14,13 @@
                 <div class="dropdown-cart__current-products">
                     <p id="cart-total-with-vat">
                         <span class="total-sum"
-                              th:if="${cart.totalWithVAT} > 0.0"
-                              th:text="${cart?.totalWithVAT}">0.00</span>
-                        руб</p>
-                    <span class="pr-main"
-                          th:text="${cart?.items?.size()} + ' ед.'">0 ед.</span>
+                              th:text="${cart?.totalWithVAT}">
+                            0.00
+                        </span>
+                        руб
+                    </p>
+                    <!--<span class="pr-main"
+                          th:text="${cart?.items?.size()} + ' ед.'">0 ед.</span>-->
                 </div>
                 <div class="cartIconHolder">
                     <img class="cartIcon" src="/res/img/cart1_mini_select.png" alt="cart">
@@ -31,12 +33,12 @@
                     <img class="closeCart" src="/res/img/catalog-close-icon.png" alt="close">
                     <div class="clearfix"></div>
                 </div>
-                <div class="cart-cont" id="cart-cont">
+                <div class="cart-cont" id="nav-cart-cont">
                     <li th:if="${cart?.items.size()} > 0"
                         th:each="item : ${cart.items}">
                         <div class="drop-pr">
-                                                        <span class="  drop-pr" aria-hidden="true" onclick="deleteFromCart('null')"
-                                                              th:attr="onclick='deleteFromCart('+${item.value.pnt}+')'">&#10006;</span>
+                            <span class="  drop-pr" aria-hidden="true" onclick="deleteFromCart('null')"
+                                  th:attr="onclick='deleteFromCart('+${item.value.pnt}+')'">&#10006;</span>
                         </div>
                         <div class="img-cart">
                             <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr" style="max-width: 110px;"

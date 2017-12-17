@@ -125,11 +125,13 @@
                                             <div class="dropdown-cart__current-products">
                                                 <p id="cart-total-with-vat">
                                                     <span class="total-sum"
-                                                        th:if="${cart.totalWithVAT} > 0.0"
-                                                        th:text="${cart?.totalWithVAT}">0.00</span>
-                                                    руб</p>
-                                                <span class="pr-main"
-                                                    th:text="${cart?.items?.size()} + ' ед.'">0 ед.</span>
+                                                          th:text="${cart?.totalWithVAT}">
+                                                        0.00
+                                                    </span>
+                                                    руб
+                                                </p>
+                                                <!--<span class="pr-main"
+                                                    th:text="${cart?.items?.size()} + ' ед.'">0 ед.</span>-->
                                             </div>
                                         </a>
                                         <ul class="Mydropdown-menu menu-cart">
