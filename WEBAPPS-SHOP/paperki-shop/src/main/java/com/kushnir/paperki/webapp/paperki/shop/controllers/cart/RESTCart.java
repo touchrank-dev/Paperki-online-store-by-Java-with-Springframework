@@ -79,7 +79,7 @@ public class RESTCart {
         }
     }
 
-    // curl -H "Content-Type: application/json" -d '{"pnt":9491}' -v localhost:8080/api/cart/update
+    // curl -H "Content-Type: application/json" -d '{"pnt":9491,"quantity":1}' -v localhost:8080/api/cart/update
     @PostMapping("/update")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage updateCartProduct (@RequestBody AddProductRequest addProductRequest,

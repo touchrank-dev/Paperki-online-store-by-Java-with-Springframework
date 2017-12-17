@@ -2,6 +2,7 @@ package com.kushnir.paperki.service.mail;
 
 import com.kushnir.paperki.model.order.Order;
 
+import com.kushnir.paperki.model.user.PasswordRecoveryRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,6 +33,12 @@ public class HtmlMailer {
     @Autowired
     private TemplateEngine templateEngine;
 
+    @Value("${webapp.host}")
+    String host;
+
+    @Value("${webapp.rootUrl}")
+    String rootUrl;
+
     public void sendOrderConfirmEmail(Order order, String email) throws MessagingException {
         LOGGER.debug("sendOrderConfirmEmail(to: {})", email);
         try {
@@ -51,6 +58,30 @@ public class HtmlMailer {
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             LOGGER.error("Не удалось отправить сообщение для: {}", email);
+        }
+    }
+
+    public void sendPasswordRestoreRequestMessage (PasswordRecoveryRequest passwordRecoveryRequest) {
+        LOGGER.debug("sendPasswordRestoreRequestMessage(to: {})", passwordRecoveryRequest.getEmail());
+        try {
+            Context ctx = new Context();
+            ctx.setVariable("request", passwordRecoveryRequest);
+            ctx.setVariable("rootUrl", rootUrl);
+            ctx.setVariable("link", rootUrl+"/password/"+passwordRecoveryRequest.getToken());
+
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+
+            String htmlContent = this.templateEngine.process("email/change-password-request", ctx);
+
+            message.setSubject("Запрос на смену пароля от аккаунта на paperki.by");
+            message.setFrom(USER_SERVICE_EMAIL_ADDRESS);
+            message.setTo(new String[] {passwordRecoveryRequest.getEmail()});
+            message.setBcc(SUPPORT_SERVICE_EMAIL_ADDRES);
+            message.setText(htmlContent, true);
+            mailSender.send(mimeMessage);
+        } catch (Exception e) {
+            LOGGER.error("Не удалось отправить сообщение для: {}", passwordRecoveryRequest.getEmail());
         }
     }
 

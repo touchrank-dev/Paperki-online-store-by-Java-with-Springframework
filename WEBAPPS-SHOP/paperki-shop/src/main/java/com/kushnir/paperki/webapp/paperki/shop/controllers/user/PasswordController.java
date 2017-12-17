@@ -58,6 +58,18 @@ public class PasswordController {
         return "index";
     }
 
+    @GetMapping("/{token}")
+    @ResponseStatus(HttpStatus.OK)
+    public String changePasswordPage(@PathVariable String token, Model model) {
+        LOGGER.debug("changePasswordPage({}) >>>", token);
+
+        PasswordRecoveryRequest recoveryRequest = userService.getPasswordRecoveryRequestByToken(token);
+
+        model.addAttribute("templatePathName", contentPath + "change-password");
+        model.addAttribute("fragmentName", "change-password");
+        return "index";
+    }
+
 
     @ModelAttribute("mainmenu")
     public ArrayList getMainMenu () {

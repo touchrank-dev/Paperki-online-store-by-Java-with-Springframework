@@ -32,4 +32,5 @@ public interface UserService {
 
     Object addPasswordRecoveryRequest(PasswordRecoveryRequest passwordRecoveryRequest);
     PasswordRecoveryRequest getPasswordRecoveryRequestById (Integer id);
+    PasswordRecoveryRequest getPasswordRecoveryRequestByToken(String token);
 }

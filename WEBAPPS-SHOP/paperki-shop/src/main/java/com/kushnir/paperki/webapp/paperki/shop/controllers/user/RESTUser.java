@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.password.NewPasswordErrorForm;
 import com.kushnir.paperki.model.password.NewPasswordForm;
 import com.kushnir.paperki.model.user.*;
 import com.kushnir.paperki.service.UserService;
+import com.kushnir.paperki.service.mail.HtmlMailer;
 import com.kushnir.paperki.service.mail.Mailer;
 
 import org.apache.logging.log4j.LogManager;
@@ -32,6 +33,9 @@ public class RESTUser {
 
     @Autowired
     Mailer mailer;
+
+    @Autowired
+    HtmlMailer htmlMailer;
 
     @Value("${webapp.host}")
     String host;
@@ -169,9 +173,11 @@ public class RESTUser {
                 LOGGER.debug("UNSUCCESSFUL: {}", obj);
                 restMessage = new RestMessage(HttpStatus.BAD_REQUEST, "Запрос на восстановление пароля не принят", obj);
             } else {
+                PasswordRecoveryRequest request = (PasswordRecoveryRequest)obj;
                 LOGGER.debug("SUCCESSFULLY: {}", obj);
-                httpSession.setAttribute("passwordRequestId", (Integer)obj);
+                httpSession.setAttribute("passwordRequestId", request.getId());
                 restMessage = new RestMessage(HttpStatus.OK, "Запрос на восстановление пароля принят", obj);
+                htmlMailer.sendPasswordRestoreRequestMessage(request);
             }
             return restMessage;
         } catch (Exception e) {

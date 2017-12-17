@@ -36,4 +36,5 @@ public interface UserDao {
 
     Integer addPasswordRecoveryRequest(PasswordRecoveryRequest passwordRecoveryRequest);
     PasswordRecoveryRequest getPasswordRecoveryRequestById (Integer id);
+    PasswordRecoveryRequest getPasswordRecoveryRequestByToken (String token);
 }

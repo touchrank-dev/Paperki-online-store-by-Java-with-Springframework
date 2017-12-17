@@ -541,7 +541,7 @@ public class UserServiceImpl implements UserService {
 
             passwordRecoveryRequest.setId(userDao.addPasswordRecoveryRequest(passwordRecoveryRequest));
 
-            return passwordRecoveryRequest.getId();
+            return passwordRecoveryRequest;
 
         } catch (IllegalArgumentException e) {
             LOGGER.error("VALIDATE EXCEPTION >>>\nERROR MESSAGE: {}", e.getMessage());
@@ -564,6 +564,20 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
+    @Override
+    public PasswordRecoveryRequest getPasswordRecoveryRequestByToken(String token) {
+        LOGGER.debug("getPasswordRecoveryRequestByToken({})", token);
+        try {
+            Assert.notNull(token, "token = null");
+            Assert.hasText(token, "token is empty");
+            return userDao.getPasswordRecoveryRequestByToken(token);
+        } catch (Exception e) {
+            LOGGER.debug("ERROR: {}", e);
+            return null;
+        }
+    }
+
 
 
     // UTIL's

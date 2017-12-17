@@ -434,6 +434,11 @@ public class UserDaoImpl implements UserDao {
                 new PasswordRecoveryRequestRowMapper());
     }
 
+    @Override
+    public PasswordRecoveryRequest getPasswordRecoveryRequestByToken(String token) {
+        return null;
+    }
+
 
     private class PasswordRecoveryRequestRowMapper implements RowMapper<PasswordRecoveryRequest> {
 
