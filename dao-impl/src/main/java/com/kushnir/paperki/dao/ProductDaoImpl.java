@@ -156,10 +156,8 @@ public class ProductDaoImpl implements ProductDao {
         LOGGER.debug("getProductListByCategoryTName({}) >>>", categoryTName);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_CATEGORY_T_NAME, categoryTName);
 
-        String sqlQuery = getSQLQueryWithSortType(getProductsByCategoryTNameSqlQuery, sortType);
-
         HashMap<Integer, Product> products = namedParameterJdbcTemplate.query(
-                        sqlQuery,
+                        getSQLQueryWithSortType(getProductsByCategoryTNameSqlQuery, sortType),
                         parameterSource,
                         new ProductsResultSetExtractor());
         return products;

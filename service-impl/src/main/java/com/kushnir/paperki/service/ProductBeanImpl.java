@@ -73,6 +73,9 @@ public class ProductBeanImpl implements ProductBean {
     public Product getProductByPNT(Integer pnt) {
         LOGGER.debug("getProductByPNT({}) >>>", pnt);
         Product product = productDao.getProductByPNT(pnt);
+        if(product != null) {
+            product.setAttributes(getAttributesByPNT(product.getPnt()));
+        }
         return product;
     }
 
