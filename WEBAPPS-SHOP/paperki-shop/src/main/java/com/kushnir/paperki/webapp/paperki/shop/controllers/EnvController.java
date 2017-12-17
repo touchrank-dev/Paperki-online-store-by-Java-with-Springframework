@@ -28,6 +28,7 @@ public class EnvController {
     @GetMapping()
     public String envPage() {
         LOGGER.debug("envPage() >>>");
+        // System.gc();
         return "env";
     }
 

@@ -170,7 +170,7 @@ ul.nav.navbar-nav.navbar-right.nav-profile li {
 
 /*login*/
 .nav-profile li.login .enter-popup-btn {
-  display: none; }
+  /*display: none;*/ }
 
 .nav-profile li.login .login-user-button {
   display: -moz-flex;
@@ -420,9 +420,9 @@ p.center-btn.del {
 
 /*enter popup */
 .mainMenu-wrap .enter-popup-btn {
-  width: 130px;
+  /*width: 130px;*/
   height: 46px;
-  padding: 0;
+  /*padding: 0;*/
   margin: 2px 0 0 0;
   background: #fff;
   border: none;
@@ -430,7 +430,7 @@ p.center-btn.del {
   font-family: ProximaNovaBold;
   font-size: 14px;
   font-weight: 700;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   border-radius: 5px;
   display: -moz-flex;
   display: -ms-flex;

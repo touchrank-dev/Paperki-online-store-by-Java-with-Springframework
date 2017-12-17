@@ -309,12 +309,12 @@ $(document).ready(function() {
     //         $('.orderingSidebar').removeClass('orderfix');
     //     }
     // });
-    if (document.documentElement.clientWidth > 1200) {
+    /*if (document.documentElement.clientWidth > 1200) {
         $('.orderBlock-right').theiaStickySidebar({
             // setting
             additionalMarginTop: 55
         });
-    }
+    }*/
 
 //mainPagefooter#accordionButtons
   var collapseLi=$('#accordion #collapseOne .panel-body ul li'),

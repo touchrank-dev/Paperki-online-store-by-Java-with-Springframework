@@ -686,7 +686,7 @@ div.add-area {
 button.btn.btn-call {
     color: #ff831d;
     line-height: 38px;
-    font-size: 20px;
+    /*font-size: 20px;*/
     width: 100%;
     padding: 10px 20px;
     box-sizing: border-box;
@@ -738,6 +738,99 @@ button.btn.btn-call {
     border-bottom: 1px solid #e0e0e0;
     float: none;}
 
+
+
+.quantity-manage {
+    width: 98px;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.quantity-manage .dec {
+    width: 24px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(224, 224, 224);
+    border-right: 0px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    font-size: 34px;
+    font-family: ProximaNovaBold;
+    color: #b9b9b9;
+    line-height: 1;
+    cursor: pointer;
+    background: white;
+}
+
+.quantity-manage .inde {
+    width: 50px;
+    height: 38px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    font-size: 14px;
+    font-family: ProximaNovaBold;
+    color: #b9b9b9;
+}
+
+.quantity-manage .inc {
+    width: 24px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(224, 224, 224);
+    border-left: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-size: 34px;
+    font-family: ProximaNovaBold;
+    color: #b9b9b9;
+    line-height: 1;
+    cursor: pointer;
+    background: white;
+}
+
+
+
+
+
+
+.grouped-type .products-list-page__product-item-wrap .product-types-list .product-types-list-item .btns {
+    margin: 0;
+    padding-right: 0px;
+}
+
+.grouped-type .products-list-page__product-item-wrap .product-types-list .product-types-list-item {
+    padding: 9px 0px 9px 9px;
+    width: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    border-left: 1px solid #e0e0e0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media only screen and (max-width: 1390px) {
     .my-organizations .my-organizations-content .my-profile-personal-data {
         padding: 18px 15px 21px 15px;
@@ -778,3 +871,6 @@ button.btn.btn-call {
         align-items: center;
     }
 }
+
+
+
