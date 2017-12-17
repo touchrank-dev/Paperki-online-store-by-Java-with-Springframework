@@ -38,7 +38,7 @@ public class RESTCart {
         try {
             Cart cart = (Cart)httpSession.getAttribute("cart");
 
-            Integer quantityAvailable = cartBean.addToCart(cart, addProductRequest);
+            Integer quantityAvailable[] = cartBean.addToCart(cart, addProductRequest);
 
             if (quantityAvailable == null) {
                 httpSession.setAttribute("cart", cart);

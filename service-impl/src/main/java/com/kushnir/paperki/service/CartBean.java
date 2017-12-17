@@ -34,11 +34,11 @@ public class CartBean {
     @Autowired
     private PriceCalculator priceCalculator;
 
-    public Integer addToCart (Cart cart, AddProductRequest addProductRequest) throws BadAttributeValueException,
+    public Integer[] addToCart (Cart cart, AddProductRequest addProductRequest) throws BadAttributeValueException,
             ProductUnavailableException {
         LOGGER.debug("addToCart({}) >>>", addProductRequest);
 
-        if(addProductRequest.getQuantity() < 1)
+        if(addProductRequest.getQuantity() < 1d)
             throw new BadAttributeValueException("Запрошенное количество меньше одного");
 
         int PNT = addProductRequest.getPnt();
@@ -65,7 +65,7 @@ public class CartBean {
                     cart.setItems(items);
                 }
             } catch (NotEnoughQuantityAvailableException e) {
-                return availableProduct.getQuantityAvailable();
+                return new Integer[]{availableProduct.getQuantityAvailable(), items.get(PNT).getQuantity()};
             }
         }
         calculate(cart);
