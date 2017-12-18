@@ -104,7 +104,7 @@ public class CatalogController {
 
             Product product = catalogBean.getProductByPNT(pnt);
             model.addAttribute("product", product);
-            model.addAttribute("category", null);
+            model.addAttribute("category", catalogBean.getCategoryByTName(catalogItemTranslitName));
 
             model.addAttribute("templatePathName", contentPath + "product-details");
             model.addAttribute("fragmentName", "product-details");

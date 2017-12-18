@@ -58,14 +58,13 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    public Category getCategoryByTName(String categoryTName) throws ServiceException {
+    public Category getCategoryByTName(String categoryTName) {
         LOGGER.debug("getCategoryByTName({}) >>> ", categoryTName);
         try {
-            Category category = catalogDao.getCategoryByTName(categoryTName);
-            return category;
+            return catalogDao.getCategoryByTName(categoryTName);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            throw new ServiceException(e.getMessage());
+            return null;
         }
     }
 
