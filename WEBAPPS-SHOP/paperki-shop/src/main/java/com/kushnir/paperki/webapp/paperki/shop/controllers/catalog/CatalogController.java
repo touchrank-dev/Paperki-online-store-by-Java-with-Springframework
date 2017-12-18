@@ -103,17 +103,16 @@ public class CatalogController {
             Integer pnt = Integer.parseInt(productTranslitName.split("-")[0]);
 
             Product product = catalogBean.getProductByPNT(pnt);
+            model.addAttribute("title", product.getFullName());
             model.addAttribute("product", product);
             model.addAttribute("category", catalogBean.getCategoryByTName(catalogItemTranslitName));
 
             model.addAttribute("templatePathName", contentPath + "product-details");
             model.addAttribute("fragmentName", "product-details");
 
-            model.addAttribute("title", product.getFullName());
-
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
-            throw e;
+            throw new PageNotFound();
         }
         return "index";
     }
