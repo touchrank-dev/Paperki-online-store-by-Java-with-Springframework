@@ -130,6 +130,9 @@ public class UserDaoImpl implements UserDao {
     @Value("${password.request.getById}")
     private String getPasswordRequestByIdSqlQuery;
 
+    @Value("${password.request.getByToken}")
+    private String getPasswordRequestByTokenSqlQuery;
+
     @Override
     public User getUserByLoginPassword(String userName, String password) throws DataAccessException {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
@@ -436,7 +439,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public PasswordRecoveryRequest getPasswordRecoveryRequestByToken(String token) {
-        return null;
+        LOGGER.debug("getPasswordRecoveryRequestByToken()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_TOKEN, token);
+        return namedParameterJdbcTemplate.queryForObject(
+                getPasswordRequestByTokenSqlQuery,
+                parameterSource,
+                new PasswordRecoveryRequestRowMapper());
     }
 
 
