@@ -111,14 +111,10 @@ public class CatalogController {
 
             model.addAttribute("title", product.getFullName());
 
-        } catch (IllegalArgumentException e) {
-            LOGGER.error(e.getMessage());
-            throw new PageNotFound();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             throw e;
         }
-
         return "index";
     }
 

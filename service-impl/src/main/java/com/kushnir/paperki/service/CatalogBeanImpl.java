@@ -118,15 +118,9 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    public Product getProductByPNT(Integer pnt) throws ServiceException {
+    public Product getProductByPNT(Integer pnt) {
         LOGGER.debug("getProductByPNT({}) >>> ", pnt);
-        try {
-            Product product = productBean.getProductByPNT(pnt);
-            return product;
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            throw new ServiceException(e.getMessage());
-        }
+        return productBean.getProductByPNT(pnt);
     }
 
     @Override
