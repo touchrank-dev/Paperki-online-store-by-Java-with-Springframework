@@ -48,6 +48,9 @@ public class CatalogController {
         LOGGER.debug("catalogPage() >>>");
         model.addAttribute("templatePathName", contentPath + CATALOG_MENU_NAME);
         model.addAttribute("fragmentName", CATALOG_MENU_NAME);
+
+        model.addAttribute("title", "Каталог");
+
         return "index";
     }
 
@@ -76,6 +79,9 @@ public class CatalogController {
 
             Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
             model.addAttribute("category", category);
+
+            model.addAttribute("title", category.getName());
+
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new PageNotFound();
@@ -99,6 +105,12 @@ public class CatalogController {
             Product product = catalogBean.getProductByPNT(pnt);
             model.addAttribute("product", product);
             model.addAttribute("category", null);
+
+            model.addAttribute("templatePathName", contentPath + "product-details");
+            model.addAttribute("fragmentName", "product-details");
+
+            model.addAttribute("title", product.getFullName());
+
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new PageNotFound();
@@ -106,8 +118,7 @@ public class CatalogController {
             LOGGER.error(e.getMessage());
             throw e;
         }
-        model.addAttribute("templatePathName", contentPath + "product-details");
-        model.addAttribute("fragmentName", "product-details");
+
         return "index";
     }
 

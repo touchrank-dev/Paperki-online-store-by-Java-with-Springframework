@@ -55,6 +55,9 @@ public class UserController {
         if (user != null || !user.getUserType().equals(UserType.ANONIMUS)) {
             model.addAttribute("templatePathName", contentPath + PROFILE_MENU_NAME);
             model.addAttribute("fragmentName", PROFILE_MENU_NAME);
+
+            model.addAttribute("title", "Личный кабинет");
+
             return "index";
         } else return "redirect:/";
     }

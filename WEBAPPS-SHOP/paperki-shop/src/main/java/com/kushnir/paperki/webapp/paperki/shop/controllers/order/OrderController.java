@@ -1,6 +1,7 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers.order;
 
 import com.kushnir.paperki.model.Enterprise;
+import com.kushnir.paperki.model.order.Order;
 import com.kushnir.paperki.model.user.Address;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.*;
@@ -55,6 +56,9 @@ public class OrderController {
         LOGGER.debug("orderPage() >>>");
         model.addAttribute("templatePathName", contentPath + "order");
         model.addAttribute("fragmentName", "order");
+
+        model.addAttribute("title", "Оформление заказа");
+
         model.addAttribute("deliveries", deliveryService.getAll());
         model.addAttribute("payments", paymentService.getAll());
         model.addAttribute("addresses", getAddresses(httpSession));
@@ -66,8 +70,11 @@ public class OrderController {
         LOGGER.debug("orderByToken({}) >>>", token);
         model.addAttribute("templatePathName", contentPath + "order-details");
         model.addAttribute("fragmentName", "order-details");
+
         try {
-            model.addAttribute("order", orderService.getOrderByToken(token));
+            Order order = orderService.getOrderByToken(token);
+            model.addAttribute("order", order);
+            model.addAttribute("title", order == null ? "Заказ не найден":"Заказ № "+ order.getOrder_number());
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
             throw new PageNotFound();

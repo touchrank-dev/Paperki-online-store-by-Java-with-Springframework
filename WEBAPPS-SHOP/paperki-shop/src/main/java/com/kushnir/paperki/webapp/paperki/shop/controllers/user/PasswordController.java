@@ -57,6 +57,9 @@ public class PasswordController {
 
         model.addAttribute("templatePathName", contentPath + "password");
         model.addAttribute("fragmentName", "password");
+
+        model.addAttribute("title", "Восстановление пароля");
+
         return "index";
     }
 
@@ -70,6 +73,9 @@ public class PasswordController {
         model.addAttribute("event", getRequestEvent(recoveryRequest));
         model.addAttribute("templatePathName", contentPath + "change-password");
         model.addAttribute("fragmentName", "change-password");
+
+        model.addAttribute("title", "Восстановление пароля");
+
         return "index";
     }
 
@@ -100,6 +106,9 @@ public class PasswordController {
 
         model.addAttribute("templatePathName", contentPath + "change-password");
         model.addAttribute("fragmentName", "change-password");
+
+        model.addAttribute("title", "Восстановление пароля");
+
         return "index";
     }
 

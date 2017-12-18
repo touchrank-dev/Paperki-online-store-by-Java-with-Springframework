@@ -97,8 +97,9 @@ public class MainController {
     @GetMapping("/{pageName}")
     public String mainMenu(@PathVariable String pageName, Model model) throws Exception {
         LOGGER.debug("mainMenu({})", pageName);
+        MenuItem menuItem;
         try {
-            MenuItem menuItem = menuBean.getRootItem(pageName);
+            menuItem = menuBean.getRootItem(pageName);
             pageName = menuItem.getTranslitName();
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
@@ -109,6 +110,9 @@ public class MainController {
         }
         model.addAttribute("templatePathName", contentPath + pageName);
         model.addAttribute("fragmentName", pageName);
+
+        model.addAttribute("title", menuItem.getName());
+
         model.addAttribute("mainmenu", menuBean.getAll("root"));
         model.addAttribute("mapcategories", catalogBean.getAll());
         model.addAttribute("oldImages", imageService.getAllOldImages());

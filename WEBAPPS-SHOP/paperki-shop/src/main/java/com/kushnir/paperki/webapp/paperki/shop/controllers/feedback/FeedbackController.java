@@ -45,6 +45,9 @@ public class FeedbackController {
         LOGGER.debug("feedbackPage() >>>");
         model.addAttribute("templatePathName", contentPath + FEEDBACK_MENU_NAME);
         model.addAttribute("fragmentName", FEEDBACK_MENU_NAME);
+
+        model.addAttribute("title", "Отзывы");
+
         return "index";
     }
 

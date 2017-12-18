@@ -41,6 +41,9 @@ public class HelpController {
         LOGGER.debug("helpPage() >>>");
         model.addAttribute("templatePathName", contentPath + MENU_NAME);
         model.addAttribute("fragmentName", MENU_NAME);
+
+        model.addAttribute("title", "Помощь");
+
         return "index";
     }
 
@@ -49,6 +52,9 @@ public class HelpController {
         LOGGER.debug("article() >>>");
         model.addAttribute("templatePathName", contentPath + ARTICLE_FOLDER + articleName);
         model.addAttribute("fragmentName", "article");
+
+        model.addAttribute("title", "Помощь");
+
         return "index";
     }
 
