@@ -329,18 +329,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object changePassword(NewPasswordForm newPasswordForm, Integer userId) {
+    public Object changePassword(NewPasswordForm newPasswordForm, Integer userId, Boolean isRestore) {
         LOGGER.debug("changePassword({}, {})", newPasswordForm, userId);
         NewPasswordErrorForm errorForm = new NewPasswordErrorForm();
         User user = userDao.getUserById(userId);
 
-        try {
-            Assert.notNull(newPasswordForm.getOldPassword(),"Введите текущий пароль");
-            Assert.hasText(newPasswordForm.getOldPassword(),"Введите текущий пароль");
-            Assert.isTrue(encoding(newPasswordForm.getOldPassword()).equals(user.getPassword()),
-                    "Неверный текущий пароль");
-        } catch (Exception e) {
-            errorForm.setOldPassword(e.getMessage());
+        if (!isRestore) {
+            try {
+                Assert.notNull(newPasswordForm.getOldPassword(), "Введите текущий пароль");
+                Assert.hasText(newPasswordForm.getOldPassword(), "Введите текущий пароль");
+                Assert.isTrue(encoding(newPasswordForm.getOldPassword()).equals(user.getPassword()),
+                        "Неверный текущий пароль");
+            } catch (Exception e) {
+                errorForm.setOldPassword(e.getMessage());
+            }
         }
 
         try {
@@ -578,6 +580,25 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void expireAllPasswordRecoveryRequestsByUserId(Integer userId) {
+        LOGGER.debug("expireAllPasswordRecoveryRequestsByUserId({})", userId);
+        try {
+            userDao.expireAllPasswordRecoveryRequestsByUserId(userId);
+        } catch (Exception e) {
+            LOGGER.debug("ERROR: {}", e);
+        }
+    }
+
+    @Override
+    public void performPasswordRecoveryRequest(Integer id) {
+        LOGGER.debug("performPasswordRecoveryRequest({})", id);
+        try {
+            userDao.performPasswordRecoveryRequest(id);
+        } catch (Exception e) {
+            LOGGER.debug("ERROR: {}", e);
+        }
+    }
 
 
     // UTIL's

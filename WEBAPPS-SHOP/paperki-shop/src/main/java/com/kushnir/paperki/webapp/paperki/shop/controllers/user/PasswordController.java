@@ -1,6 +1,11 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers.user;
 
+import com.kushnir.paperki.model.RestMessage;
+import com.kushnir.paperki.model.password.NewPasswordErrorForm;
+import com.kushnir.paperki.model.password.NewPasswordForm;
 import com.kushnir.paperki.model.user.PasswordRecoveryRequest;
+import com.kushnir.paperki.model.user.User;
+import com.kushnir.paperki.model.user.UserType;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.service.UserService;
@@ -104,6 +109,27 @@ public class PasswordController {
 
         PasswordRecoveryRequest recoveryRequest = userService.getPasswordRecoveryRequestByToken(token);
 
+        String newPassword = attributes.get("your-new-password");
+        String confirmPassword = attributes.get("confirm-password");
+
+        Object obj = userService.changePassword(
+                new NewPasswordForm(newPassword, confirmPassword),
+                recoveryRequest.getUserId(),
+                true);
+
+        if(obj instanceof Integer) {
+            LOGGER.debug("PASSWORD CHANGED SUCCESSFUL! >>>\n:{}", obj);
+            // TODO email
+            userService.expireAllPasswordRecoveryRequestsByUserId(recoveryRequest.getUserId());
+            userService.performPasswordRecoveryRequest(recoveryRequest.getId());
+            recoveryRequest.setPerformed(true);
+            return "redirect:/password/"+recoveryRequest.getToken();
+        } else {
+            LOGGER.debug("PASSWORD CHANGE FAILED >>>\nERROR FORM: {}", (NewPasswordErrorForm) obj);
+            model.addAttribute("errorForm", obj);
+        }
+
+        model.addAttribute("event", getRequestEvent(recoveryRequest));
         model.addAttribute("templatePathName", contentPath + "change-password");
         model.addAttribute("fragmentName", "change-password");
 

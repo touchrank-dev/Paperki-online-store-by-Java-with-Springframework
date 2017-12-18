@@ -22,7 +22,7 @@ public interface UserService {
     Integer addEnterpriseByUser (RegistrateForm form, Integer userId) throws ServiceException;
     Object addEnterpriseByUser (HashMap data, Integer userId) throws ServiceException;
     Object updateEnterpriseByUser (HashMap data, Integer userId) throws Exception;
-    Object changePassword(NewPasswordForm newPasswordForm, Integer UserId);
+    Object changePassword(NewPasswordForm newPasswordForm, Integer UserId, Boolean  isRestore);
     Object updateUser(UserUpdateRequest userUpdateRequest, Integer UserId);
     Object addAddress(Address address, Integer userId);
     Object updateAddress(Address address, Integer userId);
@@ -33,4 +33,6 @@ public interface UserService {
     Object addPasswordRecoveryRequest(PasswordRecoveryRequest passwordRecoveryRequest);
     PasswordRecoveryRequest getPasswordRecoveryRequestById (Integer id);
     PasswordRecoveryRequest getPasswordRecoveryRequestByToken(String token);
+    void expireAllPasswordRecoveryRequestsByUserId(Integer userId);
+    void performPasswordRecoveryRequest(Integer id);
 }

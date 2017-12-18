@@ -135,7 +135,7 @@ public class RESTUser {
             if(user == null) throw new Exception("EMPTY USER SESSION");
             if(user.getId() == null || user.getId() < 1) throw new Exception("USER IS UNREGISTERED");
 
-            Object obj = userService.changePassword(newPasswordForm, user.getId());
+            Object obj = userService.changePassword(newPasswordForm, user.getId(), false);
 
             if(obj instanceof Integer) {
                 httpSession.setAttribute("user", new User(UserType.ANONIMUS));

@@ -64,13 +64,10 @@ public class MainController {
     @GetMapping("/favicon.ico")
     public void favicon (HttpServletResponse response) throws IOException, PageNotFound {
         LOGGER.debug("favicon()");
-        String filePathToBeServed =
-                "/papsource/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/view/resources/img/favicons/favicon.ico";
+
         try {
-            InputStream is = new FileInputStream(new File(filePathToBeServed));
-            IOUtils.copy(is, response.getOutputStream());
-            response.flushBuffer();
-            is.close();
+            getFile("/papsource/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/view/resources/img/favicons/favicon.ico",
+                    response);
         } catch (Exception e) {
             LOGGER.error("ERROR: ", e);
             throw new PageNotFound();
@@ -80,17 +77,20 @@ public class MainController {
     @GetMapping("/robots.txt")
     public void robots (HttpServletResponse response) throws PageNotFound {
         LOGGER.debug("robots()");
-        String filePathToBeServed =
-                "/papsource/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/view/templates/robots.txt";
         try {
-            InputStream is = new FileInputStream(new File(filePathToBeServed));
-            IOUtils.copy(is, response.getOutputStream());
-            response.flushBuffer();
-            is.close();
+            getFile("/papsource/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/view/templates/robots.txt",
+                    response);
         } catch (Exception e) {
             LOGGER.error("ERROR: ", e);
             throw new PageNotFound();
         }
+    }
+
+    private void getFile(String filePathToBeServed, HttpServletResponse response) throws IOException {
+        InputStream is = new FileInputStream(new File(filePathToBeServed));
+        IOUtils.copy(is, response.getOutputStream());
+        response.flushBuffer();
+        is.close();
     }
 
     // страницы главного меню

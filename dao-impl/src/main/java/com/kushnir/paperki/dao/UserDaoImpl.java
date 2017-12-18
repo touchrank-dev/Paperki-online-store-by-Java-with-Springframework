@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -132,6 +133,13 @@ public class UserDaoImpl implements UserDao {
 
     @Value("${password.request.getByToken}")
     private String getPasswordRequestByTokenSqlQuery;
+
+    @Value("${password.request.expireAllByUserId}")
+    private String expirePasswordRequestsByUserIdSqlQuery;
+
+    @Value("${password.request.performById}")
+    private String performPasswordRequestByIdSqlQuery;
+
 
     @Override
     public User getUserByLoginPassword(String userName, String password) throws DataAccessException {
@@ -445,6 +453,20 @@ public class UserDaoImpl implements UserDao {
                 getPasswordRequestByTokenSqlQuery,
                 parameterSource,
                 new PasswordRecoveryRequestRowMapper());
+    }
+
+    @Override
+    public void expireAllPasswordRecoveryRequestsByUserId(Integer userId) {
+        LOGGER.debug("expireAllPasswordRecoveryRequestsByUserId()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_USER_ID, userId);
+        namedParameterJdbcTemplate.update(expirePasswordRequestsByUserIdSqlQuery, parameterSource);
+    }
+
+    @Override
+    public void performPasswordRecoveryRequest(Integer id) {
+        LOGGER.debug("expireAllPasswordRecoveryRequestsByUserId()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ID, id);
+        namedParameterJdbcTemplate.update(performPasswordRequestByIdSqlQuery, parameterSource);
     }
 
 

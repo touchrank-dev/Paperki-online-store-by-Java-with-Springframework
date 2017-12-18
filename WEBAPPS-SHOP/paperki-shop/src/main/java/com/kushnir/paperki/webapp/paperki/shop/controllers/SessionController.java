@@ -30,9 +30,6 @@ public class SessionController {
     @Value("${product.image.prefix}")
     String imgPref;
 
-    @Value("${seo.title}")
-    String title;
-
     @ModelAttribute("user")
     public User setUser(HttpSession httpSession, HttpServletRequest req) {
         User user = (User) httpSession.getAttribute("user");
@@ -57,9 +54,6 @@ public class SessionController {
         }
         return cart;
     }
-
-    @ModelAttribute("appTitle")
-    public String appTitle() {return title;}
 
     @ModelAttribute("pip")
     public String productImagePath() {

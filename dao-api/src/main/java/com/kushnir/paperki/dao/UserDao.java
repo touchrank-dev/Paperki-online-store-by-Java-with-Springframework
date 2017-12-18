@@ -37,4 +37,6 @@ public interface UserDao {
     Integer addPasswordRecoveryRequest(PasswordRecoveryRequest passwordRecoveryRequest);
     PasswordRecoveryRequest getPasswordRecoveryRequestById (Integer id);
     PasswordRecoveryRequest getPasswordRecoveryRequestByToken (String token);
+    void expireAllPasswordRecoveryRequestsByUserId(Integer userId);
+    void performPasswordRecoveryRequest(Integer id);
 }

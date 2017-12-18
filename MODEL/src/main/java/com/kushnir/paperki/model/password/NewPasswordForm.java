@@ -9,6 +9,11 @@ public class NewPasswordForm {
     public NewPasswordForm() {
     }
 
+    public NewPasswordForm(String newPassword, String newPasswordConfirm) {
+        this.newPassword = newPassword;
+        this.newPasswordConfirm = newPasswordConfirm;
+    }
+
     public NewPasswordForm(String oldPassword, String newPassword, String newPasswordConfirm) {
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
