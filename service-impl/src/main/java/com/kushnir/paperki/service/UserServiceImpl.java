@@ -672,6 +672,11 @@ public class UserServiceImpl implements UserService {
             user.setPassword(encoding(user.getPassword()));
             try {
                 Integer newUserId = userDao.addUserDoNotUseIt(user);
+                Integer newEnterpriseId = userDao.addEnterprise(new Enterprise(
+                        newUserId,
+                        user.getLogin(),
+                        user.getName()
+                ));
 
                 LOGGER.debug("REGISTRATION SUCCESSFULLY! >>> \nNEW USER: {}", newUserId);
                 return newUserId;
