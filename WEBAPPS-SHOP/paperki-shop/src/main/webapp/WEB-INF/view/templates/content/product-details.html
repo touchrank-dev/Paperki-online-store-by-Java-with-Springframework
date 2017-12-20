@@ -140,7 +140,8 @@
                                             </span>
                                         </div>                                        
                                     </div>
-                                    <div th:attr="id='in-cart-item-'+${product?.pnt}">
+                                    <div    th:if="${cart.items[__${product?.pnt}__]} != null"
+                                            th:attr="id='in-cart-item-'+${product?.pnt}">
                                         <div class="cart-is-added"
                                              th:if="${cart.items[__${product?.pnt}__].quantity} > 0">
                                             <div class="cart-is-added__pict">
