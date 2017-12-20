@@ -187,7 +187,7 @@ public class UserServiceImpl implements UserService {
             }
 
         }
-        // TODO проверка на юр-лицо form.enterprize
+
         if(form.getEnterprise()){
             try {
                 Assert.notNull(form.getUNP(), "УНП не может быть пустым");
@@ -210,6 +210,25 @@ public class UserServiceImpl implements UserService {
             } catch (IllegalArgumentException e) {
                 errorRegistrateForm.setBillingAddress(e.getMessage());
             }
+
+            if (form.getAccountNumber() != null) {
+                try {
+                    Assert.isTrue(form.getAccountNumber().length() < 36,
+                            "Номер счета не должен превышать 35 знаков");
+                } catch (IllegalArgumentException e) {
+                    errorRegistrateForm.setAccountNumber(e.getMessage());
+                }
+            }
+
+            if (form.getBankCode() != null) {
+                try {
+                    Assert.isTrue(form.getBankCode().length() < 9,
+                            "Код банка не должен превышать 8 знаков");
+                } catch (IllegalArgumentException e) {
+                    errorRegistrateForm.setBankCode(e.getMessage());
+                }
+            }
+
         }
 
         // END VALIDATING ================================================================

@@ -27,6 +27,10 @@ public class HtmlMailer {
     @Value("${mail.support.recipient}")
     private String SUPPORT_SERVICE_EMAIL_ADDRES;
 
+    @Value("${mail.manager.recipient}")
+    private String MANAGER_EMAIL_ADDRES;
+
+
     @Autowired
     private JavaMailSenderImpl mailSender;
 
@@ -53,7 +57,7 @@ public class HtmlMailer {
             message.setSubject("Благодарим за заказ на paperki.by");
             message.setFrom(USER_SERVICE_EMAIL_ADDRESS);
             message.setTo(new String[] {email});
-            message.setBcc(SUPPORT_SERVICE_EMAIL_ADDRES);
+            message.setBcc(new String[] {SUPPORT_SERVICE_EMAIL_ADDRES, MANAGER_EMAIL_ADDRES});
             message.setText(htmlContent, true);
             mailSender.send(mimeMessage);
         } catch (Exception e) {

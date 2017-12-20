@@ -32,7 +32,7 @@ public class ExceptionController {
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason="Запрашиваемая cтраница не найдена")
     @ExceptionHandler(PageNotFound.class)
     public void pageNotFoundHandler(HttpServletRequest req, HttpSession session,  PageNotFound e) {
-        logException(req, session, e);
+        // logException(req, session, e);
     }
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason="Ошибка сервера")
