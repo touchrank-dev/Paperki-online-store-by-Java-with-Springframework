@@ -9,10 +9,10 @@
     <param-value>/WEB-INF/spring-config-webapp.xml</param-value>
   </context-param>
 
-  <!--<session-config>
-  <session-timeout>60</session-timeout>
-  <tracking-mode>COOKIE</tracking-mode>
-</session-config>-->
+  <session-config>
+    <session-timeout>4320</session-timeout>
+    <tracking-mode>COOKIE</tracking-mode>
+  </session-config>
 
   <servlet>
     <servlet-name>PaperkiDispatcher</servlet-name>
