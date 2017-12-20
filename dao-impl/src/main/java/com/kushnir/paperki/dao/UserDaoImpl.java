@@ -272,6 +272,27 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Integer addUserDoNotUseIt(User user) throws DataAccessException {
+        LOGGER.debug("addUser() >>>\nUSER DATA: {}", user);
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        parameterSource.addValue(P_USER_NAME,           user.getName());
+        parameterSource.addValue(P_USER_LOGIN,          user.getLogin());
+        parameterSource.addValue(P_USER_EMAIL,          user.getEmail());
+        parameterSource.addValue(P_USER_SUBSCRIBE,      user.getSubscribe());
+        parameterSource.addValue(P_USER_PASSWORD,       user.getPassword());
+        parameterSource.addValue(P_USER_PHONE,          user.getPhone());
+        try {
+            namedParameterJdbcTemplate.update(addUserSqlQuery, parameterSource, keyHolder);
+            LOGGER.debug("USER SUCCESSFULLY ADDED!");
+            return keyHolder.getKey().intValue();
+        } catch (Exception e) {
+            LOGGER.error("Не удалось добавить нового ползователя >>>\nERROR: {}", e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
     public Enterprise getEnterpriseByUNP(String unp) throws DataAccessException {
         LOGGER.debug("getEnterpriseByUNP({}) >>>", unp);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ENTERPRISE_UNP, unp);

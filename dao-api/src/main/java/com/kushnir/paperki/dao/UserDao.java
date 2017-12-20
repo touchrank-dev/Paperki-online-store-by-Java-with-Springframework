@@ -7,6 +7,7 @@ import com.kushnir.paperki.model.user.Address;
 import com.kushnir.paperki.model.user.PasswordRecoveryRequest;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.user.UserUpdateRequest;
+import org.springframework.dao.DataAccessException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public interface UserDao {
     User getUserById(Integer userId);
     Integer addUser(RegistrateForm form);
     Integer addUser(User user);
+    Integer addUserDoNotUseIt(User user);
 
     Enterprise getEnterpriseByUNP(String unp);
     Enterprise getEnterpriseByUserId(Integer userId);

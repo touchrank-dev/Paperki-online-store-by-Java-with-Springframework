@@ -671,7 +671,7 @@ public class UserServiceImpl implements UserService {
         } else {
             user.setPassword(encoding(user.getPassword()));
             try {
-                Integer newUserId = userDao.addUser(user);
+                Integer newUserId = userDao.addUserDoNotUseIt(user);
 
                 LOGGER.debug("REGISTRATION SUCCESSFULLY! >>> \nNEW USER: {}", newUserId);
                 return newUserId;
