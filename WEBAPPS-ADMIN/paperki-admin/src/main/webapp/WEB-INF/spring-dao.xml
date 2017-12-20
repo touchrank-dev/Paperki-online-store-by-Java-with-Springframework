@@ -24,5 +24,6 @@
     <bean id="catalogDao" class="com.kushnir.paperki.dao.CatalogDaoImpl" />
     <bean id="productDao" class="com.kushnir.paperki.dao.ProductDaoImpl" />
     <bean id="brandDao" class="com.kushnir.paperki.dao.BrandDaoImpl" />
+    <bean id="userDao" class="com.kushnir.paperki.dao.UserDaoImpl" />
 
 </beans>

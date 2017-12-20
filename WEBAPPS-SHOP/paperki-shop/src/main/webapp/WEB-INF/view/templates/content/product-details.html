@@ -118,7 +118,7 @@
 
                                                 <span   th:case="${false}"
                                                         th:remove="tag">
-                                                    <div th:text="${product?.finalPriceWithVAT}">
+                                                    <div class="single-product-price__new">
                                                         <p th:text="${product?.finalPriceWithVAT}">0,00</p>
                                                         <div class="bon-pr" 
                                                             th:if="${product?.prices.size()} > 1">
@@ -127,11 +127,11 @@
                                                                 <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
                                                                 <h5>Цена зависит от<br>количества!</h5>
                                                                 <div>
-                                                                    <p  th:each="price : ${product?.prices}" 
+                                                                    <span  th:each="price : ${product?.prices}"
                                                                         th:remove="tag" >
-                                                                        <p th:text="'от '+${price?.value?.quantityStart}+' ед. :'">от 1 ед. :</p>
+                                                                        <p th:text="'от '+${price?.key}+' ед. :'">от 1 ед. :</p>
                                                                         <p th:text="${price?.value?.basePriceWithVAT}+' руб.'">0,00 руб</p>
-                                                                    </p>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -140,7 +140,24 @@
                                             </span>
                                         </div>                                        
                                     </div>
+                                    <div th:attr="id='in-cart-item-'+${product?.pnt}">
+                                        <div class="cart-is-added"
+                                             th:if="${cart.items[__${product?.pnt}__].quantity} > 0">
+                                            <div class="cart-is-added__pict">
+                                                <img src="/res/img/cart-is-added.png" alt="added to cart">
+                                            </div>
+                                            <div class="cart-is-added__number">
+                                                <p><span th:text="${cart.items[__${product?.pnt}__].quantity}">0</span> ед.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-add-popup-confirm" style="top: 0px; opacity: 1;">
+                                        <div class="textarea">
 
+                                        </div>
+                                        <a class="cart-popup-del__cancel confirm" style="cursor: pointer;">Добавть</a>
+                                        <a class="cart-popup-del__cancel" style="cursor: pointer;">Отмена</a>
+                                    </div>
                                     <div class="single-product-in-cart">
                                         <div class="single-product__number">
                                             <div class="dec">-</div>

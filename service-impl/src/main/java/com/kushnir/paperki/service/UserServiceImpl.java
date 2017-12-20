@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -599,6 +600,88 @@ public class UserServiceImpl implements UserService {
             LOGGER.debug("ERROR: {}", e);
         }
     }
+
+    public String updateCustomers() {
+        LOGGER.debug("updateCustomers()");
+        StringBuilder sb = new StringBuilder();
+        HashMap<String, User> CSVCustomers = getCustomersFromCSV();
+        Assert.notEmpty(CSVCustomers);
+
+        for (Map.Entry<String, User> userEntry: CSVCustomers.entrySet()) {
+            try {
+                Object respForm = registrateUser(userEntry.getValue());
+                if (respForm instanceof ErrorRegistrateForm) {
+                    LOGGER.error("ERROR: {}", respForm);
+                }
+            } catch (Exception e) {
+                LOGGER.error("ERROR: {}", e.getMessage());
+            }
+        }
+        return sb.toString();
+    }
+
+    private HashMap<String, User> getCustomersFromCSV() {
+        return userDao.getCustomersFromCSV();
+    }
+
+    private Object registrateUser(User user) throws ServiceException {
+        LOGGER.debug("NEW USER REGISTRATION >>>");
+        ErrorRegistrateForm errorRegistrateForm = new ErrorRegistrateForm();
+
+        try {
+            Assert.notNull(user.getLogin(), "УНП используется в качестве логина и не может быть пустым");
+            Assert.hasText(user.getLogin(), "УНП используется в качестве логина и не может быть пустым");
+            Assert.isTrue(user.getLogin().length() == 9, "УНП должно быть 9 знаков");
+            Assert.isNull(userDao.getUserByLogin(user.getLogin()),
+                    "Пользователь под таким логином уже присутствует в базе даннных");
+        } catch (IllegalArgumentException e) {
+            errorRegistrateForm.setUNP(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(user.getEmail(),
+                    "адрес электронной почты не может быть пустым");
+            Assert.hasText(user.getEmail(),
+                    "адрес электронной почты не может быть пустым");
+            Assert.isTrue(validateEmail(user.getEmail()),
+                    "некорректный адрес электронной почты");
+        } catch (IllegalArgumentException e) {
+            errorRegistrateForm.setEmail(e.getMessage());
+        }
+        try {
+            Assert.notNull(user.getName(), "Имя пользователя не должно быть пустым");
+            Assert.hasText(user.getName(), "Имя пользователя не должно быть пустым");
+        } catch (IllegalArgumentException e) {
+            errorRegistrateForm.setName(e.getMessage());
+        }
+
+        try {
+            Assert.notNull(user.getPassword(), "Пароль не может быть пустым");
+            Assert.hasText(user.getPassword(), "Пароль не может быть пустым");
+            Assert.isTrue(user.getPassword().length() > 2,
+                        "Длина пароля не должна быть меньше 2 символов");
+        } catch (IllegalArgumentException e) {
+            errorRegistrateForm.setPassword(e.getMessage());
+        }
+
+        // END VALIDATING ================================================================
+        if (errorRegistrateForm.isErrors()) {
+            LOGGER.error("REGISTRATION FAILED! >>>\nERROR FORM: {}", errorRegistrateForm);
+            return errorRegistrateForm;
+        } else {
+            user.setPassword(encoding(user.getPassword()));
+            try {
+                Integer newUserId = userDao.addUser(user);
+
+                LOGGER.debug("REGISTRATION SUCCESSFULLY! >>> \nNEW USER: {}", newUserId);
+                return newUserId;
+            } catch (Exception e) {
+                LOGGER.error("REGISTRATION FAILED! >>>\nERROR MESSAGE: {}", e.getMessage());
+                throw e;
+            }
+        }
+    }
+
 
 
     // UTIL's

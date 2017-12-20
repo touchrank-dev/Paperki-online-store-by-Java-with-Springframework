@@ -93,6 +93,12 @@ function mapConfirmQuantity(pntinput, pnt, quantityAvailable) {
     popupConfirm.children('.textarea').html('В наличии только: <strong style="color: red;">'+quantityAvailable[0]+'</strong> ед.');
     popupConfirm.children('a.confirm').attr('onclick', 'confirmAddToCart('+pnt+', '+(quantityAvailable[0] - quantityAvailable[1])+')');
     popupConfirm.addClass('is-visible');
+
+    popupConfirm = pntinput.parents('.single-product-main-info').children('.product-add-popup-confirm');
+
+    popupConfirm.children('.textarea').html('В наличии только: <strong style="color: red;">'+quantityAvailable[0]+'</strong> ед.');
+    popupConfirm.children('a.confirm').attr('onclick', 'confirmAddToCart('+pnt+', '+(quantityAvailable[0] - quantityAvailable[1])+')');
+    popupConfirm.addClass('is-visible');
 }
 
 function confirmAddToCart(pnt, quantity) {

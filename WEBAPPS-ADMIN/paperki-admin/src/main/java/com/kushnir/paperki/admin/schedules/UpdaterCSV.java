@@ -1,7 +1,9 @@
 package com.kushnir.paperki.admin.schedules;
 
+import com.kushnir.paperki.service.BrandService;
 import com.kushnir.paperki.service.CatalogBean;
 
+import com.kushnir.paperki.service.ProductBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,22 +19,31 @@ public class UpdaterCSV {
     @Autowired
     CatalogBean catalogBean;
 
+    @Autowired
+    ProductBean productBean;
+
+    @Autowired
+    BrandService brandService;
+
     public void catalogUpdate() throws IOException, ServiceException {
         LOGGER.debug("===== START Catalog update ==== >>> ");
-        // catalogBean.updateCatalog();
+        catalogBean.updateCatalog();
         LOGGER.debug("===== FINISH Catalog update ==== ");
     }
     public void brandsUpdate() throws IOException, ServiceException {
         LOGGER.debug("===== START Brands update ==== >>> ");
-        // catalogBean.updateCatalog();
+        brandService.updateBrands();
         LOGGER.debug("===== FINISH Brands update ==== ");
     }
     public void productUpdate() {
         LOGGER.debug("===== START Products update ==== >>> ");
+        productBean.updateProducts();
+        productBean.updateProductAttributes();
         LOGGER.debug("===== FINISH Products update ==== ");
     }
     public void pricesUpdate() {
         LOGGER.debug("===== START Prices update ==== >>> ");
+        productBean.updateProductPrices();
         LOGGER.debug("===== FINISH Prices update ==== ");
     }
     public void customersUpdate() {
@@ -45,6 +56,7 @@ public class UpdaterCSV {
     }
     public void stockUpdate() {
         LOGGER.debug("===== START Stock update ==== >>> ");
+        productBean.updateStock();
         LOGGER.debug("===== FINISH Stock update ==== ");
     }
 

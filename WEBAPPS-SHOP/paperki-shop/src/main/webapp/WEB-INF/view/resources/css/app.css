@@ -825,7 +825,70 @@ button.btn.btn-call {
 
 
 
+single-product-main-info.cart-is-added {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 93px;
+    height: 33px;
+    background-color: white;
+    border-radius: 5px;
+    position: relative; }
 
+single-product-main-info.cart-is-added:before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    bottom: -1px;
+    left: -1px;
+    width: 95px;
+    height: 35px;
+    border-radius: 5px;
+    background-image: linear-gradient(to right, #ffae00 0%, #ff821d 100%); }
+
+single-product-main-info.cart-is-added__pict {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100%;
+    width: 55px;
+    border-right: 1px solid #ff8918;
+    background: #fff;
+    z-index: 1;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px; }
+
+single-product-main-info.cart-is-added__number {
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 39px;
+    height: 100%;
+    color: #b9b9b9;
+    font-family: ProximaNovaRegular;
+    font-size: 10px;
+    font-weight: 400;
+    text-align: center;
+    z-index: 1;
+    background: #fff;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px; }
 
 
 

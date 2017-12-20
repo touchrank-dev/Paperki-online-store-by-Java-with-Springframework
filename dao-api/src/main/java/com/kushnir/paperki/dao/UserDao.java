@@ -39,4 +39,6 @@ public interface UserDao {
     PasswordRecoveryRequest getPasswordRecoveryRequestByToken (String token);
     void expireAllPasswordRecoveryRequestsByUserId(Integer userId);
     void performPasswordRecoveryRequest(Integer id);
+
+    HashMap<String, User> getCustomersFromCSV();
 }

@@ -35,4 +35,6 @@ public interface UserService {
     PasswordRecoveryRequest getPasswordRecoveryRequestByToken(String token);
     void expireAllPasswordRecoveryRequestsByUserId(Integer userId);
     void performPasswordRecoveryRequest(Integer id);
+
+    String updateCustomers();
 }

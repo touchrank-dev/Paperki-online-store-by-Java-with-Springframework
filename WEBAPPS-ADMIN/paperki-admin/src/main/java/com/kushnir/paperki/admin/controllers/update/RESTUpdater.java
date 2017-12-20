@@ -4,6 +4,7 @@ import com.kushnir.paperki.model.RestMessage;
 import com.kushnir.paperki.service.BrandService;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.ProductBean;
+import com.kushnir.paperki.service.UserService;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
 import org.apache.logging.log4j.LogManager;
@@ -35,6 +36,9 @@ public class RESTUpdater {
 
     @Autowired
     BrandService brandService;
+
+    @Autowired
+    UserService userService;
 
     //curl -v [host]:8080/api/update
     @GetMapping()
@@ -113,6 +117,18 @@ public class RESTUpdater {
         LOGGER.debug("{} Rest update updateStock() >>>", host);
 
         String report = productBean.updateStock();
+
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "update Stock" ,report);
+        return restMessage;
+    }
+
+    //curl -v [host]:8080/api/update/customers
+    @GetMapping("/stock")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage updateCustomers() throws IOException, ServiceException {
+        LOGGER.debug("{} Rest update updateCustomers() >>>", host);
+
+        String report = userService.updateCustomers();
 
         RestMessage restMessage = new RestMessage(HttpStatus.OK, "update Stock" ,report);
         return restMessage;

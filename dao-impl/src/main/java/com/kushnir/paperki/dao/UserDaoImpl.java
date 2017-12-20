@@ -3,11 +3,10 @@ package com.kushnir.paperki.dao;
 import com.kushnir.paperki.model.BillingAccount;
 import com.kushnir.paperki.model.Enterprise;
 import com.kushnir.paperki.model.RegistrateForm;
-import com.kushnir.paperki.model.user.Address;
-import com.kushnir.paperki.model.user.PasswordRecoveryRequest;
-import com.kushnir.paperki.model.user.User;
+import com.kushnir.paperki.model.user.*;
 
-import com.kushnir.paperki.model.user.UserUpdateRequest;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +21,10 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.util.Assert;
 
+import javax.jws.soap.SOAPBinding;
+import java.io.FileReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -35,6 +37,19 @@ import java.util.HashMap;
 public class UserDaoImpl implements UserDao {
 
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
+
+
+    @Value("${csv.delimiter}")
+    private char delimiter;
+
+    @Value("${csv.escape}")
+    private char escape;
+
+    @Value("${path.csv.files}")
+    private String csvFilesPath;
+
+    @Value("${csv.file.customers}")
+    private String csvFileCustomers;
 
     private static final String P_USER_ID = "p_user_id";
     private static final String P_USER_LOGIN = "p_user_login";
@@ -468,6 +483,62 @@ public class UserDaoImpl implements UserDao {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ID, id);
         namedParameterJdbcTemplate.update(performPasswordRequestByIdSqlQuery, parameterSource);
     }
+
+    @Override
+    public HashMap<String, User> getCustomersFromCSV() {
+        String file = csvFilesPath + csvFileCustomers;
+        LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
+        HashMap<String, User> CSVCustomers = new HashMap<>();
+
+        try {
+            Iterable<CSVRecord> records =
+                    CSVFormat
+                            .newFormat(delimiter)
+                            .withEscape(escape)
+                            .withFirstRecordAsHeader()
+                            .parse(new FileReader(file));
+            for (CSVRecord record : records) {
+                try {
+                    String orgName = record.get(0);
+                    Assert.hasText(orgName, "Название организации не может быть пустым");
+                    String UNP = record.get(1);
+                    Assert.hasText(UNP, "УНП не может быть пустым");
+                    String password = record.get(2);
+                    Assert.hasText(password, "Пароль не может быть пустым");
+
+                    String phone = record.get(3);
+                    String email = record.get(4);
+                    Assert.hasText(email,
+                            "Адрес электронной почты не может быть пустым");
+
+                    String address = record.get(5);
+                    String bankName = record.get(6);
+                    String accountNumber = record.get(7);
+                    String bankCode = record.get(8);
+                    String userGroup = record.get(9);
+
+                    CSVCustomers.put(UNP, new User(
+                            UNP,
+                            password,
+                            orgName,
+                            email,
+                            UserType.CUSTOMER
+                    ));
+
+
+                } catch (Exception e) {
+                    LOGGER.error("ERROR: {}", e);
+                    continue;
+                }
+            }
+
+        } catch (Exception e) {
+            LOGGER.error("ERROR: {}", e);
+        }
+
+        return CSVCustomers;
+    }
+
 
 
     private class PasswordRecoveryRequestRowMapper implements RowMapper<PasswordRecoveryRequest> {
