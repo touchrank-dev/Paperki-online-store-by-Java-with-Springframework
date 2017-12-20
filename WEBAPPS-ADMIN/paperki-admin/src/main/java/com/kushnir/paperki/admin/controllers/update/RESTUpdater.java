@@ -123,7 +123,7 @@ public class RESTUpdater {
     }
 
     //curl -v [host]:8080/api/update/customers
-    @GetMapping("/stock")
+    @GetMapping("/customers")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage updateCustomers() throws IOException, ServiceException {
         LOGGER.debug("{} Rest update updateCustomers() >>>", host);
