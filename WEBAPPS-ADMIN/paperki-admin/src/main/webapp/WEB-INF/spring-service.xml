@@ -18,5 +18,6 @@
     <bean id="productBean" class="com.kushnir.paperki.service.ProductBeanImpl" />
     <bean id="brandService" class="com.kushnir.paperki.service.BrandServiceImpl" />
     <bean id="userService" class="com.kushnir.paperki.service.UserServiceImpl" />
+    <bean id="subscribeService" class="com.kushnir.paperki.service.SubscribeServiceImpl" />
 
 </beans>
