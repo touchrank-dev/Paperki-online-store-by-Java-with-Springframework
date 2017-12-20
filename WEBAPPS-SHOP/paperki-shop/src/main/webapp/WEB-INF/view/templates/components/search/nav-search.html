@@ -59,12 +59,7 @@
                 <div class="down-cart">
                     <div class="row">
                         <div class="col-md-5 col-sm-5">
-                            <ul class="all-pr">
-                                <!-- <li th:text="${cart?.items?.size()} + ' ед.'">0 ед.</li> -->
-                                <li class="summa-c" id="summa-c"
-                                    th:if="${cart.totalWithVAT} > 0.0"
-                                    th:text="'Сумма: ' +${cart?.totalWithVAT} + ' руб' ">Сумма: 0.00 руб</li>
-                            </ul>
+
                         </div>
                         <div class="col-md-7 col-sm-7">
                             <a href="#" class="btn c-button btn-ea-c popup-close-cart" onclick="toOrderPage()">
