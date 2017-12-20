@@ -4,87 +4,69 @@
             <li><a href="/">Главная</a></li>
             <li>База знаний</li>
         </ul>
-        <aside class="blogSidebarGroup typicalAside">
-            <ul class="blogCategoryList blogCategoryListWithOutTitle">
-                <li th:each="menuitem : ${mainmenu}">
-                    <a href="#" th:href="@{${menuitem.link}}">
-                        <img src="/res/img/slider-arrow-left.png">
-                        <span th:text="${menuitem.name}" th:remove="tag">О компании</span>
-                    </a>
-                </li>
-            </ul>
-        </aside>
+        <div class="blogParent">
+            <section class="blogHolder">
+                <div class="blogHolderRow clearfix">
 
-        <section class="typicalSection">
-
-            <div class="blogParent">
-
-            <div class="blogHolderRow clearfix">
-                <div class="blogPreviewWrapper">
-                    <div class="blogPreviewHolder blogPreviewHolderHeight">
-                        <div class="blogPreviewTop">
-                            <!--<img src="/res/img/articles/rukzak.jpg">-->
-                            <h3><a href="/knowledgebase/binder">Необычные способы использования простого биндера (зажима)</a></h3>
-                            <p class="blogPreviewPostIfo">
-                                <a href="#" class="postDate">2017-11-26</a>
-                            </p>
-                        </div>
-                        <div class="blogPreviewBottom">
-                            <p>
-                            </p>
-                            <a href="/knowledgebase/binder" class="blogPreviewMoreDetails">
-                                <img src="/res/img/catalog-navigation-all-icon-hover.png">
-                                <span> подробнее</span>
-                            </a>
+                    <div class="blogPreviewWrapper">
+                        <div class="blogPreviewHolder blogPreviewHolderHeight">
+                            <div class="blogPreviewTop">
+                                <h3><a href="/knowledgebase/binder">Необычные способы использования простого биндера (зажима)</a></h3>
+                                <p class="blogPreviewPostIfo">
+                                    <a href="#" class="postDate">2017-11-26</a>
+                                </p>
+                            </div>
+                            <div class="blogPreviewBottom">
+                                <p>
+                                </p>
+                                <a href="/knowledgebase/binder" class="blogPreviewMoreDetails">
+                                    <img src="/res/img/catalog-navigation-all-icon-hover.png">
+                                    <span> подробнее</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="blogHolderRow clearfix">
-                <div class="blogPreviewWrapper">
-                    <div class="blogPreviewHolder blogPreviewHolderHeight">
-                        <div class="blogPreviewTop">
-                            <!--<img src="/res/img/articles/rukzak.jpg">-->
-                            <h3><a href="/knowledgebase/creation-of-felt-tip-pens">История создания фломастера</a></h3>
-                            <p class="blogPreviewPostIfo">
-                                <a href="#" class="postDate">2017-11-26</a>
-                            </p>
-                        </div>
-                        <div class="blogPreviewBottom">
-                            <p>
-                            </p>
-                            <a href="/knowledgebase/creation-of-felt-tip-pens" class="blogPreviewMoreDetails">
-                                <img src="/res/img/catalog-navigation-all-icon-hover.png">
-                                <span> подробнее</span>
-                            </a>
+                    <div class="blogPreviewWrapper">
+                        <div class="blogPreviewHolder blogPreviewHolderHeight">
+                            <div class="blogPreviewTop">
+                                <h3><a href="/knowledgebase/creation-of-felt-tip-pens">История создания фломастера</a></h3>
+                                <p class="blogPreviewPostIfo">
+                                    <a href="#" class="postDate">2017-11-26</a>
+                                </p>
+                            </div>
+                            <div class="blogPreviewBottom">
+                                <p>
+                                </p>
+                                <a href="/knowledgebase/creation-of-felt-tip-pens" class="blogPreviewMoreDetails">
+                                    <img src="/res/img/catalog-navigation-all-icon-hover.png">
+                                    <span> подробнее</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="blogHolderRow clearfix">
-                <div class="blogPreviewWrapper">
-                    <div class="blogPreviewHolder blogPreviewHolderHeight">
-                        <div class="blogPreviewTop">
-                            <!--<img src="/res/img/articles/rukzak.jpg">-->
-                            <h3><a href="/knowledgebase/facts-about-the-pen">10 интересных фактов о шариковой ручке</a></h3>
-                            <p class="blogPreviewPostIfo">
-                                <a href="#" class="postDate">2017-11-26</a>
-                            </p>
-                        </div>
-                        <div class="blogPreviewBottom">
-                            <p>
-                            </p>
-                            <a href="/knowledgebase/facts-about-the-pen" class="blogPreviewMoreDetails">
-                                <img src="/res/img/catalog-navigation-all-icon-hover.png">
-                                <span> подробнее</span>
-                            </a>
+                    <div class="blogPreviewWrapper">
+                        <div class="blogPreviewHolder blogPreviewHolderHeight">
+                            <div class="blogPreviewTop">
+                                <h3><a href="/knowledgebase/facts-about-the-pen">10 интересных фактов о шариковой ручке</a></h3>
+                                <p class="blogPreviewPostIfo">
+                                    <a href="#" class="postDate">2017-11-26</a>
+                                </p>
+                            </div>
+                            <div class="blogPreviewBottom">
+                                <p>
+                                </p>
+                                <a href="/knowledgebase/facts-about-the-pen" class="blogPreviewMoreDetails">
+                                    <img src="/res/img/catalog-navigation-all-icon-hover.png">
+                                    <span> подробнее</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
+
                 </div>
-            </div>
 
-            </div>
+            </section>
+        </div>
 
-        </section>
     </div>
 </main>
