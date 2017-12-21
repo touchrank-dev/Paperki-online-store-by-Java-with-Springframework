@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import org.h2.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 @Controller
 @RequestMapping("/")
@@ -120,7 +117,7 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/katalog")
+    @GetMapping({"/katalog", "/callback"})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public void badRequest () {
 
