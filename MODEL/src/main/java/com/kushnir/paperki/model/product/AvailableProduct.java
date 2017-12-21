@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.Price;
 import com.kushnir.paperki.model.Stock;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class AvailableProduct {
     private int id;
@@ -20,7 +21,7 @@ public class AvailableProduct {
     private int quantityAvailable;
     private HashMap<Integer, Stock> stocks;
     private Discount discount;
-    private HashMap<Integer, Price> prices = new HashMap<>();
+    private HashMap<Integer, Price> prices = new LinkedHashMap<>();
 
     public AvailableProduct() {
     }

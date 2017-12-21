@@ -57,7 +57,7 @@ public class PriceCalculator {
 
             int quantityStart = price.getQuantityStart();
 
-            if (quantity >= quantityStart) {
+            if (quantity >= quantityStart && finalPrice >= price.getBasePrice()) {
                 finalPrice = price.getBasePrice();
             }
 
