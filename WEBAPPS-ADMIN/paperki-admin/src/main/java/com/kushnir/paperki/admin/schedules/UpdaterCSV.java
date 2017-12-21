@@ -2,9 +2,9 @@ package com.kushnir.paperki.admin.schedules;
 
 import com.kushnir.paperki.service.BrandService;
 import com.kushnir.paperki.service.CatalogBean;
-
 import com.kushnir.paperki.service.ProductBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

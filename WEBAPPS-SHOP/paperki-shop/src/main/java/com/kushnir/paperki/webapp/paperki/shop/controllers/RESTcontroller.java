@@ -12,6 +12,7 @@ import com.kushnir.paperki.service.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.Mailer;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -72,7 +73,7 @@ public class RESTcontroller {
             }
         } catch (Exception e) {
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
-            mailer.toSupportMail(restMessage.toString(), "ERROR REST SUBSCRIBE");
+            mailer.toSupportMail(ExceptionUtils.getStackTrace(e), "ERROR REST SUBSCRIBE");
             return restMessage;
         }
     }
@@ -94,7 +95,7 @@ public class RESTcontroller {
             }
         } catch (Exception e) {
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
-            mailer.toSupportMail(restMessage.toString(), "ERROR REST CALLBACK");
+            mailer.toSupportMail(ExceptionUtils.getStackTrace(e), "ERROR REST CALLBACK");
             return restMessage;
         }
     }
@@ -123,7 +124,7 @@ public class RESTcontroller {
             }
         } catch (Exception e) {
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
-            mailer.toSupportMail(restMessage.toString(), "ERROR REST FEEDBACK");
+            mailer.toSupportMail(ExceptionUtils.getStackTrace(e), "ERROR REST FEEDBACK");
             return restMessage;
         }
     }
