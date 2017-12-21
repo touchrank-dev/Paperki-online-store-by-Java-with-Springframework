@@ -10,3 +10,5 @@ Disallow: /env
 Disallow: /password
 Disallow: /profile
 Disallow: /order
+
+Host: http://www.paperki.by
