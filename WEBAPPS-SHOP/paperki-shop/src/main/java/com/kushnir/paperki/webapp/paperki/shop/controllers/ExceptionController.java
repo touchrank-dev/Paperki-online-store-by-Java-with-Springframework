@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -40,6 +41,11 @@ public class ExceptionController {
     public void exceptionHandler(HttpServletRequest req, HttpSession session, Exception e) {
         logException(req, session, e);
     }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public void notSupported() {}
+
 
     private void logException(HttpServletRequest req, HttpSession session, Exception e) {
         StringBuilder stringBuilder = new StringBuilder();
