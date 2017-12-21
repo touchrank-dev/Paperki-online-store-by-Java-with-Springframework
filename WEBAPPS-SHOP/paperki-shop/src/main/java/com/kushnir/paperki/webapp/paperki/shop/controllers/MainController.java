@@ -15,6 +15,7 @@ import org.h2.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -117,6 +118,12 @@ public class MainController {
         model.addAttribute("mapcategories", catalogBean.getAll());
         model.addAttribute("oldImages", imageService.getAllOldImages());
         return "index";
+    }
+
+    @GetMapping("/katalog")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public void badRequest () {
+
     }
 
 }
