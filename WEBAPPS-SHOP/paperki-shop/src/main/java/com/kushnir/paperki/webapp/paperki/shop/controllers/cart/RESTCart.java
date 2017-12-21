@@ -4,10 +4,13 @@ import com.kushnir.paperki.model.AddProductRequest;
 import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.DeleteRequest;
 import com.kushnir.paperki.model.RestMessage;
+import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.CartBean;
 
 import com.kushnir.paperki.service.exceptions.BadAttributeValueException;
 import com.kushnir.paperki.service.exceptions.ProductUnavailableException;
+import com.kushnir.paperki.service.mail.Mailer;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @CrossOrigin
@@ -26,6 +30,9 @@ public class RESTCart {
 
     @Autowired
     CartBean cartBean;
+
+    @Autowired
+    Mailer mailer;
 
     // curl -H "Content-Type: application/json" -d '{"pnt":9491,"quantity":1}' -v localhost:8080/api/cart/addtocart
     @PostMapping("/addtocart")
@@ -54,6 +61,7 @@ public class RESTCart {
         } catch (Exception e) {
             LOGGER.error("FAILED ADD PRODUCT TO CART >>>\nERROR MESSAGE: {}", e.getMessage());
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            mailer.toSupportMail(ExceptionUtils.getStackTrace(e), "FAILED ADD PRODUCT TO CART");
             return restMessage;
         }
     }
@@ -75,6 +83,7 @@ public class RESTCart {
         } catch (Exception e) {
             LOGGER.error("FAILED DELETE FROM CART >>>\nERROR MESSAGE: {}", e.getMessage());
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            mailer.toSupportMail(ExceptionUtils.getStackTrace(e), "FAILED DELETE FROM CART");
             return restMessage;
         }
     }
@@ -99,7 +108,9 @@ public class RESTCart {
         } catch (Exception e) {
             LOGGER.error("FAILED UPDATE CART PRODUCT >>>\nERROR MESSAGE: {}", e.getMessage());
             restMessage = new RestMessage(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            mailer.toSupportMail(ExceptionUtils.getStackTrace(e), "FAILED UPDATE CART PRODUCT");
             return restMessage;
         }
     }
+
 }
