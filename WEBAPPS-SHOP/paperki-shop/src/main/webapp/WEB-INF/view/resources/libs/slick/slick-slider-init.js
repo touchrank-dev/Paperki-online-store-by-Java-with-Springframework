@@ -11,7 +11,7 @@ $(document).ready(function(){
         arrows: false,
         asNavFor: slickSliderNav,
         autoplay: true,
-        autoplaySpeed: 2000,
+        autoplaySpeed: 6000,
     });
     slickSliderNav.slick({
         slidesToShow: 9,
@@ -75,7 +75,7 @@ $(document).ready(function(){
         focusOnSelect: false,
         infinite: true,
         autoplay: true,
-        autoplaySpeed: 1500,
+        autoplaySpeed: 5500,
         responsive: [
             {
               breakpoint: 1920,

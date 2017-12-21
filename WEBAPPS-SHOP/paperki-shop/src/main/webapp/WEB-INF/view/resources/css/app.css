@@ -938,4 +938,52 @@ single-product-main-info.cart-is-added__number {
 }
 
 
+.product_super-price div.caption.cap-normal,
+.product_hit div.caption.cap-normal {
+    padding-top: 28px;
+}
+
+.product_hit:before {
+    content: 'хит!';
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-top: 5px;
+    position: absolute;
+    right: 8px;
+    top: -1px;
+    width: 105px;
+    height: 38px;
+    background: url("../img/product-hit.png") no-repeat 50% 50%;
+    color: #fff000;
+    font-family: ProximaNovaRegular;
+    font-size: 14px;
+    font-weight: 400; }
+
+.product_super-price:before {
+    content: 'супер цена!';
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-top: 5px;
+    position: absolute;
+    right: 8px;
+    top: -1px;
+    width: 105px;
+    height: 38px;
+    background: url("../img/super-price-icon.png") no-repeat 50% 50%;
+    color: #fff000;
+    font-family: ProximaNovaRegular;
+    font-size: 14px;
+    font-weight: 400; }
+
+
 
