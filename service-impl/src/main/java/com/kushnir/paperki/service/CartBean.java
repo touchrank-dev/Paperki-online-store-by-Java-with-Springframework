@@ -47,9 +47,10 @@ public class CartBean {
 
         if(cart != null) {
             HashMap<Integer, CartProduct> items = cart.getItems();
+            CartProduct inCartProduct = null;
             try {
                 if (items != null) {
-                    CartProduct inCartProduct = items.get(PNT);
+                    inCartProduct = items.get(PNT);
                     if (inCartProduct != null) {
                         calculateCartProduct(inCartProduct, addProductRequest, availableProduct);
                     } else {
@@ -59,13 +60,13 @@ public class CartBean {
                     }
                 } else {
                     items = new LinkedHashMap();
-                    CartProduct inCartProduct = new CartProduct();
+                    inCartProduct = new CartProduct();
                     calculateCartProduct(inCartProduct, addProductRequest, availableProduct);
                     items.put(PNT, inCartProduct);
                     cart.setItems(items);
                 }
             } catch (NotEnoughQuantityAvailableException e) {
-                return new Integer[]{availableProduct.getQuantityAvailable(), items.get(PNT).getQuantity()};
+                return new Integer[]{availableProduct.getQuantityAvailable(), inCartProduct.getQuantity()};
             }
         }
         calculate(cart);

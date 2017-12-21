@@ -123,4 +123,10 @@ public class MainController {
 
     }
 
+    @PostMapping("/callback")
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public void badPOSTRequest () {
+
+    }
+
 }
