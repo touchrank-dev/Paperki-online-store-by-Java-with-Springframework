@@ -30,7 +30,7 @@ public class UpdaterCSV {
         catalogBean.updateCatalog();
         LOGGER.debug("===== FINISH Catalog update ==== ");
     }
-    public void brandsUpdate() throws IOException, ServiceException {
+    public void brandsUpdate() {
         LOGGER.debug("===== START Brands update ==== >>> ");
         brandService.updateBrands();
         LOGGER.debug("===== FINISH Brands update ==== ");
