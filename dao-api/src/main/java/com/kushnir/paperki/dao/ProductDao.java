@@ -24,6 +24,7 @@ public interface ProductDao {
     HashMap<Integer, StockItem> getStockItemsFromCSV(StringBuilder sb) throws IOException;
     ArrayList<Attribute> getAttributesFromCSV(StringBuilder sb) throws IOException;
     ArrayList<Price> getQuantityPricesFromCSV(StringBuilder sb) throws IOException;
+    ArrayList<Description> getProductDescriptionsFromCSV(StringBuilder sb) throws IOException;
 
     ArrayList<AvailableProduct> searchProducts(String str);
 

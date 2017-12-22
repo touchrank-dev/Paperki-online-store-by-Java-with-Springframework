@@ -84,6 +84,9 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${csv.file.prices}")
     private String csvFileQuantityPrices;
 
+    @Value("${csv.file.descriptions}")
+    private String csvFileProductDescriptions;
+
 
     /*SQL Scripts*/
     @Value("${product.getAll}")
@@ -462,6 +465,48 @@ public class ProductDaoImpl implements ProductDao {
         sb.append(">>> FINISH").append('\n');
         LOGGER.debug(">>> FINISH");
         return prices;
+    }
+
+    @Override
+    public ArrayList<Description> getProductDescriptionsFromCSV(StringBuilder sb) throws IOException {
+        String file = csvFilesPath + csvFileProductDescriptions;
+        sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
+                .append(">>> PROGRESS ...").append('\n');
+        LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
+
+        ArrayList<Description> descriptions = new ArrayList<>();
+
+        try {
+            Iterable<CSVRecord> records =
+                    CSVFormat
+                            .newFormat(delimiter)
+                            .withEscape(escape)
+                            .withFirstRecordAsHeader()
+                            .parse(new FileReader(file));
+
+            for (CSVRecord record : records) {
+                try {
+
+
+
+
+                } catch (Exception e) {
+                    sb.append("ERROR >>> row: ").append(record.getRecordNumber())
+                            .append(", ").append(e.getMessage()).append('\n');
+                    LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
+                    continue;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            sb.append("ERROR >>> File (").append(file).append(") Not Found! >>> ").append(e.getMessage()).append('\n');
+            LOGGER.error("ERROR >>> File ({}) Not Found! >>> {}", file, e.getMessage());
+            return null;
+        }
+
+        sb.append(">>> FINISH").append('\n');
+        LOGGER.debug(">>> FINISH");
+        return descriptions;
     }
 
     @Override

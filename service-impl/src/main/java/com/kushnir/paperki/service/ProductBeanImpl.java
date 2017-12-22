@@ -341,13 +341,35 @@ public class ProductBeanImpl implements ProductBean {
             sb.append("========== UPDATE FINISHED ==========");
 
         } catch (Exception e) {
-            sb.append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
+            sb.append('\n').append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
             LOGGER.error("UPDATE FINISHED WITH ERROR: {}, {}", e, e.getMessage());
         }
 
         mailer.toSupportMail(sb.toString(), "UPDATE PRODUCTS QUANTITY PRICES REPORT");
         return sb.toString();
     }
+
+
+    @Override
+    public String updateProductDescriptions() {
+        LOGGER.debug("updateProductDescriptions() >>>");
+        StringBuilder sb = new StringBuilder();
+        try {
+
+
+
+            sb.append("========== UPDATE FINISHED ==========");
+
+        } catch (Exception e) {
+            sb.append('\n').append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
+            LOGGER.error("UPDATE FINISHED WITH ERROR: {}, {}", e, e.getMessage());
+        }
+
+        mailer.toSupportMail(sb.toString(), "UPDATE PRODUCTS DESCRIPTIONS REPORT");
+        return sb.toString();
+    }
+
+
 
     @Override
     public ArrayList<AvailableProduct> searchProducts(String str) {

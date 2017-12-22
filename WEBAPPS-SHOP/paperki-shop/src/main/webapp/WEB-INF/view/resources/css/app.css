@@ -958,7 +958,7 @@ single-product-main-info.cart-is-added__number {
     top: -1px;
     width: 105px;
     height: 38px;
-    background: url("../img/product-hit.png") no-repeat 50% 50%;
+    background: url("/res/img/product-hit.png") no-repeat 50% 50%;
     color: #fff000;
     font-family: ProximaNovaRegular;
     font-size: 14px;
@@ -979,11 +979,35 @@ single-product-main-info.cart-is-added__number {
     top: -1px;
     width: 105px;
     height: 38px;
-    background: url("../img/super-price-icon.png") no-repeat 50% 50%;
+    background: url("/res/img/super-price-icon.png") no-repeat 50% 50%;
     color: #fff000;
     font-family: ProximaNovaRegular;
     font-size: 14px;
     font-weight: 400; }
+
+
+.new-product::before {
+    content: 'новинка!';
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-top: 5px;
+    position: absolute;
+    right: 8px;
+    top: -1px;
+    width: 105px;
+    height: 38px;
+    background: url("/res/img/new-product-icon.png") no-repeat 50% 50%;
+    color: #fff000;
+    font-family: ProximaNovaRegular;
+    font-size: 14px;
+    font-weight: 400;
+}
+
 
 
 
