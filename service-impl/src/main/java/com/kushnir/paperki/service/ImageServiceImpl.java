@@ -21,6 +21,9 @@ public class ImageServiceImpl implements ImageService {
     @Value("${product.image.prefix}")
     String imgPref;
 
+    @Value("${brand.image.prefix}")
+    String brandImgPrefPref;
+
     @Override
     public HashMap<Integer, ArrayList<String>> getAllOldImages() {
         LOGGER.debug("getAllOldImages()");
@@ -39,6 +42,19 @@ public class ImageServiceImpl implements ImageService {
             case 6: return "00"+pntStr+imgPref;
             case 7: return "0"+pntStr+imgPref;
             default: return pntStr+imgPref;
+        }
+    }
+
+    @Override
+    public String generateBrandImageName(Integer brandId) {
+        String pntStr = String.valueOf(brandId);
+        switch(pntStr.length()) {
+            case 1: return "00000"+pntStr+brandImgPrefPref;
+            case 2: return "0000"+pntStr+brandImgPrefPref;
+            case 3: return "000"+pntStr+brandImgPrefPref;
+            case 4: return "00"+pntStr+brandImgPrefPref;
+            case 5: return "0"+pntStr+brandImgPrefPref;
+            default: return pntStr+brandImgPrefPref;
         }
     }
 }

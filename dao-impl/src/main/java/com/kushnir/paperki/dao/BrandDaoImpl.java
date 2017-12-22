@@ -15,6 +15,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
@@ -64,6 +66,9 @@ public class BrandDaoImpl implements BrandDao {
     @Value("${brand.getAll}")
     private String getAllSqlQuery;
 
+    @Value("${brand.update}")
+    private String updateBrandSqlQuery;
+
     @Value("${brand.batch.add}")
     private String addSqlQuery;
 
@@ -97,7 +102,7 @@ public class BrandDaoImpl implements BrandDao {
                     String name =       record.get(1);
                     String latinName =  record.get(2);
                     String tName =      Transliterator.cyr2lat(name);
-                    String icon =       papId+iconPrefix;
+                    String icon =       generateBrandImageName(papId);
 
                     Brand brand = new Brand(
                            papId,
@@ -123,6 +128,18 @@ public class BrandDaoImpl implements BrandDao {
         sb.append(">>> FINISH").append('\n');
         LOGGER.debug(">>> FINISH");
         return brands;
+    }
+
+    private String generateBrandImageName(Integer brandId) {
+        String pntStr = String.valueOf(brandId);
+        switch(pntStr.length()) {
+            case 1: return "00000"+pntStr+iconPrefix;
+            case 2: return "0000"+pntStr+iconPrefix;
+            case 3: return "000"+pntStr+iconPrefix;
+            case 4: return "00"+pntStr+iconPrefix;
+            case 5: return "0"+pntStr+iconPrefix;
+            default: return pntStr+iconPrefix;
+        }
     }
 
     @Override
@@ -163,7 +180,8 @@ public class BrandDaoImpl implements BrandDao {
 
     @Override
     public int[] updateBrands(Object[] brands) {
-        return new int[0];
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(brands);
+        return namedParameterJdbcTemplate.batchUpdate(updateBrandSqlQuery, batch);
     }
 
     @Override

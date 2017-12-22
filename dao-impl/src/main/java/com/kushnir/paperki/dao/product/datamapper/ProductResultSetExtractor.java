@@ -83,7 +83,12 @@ public class ProductResultSetExtractor implements ResultSetExtractor {
                         VAT,
                         rs.getBoolean("is_published"),
                         rs.getBoolean("is_visible"),
-                        new Brand(rs.getString("bname"), rs.getString("btname")),
+                        new Brand(
+                                rs.getInt("papid"),
+                                rs.getString("btname"),
+                                rs.getString("bname"),
+                                rs.getString("bicon")
+                        ),
                         new HashMap<Integer, Price>()
                 );
 

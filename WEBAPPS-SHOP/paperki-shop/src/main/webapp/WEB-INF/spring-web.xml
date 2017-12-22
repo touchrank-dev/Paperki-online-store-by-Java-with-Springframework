@@ -11,6 +11,7 @@
     <!--<mvc:resources mapping="/res/**" location="/WEB-INF/view/resources/" />-->
     <mvc:resources mapping="/res/**" location="file:/papsource/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/view/resources/" />
     <mvc:resources mapping="/catimagesold/**" location="file:/home/paperki.by/www/images/catalog/" />
+    <mvc:resources mapping="/brandimagesold/**" location="file:/home/paperki.by/www/images/brands/" />
 
     <!--<bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">

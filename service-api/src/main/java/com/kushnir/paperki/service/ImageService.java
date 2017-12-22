@@ -6,4 +6,5 @@ import java.util.HashMap;
 public interface ImageService {
     HashMap<Integer, ArrayList<String>> getAllOldImages();
     String generateImageName(Integer pnt);
+    String generateBrandImageName(Integer brandId);
 }

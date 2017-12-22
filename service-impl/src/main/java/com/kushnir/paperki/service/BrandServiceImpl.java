@@ -82,6 +82,11 @@ public class BrandServiceImpl implements BrandService {
                     LOGGER.error("ERROR: {}, {}", e, e.getMessage());
                 }
             }
+
+            if (updBrands.size() > 0) {
+                updateBrands(updBrands.toArray());
+            }
+
         } catch (Exception e) {
             sb.append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
             LOGGER.error("UPDATE FINISHED WITH ERROR: {}, {}", e, e.getMessage());
@@ -107,7 +112,8 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public int[] updateBrands(Object[] brands) {
-        return new int[0];
+        LOGGER.debug("updateBrands()");
+        return brandDao.updateBrands(brands);
     }
 
     @Override
