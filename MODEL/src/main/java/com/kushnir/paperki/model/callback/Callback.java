@@ -1,6 +1,7 @@
 package com.kushnir.paperki.model.callback;
 
 public class Callback {
+    private Integer id;
     private String name;
     private String phone;
     private String comment;
@@ -12,6 +13,14 @@ public class Callback {
         this.name = name;
         this.phone = phone;
         this.comment = comment;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -45,6 +54,7 @@ public class Callback {
 
         Callback callback = (Callback) o;
 
+        if (id != null ? !id.equals(callback.id) : callback.id != null) return false;
         if (name != null ? !name.equals(callback.name) : callback.name != null) return false;
         if (phone != null ? !phone.equals(callback.phone) : callback.phone != null) return false;
         return comment != null ? comment.equals(callback.comment) : callback.comment == null;
@@ -52,7 +62,8 @@ public class Callback {
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         return result;
@@ -61,7 +72,8 @@ public class Callback {
     @Override
     public String toString() {
         return "Callback{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", comment='" + comment + '\'' +
                 '}';

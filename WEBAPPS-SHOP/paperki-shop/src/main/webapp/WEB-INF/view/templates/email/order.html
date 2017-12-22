@@ -83,6 +83,29 @@
                             </td>
                         </tr>
                     </table>
+
+                    <table class="html-email" width="100%"  cellpadding="0">
+                        <tr>
+                            <td align="left" width="30%">Тип заказа:</td>
+                            <td align="left" width="70%" th:text="${order?.order_type_name}"></td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="30%">Номер заказа:</td>
+                            <td align="left" width="70%" th:text="${order?.order_number}"></td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="30%">Способ оплаты:</td>
+                            <td align="left" width="70%" th:text="${order?.payment?.name}"></td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="30%">Способ получения заказа:</td>
+                            <td align="left" width="70%" th:text="${order?.delivery?.name}"></td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="30%">Комментарии:</td>
+                            <td align="left" width="70%" th:text="${order?.comments}"></td>
+                        </tr>
+                    </table>
                     <table class="html-email" width="100%"  cellpadding="0">
                         <tr align="left" class="sectiontableheader">
                             <td align="left" width="4%" ><strong>Фото</strong></td>
@@ -94,7 +117,8 @@
                         </tr>
                         <tr valign="top" th:each=" item : ${order?.items}">
                             <td width="32px" style="text-align: center;">
-                                <img src="http://test.paperki.by:8080/res/img/catalog/9491.jpg"
+                                <img src="http://paperki.by/catimagesold/imageName"
+                                     th:attr="src='http://paperki.by/catimagesold/'+${item?.imageName}"
                                      width="30" height="30" alt="" />
                             </td>
                             <td style="text-align: center;" th:text="${item?.pnt}">9491</td>

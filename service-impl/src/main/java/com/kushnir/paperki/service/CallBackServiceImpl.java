@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.callback.Callback;
 import com.kushnir.paperki.model.callback.CallbackErrorResponse;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
+import com.kushnir.paperki.service.mail.HtmlMailer;
 import com.kushnir.paperki.service.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +25,7 @@ public class CallBackServiceImpl implements CallBackService {
     private CallBackDao callbackDao;
 
     @Autowired
-    Mailer mailer;
+    HtmlMailer htmlMailer;
 
     @Override
     public Object addCallBack(Callback callback) throws ServiceException {
@@ -50,6 +51,11 @@ public class CallBackServiceImpl implements CallBackService {
             try {
                 int id = callbackDao.addCallback(callback);
                 LOGGER.debug("ЗАПРОС НА ОБРАТНЫЙ ЗВОНОК УСПЕШНО ЗАРЕГИСТРИРОВАН, id: {}", id);
+
+                callback.setId(id);
+
+                htmlMailer.sendCallbackAcceptMessage(callback);
+
                 return new Integer(id);
             } catch (Exception e) {
                 LOGGER.error("ОШИБКА ЗАПРОСА ОБРАТНОГО ЗВОНКА", e.getMessage());

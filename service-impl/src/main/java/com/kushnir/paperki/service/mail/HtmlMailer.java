@@ -1,8 +1,9 @@
 package com.kushnir.paperki.service.mail;
 
+import com.kushnir.paperki.model.callback.Callback;
 import com.kushnir.paperki.model.order.Order;
-
 import com.kushnir.paperki.model.user.PasswordRecoveryRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,10 +26,13 @@ public class HtmlMailer {
     private String USER_SERVICE_EMAIL_ADDRESS;
 
     @Value("${mail.support.recipient}")
-    private String SUPPORT_SERVICE_EMAIL_ADDRES;
+    private String SUPPORT_SERVICE_EMAIL_ADDRESS;
 
     @Value("${mail.manager.recipient}")
-    private String MANAGER_EMAIL_ADDRES;
+    private String MANAGER_EMAIL_ADDRESS;
+
+    @Value("${mail.callback.recipient}")
+    private String CALLBACK_SERVICE_EMAIL_ADDRESS;
 
 
     @Autowired
@@ -57,7 +61,7 @@ public class HtmlMailer {
             message.setSubject("Благодарим за заказ на paperki.by");
             message.setFrom(USER_SERVICE_EMAIL_ADDRESS);
             message.setTo(new String[] {email});
-            message.setBcc(new String[] {SUPPORT_SERVICE_EMAIL_ADDRES, MANAGER_EMAIL_ADDRES});
+            message.setBcc(new String[] {SUPPORT_SERVICE_EMAIL_ADDRESS, MANAGER_EMAIL_ADDRESS});
             message.setText(htmlContent, true);
             mailSender.send(mimeMessage);
         } catch (Exception e) {
@@ -81,11 +85,34 @@ public class HtmlMailer {
             message.setSubject("Запрос на смену пароля от аккаунта на paperki.by");
             message.setFrom(USER_SERVICE_EMAIL_ADDRESS);
             message.setTo(new String[] {passwordRecoveryRequest.getEmail()});
-            message.setBcc(SUPPORT_SERVICE_EMAIL_ADDRES);
+            message.setBcc(SUPPORT_SERVICE_EMAIL_ADDRESS);
             message.setText(htmlContent, true);
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             LOGGER.error("Не удалось отправить сообщение для: {}", passwordRecoveryRequest.getEmail());
+        }
+    }
+
+    public void sendCallbackAcceptMessage(Callback callback) {
+        LOGGER.debug("sendCallbackAcceptMessage(to: {})", CALLBACK_SERVICE_EMAIL_ADDRESS);
+        try {
+            Context ctx = new Context();
+            ctx.setVariable("callback", callback);
+            ctx.setVariable("rootUrl", rootUrl);
+
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+
+            String htmlContent = this.templateEngine.process("email/callback_request", ctx);
+
+            message.setSubject("Запрос на обратный звонок paperki.by");
+            message.setFrom(USER_SERVICE_EMAIL_ADDRESS);
+            message.setTo(new String[] {CALLBACK_SERVICE_EMAIL_ADDRESS});
+            message.setBcc(SUPPORT_SERVICE_EMAIL_ADDRESS);
+            message.setText(htmlContent, true);
+            mailSender.send(mimeMessage);
+        } catch (Exception e) {
+            LOGGER.error("Не удалось отправить сообщение для: {}", CALLBACK_SERVICE_EMAIL_ADDRESS);
         }
     }
 
