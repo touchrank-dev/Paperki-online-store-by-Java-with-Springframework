@@ -888,16 +888,16 @@ function mapSearchResult(array) {
                         '<p>Код: '+product.pnt+'</p>'+
                     '</div>'+
                     '<div class="col2">'+product.finalPriceWithVAT+' руб</div>'+
-                    '<div class="col3">' +
+                    /*'<div class="col3">' +
                         '<div>'+
                             '<div class="dec">-</div>'+
                             '<input type="text" name="french-hens" class="inde" value="1">'+
                             '<div class="inc">+</div>'+
                         '</div>'+
-                    '</div>'+
-                    '<div class="btn-to-cart" onclick="addToCart('+product.pnt+')">' +
+                    '</div>'+*/
+                    /*'<div class="btn-to-cart" onclick="addToCart('+product.pnt+')">' +
                         '<img src="/res/img/buy.png" alt="Купить">' +
-                    '</div>'+
+                    '</div>'+*/
                 '</div>'
             );
         });
