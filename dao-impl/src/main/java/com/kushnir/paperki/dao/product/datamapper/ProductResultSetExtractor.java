@@ -84,7 +84,7 @@ public class ProductResultSetExtractor implements ResultSetExtractor {
                         rs.getBoolean("is_published"),
                         rs.getBoolean("is_visible"),
                         new Brand(
-                                rs.getInt("papid"),
+                                rs.getInt("bpapid"),
                                 rs.getString("btname"),
                                 rs.getString("bname"),
                                 rs.getString("bicon")
