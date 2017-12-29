@@ -7,6 +7,8 @@ import com.kushnir.paperki.model.category.CategorySimple;
 import com.kushnir.paperki.model.product.*;
 
 import com.kushnir.paperki.service.mail.Mailer;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -267,11 +269,10 @@ public class ProductBeanImpl implements ProductBean {
 
             sb.append("========== UPDATE FINISHED ==========");
         } catch (Exception e) {
-            sb.append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
+            sb.append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(ExceptionUtils.getStackTrace(e));
             LOGGER.error("UPDATE FINISHED WITH ERROR: {}, {}", e, e.getMessage());
+            mailer.toSupportMail(sb.toString(), "ERROR UPDATE STOCK");
         }
-
-        mailer.toSupportMail(sb.toString(), "UPDATE STOCK REPORT");
         return sb.toString();
     }
 

@@ -264,7 +264,7 @@ public class CatalogBeanImpl implements CatalogBean {
             sb.append("UPDATE FINISHED WITH ERROR >>> ").append(e).append(" >>> ").append(e.getMessage());
         }
 
-        mailer.toSupportMail(sb.toString(), "updateCatalog REPORT");
+        mailer.toSupportMail(sb.toString(), "UPDATE CATALOG REPORT");
         return sb.toString();
     }
 

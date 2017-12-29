@@ -3,6 +3,7 @@ package com.kushnir.paperki.service;
 import com.kushnir.paperki.dao.BrandDao;
 import com.kushnir.paperki.model.Brand;
 
+import com.kushnir.paperki.service.mail.Mailer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,6 +22,9 @@ public class BrandServiceImpl implements BrandService {
 
     @Autowired
     BrandDao brandDao;
+
+    @Autowired
+    Mailer mailer;
 
     @Override
     public HashMap<Integer, Brand> getAll() {
@@ -91,6 +95,7 @@ public class BrandServiceImpl implements BrandService {
             sb.append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
             LOGGER.error("UPDATE FINISHED WITH ERROR: {}, {}", e, e.getMessage());
         }
+        mailer.toSupportMail(sb.toString(), "UPDATE BRANDS REPORT");
         return sb.toString();
     }
 
