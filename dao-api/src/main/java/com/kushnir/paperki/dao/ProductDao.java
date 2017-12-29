@@ -43,4 +43,7 @@ public interface ProductDao {
 
     void deleteAllQuantityPrices();
     int[] batchAddQuantityPrices(Object[] prices);
+
+    void deleteAllDescriptions();
+    int[] batchAddDescriptions(Object[] description);
 }

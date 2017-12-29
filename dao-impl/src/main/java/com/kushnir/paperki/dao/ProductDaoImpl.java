@@ -8,6 +8,7 @@ import com.kushnir.paperki.model.util.Transliterator;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -142,6 +143,12 @@ public class ProductDaoImpl implements ProductDao {
 
     @Value("${product.prices.add}")
     private String addPriceSqlQuery;
+
+    @Value("${product.descriptions.deleteAll}")
+    private String deleteAllDescriptionsSqlQuery;
+
+    @Value("${product.descriptions.add}")
+    private String addDescriptionSqlQuery;
 
     @Value("${product.search}")
     private String searchProductSqlQuery;
@@ -486,9 +493,23 @@ public class ProductDaoImpl implements ProductDao {
 
             for (CSVRecord record : records) {
                 try {
+                    Integer pnt =               Integer.parseInt(record.get(0));
+                    Assert.isTrue(pnt > 0, "pnt <= 0");
 
+                    String fullDescription = record.get(1);
+                    Assert.isTrue(!StringUtils.isBlank(fullDescription), "fullDescription is blank");
 
+                    String shortDescription = record.get(2);
 
+                    String metadesk;
+                    String metakey;
+                    String customtitle;
+
+                    descriptions.add(new Description(
+                            pnt,
+                            fullDescription,
+                            shortDescription
+                    ));
 
                 } catch (Exception e) {
                     sb.append("ERROR >>> row: ").append(record.getRecordNumber())
@@ -619,6 +640,19 @@ public class ProductDaoImpl implements ProductDao {
         LOGGER.debug("batchAddQuantityPrices() >>>");
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(prices);
         return namedParameterJdbcTemplate.batchUpdate(addPriceSqlQuery, batch);
+    }
+
+    @Override
+    public void deleteAllDescriptions() {
+        LOGGER.debug("deleteAllDescriptions() >>>");
+        int count = jdbcTemplate.update(deleteAllDescriptionsSqlQuery);
+    }
+
+    @Override
+    public int[] batchAddDescriptions(Object[] description) {
+        LOGGER.debug("batchAddDescriptions() >>>");
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(description);
+        return namedParameterJdbcTemplate.batchUpdate(addDescriptionSqlQuery, batch);
     }
 
 }

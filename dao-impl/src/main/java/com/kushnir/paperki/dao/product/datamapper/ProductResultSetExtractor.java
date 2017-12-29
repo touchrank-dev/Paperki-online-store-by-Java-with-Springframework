@@ -93,6 +93,8 @@ public class ProductResultSetExtractor implements ResultSetExtractor {
                         new LinkedHashMap<Integer, Price>()
                 );
 
+                product.setFullDescription(rs.getString("full_description"));
+
                 if (price != null) {
                     product.getPrices().put(quantityStart, price);
                 }

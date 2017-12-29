@@ -356,7 +356,12 @@ public class ProductBeanImpl implements ProductBean {
         StringBuilder sb = new StringBuilder();
         try {
 
+            ArrayList<Description> CSVDescriptions = productDao.getProductDescriptionsFromCSV(sb);
+            Assert.notNull(CSVDescriptions, "CSVDescriptions is null");
 
+            productDao.deleteAllDescriptions();
+            sb.append("ADDED PRODUCT DESCRIPTIONS: ").append(CSVDescriptions.size()).append("/")
+                    .append(productDao.batchAddDescriptions(CSVDescriptions.toArray()).length).append('\n');
 
             sb.append("========== UPDATE FINISHED ==========");
 

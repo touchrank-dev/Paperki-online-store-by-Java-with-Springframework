@@ -62,6 +62,9 @@ public class CatalogController {
         Integer type =      session.getAttribute("catview") == null ? 1:(Integer)session.getAttribute("catview");
         Integer sortType =  session.getAttribute("sortedby") == null ? 1:(Integer)session.getAttribute("sortedby");
 
+        Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
+        if (category == null) throw new PageNotFound();
+
         try {
             if (type == null || type == 1){
                 model.addAttribute("products", catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType));
@@ -77,9 +80,7 @@ public class CatalogController {
                 model.addAttribute("fragmentName", "product-list-group");
             }
 
-            Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
             model.addAttribute("category", category);
-
             model.addAttribute("title", category.getName());
 
         } catch (IllegalArgumentException e) {
