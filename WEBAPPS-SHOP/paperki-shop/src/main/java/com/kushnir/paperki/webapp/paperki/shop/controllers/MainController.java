@@ -44,6 +44,9 @@ public class MainController {
     @Value("${content.path}")
     String contentPath;
 
+    @Value("${webapp.path.static}")
+    String staticPath;
+
     // главная страница
     @GetMapping()
     public String mainPage(Model model) throws ServiceException {
@@ -64,7 +67,7 @@ public class MainController {
         LOGGER.debug("favicon()");
 
         try {
-            getFile("/papsource/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/view/resources/img/favicons/favicon.ico",
+            getFile(staticPath+"resources/img/favicons/favicon.ico",
                     response);
         } catch (Exception e) {
             LOGGER.error("ERROR: ", e);
@@ -76,7 +79,7 @@ public class MainController {
     public void robots (HttpServletResponse response) throws PageNotFound {
         LOGGER.debug("robots()");
         try {
-            getFile("/papsource/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/view/templates/robots.txt",
+            getFile(staticPath+"templates/robots.txt",
                     response);
         } catch (Exception e) {
             LOGGER.error("ERROR: ", e);
