@@ -100,7 +100,6 @@ CREATE TABLE catalog (
 );
 
 CREATE TABLE catalog_description (
-    id_catalog_desc             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_catalog                  INT             NOT NULL UNIQUE,
     short_description           VARCHAR(1000)   ,
     full_description            VARCHAR(5000)   ,
@@ -108,7 +107,6 @@ CREATE TABLE catalog_description (
 );
 
 CREATE TABLE catalog_ref (
-    id_ref_catalog              INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_catalog                  INT             NOT NULL,
     parent_id_catalog           INT             NOT NULL,
     FOREIGN KEY (id_catalog)                    REFERENCES catalog(id_catalog),
@@ -161,7 +159,6 @@ CREATE TABLE products (
 );
 
 CREATE TABLE product_description (
-    id_product_desc             INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_product                  INT             ,
     pnt                         INT             NOT NULL UNIQUE,
     short_description           VARCHAR(2000)   ,
@@ -276,7 +273,6 @@ CREATE TABLE menu_items (
 );
 
 CREATE TABLE menu_item_ref (
-    id_menu_item_ref            INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_menu                     INT             NOT NULL,
     id_menu_item                INT             NOT NULL,
     FOREIGN KEY (id_menu)                       REFERENCES menu(id_menu),
@@ -380,7 +376,6 @@ CREATE TABLE stock_place (
 );
 
 CREATE TABLE stock (
-    id_stock                    INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_stock_place              INT             DEFAULT 1 NOT NULL,
     id_product                  INT             NOT NULL,
     pnt                         INT             ,
