@@ -11,7 +11,6 @@ public class AttributeRowMapper implements RowMapper<Attribute> {
     @Override
     public Attribute mapRow(ResultSet rs, int rowNum) throws SQLException {
         Attribute attribute = new Attribute(
-                rs.getInt("id_product_attributes"),
                 rs.getString("name"),
                 rs.getString("value"),
                 rs.getInt("order_attr")

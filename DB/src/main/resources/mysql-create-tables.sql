@@ -170,7 +170,6 @@ CREATE TABLE product_description (
 );
 
 CREATE TABLE product_attributes (
-    id_product_attributes       INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     pnt                         INT             NOT NULL,
     name                        VARCHAR(100)    NOT NULL,
     value                       VARCHAR(120)    ,
