@@ -10,8 +10,7 @@
   </context-param>
 
   <session-config>
-    <session-timeout>4320</session-timeout>
-    <tracking-mode>COOKIE</tracking-mode>
+    <session-timeout>-1</session-timeout>
   </session-config>
 
   <servlet>
