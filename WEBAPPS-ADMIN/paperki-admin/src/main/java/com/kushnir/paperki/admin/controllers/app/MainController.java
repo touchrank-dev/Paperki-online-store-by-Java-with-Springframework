@@ -36,7 +36,7 @@ public class MainController {
     @GetMapping("/favicon.ico")
     public void favicon (HttpServletResponse response) throws IOException {
         String filePathToBeServed =
-                "/papsource/WEBAPPS-SHOP/paperki-shop/src/main/webapp/WEB-INF/view/resources/img/favicons/favicon.ico";
+                "/home/paperki.by/view/resources/img/favicons/favicon.ico";
         InputStream is = new FileInputStream(new File(filePathToBeServed));
         IOUtils.copy(is, response.getOutputStream());
         response.flushBuffer();
