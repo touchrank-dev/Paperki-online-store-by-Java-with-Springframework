@@ -7,11 +7,11 @@
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
-    <task:scheduler id="paperkiSheduler"/>
+    <task:scheduler id="paperkiScheduler"/>
 
     <bean id="updaterCSV" class="com.kushnir.paperki.admin.schedules.UpdaterCSV" />
 
-    <task:scheduled-tasks scheduler="paperkiSheduler">
+    <task:scheduled-tasks scheduler="paperkiScheduler">
         <task:scheduled ref="updaterCSV" method="catalogUpdate"     cron="${cron.update.catalog}" />
         <task:scheduled ref="updaterCSV" method="brandsUpdate"      cron="${cron.update.brands}" />
         <task:scheduled ref="updaterCSV" method="productUpdate"     cron="${cron.update.products}" />
