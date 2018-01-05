@@ -260,7 +260,9 @@ public class OrderServiceImpl implements OrderService {
         // =============================================================
         order.setId(addOrder(order));
         // =============================================================
-        addOrderAttributes(orderForm , order);
+        order.setAttributes(generateAttributes(orderForm , order));
+
+        addOrderAttributes(order.getAttributes());
         // =============================================================
         addOrderItems(cart.getItems(), order.getId());
         // =============================================================
@@ -281,8 +283,7 @@ public class OrderServiceImpl implements OrderService {
         return idOrder;
     }
 
-    private int[] addOrderAttributes(HashMap<String, String> orderForm, Order order) throws ServiceException {
-        LOGGER.debug("addOrderAttributes()");
+    private List<Attribute> generateAttributes(HashMap<String, String> orderForm, Order order) throws ServiceException {
         List<Attribute> attributes = new ArrayList<>();
 
         int idOrder = order.getId();
@@ -312,6 +313,12 @@ public class OrderServiceImpl implements OrderService {
 
         } else throw new ServiceException("Тип заказа не существует");
 
+        return attributes;
+    }
+
+
+    private int[] addOrderAttributes(List<Attribute> attributes) throws ServiceException {
+        LOGGER.debug("addOrderAttributes()");
         return orderDao.addOrderAttributes(attributes);
     }
 
