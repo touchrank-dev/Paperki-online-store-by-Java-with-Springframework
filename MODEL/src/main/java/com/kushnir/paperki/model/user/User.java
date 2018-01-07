@@ -2,6 +2,7 @@ package com.kushnir.paperki.model.user;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class User {
 
@@ -18,6 +19,10 @@ public class User {
 
     private LocalDateTime createDate;
     private LocalDateTime editDate;
+
+    public String getFormattedBirthDate() {
+        return birthDay.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
 
     public boolean isAnonimus() {
         return userType == UserType.ANONIMUS;

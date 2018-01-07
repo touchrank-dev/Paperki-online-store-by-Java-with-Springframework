@@ -19,7 +19,7 @@ public class AvailableProduct {
     private double finalPriceWithVAT;
     private int VAT;
     private int quantityAvailable;
-    private HashMap<Integer, Stock> stocks;
+    private int availableDay;
     private Discount discount;
     private HashMap<Integer, Price> prices = new LinkedHashMap<>();
 
@@ -170,20 +170,20 @@ public class AvailableProduct {
         this.VAT = VAT;
     }
 
+    public int getAvailableDay() {
+        return availableDay;
+    }
+
+    public void setAvailableDay(int availableDay) {
+        this.availableDay = availableDay;
+    }
+
     public int getQuantityAvailable() {
         return quantityAvailable;
     }
 
     public void setQuantityAvailable(int quantityAvailable) {
         this.quantityAvailable = quantityAvailable;
-    }
-
-    public HashMap<Integer, Stock> getStocks() {
-        return stocks;
-    }
-
-    public void setStocks(HashMap<Integer, Stock> stocks) {
-        this.stocks = stocks;
     }
 
     public Discount getDiscount() {
@@ -217,10 +217,10 @@ public class AvailableProduct {
         if (Double.compare(that.finalPriceWithVAT, finalPriceWithVAT) != 0) return false;
         if (VAT != that.VAT) return false;
         if (quantityAvailable != that.quantityAvailable) return false;
+        if (availableDay != that.availableDay) return false;
         if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
         if (shortName != null ? !shortName.equals(that.shortName) : that.shortName != null) return false;
         if (link != null ? !link.equals(that.link) : that.link != null) return false;
-        if (stocks != null ? !stocks.equals(that.stocks) : that.stocks != null) return false;
         if (discount != null ? !discount.equals(that.discount) : that.discount != null) return false;
         return prices != null ? prices.equals(that.prices) : that.prices == null;
     }
@@ -244,7 +244,7 @@ public class AvailableProduct {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + VAT;
         result = 31 * result + quantityAvailable;
-        result = 31 * result + (stocks != null ? stocks.hashCode() : 0);
+        result = 31 * result + availableDay;
         result = 31 * result + (discount != null ? discount.hashCode() : 0);
         result = 31 * result + (prices != null ? prices.hashCode() : 0);
         return result;
@@ -264,7 +264,7 @@ public class AvailableProduct {
                 ", finalPriceWithVAT=" + finalPriceWithVAT +
                 ", VAT=" + VAT +
                 ", quantityAvailable=" + quantityAvailable +
-                ", stocks=" + stocks +
+                ", availableDay=" + availableDay +
                 ", discount=" + discount +
                 ", prices=" + prices +
                 '}';

@@ -45,7 +45,7 @@ public class RESTCart {
         try {
             Cart cart = (Cart)httpSession.getAttribute("cart");
 
-            Integer quantityAvailable[] = cartBean.addToCart(cart, addProductRequest);
+            Integer quantityAvailable[] = cartBean.addToCart(cart, addProductRequest, false);
 
             if (quantityAvailable == null) {
                 httpSession.setAttribute("cart", cart);
@@ -100,10 +100,17 @@ public class RESTCart {
 
             Cart cart = (Cart)httpSession.getAttribute("cart");
 
-            cartBean.updateCartProduct(cart, addProductRequest);
+            Integer quantityAvailable[] = cartBean.addToCart(cart, addProductRequest, true);
 
-            httpSession.setAttribute("cart", cart);
-            restMessage = new RestMessage(HttpStatus.OK, "PRODUCT SUCCESSFULLY UPDATED", cart);
+            if (quantityAvailable == null) {
+                restMessage = new RestMessage(HttpStatus.OK, "CART UPDATED", null);
+                return restMessage;
+            } else {
+                restMessage = new RestMessage(HttpStatus.LOCKED, "INSUFFICIENT QUANTITY", quantityAvailable);
+                return restMessage;
+            }
+        } catch (ProductUnavailableException | BadAttributeValueException e) {
+            restMessage = new RestMessage(HttpStatus.NOT_FOUND, e.getMessage(), null);
             return restMessage;
         } catch (Exception e) {
             LOGGER.error("FAILED UPDATE CART PRODUCT >>>\nERROR MESSAGE: {}", e.getMessage());

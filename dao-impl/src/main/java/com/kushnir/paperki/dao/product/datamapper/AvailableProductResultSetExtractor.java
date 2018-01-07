@@ -26,6 +26,7 @@ public class AvailableProductResultSetExtractor implements ResultSetExtractor {
             String fullName =           rs.getString("full_name");
             String shortName =          rs.getString("short_name");
             int quantityAvailable =     rs.getInt("quantity_available");
+            int availableDay =          rs.getInt("available_day");
             String link =               rs.getString("link");
 
             // цена =======================================================================
@@ -79,6 +80,7 @@ public class AvailableProductResultSetExtractor implements ResultSetExtractor {
                         quantityAvailable,
                         discount
                 );
+                availableProduct.setAvailableDay(availableDay);
                 if (price != null) {
                     availableProduct.getPrices().put(quantityStart, price);
                 }

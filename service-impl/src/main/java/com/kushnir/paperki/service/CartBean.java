@@ -34,7 +34,7 @@ public class CartBean {
     @Autowired
     private PriceCalculator priceCalculator;
 
-    public Integer[] addToCart (Cart cart, AddProductRequest addProductRequest) throws BadAttributeValueException,
+    public Integer[] addToCart (Cart cart, AddProductRequest addProductRequest, Boolean isUpdate) throws BadAttributeValueException,
             ProductUnavailableException {
         LOGGER.debug("addToCart({}) >>>", addProductRequest);
 
@@ -52,16 +52,16 @@ public class CartBean {
                 if (items != null) {
                     inCartProduct = items.get(PNT);
                     if (inCartProduct != null) {
-                        calculateCartProduct(inCartProduct, addProductRequest, availableProduct);
+                        calculateCartProduct(inCartProduct, addProductRequest, availableProduct, isUpdate);
                     } else {
                         inCartProduct = new CartProduct();
-                        calculateCartProduct(inCartProduct, addProductRequest, availableProduct);
+                        calculateCartProduct(inCartProduct, addProductRequest, availableProduct, isUpdate);
                         items.put(PNT, inCartProduct);
                     }
                 } else {
                     items = new LinkedHashMap();
                     inCartProduct = new CartProduct();
-                    calculateCartProduct(inCartProduct, addProductRequest, availableProduct);
+                    calculateCartProduct(inCartProduct, addProductRequest, availableProduct, isUpdate);
                     items.put(PNT, inCartProduct);
                     cart.setItems(items);
                 }
@@ -71,22 +71,6 @@ public class CartBean {
         }
         calculate(cart);
         return null;
-    }
-
-
-    public void updateCartProduct (Cart cart, AddProductRequest addProductRequest) throws BadAttributeValueException {
-        LOGGER.debug("updateCartProduct({}) >>>", addProductRequest);
-
-        if(addProductRequest.getQuantity() < 1)
-            throw new BadAttributeValueException("Запрошенное количество меньше одного");
-
-        int PNT = addProductRequest.getPnt();
-        AvailableProduct availableProduct = productBean.getAvailableProductByPNT(PNT);
-        LOGGER.debug("availableProduct: {}", availableProduct);
-
-
-
-        calculate(cart);
     }
 
     public void deleteFromCart(Cart cart, Integer pnt) {
@@ -149,14 +133,22 @@ public class CartBean {
 
     private void calculateCartProduct(CartProduct inCartProduct,
                                       AddProductRequest addProductRequest,
-                                      AvailableProduct availableProduct) throws NotEnoughQuantityAvailableException {
+                                      AvailableProduct availableProduct, Boolean isUpdate) throws NotEnoughQuantityAvailableException {
 
-        int quantityOld =                   inCartProduct.getQuantity();
+        int newQuantity;
         int requestedQuantity =             addProductRequest.getQuantity();
-        int newQuantity =                   quantityOld + requestedQuantity;
-        int availableQuantity =             availableProduct.getQuantityAvailable();
 
-        if(availableQuantity < 1 || newQuantity > availableQuantity) {
+        if (isUpdate) {
+            newQuantity =                   requestedQuantity;
+        } else {
+            int quantityOld =               inCartProduct.getQuantity();
+            newQuantity =                   quantityOld + requestedQuantity;
+        }
+
+        int availableQuantity =             availableProduct.getQuantityAvailable();
+        int availableDay =                  availableProduct.getAvailableDay();
+
+        if((availableQuantity < 1 || newQuantity > availableQuantity) && availableDay < 1) {
             throw new NotEnoughQuantityAvailableException("На складе недостаточно запрашиваемого количества товара");
         }
 

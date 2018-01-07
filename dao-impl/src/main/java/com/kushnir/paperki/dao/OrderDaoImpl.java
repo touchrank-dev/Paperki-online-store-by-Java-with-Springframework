@@ -27,6 +27,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -241,12 +244,13 @@ public class OrderDaoImpl implements OrderDao {
         @Override
         public HashMap<String, HashMap<Integer, Order>> extractData(ResultSet rs)
                 throws SQLException, DataAccessException {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             HashMap<String, HashMap<Integer, Order>> userOrders = new HashMap<>();
             while(rs.next()) {
 
                 Integer idOrder =           rs.getInt("id_order");
                 Integer idOrderStatus =     rs.getInt("id_order_status");
-                String statusCode =         rs.getString("status_code");
+                // String statusCode =         rs.getString("status_code");
                 String statusName =         rs.getString("status_name");
 
                 // order_status.description
@@ -269,8 +273,13 @@ public class OrderDaoImpl implements OrderDao {
 
                 String comment =            rs.getString("comment");
 
-                Date createDate =           rs.getDate("create_date");
-                Date updateDate =           rs.getDate("edit_date");
+                LocalDateTime createDate = null;
+                // Date updateDate = rs.getDate("edit_date");
+                try {
+                    createDate =  LocalDateTime.parse(rs.getDate("create_date").toLocalDate().toString(), formatter);
+                } catch (Exception e) {
+
+                }
 
                 String name =               rs.getString("name");
                 String value =              rs.getString("value");
@@ -303,6 +312,7 @@ public class OrderDaoImpl implements OrderDao {
                             finalTotal,
                             finalTotalWithVat
                     );
+                    order.setCreate_date(createDate);
 
                     List<Attribute> attributes = new ArrayList<>();
                     attributes.add(attribute);
@@ -331,6 +341,8 @@ public class OrderDaoImpl implements OrderDao {
                                 finalTotal,
                                 finalTotalWithVat
                         );
+                        order.setCreate_date(createDate);
+
                         List<Attribute> attributes = new ArrayList<>();
                         attributes.add(attribute);
                         order.setAttributes(attributes);
