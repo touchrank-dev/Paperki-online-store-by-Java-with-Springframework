@@ -195,12 +195,12 @@ public class OrderServiceImpl implements OrderService {
                             orderErrorForm.setUnp(e.getMessage());
                         }
 
-                        try {
+                        /*try {
                             Assert.notNull(address, "Пожалуйста, укажите Юридический адрес организации");
                             Assert.hasText(address, "Пожалуйста, укажите Юридический адрес организации");
                         } catch (Exception e) {
                             orderErrorForm.setAddress(e.getMessage());
-                        }
+                        }*/
 
                         try {
                             Assert.notNull(shipment, "Пожалуйста, укажите способ получения заказа");
