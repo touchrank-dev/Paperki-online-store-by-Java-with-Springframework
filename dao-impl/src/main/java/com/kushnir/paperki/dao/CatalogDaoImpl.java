@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class CatalogDaoImpl implements CatalogDao {
 
@@ -94,13 +95,13 @@ public class CatalogDaoImpl implements CatalogDao {
 
     private HashMap<Integer, HashMap<Integer, Category>> getAllOld() throws DataAccessException {
         HashMap<Integer, HashMap<Integer, Category>> categories =
-                jdbcTemplate.query(getAllSqlQuery, new CategoryResultSetExtractor());
+                jdbcTemplate.query(getAllByStockSqlQuery, new CategoryResultSetExtractor());
         return categories;
     }
 
     private HashMap<Integer, Category> getAllNew() {
         HashMap<Integer, Category> categories =
-                jdbcTemplate.query(getAllSqlQuery, new CategoriesResultSetExtractor());
+                jdbcTemplate.query(getAllByStockSqlQuery, new CategoriesResultSetExtractor());
         return categories;
     }
 
@@ -305,9 +306,9 @@ public class CatalogDaoImpl implements CatalogDao {
 
         @Override
         public HashMap<Integer, HashMap<Integer, Category>> extractData(ResultSet rs) throws SQLException {
-            HashMap<Integer, HashMap<Integer, Category>> map = new HashMap();
+            HashMap<Integer, HashMap<Integer, Category>> map = new LinkedHashMap<>();
             // Инициализируем главную ветку категории под ключом 0
-            map.put(0, new HashMap());
+            map.put(0, new LinkedHashMap());
 
             while (rs.next()) {
                 int parent = rs.getInt("parent");
@@ -321,7 +322,7 @@ public class CatalogDaoImpl implements CatalogDao {
                         parent
                 );
 
-                HashMap<Integer, Category> mapCategory = new HashMap();
+                HashMap<Integer, Category> mapCategory = new LinkedHashMap();
 
                 // добавляем в список главной ветки
                 map.put(category.getId(), mapCategory);
@@ -341,7 +342,7 @@ public class CatalogDaoImpl implements CatalogDao {
 
         @Override
         public HashMap<Integer, Category> extractData(ResultSet rs) throws SQLException, DataAccessException {
-            HashMap<Integer, Category> parents = new HashMap();
+            HashMap<Integer, Category> parents = new LinkedHashMap();
             while (rs.next()) {
                 Integer id =            rs.getInt("id_catalog");
                 Integer papId =         rs.getInt("pap_id");
@@ -373,7 +374,7 @@ public class CatalogDaoImpl implements CatalogDao {
                     if (parentCategory != null) {
                         HashMap<Integer, Category> children = parentCategory.getChildren();
                         if (children == null) {
-                            children = new HashMap<>();
+                            children = new LinkedHashMap<>();
                             children.put(id, category);
                             parentCategory.setChildren(children);
                         } else {
