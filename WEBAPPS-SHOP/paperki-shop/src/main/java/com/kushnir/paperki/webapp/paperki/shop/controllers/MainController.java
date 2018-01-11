@@ -132,4 +132,10 @@ public class MainController {
 
     }
 
+    @GetMapping("/google7499192dea83c18a.html")
+    @ResponseStatus(HttpStatus.OK)
+    public String getGoogleFile() {
+        return contentPath+"google7499192dea83c18a";
+    }
+
 }
