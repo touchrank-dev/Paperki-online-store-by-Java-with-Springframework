@@ -376,13 +376,32 @@ public class ProductBeanImpl implements ProductBean {
     }
 
 
-
     @Override
     public ArrayList<AvailableProduct> searchProducts(String str) {
         LOGGER.debug("searchProducts({}) >>>", str);
-        return productDao.searchProducts(str);
+
+        if (isPNT(str)) return productDao.searchProducts(str);
+        else return smartSearch(str);
     }
 
+    private Boolean isPNT(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private ArrayList<AvailableProduct> smartSearch(String str) {
+        try {
+            String[] words = str.split(" ");
+            return productDao.smartSearch(words);
+        } catch (Exception e) {
+            LOGGER.error(e);
+            return null;
+        }
+    }
 
     private void unpublishAllProducts() {
         LOGGER.debug("unpublishAllProducts() >>>");

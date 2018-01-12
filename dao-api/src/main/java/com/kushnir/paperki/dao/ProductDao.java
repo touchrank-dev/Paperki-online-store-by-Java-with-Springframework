@@ -27,6 +27,7 @@ public interface ProductDao {
     ArrayList<Description> getProductDescriptionsFromCSV(StringBuilder sb) throws IOException;
 
     ArrayList<AvailableProduct> searchProducts(String str);
+    ArrayList<AvailableProduct> smartSearch(String[] words);
 
     void unpublishAllProducts();
     int addProduct(CSVProduct product);

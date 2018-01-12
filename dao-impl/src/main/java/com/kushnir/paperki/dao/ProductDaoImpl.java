@@ -153,6 +153,9 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${product.search}")
     private String searchProductSqlQuery;
 
+    @Value("${product.smartSearch}")
+    private String smartSearchProductSqlQuery;
+
     @Override
     public HashMap<Integer, ProductSimple> getAll() {
         LOGGER.debug("getAll() >>>");
@@ -542,6 +545,29 @@ public class ProductDaoImpl implements ProductDao {
         return products;
     }
 
+    @Override
+    public ArrayList<AvailableProduct> smartSearch(String[] words) {
+        LOGGER.debug("smartSearch() >>>");
+
+        ArrayList products = namedParameterJdbcTemplate.query(
+                getSmartSearchSQLQuery(smartSearchProductSqlQuery, words),
+                new SearchProductResultSetExtractor());
+        return products;
+    }
+
+    private String getSmartSearchSQLQuery(String sql, String[] words) {
+        StringBuilder newSql = new StringBuilder(sql);
+        if (words.length > 0) {
+            newSql.append("WHERE ");
+            for (int i = 0; i < words.length; i++) {
+                if (i > 0 && i < words.length) newSql.append("AND ");
+                newSql.append("p.full_name LIKE ('%").append(words[i]).append("%') ");
+            }
+        }
+        newSql.append("ORDER BY p.personal_group_name;");
+        LOGGER.debug(newSql);
+        return newSql.toString();
+    }
 
     @Override
     public void unpublishAllProducts() {
