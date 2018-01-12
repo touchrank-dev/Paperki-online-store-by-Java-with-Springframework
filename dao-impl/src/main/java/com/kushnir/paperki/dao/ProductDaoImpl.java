@@ -565,7 +565,6 @@ public class ProductDaoImpl implements ProductDao {
             }
         }
         newSql.append("ORDER BY p.personal_group_name;");
-        LOGGER.debug(newSql);
         return newSql.toString();
     }
 
