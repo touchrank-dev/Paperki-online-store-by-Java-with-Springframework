@@ -71,9 +71,9 @@ public class RESTOrder {
     @GetMapping("/update/status")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage updateOrder(@RequestParam String orderToken,
-                                                 @RequestParam Integer orderId,
-                                                 @RequestParam String papOrderNumber) {
-        LOGGER.debug("REST ORDER UPDATE STATUS >>>\n{}, {}, {} ", orderToken, orderId, papOrderNumber);
+                                                 @RequestParam String papOrderNumber,
+                                                 @RequestParam String status) {
+        LOGGER.debug("REST ORDER UPDATE STATUS >>>\n{}, {}, {} ", orderToken, papOrderNumber, status);
         RestMessage restMessage;
         try {
 

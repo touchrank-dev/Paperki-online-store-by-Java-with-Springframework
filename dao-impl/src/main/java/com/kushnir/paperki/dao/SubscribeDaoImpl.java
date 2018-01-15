@@ -26,18 +26,13 @@ public class SubscribeDaoImpl implements SubscribeDao {
 
     @Override
     public int subscribe(String email, int idEmailList) throws DataAccessException {
-        LOGGER.debug("subscribe({}, {})", email, idEmailList);
+        LOGGER.debug("subscribe()");
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(P_ID_EMAIL_LIST, idEmailList);
         parameterSource.addValue(P_EMAIL, email);
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        try{
-            namedParameterJdbcTemplate.update(addSubscribeSqlQuery, parameterSource, keyHolder);
-            LOGGER.debug("Email {}, успешно подписан на рассылку id: {}", email, idEmailList);
-            return keyHolder.getKey().intValue();
-        } catch (Exception e) {
-            LOGGER.error("Не удалось подписаться на рассылку!,\nError message: {}", e.getMessage());
-            throw e;
-        }
+
+        namedParameterJdbcTemplate.update(addSubscribeSqlQuery, parameterSource, keyHolder);
+        return keyHolder.getKey().intValue();
     }
 }

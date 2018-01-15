@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -46,8 +47,13 @@ public class SubscribeServiceImpl implements SubscribeService {
                 Assert.isTrue(id > 0, "Ошибка подписки на email рассылку");
                 LOGGER.debug("Email: {}, успешно подписан на рассылку id: {}", mail, idEmailList);
                 return new Integer(id);
+            } catch (DuplicateKeyException e) {
+                subscribeErrorResponse.setEmail("'этот адрес электронной почты уже подписан на рассылку");
+                LOGGER.error("ОШИБКА ПОДПИСКИ НА РАССЫЛКУ: {}", subscribeErrorResponse);
+                return subscribeErrorResponse;
             } catch (Exception e) {
                 LOGGER.error(e.getMessage());
+                LOGGER.error("ОШИБКА ПОДПИСКИ НА РАССЫЛКУ: {}", e.getMessage());
                 throw new ServiceException(e.getMessage());
             }
         }
