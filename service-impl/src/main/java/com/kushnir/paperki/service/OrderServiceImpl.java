@@ -61,9 +61,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getOrderByToken(String token) throws ServiceException {
         LOGGER.debug("getOrderByToken({})", token);
-        Order order = orderDao.getOrderByToken(token);
-        order.setItems(getOrderItems(order.getId()));
-        return order;
+        try {
+            Order order = orderDao.getOrderByToken(token);
+            order.setItems(getOrderItems(order.getId()));
+            return order;
+        } catch (Exception e) {
+            LOGGER.error("ERROR getOrderByToken >>>", e.getMessage());
+            return null;
+        }
     }
 
     @Override
@@ -82,6 +87,30 @@ public class OrderServiceImpl implements OrderService {
     public ArrayList getAllNewOrders() {
         LOGGER.debug("getAllNewOrders()");
         return orderDao.getAllNewOrders();
+    }
+
+    @Override
+    public Integer getOrderStatusByToken(String orderToken) throws ServiceException {
+        LOGGER.debug("getOrderStatusByToken({})", orderToken);
+        Order order = getOrderByToken(orderToken);
+        if (order == null) return null;
+        return order.getId_order_status();
+    }
+
+    @Override
+    @Transactional
+    public void updateOrderStatus(String orderToken, String papOrderNumber, Integer status) throws ServiceException {
+        LOGGER.debug("updateOrderStatus({}, {}, {})", orderToken, papOrderNumber, status);
+        Assert.hasText(orderToken, "orderToken is empty");
+        Assert.notNull(status, "status is null");
+        Assert.isTrue(status > 0, "Статус <= 0");
+        updateOrderPapNumber(orderToken, papOrderNumber);
+        orderDao.updateOrderStatus(orderToken, status);
+    }
+
+    private void updateOrderPapNumber(String orderToken, String papOrderNumber) {
+        LOGGER.debug("updateOrderPapNumber({})", papOrderNumber);
+        orderDao.updateOrderPapNumber(orderToken, papOrderNumber);
     }
 
 

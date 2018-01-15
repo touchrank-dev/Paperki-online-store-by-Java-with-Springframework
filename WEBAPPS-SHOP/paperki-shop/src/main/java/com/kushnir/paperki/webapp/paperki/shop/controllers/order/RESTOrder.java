@@ -68,18 +68,23 @@ public class RESTOrder {
         return orderService.getAllNewOrders();
     }
 
+    @GetMapping("/getstatus")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody RestMessage getOrderStatus(@RequestParam String orderToken) throws Exception {
+        LOGGER.debug("getOrderStatus ({}) >>>", orderToken);
+        return new RestMessage(HttpStatus.OK, "STATUS OF ORDER: "+orderToken, orderService.getOrderStatusByToken(orderToken));
+    }
+
     @GetMapping("/update/status")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage updateOrder(@RequestParam String orderToken,
                                                  @RequestParam String papOrderNumber,
-                                                 @RequestParam String status) {
+                                                 @RequestParam Integer status) {
         LOGGER.debug("REST ORDER UPDATE STATUS >>>\n{}, {}, {} ", orderToken, papOrderNumber, status);
         RestMessage restMessage;
         try {
 
-
-            // orderService.updateOrderStatus();
-
+            orderService.updateOrderStatus(orderToken, papOrderNumber, status);
 
             restMessage = new RestMessage(HttpStatus.ACCEPTED, "Статус успешно обновлен", null);
             return restMessage;

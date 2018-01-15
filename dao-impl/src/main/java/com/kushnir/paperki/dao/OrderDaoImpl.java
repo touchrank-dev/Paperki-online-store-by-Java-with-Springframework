@@ -79,6 +79,8 @@ public class OrderDaoImpl implements OrderDao {
     private static final String P_ORDER_FINAL_TOTAL = "p_final_total";
     private static final String P_ORDER_FINAL_TOTAL_WITH_VAT = "p_final_total_with_vat";
     private static final String P_ORDER_COMMENT = "p_comment";
+    private static final String P_ORDER_STATUS_ID = "p_id_order_status";
+    private static final String P_ORDER_PAPNUMBER = "p_pap_order_number";
 
     private static final String P_CUSTOMER_NAME = "p_customer_name";
     private static final String P_ENTERPRISE_NAME = "p_enterprise_name";
@@ -112,6 +114,12 @@ public class OrderDaoImpl implements OrderDao {
 
     @Value("${order.addAttribute}")
     private String addAttributeSqlQuery;
+
+    @Value("${order.updateOrderPapNumber}")
+    private String updateOrderPapNumberSqlQuery;
+
+    @Value("${order.updateOrderStatusId}")
+    private String updateOrderStatusIdSqlQuery;
 
 
     @Override
@@ -153,7 +161,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<CartProduct> getOrderItems(int idOrder) {
-        LOGGER.debug("getOrderItems({}) >>>", idOrder);
+        LOGGER.debug("getOrderItems() >>>");
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_ID, idOrder);
         List<CartProduct> items = namedParameterJdbcTemplate
                 .query(getOrderItemsSQlQuery, parameterSource, new CartProductRowMapper());
@@ -184,16 +192,32 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public int[] addOrderAttributes(List<Attribute> attributes) {
-        LOGGER.debug("addOrderAttributes({}) >>>", attributes);
+        LOGGER.debug("addOrderAttributes() >>>");
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(attributes.toArray());
         return namedParameterJdbcTemplate.batchUpdate(addAttributeSqlQuery, batch);
     }
 
     @Override
     public int[] addOrderItems(Object[] items) {
-        LOGGER.debug("addOrderItems({})", items);
+        LOGGER.debug("addOrderItems()");
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(items);
         return namedParameterJdbcTemplate.batchUpdate(addOrderItemSqlQuery, batch);
+    }
+
+    @Override
+    public void updateOrderStatus(String orderToken, Integer status) {
+        LOGGER.debug("updateOrderStatus()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_TOKEN, orderToken);
+        parameterSource.addValue(P_ORDER_STATUS_ID, status);
+        namedParameterJdbcTemplate.update(updateOrderStatusIdSqlQuery, parameterSource);
+    }
+
+    @Override
+    public void updateOrderPapNumber(String orderToken, String papOrderNumber) {
+        LOGGER.debug("updateOrderPapNumber()");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_TOKEN, orderToken);
+        parameterSource.addValue(P_ORDER_PAPNUMBER, papOrderNumber);
+        namedParameterJdbcTemplate.update(updateOrderPapNumberSqlQuery, parameterSource);
     }
 
 

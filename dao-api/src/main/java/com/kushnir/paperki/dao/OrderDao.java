@@ -19,4 +19,7 @@ public interface OrderDao {
     Integer addOrder(Order order);
     int[] addOrderAttributes(List<Attribute> attributes);
     int[] addOrderItems(Object[] items);
+
+    void updateOrderStatus(String orderToken, Integer status);
+    void updateOrderPapNumber(String orderToken, String papOrderNumber);
 }

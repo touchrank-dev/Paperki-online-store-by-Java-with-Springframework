@@ -21,7 +21,8 @@ public class User {
     private LocalDateTime editDate;
 
     public String getFormattedBirthDate() {
-        return birthDay.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        if (birthDay != null) return birthDay.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        else return null;
     }
 
     public boolean isAnonimus() {

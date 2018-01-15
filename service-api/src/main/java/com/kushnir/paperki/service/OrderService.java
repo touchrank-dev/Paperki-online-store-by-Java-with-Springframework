@@ -13,4 +13,6 @@ public interface OrderService {
     Order getOrderByToken(String token) throws ServiceException;
     HashMap<String, HashMap<Integer, Order>> getOrdersByUserId(Integer userId);
     ArrayList getAllNewOrders();
+    Integer getOrderStatusByToken(String orderToken) throws ServiceException;
+    void updateOrderStatus(String orderToken, String papOrderNumber, Integer status) throws ServiceException;
 }
