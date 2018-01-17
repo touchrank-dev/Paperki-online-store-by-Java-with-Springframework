@@ -72,7 +72,8 @@ public class RESTOrder {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage getOrderStatus(@RequestParam String orderToken) throws Exception {
         LOGGER.debug("getOrderStatus ({}) >>>", orderToken);
-        return new RestMessage(HttpStatus.OK, "STATUS OF ORDER: "+orderToken, orderService.getOrderStatusByToken(orderToken));
+        Integer statusId = orderService.getOrderStatusByToken(orderToken);
+        return new RestMessage(HttpStatus.OK, "STATUS OF ORDER: "+orderToken+", orderStatus = "+statusId, statusId);
     }
 
     @GetMapping("/update/status")
