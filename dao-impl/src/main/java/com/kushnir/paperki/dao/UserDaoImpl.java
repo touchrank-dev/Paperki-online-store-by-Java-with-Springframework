@@ -451,10 +451,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public HashMap<Integer,ArrayList<Address>> getUserAddresses(Integer userId) {
         LOGGER.debug("getUserAddresses()");
-        HashMap<Integer,ArrayList<Address>> addresses = null;
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_USER_ID, userId);
-        addresses = namedParameterJdbcTemplate.query(getAllUsersAddressesSqlQuery, parameterSource, new AddressesResultSetExtractor());
-        return addresses;
+        return namedParameterJdbcTemplate.query(getAllUsersAddressesSqlQuery, parameterSource, new AddressesResultSetExtractor());
     }
 
     @Override

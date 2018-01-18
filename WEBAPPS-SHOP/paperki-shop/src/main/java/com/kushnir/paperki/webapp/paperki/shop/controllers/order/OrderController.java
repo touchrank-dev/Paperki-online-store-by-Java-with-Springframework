@@ -6,8 +6,8 @@ import com.kushnir.paperki.model.user.Address;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.service.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
-
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -62,6 +62,7 @@ public class OrderController {
         model.addAttribute("deliveries", deliveryService.getAll());
         model.addAttribute("payments", paymentService.getAll());
         model.addAttribute("addresses", getAddresses(httpSession));
+        model.addAttribute("enterprise", getEnterprise(httpSession));
         return "index";
     }
 
@@ -92,24 +93,20 @@ public class OrderController {
         return catalogBean.getAll();
     }
 
-    @ModelAttribute("enterprise")
-    public Enterprise getEnterprise(HttpSession httpSession) {
+    private Enterprise getEnterprise(HttpSession httpSession) {
         User user = (User)httpSession.getAttribute("user");
-        Enterprise enterprise = null;
         if(user != null || user.getId() != null || user.getId() > 0) {
-            enterprise = userService.getEnterpriseByUserId(user.getId());
+            return userService.getEnterpriseByUserId(user.getId());
         }
-        return enterprise;
+        return null;
     }
-
 
     private HashMap<Integer, ArrayList<Address>> getAddresses(HttpSession httpSession) {
         User user = (User)httpSession.getAttribute("user");
-        HashMap<Integer, ArrayList<Address>> addresses = null;
         if(user != null || user.getId() != null || user.getId() > 0) {
-            addresses = userService.getUserAddresses(user.getId());
+            return userService.getUserAddresses(user.getId());
         }
-        return addresses;
+        return null;
     }
 
 }
