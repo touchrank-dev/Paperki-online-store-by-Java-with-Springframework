@@ -1,14 +1,30 @@
 package com.kushnir.paperki.model;
 
 public class Discount {
+    private Integer pnt;
     private DiscountType discountType;
     private Double valueDouble;
     private Integer valueInt;
+
+    public Discount(Integer pnt, DiscountType discountType, Double valueDouble, Integer valueInt) {
+        this.pnt = pnt;
+        this.discountType = discountType;
+        this.valueDouble = valueDouble;
+        this.valueInt = valueInt;
+    }
 
     public Discount(DiscountType discountType, Double valueDouble, Integer valueInt) {
         this.discountType = discountType;
         this.valueDouble = valueDouble;
         this.valueInt = valueInt;
+    }
+
+    public Integer getPnt() {
+        return pnt;
+    }
+
+    public void setPnt(Integer pnt) {
+        this.pnt = pnt;
     }
 
     public DiscountType getDiscountType() {
@@ -42,6 +58,7 @@ public class Discount {
 
         Discount discount = (Discount) o;
 
+        if (pnt != null ? !pnt.equals(discount.pnt) : discount.pnt != null) return false;
         if (discountType != discount.discountType) return false;
         if (valueDouble != null ? !valueDouble.equals(discount.valueDouble) : discount.valueDouble != null)
             return false;
@@ -50,7 +67,8 @@ public class Discount {
 
     @Override
     public int hashCode() {
-        int result = discountType != null ? discountType.hashCode() : 0;
+        int result = pnt != null ? pnt.hashCode() : 0;
+        result = 31 * result + (discountType != null ? discountType.hashCode() : 0);
         result = 31 * result + (valueDouble != null ? valueDouble.hashCode() : 0);
         result = 31 * result + (valueInt != null ? valueInt.hashCode() : 0);
         return result;
@@ -59,7 +77,8 @@ public class Discount {
     @Override
     public String toString() {
         return "Discount{" +
-                "discountType=" + discountType +
+                "pnt=" + pnt +
+                ", discountType=" + discountType +
                 ", valueDouble=" + valueDouble +
                 ", valueInt=" + valueInt +
                 '}';

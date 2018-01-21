@@ -313,7 +313,7 @@ CREATE TABLE orders (
     id_order_type               INT             NOT NULL,
     token_order                 VARCHAR(100)    NOT NULL UNIQUE,
     order_number                VARCHAR(18)     NOT NULL UNIQUE,
-    pap_order_number            VARCHAR(20)     UNIQUE,
+    pap_order_number            VARCHAR(20)     ,
     id_user                     INT             DEFAULT 0 NOT NULL,
     id_order_status             INT             DEFAULT 1 NOT NULL,
     total                       DOUBLE          NOT NULL,

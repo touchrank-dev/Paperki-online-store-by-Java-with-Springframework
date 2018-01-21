@@ -88,6 +88,9 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${csv.file.descriptions}")
     private String csvFileProductDescriptions;
 
+    @Value("${csv.file.discounts}")
+    private String csvFileProductDiscounts;
+
 
     /*SQL Scripts*/
     @Value("${product.getAll}")
@@ -531,6 +534,62 @@ public class ProductDaoImpl implements ProductDao {
         sb.append(">>> FINISH").append('\n');
         LOGGER.debug(">>> FINISH");
         return descriptions;
+    }
+
+    public ArrayList getDiscountsFromCSV(StringBuilder sb) throws IOException {
+        String file = csvFilesPath + csvFileProductDiscounts;
+        sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
+                .append(">>> PROGRESS ...").append('\n');
+        LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
+
+        ArrayList discounts = new ArrayList();
+
+        try {
+            Iterable<CSVRecord> records =
+                    CSVFormat
+                            .newFormat(delimiter)
+                            .withEscape(escape)
+                            .withFirstRecordAsHeader()
+                            .parse(new FileReader(file));
+
+            for (CSVRecord record : records) {
+                try {
+                    Integer pnt =               Integer.parseInt(record.get(0));
+                    DiscountType type =         DiscountType.getType(Integer.parseInt(record.get(1)));
+
+                    Double value = null;
+                    Integer intValue = null;
+
+                    if (type.equals(DiscountType.PROCENT)) {
+                        intValue =              Integer.parseInt(record.get(2));
+                    } else {
+                        value =                 Double.parseDouble(record.get(2));
+                    }
+
+                    discounts.add(new Discount(
+                            pnt,
+                            type,
+                            value,
+                            intValue
+                    ));
+
+                } catch (Exception e) {
+                    sb.append("ERROR >>> row: ").append(record.getRecordNumber())
+                            .append(", ").append(e.getMessage()).append('\n');
+                    LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
+                    continue;
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            sb.append("ERROR >>> File (").append(file).append(") Not Found! >>> ").append(e.getMessage()).append('\n');
+            LOGGER.error("ERROR >>> File ({}) Not Found! >>> {}", file, e.getMessage());
+            return null;
+        }
+
+        sb.append(">>> FINISH").append('\n');
+        LOGGER.debug(">>> FINISH");
+        return discounts;
     }
 
     @Override
