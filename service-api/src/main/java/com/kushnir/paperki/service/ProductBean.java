@@ -2,6 +2,7 @@ package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.model.product.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,6 +22,7 @@ public interface ProductBean {
     String updateProductAttributes();
     String updateProductPrices();
     String updateProductDescriptions();
+    String updateProductDiscounts();
 
     ArrayList searchProducts(String str);
 }

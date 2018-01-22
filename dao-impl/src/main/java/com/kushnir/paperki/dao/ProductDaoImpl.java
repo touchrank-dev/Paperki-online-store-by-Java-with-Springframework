@@ -153,6 +153,12 @@ public class ProductDaoImpl implements ProductDao {
     @Value("${product.descriptions.add}")
     private String addDescriptionSqlQuery;
 
+    @Value("${product.discounts.deleteAll}")
+    private String deleteAllDiscountsSqlQuery;
+
+    @Value("${product.discounts.add}")
+    private String addDiscountSqlQuery;
+
     @Value("${product.search}")
     private String searchProductSqlQuery;
 
@@ -521,7 +527,6 @@ public class ProductDaoImpl implements ProductDao {
                     sb.append("ERROR >>> row: ").append(record.getRecordNumber())
                             .append(", ").append(e.getMessage()).append('\n');
                     LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
-                    continue;
                 }
             }
 
@@ -536,13 +541,14 @@ public class ProductDaoImpl implements ProductDao {
         return descriptions;
     }
 
-    public ArrayList getDiscountsFromCSV(StringBuilder sb) throws IOException {
+    @Override
+    public ArrayList<Discount> getDiscountsFromCSV(StringBuilder sb) throws IOException {
         String file = csvFilesPath + csvFileProductDiscounts;
         sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
                 .append(">>> PROGRESS ...").append('\n');
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
 
-        ArrayList discounts = new ArrayList();
+        ArrayList<Discount> discounts = new ArrayList<Discount>();
 
         try {
             Iterable<CSVRecord> records =
@@ -555,7 +561,9 @@ public class ProductDaoImpl implements ProductDao {
             for (CSVRecord record : records) {
                 try {
                     Integer pnt =               Integer.parseInt(record.get(0));
-                    DiscountType type =         DiscountType.getType(Integer.parseInt(record.get(1)));
+                    Assert.notNull(pnt, "pnt is null");
+                    DiscountType type =         getDiscountType(Integer.parseInt(record.get(1)));
+                    Assert.notNull(type, "type is null");
 
                     Double value = null;
                     Integer intValue = null;
@@ -577,7 +585,6 @@ public class ProductDaoImpl implements ProductDao {
                     sb.append("ERROR >>> row: ").append(record.getRecordNumber())
                             .append(", ").append(e.getMessage()).append('\n');
                     LOGGER.error("ERROR >>> row:{} {}", record.getRecordNumber(), e.getMessage());
-                    continue;
                 }
             }
 
@@ -590,6 +597,15 @@ public class ProductDaoImpl implements ProductDao {
         sb.append(">>> FINISH").append('\n');
         LOGGER.debug(">>> FINISH");
         return discounts;
+    }
+
+    private DiscountType getDiscountType(Integer typeId) {
+        switch(typeId) {
+            case 1: return DiscountType.OVERRIDE;
+            case 2: return DiscountType.PROCENT;
+            case 3: return DiscountType.SUBTRACT;
+            default: return null;
+        }
     }
 
     @Override
@@ -729,7 +745,7 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public void deleteAllDescriptions() {
         LOGGER.debug("deleteAllDescriptions() >>>");
-        int count = jdbcTemplate.update(deleteAllDescriptionsSqlQuery);
+        jdbcTemplate.update(deleteAllDescriptionsSqlQuery);
     }
 
     @Override
@@ -737,6 +753,19 @@ public class ProductDaoImpl implements ProductDao {
         LOGGER.debug("batchAddDescriptions() >>>");
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(description);
         return namedParameterJdbcTemplate.batchUpdate(addDescriptionSqlQuery, batch);
+    }
+
+    @Override
+    public void deleteAllDiscounts() {
+        LOGGER.debug("deleteAllDiscounts() >>>");
+        jdbcTemplate.update(deleteAllDiscountsSqlQuery);
+    }
+
+    @Override
+    public int[] batchAddDiscounts(Object[] discounts) {
+        LOGGER.debug("batchAddDiscounts() >>>");
+        SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(discounts);
+        return namedParameterJdbcTemplate.batchUpdate(addDiscountSqlQuery, batch);
     }
 
 }

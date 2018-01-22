@@ -52,6 +52,7 @@ public class UpdaterCSV {
     }
     public void discountsUpdate() {
         LOGGER.debug("===== START Discounts update ==== >>> ");
+        productBean.updateProductDiscounts();
         LOGGER.debug("===== FINISH Discounts update ==== ");
     }
     public void stockUpdate() {

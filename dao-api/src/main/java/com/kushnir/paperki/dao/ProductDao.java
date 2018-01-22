@@ -1,5 +1,6 @@
 package com.kushnir.paperki.dao;
 
+import com.kushnir.paperki.model.Discount;
 import com.kushnir.paperki.model.Price;
 import com.kushnir.paperki.model.product.*;
 
@@ -25,6 +26,7 @@ public interface ProductDao {
     ArrayList<Attribute> getAttributesFromCSV(StringBuilder sb) throws IOException;
     ArrayList<Price> getQuantityPricesFromCSV(StringBuilder sb) throws IOException;
     ArrayList<Description> getProductDescriptionsFromCSV(StringBuilder sb) throws IOException;
+    ArrayList<Discount> getDiscountsFromCSV(StringBuilder sb) throws IOException;
 
     ArrayList<AvailableProduct> searchProducts(String str);
     ArrayList<AvailableProduct> smartSearch(String[] words);
@@ -47,4 +49,7 @@ public interface ProductDao {
 
     void deleteAllDescriptions();
     int[] batchAddDescriptions(Object[] description);
+
+    void deleteAllDiscounts();
+    int[] batchAddDiscounts(Object[] discounts);
 }

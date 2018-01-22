@@ -222,7 +222,6 @@ CREATE TABLE discount_types (
 );
 
 CREATE TABLE discounts (
-    id_discount                 INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_discount_type            INT             NOT NULL,
     id_product                  INT             NOT NULL UNIQUE,
     pnt                         INT             ,

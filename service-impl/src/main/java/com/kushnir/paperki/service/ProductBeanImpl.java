@@ -2,6 +2,7 @@ package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.dao.ProductDao;
 import com.kushnir.paperki.model.Brand;
+import com.kushnir.paperki.model.Discount;
 import com.kushnir.paperki.model.Price;
 import com.kushnir.paperki.model.category.CategorySimple;
 import com.kushnir.paperki.model.product.*;
@@ -372,6 +373,36 @@ public class ProductBeanImpl implements ProductBean {
         }
 
         mailer.toSupportMail(sb.toString(), "UPDATE PRODUCTS DESCRIPTIONS REPORT");
+        return sb.toString();
+    }
+
+    @Override
+    public String updateProductDiscounts() {
+        LOGGER.debug("updateProductDiscounts() >>>");
+        StringBuilder sb = new StringBuilder();
+        ArrayList<Discount> discounts = new ArrayList<>();
+        try {
+            ArrayList<Discount> CSVDiscounts = productDao.getDiscountsFromCSV(sb);
+            Assert.notNull(CSVDiscounts, "CSVDiscounts is null");
+            HashMap<Integer, ProductSimple> products = getAll();
+            Assert.notNull(products, "products is null");
+
+            for (Discount discount: CSVDiscounts) {
+                ProductSimple product = products.get(discount.getPnt());
+                if (product != null && product.getId() != null) {
+                    discount.setProductId(product.getId());
+                    discounts.add(discount);
+                }
+            }
+
+            productDao.deleteAllDiscounts();
+            productDao.batchAddDiscounts(discounts.toArray());
+
+        } catch (Exception e) {
+            sb.append('\n').append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
+            LOGGER.error("UPDATE FINISHED WITH ERROR: {}, {}", e, e.getMessage());
+        }
+        mailer.toSupportMail(sb.toString(), "UPDATE PRODUCTS DISCOUNTS REPORT");
         return sb.toString();
     }
 

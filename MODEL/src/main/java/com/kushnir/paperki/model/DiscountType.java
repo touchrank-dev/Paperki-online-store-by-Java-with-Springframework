@@ -15,13 +15,4 @@ public enum DiscountType {
         return type;
     }
 
-    public static DiscountType getType(Integer typeId) {
-        switch (typeId) {
-            case 1:return OVERRIDE;
-            case 2:return PROCENT;
-            case 3:return SUBTRACT;
-            default: return null;
-        }
-    }
-
 }
