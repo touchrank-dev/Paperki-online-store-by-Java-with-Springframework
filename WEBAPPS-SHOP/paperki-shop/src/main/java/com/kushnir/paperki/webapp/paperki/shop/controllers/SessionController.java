@@ -38,10 +38,10 @@ public class SessionController {
             httpSession.setAttribute("user", user);
             LOGGER.debug("SET NEW EMPTY USER");
         }
-        LOGGER.debug("SessionId: {}, isValid: {}, isFromCookie: {}",
+        LOGGER.info("requested_session_Id: {}, http_session_id: {} isValid: {}",
                     req.getRequestedSessionId(),
-                    req.isRequestedSessionIdValid(),
-                    req.isRequestedSessionIdFromCookie());
+                    httpSession.getId(),
+                    req.isRequestedSessionIdValid());
         return user;
     }
 
