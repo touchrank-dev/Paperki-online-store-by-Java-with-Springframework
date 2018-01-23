@@ -41,6 +41,11 @@ public class UpdaterCSV {
         productBean.updateProductAttributes();
         LOGGER.debug("===== FINISH Products update ==== ");
     }
+    public void descriptionsUpdate() {
+        LOGGER.debug("===== START Products update ==== >>> ");
+        productBean.updateProductDescriptions();
+        LOGGER.debug("===== FINISH Products update ==== ");
+    }
     public void pricesUpdate() {
         LOGGER.debug("===== START Prices update ==== >>> ");
         productBean.updateProductPrices();
