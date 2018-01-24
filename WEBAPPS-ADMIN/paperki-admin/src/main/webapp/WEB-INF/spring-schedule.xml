@@ -17,7 +17,7 @@
         <task:scheduled ref="updaterCSV" method="productUpdate"         cron="${cron.update.products}" />
         <task:scheduled ref="updaterCSV" method="pricesUpdate"          cron="${cron.update.prices}" />
         <task:scheduled ref="updaterCSV" method="customersUpdate"       cron="${cron.update.customers}" />
-        <task:scheduled ref="updaterCSV" method="discountsUpdate"       cron="${cron.update.discounts}" />
+        <!--<task:scheduled ref="updaterCSV" method="discountsUpdate"       cron="${cron.update.discounts}" />-->
         <task:scheduled ref="updaterCSV" method="descriptionsUpdate"    cron="${cron.update.descriptions}" />
         <task:scheduled ref="updaterCSV" method="stockUpdate"           cron="${cron.update.stock}" />
     </task:scheduled-tasks>
