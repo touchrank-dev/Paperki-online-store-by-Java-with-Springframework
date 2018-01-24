@@ -4,20 +4,20 @@
         <Property name="log-path">/home/paperki.by/</Property>
     </Properties>
     <Appenders>
-        <RollingFile name="trace-log" fileName="${log-path}/paperki-trace.log"
+        <RollingFile name="trace-log"
+                     fileName="${log-path}/paperki-trace.log"
+                     advertise="true"
                      filePattern="${log-path}/paperki-trace.%d{yyyy-MM-dd}.log">
-            <PatternLayout>
-                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n</pattern>
-            </PatternLayout>
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             </Policies>
         </RollingFile>
-        <RollingFile name="error-log" fileName="${log-path}/paperki-error.log"
+        <RollingFile name="error-log"
+                     fileName="${log-path}/paperki-error.log"
+                     advertise="true"
                      filePattern="${log-path}/paperki-error.%d{yyyy-MM-dd}.log">
-            <PatternLayout>
-                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n</pattern>
-            </PatternLayout>
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             </Policies>

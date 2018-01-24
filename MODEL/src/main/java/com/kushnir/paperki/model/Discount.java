@@ -4,12 +4,28 @@ public class Discount {
     private Integer productId;
     private Integer pnt;
     private DiscountType discountType;
+    private Integer typeId;
     private Double valueDouble;
     private Integer valueInt;
 
     public Discount(Integer pnt, DiscountType discountType, Double valueDouble, Integer valueInt) {
         this.pnt = pnt;
         this.discountType = discountType;
+        this.valueDouble = valueDouble;
+        this.valueInt = valueInt;
+    }
+
+    public Discount(Integer pnt, Integer typeId, Double valueDouble, Integer valueInt) {
+        this.pnt = pnt;
+        this.typeId = typeId;
+        this.valueDouble = valueDouble;
+        this.valueInt = valueInt;
+    }
+
+    public Discount(Integer pnt, DiscountType discountType, Integer typeId, Double valueDouble, Integer valueInt) {
+        this.pnt = pnt;
+        this.discountType = discountType;
+        this.typeId = typeId;
         this.valueDouble = valueDouble;
         this.valueInt = valueInt;
     }
@@ -44,6 +60,14 @@ public class Discount {
         this.discountType = discountType;
     }
 
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
     public Double getValueDouble() {
         return valueDouble;
     }
@@ -70,6 +94,7 @@ public class Discount {
         if (productId != null ? !productId.equals(discount.productId) : discount.productId != null) return false;
         if (pnt != null ? !pnt.equals(discount.pnt) : discount.pnt != null) return false;
         if (discountType != discount.discountType) return false;
+        if (typeId != null ? !typeId.equals(discount.typeId) : discount.typeId != null) return false;
         if (valueDouble != null ? !valueDouble.equals(discount.valueDouble) : discount.valueDouble != null)
             return false;
         return valueInt != null ? valueInt.equals(discount.valueInt) : discount.valueInt == null;
@@ -80,6 +105,7 @@ public class Discount {
         int result = productId != null ? productId.hashCode() : 0;
         result = 31 * result + (pnt != null ? pnt.hashCode() : 0);
         result = 31 * result + (discountType != null ? discountType.hashCode() : 0);
+        result = 31 * result + (typeId != null ? typeId.hashCode() : 0);
         result = 31 * result + (valueDouble != null ? valueDouble.hashCode() : 0);
         result = 31 * result + (valueInt != null ? valueInt.hashCode() : 0);
         return result;
@@ -91,6 +117,7 @@ public class Discount {
                 "productId=" + productId +
                 ", pnt=" + pnt +
                 ", discountType=" + discountType +
+                ", typeId=" + typeId +
                 ", valueDouble=" + valueDouble +
                 ", valueInt=" + valueInt +
                 '}';

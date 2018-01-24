@@ -562,7 +562,10 @@ public class ProductDaoImpl implements ProductDao {
                 try {
                     Integer pnt =               Integer.parseInt(record.get(0));
                     Assert.notNull(pnt, "pnt is null");
-                    DiscountType type =         getDiscountType(Integer.parseInt(record.get(1)));
+                    Integer typeId =            Integer.parseInt(record.get(1));
+                    Assert.notNull(typeId, "typeId is null");
+                    Assert.isTrue(typeId > 0, "typeId <= 0");
+                    DiscountType type =         getDiscountType(typeId);
                     Assert.notNull(type, "type is null");
 
                     Double value = null;
@@ -577,6 +580,7 @@ public class ProductDaoImpl implements ProductDao {
                     discounts.add(new Discount(
                             pnt,
                             type,
+                            typeId,
                             value,
                             intValue
                     ));
