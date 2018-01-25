@@ -268,7 +268,6 @@ public class OrderDaoImpl implements OrderDao {
         @Override
         public HashMap<String, HashMap<Integer, Order>> extractData(ResultSet rs)
                 throws SQLException, DataAccessException {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             HashMap<String, HashMap<Integer, Order>> userOrders = new HashMap<>();
             while(rs.next()) {
 
@@ -298,9 +297,9 @@ public class OrderDaoImpl implements OrderDao {
                 String comment =            rs.getString("comment");
 
                 LocalDateTime createDate = null;
-                // Date updateDate = rs.getDate("edit_date");
+
                 try {
-                    createDate =  LocalDateTime.parse(rs.getDate("create_date").toLocalDate().toString(), formatter);
+                    createDate =            LocalDateTime.parse(rs.getString("create_date_formatted"));
                 } catch (Exception e) {
 
                 }
@@ -464,7 +463,7 @@ public class OrderDaoImpl implements OrderDao {
                 OrderJSON order = ordersMap.get(id);
                 if (order == null) {
 
-                    items = new ArrayList();
+                    items = new ArrayList<Item>();
 
                     items.add(item);
 

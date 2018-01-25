@@ -5,6 +5,7 @@ import com.kushnir.paperki.model.payment.Payment;
 import com.kushnir.paperki.model.product.CartProduct;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Order {
@@ -35,8 +36,13 @@ public class Order {
     private List<Attribute> attributes;
     private List<CartProduct> items;
 
+    public String getStrCreateDate() {
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(this.create_date);
+    }
+
     public Order() {
     }
+
     public Order(Integer id,
                  Integer id_order_status,
                  Integer id_order_type,
