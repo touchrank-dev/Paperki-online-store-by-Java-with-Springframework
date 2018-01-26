@@ -155,7 +155,7 @@ public class RESTUpdater {
 
         String report = userService.updateCustomers();
 
-        RestMessage restMessage = new RestMessage(HttpStatus.OK, "update Stock" ,report);
+        RestMessage restMessage = new RestMessage(HttpStatus.OK, "update Customers" ,report);
         return restMessage;
     }
 

@@ -228,12 +228,13 @@ public class OrderDaoImpl implements OrderDao {
         public Order extractData(ResultSet rs) throws SQLException, DataAccessException {
             Order order = new Order();
             while(rs.next()) {
-                int idOrder =           rs.getInt("id_order");
-                int type =              rs.getInt("id_order_type");
-                String token =          rs.getString("token_order");
-                String number =         rs.getString("order_number");
-                int status =            rs.getInt("id_order_status");
-                double totalWithVat =   rs.getDouble("final_total_with_vat");
+                int idOrder =               rs.getInt("id_order");
+                int type =                  rs.getInt("id_order_type");
+                String token =              rs.getString("token_order");
+                String number =             rs.getString("order_number");
+                int status =                rs.getInt("id_order_status");
+                String orderStatusName =    rs.getString("status_name");
+                double totalWithVat =       rs.getDouble("final_total_with_vat");
 
                 Attribute attribute = new Attribute(
                         rs.getString("name"),
@@ -245,6 +246,7 @@ public class OrderDaoImpl implements OrderDao {
                     order.setToken_order(token);
                     order.setOrder_number(number);
                     order.setId_order_status(status);
+                    order.setOrderStatusName(orderStatusName);
                     order.setFinal_total_with_vat(totalWithVat);
                 }
 

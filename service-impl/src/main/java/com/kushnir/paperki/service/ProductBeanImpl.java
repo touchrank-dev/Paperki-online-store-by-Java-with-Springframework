@@ -398,6 +398,8 @@ public class ProductBeanImpl implements ProductBean {
             productDao.deleteAllDiscounts();
             productDao.batchAddDiscounts(discounts.toArray());
 
+            sb.append("========== UPDATE FINISHED ==========");
+
         } catch (Exception e) {
             sb.append('\n').append("UPDATE FINISHED WITH ERROR: ").append(e).append(" >>> ").append(e.getMessage());
             LOGGER.error("UPDATE FINISHED WITH ERROR: {}, {}", e, e.getMessage());

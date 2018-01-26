@@ -18,6 +18,7 @@ public class Order {
     private String pap_order_number;
     private int id_user;
     private int id_order_status;
+    private String orderStatusName;
     private double total;
     private double total_with_vat;
     private double vat_total;
@@ -147,6 +148,14 @@ public class Order {
 
     public void setId_order_status(int id_order_status) {
         this.id_order_status = id_order_status;
+    }
+
+    public String getOrderStatusName() {
+        return orderStatusName;
+    }
+
+    public void setOrderStatusName(String orderStatusName) {
+        this.orderStatusName = orderStatusName;
     }
 
     public double getTotal() {
@@ -297,9 +306,13 @@ public class Order {
         if (Double.compare(order.deliveryCost, deliveryCost) != 0) return false;
         if (Double.compare(order.final_total, final_total) != 0) return false;
         if (Double.compare(order.final_total_with_vat, final_total_with_vat) != 0) return false;
+        if (order_type_name != null ? !order_type_name.equals(order.order_type_name) : order.order_type_name != null)
+            return false;
         if (token_order != null ? !token_order.equals(order.token_order) : order.token_order != null) return false;
         if (order_number != null ? !order_number.equals(order.order_number) : order.order_number != null) return false;
         if (pap_order_number != null ? !pap_order_number.equals(order.pap_order_number) : order.pap_order_number != null)
+            return false;
+        if (orderStatusName != null ? !orderStatusName.equals(order.orderStatusName) : order.orderStatusName != null)
             return false;
         if (payment != null ? !payment.equals(order.payment) : order.payment != null) return false;
         if (delivery != null ? !delivery.equals(order.delivery) : order.delivery != null) return false;
@@ -316,11 +329,13 @@ public class Order {
         long temp;
         result = id;
         result = 31 * result + id_order_type;
+        result = 31 * result + (order_type_name != null ? order_type_name.hashCode() : 0);
         result = 31 * result + (token_order != null ? token_order.hashCode() : 0);
         result = 31 * result + (order_number != null ? order_number.hashCode() : 0);
         result = 31 * result + (pap_order_number != null ? pap_order_number.hashCode() : 0);
         result = 31 * result + id_user;
         result = 31 * result + id_order_status;
+        result = 31 * result + (orderStatusName != null ? orderStatusName.hashCode() : 0);
         temp = Double.doubleToLongBits(total);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(total_with_vat);
@@ -353,11 +368,13 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", id_order_type=" + id_order_type +
+                ", order_type_name='" + order_type_name + '\'' +
                 ", token_order='" + token_order + '\'' +
                 ", order_number='" + order_number + '\'' +
                 ", pap_order_number='" + pap_order_number + '\'' +
                 ", id_user=" + id_user +
                 ", id_order_status=" + id_order_status +
+                ", orderStatusName='" + orderStatusName + '\'' +
                 ", total=" + total +
                 ", total_with_vat=" + total_with_vat +
                 ", vat_total=" + vat_total +
