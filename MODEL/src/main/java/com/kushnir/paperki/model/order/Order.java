@@ -38,8 +38,10 @@ public class Order {
     private List<CartProduct> items;
 
     public String getStrCreateDate() {
-        return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(this.create_date);
+        if(create_date != null) return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(this.create_date);
+        else return null;
     }
+
 
     public Order() {
     }
