@@ -222,8 +222,8 @@ public class UserServiceImpl implements UserService {
 
             if (form.getBankCode() != null) {
                 try {
-                    Assert.isTrue(form.getBankCode().length() < 9,
-                            "Код банка не должен превышать 8 знаков");
+                    Assert.isTrue(form.getBankCode().length() < 12,
+                            "Код банка не должен превышать 11 знаков");
                 } catch (IllegalArgumentException e) {
                     errorRegistrateForm.setBankCode(e.getMessage());
                 }
