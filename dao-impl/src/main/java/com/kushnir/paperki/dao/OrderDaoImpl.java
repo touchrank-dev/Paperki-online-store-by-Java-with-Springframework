@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -24,17 +23,11 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class OrderDaoImpl implements OrderDao {
 
@@ -141,12 +134,12 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public ArrayList getAllNewOrders(LocalDate from, LocalDate to, Integer status) {
+    public ArrayList getAllNewOrders(LocalDate from, LocalDate to, Integer[] statuses) {
         LOGGER.debug("getAllNewOrders() >>>");
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("p_from", from);
         parameterSource.addValue("p_to", to);
-        parameterSource.addValue("p_status", status);
+        parameterSource.addValue("p_status", Arrays.asList(statuses));
         return namedParameterJdbcTemplate.query(getAllNewSqlQuery, parameterSource, new NewOrdersResultSetExtractor());
     }
 

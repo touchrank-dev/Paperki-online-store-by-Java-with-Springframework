@@ -13,7 +13,7 @@ public interface OrderDao {
     Order getOrderByToken(String token);
     HashMap<String, HashMap<Integer, Order>> getOrdersByUserId(Integer userId);
 
-    ArrayList getAllNewOrders(LocalDate from, LocalDate to, Integer status);
+    ArrayList getAllNewOrders(LocalDate from, LocalDate to, Integer[] statuses);
 
     List<Attribute> getOrderAttributes (int idOrder);
     List<CartProduct> getOrderItems(int idOrder);

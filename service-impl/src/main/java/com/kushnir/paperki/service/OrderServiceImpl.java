@@ -104,7 +104,7 @@ public class OrderServiceImpl implements OrderService {
         }
         if (fromDate == null) fromDate = LocalDate.now();
 
-        return orderDao.getAllNewOrders(fromDate, toDate, status == null? 1:status);
+        return orderDao.getAllNewOrders(fromDate, toDate, status == null? new Integer[]{1, 2, 3, 4 ,5 ,6}:new Integer[] {status});
     }
 
     @Override
