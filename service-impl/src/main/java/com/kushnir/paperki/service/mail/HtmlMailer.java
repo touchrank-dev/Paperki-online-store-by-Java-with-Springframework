@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 import org.thymeleaf.TemplateEngine;
@@ -36,7 +36,7 @@ public class HtmlMailer {
 
 
     @Autowired
-    private JavaMailSenderImpl mailSender;
+    private JavaMailSender mailSender;
 
     @Autowired
     private TemplateEngine templateEngine;
