@@ -1,4 +1,4 @@
-package com.kushnir.paperki.admin.controllers.update;
+package com.kushnir.paperki.webapp.paperki.shop.controllers.update;
 
 import com.kushnir.paperki.model.RestMessage;
 import com.kushnir.paperki.service.BrandService;
@@ -6,10 +6,8 @@ import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.ProductBean;
 import com.kushnir.paperki.service.UserService;
 import com.kushnir.paperki.service.exceptions.ServiceException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

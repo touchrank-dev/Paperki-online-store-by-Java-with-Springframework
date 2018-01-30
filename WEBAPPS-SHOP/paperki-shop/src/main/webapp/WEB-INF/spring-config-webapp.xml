@@ -23,5 +23,8 @@
     <!-- SERVICE LAYER -->
     <import resource="spring-service.xml"/>
 
+    <!--SCHEDULER-->
+    <import resource="spring-schedule.xml"/>
+
 
 </beans>

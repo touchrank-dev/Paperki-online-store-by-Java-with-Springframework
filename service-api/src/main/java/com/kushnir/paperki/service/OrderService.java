@@ -12,7 +12,7 @@ public interface OrderService {
     Object submitOrder(HashMap<String, String> orderForm, Cart cart, User user) throws ServiceException;
     Order getOrderByToken(String token) throws ServiceException;
     HashMap<String, HashMap<Integer, Order>> getOrdersByUserId(Integer userId);
-    ArrayList getAllNewOrders();
+    ArrayList getAllNewOrders(String from, String to, Integer status);
     Integer getOrderStatusByToken(String orderToken) throws ServiceException;
     void updateOrderStatus(String orderToken, String papOrderNumber, Integer status) throws ServiceException;
 }

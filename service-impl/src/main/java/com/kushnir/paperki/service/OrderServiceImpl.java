@@ -23,6 +23,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -84,9 +85,26 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ArrayList getAllNewOrders() {
-        LOGGER.debug("getAllNewOrders()");
-        return orderDao.getAllNewOrders();
+    public ArrayList getAllNewOrders(String from, String to, Integer status) {
+        LOGGER.debug("getAllNewOrders(from: {}, to: {}, status:{})", from ,to, status);
+        LocalDate fromDate = null;
+        LocalDate toDate = null;
+
+        if (from != null) {
+            try {
+                fromDate = LocalDate.parse(from);
+            } catch (Exception e) {}
+        }
+        if (fromDate == null) fromDate = LocalDate.parse("2018-01-01");
+
+        if (to != null) {
+            try {
+                toDate = LocalDate.parse(to);
+            } catch (Exception e) {}
+        }
+        if (fromDate == null) fromDate = LocalDate.now();
+
+        return orderDao.getAllNewOrders(fromDate, toDate, status == null? 1:status);
     }
 
     @Override

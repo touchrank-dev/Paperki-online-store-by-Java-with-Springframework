@@ -1,13 +1,11 @@
-package com.kushnir.paperki.admin.schedules;
+package com.kushnir.paperki.webapp.paperki.shop.controllers.schedules;
 
 import com.kushnir.paperki.service.BrandService;
 import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.ProductBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;

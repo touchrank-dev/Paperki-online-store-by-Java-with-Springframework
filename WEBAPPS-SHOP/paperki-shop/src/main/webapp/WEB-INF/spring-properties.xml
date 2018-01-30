@@ -11,6 +11,7 @@
                 <value>classpath:sqlQueries.properties</value>
                 <value>classpath:db.remote.properties</value>
                 <value>classpath:app.properties</value>
+                <value>classpath:scheduler.properties</value>
             </list>
         </property>
     </bean>

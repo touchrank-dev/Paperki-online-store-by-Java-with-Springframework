@@ -27,6 +27,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -41,9 +42,6 @@ public class OrderDaoImpl implements OrderDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
 
     @Value("${webapp.host}")
     String host;
@@ -143,9 +141,13 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public ArrayList getAllNewOrders() {
+    public ArrayList getAllNewOrders(LocalDate from, LocalDate to, Integer status) {
         LOGGER.debug("getAllNewOrders() >>>");
-        return jdbcTemplate.query(getAllNewSqlQuery, new NewOrdersResultSetExtractor());
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("p_from", from);
+        parameterSource.addValue("p_to", to);
+        parameterSource.addValue("p_status", status);
+        return namedParameterJdbcTemplate.query(getAllNewSqlQuery, parameterSource, new NewOrdersResultSetExtractor());
     }
 
     @Override
@@ -388,8 +390,8 @@ public class OrderDaoImpl implements OrderDao {
     private class NewOrdersResultSetExtractor implements ResultSetExtractor<ArrayList> {
 
         @Override
-        public ArrayList extractData(ResultSet rs) throws SQLException, DataAccessException {
-            HashMap<Integer, OrderJSON> ordersMap = new LinkedHashMap<>();
+        public ArrayList<OrderJSON> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            HashMap<Integer, OrderJSON> ordersMap = new LinkedHashMap<Integer, OrderJSON>();
 
             while (rs.next()) {
                 Integer id =                rs.getInt("id_order");

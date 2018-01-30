@@ -14,9 +14,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -63,9 +65,12 @@ public class RESTOrder {
 
     @GetMapping("/getorders")
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody ArrayList getOrders() throws Exception {
+    public @ResponseBody ArrayList getOrders(HttpServletRequest request) throws Exception {
         LOGGER.debug("getOrders () >>>");
-        return orderService.getAllNewOrders();
+        return orderService.getAllNewOrders(
+                getAttribute(request.getParameterMap().get("from")),
+                getAttribute(request.getParameterMap().get("to")),
+                getInteger(getAttribute(request.getParameterMap().get("status"))));
     }
 
     @GetMapping("/getstatus")
@@ -97,5 +102,18 @@ public class RESTOrder {
         }
     }
 
+    private String getAttribute(String[] values) {
+        if (values == null) return null;
+        else return values[0];
+    }
+
+    private Integer getInteger (String value) {
+        if (value == null) return null;
+        else try {
+            return Integer.parseInt(value);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
 }
