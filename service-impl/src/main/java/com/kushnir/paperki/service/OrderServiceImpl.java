@@ -102,7 +102,7 @@ public class OrderServiceImpl implements OrderService {
                 toDate = LocalDate.parse(to);
             } catch (Exception e) {}
         }
-        if (toDate == null) toDate = LocalDate.now();
+        if (toDate == null) toDate = LocalDate.now().plusDays(1);
 
         return orderDao.getAllNewOrders(fromDate, toDate, status == null? new Integer[]{1, 2, 3, 4 ,5 ,6}:new Integer[] {status});
     }
