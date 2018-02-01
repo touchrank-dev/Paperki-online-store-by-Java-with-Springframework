@@ -22,6 +22,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import java.io.FileNotFoundException;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+@Repository("productDao")
 public class ProductDaoImpl implements ProductDao {
 
     private static final Logger LOGGER = LogManager.getLogger(ProductDaoImpl.class);

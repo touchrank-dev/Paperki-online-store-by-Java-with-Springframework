@@ -15,8 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-@Service
-@Transactional
+@Service("callBackService")
 public class CallBackServiceImpl implements CallBackService {
 
     private static final Logger LOGGER = LogManager.getLogger(CallBackServiceImpl.class);
@@ -28,6 +27,7 @@ public class CallBackServiceImpl implements CallBackService {
     HtmlMailer htmlMailer;
 
     @Override
+    @Transactional
     public Object addCallBack(Callback callback) throws ServiceException {
         LOGGER.debug("addCallBack ({})", callback);
         CallbackErrorResponse callbackErrorResponse = new CallbackErrorResponse();

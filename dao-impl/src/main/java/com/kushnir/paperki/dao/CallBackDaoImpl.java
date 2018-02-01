@@ -12,7 +12,9 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
+@Repository("callbackDao")
 public class CallBackDaoImpl implements CallBackDao {
 
     private static final Logger LOGGER = LogManager.getLogger(CallBackDaoImpl.class);
@@ -29,20 +31,14 @@ public class CallBackDaoImpl implements CallBackDao {
 
     @Override
     public int addCallback(Callback callback) throws DataAccessException {
-        LOGGER.debug("addCallback({})", callback);
+        LOGGER.debug("addCallback()", callback);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(P_NAME, callback.getName());
         parameterSource.addValue(P_PHONE, callback.getPhone());
         parameterSource.addValue(P_COMMENT, callback.getComment());
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        try{
-            namedParameterJdbcTemplate.update(addCallbackSqlQuery, parameterSource, keyHolder);
-            LOGGER.debug("Запрос на обратный звонок успешно записан");
-            return keyHolder.getKey().intValue();
-        } catch (Exception e) {
-            LOGGER.error("Не удалось записать запроc на обратный звонок!," +
-                    "\nError message: {}", e.getMessage());
-            throw e;
-        }
+        namedParameterJdbcTemplate.update(addCallbackSqlQuery, parameterSource, keyHolder);
+        LOGGER.debug("Запрос на обратный звонок успешно записан");
+        return keyHolder.getKey().intValue();
     }
 }

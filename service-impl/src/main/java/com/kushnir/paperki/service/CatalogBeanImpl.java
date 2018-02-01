@@ -22,23 +22,23 @@ import org.springframework.util.Assert;
 import java.io.IOException;
 import java.util.*;
 
-@Service
+@Service("catalogBean")
 @Transactional
 public class CatalogBeanImpl implements CatalogBean {
 
     private static final Logger LOGGER = LogManager.getLogger(CatalogBeanImpl.class);
 
     @Autowired
-    CatalogDao catalogDao;
+    private CatalogDao catalogDao;
 
     @Autowired
-    ProductBean productBean;
+    private ProductBean productBean;
 
     @Autowired
-    Mailer mailer;
+    private Mailer mailer;
 
     @Value("${catalog.url}")
-    String catalogURL;
+    private String catalogURL;
 
     @Override
     public HashMap<Integer, HashMap<Integer, Category>> getAll() throws ServiceException {
@@ -51,6 +51,7 @@ public class CatalogBeanImpl implements CatalogBean {
         }
     }
 
+    @Override
     public HashMap<Integer, CategorySimple> getAllChildrenWithPapIdKey() {
         LOGGER.debug("getAllChildrenWithPapIdKey() >>> ");
         HashMap<Integer, CategorySimple> categories = catalogDao.getAllChildrenWithPapIdKey();

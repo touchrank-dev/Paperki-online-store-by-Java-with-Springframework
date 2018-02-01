@@ -5,12 +5,13 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
+@Repository("subscribeDao")
 public class SubscribeDaoImpl implements SubscribeDao {
 
     private static final Logger LOGGER = LogManager.getLogger(SubscribeDaoImpl.class);
@@ -25,13 +26,12 @@ public class SubscribeDaoImpl implements SubscribeDao {
     private String addSubscribeSqlQuery;
 
     @Override
-    public int subscribe(String email, int idEmailList) throws DataAccessException {
+    public int subscribe(String email, int idEmailList) throws Exception {
         LOGGER.debug("subscribe()");
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue(P_ID_EMAIL_LIST, idEmailList);
         parameterSource.addValue(P_EMAIL, email);
         KeyHolder keyHolder = new GeneratedKeyHolder();
-
         namedParameterJdbcTemplate.update(addSubscribeSqlQuery, parameterSource, keyHolder);
         return keyHolder.getKey().intValue();
     }

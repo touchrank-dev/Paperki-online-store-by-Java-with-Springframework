@@ -12,11 +12,13 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+@Repository("deliveryDao")
 public class DeliveryDaoImpl implements DeliveryDao {
 
     private static final Logger LOGGER = LogManager.getLogger(DeliveryDaoImpl.class);

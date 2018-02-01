@@ -6,9 +6,8 @@ import com.kushnir.paperki.model.Discount;
 import com.kushnir.paperki.model.Price;
 import com.kushnir.paperki.model.category.CategorySimple;
 import com.kushnir.paperki.model.product.*;
-
 import com.kushnir.paperki.service.mail.Mailer;
-import org.apache.commons.lang.StringUtils;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("productBean")
 @Transactional
 public class ProductBeanImpl implements ProductBean {
 

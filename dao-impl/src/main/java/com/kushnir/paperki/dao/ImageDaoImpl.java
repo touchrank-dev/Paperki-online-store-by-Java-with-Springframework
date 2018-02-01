@@ -4,24 +4,26 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+@Repository("imageDao")
 public class ImageDaoImpl implements ImageDao {
 
     private static final Logger LOGGER = LogManager.getLogger(ImageDaoImpl.class);
 
     @Value("${product.image.path}")
-    String productImagePath;
+    private String productImagePath;
 
     @Value("${brand.image.path}")
-    String brandImagePath;
+    private String brandImagePath;
 
     @Value("${product.image.prefix}")
-    String imgPref;
+    private String imgPref;
 
     @Override
     public HashMap<Integer, ArrayList<String>> getAllOldImages() {

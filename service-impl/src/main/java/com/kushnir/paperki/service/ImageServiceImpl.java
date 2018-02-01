@@ -7,22 +7,26 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Service("imageService")
+@Transactional
 public class ImageServiceImpl implements ImageService {
 
     private static final Logger LOGGER = LogManager.getLogger(ImageServiceImpl.class);
 
     @Autowired
-    ImageDao imageDao;
+    private ImageDao imageDao;
 
     @Value("${product.image.prefix}")
-    String imgPref;
+    private String imgPref;
 
     @Value("${brand.image.prefix}")
-    String brandImgPrefPref;
+    private String brandImgPrefPref;
 
     @Override
     public HashMap<Integer, ArrayList<String>> getAllOldImages() {

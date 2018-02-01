@@ -16,14 +16,13 @@ import org.springframework.util.Assert;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
-@Service
-@Transactional
+@Service("subscribeService")
 public class SubscribeServiceImpl implements SubscribeService {
 
     private static final Logger LOGGER = LogManager.getLogger(SubscribeServiceImpl.class);
 
     @Autowired
-    SubscribeDao subscribeDao;
+    private SubscribeDao subscribeDao;
 
     @Override
     @Transactional

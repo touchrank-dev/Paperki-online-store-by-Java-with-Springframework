@@ -13,11 +13,13 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@Repository("feedbackDao")
 public class FeedbackDaoImpl implements FeedbackDao {
 
     private static final Logger LOGGER = LogManager.getLogger(FeedbackDaoImpl.class);
@@ -47,15 +49,9 @@ public class FeedbackDaoImpl implements FeedbackDao {
         parameterSource.addValue(P_IP_ADDRESS, feedback.getIpAddress());
         parameterSource.addValue(P_TEXT, feedback.getText());
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        try {
-            namedParameterJdbcTemplate.update(addFeedbackSqlQuery, parameterSource, keyHolder);
-            LOGGER.debug("Отзыв успешно записан");
-            return keyHolder.getKey().intValue();
-        } catch (Exception e) {
-            LOGGER.error("Не удалось записать запро на отзыв!," +
-                    "\nError message: {}", e.getMessage());
-            throw e;
-        }
+        namedParameterJdbcTemplate.update(addFeedbackSqlQuery, parameterSource, keyHolder);
+        LOGGER.debug("Отзыв успешно записан");
+        return keyHolder.getKey().intValue();
     }
 
     @Override

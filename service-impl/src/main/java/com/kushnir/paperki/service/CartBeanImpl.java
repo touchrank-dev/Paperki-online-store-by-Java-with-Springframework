@@ -19,9 +19,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Service
-@Transactional
-public class CartBean {
+@Service("cartBean")
+public class CartBeanImpl implements CartBean {
 
     private static final Logger LOGGER = LogManager.getLogger(CartBean.class);
 
@@ -34,6 +33,8 @@ public class CartBean {
     @Autowired
     private PriceCalculator priceCalculator;
 
+    @Override
+    @Transactional
     public Integer[] addToCart (Cart cart, AddProductRequest addProductRequest, Boolean isUpdate) throws BadAttributeValueException,
             ProductUnavailableException {
         LOGGER.debug("addToCart({}) >>>", addProductRequest);
@@ -73,6 +74,8 @@ public class CartBean {
         return null;
     }
 
+    @Override
+    @Transactional
     public void deleteFromCart(Cart cart, Integer pnt) {
         LOGGER.debug("deleteFromCart({}) >>>", pnt);
         if(cart != null) {

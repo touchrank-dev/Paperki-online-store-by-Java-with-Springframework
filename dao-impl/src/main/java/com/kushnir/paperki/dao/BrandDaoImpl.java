@@ -1,8 +1,8 @@
 package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.Brand;
-
 import com.kushnir.paperki.model.util.Transliterator;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
@@ -19,6 +19,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -27,6 +28,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
+@Repository("brandDao")
 public class BrandDaoImpl implements BrandDao {
 
     private static final Logger LOGGER = LogManager.getLogger(BrandDaoImpl.class);

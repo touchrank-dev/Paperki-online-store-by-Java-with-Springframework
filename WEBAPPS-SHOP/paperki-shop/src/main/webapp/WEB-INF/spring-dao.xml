@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <import resource="classpath*:spring-config-db.xml" />
+    <import resource="spring-config-db.xml"/>
 
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -24,18 +24,5 @@
           class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg ref="dataSource"/>
     </bean>
-
-    <bean id="catalogDao" class="com.kushnir.paperki.dao.CatalogDaoImpl" />
-    <bean id="menuDao" class="com.kushnir.paperki.dao.MenuDaoImpl"/>
-    <bean id="userDao" class="com.kushnir.paperki.dao.UserDaoImpl" />
-    <bean id="productDao" class="com.kushnir.paperki.dao.ProductDaoImpl" />
-    <bean id="subscribeDao" class="com.kushnir.paperki.dao.SubscribeDaoImpl" />
-    <bean id="callbackDao" class="com.kushnir.paperki.dao.CallBackDaoImpl" />
-    <bean id="feedbackDao" class="com.kushnir.paperki.dao.FeedbackDaoImpl" />
-    <bean id="deliveryDao" class="com.kushnir.paperki.dao.DeliveryDaoImpl" />
-    <bean id="paymentDao" class="com.kushnir.paperki.dao.PaymentDaoImpl" />
-    <bean id="orderDao" class="com.kushnir.paperki.dao.OrderDaoImpl" />
-    <bean id="brandDao" class="com.kushnir.paperki.dao.BrandDaoImpl" />
-    <bean id="imageDao" class="com.kushnir.paperki.dao.ImageDaoImpl" />
 
 </beans>

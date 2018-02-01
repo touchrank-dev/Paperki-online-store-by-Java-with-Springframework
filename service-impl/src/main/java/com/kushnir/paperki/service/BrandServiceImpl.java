@@ -2,12 +2,13 @@ package com.kushnir.paperki.service;
 
 import com.kushnir.paperki.dao.BrandDao;
 import com.kushnir.paperki.model.Brand;
-
 import com.kushnir.paperki.service.mail.Mailer;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
@@ -16,15 +17,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service("brandService")
 public class BrandServiceImpl implements BrandService {
 
     private static final Logger LOGGER = LogManager.getLogger(BrandServiceImpl.class);
 
     @Autowired
-    BrandDao brandDao;
+    private BrandDao brandDao;
 
     @Autowired
-    Mailer mailer;
+    private Mailer mailer;
 
     @Override
     public HashMap<Integer, Brand> getAll() {

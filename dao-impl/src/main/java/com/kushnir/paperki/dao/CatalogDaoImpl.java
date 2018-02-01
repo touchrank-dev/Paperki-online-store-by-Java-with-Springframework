@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -30,6 +31,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+@Repository("catalogDao")
 public class CatalogDaoImpl implements CatalogDao {
 
     private static final Logger LOGGER = LogManager.getLogger(CatalogDaoImpl.class);
@@ -105,6 +107,7 @@ public class CatalogDaoImpl implements CatalogDao {
         return categories;
     }
 
+    @Override
     public HashMap<Integer, CategorySimple> getAllChildrenWithPapIdKey() {
         LOGGER.debug("getAllChildrenWithPapIdKey() >>>");
         HashMap<Integer, CategorySimple> categories =

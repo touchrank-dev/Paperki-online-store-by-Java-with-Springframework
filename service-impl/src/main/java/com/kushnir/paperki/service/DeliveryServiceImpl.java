@@ -12,18 +12,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 
-@Service
+@Service("deliveryService")
 @Transactional
 public class DeliveryServiceImpl implements DeliveryService {
 
     private static final Logger LOGGER = LogManager.getLogger(DeliveryServiceImpl.class);
 
     @Autowired
-    DeliveryDao deliveryDao;
+    private DeliveryDao deliveryDao;
 
     @Override
     public HashMap<Integer, HashMap<Integer, Delivery>> getAll() {
-        return deliveryDao.getAll();
+        try {
+            return deliveryDao.getAll();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
@@ -35,6 +39,10 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     public Delivery getById(int idDelivery) {
         LOGGER.debug("getById({})", idDelivery);
-        return deliveryDao.getById(idDelivery);
+        try {
+            return deliveryDao.getById(idDelivery);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 
-@Service
+@Service("menuBean")
 @Transactional
 public class MenuBeanImpl implements MenuBean {
 
