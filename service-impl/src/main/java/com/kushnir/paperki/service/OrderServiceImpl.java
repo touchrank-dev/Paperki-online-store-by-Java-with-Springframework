@@ -122,15 +122,12 @@ public class OrderServiceImpl implements OrderService {
         Assert.hasText(orderToken, "orderToken is empty");
         Assert.notNull(status, "status is null");
         Assert.isTrue(status > 0, "Статус <= 0");
-        updateOrderPapNumber(orderToken, papOrderNumber);
-        orderDao.updateOrderStatus(orderToken, status);
-    }
 
-    private void updateOrderPapNumber(String orderToken, String papOrderNumber) {
-        LOGGER.debug("updateOrderPapNumber({})", papOrderNumber);
         orderDao.updateOrderPapNumber(orderToken, papOrderNumber);
+        // TODO add order status history
+        orderDao.updateOrderStatus(orderToken, status);
+        // TODO mail to customer
     }
-
 
     private List<Attribute> getOrderAttributes(int idOrder) {
         LOGGER.debug("getOrderAttributes({})", idOrder);
