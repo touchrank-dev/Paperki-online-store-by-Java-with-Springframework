@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS product_catalog;
 DROP TABLE IF EXISTS product_prices;
 DROP TABLE IF EXISTS menu_item_ref;
 DROP TABLE IF EXISTS feedbacks;
+DROP TABLE IF EXISTS order_status_history;
 DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS order_attributes;
 DROP TABLE IF EXISTS orders;
@@ -328,6 +329,14 @@ CREATE TABLE orders (
     create_date                 DATETIME        DEFAULT CURRENT_TIMESTAMP,
     edit_date                   DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_order_type)                 REFERENCES order_types(id_order_type),
+    FOREIGN KEY (id_order_status)               REFERENCES order_status(id_order_status)
+);
+
+CREATE TABLE order_status_history (
+    id_order                    INT             NOT NULL,
+    id_order_status             INT             NOT NULL,
+    set_date                    DATETIME        DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_order)                      REFERENCES orders(id_order),
     FOREIGN KEY (id_order_status)               REFERENCES order_status(id_order_status)
 );
 

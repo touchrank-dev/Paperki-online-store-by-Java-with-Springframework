@@ -116,6 +116,9 @@ public class OrderDaoImpl implements OrderDao {
     @Value("${order.updateOrderStatusId}")
     private String updateOrderStatusIdSqlQuery;
 
+    @Value("${order.addOrderStatusHistory}")
+    private String addOrderStatusHistorySqlQuery;
+
 
     @Override
     public Order getOrderByToken(String token) {
@@ -209,6 +212,13 @@ public class OrderDaoImpl implements OrderDao {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_TOKEN, orderToken);
         parameterSource.addValue(P_ORDER_STATUS_ID, status);
         namedParameterJdbcTemplate.update(updateOrderStatusIdSqlQuery, parameterSource);
+    }
+
+    @Override
+    public void addOrderStatusHistory(String orderToken, Integer status) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource(P_ORDER_TOKEN, orderToken);
+        parameterSource.addValue(P_ORDER_STATUS_ID, status);
+        namedParameterJdbcTemplate.update(addOrderStatusHistorySqlQuery, parameterSource);
     }
 
     @Override

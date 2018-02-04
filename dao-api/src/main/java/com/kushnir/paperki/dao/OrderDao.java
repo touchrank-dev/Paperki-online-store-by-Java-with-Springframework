@@ -22,5 +22,6 @@ public interface OrderDao {
     int[] addOrderItems(Object[] items);
 
     void updateOrderStatus(String orderToken, Integer status);
+    void addOrderStatusHistory(String orderToken, Integer status);
     void updateOrderPapNumber(String orderToken, String papOrderNumber);
 }

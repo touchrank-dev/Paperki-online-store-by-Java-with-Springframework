@@ -5,7 +5,6 @@ import com.kushnir.paperki.model.Cart;
 import com.kushnir.paperki.model.product.CartProduct;
 import com.kushnir.paperki.model.user.User;
 import com.kushnir.paperki.model.order.*;
-import static com.kushnir.paperki.model.order.OrderAttributes.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 import com.kushnir.paperki.service.mail.HtmlMailer;
 
@@ -124,9 +123,17 @@ public class OrderServiceImpl implements OrderService {
         Assert.isTrue(status > 0, "Статус <= 0");
 
         orderDao.updateOrderPapNumber(orderToken, papOrderNumber);
-        // TODO add order status history
         orderDao.updateOrderStatus(orderToken, status);
+        addOrderStatusHistory(orderToken, status);
         // TODO mail to customer
+    }
+
+    private void addOrderStatusHistory(String orderToken, Integer status) {
+        try {
+            orderDao.addOrderStatusHistory(orderToken, status);
+        } catch (Exception e) {
+            LOGGER.error(">>> ERROR: {}", e);
+        }
     }
 
     private List<Attribute> getOrderAttributes(int idOrder) {
@@ -317,6 +324,8 @@ public class OrderServiceImpl implements OrderService {
         } catch (MessagingException e) {
             LOGGER.error("Не удалось отрправить email сообщение о заказе\n{} >>> {}", e, e.getMessage());
         }
+
+        addOrderStatusHistory(orderToken, 1);
 
         return orderToken;
     }
