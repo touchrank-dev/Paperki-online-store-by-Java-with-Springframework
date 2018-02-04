@@ -39,12 +39,13 @@ public class SessionController {
             httpSession.setAttribute("user", user);
             LOGGER.debug("SET NEW EMPTY USER");
         }
-        LOGGER.info("\n>>> requested_session_Id: {}, http_session_id: {} isValid: {}, isNew {}, headers: {}",
+        LOGGER.info("\n>>> requested_session_Id: {}, http_session_id: {} isValid: {}, isNew {}, isBot: {}",
                     req.getRequestedSessionId(),
                     httpSession.getId(),
                     req.isRequestedSessionIdValid(),
                     httpSession.isNew(),
-                    printHeaders(req.getHeaderNames(), req));
+                    isBot(req)
+                    /*printHeaders(req.getHeaderNames(), req)*/);
         return user;
     }
 
@@ -85,6 +86,11 @@ public class SessionController {
             sb.append(header).append(" - ").append(req.getHeader(header)).append('\n');
         }
         return sb.toString();
+    }
+
+    private boolean isBot(HttpServletRequest req) {
+        return "Mozilla/5.0 (compatible; SemrushBot/1.2~bl; +http://www.semrush.com/bot.html)"
+                .equals(req.getHeader("user-agent"));
     }
 
 }
