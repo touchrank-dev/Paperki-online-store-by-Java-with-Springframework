@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 
 @ControllerAdvice
 public class SessionController {
@@ -38,11 +39,12 @@ public class SessionController {
             httpSession.setAttribute("user", user);
             LOGGER.debug("SET NEW EMPTY USER");
         }
-        LOGGER.info("\n>>> requested_session_Id: {}, http_session_id: {} isValid: {}, isNew {}",
+        LOGGER.info("\n>>> requested_session_Id: {}, http_session_id: {} isValid: {}, isNew {}, headers: {}",
                     req.getRequestedSessionId(),
                     httpSession.getId(),
                     req.isRequestedSessionIdValid(),
-                    httpSession.isNew());
+                    httpSession.isNew(),
+                    printHeaders(req.getHeaderNames(), req));
         return user;
     }
 
@@ -74,6 +76,15 @@ public class SessionController {
     @ModelAttribute("imgPref")
     public String imgPref () {
         return imgPref;
+    }
+
+    private String printHeaders(Enumeration<String> headers, HttpServletRequest req) {
+        StringBuilder sb = new StringBuilder('\n');
+        while (headers.hasMoreElements()) {
+            String header = headers.nextElement();
+            sb.append(header).append(" - ").append(req.getHeader(header)).append('\n');
+        }
+        return sb.toString();
     }
 
 }
