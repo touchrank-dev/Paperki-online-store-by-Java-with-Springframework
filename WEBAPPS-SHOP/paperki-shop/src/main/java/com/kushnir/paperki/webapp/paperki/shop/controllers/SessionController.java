@@ -34,7 +34,7 @@ public class SessionController {
     @ModelAttribute("user")
     public User setUser(HttpSession httpSession, HttpServletRequest req) {
         User user = (User) httpSession.getAttribute("user");
-        if (user == null) {
+        if (user == null && !isBot(req)) {
             user = new User();
             httpSession.setAttribute("user", user);
             LOGGER.debug("SET NEW EMPTY USER");
@@ -52,7 +52,7 @@ public class SessionController {
     @ModelAttribute("cart")
     public Cart setCart (HttpSession httpSession, HttpServletRequest req) {
         Cart cart = (Cart) httpSession.getAttribute("cart");
-        if (cart == null) {
+        if (cart == null && !isBot(req)) {
             cart = new Cart();
             httpSession.setAttribute("cart", cart);
         }
