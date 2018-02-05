@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("productBean")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Transactional
 public class ProductBeanImpl implements ProductBean {
 
@@ -458,8 +461,10 @@ public class ProductBeanImpl implements ProductBean {
 
     private int addProductCatalogRef(CSVProduct product) {
         LOGGER.debug("addProductCatalogRef({}, {}) >>>", product.getPnt(), product.getCategoryId());
-        int id = productDao.addProductCatalogRef(product);
-        return id;
+        try {
+            int id = productDao.addProductCatalogRef(product);
+            return id;
+        } catch (Exception e) { return 0;}
     }
 
     private String batchUpdateProducts(Object[] products) {
@@ -473,7 +478,7 @@ public class ProductBeanImpl implements ProductBean {
     private String batchUpdateProductsCatalogRef(Object[] products) {
         LOGGER.debug("batchUpdateProductsCatalogRef(count: {}) >>>", products.length);
         int[] result = productDao.batchUpdateProductsCatalogRef(products);
-        String report = "SUCCESSFUL UPDATED: "+result.length+"/"+products.length+" products";
+        String report = "products ref: "+result.length+"/"+products.length;
         LOGGER.debug(report);
         return report;
     }

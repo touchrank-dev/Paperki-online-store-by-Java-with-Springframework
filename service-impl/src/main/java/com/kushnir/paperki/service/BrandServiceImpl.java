@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("brandService")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class BrandServiceImpl implements BrandService {
 
     private static final Logger LOGGER = LogManager.getLogger(BrandServiceImpl.class);

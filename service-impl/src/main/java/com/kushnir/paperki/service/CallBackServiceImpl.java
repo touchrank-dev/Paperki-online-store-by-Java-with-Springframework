@@ -4,18 +4,20 @@ import com.kushnir.paperki.dao.CallBackDao;
 import com.kushnir.paperki.model.callback.Callback;
 import com.kushnir.paperki.model.callback.CallbackErrorResponse;
 import com.kushnir.paperki.service.exceptions.ServiceException;
-
 import com.kushnir.paperki.service.mail.HtmlMailer;
-import com.kushnir.paperki.service.mail.Mailer;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @Service("callBackService")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class CallBackServiceImpl implements CallBackService {
 
     private static final Logger LOGGER = LogManager.getLogger(CallBackServiceImpl.class);

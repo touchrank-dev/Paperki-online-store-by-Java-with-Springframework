@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Service("catalogBean")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Transactional
 public class CatalogBeanImpl implements CatalogBean {
 
@@ -127,6 +130,7 @@ public class CatalogBeanImpl implements CatalogBean {
     public String updateCatalog() throws ServiceException, IOException {
         LOGGER.debug("updateCatalog() START PROCESS >>>");
         StringBuilder sb = new StringBuilder();
+        Integer countToAdd = 0, countAdded = 0;
 
         try {
 
@@ -143,9 +147,7 @@ public class CatalogBeanImpl implements CatalogBean {
                     Category CSVParentCategory = entry.getValue();
                     Assert.notNull(CSVParentCategory, "CSVParentCategory = null");
                     String translitName = Transliterator.cyr2lat(CSVParentCategory.getName());
-                    String link = catalogURL + translitName;
                     CSVParentCategory.setTranslitName(translitName);
-                    CSVParentCategory.setLink(link);
                     validateCategory(CSVParentCategory);
 
                     for(Map.Entry<Integer, Category> catEntry : categories.getParents().entrySet()) {
@@ -156,12 +158,22 @@ public class CatalogBeanImpl implements CatalogBean {
                         if(catPapId != null && !catPapId.equals(0)) {
                             if (CSVParentCategory.getPapId().equals(catPapId)) {
                                 CSVParentCategory.setId(category.getId());
+                                CSVParentCategory.setLink(new StringBuilder()
+                                        .append(catalogURL)
+                                        .append(category.getId())
+                                        .append("-")
+                                        .append(translitName).toString());
                                 updCat.add(CSVParentCategory);
                                 break;
                             }
                         } else if (category.getTranslitName() != null){
                             if (CSVParentCategory.getTranslitName().equals(category.getTranslitName())) {
                                 CSVParentCategory.setId(category.getId());
+                                CSVParentCategory.setLink(new StringBuilder()
+                                        .append(catalogURL)
+                                        .append(category.getId())
+                                        .append("-")
+                                        .append(translitName).toString());
                                 updCat.add(CSVParentCategory);
                                 break;
                             }
@@ -170,21 +182,28 @@ public class CatalogBeanImpl implements CatalogBean {
 
                     if (CSVParentCategory.getId() == null) {
                         try {
+                            countToAdd ++;
+                            CSVParentCategory.setLink(catalogURL);
                             int id = addCategory(CSVParentCategory);
-                            CSVParentCategory.setId(id);
-                            addRefCategory(CSVParentCategory);
+                            if (id > 0) {
+                                CSVParentCategory.setId(id);
+                                addRefCategory(CSVParentCategory);
+                                countAdded++;
+                            }
                         } catch (DuplicateKeyException e) {
                             LOGGER.error("ERROR >>> {}", "Вероятно категория '"+CSVParentCategory.getName()+"' уже существует");
                             sb.append("ERROR >>> ")
                                     .append("Вероятно категория '"+CSVParentCategory.getName()+"' уже существует")
                                     .append('\n');
+                        } catch (Exception e) {
+                            LOGGER.error("ERROR >>> Непредвиденная ошибка добавления категории: {}", e.getMessage());
+                            sb.append("ERROR >>> Непредвиденная ошибка добавления категории: ").append(e.getMessage()).append('\n');
                         }
                     }
 
                 } catch (Exception e) {
                     LOGGER.error("ERROR >>> {}", e.getMessage());
                     sb.append("ERROR >>> ").append(e).append(" >>> ").append(e.getMessage()).append('\n');
-                    continue;
                 }
             }
 
@@ -194,9 +213,7 @@ public class CatalogBeanImpl implements CatalogBean {
                     Category CSVChildCategory = entry.getValue();
                     Assert.notNull(CSVChildCategory, "CSVChildCategory = null");
                     String translitName = Transliterator.cyr2lat(CSVChildCategory.getName());
-                    String link = catalogURL + translitName;
                     CSVChildCategory.setTranslitName(translitName);
-                    CSVChildCategory.setLink(link);
                     validateCategory(CSVChildCategory);
 
                     Integer parentPapId = CSVChildCategory.getParent();
@@ -218,12 +235,22 @@ public class CatalogBeanImpl implements CatalogBean {
                         if(catPapId != null && !catPapId.equals(0)) {
                             if (CSVChildCategory.getPapId().equals(catPapId)) {
                                 CSVChildCategory.setId(category.getId());
+                                CSVChildCategory.setLink(new StringBuilder()
+                                        .append(catalogURL)
+                                        .append(category.getId())
+                                        .append("-")
+                                        .append(translitName).toString());
                                 updCat.add(CSVChildCategory);
                                 break;
                             }
                         } else if (category.getTranslitName() != null){
                             if (CSVChildCategory.getTranslitName().equals(category.getTranslitName())) {
                                 CSVChildCategory.setId(category.getId());
+                                CSVChildCategory.setLink(new StringBuilder()
+                                        .append(catalogURL)
+                                        .append(category.getId())
+                                        .append("-")
+                                        .append(translitName).toString());
                                 updCat.add(CSVChildCategory);
                                 break;
                             }
@@ -232,23 +259,28 @@ public class CatalogBeanImpl implements CatalogBean {
 
                     if (CSVChildCategory.getId() == null) {
                         try {
+                            countToAdd ++;
+                            CSVChildCategory.setLink(catalogURL);
                             int id = addCategory(CSVChildCategory);
                             if (id > 0) {
                                 CSVChildCategory.setId(id);
                                 addRefCategory(CSVChildCategory);
+                                countAdded ++;
                             }
                         } catch (DuplicateKeyException e) {
                             LOGGER.error("ERROR >>> {}", "Вероятно категория '"+CSVChildCategory.getName()+"' уже существует");
                             sb.append("ERROR >>> ")
                                     .append("Вероятно категория '"+CSVChildCategory.getName()+"' уже существует")
                                     .append('\n');
+                        } catch (Exception e) {
+                            LOGGER.error("ERROR >>> Непредвиденная ошибка добавления категории: {}", e.getMessage());
+                            sb.append("ERROR >>> Непредвиденная ошибка добавления категории: ").append(e.getMessage()).append('\n');
                         }
                     }
 
                 } catch (Exception e) {
                     LOGGER.error("ERROR >>> {}", e.getMessage());
                     sb.append("ERROR >>> ").append(e).append(" >>> ").append(e.getMessage()).append('\n');
-                    continue;
                 }
             }
 
@@ -257,12 +289,13 @@ public class CatalogBeanImpl implements CatalogBean {
                 sb.append(updateCategories(updCat.toArray())).append('\n');
                 sb.append(updateCategoriesRef(updCat.toArray())).append('\n');
             }
+            if (countToAdd > 0) sb.append("NEW ADDED: ").append(countToAdd).append("/").append(countAdded).append('\n');
 
             sb.append("========== UPDATE FINISHED ==========");
 
         } catch (Exception e) {
-            LOGGER.error("UPDATE FINISHED WITH ERROR >>> {}", e.getMessage());
-            sb.append("UPDATE FINISHED WITH ERROR >>> ").append(e).append(" >>> ").append(e.getMessage());
+            LOGGER.error("========== UPDATE FINISHED WITH ERROR >>> {}", e.getMessage());
+            sb.append("========== UPDATE FINISHED WITH ERROR >>> ").append(e).append(" >>> ").append(e.getMessage());
         }
 
         mailer.toSupportMail(sb.toString(), "UPDATE CATALOG REPORT");
@@ -329,7 +362,7 @@ public class CatalogBeanImpl implements CatalogBean {
     public String updateCategoriesRef(Object[] categories) {
         LOGGER.debug("updateCategoriesRef(count: {}) >>>", categories.length);
         int[] result = catalogDao.updateCategoriesRef(categories);
-        String report = "SUCCESSFUL UPDATED: "+result.length+"/"+categories.length+" ref categories";
+        String report = "ref : "+result.length+"/"+categories.length;
         LOGGER.debug(report);
         return report;
     }

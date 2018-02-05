@@ -147,10 +147,7 @@ public class CatalogDaoImpl implements CatalogDao {
 
                 try{
                     Integer papId =             Integer.parseInt(record.get(0));
-                    String name =               record.get(1);
-                    // name to lower case
-                    name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-
+                    String name =               normalizeName(record.get(1));
                     String metadesc =           record.get(2);
                     String metakey =            record.get(3);
                     String customtitle =        record.get(4);
@@ -162,9 +159,9 @@ public class CatalogDaoImpl implements CatalogDao {
                     Category category = new Category(
                             papId,
                             name,
-                            metadesc,
-                            metakey,
-                            customtitle,
+                            metadesc.equals("metadesk")? null:metadesc,
+                            metakey.equals("metakey")? null:metakey,
+                            customtitle.equals("customtitle")? null:customtitle,
                             order,
                             parent,
                             shortDescription,
@@ -193,6 +190,10 @@ public class CatalogDaoImpl implements CatalogDao {
         return cats;
     }
 
+    private String normalizeName(String name) {
+        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+    }
+
     @Override
     public CategoryContainer getCategoriesToContainer() {
         LOGGER.debug("getCategoriesToContainer() >>>");
@@ -203,14 +204,14 @@ public class CatalogDaoImpl implements CatalogDao {
 
     @Override
     public int[] addCategories(Object[] categories) {
-        LOGGER.debug("addCategories({}) >>>", categories);
+        LOGGER.debug("addCategories() >>>");
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
         return namedParameterJdbcTemplate.batchUpdate(addCategoriesSqlQuery, batch);
     }
 
     @Override
     public int[] addCategoriesRef(Object[] categories) {
-        LOGGER.debug("addCategoriesRef({}) >>>", categories);
+        LOGGER.debug("addCategoriesRef() >>>");
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(categories);
         return namedParameterJdbcTemplate.batchUpdate(addCategoriesRefSqlQuery, batch);
     }

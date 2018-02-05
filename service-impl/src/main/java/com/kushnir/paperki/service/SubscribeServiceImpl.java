@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 @Service("subscribeService")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+@Transactional
 public class SubscribeServiceImpl implements SubscribeService {
 
     private static final Logger LOGGER = LogManager.getLogger(SubscribeServiceImpl.class);

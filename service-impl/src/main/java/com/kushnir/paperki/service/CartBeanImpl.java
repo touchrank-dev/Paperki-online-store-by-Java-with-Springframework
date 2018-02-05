@@ -6,12 +6,14 @@ import com.kushnir.paperki.model.product.AvailableProduct;
 import com.kushnir.paperki.model.product.CartProduct;
 import com.kushnir.paperki.service.exceptions.BadAttributeValueException;
 import com.kushnir.paperki.service.exceptions.NotEnoughQuantityAvailableException;
-
 import com.kushnir.paperki.service.exceptions.ProductUnavailableException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service("cartBean")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class CartBeanImpl implements CartBean {
 
     private static final Logger LOGGER = LogManager.getLogger(CartBean.class);

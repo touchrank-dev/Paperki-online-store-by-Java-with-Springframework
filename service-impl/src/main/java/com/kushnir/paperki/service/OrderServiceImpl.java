@@ -14,6 +14,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -25,7 +27,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
-@Service
+@Service("orderService")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Transactional
 public class OrderServiceImpl implements OrderService {
 
@@ -115,7 +118,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional
     public void updateOrderStatus(String orderToken, String papOrderNumber, Integer status) throws ServiceException {
         LOGGER.debug("updateOrderStatus({}, {}, {})", orderToken, papOrderNumber, status);
         Assert.hasText(orderToken, "orderToken is empty");
