@@ -160,8 +160,8 @@ public class CatalogBeanImpl implements CatalogBean {
                                 CSVParentCategory.setId(category.getId());
                                 CSVParentCategory.setLink(new StringBuilder()
                                         .append(catalogURL)
-                                        .append(category.getId())
-                                        .append("-")
+                                        /*.append(category.getId())
+                                        .append("-")*/
                                         .append(translitName).toString());
                                 updCat.add(CSVParentCategory);
                                 break;
@@ -171,8 +171,8 @@ public class CatalogBeanImpl implements CatalogBean {
                                 CSVParentCategory.setId(category.getId());
                                 CSVParentCategory.setLink(new StringBuilder()
                                         .append(catalogURL)
-                                        .append(category.getId())
-                                        .append("-")
+                                        /*.append(category.getId())
+                                        .append("-")*/
                                         .append(translitName).toString());
                                 updCat.add(CSVParentCategory);
                                 break;
@@ -183,7 +183,7 @@ public class CatalogBeanImpl implements CatalogBean {
                     if (CSVParentCategory.getId() == null) {
                         try {
                             countToAdd ++;
-                            CSVParentCategory.setLink(catalogURL);
+                            CSVParentCategory.setLink(catalogURL+translitName);
                             int id = addCategory(CSVParentCategory);
                             if (id > 0) {
                                 CSVParentCategory.setId(id);
@@ -237,8 +237,8 @@ public class CatalogBeanImpl implements CatalogBean {
                                 CSVChildCategory.setId(category.getId());
                                 CSVChildCategory.setLink(new StringBuilder()
                                         .append(catalogURL)
-                                        .append(category.getId())
-                                        .append("-")
+                                        /*.append(category.getId())
+                                        .append("-")*/
                                         .append(translitName).toString());
                                 updCat.add(CSVChildCategory);
                                 break;
@@ -248,8 +248,8 @@ public class CatalogBeanImpl implements CatalogBean {
                                 CSVChildCategory.setId(category.getId());
                                 CSVChildCategory.setLink(new StringBuilder()
                                         .append(catalogURL)
-                                        .append(category.getId())
-                                        .append("-")
+                                        /*.append(category.getId())
+                                        .append("-")*/
                                         .append(translitName).toString());
                                 updCat.add(CSVChildCategory);
                                 break;
@@ -260,7 +260,7 @@ public class CatalogBeanImpl implements CatalogBean {
                     if (CSVChildCategory.getId() == null) {
                         try {
                             countToAdd ++;
-                            CSVChildCategory.setLink(catalogURL);
+                            CSVChildCategory.setLink(catalogURL+translitName);
                             int id = addCategory(CSVChildCategory);
                             if (id > 0) {
                                 CSVChildCategory.setId(id);
