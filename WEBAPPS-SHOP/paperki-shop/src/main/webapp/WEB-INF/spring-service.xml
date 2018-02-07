@@ -5,7 +5,7 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--MODEL-->
-    <bean id="priceCalculator" class="com.kushnir.paperki.model.calculation.PriceCalculator" />
+    <bean id="priceCalculator" class="com.kushnir.paperki.model.calculation.PriceCalculator" scope="singleton"/>
 
     <!--MAIL-->
     <import resource="spring-mail.xml" />

@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -33,6 +35,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 @Repository("productDao")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ProductDaoImpl implements ProductDao {
 
     private static final Logger LOGGER = LogManager.getLogger(ProductDaoImpl.class);

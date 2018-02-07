@@ -3,7 +3,10 @@ package com.kushnir.paperki.dao;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -12,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 @Repository("imageDao")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class ImageDaoImpl implements ImageDao {
 
     private static final Logger LOGGER = LogManager.getLogger(ImageDaoImpl.class);

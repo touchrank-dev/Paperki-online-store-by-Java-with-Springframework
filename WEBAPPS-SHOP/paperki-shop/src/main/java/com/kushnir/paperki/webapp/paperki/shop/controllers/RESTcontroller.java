@@ -56,6 +56,7 @@ public class RESTcontroller {
         return restMessage;
     }
 
+    //curl -X POST -v [host]:8080/api/subscribe
     @PostMapping("/subscribe")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage subscribe (@RequestBody SubscribeRequest subscribeRequest) throws ServiceException {
@@ -78,6 +79,7 @@ public class RESTcontroller {
         }
     }
 
+    //curl -X POST -v [host]:8080/api/callback
     @PostMapping("/callback")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage callback (@RequestBody Callback callback) {
@@ -100,6 +102,7 @@ public class RESTcontroller {
         }
     }
 
+    //curl -X POST -v [host]:8080/api/feedback
     @PostMapping("/feedback")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody RestMessage feedback (@RequestBody FeedbackRequest feedbackRequest,

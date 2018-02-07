@@ -2,8 +2,8 @@ package com.kushnir.paperki.dao;
 
 import com.kushnir.paperki.model.Category;
 import com.kushnir.paperki.model.category.CategoryContainer;
-
 import com.kushnir.paperki.model.category.CategorySimple;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -32,6 +34,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 @Repository("catalogDao")
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class CatalogDaoImpl implements CatalogDao {
 
     private static final Logger LOGGER = LogManager.getLogger(CatalogDaoImpl.class);

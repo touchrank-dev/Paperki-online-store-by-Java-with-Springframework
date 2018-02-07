@@ -124,7 +124,8 @@ public class OrderServiceImpl implements OrderService {
         Assert.notNull(status, "status is null");
         Assert.isTrue(status > 0, "Статус <= 0");
 
-        orderDao.updateOrderPapNumber(orderToken, papOrderNumber);
+        if (!StringUtils.isBlank(papOrderNumber)) orderDao.updateOrderPapNumber(orderToken, papOrderNumber);
+
         orderDao.updateOrderStatus(orderToken, status);
         addOrderStatusHistory(orderToken, status);
         // TODO mail to customer

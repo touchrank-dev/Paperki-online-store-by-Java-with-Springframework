@@ -18,6 +18,7 @@ import org.thymeleaf.context.Context;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+
 public class HtmlMailer {
 
     private static final Logger LOGGER = LogManager.getLogger(HtmlMailer.class);
