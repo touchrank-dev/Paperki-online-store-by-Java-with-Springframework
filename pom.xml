@@ -290,17 +290,17 @@
 
     <build>
 
-        <testResources>
-            <testResource>
-                <directory>src/main/resources/${build.profile.id}</directory>
-            </testResource>
-        </testResources>
-
         <resources>
             <resource>
                 <directory>src/main/resources/${build.profile.id}</directory>
             </resource>
         </resources>
+
+        <testResources>
+            <testResource>
+                <directory>src/main/resources/${build.profile.id}</directory>
+            </testResource>
+        </testResources>
 
         <pluginManagement>
             <plugins>
