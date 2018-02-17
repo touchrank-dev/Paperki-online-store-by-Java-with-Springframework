@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="log-path">/home/paperki.by/</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="trace-log"
+                     fileName="${log-path}/paperki-trace.log"
+                     advertise="true"
+                     filePattern="${log-path}/paperki-trace.%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="error-log"
+                     fileName="${log-path}/paperki-error.log"
+                     advertise="true"
+                     filePattern="${log-path}/paperki-error.%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+        <Loggers>
+            <Logger name="com.kushnir.paperki" level="debug" additivity="false" >
+                <appender-ref ref="trace-log" level="info"/>
+                <appender-ref ref="error-log" level="error"/>
+                <appender-ref ref="console" level="debug"/>
+            </Logger>
+            <Root level="info" additivity="false">
+                <appender-ref ref="console"/>
+            </Root>
+        </Loggers>
+</Configuration>
