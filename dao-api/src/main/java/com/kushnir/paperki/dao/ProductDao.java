@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public interface ProductDao {
 
@@ -25,7 +26,7 @@ public interface ProductDao {
     HashMap<Integer, StockItem> getStockItemsFromCSV(StringBuilder sb) throws IOException;
     ArrayList<Attribute> getAttributesFromCSV(StringBuilder sb) throws IOException;
     ArrayList<Price> getQuantityPricesFromCSV(StringBuilder sb) throws IOException;
-    ArrayList<Description> getProductDescriptionsFromCSV(StringBuilder sb) throws IOException;
+    Map<Integer, Description> getProductDescriptionsFromCSV(StringBuilder sb) throws IOException;
     ArrayList<Discount> getDiscountsFromCSV(StringBuilder sb) throws IOException;
 
     ArrayList<AvailableProduct> searchProducts(String str);

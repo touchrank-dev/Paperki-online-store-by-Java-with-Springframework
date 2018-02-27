@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Repository("productDao")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
@@ -492,13 +493,13 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public ArrayList<Description> getProductDescriptionsFromCSV(StringBuilder sb) throws IOException {
+    public Map<Integer, Description> getProductDescriptionsFromCSV(StringBuilder sb) throws IOException {
         String file = csvFilesPath + csvFileProductDescriptions;
         sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
                 .append(">>> PROGRESS ...").append('\n');
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
 
-        ArrayList<Description> descriptions = new ArrayList<>();
+        Map<Integer, Description> mapDescriptions = new LinkedHashMap<>();
 
         try {
             Iterable<CSVRecord> records =
@@ -522,7 +523,7 @@ public class ProductDaoImpl implements ProductDao {
                     String metakey;
                     String customtitle;
 
-                    descriptions.add(new Description(
+                    mapDescriptions.put(pnt, new Description(
                             pnt,
                             fullDescription,
                             shortDescription
@@ -543,7 +544,7 @@ public class ProductDaoImpl implements ProductDao {
 
         sb.append(">>> FINISH").append('\n');
         LOGGER.debug(">>> FINISH");
-        return descriptions;
+        return mapDescriptions;
     }
 
     @Override
