@@ -6,6 +6,7 @@ import com.kushnir.paperki.model.password.NewPasswordErrorForm;
 import com.kushnir.paperki.model.password.NewPasswordForm;
 import com.kushnir.paperki.model.user.*;
 import com.kushnir.paperki.service.exceptions.ServiceException;
+import com.kushnir.paperki.service.mail.HtmlMailer;
 import com.kushnir.paperki.service.mail.Mailer;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.math.BigInteger;
@@ -59,6 +61,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     SubscribeService subscribeService;
+
+    @Autowired
+    HtmlMailer htmlMailer;
 
     @Override
     public Object getUserByLoginPassword(LoginData loginData) {
@@ -254,6 +259,10 @@ public class UserServiceImpl implements UserService {
                 Assert.notNull(user, "Не удалось получить данные пользователя");
                 // TODO !!!HARDCODE !!!
                 user.setUserType(UserType.CUSTOMER);
+
+                // TODO email
+                htmlMailer.sendNewUserRegistrationEmail(user);
+
                 LOGGER.debug("REGISTRATION SUCCESSFULLY! >>> \nNEW AUTH USER: {}", user);
                 return user;
             } catch (Exception e) {

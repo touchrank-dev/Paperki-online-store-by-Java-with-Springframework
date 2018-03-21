@@ -4,6 +4,8 @@ import com.kushnir.paperki.model.callback.Callback;
 import com.kushnir.paperki.model.order.Order;
 import com.kushnir.paperki.model.user.PasswordRecoveryRequest;
 
+import com.kushnir.paperki.model.user.User;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -114,6 +116,30 @@ public class HtmlMailer {
             mailSender.send(mimeMessage);
         } catch (Exception e) {
             LOGGER.error("Не удалось отправить сообщение для: {}", CALLBACK_SERVICE_EMAIL_ADDRESS);
+        }
+    }
+
+    public void sendNewUserRegistrationEmail(User newUser) {
+        LOGGER.debug("sendNewUserRegistrationEmail(to: {})", MANAGER_EMAIL_ADDRESS);
+        try {
+            Context ctx = new Context();
+            ctx.setVariable("user", newUser);
+            ctx.setVariable("rootUrl", rootUrl);
+
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+
+            String htmlContent = this.templateEngine.process("email/user_create", ctx);
+
+            message.setSubject("Регистрация нового пользователя ("+ newUser.getLogin() +") на paperki.by");
+            message.setFrom(USER_SERVICE_EMAIL_ADDRESS);
+            message.setTo(new String[] {MANAGER_EMAIL_ADDRESS});
+            message.setBcc(SUPPORT_SERVICE_EMAIL_ADDRESS);
+            message.setText(htmlContent, true);
+            mailSender.send(mimeMessage);
+
+        } catch (Exception e) {
+            LOGGER.error("Не удалось отправить сообщение для: {},\nERROR: {}", MANAGER_EMAIL_ADDRESS, ExceptionUtils.getStackTrace(e));
         }
     }
 
