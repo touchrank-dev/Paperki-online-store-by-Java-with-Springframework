@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,8 +46,14 @@ public class CatalogDaoImpl implements CatalogDao {
     private static final String P_NAME = "name";
     private static final String P_TRANSLIT_NAME = "translitName";
     private static final String P_LINK = "link";
+    private static final String P_METADESK = "metadesk";
+    private static final String P_METAKEY = "metakey";
+    private static final String P_CUSTOMTITLE = "customtitle";
     private static final String P_ORDER = "order";
     private static final String P_PARENT_ID = "parent";
+
+    @Autowired
+    private ApplicationContext context;
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -75,6 +82,7 @@ public class CatalogDaoImpl implements CatalogDao {
     @Value("${catalog.getAllChild}")
     private String getAllChildSqlQuery;
 
+    // @Value("#{T(org.apache.commons.io.IOUtils).toString(context.getResource('/sql/catalog_getAllByStock.sql').getInputStream())}")
     @Value("${catalog.getAllByStock}")
     private String getAllByStockSqlQuery;
 
@@ -228,6 +236,9 @@ public class CatalogDaoImpl implements CatalogDao {
         parameterSource.addValue(P_NAME, category.getName());
         parameterSource.addValue(P_TRANSLIT_NAME, category.getTranslitName());
         parameterSource.addValue(P_LINK, category.getLink());
+        parameterSource.addValue(P_METADESK, category.getMetadesk());
+        parameterSource.addValue(P_METAKEY, category.getMetakey());
+        parameterSource.addValue(P_CUSTOMTITLE, category.getCustomtitle());
         parameterSource.addValue(P_ORDER, category.getOrder());
         namedParameterJdbcTemplate.update(addCategoriesSqlQuery, parameterSource, keyHolder);
         return keyHolder.getKey().intValue();

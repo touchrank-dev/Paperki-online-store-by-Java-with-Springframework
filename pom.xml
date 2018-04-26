@@ -42,6 +42,7 @@
         <commons-csv.version>1.4</commons-csv.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-lang3.version>3.6</commons-lang3.version>
+        <commons-io.version>2.5</commons-io.version>
         <java.mail.version>1.4.7</java.mail.version>
         <junit.version>4.12</junit.version>
         <log4j2.version>2.8</log4j2.version>
@@ -258,6 +259,13 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
 
             <!-- Unit testing -->
