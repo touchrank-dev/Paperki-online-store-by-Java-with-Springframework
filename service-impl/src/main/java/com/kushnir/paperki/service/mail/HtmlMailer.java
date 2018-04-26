@@ -37,6 +37,9 @@ public class HtmlMailer {
     @Value("${mail.callback.recipient}")
     private String CALLBACK_SERVICE_EMAIL_ADDRESS;
 
+    @Value("${mail.callback.recipient.219}")
+    private String CALLBACK_SERVICE_EMAIL_219;
+
 
     @Autowired
     private JavaMailSender mailSender;
@@ -110,7 +113,7 @@ public class HtmlMailer {
 
             message.setSubject("Запрос на обратный звонок paperki.by");
             message.setFrom(USER_SERVICE_EMAIL_ADDRESS);
-            message.setTo(new String[] {CALLBACK_SERVICE_EMAIL_ADDRESS});
+            message.setTo(new String[] {CALLBACK_SERVICE_EMAIL_ADDRESS, CALLBACK_SERVICE_EMAIL_219});
             message.setBcc(SUPPORT_SERVICE_EMAIL_ADDRESS);
             message.setText(htmlContent, true);
             mailSender.send(mimeMessage);
