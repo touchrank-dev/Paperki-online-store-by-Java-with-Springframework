@@ -58,6 +58,30 @@ public class Category {
                     String link,
                     String icon,
                     Integer order,
+                    Integer parent,
+
+                    String metadesk,
+                    String metakey,
+                    String customtitle) {
+        this.id = id;
+        this.name = name;
+        this.translitName = translitName;
+        this.link = link;
+        this.icon = icon;
+        this.order = order;
+        this.parent = parent;
+
+        this.metadesk = metadesk;
+        this.metakey = metakey;
+        this.customtitle = customtitle;
+    }
+
+    public Category(Integer id,
+                    String name,
+                    String translitName,
+                    String link,
+                    String icon,
+                    Integer order,
                     Integer parent) {
         this.id = id;
         this.name = name;

@@ -8,6 +8,7 @@ import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
 
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -81,7 +82,8 @@ public class CatalogController {
             }
 
             model.addAttribute("category", category);
-            model.addAttribute("title", category.getName());
+            model.addAttribute("title", !StringUtils.isBlank(category.getCustomtitle()) ? category.getCustomtitle():category.getName());
+            model.addAttribute("description", StringUtils.isBlank(category.getMetadesk())? null:category.getMetadesk());
 
         } catch (IllegalArgumentException e) {
             LOGGER.error(e.getMessage());
@@ -105,6 +107,7 @@ public class CatalogController {
 
             Product product = catalogBean.getProductByPNT(pnt);
             model.addAttribute("title", product.getFullName());
+            model.addAttribute("description", product.getMetadesk());
             model.addAttribute("product", product);
             model.addAttribute("category", catalogBean.getCategoryByTName(catalogItemTranslitName));
 

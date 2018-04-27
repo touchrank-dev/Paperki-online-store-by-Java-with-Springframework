@@ -442,7 +442,10 @@ public class CatalogDaoImpl implements CatalogDao {
                     rs.getString("link"),
                     rs.getString("icon"),
                     rs.getInt("order_catalog"),
-                    rs.getInt("parent")
+                    rs.getInt("parent"),
+                    rs.getString("metadesk"),
+                    rs.getString("metakey"),
+                    rs.getString("customtitle")
             );
             return category;
         }
