@@ -2,6 +2,7 @@ package com.kushnir.paperki.model;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Category {
 
@@ -26,6 +27,8 @@ public class Category {
     private String fullDescription;
 
     private Integer parent;
+    private String parentName;
+    private String parentLink;
     private Integer parentPapId;
     private HashMap<Integer, Category> children;
 
@@ -59,7 +62,8 @@ public class Category {
                     String icon,
                     Integer order,
                     Integer parent,
-
+                    String parentName,
+                    String parentLink,
                     String metadesk,
                     String metakey,
                     String customtitle) {
@@ -70,7 +74,8 @@ public class Category {
         this.icon = icon;
         this.order = order;
         this.parent = parent;
-
+        this.parentName = parentName;
+        this.parentLink = parentLink;
         this.metadesk = metadesk;
         this.metakey = metakey;
         this.customtitle = customtitle;
@@ -292,6 +297,22 @@ public class Category {
         this.parent = parent;
     }
 
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public String getParentLink() {
+        return parentLink;
+    }
+
+    public void setParentLink(String parentLink) {
+        this.parentLink = parentLink;
+    }
+
     public Integer getParentPapId() {
         return parentPapId;
     }
@@ -312,58 +333,34 @@ public class Category {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Category category = (Category) o;
-
-        if (id != null ? !id.equals(category.id) : category.id != null) return false;
-        if (papId != null ? !papId.equals(category.papId) : category.papId != null) return false;
-        if (name != null ? !name.equals(category.name) : category.name != null) return false;
-        if (translitName != null ? !translitName.equals(category.translitName) : category.translitName != null)
-            return false;
-        if (link != null ? !link.equals(category.link) : category.link != null) return false;
-        if (icon != null ? !icon.equals(category.icon) : category.icon != null) return false;
-        if (metadesk != null ? !metadesk.equals(category.metadesk) : category.metadesk != null) return false;
-        if (metakey != null ? !metakey.equals(category.metakey) : category.metakey != null) return false;
-        if (customtitle != null ? !customtitle.equals(category.customtitle) : category.customtitle != null)
-            return false;
-        if (createDate != null ? !createDate.equals(category.createDate) : category.createDate != null) return false;
-        if (editDate != null ? !editDate.equals(category.editDate) : category.editDate != null) return false;
-        if (isPublished != null ? !isPublished.equals(category.isPublished) : category.isPublished != null)
-            return false;
-        if (isVisible != null ? !isVisible.equals(category.isVisible) : category.isVisible != null) return false;
-        if (order != null ? !order.equals(category.order) : category.order != null) return false;
-        if (shortDescription != null ? !shortDescription.equals(category.shortDescription) : category.shortDescription != null)
-            return false;
-        if (fullDescription != null ? !fullDescription.equals(category.fullDescription) : category.fullDescription != null)
-            return false;
-        if (parent != null ? !parent.equals(category.parent) : category.parent != null) return false;
-        if (parentPapId != null ? !parentPapId.equals(category.parentPapId) : category.parentPapId != null)
-            return false;
-        return children != null ? children.equals(category.children) : category.children == null;
+        return Objects.equals(id, category.id) &&
+                Objects.equals(papId, category.papId) &&
+                Objects.equals(name, category.name) &&
+                Objects.equals(translitName, category.translitName) &&
+                Objects.equals(link, category.link) &&
+                Objects.equals(icon, category.icon) &&
+                Objects.equals(metadesk, category.metadesk) &&
+                Objects.equals(metakey, category.metakey) &&
+                Objects.equals(customtitle, category.customtitle) &&
+                Objects.equals(createDate, category.createDate) &&
+                Objects.equals(editDate, category.editDate) &&
+                Objects.equals(isPublished, category.isPublished) &&
+                Objects.equals(isVisible, category.isVisible) &&
+                Objects.equals(order, category.order) &&
+                Objects.equals(shortDescription, category.shortDescription) &&
+                Objects.equals(fullDescription, category.fullDescription) &&
+                Objects.equals(parent, category.parent) &&
+                Objects.equals(parentName, category.parentName) &&
+                Objects.equals(parentLink, category.parentLink) &&
+                Objects.equals(parentPapId, category.parentPapId) &&
+                Objects.equals(children, category.children);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (papId != null ? papId.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (translitName != null ? translitName.hashCode() : 0);
-        result = 31 * result + (link != null ? link.hashCode() : 0);
-        result = 31 * result + (icon != null ? icon.hashCode() : 0);
-        result = 31 * result + (metadesk != null ? metadesk.hashCode() : 0);
-        result = 31 * result + (metakey != null ? metakey.hashCode() : 0);
-        result = 31 * result + (customtitle != null ? customtitle.hashCode() : 0);
-        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
-        result = 31 * result + (editDate != null ? editDate.hashCode() : 0);
-        result = 31 * result + (isPublished != null ? isPublished.hashCode() : 0);
-        result = 31 * result + (isVisible != null ? isVisible.hashCode() : 0);
-        result = 31 * result + (order != null ? order.hashCode() : 0);
-        result = 31 * result + (shortDescription != null ? shortDescription.hashCode() : 0);
-        result = 31 * result + (fullDescription != null ? fullDescription.hashCode() : 0);
-        result = 31 * result + (parent != null ? parent.hashCode() : 0);
-        result = 31 * result + (parentPapId != null ? parentPapId.hashCode() : 0);
-        result = 31 * result + (children != null ? children.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, papId, name, translitName, link, icon, metadesk, metakey, customtitle, createDate, editDate, isPublished, isVisible, order, shortDescription, fullDescription, parent, parentName, parentLink, parentPapId, children);
     }
 
     @Override
@@ -386,8 +383,10 @@ public class Category {
                 ", shortDescription='" + shortDescription + '\'' +
                 ", fullDescription='" + fullDescription + '\'' +
                 ", parent=" + parent +
+                ", parentName='" + parentName + '\'' +
+                ", parentLink='" + parentLink + '\'' +
                 ", parentPapId=" + parentPapId +
                 ", children=" + children +
-                '}'+'\n';
+                '}';
     }
 }

@@ -6,8 +6,8 @@ import com.kushnir.paperki.service.CatalogBean;
 import com.kushnir.paperki.service.ImageService;
 import com.kushnir.paperki.service.MenuBean;
 import com.kushnir.paperki.service.exceptions.ServiceException;
-
 import com.kushnir.paperki.webapp.paperki.shop.exceptions.PageNotFound;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,14 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/catalog")
@@ -57,8 +55,10 @@ public class CatalogController {
 
     @GetMapping("/{catalogItemTranslitName}")
     public String catalogItemPage(@PathVariable String catalogItemTranslitName,
+                                  @MatrixVariable Map<String, String> matrixVars,
                                   HttpSession session, Model model) throws ServiceException, PageNotFound {
         LOGGER.debug("catalogItemPage() >>>");
+        LOGGER.debug("matrixVars: {}", matrixVars);
 
         Integer type =      session.getAttribute("catview") == null ? 1:(Integer)session.getAttribute("catview");
         Integer sortType =  session.getAttribute("sortedby") == null ? 1:(Integer)session.getAttribute("sortedby");
@@ -66,31 +66,38 @@ public class CatalogController {
         Category category = catalogBean.getCategoryByTName(catalogItemTranslitName);
         if (category == null) throw new PageNotFound();
 
-        try {
-            if (type == null || type == 1){
-                model.addAttribute("products", catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType));
-                model.addAttribute("templatePathName", contentPath + "product-list");
-                model.addAttribute("fragmentName", "product-list");
-            } else if (type == 2) {
-                model.addAttribute("products", catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType));
-                model.addAttribute("templatePathName", contentPath + "product-list-row");
-                model.addAttribute("fragmentName", "product-list-row");
-            } else if (type == 3) {
-                model.addAttribute("products", catalogBean.getProductsByGroupView(catalogItemTranslitName, sortType));
-                model.addAttribute("templatePathName", contentPath + "product-list-group");
-                model.addAttribute("fragmentName", "product-list-group");
-            }
-
+            model.addAttribute("title", !StringUtils.isBlank(category.getCustomtitle()) ? category.getCustomtitle() : category.getName());
+            model.addAttribute("description", StringUtils.isBlank(category.getMetadesk()) ? null : category.getMetadesk());
             model.addAttribute("category", category);
-            model.addAttribute("title", !StringUtils.isBlank(category.getCustomtitle()) ? category.getCustomtitle():category.getName());
-            model.addAttribute("description", StringUtils.isBlank(category.getMetadesk())? null:category.getMetadesk());
 
-        } catch (IllegalArgumentException e) {
-            LOGGER.error(e.getMessage());
-            throw new PageNotFound();
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-            throw e;
+            // congenerale category has 0 as parent category ID
+        if (category.getParent().equals(0)) {
+            model.addAttribute("templatePathName", contentPath + "subcategory");
+            model.addAttribute("fragmentName", "subcategory");
+        } else {
+
+            try {
+                if (type == null || type == 1) {
+                    model.addAttribute("products", catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType));
+                    model.addAttribute("templatePathName", contentPath + "product-list");
+                    model.addAttribute("fragmentName", "product-list");
+                } else if (type == 2) {
+                    model.addAttribute("products", catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType));
+                    model.addAttribute("templatePathName", contentPath + "product-list-row");
+                    model.addAttribute("fragmentName", "product-list-row");
+                } else if (type == 3) {
+                    model.addAttribute("products", catalogBean.getProductsByGroupView(catalogItemTranslitName, sortType));
+                    model.addAttribute("templatePathName", contentPath + "product-list-group");
+                    model.addAttribute("fragmentName", "product-list-group");
+                }
+
+            } catch (IllegalArgumentException e) {
+                LOGGER.error(e.getMessage());
+                throw new PageNotFound();
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage());
+                throw e;
+            }
         }
 
         return "index";
