@@ -1,5 +1,6 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers.catalog;
 
+import com.kushnir.paperki.model.Brand;
 import com.kushnir.paperki.model.Category;
 import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.CatalogBean;
@@ -19,9 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/catalog")
@@ -55,10 +54,9 @@ public class CatalogController {
 
     @GetMapping("/{catalogItemTranslitName}")
     public String catalogItemPage(@PathVariable String catalogItemTranslitName,
-                                  @MatrixVariable Map<String, String> matrixVars,
+                                  @RequestParam(required = false) Map<String, String> filterParams,
                                   HttpSession session, Model model) throws ServiceException, PageNotFound {
-        LOGGER.debug("catalogItemPage() >>>");
-        LOGGER.debug("matrixVars: {}", matrixVars);
+        LOGGER.debug("catalogItemPage() >>> filter args: {}", filterParams);
 
         Integer type =      session.getAttribute("catview") == null ? 1:(Integer)session.getAttribute("catview");
         Integer sortType =  session.getAttribute("sortedby") == null ? 1:(Integer)session.getAttribute("sortedby");
@@ -70,19 +68,27 @@ public class CatalogController {
             model.addAttribute("description", StringUtils.isBlank(category.getMetadesk()) ? null : category.getMetadesk());
             model.addAttribute("category", category);
 
-            // congenerale category has 0 as parent category ID
+            // congenerale category has 0 in parent category ID
         if (category.getParent().equals(0)) {
             model.addAttribute("templatePathName", contentPath + "subcategory");
             model.addAttribute("fragmentName", "subcategory");
         } else {
-
+            Map products = null;
             try {
                 if (type == null || type == 1) {
-                    model.addAttribute("products", catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType));
+                    products = catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType);
+                    HashMap<String, List<Product>> brands = createBrandFilter(products);
+                    model.addAttribute("filterParams", filterParams);
+                    model.addAttribute("products", filterByBrands(products, brands, filterParams));
+                    model.addAttribute("brands", brands);
                     model.addAttribute("templatePathName", contentPath + "product-list");
                     model.addAttribute("fragmentName", "product-list");
                 } else if (type == 2) {
-                    model.addAttribute("products", catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType));
+                    products = catalogBean.getProductsByCategoryTName(catalogItemTranslitName, sortType);
+                    HashMap<String, List<Product>> brands = createBrandFilter(products);
+                    model.addAttribute("filterParams", filterParams);
+                    model.addAttribute("products", filterByBrands(products, brands, filterParams));
+                    model.addAttribute("brands", brands);
                     model.addAttribute("templatePathName", contentPath + "product-list-row");
                     model.addAttribute("fragmentName", "product-list-row");
                 } else if (type == 3) {
@@ -102,6 +108,39 @@ public class CatalogController {
 
         return "index";
     }
+
+    private HashMap<String, List<Product>> createBrandFilter(Object products) {
+        HashMap<String, List<Product>> brands = new HashMap<>();
+        for (Product product:((HashMap<Integer, Product>) products).values()) {
+            List<Product> productList = brands.get(product.getBrand().getName());
+            if (productList == null) {
+                productList = new LinkedList<Product>();
+                productList.add(product);
+                brands.put(product.getBrand().getName(), productList);
+            } else {
+                productList.add(product);
+            }
+        }
+
+        return brands;
+    }
+
+    private HashMap<Integer, Product> filterByBrands(Map prod, HashMap<String, List<Product>> brands, Map<String, String> filterParams) {
+        if (filterParams != null & filterParams.size() > 0) {
+            HashMap<Integer, Product> products = new HashMap();
+            for (Map.Entry<String, String> entry: filterParams.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                if (key.startsWith("brand")) {
+                    for (Product product:brands.get(value)) {
+                        products.put(product.getPnt(), product);
+                    }
+                }
+            }
+            return products;
+        } else return (HashMap<Integer, Product>) prod;
+    }
+
 
     @GetMapping("/{catalogItemTranslitName}/{productTranslitName}")
     public String productItemPage(@PathVariable String catalogItemTranslitName,
