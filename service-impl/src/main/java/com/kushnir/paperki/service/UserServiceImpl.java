@@ -20,20 +20,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import java.math.BigInteger;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
+import static com.kushnir.paperki.service.util.Encoder.encoding;
 
 @Service("userService")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
@@ -786,17 +786,4 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
-    public static String encoding(String input) {
-        String str = null;
-        if(input == null) return null;
-        try {
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(input.getBytes(), 0, input.length());
-            str = new BigInteger(1, digest.digest()).toString(16);
-        } catch (NoSuchAlgorithmException e) {
-            LOGGER.error("PASSWORD ENCODING ERROR: {}", e.getMessage());
-        }
-        return str;
-    }
 }
