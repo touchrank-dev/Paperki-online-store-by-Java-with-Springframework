@@ -1,6 +1,5 @@
 package com.kushnir.paperki.webapp.paperki.shop.controllers.catalog;
 
-import com.kushnir.paperki.model.Brand;
 import com.kushnir.paperki.model.Category;
 import com.kushnir.paperki.model.product.Product;
 import com.kushnir.paperki.service.CatalogBean;
@@ -126,7 +125,7 @@ public class CatalogController {
     }
 
     private HashMap<Integer, Product> filterByBrands(Map prod, HashMap<String, List<Product>> brands, Map<String, String> filterParams) {
-        if (filterParams != null & filterParams.size() > 0) {
+        if (filterParams != null && filterParams.size() > 0) {
             HashMap<Integer, Product> products = new HashMap();
             for (Map.Entry<String, String> entry: filterParams.entrySet()) {
                 String key = entry.getKey();
