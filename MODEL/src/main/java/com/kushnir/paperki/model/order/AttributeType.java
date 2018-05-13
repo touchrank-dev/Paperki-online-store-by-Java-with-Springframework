@@ -7,6 +7,7 @@ public enum AttributeType {
     CONTACT_PHONE("Контактный номер телефона", 1),
     EMAIL("Адрес электронной почты", 1),
     UNP("УНП", 1),
+    ADDRESS("Юридический адрес", 1),
     ENTERPRISE_NAME("Название организации", 1),
     PAYMENT_NAME("Способ оплаты", 1),
     PAYMENT_SHORT_DESCRIPTION("Описание способа оплаты", 1),

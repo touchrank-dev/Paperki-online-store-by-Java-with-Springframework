@@ -366,6 +366,7 @@ public class OrderServiceImpl implements OrderService {
         } else if (orderTypeId == 2){
             attributes.add(createAttribute(idOrder, AttributeType.ENTERPRISE_NAME, orderForm.get("enterprise-name"), 1));
             attributes.add(createAttribute(idOrder, AttributeType.UNP, orderForm.get("unp"), 2));
+            if (!orderForm.get("address").isEmpty()) attributes.add(createAttribute(idOrder, AttributeType.ADDRESS, orderForm.get("address"), 3));
 
         } else throw new ServiceException("Тип заказа не существует");
 
