@@ -14,7 +14,6 @@
 
     <modules>
         <module>paperki-shop</module>
-        <module>mypaper-shop</module>
     </modules>
 
 </project>
