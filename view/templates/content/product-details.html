@@ -1,0 +1,320 @@
+<main id="wrapp" th:fragment="product-details" xmlns:th="http://www.thymeleaf.org">
+    <div class="single-product-page">
+        <div class="wrapper">
+            <ul class="breadCrumbs">
+                <li><a href="/">Главная</a></li>
+                <li><a href="/"
+                    th:href="@{${catalogurl}}">Каталог</a></li>
+		<li th:if="${category} != null">
+			<a href="#" th:href="@{${category.parentLink}}" 
+				    th:text="${category.parentName}">Parent category</a></li>
+                <li th:if="${category} != null">
+                    <a href="/catalog" 
+                        th:href="@{${catalogurl}+${category?.translitName}}" 
+                        th:text="${category?.name}">Название категории</a></li>
+                <li th:if="${product} != null" th:text="${product?.fullName}">Название продукта</li>
+            </ul>
+            <div class="single-product-page-content" th:if="${product} != null">
+                <div class="single-product-page__title">
+                    <h1 th:text="${product?.fullName}">Заголовок Название продукта</h1>
+                </div>
+                <div class="single-product-page__top-block">
+                        <ul class="tabs-top-nav">
+                            <li class="js-active">
+                                <a href="#" class="tabs-top-nav__char tabs-top-nav__link" title="Характеристики">
+                                    Характеристики
+                                </a>
+                            </li>
+                        </ul>                        
+                    </div>
+                <div class="single-product-wrap">
+                    <div class="single-product-wrap-left">
+                        <div class="single-product-pict-slider">
+                            <div class="single-product-main-pict">
+                                <div    th:if="${oldImages} != null"
+                                        th:switch="${oldImages[__${product?.pnt}__]} == null"
+                                        th:remove="tag">
+                                    <div th:case="${true}">
+                                        <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
+                                             th:attr="alt=${product?.fullName}">
+                                    </div>
+                                    <div th:case="${false}" th:remove="tag">
+                                        <div class="user-gallery__photos__list" th:each="imagename : ${oldImages[__${product?.pnt}__]}">
+                                            <a th:attr="href=@{'/catimagesold/'+ ${imagename}},alt=${product?.fullName}" >
+                                            <img src="/res/img/product1.png" alt="" class="img-pr"
+                                                 th:attr="src=@{'/catimagesold/'+ ${imagename}},alt=${product?.fullName}" ></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-product-pict-slider-thumbs">
+                                <ul class="single-product-pict-slider-thumbs-list">
+                                    <div    th:if="${oldImages} != null"
+                                            th:switch="${oldImages[__${product?.pnt}__]} == null"
+                                            th:remove="tag">
+                                        <li th:case="${true}">
+                                            <div>
+                                                <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
+                                                    th:attr="alt=${product?.fullName}">
+                                            </div>
+                                        </li>
+                                        <div th:case="${false}" th:remove="tag">
+                                            <li th:each="imagename : ${oldImages[__${product?.pnt}__]}">
+                                                <div>
+                                                    <img src="/res/img/product1.png" alt="" class="img-pr"
+                                                        th:attr="src=@{'/catimagesold/'+ ${imagename}},alt=${product?.fullName}" >
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="single-product-main-info">
+                            <div class="single-product-wrap-left__action-block">
+                                <a href="#" class="product-maker">
+                                    <img src="/res/img/xerox-icon.png" alt="Xerox"
+                                        th:attr="src=@{${bip}+${product?.brand?.icon}},alt=${product?.brand?.name}">
+                                </a>
+                                <form action="">
+                                    <div class="product-code">
+                                        <p>Код товара: <span th:text="${product?.pnt}">00000000</span></p>
+                                    </div>
+
+                                    <div th:switch="${product?.quantity} < 1 and ${product?.availableDay} < 1" th:removr="tag">
+                                        <div th:case="${true}">Товар временно недоступен</div>
+                                        <div th:case="${false}" th:removr="tag">
+                                            <div class="single-product-price">
+                                                <div class="single-product-price-list">
+                                                    <span   th:switch="${product?.basePrice} > ${product?.finalPrice}" 
+                                                            th:remove="tag">
+
+                                                        <span   th:case="${true}" 
+                                                                th:remove="tag">
+                                                            <div class="single-product-price__old" 
+                                                                th:text="${#numbers.formatDecimal(product?.basePriceWithVAT,1,2)}">0,00</div>
+                                                            <div class="single-product-price__new">
+                                                                <p th:text="${#numbers.formatDecimal(product?.finalPriceWithVAT,1,2)}">0,00</p>
+                                                                <div class="bon-pr" 
+                                                                    th:if="${product?.prices.size()} > 1">
+                                                                    <img src="/res/img/i.png" alt="Информация">
+                                                                    <div class="hint">
+                                                                        <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                                                        <h5>Цена зависит от<br>количества!</h5>
+                                                                        <div>
+                                                                            <p  th:each="price : ${product?.prices}" 
+                                                                                th:remove="tag" >
+                                                                                <p th:text="'от '+${price?.value?.quantityStart}+' ед. :'">от 1 ед. :</p>
+                                                                                <p th:text="${#numbers.formatDecimal(price?.value?.basePriceWithVAT,1,2)} +' руб.'">0,00 руб</p>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </span>
+
+                                                        <span   th:case="${false}"
+                                                                th:remove="tag">
+                                                            <div class="single-product-price__new">
+                                                                <p th:text="${#numbers.formatDecimal(product?.finalPriceWithVAT,1,2)}">0,00</p>
+                                                                <div class="bon-pr" 
+                                                                    th:if="${product?.prices.size()} > 1">
+                                                                    <img src="/res/img/i.png" alt="Информация">
+                                                                    <div class="hint">
+                                                                        <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                                                        <h5>Цена зависит от<br>количества!</h5>
+                                                                        <div>
+                                                                            <span  th:each="price : ${product?.prices}"
+                                                                                th:remove="tag" >
+                                                                                <p th:text="'от '+${price?.key}+' ед. :'">от 1 ед. :</p>
+                                                                                <p th:text="${#numbers.formatDecimal(price?.value?.basePriceWithVAT,1,2)} +' руб.'">0,00 руб</p>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </span>
+                                                    </span>
+                                                </div>                                        
+                                            </div>
+                                            <div id="in-cart-item">
+                                                <div class="cart-is-added"
+                                                    th:if="${cart.items[__${product?.pnt}__]} != null and ${cart.items[__${product?.pnt}__].quantity} > 0">
+                                                    <div class="cart-is-added__pict">
+                                                        <img src="/res/img/cart-is-added.png" alt="added to cart">
+                                                    </div>
+                                                    <div class="cart-is-added__number">
+                                                        <p><span th:text="${cart.items[__${product?.pnt}__].quantity}">0</span> ед.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-add-popup-confirm" style="top: 0px; opacity: 1;">
+                                                <div class="textarea">
+
+                                                </div>
+                                                <a class="cart-popup-del__cancel confirm" style="cursor: pointer;">Добавить</a>
+                                                <a class="cart-popup-del__cancel" style="cursor: pointer;">Отмена</a>
+                                            </div>
+                                            <div class="single-product-in-cart">
+                                                <div class="single-product__number">
+                                                    <div class="dec">-</div>
+                                                        <input type="text" name="french-hens" class="inde" value="1"
+                                                            th:attr="id=${product?.pnt}">
+                                                    <div class="inc">+</div>
+                                                </div>
+
+                                                <div th:switch="${product?.quantity} > 0">
+                                                    <a href="#" class="btn c-button btn-ord" title="Под заказ"
+                                                        th:case="${false}"
+                                                        onclick="singleProductWrapperAddToCart('null')"
+                                                        th:attr="onclick='singleProductWrapperAddToCart('+${product?.pnt}+')'">
+                                                        <div class="c-ripple js-ripple">
+                                                            <span class="c-ripple__circle"></span>
+                                                        </div>
+                                                        под заказ
+                                                    </a>
+
+                                                    <a href="#" class="btn c-button btn-in-cart"
+                                                        th:case="${true}"
+                                                        onclick="singleProductWrapperAddToCart('null')"
+                                                        th:attr="onclick='singleProductWrapperAddToCart('+${product?.pnt}+')'">
+                                                        <div class="c-ripple js-ripple">
+                                                            <span class="c-ripple__circle"></span>
+                                                        </div>
+                                                        в корзину
+                                                    </a>
+                                                </div>
+                        
+                                            </div>
+                                            <div class="single-product__compare-bookmark"></div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-product-wrap-right">
+                        <!-- <div class="single-product-rating">
+                            <p>Оценка:</p>
+                            <ul class="stars">
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-true">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                                <li class="star-false">
+                                </li>
+                            </ul>
+                        </div> -->
+                        <div class="single-product-available">
+                            <p>Наличие:</p>
+                            <ul class="ill-it">
+                                <li>
+                                    <span th:switch="${product?.quantity} > 0" th:remove="tag">
+                                        <span th:case="${true}" class="ill-it-1"></span>
+                                        <span th:case="${false}" class="ill-it-0"></span>
+                                        <span th:case="*" class="ill-it-0"></span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span th:switch="${product?.quantity} > 4" th:remove="tag">
+                                        <span th:case="${true}" class="ill-it-1"></span>
+                                        <span th:case="${false}" class="ill-it-0"></span>
+                                        <span th:case="*" class="ill-it-0"></span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span th:switch="${product?.quantity} > 11" th:remove="tag">
+                                        <span th:case="${true}" class="ill-it-1"></span>
+                                        <span th:case="${false}" class="ill-it-0"></span>
+                                        <span th:case="*" class="ill-it-0"></span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span th:switch="${product?.quantity} > 51" th:remove="tag">
+                                        <span th:case="${true}" class="ill-it-1"></span>
+                                        <span th:case="${false}" class="ill-it-0"></span>
+                                        <span th:case="*" class="ill-it-0"></span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span th:switch="${product?.quantity} > 101" th:remove="tag">
+                                        <span th:case="${true}" class="ill-it-1"></span>
+                                        <span th:case="${false}" class="ill-it-0"></span>
+                                        <span th:case="*" class="ill-it-0"></span>
+                                    </span>
+                                </li>
+                            </ul>
+                            <!-- <span class="availability" th:text="${product.quantity}+' '+${product.measure}">0 шт</span> -->
+                        </div>
+                        <div class="single-product-description">
+                            <p th:text="${product?.fullDescription}">Полное описание</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-product-about">
+                    <div class="single-product-tabs">
+                        <div class="single-product-tabs-content">
+                            <div class="single-product-tabs__char">
+                                <h2>ХАРАКТЕРИСТИКИ</h2>
+                                <div class="single-product-general-char">
+                                    <ul>
+                                        <li>
+                                            <div>
+                                                <p>
+                                                    БРЕНД
+                                                </p>
+                                            </div>
+                                            <p th:text="${product?.brand?.name}">
+                                                null
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <p>
+                                                    ШТРИХ-КОД ПРОИЗВОДИТЕЛЯ
+                                                </p>
+                                            </div>
+                                            <p th:text="${product?.barCode}">
+                                                null
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <p>
+                                                    СТРАНА ВВОЗА
+                                                </p>
+                                            </div>
+                                            <p th:text="${product?.countryMade}">
+                                                null
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="single-product-other-char">
+                                    <ul th:if="${product?.attributes} != null">
+                                        <li th:each="attribute : ${product?.attributes}">
+                                            <div>
+                                                <p th:text="${attribute?.name}">
+                                                    Свойство
+                                                </p>
+                                            </div>
+                                            <p th:text="${attribute?.value}">
+                                                Значение
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

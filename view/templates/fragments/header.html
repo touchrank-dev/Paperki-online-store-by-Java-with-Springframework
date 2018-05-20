@@ -1,0 +1,237 @@
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org">
+    <!-- Верхнее меню -->
+    <nav class="navbar mainMenu">
+        <div class="container">
+            <div class="mainMenu-wrap">
+                <!-- Меню -->
+                <ul class="nav navbar-nav nav-mainMenu"
+                    th:if="${mainmenu} != null">
+                    <li th:each="menuitem : ${mainmenu}"
+                        th:class="${#request.getRequestURI()} == ${menuitem.link} ? 'active-link':''">
+                        <a href="/" th:href="@{${menuitem.link}}" th:text="${menuitem.name}">Menu item</a> 
+                        <!-- class="active-link" -->
+                    </li>
+                </ul>
+                <!-- Меню -->
+                <!-- Иконка Логин -->
+                <ul class="nav navbar-nav navbar-right nav-profile"
+                    th:include="/components/login/navlogin :: navlogin" />
+                <!-- Иконка Логин -->
+            </div>
+        </div>
+    </nav>
+    <!-- Верхнее меню -->
+    <!-- Верхняя панель -->
+    <nav class="navbar navbar-default nav-navbar-main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/">
+                                <img src="/res/img/logo.png" alt="Logo">
+                                <div class="after">
+                                    <div class="afterin">
+                                        <div><img src="/res/img/logohover.png" alt="arrow-left" title="Вернуться на главную" />Вернуться на главную</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                <div class="block-time"><span class="time-head">время работы: Пн-Пт с 8.30 - 17.00 </span></div>
+                                <ul class="nav navbar-nav nav-navbar-btn">
+                                    <li class="dropdown">
+                                        <button class="c-button btn-number dropdown-toggle btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div class="c-ripple js-ripple">
+                                                <span class="c-ripple__circle"></span>
+                                            </div>
+                                            <span class="" aria-hidden="true"><img src="/res/img/phone.png" alt="Phone-icon"></span> 8 (162) 42 63 12 <span><img src="/res/img/arrows.png" alt="arrows"></span>
+                                        </button>
+                                        <ul class="dropdown-menu phones">
+                                            <div>
+                                                <li class="phone_drop">
+													<div><span class="" aria-hidden="true"><img src="/res/img/phone.png" alt="Phone-icon"></span> 8 (162) 42 93 95</div>
+                                                    <div><span class="" aria-hidden="true"><img src="/res/img/p1.png" alt="Vodafone"></span> 8 (029) 715 60 60</div>
+                                                    <div><span class="" aria-hidden="true"><img src="/res/img/p3.png" alt="Viber"></span> 8 (029) 715 60 60</div>
+                                                    <!--<div><span class="" aria-hidden="true"><img src="/res/img/p4.png" alt="Skype"></span> paperki.by</div>-->
+                                                    <div class="phone_drop-adres"><span class="" aria-hidden="true"><img src="/res/img/p5.png" alt="address"></span>
+                                                        <p>ул. Советской Конституции&nbsp;1,
+                                                            <br>"Дом Быта", 2 этаж</p>
+                                                    </div>
+                                                    <div><span aria-hidden="true"><img src="/res/img/p6.png" alt="map"></span><a href="/contacts">схема проезда</a></div>
+                                                </li>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed">
+                                            <button class="btn btn-call big-button" type="button">Обратный звонок</button>
+                                            <div class="morph-content">
+                                                <div class="callback-popup-content">
+                                                    <span class="icon icon-close">Close the dialog</span>
+                                                    <div class="callback-popup-wrap">
+                                                        <h4>Заказать обратный звонок</h4>
+                                                        <form action="/callback" method="POST">
+                                                            <span class="input input--ichiro callback-form-field">
+                                                                <input class="input__field input__field--ichiro" type="text" name="your-name" id="callback-input-name" />
+                                                                <label class="input__label input__label--ichiro" for="callback-input-name">
+                                                                    <span class="input__label-content input__label-content--ichiro" id="callback-label-name">Ваше Имя*</span>
+                                                                </label>
+                                                            </span>
+                                                            <span class="input input--ichiro callback-form-field">
+                                                                <input class="input__field input__field--ichiro phone" type="text" name="your-phone" id="callback-input-phone" />
+                                                                <label class="input__label input__label--ichiro" for="callback-input-phone">
+                                                                    <span class="input__label-content input__label-content--ichiro" id="callback-label-phone">Контактный номер телефона*</span>
+                                                                </label>
+                                                            </span>
+                                                            <span class="input input--ichiro callback-form-field message-field">
+                                                                    <textarea class="input__field input__field--ichiro" name="your-message" id="callback-textarea"></textarea>
+                                                                    <label class="input__label input__label--ichiro" for="callback-textarea">
+                                                                        <span class="input__label-content input__label-content--ichiro">Ваш комментарий к заявке</span>
+                                                                    </label>
+                                                                </span>
+                                                            <button class="btn c-button btn-sign" type="subscribe" onclick="callback()">
+                                                                <div class="c-ripple js-ripple">
+                                                                    <span class="c-ripple__circle"></span>
+                                                                </div>
+                                                                заказать звонок
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- morph-button -->
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                <ul class="nav navbar-nav navbar-right nav-right-mn">
+									<li class="comparison">
+                                        <a href="http://mypaper.by" target="_blank">
+                                            Заказ товара в Минске
+                                            <br><span class="pr-main"></span></a>
+                                    </li>
+                                    <li class="bookmarks">
+                                        <a href="/profile?bookmarks">
+                                            Закладки
+                                            <br><span class="pr-main">0 товара</span></a>
+                                    </li>
+
+                                    <li class="dropdown cart">
+                                        <a href="#" class="dropdown-toggle cartLink" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <div class="cartIconHolder">
+                                                <img class="cartIcon" src="/res/img/cart.png" alt="cart">
+                                                <img class="cartOK emptyCart" src="/res/img/cartOK.png" alt="added to cart">
+                                            </div>
+                                            <div class="dropdown-cart__current-products">
+                                                <p id="cart-total-with-vat">
+                                                    <span class="total-sum"
+                                                          th:text="${cart?.totalWithVAT}">
+                                                        0.00
+                                                    </span>
+                                                    руб
+                                                </p>
+                                                <!--<span class="pr-main"
+                                                    th:text="${cart?.items?.size()} + ' ед.'">0 ед.</span>-->
+                                            </div>
+                                        </a>
+                                        <ul class="Mydropdown-menu menu-cart" id="popup-cart-from-header">
+                                            <div class="title-cart">
+                                                <p>Ваша&nbsp;корзина</p>
+                                                <img class="closeCart" src="/res/img/catalog-close-icon.png" alt="close">
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="cart-cont" id="cart-cont">
+                                                <li th:if="${cart?.items.size()} > 0"
+                                                    th:each="item : ${cart.items}">
+                                                    <div class="drop-pr">
+                                                        <span class="  drop-pr" aria-hidden="true" onclick="deleteFromCart('null')"
+                                                            th:attr="onclick='deleteFromCart('+${item.value.pnt}+')'">&#10006;</span>
+                                                    </div>
+                                                    <div class="img-cart">
+                                                        <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr" style="max-width: 110px;"
+                                                             th:attr="src=@{'/catimagesold/'+ ${item.value.imageName}},alt=${item.value.fullName}">
+                                                    </div>
+                                                    <div class="desc-cart">
+                                                        <a href="#" class="name-pr-cart"
+                                                            th:href="@{${item.value.link}}"
+                                                            th:text="${item.value.fullName}">Имя товара</a>
+                                                        <ul class="char-cart">
+                                                            <li th:text="${item.value.shortName}">Короткое имя</li>
+                                                        </ul>
+                                                        <p class="price-in-cart"
+                                                           th:text="${item.value.finalPriceWithVAT}+ ' руб x '+${item.value.quantity} + ' ед.'">0,00 руб x 4</p>
+                                                    </div>
+                                                </li>
+                                            </div>
+                                            <div class="down-cart">
+                                                <div class="row">
+                                                    <div class="col-md-5 col-sm-5">
+
+                                                    </div>
+                                                    <div class="col-md-7 col-sm-7">
+                                                        <a href="#" class="btn c-button btn-ea-c popup-close-cart" onclick="toOrderPage()">
+                                                            <div class="c-ripple js-ripple">
+                                                                <span class="c-ripple__circle"></span>
+                                                            </div>
+                                                            МОЯ КОРЗИНА
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    <!-- Верхняя панель -->
+
+    <!-- Каталог и поиск -->
+    <nav class="catalog-search">
+        <div class="container">
+            <div class="products-catalog">
+                <div class="catalog_overlay"></div>
+                <!-- ЛОГОТИП SMALL-->
+                <a href="/" class="logofloat">
+                    <img src="/res/img/logo2.png" alt="Logo" title="На главную" />
+                </a>
+                <!-- ЛОГОТИП SMALL-->
+                <!-- КНОПКА КАТАЛОГ -->
+                <button id="catalog-button" class="c-button action action--open" type="button" aria-label="Open Menu">
+                    <div class="c-ripple js-ripple">
+                        <span class="c-ripple__circle"></span>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" width="60px" height="60px" style="enable-background:new 0 0 33 37;" xml:space="preserve" preserveAspectRatio="xMinYMin meet">
+                        <g>
+                            <path d="M40.9,21.5H20.9c-1.2,0-2.1,1-2.1,2.1v20.1c0,1.2,1,2.1,2.1,2.1h20.1c1.2,0,2.1-1,2.1-2.1V23.6   C43.1,22.4,42.1,21.5,40.9,21.5z M38.8,41.5H23V25.7h15.8V41.5z"/>
+                            <path d="M40.9,78.5c1.2,0,2.1-1,2.1-2.1V56.3c0-1.2-1-2.1-2.1-2.1H20.9c-1.2,0-2.1,1-2.1,2.1v20.1c0,1.2,1,2.1,2.1,2.1H40.9z    M23,58.5h15.8v15.8H23V58.5z"/>
+                            <path d="M48.7,27.9c0,1.2,1,2.1,2.1,2.1h28.3c1.2,0,2.1-1,2.1-2.1s-1-2.1-2.1-2.1H50.8C49.6,25.7,48.7,26.7,48.7,27.9z"/>
+                            <path d="M79.1,37.2H50.8c-1.2,0-2.1,1-2.1,2.1c0,1.2,1,2.1,2.1,2.1h28.3c1.2,0,2.1-1,2.1-2.1C81.2,38.2,80.3,37.2,79.1,37.2z"/>
+                            <path d="M79.1,58.5H50.8c-1.2,0-2.1,1-2.1,2.1c0,1.2,1,2.1,2.1,2.1h28.3c1.2,0,2.1-1,2.1-2.1C81.2,59.4,80.3,58.5,79.1,58.5z"/>
+                            <path d="M81.2,72.1c0-1.2-1-2.1-2.1-2.1H50.8c-1.2,0-2.1,1-2.1,2.1c0,1.2,1,2.1,2.1,2.1h28.3C80.3,74.3,81.2,73.3,81.2,72.1z"/>
+                        </g>
+                    </svg>
+                    Каталог товаров
+                </button>
+                <button class="action action--close" aria-label="Close Menu"></button>
+                <!-- КНОПКА КАТАЛОГ -->
+            </div>
+            <!-- Поиск -->
+            <div class="search-field" th:include="/components/search/nav-search :: nav-search" />
+            <!-- Поиск -->
+            <!-- КАТАЛОГ -->
+            <nav id="ml-menu" class="menu" th:include="/components/catalog/navcatalog :: navcatalog" />
+            <!-- КАТАЛОГ -->
+        </div>
+    </nav>
+    <!-- Каталог и поиск -->
+    <!-- Верхнее меню -->
+</header>

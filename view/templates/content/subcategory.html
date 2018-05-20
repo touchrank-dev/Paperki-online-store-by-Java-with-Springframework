@@ -1,0 +1,19 @@
+<main id="wrapp" th:fragment="subcategory" xmlns:th="http://www.thymeleaf.org">
+    <div class="wrapper">
+        <ul class="breadCrumbs">
+        	<li><a href="/">Главная</a></li>
+        	<li><a href="/catalog">Каталог</a></li>
+        	<li th:text="${category?.name}">Название категории</li>
+        </ul>
+        <div class="main2">
+		<div class="subcatalog_wrap" th:each="item : ${mapcategories[__${category.id}__]}">
+			<h3>
+				<a class ="subcatalog" href="#"
+                               		th:href="@{${item.value.link}}"
+                               		th:text="${item.value.name}">Подчиненная категория</a>
+			</h3>
+		</div>	
+        </div>
+        <!--catalogHolder-->
+    </div>
+</main>

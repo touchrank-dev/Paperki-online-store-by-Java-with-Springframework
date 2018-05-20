@@ -1,0 +1,220 @@
+<main id="wrapp" th:fragment="contacts" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="wrapper">
+        <ul class="breadCrumbs">
+            <li><a href="/">Главная</a></li>
+            <li>Контакты</li>
+        </ul>
+        <aside class="blogSidebarGroup typicalAside">
+            <ul class="blogCategoryList blogCategoryListWithOutTitle">
+                <li th:each="menuitem : ${mainmenu}">
+                    <a href="#" th:href="@{${menuitem.link}}">
+                        <img src="/res/img/slider-arrow-left.png">
+                        <span th:text="${menuitem.name}" th:remove="tag">О компании</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <section class="typicalSection">
+            <div class="blogPreviewHolder contactsPage">
+                <div class="contactsPageTop">
+                    <h1 class="typicalH1">Контактная информация</h1>
+                </div>
+                <div class="contacts-tabs">
+                    <ul class="contactsPageCities">
+                        <li>Брест</li>
+                        <li>Минск</li>
+                        <li>Реквизиты</li>
+                        <li>Розничные магазины</li>
+                    </ul>
+                    <div class="contacts-tabs-content">
+                        <div class="tab-item">
+                            <div class="contactsPageInfo clearfix">
+                                <div class="contactsPageInfoLeft">
+                                    <h4 class="delivAndPaym-SubTitle">По вопросам заказа товара с сайта звонить:</h4>
+                                    <a href="tel:80162429395">8-0162 42-93-95</a>
+                                    <h4 class="delivAndPaym-SubTitle contactsPageInfoWorkTime postSectionBT">Время работы:</h4>
+                                    <p>ул. Советской Конституции 1, "Дом Быта", 2 этаж</p>
+                                    <p>Пн-Пт с 8.30 - 17.00</p>
+                                    <p><a href="tel:7156060">МТС, Velcom: 715-60-60</a></p>
+                                    <p><a href="mailto:paperki@paperki.by">e-mail: paperki@paperki.by</a></p>
+
+                                </div>
+                                <div class="contactsPageInfoRight">
+                                    <h4 class="delivAndPaym-SubTitle">Корпоративным клиентам:</h4>
+                                    <a href="tel:80162428401">8-0162 42-84-01 тел.</a> / <a href="fax:80162426312">факс: 8-0162 42-63-12</a>
+                                    <h4 class="delivAndPaym-SubTitle">Склад:</h4>
+                                    <a href="tel:80162543354">8-0162 54-33-54 тел.</a> / <a href="fax:80162549954">факс: 8-0162 54-99-54</a>
+                                    <h4 class="delivAndPaym-SubTitle">Бухгалтерия:</h4>
+                                    <a href="tel:80162407245">8-0162 40-72-45 тел.</a> / <a href="fax:80162408066">факс: 8-0162 40-80-66</a>
+                                </div>
+                            </div>
+                            <div class="contactsPageMap">
+                                <div class="contactsPageMapHolder">
+                                    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A63d714ddb71ccdce528a8d99377ded1346b7a58f6cc92da1df7cc496956aed86&amp;width=100%25&amp;height=350&amp;lang=ru_UA&amp;scroll=true"></script>
+                                </div>
+                                <div class="contactsPageAddress">
+                                    <h2>Брест</h2>
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+												<p>Офис ООО «ПАПЕРКИ»</p>
+                                                <p>ул. Советской Конституции 1, "Дом Быта", 2 этаж</p>
+                                                <p>Пн-Пт с 8.30 - 17.00</p>
+                                                <p>N 59.862588<br>E 30.416574</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <p>Склад</p>
+                                                <p>ул. Янки Купалы, 88 в</p>
+                                                <p>Пн-Пт с 8.30 - 17.00</p>
+                                                <p>N 59.862588<br>E 30.416574</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="contactsPageBlueLine">
+                                <h2><a href="#">СЕТЬ РОЗНИЧНЫХ МАГАЗИНОВ «КАНЦЕЛЯРСКИЕ ШТУЧКИ» В БРЕСТЕ
+                                    <button type="button" class="contactsPageBlueLineArrow"></button>
+                                </a></h2>
+                            </div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="contactsPageInfo clearfix">
+                                <div class="contactsPageInfoLeft">
+                                    <h4 class="delivAndPaym-SubTitle">По вопросам заказа товара с сайта звонить:</h4>
+                                    <a href="tel:80162429395">8-017  380-52-67</a>
+                                    <h4 class="delivAndPaym-SubTitle contactsPageInfoWorkTime postSectionBT">Время работы:</h4>
+                                    <p>ул. Платонова, 36, офис 27</p>
+                                    <p>Пн-Пт с 9.00 - 17.30</p>
+                                    <p><a href="mailto:minsk@paperki.by">e-mail: minsk@paperki.by</a></p>
+
+                                </div>
+                                <div class="contactsPageInfoRight">
+                                    <h4 class="delivAndPaym-SubTitle">Корпоративным клиентам:</h4>
+                                    <a href="tel:8172936317">8-17 293-63-17 тел.</a> / <a href="fax:80172936317">факс: 8-0162 293-63-17</a>
+                                    <h4 class="delivAndPaym-SubTitle">Оптовым клиентам:</h4>
+                                    <a href="tel:8172936317">8-17 293-63-17 тел.</a> / <a href="fax:80172936317">факс: 8-0162 293-63-17</a>
+                                    <h4 class="delivAndPaym-SubTitle">Бухгалтерия:</h4>
+                                    <a href="tel:80162407245">8-0162 40-72-45</a>
+                                </div>
+                            </div>
+                            <div class="contactsPageMap">
+                                <div class="contactsPageMapHolder">
+                                    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A73a98e640d53f044e9809ca08ffae558715a422b566e780508ebf103f4c6b234&amp;width=100%25&amp;height=350&amp;lang=ru_RU&amp;scroll=true"></script>
+                                </div>
+                                <div class="contactsPageAddress">
+                                    <h2>Минск</h2>
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+												<p>Офис ООО «ПАПЕРКИ»</p>
+                                                <p>ул. Платонова, 36, офис 27</p>
+                                                <p>Пн-Пт с 8.30 - 17.00</p>
+                                                <p>N 53.912536<br>E 27.597744</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <p>Склад</p>
+                                                <p>Платонова, 36, склад № 2, 2 этаж.</p>
+                                                <p>Пн-Пт с 9.00 - 17.30</p>
+                                                <p>N 53.912536<br>E 27.597744</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="contactsPageBlueLine">
+                                <h2><a href="#">СЕТЬ РОЗНИЧНЫХ МАГАЗИНОВ «КАНЦЕЛЯРСКИЕ ШТУЧКИ» В БРЕСТЕ
+                                    <button type="button" class="contactsPageBlueLineArrow"></button>
+                                </a></h2>
+                            </div>
+                        </div>
+                        <div class="contacts-tabs-content">
+                        <div class="tab-item">
+                            <div class="contactsPageInfo clearfix">
+                                    <h4 class="delivAndPaym-SubTitle">ООО «Паперки»</h4>
+                                    <p style="color:black">224023, г.Брест, ул. Советской Конституции, 1, Беларусь<br/>
+															УНН 200578550 ОКПО 28992517<br/>
+															Банк: ОАО "Белинвестбанк", г.Минск пр.Машерова,29<br/>
+															р/с BY47BLBB30120200578550001001<br/>
+															код банка: BLBBBY2X<br/>
+															Директор: Малунова Наталья Ивановна, действует на основании Устава<br/>
+															телефоны :42-93-95, 42-84-01.</p>
+
+                               </div>
+                    </div>
+                </div>
+                <div class="contacts-tabs-content">
+                        <div class="tab-item">
+                            <div class="contactsPageInfo clearfix">
+                                <div class="contactsPageInfoLeft">
+                                    <div class="store-pict" >
+										<img src="/res/img/store-pict1.png" alt="Брест, ул. Карбышева, 37(торговая площадь 100 кв.м.)"/>
+									</div>
+                                </div>
+                                <div class="contactsPageInfoRight">
+                                    <h4 class="delivAndPaym-SubTitle">Email:</h4>
+                                    <a href="mailto:paperki2@paperki.by">paperki2@paperki.by</a>
+                                    <h4 class="delivAndPaym-SubTitle">Тел:</h4>
+                                    <a href="tel:80162208795">8-0162 20-87-95 тел.</a> / <a href="tel:80298358795">моб.: 8-029 835-87-95</a>
+                                </div>
+                            </div>
+									<br/><br/>
+                            <div class="contactsPageMap">
+                                <div class="contactsPageMapHolder">
+                                    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ac6b9184471b76b3667cde0eb05dca348d6aab9dd9d1916586a1fb4f2c6f310f1&amp;width=100%25&amp;height=368&amp;lang=ru_RU&amp;scroll=true"></script>
+                                </div>
+                                <div class="contactsPageAddress">
+                                    <h2>Брест</h2>
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+												<p>Канцелярские штучки</p>
+                                                <p>ул. Карбышева, 37</p>
+                                                <p>Пн-Пт с 10.00 - 19.00</p>
+                                                <p>Сб-Вс с 10.00 - 17.00</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                          <br/><br/><br/>
+							<div class="contactsPageInfo clearfix">
+                                <div class="contactsPageInfoLeft">
+                                    <div class="store-pict">
+										<img src="/res/img/store-pict2.png" alt="Брест, ул. Московская, 332(торговая площадь 100 кв.м.)"/>
+									</div>
+                                </div>
+                                <div class="contactsPageInfoRight">
+                                    <h4 class="delivAndPaym-SubTitle">Email:</h4>
+                                    <a href="mailto:paperki1@paperki.by">paperki1@paperki.by</a>
+                                    <h4 class="delivAndPaym-SubTitle">Тел:</h4>
+                                    <a href="tel:80162555858">8-0162 55-58-58 тел.</a> / <a href="tel:80162549954">моб.: 8-029 835-69-74</a>
+                                </div>
+                            </div>
+                            <br/><br/><br/>
+                            <div class="contactsPageMap">
+                                <div class="contactsPageMapHolder">
+                                    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A40fdd2a2a51e735337a27a2f8fe540f224cf1153d724e8b633feed98b6cb4627&amp;width=100%25&amp;height=380&amp;lang=ru_RU&amp;scroll=true"></script>
+                                </div>
+                                <div class="contactsPageAddress">
+                                    <h2>Брест</h2>
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+												<p>Канцелярские штучки</p>
+                                                <p>ул. Московская, 332</p>
+                                                <p>Пн-Пт с 10.00 - 19.00</p>
+                                                <p>Сб-Вс с 10.00 - 17.00</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+            </div>
+        </section>
+    </div>
+</main>

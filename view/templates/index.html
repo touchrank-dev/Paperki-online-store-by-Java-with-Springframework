@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru" class="no-js" xmlns:th="http://www.thymeleaf.org">
+    <head th:include="fragments/head :: head" />
+    <body>
+        <!--FOR CATALOG-->
+        <script type="text/javascript" src="/res/js/catalog.sprite.js"></script>
+        <!--FOR HELP-->
+        <div id="svgContainer"></div>
+        <script type="text/javascript" src="/res/js/help.sprite.js"></script>
+        <!-- SVG Sprite for ripple effect-->
+        <div style="height: 0; width: 0; position: absolute; visibility: hidden;" aria-hidden="true">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <symbol id="ripply-scott" viewbox="0 0 100 100">
+                    <circle id="ripple-shape" cx="1" cy="1" r="1" />
+                </symbol>
+            </svg>
+        </div>
+        <div id="loader-popup" class="show"
+             style="
+                position: fixed;
+                background-color: rgba(255, 255, 255, 0.9);
+                z-index: 800;
+                width: 100%;
+                height: 100%;
+                top: 0;">
+            <div class="loader" style="z-index: 801; top: 40%; left: 50%;"></div>
+        </div>
+        <header                 th:include="fragments/header :: header" />
+        <main id="wrapp"        th:include="${templatePathName} :: __${fragmentName}__" />
+        <footer class="footer"  th:include="fragments/footer :: footer" />
+        <!--scroll to top-->
+        <div class="scroll-page-nav">
+            <button class="c-button nav_up" type="button">
+                <div class="c-ripple js-ripple">
+                    <span class="c-ripple__circle"></span>
+                </div>
+            </button>
+            <button class="c-button nav_down" type="button">
+                <div class="c-ripple js-ripple">
+                    <span class="c-ripple__circle"></span>
+                </div>
+            </button>
+        </div>
+        <section    th:include="fragments/popups :: popups" th:remove="tag"/>
+        <section    th:include="fragments/scripts :: scripts" th:remove="tag"/>
+        
+        <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter47221686 = new Ya.Metrika({
+                    id:47221686,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/47221686" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+    </body>
+	
+
+<!-- BEGIN JIVOSITE CODE {literal} -->
+<script type='text/javascript'>
+(function(){ var widget_id = '2RP0feH3iZ';var d=document;var w=window;function l(){
+var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);}if(d.readyState=='complete'){l();}else{if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();</script>
+<!-- {/literal} END JIVOSITE CODE -->
+
+</html>

@@ -1,0 +1,723 @@
+<main id="wrapp" th:fragment="profile" xmlns:th="http://www.thymeleaf.org">
+    <div class="profile-page" th:if="${!user?.isAnonimus()}">
+        <div class="wrapper">
+            <ul class="breadCrumbs">
+                <li><a href="/">Главная</a></li>
+                <li>Личный кабинет</li>
+            </ul>
+            <div class="profile-page-content">
+                <ul class="profile-tabs-titles">
+
+                    <li class="personal-data">
+                        <button class="c-button">
+                            <div class="c-ripple js-ripple">
+                                <span class="c-ripple__circle"></span>
+                            </div>                            
+                            <div class="profile-tabs-title__icon"></div>
+                            <p>Личные данные</p>
+                        </button>
+                    </li>
+                    <li class="my-organizations">
+                        <button class="c-button">
+                            <div class="c-ripple js-ripple">
+                                <span class="c-ripple__circle"></span>
+                            </div>  
+                            <div class="profile-tabs-title__icon"></div>
+                            <p>Моя организация</p>
+                        </button>
+                    </li>
+                    <li class="password-change">
+                        <button class="c-button">
+                            <div class="c-ripple js-ripple">
+                                <span class="c-ripple__circle"></span>
+                            </div>
+                            <div class="profile-tabs-title__icon"></div>
+                            <p>Смена пароля</p>
+                        </button>
+                    </li>
+                    <!--<li class="notifications">
+                        <button class="c-button">
+                            <div class="c-ripple js-ripple">
+                                <span class="c-ripple__circle"></span>
+                            </div>
+                            <div class="profile-tabs-title__icon"></div>
+                            <p>Уведомления</p>
+                        </button>
+                    </li>-->
+                    <li class="orders">
+                        <button class="c-button">
+                            <div class="c-ripple js-ripple">
+                                <span class="c-ripple__circle"></span>
+                            </div>
+                            <div class="profile-tabs-title__icon"></div>
+                            <p>Заказы</p>
+                        </button>
+                    </li>
+                    <li class="bookmarks">
+                        <button class="c-button">
+                            <div class="c-ripple js-ripple">
+                                <span class="c-ripple__circle"></span>
+                            </div>
+                            <div class="profile-tabs-title__icon"></div>
+                            <p>Избранный товар</p>
+                        </button>
+                    </li>
+                </ul>
+
+
+                <div class="profile-tabs-content">
+                    
+                    <div class="my-profile profile-tab">
+                        <div class="my-profile-content">
+                            <h2>Личные данные</h2>
+                            <div class="my-profile-personal-data">
+                                <div class="my-profile-avatar no-avatar">
+                                    <img src="/res/img/users/default.png" alt="avatar">
+                                </div>
+                                <div class="my-profile-personal-data-text">
+                                    <ul>
+                                        <li>
+                                            <p>Имя пользователя:</p>
+                                            <span th:text="${userProfile?.name}">Имя</span>
+                                        </li>
+                                        <li>
+                                            <p>Логин:</p>
+                                            <span th:text="${userProfile?.login}">Логин</span>
+                                        </li>
+                                        <li>
+                                            <p>Адрес электронной почты:</p>
+                                            <span th:text="${userProfile?.email}">Email</span>
+                                        </li>
+                                        <li>
+                                            <p>Контактный номер телефона:</p>
+                                            <span th:text="${userProfile?.phone}">Телефон</span>
+                                        </li>
+                                        <li>
+                                            <p>День рождения:</p>
+                                            <span th:text="${userProfile?.getFormattedBirthDate()}">2000-11-11</span>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <!-- второй ряд -->
+<!--
+                                        <li>
+                                            <p>Количество заказов:</p>
+                                            <span>0</span>
+                                        </li>
+-->
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="my-personal-data-form-bottom">
+                                <a href="#update-profile-popup" class="my-personal-data-form-button update-profile-popup c-button" style="margin-top: 0px;">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    Редактировать
+                                </a>
+                            </div>
+                            <div class="my-personal-data-delivery-address-content">
+                                <h2 style="margin-top: 20px;">
+                                    Персональные адреса доставки:
+                                </h2>
+                                <div th:switch="${addresses} == null or ${addresses.size()} < 1 or ${addresses[1]} == null" th:remove="tag">
+                                     <ul class="delivery-address-list"
+                                        th:case="${false}">
+                                        <li th:each="address : ${addresses[1]}">
+                                            <a href="#edit-address-popup" 
+                                                class="open-edit-address-popup"
+                                                th:text="${address.value}" 
+                                                th:attr="onclick='getAndMapAddress('+${address.id}+')'">
+                                            		value
+                                            </a>
+                                            <span 
+                                            	th:if="${address.description} != null and !${#strings.isEmpty(__address.description__)}" 
+                                            	th:text="${address.description}" style="color: #808080;">
+                                            		описание
+                                            </span>
+                                            <div class="action-buttons">
+                                                <a href="#" class="delete-button" title="Удалить"
+                                                   th:attr="onclick='deleteAddress('+${address.id}+')'">
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <span th:case="${true}" style="margin-left: 40px;" >У Вас еще нет персональных адресов доставки</span>
+                                </div>
+                                <a href="#add-address-popup" class="add-delivery-address-button c-button" onclick="setOwnerAndType(1, 1)">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    добавить адрес
+                                </a>
+                            </div>
+                        </div>
+
+                        <ul class="my-profile-links">
+
+                            <li class="personal-data">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Личные данные
+                                        </h3>
+                                        <p>
+                                            В этом разделе вы можете изменить свои личные даные.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="my-organizations">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Моя организация
+                                        </h3>
+                                        <p>
+                                            Добавьте реквизиты вашей организации для быстрого оформления заказа на юр. лицо.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="password-change">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Смена пароля
+                                        </h3>
+                                        <p>
+                                            Здесь вы можете сменить свои данные для доступа в личный кабинет.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <!--<li class="notifications">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Уведомления
+                                        </h3>
+                                        <p>
+                                            Раздел уведомлений о новых товарах, ценах и, конечно, специальных предложениях для наших клиентов.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>-->
+                            <li class="orders">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Заказы
+                                        </h3>
+                                        <p>
+                                            Порекомендуй нас – дополнительная программа премирования постоянных покупателей.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>                            
+                            <li class="bookmarks">
+                                <a href="#" class="c-button">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <div class="my-profile-link__icon"></div>
+                                    <div class="my-profile-link__text">
+                                        <h3>
+                                            Избранное
+                                        </h3>
+                                        <p>
+                                            Здесь хранятся Ваши избранные товары.
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="my-organizations profile-tab">
+                        <a href="#" class="back-to-personal-profile">
+                            Назад к личному кабинету
+                        </a>
+
+                        <div class="my-organizations-content">
+                            <h2>Моя организация</h2>
+                            <div th:switch="${userEnterprise} == null" th:remove="tag">
+
+                                <a href="#add-enterprise-popup" id="open-add-enterprise-popup" class="add-organization-button c-button"
+                                    th:case="${true}">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    Добавить организацию
+                                </a>
+
+                                <div th:case="${false}" th:remove="tag">
+                                    <div class="my-profile-personal-data">
+                                        <div class="my-profile-personal-data-text">
+                                            <ul>
+                                                <li>
+                                                    <p>Название организации:</p>
+                                                    <span th:text="${userEnterprise?.enterpriseName}">Название организации</span>
+                                                </li>
+                                                <li>
+                                                    <p>УНП:</p>
+                                                    <span th:text="${userEnterprise?.UNP}">УНП</span>
+                                                </li>                                   
+                                            </ul>
+                                            <ul>
+                                                <!-- второй ряд -->
+                                            </ul>
+                                        </div> 
+                                    </div>
+                                    <div class="my-personal-data-form-bottom">
+                                        <a href="#update-enterprise-popup" id="open-update-enterprise-popup" class="my-personal-data-form-button c-button" style="margin-top: 0px;">
+                                            <div class="c-ripple js-ripple">
+                                                <span class="c-ripple__circle"></span>
+                                            </div>
+                                            Редактировать
+                                        </a>
+                                    </div>
+
+
+                                    <div class="my-personal-data-delivery-address-content">
+                                        <h2 style="margin-top: 20px;">
+                                            Расчетные счета:
+                                        </h2>
+                                        <div th:switch="${accounts} == null or ${accounts.size()} < 1" th:remove="tag">
+                                            <ul class="delivery-address-list"
+                                                th:case="${false}">
+                                                <li th:each="account : ${accounts}">
+                                                    <a href="#"
+                                                       th:text="${account.value}"></a>
+                                                    <div class="action-buttons">
+                                                        <a href="#" class="delete-button" title="Удалить"></a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <span th:case="${true}" style="margin-left: 40px;">У Вас еще нет рассчетных счетов</span>
+                                        </div>
+                                        <a href="#" class="add-delivery-address-button">добавить расчетный счет</a>
+                                    </div> 
+
+
+                                    <div class="my-personal-data-delivery-address-content">
+                                        <h2 style="margin-top: 20px;">
+                                            Адреса доставки:
+                                        </h2>
+                                        <div th:switch="${addresses} == null or ${addresses.size()} < 1 or ${addresses[2]} == null" th:remove="tag">
+                                             <ul class="delivery-address-list"
+                                                th:case="${false}">
+                                                <li th:each="address : ${addresses[2]}">
+                                                    <a  href="#edit-address-popup" 
+                                                        class="open-edit-address-popup"
+                                                        th:text="${address.value}"
+                                                        th:attr="onclick='getAndMapAddress('+${address.id}+')'">value</a>
+                                                    <div class="action-buttons">
+                                                        <!-- <a href="#" class="edit-button" title="Редактировать"></a> -->
+                                                        <a href="#" class="delete-button" title="Удалить"
+                                                           th:attr="onclick='deleteAddress('+${address.id}+')'"></a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <span th:case="${true}" style="margin-left: 40px;">У Вас еще нет адресов доставки</span>
+                                        </div>
+                                        <a href="#add-address-popup" class="add-delivery-address-button c-button" onclick="setOwnerAndType(2, 1)">
+                                            <div class="c-ripple js-ripple">
+                                                <span class="c-ripple__circle"></span>
+                                            </div>
+                                            добавить адрес
+                                        </a>
+                                    </div> 
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    <div class="change-password profile-tab">
+                        <a href="#" class="back-to-personal-profile">
+                            Назад к личному кабинету
+                        </a>
+                        <h2>Смена пароля</h2>
+                        <p>Мы крайне рекомендуем задать новый <span>уникальный и сложный</span> пароль.</p>
+                        <p>Если ваш пароль для входа в интернет-магазин PAPERKI.BY совпадает хотя бы с одним другим интернет-магазином, электронной почтой или социальной сетью, PAPERKI.BY не может гарантировать Вам сохранность Ваших личных данных.</p>
+                        <form action="">
+                            <div class="change-password-form-fields">
+                                <span class="input input--ichiro">
+                                    <input class="input__field input__field--ichiro" type="password" name="your-current-password" 
+                                        id="change-password-current-password" />
+                                    <label class="input__label input__label--ichiro" for="change-password-current-password">
+                                        <span class="input__label-content input__label-content--ichiro"
+                                        id="label-change-password-current-password">Текущий пароль *</span>
+                                    </label>
+                                </span>
+                                <span class="input input--ichiro">
+                                    <input class="input__field input__field--ichiro" type="password" name="your-new-password" 
+                                        id="change-password-new-password" />
+                                    <label class="input__label input__label--ichiro" for="change-password-new-password">
+                                        <span class="input__label-content input__label-content--ichiro"
+                                        id="label-change-password-new-password">Новый пароль *</span>
+                                    </label>
+                                    <button type="button" class="show-password"></button>
+                                </span>
+                                <span class="input input--ichiro">
+                                    <input class="input__field input__field--ichiro" type="password" name="confirm-password" 
+                                        id="change-password-new-password-confirm" />
+                                    <label class="input__label input__label--ichiro" for="change-password-new-password-confirm">
+                                        <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                        id="label-change-password-new-password-confirm">Подтвердите пароль *</span>
+                                    </label>
+                                    <button type="button" class="show-password"></button>
+                                </span>
+                            </div>
+                            <div class="change-password-form-bottom">
+                                <button class="c-button" type="subscribe" onclick="changePassword()">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    Сохранить
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!--<div class="my-notification profile-tab">
+                        <a href="#" class="back-to-personal-profile">
+                            Назад к личному кабинету
+                        </a>
+
+                        &lt;!&ndash; <div class="notification-turn-on-succ">
+                            <img src="/res/img/reg-success-icon.png" alt="Вы успешно подписались на рассылку Рекомендации на основе моих предыдущих покупок">
+                            <p>Вы успешно подписались на рассылку “Рекомендации на основе моих предыдущих покупок”</p>
+                            <a href="#" class="notification-turn-on-succ__close" title="Закрыть"></a>
+                        </div> &ndash;&gt;
+                        <div class="notification-turn-off">
+                            <p>Причина отписки от рассылки</p>
+                            <form action="">
+                                <input type="checkbox" name="topic-not-interesting" id="topic-not-interesting">
+                                <label for="topic-not-interesting">не интересная тема рассылки</label>
+                                <input type="checkbox" name="letters-often-come" id="letters-often-come">
+                                <label for="letters-often-come">часто приходят письма</label>
+                                <input type="checkbox" name="bought-elsewhere" id="bought-elsewhere">
+                                <label for="bought-elsewhere">товар куплен в другом месте</label>
+                                <input type="checkbox" name="i-use-e-mail" id="i-use-e-mail">
+                                <label for="i-use-e-mail">использую эл. почту в рабочих целях</label>
+                                <input type="checkbox" name="another-reason" id="another-reason">
+                                <label for="another-reason">другая причина</label>
+                                <button class="c-button" type="subscribe">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    отписаться
+                                </button>
+                            </form>
+                            <a href="#" class="notification-turn-off__close" title="Закрыть"></a>
+                        </div>
+                        <h2>Уведомления</h2>
+                        <p>Уважаемый клиент, обращаем Ваше внимание на то, что Ваши контактные данные используются исключительно для рассылки уведомлений, подарочных промокодов, подарков и спецпредложений и не передаются другим лицам или компаниям.</p>
+                        <form action="">
+                            <div class="notices-on-actions">
+                                <h3>Уведомления по акциям</h3>
+                                <ul>
+                                    <li>
+                                        <input type="checkbox" name="email-action-notification" id="email-action-notification">
+                                        <label for="email-action-notification">Уведомлять по e-mail о доступных промокодах, подарках и спецпредложениях</label>
+                                        <p>Сейчас вы не получаете промокоды, подарки и спецпредложения</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="notification-form-bottom">
+                                <button class="c-button" type="subscribe">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    Сохранить
+                                </button>
+                            </div>
+                        </form>
+                    </div>-->
+                    
+                    <div class="my-orders profile-tab">
+                        <a href="#" class="back-to-personal-profile">
+                            Назад к личному кабинету
+                        </a>
+                        <h2>Заказы</h2>
+                        <div th:if="${orders} != null">
+                            <div class="my-orders-content">
+                                <ul class="my-orders-tabs-titles">
+
+                                    <li th:each="orderstatus : ${orders}">
+                                        <span th:remove="tag" th:text="${orderstatus?.key}">Активные</span>
+                                    </li>
+
+                                </ul>
+                                <div class="my-orders-tabs-content">
+                                    <div class="active-orders" th:each="orderstatus : ${orders}">
+
+                                        <div class="orders-list-table">
+                                            <div class="table-head">
+                                                <ul class="table-row">
+                                                    <li>
+                                                        Номер заказа
+                                                    </li>
+                                                    <li>
+                                                        Дата заказа
+                                                    </li> 
+                                                    <li>
+                                                        Состояние
+                                                    </li>
+                                                    <!-- <li>
+                                                        Вид оплаты
+                                                    </li> -->
+                                                    <li>
+                                                        Сумма заказа
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="table-body">
+                                                <ul class="table-row"
+                                                    th:each="order : ${orderstatus.value}">
+                                                    <p class="empty-list">У вас нет купленных товаров.</p>
+                                                    <li>
+                                                        <a href="#" 
+                                                        	th:href="@{'/order/'+${order?.value.token_order}}"
+                                                        	th:text="${order?.value.order_number}">465214587</a>
+                                                    </li>
+                                                    <li th:text="${order.value.getStrCreateDate()}"></li>
+                                                    <li th:text="${orderstatus?.key}"></li>
+                                                    <!-- <li></li> -->
+                                                    <li th:text="${order.value.final_total_with_vat}"></li>
+                                                </ul>
+                                            </div>
+                                            <div class="orders-list-showed">
+                                                <!-- Показано: <span>0–1 из 0</span> -->
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                        <!-- <div class="choosen-order">
+                                            <h3>Заказ №465214587: <span>Обрабатывается</span></h3>
+                                            <div class="choosen-order-actions">
+                                                <p>Доступные действия:</p>
+                                                <a href="#" class="c-button">
+                                                    <div class="c-ripple js-ripple">
+                                                        <span class="c-ripple__circle"></span>
+                                                    </div>
+                                                    Отменить заказ
+                                                </a>
+                                            </div>
+                                            <div class="choosen-order-info">
+                                                <h4>Информация о заказе</h4>
+                                                <ul>
+                                                    <li>
+                                                        <div>
+                                                            <p>Регион:</p>
+                                                        </div>
+                                                        <span>Брест</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Способ получения:</p>
+                                                        </div>
+                                                        <span>Доставка по Бресту</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Адрес:</p>
+                                                        </div>
+                                                        <span>Ленинградский проспект, дом. 74, кв. 77</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Дата получения:</p>
+                                                        </div>
+                                                        <span>05.05.2017</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Стоимость доставки:</p>
+                                                        </div>
+                                                        <span>300р.</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Вид оплаты:</p>
+                                                        </div>
+                                                        <span>Наличными</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Контактное лицо:</p>
+                                                        </div>
+                                                        <span>Роман</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Мобильный телефон:</p>
+                                                        </div>
+                                                        <span>+8 (029) 215-65-35</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Контактный телефон:</p>
+                                                        </div>
+                                                        <span>+8 (0162) 25-65-35</span>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <p>Адрес электронной почты:</p>
+                                                        </div>
+                                                        <span>support@new-level.by</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="composition-order">
+                                                <h4>Состав заказа</h4>
+                                                <div class="composition-order-table">
+                                                    <div class="table-head">
+                                                        <ul class="table-row">
+                                                            <li>
+                                                                Код
+                                                            </li>
+                                                            <li>
+                                                                Товар
+                                                            </li>
+                                                            <li>
+                                                                Цена
+                                                            </li>
+                                                            <li>
+                                                                Количество
+                                                            </li>
+                                                            <li>
+                                                                PAP-бонусов
+                                                            </li>
+                                                            <li>
+                                                                Сумма
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="table-body">
+                                                        <ul class="table-row">
+                                                            <li>
+                                                                74114
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">Бумага SVETOCOPY A4, 80г/м2, 146%CIE, 500л.</a>
+                                                            </li>
+                                                            <li>
+                                                                123 руб
+                                                            </li>
+                                                            <li>
+                                                                1шт.
+                                                            </li>
+                                                            <li>
+                                                                10
+                                                            </li>
+                                                            <li>
+                                                                123 руб
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="choosen-order-total">
+                                                <li class="cost">
+                                                    <p>Стоимость товаров:</p>
+                                                    <span>300 руб</span>
+                                                </li>
+                                                <li class="delivery">
+                                                    <p>Доставка:</p>
+                                                    <span>519 руб</span>
+                                                </li>
+                                                <li class="total-sum">
+                                                    <p>
+                                                        Итого:
+                                                    </p>
+                                                    <span>
+                                                            10
+                                                        </span>
+                                                </li>
+                                                <li class="pap">
+                                                    <p>
+                                                        ON-бонусов за заказ:
+                                                    </p>
+                                                    <span>10</span>
+                                                </li>
+                                            </ul>
+                                            <div class="choosen-order-bottom">
+                                                <button class="c-button">
+                                                    <div class="c-ripple js-ripple">
+                                                        <span class="c-ripple__circle"></span>
+                                                    </div>
+                                                    Распечатать
+                                                </button>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                                                        
+                                    
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="favorite-prod profile-tab">
+                        <a href="#" class="back-to-personal-profile">
+                            Назад к личному кабинету
+                        </a>
+                        <div class="no-favorite-prod">
+                            <h2>Избранный товар</h2>
+                            <div class="no-prod-notification">
+                                <p>Функциональность находится в разработке</p>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <!--scroll to top-->
+        <div class="scroll-page-nav">
+            <button class="c-button nav_up" type="button">
+                <div class="c-ripple js-ripple">
+                    <span class="c-ripple__circle"></span>
+                </div>
+            </button>
+            <button class="c-button nav_down" type="button">
+                <div class="c-ripple js-ripple">
+                    <span class="c-ripple__circle"></span>
+                </div>
+            </button>
+        </div>
+    </div>
+</main>

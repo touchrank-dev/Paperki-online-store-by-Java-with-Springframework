@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+        body, td, p, th {  font: 14px Arial; color: #111111;}
+        table.html-email {margin:10px auto;background:#fff;}
+        a {
+            color: #015DCB;
+            outline: medium none;
+            text-decoration: underline;
+        }
+         h2 {
+            color: #015DCB;
+            font: 14px Arial;
+            margin-bottom: 10px;
+            text-align: left;
+            text-decoration: none;
+        }
+                span.grey {color:#666;}
+                span.date {color:#666; }
+        small{color: #555555; font: bold 14px;}
+                a.default:link, a.default:hover, a.default:visited {color:#333333;line-height:22px;background: #f2f2f2;margin: 10px 0px 10px 5px;padding: 2px 4px 1px 4px;border: solid #CAC9C9 1px;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;text-shadow: 1px 1px 1px #f2f2f2;font-size: 10px;background-position: 0px 0px;display: inline-block;text-decoration: none;}
+                a.default:hover {color:#888;background: #f8f8f8;}
+                .cart-summary{ }
+                .html-email th,
+        .html-email
+        {
+        margin: 0px;
+        padding: 0;
+         background: none repeat scroll 0 0 #E1F2FF;
+            border: 1px solid #FFFFFF;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px #AAAAAA;
+            color: #777777;
+        }
+
+
+        .html-email{
+         border-collapse: separate;
+        }
+
+        .html-email th h2{
+        text-align: center;
+        padding: 7px 0 0 0;
+        font: 16px Arial;
+        }
+                .sectiontableentry2,  .cart-summary th{ background: #E1F2FF;margin: 0px;padding: 10px;}
+                .sectiontableentry1, .html-email td, .cart-summary td {
+           border: 1px solid #E1F2FF;
+            padding: 1px 5px;
+            vertical-align: middle;
+        background: #fff;margin: 0px;}
+                .line-through{text-decoration:line-through}
+        table tr td p{padding: 0; margin: 0;}
+        .vmshipment_description{display: none;}
+        .sectiontableheader td{
+        background: none repeat scroll 0 0 #E1F2FF;
+        color: #222;
+        }
+    </style>
+</head>
+<body style="word-wrap: break-word;">
+    <div style="background-color: #F7FAF7; border-radius: 6px; width: 800px">
+        <table style="margin: auto;" cellpadding="0" cellspacing="0" width="760" >
+            <tr>
+                <td>
+                    <table width="100%" border="0" cellspacing="0" class="html-email">
+                        <tr>
+                            <td width="180px">
+                                <img src="https://paperki.by/templates/urbis/images/logo-small.jpg" style="margin: 10px 0 10px 5px;"/>
+                                <a class="default" title="paperki.by"
+                                   href="#"
+                                    th:href="@{'http://paperki.by/order/' + ${order?.token_order}}">Просмотреть заказ онлайн</a>
+                            </td>
+                            <td style="padding: 5px 10px;">
+                                <br/>Благодарим за заказ в интернет-магазине <a href="http://paperki.by">paperki.by</a>!
+                                </br>
+                                <small>Ваш заказ номер <strong th:text="${order?.order_number}"></strong> от <span th:text="${order?.create_date}" th:remove="tag"></span> принят и находится в обработке!</small>
+                                <h2><b>После подтверждения заказа администратором, вам будет выслано соответствующее уведомление и счет-фактура к оплате.</b></h2>
+                                <small>Если у вас возникли вопросы при оформлении заказа, свяжитесь с нами по телефонам:
+                                    +375 (162) 42-93-95, +375 (162) 42-84-01</small>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="html-email" width="100%"  cellpadding="0">
+                        <tr>
+                            <td align="left" width="30%">Номер заказа:</td>
+                            <td align="left" width="70%" th:text="${order?.order_number}"></td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="30%">Комментарии:</td>
+                            <td align="left" width="70%" th:text="${order?.comments}"></td>
+                        </tr>
+                        <span th:if="${order?.attributes} != null"
+                            th:each="attribute : ${order?.attributes}"
+                            th:remove="tag">
+                            <tr th:if="${attribute.typeId} == 1">
+                                <td align="left" width="30%" th:text="${attribute?.name}"></td>
+                                <td align="left" width="70%" th:text="${attribute?.value}"></td>
+                            </tr>
+                        </span>
+                    </table>
+                    <table class="html-email" width="100%"  cellpadding="0">
+                        <tr align="left" class="sectiontableheader">
+                            <td align="left" width="4%" ><strong>Фото</strong></td>
+                            <td align="left" width="4%" ><strong>Код´</strong></td>
+                            <td align="left" colspan="1" width="54%" ><strong>Название товара</strong></td>
+                            <td align="center" width="14%" ><strong>Цена</strong></td>
+                            <td align="center" width="6%"><strong>Кол-во</strong></td>
+                            <td align="right" width="18%"><strong>Всего с НДС</strong></td>
+                        </tr>
+                        <tr valign="top" 
+                            th:each=" item : ${order?.items}">
+                            <td width="32px" style="text-align: center;">
+                                <img src="https://paperki.by/catimagesold/imageName"
+                                     th:attr="src='https://paperki.by/catimagesold/'+${item?.imageName}"
+                                     width="30" height="30" alt="" />
+                            </td>
+                            <td style="text-align: center;" th:text="${item?.pnt}">9491</td>
+                            <td align="left" colspan="1" >
+                                <a href="" title="" th:text="${item?.fullName}"></a><br/><small></small></a>
+                            </td>
+                            <td style="text-align: center;" th:text="${item?.finalPriceWithVAT}">0,00</td>
+                            <td align="center" th:text="${item?.quantity}">0</td>
+                            <td align="right"  class="priceCol" th:text="${item?.totalWithVAT}">00,0</td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="pricePad" colspan="5"><strong>Всего</strong></td>
+                            <td align="right">
+                                <strong th:text="${order?.final_total_with_vat}">00,00 руб.</strong>
+                            </td>
+                        </tr>
+<!--                         <tr>
+                            <td align="right" class="pricePad" colspan="2">Способ получения заказа: </td>
+                            <td align="left" class="pricePad" colspan="4" >
+                                <small th:text="${order?.delivery?.name}"></small>
+                            </td>
+                        </tr> -->
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

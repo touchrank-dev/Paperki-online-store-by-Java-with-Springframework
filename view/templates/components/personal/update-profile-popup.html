@@ -1,0 +1,48 @@
+<div id="update-profile-popup" class="update-profile-popup-content mfp-hide"
+     th:fragment="update-profile-popup" xmlns:th="http://www.thymeleaf.org">
+	<div class="update-profile-popup-head">
+		<h4>Радактирование личных данных</h4>
+	</div>
+	<form>
+		<span class="input input--ichiro update-profile-popup-form-field">
+			<input class="input__field input__field--ichiro" type="text" name="update-personal-data-person" id="update-personal-data-person"
+				th:value="${userProfile?.name}" />
+			<label class="input__label input__label--ichiro" for="update-personal-data-person">
+				<span class="input__label-content input__label-content--ichiro"
+				id="label-update-personal-data-person">Имя пользователя *</span>
+			</label>
+		</span>
+		<span class="input input--ichiro update-profile-popup-form-field">
+			<input class="input__field input__field--ichiro" type="email" name="update-personal-data-email" id="update-personal-data-email" 
+				th:value="${userProfile?.email}"/>
+			<label class="input__label input__label--ichiro" for="update-personal-data-email">
+				<span class="input__label-content input__label-content--ichiro"
+				id="label-update-personal-data-email">Адрес электронной почты *</span>
+			</label>
+		</span>
+		<span class="input input--ichiro update-profile-popup-form-field">
+			<input class="input__field input__field--ichiro phone" type="text" name="update-personal-data-phone" id="update-personal-data-phone"
+				th:value="${userProfile?.phone}">
+			<label class="input__label input__label--ichiro" for="update-personal-data-phone">
+				<span class="input__label-content input__label-content--ichiro" 
+				id="label-update-personal-data-phone">Мобильный телефон</span>
+			</label>
+		</span>
+		<p class="t-label" id="label-update-personal-data-birthday"  title="внешний вид зависит от браузера, его нельзя изменить">
+			<label>день рождения</label>
+		</p>
+		<div class="for-input">
+			<input placeholder="Формат ввода даты гггг-мм-дд" type="text" id="datepicker" class="inp-main update-personal-data-birthday"
+				th:value="${userProfile?.birthDay}">
+		</div>
+		<div class="update-profile-popup-footer">
+			<button class="btn c-button btn-sign btn-reg" type="subscribe" onclick="updatePersonalData()">
+				<div class="c-ripple js-ripple">
+					<span class="c-ripple__circle"></span>
+				</div>
+				Сохранить
+			</button>
+		</div>
+	</form>
+	<button title="Закрыть форму" type="button" class="mfp-close">×</button>
+</div>

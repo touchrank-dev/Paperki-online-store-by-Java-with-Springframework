@@ -1,0 +1,570 @@
+<main id="wrapp" th:fragment="main" xmlns:th="http://www.thymeleaf.org">
+    <div class="container container-mobile">
+
+        <!-- Main slider start-->
+        <div th:include="/components/mainslider/mainslider :: mainslider" class="slide-main" />
+        <!-- Main slider end -->
+
+        <!-- преимущества -->
+        <div class="advant-bl">
+            <div class="container">
+                <div class="row row-eq-height">
+                    <div class="col-md-3 col-sm-6 ad-1">
+                        <ul class="list-adv">
+                            <li><img src="/res/img/ad1.png" alt="Самовывоз в любой день"></li>
+                            <li>Самовывоз в любой день кроме сб - вс</li>
+                            <li>
+                                <span>с 8:30 до 17:00</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 ad-1">
+                        <ul class="list-adv">
+                            <li><img src="/res/img/ad2.png" alt="Доставляем в день заказа"></li>
+                            <li>Бесплатная доставка </li>
+                            <li>
+                                <span>на следующий день</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 ad-1">
+                        <ul class="list-adv">
+                            <li><img src="/res/img/ad3.png" alt="Большой ассортимент"></li>
+                            <li>Большой ассортимент</li>
+                            <li>
+                                <span>2 500+ товаров</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 ad-1">
+                        <ul class="list-adv">
+                            <li><img src="/res/img/ad4.png" alt="Подарки, акции, скидки"></li>
+                            <li>Подарки, акции, скидки </li>
+                            <li>
+                                <span></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- преимущества -->
+        <!-- Каталог -->
+        <div class="catalog"
+            th:if="${extraProducts} != null">
+            <div class="row cat-row"
+                th:if="${extraProducts.size()} > 0">
+
+                <div class="left-cat">
+
+                    <div class="catalog__navigation">
+                        <ul class="nav nav-tabs nav-brd">
+                            <li class="active-tab tab-on"
+                                th:each="products : ${extraProducts}"
+                                th:class="${products.key} == 1 ? 'active-tab tab-on active' : 'tab-on'">
+                                <a data-toggle="tab" href="#panel1" class="c-button"
+                                    th:href="@{'#panel'+${products.key}}">
+                                    <div class="c-ripple js-ripple">
+                                        <span class="c-ripple__circle"></span>
+                                    </div>
+                                    <span   th:switch="${products.key}"
+                                            th:remove="tag">
+                                        <span th:case="${1}" th:remove="tag">Хиты продаж</span>
+                                        <span th:case="${2}" th:remove="tag">Супер цена</span>
+                                        <span th:case="${3}" th:remove="tag">Новинки</span>
+                                        <span th:case="${4}" th:remove="tag">Специальное предложение</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="tab-content">
+                        <div th:each="products : ${extraProducts}" th:remove="tag">
+                            <div id="panel1" class="tab-pane fade in"
+                                th:attr="id='panel'+ ${products.key}"
+                                th:class="${products.key} == 1 ? 'tab-pane fade active in' : 'tab-pane fade'">
+                                <div class="row cat-row row-eq-height">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12"
+                                            th:each="product : ${products.value}">
+                                        <div class="thumbnail order-product product_hit"
+                                            th:class="(${products.key} == 1 ? 'thumbnail order-product product_hit' : (${products.key} == 2 ? 'thumbnail order-product product_super-price' : (${products.key} == 3 ? 'thumbnail order-product new-product' : 'thumbnail order-product')))">
+                                            <div class="caption cap-normal product-content">
+                                                <div class="product-content__top">
+                                                    <ul class="top-l-cat" style="overflow: hidden;">
+                                                        <li>
+                                                            <a href="#" class="link-name-cat" style=" white-space: nowrap;"
+                                                               th:href="@{${catalogurl}+${product.value.categoryTranslitName}+'/'+${product?.value?.translitName}}"
+                                                               th:text="${product?.value?.fullName}">Полное название товара</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" class="cat-l"
+                                                               th:href="@{${catalogurl}+${product.value.categoryTranslitName}+'/'+${product?.value?.translitName}}"
+                                                               th:text="${product?.value?.shortName}">Короткое название товара</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="user-gallery__photos__list">
+                                                    <p class="al-ph">
+                                                        <div    th:if="${oldImages} != null"
+                                                                th:switch="${oldImages[__${product?.value?.pnt}__]} == null"
+                                                                th:remove="tag">
+                                                            <img src="/catimagesold/noimage.jpg" alt="" class="img-pr"
+                                                                 th:case="${true}"
+                                                                 th:attr="alt=${product?.value?.fullName}">
+                                                            <a  th:case="${false}"
+                                                                th:attr="href=@{'/catimagesold/'+ ${oldImages[__${product?.value?.pnt}__][0]}},alt=${product?.value?.fullName}">
+                                                                <img src="/res/img/product1.png" alt="Изображение товара" class="img-pr"
+                                                                th:attr="src=@{'/catimagesold/'+ ${oldImages[__${product?.value?.pnt}__][0]}},alt=${product?.value?.fullName}">
+                                                            </a>
+                                                        </div>
+                                                    </p>
+                                                    </div>
+                                                    <p class="desc-pr" th:text="${product?.value?.shortDescription}">
+                                                        Короткое описание товара
+                                                    </p>
+                                                </div>
+                                                <div class="product-content__bottom">
+                                                    <div class="prices-block">
+                                                        <span   th:switch="${product?.value?.basePrice} > ${product?.value?.finalPrice}"
+                                                                th:remove="tag">
+                                                            <ul class="prices-block-list"
+                                                                th:case="${true}">
+                                                                <li class="old-pr" th:text="${#numbers.formatDecimal(product?.value?.basePriceWithVAT,1,2)}">0,00 руб</li>
+                                                                <li class="new-pr" th:text="${#numbers.formatDecimal(product?.value?.finalPriceWithVAT,1,2)} + ' руб'">0,00 руб</li>
+                                                            </ul>
+                                                            <ul class="prices-block-list"
+                                                                th:case="${false}">
+                                                                <li class="current-pr" th:text="${#numbers.formatDecimal(product?.value?.finalPriceWithVAT,1,2)} + ' руб'">0,00 руб</li>
+                                                            </ul>
+                                                        </span>
+
+                                                        <div class="bon-pr"
+                                                            th:if="${product?.value?.prices.size()} > 1">
+                                                            <img src="/res/img/i.png" alt="Информация">
+                                                            <div class="hint">
+                                                                <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                                                <h5>Цена зависит от<br>количества!</h5>
+                                                                <div>
+                                                                    <span th:each="price : ${product?.value?.prices}" th:remove="tag">
+                                                                        <p th:text="'от '+${price?.key}+' ед. :'">от 1 ед. :</p>
+                                                                        <p th:text="${#numbers.formatDecimal(price?.value?.basePriceWithVAT,1,2)} +' руб.'">0,00 руб</p>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="btns" style="position: relative;">
+                                                        <div class="cart-add-loader">
+                                                            <div class="loader"></div>
+                                                        </div>
+                                                        <div class="product-add-popup-confirm">
+                                                            <div class="textarea">
+
+                                                            </div>
+                                                            <a class="cart-popup-del__cancel confirm" style="cursor: pointer;">Добавить</a>
+                                                            <a class="cart-popup-del__cancel" style="cursor: pointer;">Отмена</a>
+                                                        </div>
+                                                        <ul class="list-bt">
+                                                                <li class="add-btn">
+                                                                    <a href="#" class="btn c-button btn-to-cart" title="В корзину">
+                                                                        <div class="c-ripple js-ripple">
+                                                                            <span class="c-ripple__circle"></span>
+                                                                        </div>
+                                                                        <img src="/res/img/cart-icon.png" alt="Cart">
+                                                                    </a>
+                                                                    <div class="add-area">
+                                                                        <ul class="list-bt">
+                                                                            <li>
+                                                                                <a class="btn c-button btn-in-cart"
+                                                                                   th:attr="onclick='addToCart('+${product?.value?.pnt}+')'">
+                                                                                    <div class="c-ripple js-ripple">
+                                                                                        <span class="c-ripple__circle"></span>
+                                                                                    </div>
+                                                                                    в корзину
+                                                                                </a>
+                                                                            </li>
+                                                                            <li style="margin: 0px;">
+                                                                                <div class="quantity-manage">
+                                                                                    <div class="dec">-</div>
+                                                                                    <input id="null" name="french-hens" class="inde" value="1" type="text"
+                                                                                           th:attr="id=${product?.value?.pnt}">
+                                                                                    <div class="inc">+</div>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+                                                               <li th:attr="id='in-cart-item-'+${product?.value?.pnt}">
+                                                                    <div th:if="${cart.items[__${product?.value?.pnt}__]} != null" th:remove="tag">
+                                                                        <div class="cart-is-added"
+                                                                                th:if="${cart.items[__${product?.value?.pnt}__].quantity} > 0">
+                                                                            <div class="cart-is-added__pict">
+                                                                                <img src="/res/img/cart-is-added.png" alt="added to cart">
+                                                                            </div>
+                                                                            <div class="cart-is-added__number">
+                                                                                <p><span th:text="${cart.items[__${product?.value?.pnt}__].quantity}">0</span> ед.</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="btn c-button btn-bookmark bnt-ic" title="Добавить в закладки"
+                                                                        th:attr="onclick='toFavorites('+${product?.value?.pnt}+')'">
+                                                                        <div class="c-ripple js-ripple">
+                                                                            <span class="c-ripple__circle"></span>
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Каталог -->
+
+
+        <!-- Статьи -->
+        <div class="articles-content">
+            <div class="container">
+                <div class="title-sec">
+                    <h2>Новые статьи</h2>
+                </div>
+                <div class="articles">
+                    <div class="row articles-slider">	
+						
+						
+						<div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/New.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Новинка! Папки из синтетического фетра</h6>
+                                            <p class="desc-art">Папки из фетра - это оригинальный дизайн, гармония цвета, а также экологически чистый материал.</p>
+                                            <a href="/blog/new_product" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>			
+                        
+                        
+                        
+						<div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/izmeneniya_mini.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Уважаемые клиенты!</h6>
+                                            <p class="desc-art">Изменения в режиме работы офиса и склада ООО «Паперки»: </p>
+                                            <a href="/blog/izmeneniya" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>	
+
+						<div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/easter.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Дорогие коллеги и партнеры!</h6>
+                                            <p class="desc-art">Коллектив ООО «Паперки» поздравляет Вас со светлым праздником Пасхи.</p>
+                                            <a href="/blog/easter" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+		<!--=======================   Новость на 8 марта   ==============================================-->
+
+					<div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/8-mart.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Уважаемые партнеры, коллеги, друзья!</h6>
+                                            <p class="desc-art">Сердечно поздравлдяем всех женщин с весенним праздником 8 марта!</p>
+                                            <a href="/blog/8marta" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>			
+		<!--==========================    Конец новости на 8 марта     ===================================-->
+
+						<div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/23f_mini.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Уважаемые партнеры, коллеги, друзья!</h6>
+                                            <p class="desc-art">Примите самые искренние поздравления с Днем защитника Отечества. Желаем вам мирного неба, больших достижений, множества возможностей, побед на всех фронтах.</p>
+                                            <a href="/blog/23fevralia" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+						<div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/mini_termokrugka.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Подарки для новых клиентов</h6>
+                                            <p class="desc-art">На улице еще зима и морозы, а мы дарим тепло и согреваем заботой наших клиентов. Каждый новый клиент, оформивший заказ на сумму от 110 руб. с НДС, получает фирменную термокружку в ПОДАРОК!</p>
+                                            <a href="/blog/novim-klientam" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+						<div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/dizpap.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Дизайнерская бумага и картон</h6>
+                                            <p class="desc-art">Мы рады сообщить, что в нашем розничном магазине "Канцелярские штучки" появилась в продаже дизайнерская бумага и картон от крупнейшего поставщика ТМ «Берег». Огромный выбор, разнообразие фактур а также богатая палитра цветов! Подойдет для печати визиток, открыток, пригласительных, а также для таких хобби как скрапбукинг и кардмейкинг.</p>
+                                            <a href="/blog/design-paper" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+						<div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/mini-podarki.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Подарок при заказе с сайта</h6>
+                                            <p class="desc-art">Делайте заказы с сайта и получайте приятные подарки! Каждый клиент, оформивший заказ на сайте paperki.by на сумму от 100 руб. с НДС, получает ежедневник в ПОДАРОК.</p>
+                                            <a href="/blog/podarok" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+						<div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/2018.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Режим работы на новогодние праздники</h6>
+                                            <p class="desc-art">Уважаемые клиенты! Изменения в режиме работы офиса и склада ООО «Паперки»: 1.01.2018 г. – выходной, (в соответствии с П. 3 Указа от 26.03.1998 N 157 "О государственных праздниках, праздничных днях и памятных датах в Республике Беларусь").</p>
+                                            <a href="/blog/changes" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                         <div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/kalilaska-s.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Ароматный и полезный чай Kali Laska</h6>
+                                            <p class="desc-art">Чаи Kali Laska производятся исключительно из натуральных ингредиентов без добавления красителей, ароматизаторов, масел и т.п.</p>
+                                            <a href="/blog/teaKaliLaska" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/shivatel.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Подшивай документы без усилий с апс 168а</h6>
+                                            <p class="desc-art">Переплетная архивная система АПС 168А - это уникальный настольный станок, предназначенный для того, чтобы без усилий подшивать бухгалтерские, архивные и любые другие документы.</p>
+                                            <a href="/blog/binding" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <article class="article">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="img">
+                                            <img src="/res/img/articles/doski.jpg" alt="articles pict">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="in-art">
+                                            <h6 class="title-art">Доски naga – стильный аксессуар для работы и интерьера</h6>
+                                            <p class="desc-art">Стеклянные доски NAGA – это идеальный вариант магнитных досок, которые предназначены для выполнения различных задач.Несомненно их можно назвать оптимальным решением вопросов своевременного донесения кратковременной, но важной информации до сотрудников разных отраслей промышленности, современного бизнеса и образования.</p>
+                                            <a href="/blog/boards" class="btn-more">подробнее</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Статьи -->
+        <!-- Бренды -->
+       <!--  <div class="brands">
+            <div class="container">
+                <div class="title-sec">
+                    <h2>Бренды</h2>
+                </div>
+                <div class="brands-slider">
+                    <div class="brands-slider-content">
+                        <a href="" class="onebrand">
+                            <img alt="nagaLogo" src="/res/img/brands/nagaLogo.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text">Naga</span>
+                            </div>
+                        </a>
+                        <a href="" class="onebrand">
+                            <img alt="magic_line" src="/res/img/brands/magic_line.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text">Magic line</span>
+                            </div>
+                        </a>
+                        <a href="" class="onebrand">
+                            <img alt="logo2" src="/res/img/brands/logo2.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text"></span>
+                            </div>
+                        </a>
+                         <a href="" class="onebrand">
+                            <img alt="logo-nyt" src="/res/img/brands/000001.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text">Tukzar</span>
+                            </div>
+                        </a>
+                        <a href="" class="onebrand">
+                            <img alt="linс" src="/res/img/brands/link.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text">Linc</span>
+                            </div>
+                        </a>
+                        <a href="" class="onebrand">
+                            <img alt="infolio" src="/res/img/brands/infolio.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text">Infolio</span>
+                            </div>
+                        </a>
+                        <a href="" class="onebrand">
+                            <img alt="greensboro-college" src="/res/img/brands/greensboro-college.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text">Greensboro</span>
+                            </div>
+                        </a>
+                        <a href="" class="onebrand">
+                            <img alt="colop" src="/res/img/brands/colop.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text">Colop</span>
+                            </div>
+                        </a>
+                        <a href="" class="onebrand">
+                            <img alt="artspace" src="/res/img/brands/artspace.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text">Artspace</span>
+                            </div>
+                        </a>
+                        <a href="" class="onebrand">
+                            <img alt="akavim" src="/res/img/brands/akavim.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text">Akavim</span>
+                            </div>
+                        </a>
+                        <a href="" class="onebrand">
+                            <img alt="3719484" src="/res/img/brands/3719484.png" />
+                            <div class="caption-br">
+                                <span class="thumbnail-text">Tet Chair</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!-- Бренды -->
+    </div>
+    <!-- container -->
+</main>

@@ -1,0 +1,65 @@
+<main id="wrapp" th:fragment="feedback" xmlns:th="http://www.thymeleaf.org">
+    <div class="wrapper">
+        <ul class="breadCrumbs">
+            <li><a href="index.html">Главная</a></li>
+            <li>Отзывы</li>
+        </ul>
+        <aside class="blogSidebarGroup typicalAside">
+            <ul class="blogCategoryList blogCategoryListWithOutTitle">
+                <li th:each="menuitem : ${mainmenu}">
+                    <a href="#" th:href="@{${menuitem.link}}">
+                        <img src="/res/img/slider-arrow-left.png">
+                        <span th:text="${menuitem.name}" th:remove="tag"></span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <section class="typicalSection">
+            <div class="feedback-page">
+                <div class="feedback-page-top">
+                    <h2>Отзывы наших клиентов</h2>
+                    <p>В данном разделе Вы можете оставить отзыв о нашей работе. Внимание, Ваш отзыв будет размещен только после проверки администратором.</p>
+                    <a href="#send-feedback-popup" class="feedback-page-write-feedback-btn c-button">
+                        <div class="c-ripple js-ripple">
+                            <span class="c-ripple__circle"></span>
+                        </div>
+                        Написать отзыв
+                    </a>
+                </div>
+                <div class="feedback-tabs" th:if="${feedbacks} != null">
+
+                    <div class="feedback-tabs-content">
+                        <div class="any-feedback">
+                            <ul class="feedback-list">
+
+
+                                <li th:each="feedback : ${feedbacks}">
+                                    <div class="feedback-title">
+                                        <div class="feedback-author-avatar">
+                                            <img src="/res/img/if_users-3_984116.svg" alt="Author avatar">
+                                        </div>
+                                        <div class="feedback-info">
+                                            <h3>
+                                                <span th:text="${feedback?.userName}" th:remove="tag">Name</span>
+                                                <span class="feedback-time" th:text="${feedback?.getStringCreateDate()}">13.03.2017</span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <div class="feedback-text">
+                                        <p>
+                                            <span th:text="${feedback?.text}" th:remove="tag"></span>
+                                            <!-- <a href="#" class="full-story">Читать полностью</a> -->
+                                        </p>
+                                    </div>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

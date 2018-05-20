@@ -1,0 +1,28 @@
+<div id="update-enterprise-popup" class="update-enterprise-popup popup-content mfp-hide"
+     th:fragment="update-enterprise-popup" xmlns:th="http://www.thymeleaf.org">
+	 <div class="popup-head">
+		<h4>Радактирование организации</h4>
+	</div>
+	<form>
+		<span class="input input--ichiro form-field">
+			<input class="input__field input__field--ichiro" type="text" 
+				id="input-update-enterprise-name"
+				th:value="${userEnterprise?.enterpriseName}"/>
+			<label class="input__label input__label--ichiro" 
+				for="input-update-enterprise-name">
+				<span class="input__label-content input__label-content--ichiro"
+					id="label-update-enterprise-name">Название организации *</span>
+			</label>
+		</span>
+
+		<div class="popup-footer">
+			<button class="btn c-button btn-sign btn-reg" type="subscribe" onclick="updateEnterprise()">
+				<div class="c-ripple js-ripple">
+					<span class="c-ripple__circle"></span>
+				</div>
+				Сохранить
+			</button>
+		</div>
+	</form>
+	<button title="Закрыть форму" type="button" class="mfp-close">×</button>
+</div>

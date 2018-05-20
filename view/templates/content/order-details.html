@@ -1,0 +1,79 @@
+<main id="wrapp" th:fragment="order-details" xmlns:th="http://www.thymeleaf.org">
+	<div class="wrapper">
+		<ul class="breadCrumbs">
+            <li><a href="/">Главная</a></li>
+            <li>Детали заказа</li>
+        </ul>
+
+        <h1 class="typicalH1">БЛАГОДАРИМ ВАС ЗА ЗАКАЗ</h1>
+
+        <div class="order-holder">
+        	<div class="order-details">
+        		<h2 th:text=" 'Заказ № ' +${order?.order_number}">Заказ № </h2>
+        		<!-- <div class="order-details-actions">
+        			
+        		</div> -->
+        		<div class="order-details-attributes">
+        			<h4>Информация о заказе</h4>
+        			<ul>
+
+						<li>
+							<div>
+								<p>Статус:</p>
+							</div>
+							<span th:if="${order?.orderStatusName} != null" th:text="${order?.orderStatusName}">x</span>
+						</li>
+
+						<li th:if="${order?.attributes} != null"
+							th:each="attribute : ${order?.attributes}">
+							<div>
+								<p th:text="${attribute?.name}">Имя атрибута</p>
+							</div>
+							<span th:text="${attribute?.value}">x</span>
+						</li>
+
+					</ul>
+        		</div>
+        		<div class="order-details-items" 
+        			th:if="${order?.items} != null">
+        			<h4>Состав заказа</h4>
+        			<div class="composition-order-table">
+						<div class="table-head">
+							<ul class="table-row">
+								<li>Код</li>
+								<li>Наименование</li>
+								<li>Цена</li>
+								<li>Кол-во</li>
+								<li>Сумма</li>
+							</ul>
+						</div>
+						<div class="table-body">
+							<ul class="table-row" 
+								th:each="item : ${order?.items}">
+								<li th:text="${item.pnt}">000000</li>
+								<li>
+									<a href="#"
+										th:href="@{'#'}"
+										th:text="${item.fullName}">
+										Полное наименование товара
+									</a>
+								</li>
+								<li th:text="${item.finalPriceWithVAT}+ ' руб'">0.00 руб</li>
+								<li th:text="${item.quantity} +' шт'">0 ед.</li>
+								<li th:text="${item.totalWithVAT} +' руб'">0.00 руб</li>
+							</ul>
+						</div>
+					</div>
+        		</div>
+        		<div class="order-details-total">
+        			<ul class="choosen-order-total">
+						<li class="cost">
+							<p>Итого:</p>
+							<span th:if="${order?.final_total_with_vat} != null" th:text="${order?.final_total_with_vat} + ' руб'">00,00 руб</span>
+						</li>
+					</ul>
+        		</div>
+        	</div>
+        </div>
+	</div>
+</main>

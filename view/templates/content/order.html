@@ -1,0 +1,500 @@
+<main id="wrapp" th:fragment="order" xmlns:th="http://www.thymeleaf.org">
+    <div class="wrapper">
+        <ul class="breadCrumbs">
+            <li><a href="/">Главная</a></li>
+            <li>Оформление заказа</li>
+        </ul>
+        <h1 class="typicalH1">ОФОРМЛЕНИЕ ЗАКАЗА</h1>
+        <div 
+            th:switch="${cart?.items.size()} > 0" 
+            th:remove="tag">
+            <div class="order-holder" 
+                th:case="${true}">
+                <!-- ДЕТАЛИ ЗАКАЗА -->
+                <div class="order-items">
+
+                        <div class="composition-order">
+                            <h2>Состав заказа</h2>
+                            <div class="composition-order-table">
+                                <div class="table-head">
+                                    <ul class="table-row">
+                                        <li></li>
+                                        <li>Код</li>
+                                        <li>Наименование</li>
+                                        <li>Цена</li>
+                                        <li>Кол-во</li>
+                                        <li>Сумма</li>
+                                    </ul>
+                                </div>
+                                <div class="table-body">
+                                    <ul class="table-row cart-item" 
+                                        th:each="item : ${cart?.items}">
+                                        <li style="position: relative;">
+                                            <a href="#" class="cart-popup-del-prod"></a>
+                                            <div class="cart-popup-del-prod-confirm">
+                                                <div class="cart-popup-del-prod-confirm__btns">
+                                                    <a class="cart-popup-del-prod__bookmark" style="cursor: pointer;"
+                                                        onclick="toFavorites('null')"
+                                                        th:attr="onclick='toFavorites('+${item?.value?.pnt}+')'">
+                                                        <img src="/res/img/cart-bookmark-icon.png" alt="Bookmarks">
+                                                        <p>Переместить<br>
+                                                            в список желаний
+                                                        </p>
+                                                    </a>
+                                                    <a class="cart-popup-del-prod__remove" style="cursor: pointer;"
+                                                        onclick="deleteFromCart('null')"
+                                                        th:attr="onclick='deleteFromCart('+${item?.value?.pnt}+')'">
+                                                        <img src="/res/img/cart-delete-prod-without-icon.png" alt="Remove">
+                                                        <p>Удалить без сохранения</p>
+                                                    </a>
+                                                </div>
+                                                <a class="cart-popup-del__cancel">Отмена</a>
+                                            </div>
+                                        </li>
+                                        <li th:text="${item.value.pnt}">000000</li>
+                                        <li>
+                                            <a href="#"
+                                                th:href="@{'#'}"
+                                                th:text="${item?.value?.fullName}">
+                                                Полное наименование товара
+                                            </a>
+                                        </li>
+                                        <li th:text="${#numbers.formatDecimal(item?.value?.finalPriceWithVAT,1,2)} + ' руб'">0.00 руб</li>
+                                        <li th:text="${item?.value?.quantity} +' шт'">0 ед.</li>
+                                        <li th:text="${#numbers.formatDecimal(item?.value?.totalWithVAT,1,2)} +' руб'">0.00 руб</li>
+
+
+                                        <div class="product-edit-popup-confirm">
+                                            <div class="textarea">
+
+                                            </div>
+                                            <a class="cart-popup-del__cancel confirm" style="cursor: pointer;">Обновить</a>
+                                            <a class="cart-popup-del__cancel" style="cursor: pointer;">Отмена</a>
+                                        </div>
+
+                                        <div class="update-area">
+                                            <ul class="list-update-bt" style="border-bottom: none;">
+                                                <li style="width: auto; padding: 0px;">
+                                                    <a class="btn c-button btn-in-cart"
+                                                        th:attr="onclick='updateCartItem('+${item?.value?.pnt}+')'">
+                                                        <div class="c-ripple js-ripple">
+                                                            <span class="c-ripple__circle"></span>
+                                                        </div>
+                                                             обновить
+                                                    </a>
+                                                </li>
+                                                <li style="margin: 0px; width: auto; padding: 0px;">
+                                                    <div class="quantity-manage">
+                                                        <div class="dec">-</div>
+                                                        <input id="null" name="french-hens" class="inde" value="1" type="text"
+                                                            th:attr="id=${item?.value?.pnt}"
+                                                            th:value="${item?.value?.quantity}">
+                                                        <div class="inc">+</div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="choosen-order-bottom">
+                            <h2>Оформить заказ как:</h2>
+                            <div class="single-product-tabs orderingTabs">
+                                <ul class="single-product-tabs__titles">
+                                    <li data-page="0" onclick="switchOrderType(1)">
+                                      Физическое лицо
+                                    </li>
+                                    <li data-page="1" onclick="switchOrderType(2)">
+                                      Юридическое лицо
+                                    </li>
+                                </ul>
+                                <input name="type" type="hidden" id="order-type-switcher" value="1">
+
+                                <!--Как физ. лицо-->
+                                <div class="single-product-tabs-content" id="customer-tab">
+                                    <div class="single-product-tabs__char brb">
+                                            <!-- CONTACTS -->
+                                            <div class="orderingTabsSection">
+                                                <div class="orderingTabsSectionNumber">
+                                                    1
+                                                </div>
+
+                                                <div class="orderingTabsSectionHolder">
+                                                    <h4 class="orderingTabsSectionTitle">Контактная информация</h4>
+                                                    <br>
+                                                    <span class="input input--ichiro callback-form-field">
+                                                        <input class="input__field input__field--ichiro" type="text" 
+                                                            name="name"
+                                                            id="order-input-customer-name"
+                                                            th:value="${user?.name}" />
+                                                        <label class="input__label input__label--ichiro" for="order-input-customer-name">
+                                                            <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                                                id="order-label-customer-name">Ваше Имя *</span>
+                                                        </label>
+                                                    </span>
+                                                    <span class="input input--ichiro callback-form-field">
+                                                        <input class="input__field input__field--ichiro" type="email" 
+                                                            name="email"
+                                                            id="order-input-customer-email"
+                                                            th:value="${user?.email}" />
+                                                        <label class="input__label input__label--ichiro" for="order-input-customer-email">
+                                                            <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                                                id="order-label-customer-email">e-mail *</span>
+                                                        </label>
+                                                    </span>
+                                                    <span class="input input--ichiro callback-form-field">
+                                                        <input class="input__field input__field--ichiro" type="text"
+                                                            name="phone"
+                                                            id="order-input-customer-phone"
+                                                            th:value="${user?.phone}" />
+                                                        <label class="input__label input__label--ichiro" for="order-input-customer-phone">
+                                                            <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                                            id="order-label-customer-phone">Телефон *</span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <!-- SHIPMENT -->
+                                            <div class="orderingTabsSection postSectionBT">
+                                                <div class="orderingTabsSectionNumber">
+                                                    2
+                                                </div>
+
+                                                <div class="orderingTabsSectionHolder">
+                                                    <h4 class="orderingTabsSectionTitle">Способы получения товара</h4>
+                                                    <h5 class="orderingTabsSectionSubTitle">Выберите получения товара</h5>
+
+                                                    <ul class="orderingRadio deliveryTime" 
+                                                    	id="customer-shipment-chosen"
+                                                        th:if="${deliveries[1]} != null">
+                                                        <li th:each="dilivery : ${deliveries[1]}">
+                                                            <input type="radio" 
+                                                                    id="delivery-id"
+                                                                    name="deliveryTime"
+                                                                    value="0"
+                                                                    th:attr="id='delivery-id-'+${dilivery?.value?.id}"
+                                                                    th:value="${dilivery?.value?.id}">
+                                                            <label class="clearfix" 
+                                                                    for="delivery-id"
+                                                                    th:attr="for='delivery-id-'+${dilivery?.value?.id}">
+                                                                <p class="deliveryTimeTitle" 
+                                                                    th:text="${dilivery?.value?.name}">Название доставки</p>
+                                                                <p class="deliveryTimePrice"></p>
+                                                            </label>
+                                                            <div class="orderingdeliveryTimeHolder clearfix">
+                                                                <span th:text="${dilivery?.value?.shortDescription}" th:remove="tag">Описание</span></br>
+                                                                <span th:if="${dilivery?.value?.id} > 1">
+                                                                    <div th:if="${addresses} != null and ${addresses.size()} > 0 and ${addresses[1]} != null and ${addresses[1].size()} > 0"
+                                                                         th:remove="tag">
+                                                                        <select name="orderingCall" class="orderingCall__dropdown" onchange="fillDeliveryAddressForCustomer(this)">
+                                                                            <option value="" selected >Выбрать адрес >>></option>
+                                                                            <option th:each="address : ${addresses[1]}"
+                                                                                      th:value="${address.value}"
+                                                                                      th:text="${address.value}">AddressValue</option>
+
+                                                                        </select>
+                                                                        <label class="deliveryTimeSelect" for="deliveryTimeSelect2">Выберите <br>адрес доставки</label>
+                                                                    </div>
+
+                                                                    <input id="order-input-customer-address-value" type="text" placeholder="Укажите адрес доставки ">
+<!--
+                                                                    <label for="order-input-customer-address-value">
+                                                                        Укажите адрес доставки
+                                                                    </label>
+-->
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!-- PAYMENT -->
+                                            <div class="orderingTabsSection postSectionBT">
+                                                <div class="orderingTabsSectionNumber">
+                                                    3
+                                                </div>
+
+                                                <div class="orderingTabsSectionHolder">
+                                                    <h4 class="orderingTabsSectionTitle">Способы оплаты</h4>
+                                                    <h5 class="orderingTabsSectionSubTitle">Выберите способ оплаты</h5>
+
+                                                    <ul class="choosingBase orderingRadio paymentType" id="customer-payment-chosen"
+                                                        th:if="${payments[1]} != null">
+                                                        <li th:each="payment : ${payments[1]}">
+                                                            <input type="radio"
+                                                                   id="payment-id"
+                                                                   name="paymentType"
+                                                                   value="0"
+                                                                   th:attr="id='payment-id-' + ${payment?.value?.id}"
+                                                                   th:value="${payment?.value?.id}">
+                                                            <label class="clearfix"
+                                                                   for="payment-id"
+                                                                   th:attr="for='payment-id-' + ${payment?.value?.id}">
+                                                                <p class="paymentTypeTitle"
+                                                                    th:text="${payment?.value?.name}">Название оплаты
+                                                                    <img class="paymentPic" src="/res/img/icons/focus.min.svg">
+                                                                </p>
+                                                                <p class="paymentTimePrice"></p>
+                                                            </label>
+                                                            <div class="orderingdeliveryTimeHolder clearfix"
+                                                                 th:text="${payment?.value?.shortDescription}">
+                                                                Краткое описание способа оплаты
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!-- COMMENTS -->
+                                            <div class="orderingTabsSection postSectionBT">
+                                                <div class="orderingTabsSectionNumber">
+                                                    4
+                                                </div>
+
+                                                <div class="orderingTabsSectionHolder">
+                                                    <span class="input input--ichiro callback-form-field message-field">
+                                                        <textarea class="input__field input__field--ichiro"
+                                                                  name="order-customer-comment"
+                                                                  id="order-customer-comment"></textarea>
+                                                        <label class="input__label input__label--ichiro" for="order-customer-comment">
+                                                            <span class="input__label-content input__label-content--ichiro">Комментарий к заказу</span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <!--Как юр. лицо-->
+                                    <div class="single-product-tabs__photo brb" id="enterprise-tab">
+                                        <div class="orderingTabsSection">
+                                            <div class="orderingTabsSectionNumber">
+                                                1
+                                            </div>
+
+                                            <div class="orderingTabsSectionHolder">
+                                                <h4 class="orderingTabsSectionTitle">Контактная информация</h4>
+                                                <br>
+
+                                                <span class="input input--ichiro callback-form-field">
+                                                    <input class="input__field input__field--ichiro" type="email" 
+                                                        id="order-input-enterprise-email"
+                                                        th:value="${user?.email}"/>
+                                                    <label class="input__label input__label--ichiro" for="order-input-enterprise-email">
+                                                        <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                                            id="order-label-enterprise-email">e-mail *</span>
+                                                    </label>
+                                                </span>
+                                                 <span class="input input--ichiro callback-form-field">
+                                                    <input class="input__field input__field--ichiro" type="text" 
+                                                        id="order-input-enterprise-phone"
+                                                        th:value="${user?.phone}"/>
+                                                    <label class="input__label input__label--ichiro" for="order-input-enterprise-phone">
+                                                        <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro" 
+                                                            id="order-label-enterprise-phone">Телефон *</span>
+                                                    </label>
+                                                </span>
+                                                <span class="input input--ichiro callback-form-field">
+                                                    <input class="input__field input__field--ichiro" type="text" 
+                                                        id="order-input-enterprise-name"
+                                                        th:value="${enterprise?.enterpriseName}"/>
+                                                    <label class="input__label input__label--ichiro" for="order-input-enterprise-name">
+                                                        <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro"
+                                                            id="order-label-enterprise-name">
+                                                            Название компании
+                                                        </span>
+                                                    </label>
+                                                </span>
+                                                <span class="input input--ichiro callback-form-field">
+                                                    <input class="input__field input__field--ichiro" type="text" 
+                                                        id="order-input-enterprise-unp"
+                                                        th:value="${enterprise?.UNP}"/>
+                                                    <label class="input__label input__label--ichiro" for="order-input-enterprise-unp">
+                                                        <span data-toggle="tooltip" class="input__label-content input__label-content--ichiro"
+                                                            id="order-label-enterprise-unp">
+                                                            УНН
+                                                        </span>
+                                                    </label>
+                                                </span>
+                                                <span class="input input--ichiro callback-form-field">
+                                                    <input class="input__field input__field--ichiro" type="text" 
+                                                        id="order-input-enterprise-address"
+                                                        th:value="${enterprise?.billingAddress}"/>
+                                                    <label class="input__label input__label--ichiro" for="order-input-enterprise-address">
+                                                        <span data-toggle="tooltip" 
+                                                            class="input__label-content input__label-content--ichiro" 
+                                                            id="order-label-enterprise-address">Юридический адрес</span>
+                                                    </label>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <!-- SHIPMENT -->
+                                        <div class="orderingTabsSection postSectionBT">
+                                            <div class="orderingTabsSectionNumber">
+                                                2
+                                            </div>
+
+                                            <div class="orderingTabsSectionHolder">
+                                                <h4 class="orderingTabsSectionTitle">Способы получения товара</h4>
+                                                <h5 class="orderingTabsSectionSubTitle">Выберите способ получения товара</h5>
+
+                                                <ul class="orderingRadio deliveryTime" id="enterprise-shipment-chosen"
+                                                        th:if="${deliveries[2]} != null">
+                                                    <li th:each="dilivery : ${deliveries[2]}">
+                                                        <input type="radio" 
+                                                            id="delivery-id-e" 
+                                                            name="deliveryTime"
+                                                            value="test"
+                                                            th:attr="id='delivery-id-e-'+${dilivery?.value?.id}"
+                                                            th:value="${dilivery?.value?.id}">
+                                                        <label class="clearfix" 
+                                                            for="delivery-id"
+                                                            th:attr="for='delivery-id-e-'+${dilivery?.value?.id}">
+                                                            <p class="deliveryTimeTitle" 
+                                                                th:text="${dilivery?.value?.name}">Название доставки</p>
+                                                            <p class="deliveryTimePrice"></p>
+                                                        </label>
+                                                        <div class="orderingdeliveryTimeHolder clearfix">
+                                                            <span th:text="${dilivery?.value?.shortDescription}" th:remove="tag">Описание</span>
+                                                            <span th:if="${dilivery?.value?.id} > 1">
+
+                                                                <div th:if="${addresses} != null and ${addresses.size()} > 0 and ${addresses[2]} != null and ${addresses[2].size()} > 0"
+                                                                     th:remove="tag">
+                                                                        <select name="orderingCall" class="orderingCall__dropdown" onchange="fillDeliveryAddressForEnterprise(this)">
+                                                                            <option value="" selected >Выбрать адрес >>></option>
+                                                                            <option th:each="address : ${addresses[2]}"
+                                                                                      th:value="${address.value}"
+                                                                                      th:text="${address.value}">AddressValue</option>
+
+                                                                        </select>
+                                                                        <label class="deliveryTimeSelect" for="deliveryTimeSelect2">Выберите <br>адрес доставки</label>
+                                                                </div>
+
+                                                                <input id="order-input-enterprise-address-value" type="text" placeholder="Укажите адрес доставки ">
+<!--
+                                                                <label class="deliveryTimeSelect" for="order-input-enterprise-address-value">
+                                                                    Укажите адрес доставки
+                                                                </label>
+-->
+
+                                                            </span>                                                              
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- PAYMENT -->
+                                        <div class="orderingTabsSection postSectionBT">
+                                            <div class="orderingTabsSectionNumber">
+                                                3
+                                            </div>
+
+                                            <div class="orderingTabsSectionHolder">
+                                                <h4 class="orderingTabsSectionTitle">Способы оплаты</h4>
+                                                <h5 class="orderingTabsSectionSubTitle">Выберите способ оплаты</h5>
+                                                <ul class="choosingBase orderingRadio paymentType" id="enterprise-payment-chosen"
+                                                    th:if="${payments[2]} != null">
+                                                    <li th:each="payment : ${payments[2]}">
+                                                        <input type="radio"
+                                                               id="payment-id-e"
+                                                               name="paymentType"
+                                                               value="0"
+                                                               th:attr="id='payment-id-e-' + ${payment?.value?.id}"
+                                                               th:value="${payment?.value?.id}">
+                                                        <label class="clearfix"
+                                                               for="payment-id"
+                                                               th:attr="for='payment-id-e-' + ${payment?.value?.id}">
+                                                            <p class="paymentTypeTitle"
+                                                               th:text="${payment?.value?.name}">Название оплаты
+                                                                <img class="paymentPic" src="/res/img/icons/focus.min.svg">
+                                                            </p>
+                                                            <p class="paymentTimePrice"></p>
+                                                        </label>
+                                                        <div class="orderingdeliveryTimeHolder clearfix"
+                                                             th:text="${payment?.value?.shortDescription}">
+                                                            Краткое описание способа оплаты
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- COMMENTS -->
+                                        <div class="orderingTabsSection postSectionBT">
+                                            <div class="orderingTabsSectionNumber">
+                                                4
+                                            </div>
+
+                                            <div class="orderingTabsSectionHolder">
+                                                <span class="input input--ichiro callback-form-field message-field">
+                                                    <textarea class="input__field input__field--ichiro"
+                                                              name="order-enterprise-comment"
+                                                              id="order-enterprise-comment"></textarea>
+                                                    <label class="input__label input__label--ichiro" for="order-enterprise-comment">
+                                                        <span class="input__label-content input__label-content--ichiro">Комментарий к заказу</span>
+                                                    </label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <!-- КОНЕЦ ДЕТАЛИ ЗАКАЗА -->
+
+                <!-- МЕНЮ ЗАКАЗА -->
+                <div class="order-menu-bar">
+                	<div class="orderBlock-right">
+		                    <div class="orderingSidebarSection">
+		                        <h2 class="orderingSidebarTitle">Итого</h2>
+		                        <ul class="orderingSidebarCost">
+		                            <li class="clearfix">
+		                                <p class="orderingSidebarCostLeft">товаров на сумму</p>
+		                                <p class="orderingSidebarCostRight" th:text="${#numbers.formatDecimal(cart?.totalWithVAT,1,2)} + ' руб'">0.00 руб</p>
+		                            </li>
+		                            <li class="clearfix" th:if="${cart?.shipmentCost} > 0.0">
+		                                <p class="orderingSidebarCostLeft">Стоимость доставки:</p>
+		                                <p class="orderingSidebarCostRight" th:text="${#numbers.formatDecimal(cart?.shipmentCost,1,2)} + ' руб'">0.00 руб</p>
+		                            </li>
+		                            <li class="clearfix" th:if="${cart?.paymentCost} > 0.0">
+		                                <p class="orderingSidebarCostLeft">Стоимость оплаты:</p>
+		                                <p class="orderingSidebarCostRight" th:text="${#numbers.formatDecimal(cart?.paymentCost,1,2)} + ' руб'">0.00 руб</p>
+		                            </li>
+		                        </ul>
+		                    </div>
+		                    <div class="orderingSidebarSection postSectionBT">
+		                        <p class="orderingSidebarPrice">Всего к оплате:</p>
+		                        <p class="orderingSidebarPriceHolder" th:text="${#numbers.formatDecimal(cart?.finalTotalWithVAT,1,2)} + ' руб' ">0.00 руб</p>
+		                        <div class="clearfix"></div>
+		                        <button class="btn c-button likeBtnIncart orderButton" 
+		                            type="subscribe"
+		                            onclick="confirmOrder()">
+		                            <div class="c-ripple js-ripple">
+		                                <span class="c-ripple__circle"></span>
+		                            </div>
+		                            ЗАКАЗ ПОДТВЕРЖДАЮ
+		                        </button>
+		                        <div class="orderingSidebarBottom">
+		                            <p class="orderingSidebarTermsOfUseTitle">Подтверждая заказ, я принимаю условия</p>
+		                            <p class="orderingSidebarTermsOfUse"><a href="/help/contract_offer" target="_blank">пользовательского соглашения</a></p>
+		                        </div>
+		                    </div>
+                    </div>
+                </div>
+                <!-- КОНЕЦ МЕНЮ ЗАКАЗА -->
+            </div>
+            <!-- ЕСЛИ ЗАКАЗ ПУСТ -->
+            <div class="order-holder" th:case="${false}">
+                <h2>Ваш заказ пуст</h2>
+                
+            </div>
+        </div>
+    </div>
+</main>

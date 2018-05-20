@@ -1,0 +1,338 @@
+<div id="cart-added-popup" class="cart-added-popup-content mfp-hide"
+     th:fragment="cart-added-popup" xmlns:th="http://www.thymeleaf.org">
+    <h3>Вы добавили товар в корзину</h3>
+    <div class="cart-popup-products">
+        <p class="cart-popup-sum">Сумма</p>
+        <form action="/">
+            <ul class="cart-popup-products-list">
+                <li>
+                    <a href="#" class="cart-popup-del-prod"></a>
+                    <div class="cart-popup-del-prod-confirm">
+                        <div class="cart-popup-del-prod-confirm__btns">
+                            <a href="#" class="cart-popup-del-prod__bookmark">
+                                <img src="/res/img/cart-bookmark-icon.png" alt="Bookmarks">
+                                <p>Переместить<br>
+                                    в список желаний
+                                </p>
+                            </a>
+                            <a href="#" class="cart-popup-del-prod__remove">
+                                <img src="/res/img/cart-delete-prod-without-icon.png" alt="Remove">
+                                <p>Удалить
+                                    без сохранения</p>
+                            </a>
+                        </div>
+                        <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                    </div>
+                    <div class="cart-popup-product-choosen">
+                        <div class="cart-popup-product-pict">
+                            <img src="/res/img/cart-prod-shadow.png" alt="Product">
+                        </div>
+                        <div class="cart-popup-product-info">
+                            <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                            </a>
+                            <div class="prices-block action">
+                                <ul class="prices-block-list">
+                                    <li class="old-pr">8,50 руб</li>
+                                    <li class="new-pr">
+                                        6,50 руб
+                                    </li>
+                                </ul>
+                                <div class="bon-pr">
+                                    <a href="#" class="bonuses">+11 бонусов</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-popup-products-item-right">
+                        <div class="cart-popup-product__number">
+                            <div class="dec">-</div>
+                            <input type="text" name="french-hens" class="inde" value="3">
+                            <div class="inc">+</div>
+                        </div>
+                        <div class="cart-product-total-price">
+                            <div class="cart-product-total-price__old">
+                                850 руб
+                            </div>
+                            <div class="cart-product-total-price__new">
+                                799 руб
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" class="cart-popup-del-prod"></a>
+                    <div class="cart-popup-del-prod-confirm">
+                        <div class="cart-popup-del-prod-confirm__btns">
+                            <a href="#" class="cart-popup-del-prod__bookmark">
+                                <img src="/res/img/cart-bookmark-icon.png" alt="Bookmarks">
+                                <p>Переместить<br>
+                                    в список желаний
+                                </p>
+                            </a>
+                            <a href="#" class="cart-popup-del-prod__remove">
+                                <img src="/res/img/cart-delete-prod-without-icon.png" alt="Remove">
+                                <p>Удалить
+                                    без сохранения</p>
+                            </a>
+                        </div>
+                        <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                    </div>
+                    <div class="cart-popup-product-choosen">
+                        <div class="cart-popup-product-pict">
+                            <img src="/res/img/cart-prod-shadow.png" alt="Product">
+                        </div>
+                        <div class="cart-popup-product-info">
+                            <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                            </a>
+                            <div class="prices-block action">
+                                <ul class="prices-block-list">
+                                    <li class="old-pr">8,50 руб</li>
+                                    <li class="new-pr">
+                                        6,50 руб
+                                    </li>
+                                </ul>
+                                <div class="bon-pr">
+                                    <a href="#" class="bonuses">+11 бонусов</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-popup-products-item-right">
+                        <div class="cart-popup-product__number">
+                            <div class="dec">-</div>
+                            <input type="text" name="french-hens" class="inde" value="3">
+                            <div class="inc">+</div>
+                        </div>
+                        <div class="cart-product-total-price">
+                            <div class="cart-product-total-price__old">
+                                850 руб
+                            </div>
+                            <div class="cart-product-total-price__new">
+                                799 руб
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="another-products-in-cart">
+                    <h4>Другие товары в корзине</h4>
+                    <div class="action-sugg">
+                        <ul class="cart-popup-products-list">
+                            <span class="action-sugg-title">Акционное предложение</span>
+                            <li>
+                                <a href="#" class="cart-popup-del-prod"></a>
+                                <div class="cart-popup-del-prod-confirm">
+                                    <div class="cart-popup-del-prod-confirm__btns">
+                                        <a href="#" class="cart-popup-del-prod__bookmark">
+                                            <img src="/res/img/cart-bookmark-icon.png" alt="Bookmarks">
+                                            <p>Переместить<br>
+                                                в список желаний
+                                            </p>
+                                        </a>
+                                        <a href="#" class="cart-popup-del-prod__remove">
+                                            <img src="/res/img/cart-delete-prod-without-icon.png" alt="Remove">
+                                            <p>Удалить
+                                                без сохранения</p>
+                                        </a>
+                                    </div>
+                                    <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                                </div>
+                                <div class="cart-popup-product-choosen">
+                                    <div class="cart-popup-product-pict">
+                                        <img src="/res/img/cart-prod-shadow.png" alt="Product">
+                                    </div>
+                                    <div class="cart-popup-product-info">
+                                        <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                                        </a>
+                                        <div class="prices-block action">
+                                            <ul class="prices-block-list">
+                                                <li class="old-pr">8,50 руб</li>
+                                                <li class="new-pr">
+                                                    6,50 руб
+                                                </li>
+                                            </ul>
+                                            <div class="bon-pr">
+                                                <a href="#" class="bonuses">+11 бонусов</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cart-popup-products-item-right">
+                                    <div class="cart-product-total-price">
+                                        <div class="cart-product-total-price__old">
+                                            850 руб
+                                        </div>
+                                        <div class="cart-product-total-price__new">
+                                            799 руб
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#" class="cart-popup-del-prod"></a>
+                                <div class="cart-popup-del-prod-confirm">
+                                    <div class="cart-popup-del-prod-confirm__btns">
+                                        <a href="#" class="cart-popup-del-prod__bookmark">
+                                            <img src="/res/img/cart-bookmark-icon.png" alt="Bookmarks">
+                                            <p>Переместить<br>
+                                                в список желаний
+                                            </p>
+                                        </a>
+                                        <a href="#" class="cart-popup-del-prod__remove">
+                                            <img src="/res/img/cart-delete-prod-without-icon.png" alt="Remove">
+                                            <p>Удалить
+                                                без сохранения</p>
+                                        </a>
+                                    </div>
+                                    <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                                </div>
+                                <div class="cart-popup-product-choosen">
+                                    <div class="cart-popup-product-pict">
+                                        <img src="/res/img/cart-prod-shadow.png" alt="Product">
+                                    </div>
+                                    <div class="cart-popup-product-info">
+                                        <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                                        </a>
+                                        <div class="prices-block action">
+                                            <ul class="prices-block-list">
+                                                <li class="old-pr">8,50 руб</li>
+                                                <li class="new-pr">
+                                                    6,50 руб
+                                                </li>
+                                            </ul>
+                                            <div class="bon-pr">
+                                                <a href="#" class="bonuses">+11 бонусов</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cart-popup-products-item-right">
+                                    <div class="cart-product-total-price">
+                                        <div class="cart-product-total-price__old">
+                                            850 руб
+                                        </div>
+                                        <div class="cart-product-total-price__new">
+                                            799 руб
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="action-sugg-total">
+                            <p>Стоимость этого комплекта</p>
+                            <div class="action-sugg-total-right">
+                                <div class="cart-popup-product__number">
+                                    <div class="dec">-</div>
+                                    <input type="text" name="french-hens" class="inde" value="3">
+                                    <div class="inc">+</div>
+                                </div>
+                                <div class="action-sugg-total-price">
+                                    1682 руб
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" class="cart-popup-del-prod"></a>
+                    <div class="cart-popup-del-prod-confirm">
+                        <div class="cart-popup-del-prod-confirm__btns">
+                            <a href="#" class="cart-popup-del-prod__bookmark">
+                                <img src="/res/img/cart-bookmark-icon.png" alt="Bookmarks">
+                                <p>Переместить <br>
+                                    в список желаний
+                                </p>
+                            </a>
+                            <a href="#" class="cart-popup-del-prod__remove">
+                                <img src="/res/img/cart-delete-prod-without-icon.png" alt="Remove">
+                                <p>Удалить
+                                    без сохранения</p>
+                            </a>
+                        </div>
+                        <a href="#" class="cart-popup-del__cancel">Отмена</a>
+                    </div>
+                    <div class="cart-popup-product-choosen">
+                        <div class="cart-popup-product-pict">
+                            <img src="/res/img/cart-prod-shadow.png" alt="Product">
+                        </div>
+                        <div class="cart-popup-product-info">
+                            <a href="#"><span>Бумага офисная Mondi Color Copy А3 250 г/м2 класс
+                                A+ 125 листов Белая</span>
+                            </a>
+                            <div class="prices-block action">
+                                <ul class="prices-block-list">
+                                    <li class="old-pr">8,50 руб</li>
+                                    <li class="new-pr">
+                                        6,50 руб
+                                    </li>
+                                </ul>
+                                <div class="bon-pr">
+                                    <a href="#" class="bonuses">+11 бонусов</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-popup-products-item-right">
+                        <div class="cart-popup-product__number">
+                            <div class="dec">-</div>
+                            <input type="text" name="french-hens" class="inde" value="3">
+                            <div class="inc">+</div>
+                        </div>
+                        <div class="cart-product-total-price">
+                            <div class="cart-product-total-price__old">
+                                850 руб
+                            </div>
+                            <div class="cart-product-total-price__new">
+                                799 руб
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="cart-popup-products-total-price">
+                <div>
+                    <div class="total">
+                        <p>Итого:</p>
+                        <span>352 руб</span>
+                    </div>
+                    <div class="total-bonus-for-buying">
+                        За эту покупку будет начислено - <span>173 бонуса</span>
+                    </div>
+                </div>
+                <button class="cart-popup-form-order c-button" type="subscribe">
+                    <div class="c-ripple js-ripple">
+                        <span class="c-ripple__circle"></span>
+                    </div>
+                    МОЯ КОРЗИНА
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="cart-popup-continue-shopping">
+        <a href="#" class="cart-popup-continue-shopping__link c-button">
+            <div class="c-ripple js-ripple">
+                <span class="c-ripple__circle"></span>
+            </div>
+            Продолжить покупку
+        </a>
+        <form action="">
+            <input type="text" placeholder="Код купона / промо слово" />
+            <button class="c-button" type="subscribe">
+                <div class="c-ripple js-ripple">
+                    <span class="c-ripple__circle"></span>
+                </div>
+                применить
+            </button>
+        </form>
+        <div class="cart-popup-continue-shopping__links">
+            <a href="#" class="how-to-get-disc">Как получить скидку?</a>
+            <a href="#" class="disc-rules">Правила применения скидок</a>
+        </div>
+    </div>
+    <div class="cart-added-popup-together-cheaper">
+
+    </div>
+</div>

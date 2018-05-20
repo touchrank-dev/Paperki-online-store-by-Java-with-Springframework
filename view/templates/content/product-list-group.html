@@ -1,0 +1,231 @@
+<main id="wrapp" th:fragment="product-list-group" xmlns:th="http://www.thymeleaf.org">
+    <div class="products-list-page">
+        <div class="wrapper">
+            <ul class="breadCrumbs">
+                <li><a href="/">Главная</a></li>
+                <li><a href="/catalog">Каталог</a></li>
+		<li><a href="#" th:href="@{${category.parentLink}}" 
+				  th:text="${category.parentName}">Parent category</a></li>
+                <li th:text="${category?.name}">Название категории</li>
+            </ul>
+            <div class="products-list-page-content">
+                <div class="products-list-page__title">
+                    <h1 th:text="${category?.name}">Название категории</h1>
+                </div>
+                <div class="products-list-page__sort-block">
+                    <select name="sort-by" class="products-list-page__dropdown">
+                        <option value="1" th:selected="${sortedby} == 1">По умолчанию</option>
+                        <option value="2" th:selected="${sortedby} == 2">Сначала популярные</option>
+                        <option value="3" th:selected="${sortedby} == 3">Сначала дешевые</option>
+                        <option value="4" th:selected="${sortedby} == 4">Сначала дорогие</option>
+                    </select>
+                    <div class="sort-block-right"
+                         th:switch="${catview}">
+                        <ul class="product-list-view" th:case="${1}">
+                            <li class="product-list-view-tile active">
+                                <a onclick="seViewType(1)"></a>
+                            </li>
+                            <li class="product-list-view-list ">
+                                <a onclick="seViewType(2)"></a>
+                            </li>
+                            <!-- <li class="product-list-view-grouped">
+                                <a onclick="seViewType(3)"></a>
+                            </li> -->
+                        </ul>
+                        <ul class="product-list-view" th:case="${2}">
+                            <li class="product-list-view-tile">
+                                <a onclick="seViewType(1)"></a>
+                            </li>
+                            <li class="product-list-view-list active">
+                                <a onclick="seViewType(2)"></a>
+                            </li>
+                            <!-- <li class="product-list-view-grouped">
+                                <a onclick="seViewType(3)"></a>
+                            </li> -->
+                        </ul>
+                        <!-- <ul class="product-list-view" th:case="${3}">
+                            <li class="product-list-view-tile">
+                                <a onclick="seViewType(1)"></a>
+                            </li>
+                            <li class="product-list-view-list">
+                                <a onclick="seViewType(2)"></a>
+                            </li>
+                            <li class="product-list-view-grouped active">
+                                <a onclick="seViewType(3)"></a>
+                            </li>
+                        </ul> -->
+                        <form action="" class="sort-block-subscribe">
+                            <!--<input name="your-email" placeholder="Подписаться на новинки раздела" type="email">
+                            <button type="subscribe"></button>-->
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="products-list-page__main-list">
+                    <div class="products-list-page-products-wrap">
+
+
+                        <div class="products-list-page-products grouped-type">
+                            <div class="products-list-page__product-item-wrap"
+                                 th:if="${products} != null"
+                                 th:each="productList : ${products}">
+
+                                <div class="view-product">
+                                    <a href="#" class="link-name-cat" th:text="${productList.key}">ProductGroupName</a>
+                                   <div class="user-gallery__photos__list">
+                                        <div    th:if="${oldImages} != null"
+                                                th:switch="${oldImages[__${productList.value[0].pnt}__]} == null"
+                                                th:remove="tag">
+                                            <img src="/catimagesold/noimage.jpg" alt=""
+                                                 th:case="${true}"
+                                                 th:attr="alt=${productList.key}">
+                                            <a th:case="${false}" th:attr="href=@{'/catimagesold/'+ ${oldImages[__${productList.value[0].pnt}__][0]}},alt=${productList.key}">
+                                                <img src="/res/img/product1.png" alt=""
+                                                 th:attr="src=@{'/catimagesold/'+ ${oldImages[__${productList.value[0].pnt}__][0]}},alt=${productList.key}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="product-types-list">
+                                    <li class="product-types-list-item"
+                                        th:each="product : ${productList.value}">
+                                        <div class="prod-info">
+                                            <div class="prod-info-top">
+                                                <p class="desc-pr" th:text="${product.shortName}">
+                                                    <a href="#"
+                                                       th:href="@{${catalogurl}+${category?.translitName}+'/'+${product.translitName}}"
+                                                       th:text="${product.shortName}">shortName</a>
+                                                </p>
+                                                <div class="prices-block">
+                                                    <span   th:switch="${product.basePrice} > ${product.finalPrice}"
+                                                            th:remove="tag">
+                                                        <ul class="prices-block-list"
+                                                            th:case="${true}">
+                                                            <li class="old-pr" th:text="${#numbers.formatDecimal(product.basePriceWithVAT,1,2)}">0,00 руб</li>
+                                                            <li class="new-pr" th:text="${#numbers.formatDecimal(product.finalPriceWithVAT,1,2)} + ' руб'">0,00 руб</li>
+                                                        </ul>
+                                                        <ul class="prices-block-list"
+                                                            th:case="${false}">
+                                                            <li class="current-pr" th:text="${#numbers.formatDecimal(product.finalPriceWithVAT,1,2)} + ' руб'">0,00 руб</li>
+                                                        </ul>
+                                                    </span>
+                                                    <div class="bon-pr"
+                                                         th:if="${product.prices.size()} > 1">
+                                                        <img src="/res/img/i.png" alt="Информация">
+                                                        <div class="hint">
+                                                            <span class="glyphicon glyphicon-triangle-top hint-arrow"></span>
+                                                            <h5>Цена зависит от<br>количества!</h5>
+                                                            <div>
+                                                                <span th:each="price : ${product?.prices}" th:remove="tag">
+                                                                    <p th:text="'от '+${price?.key}+' ед. :'">от 1 ед. :</p>
+                                                                    <p th:text="${#numbers.formatDecimal(price?.value?.basePriceWithVAT,1,2)} +' руб.'">0,00 руб</p>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btns" style="position: relative;">
+                                            <div class="cart-add-loader">
+                                                <div class="loader"></div>
+                                            </div>
+                                            <div class="product-add-popup-confirm">
+                                                <div class="textarea">
+
+                                                </div>
+                                                <a class="cart-popup-del__cancel confirm" style="cursor: pointer;">Добавить</a>
+                                                <a class="cart-popup-del__cancel" style="cursor: pointer;">Отмена</a>
+                                            </div>
+                                            <ul class="list-bt">
+                                                <li class="add-btn">
+                                                    <a href="#" class="btn c-button btn-to-cart" title="В корзину">
+                                                        <div class="c-ripple js-ripple">
+                                                            <span class="c-ripple__circle"></span>
+                                                        </div>
+                                                        <img src="/res/img/cart-icon.png" alt="Cart">
+                                                    </a>
+                                                    <div class="add-area">
+                                                        <ul class="list-bt">
+                                                            <li th:switch="${product.availableDay} > 0">
+                                                                <a class="btn c-button btn-in-cart"
+                                                                   th:case="${false}"
+                                                                   th:attr="onclick='addToCart('+${product.pnt}+')'">
+                                                                    <div class="c-ripple js-ripple">
+                                                                        <span class="c-ripple__circle"></span>
+                                                                    </div>
+                                                                    в корзину
+                                                                </a>
+                                                                <a href="#" class="btn c-button btn-ord" title="Под заказ"
+                                                                   th:case="${true}"
+                                                                   th:attr="onclick='addToCart('+${product.pnt}+')'">
+                                                                    <div class="c-ripple js-ripple">
+                                                                        <span class="c-ripple__circle"></span>
+                                                                    </div>
+                                                                    под заказ
+                                                                </a>
+                                                            </li>
+                                                            <li style="margin: 0px;">
+                                                                <div class="quantity-manage">
+                                                                    <div class="dec">-</div>
+                                                                    <input id="null" name="french-hens" class="inde" value="1" type="text"
+                                                                           th:attr="id=${product?.pnt}">
+                                                                    <div class="inc">+</div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li th:attr="id='in-cart-item-'+${product.pnt}">
+                                                    <div th:if="${cart.items[__${product.pnt}__]} != null" th:remove="tag">
+                                                        <div class="cart-is-added"
+                                                             th:if="${cart.items[__${product.pnt}__].quantity} > 0">
+                                                            <div class="cart-is-added__pict">
+                                                                <img src="/res/img/cart-is-added.png" alt="added to cart">
+                                                            </div>
+                                                            <div class="cart-is-added__number">
+                                                                <p><span th:text="${cart.items[__${product.pnt}__].quantity}">0</span> ед.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a class="btn c-button btn-bookmark bnt-ic" title="Добавить в закладки"
+                                                       th:attr="onclick='toFavorites('+${product.pnt}+')'">
+                                                        <div class="c-ripple js-ripple">
+                                                            <span class="c-ripple__circle"></span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <aside class="products-list-page__filter">
+                        <div class="filter-form">
+                            <form action="">
+                                <div class="filter-list filter-block">
+                                    <p>Функция фильтрации по параметрам находится в разработке</p>
+                                </div>
+                            </form>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="mobile-filter-button" title="Открыть фильтр">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-15 -15 125 120" version="1.1" x="0px" y="0px">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g fill="#bfbfbf"><path d="M27,24.9472656 L27,17 C27,15.6192881 25.8807119,14.5 24.5,14.5 C23.1192881,14.5 22,15.6192881 22,17 L22,25.1728516 M22,42.1630859 L22,79 L22,79 C22,80.3807119 23.1192881,81.5 24.5,81.5 C25.8807119,81.5 27,80.3807119 27,79 L27,42.0947266"/>
+                    <path d="M35.9545455,33.46875 C35.9545455,27.2722584 30.9273777,22.25 24.7272727,22.25 C18.5271677,22.25 13.5,27.2722584 13.5,33.46875 C13.5,39.6652416 18.5271677,44.6875 24.7272727,44.6875 C30.9273777,44.6875 35.9545455,39.6652416 35.9545455,33.46875 Z M18.5,33.46875 C18.5,30.0347763 21.2874985,27.25 24.7272727,27.25 C28.167047,27.25 30.9545455,30.0347763 30.9545455,33.46875 C30.9545455,36.9027237 28.167047,39.6875 24.7272727,39.6875 C21.2874985,39.6875 18.5,36.9027237 18.5,33.46875 Z"/><path d="M74,24.9472656 L74,17 C74,15.6192881 72.8807119,14.5 71.5,14.5 C70.1192881,14.5 69,15.6192881 69,17 L69,25.1728516 M69,42.1630859 L69,79 L69,79 C69,80.3807119 70.1192881,81.5 71.5,81.5 C72.8807119,81.5 74,80.3807119 74,79 L74,42.0947266"/><path d="M82.9545455,33.46875 C82.9545455,27.2722584 77.9273777,22.25 71.7272727,22.25 C65.5271677,22.25 60.5,27.2722584 60.5,33.46875 C60.5,39.6652416 65.5271677,44.6875 71.7272727,44.6875 C77.9273777,44.6875 82.9545455,39.6652416 82.9545455,33.46875 Z M65.5,33.46875 C65.5,30.0347763 68.2874985,27.25 71.7272727,27.25 C75.167047,27.25 77.9545455,30.0347763 77.9545455,33.46875 C77.9545455,36.9027237 75.167047,39.6875 71.7272727,39.6875 C68.2874985,39.6875 65.5,36.9027237 65.5,33.46875 Z"/><path d="M51,24.9472656 L51,17 C51,15.6192881 49.8807119,14.5 48.5,14.5 C47.1192881,14.5 46,15.6192881 46,17 L46,25.1728516 M46,42.1630859 L46,79 L46,79 C46,80.3807119 47.1192881,81.5 48.5,81.5 C49.8807119,81.5 51,80.3807119 51,79 L51,42.0947266" transform="translate(48.500000, 48.000000) rotate(-180.000000) translate(-48.500000, -48.000000) "/><path d="M59.5,62.53125 C59.5,56.3347584 54.4728323,51.3125 48.2727273,51.3125 C42.0726223,51.3125 37.0454545,56.3347584 37.0454545,62.53125 C37.0454545,68.7277416 42.0726223,73.75 48.2727273,73.75 C54.4728323,73.75 59.5,68.7277416 59.5,62.53125 Z M42.0454545,62.53125 C42.0454545,59.0972763 44.832953,56.3125 48.2727273,56.3125 C51.7125015,56.3125 54.5,59.0972763 54.5,62.53125 C54.5,65.9652237 51.7125015,68.75 48.2727273,68.75 C44.832953,68.75 42.0454545,65.9652237 42.0454545,62.53125 Z" transform="translate(48.272727, 62.531250) rotate(-180.000000) translate(-48.272727, -62.531250) "/>
+                </g>
+            </g>
+        </svg>
+        Открыть фильтр
+    </a>
+</main>

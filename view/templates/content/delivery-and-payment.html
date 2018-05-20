@@ -1,0 +1,88 @@
+<main id="wrapp" th:fragment="delivery-and-payment" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="wrapper">
+        <ul class="breadCrumbs">
+            <li><a href="/">Главная</a></li>
+            <li>Доставка и оплата</li>
+        </ul>
+        <aside class="blogSidebarGroup typicalAside">
+            <ul class="blogCategoryList blogCategoryListWithOutTitle">
+                <li th:each="menuitem : ${mainmenu}">
+                    <a href="#" th:href="@{${menuitem.link}}">
+                        <img src="/res/img/slider-arrow-left.png">
+                        <span th:text="${menuitem.name}" th:remove="tag">О компании</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <section class="typicalSection">
+            <div class="blogPreviewHolder delivAndPaym">
+                <div class="delivAndPaym-block delivAndPaym-contactInfo">
+                    <h1 class="typicalH1">Доставка и оплата</h1>
+                    <p>При оформлении заказа онлайн или по телефону: <a href="tel:+375297156060"><span class="strongInfo">+375(29) 715-60-60</span></a> в нашем интернет-магазине вы всегда можете заказать доставку товара на дом или в офис ежедневно с 8.30 до 17.00.</p>
+                    <h4 class="delivAndPaym-SubTitle">Условия:</h4>
+                    <ul class="delivAndPaym-list">
+                        <li><span class="strongInfo">Для физических лиц по г. Бресту:</span> <br/>- Бесплатная доставка осуществляется при заказе на сумму от 30,00 руб.<br/> - При заказе на сумму меньше 30,00 руб., доставка платная - 5,00 руб. </li>
+                        <li><span class="strongInfo">Для юридических лиц по г. Бресту - БЕСПЛАТНО:</p></span>
+																										- Минимальная сумма заказа - 10,00 руб.</p>
+																										- Заказы на сумму от 10,00 до 50,00 руб. доставляются в течении 3 рабочих дней с момента оплаты.</p>
+																										- Заказы свыше 50,00 руб., оформленные до 16:00, доставляются на следующий рабочий день.</p></li>
+                        <!--<li><span class="strongInfo">Cрочная доставка</span> (в течение 1–2 ч.) — от 890 р. <a href="#" class="delivAndPaym-link">Подробнее</a></li>-->
+                    </ul>
+                    <p>Оформив доставку, Вы можете отслеживать статус своего заказа самостоятельно в <a href="#" class="delivAndPaym-linkBold">личном кабинете</a>. Также Вы всегда можете уточнить статус выполнения заказа у оператора интернет-магазина по телефону: </p>
+                    <a href="tel:+375297156060"><h4 class="delivAndPaym-SubTitle">+375(29) 715-60-60 </h4></a>
+					<p>Заказы доставляются: Понедельник - пятница, в интервале с 8:30 до 17:00.</p>
+				</div>
+                <div class="delivAndPaym-block delivAndPaym-blockDelivery postSectionBT">
+                    <h4 class="delivAndPaym-SubTitle">Самовывоз со склада в г. Бресте</h4>
+                    <p>Самостоятельно забрать товар можно по адресу: г. Брест, ул. Янки Купалы, 88 В, с понедельника по пятницу с 8:30 до 17:00 без обеда.</p>
+                    <!--<ul class="delivAndPaym-list">
+                        <li><span class="strongInfo">Малогабаритный и среднегабаритный товар </span>— 400 р.</li>
+                    </ul>
+                    <p>Возможность осуществления данной услуги зависит от загруженности курьерской службы на момент заказа</p>-->
+                </div>
+                <div class="delivAndPaym-block delivAndPaym-blockPayment postSectionBT">
+                    <h2 class="typicalH1">Как оплатить</h2>
+                    <p>Вы можете оплатить покупку следующими способами.</p>
+                    <ul class="delivAndPaym-paymentList">
+                        <li>
+                            <a class="delivAndPaym-linkBold-holder" href="#"><img src="/res/img/icons/uponReceipt.min.svg">
+                                <span class="delivAndPaym-linkBold">БЕЗНАЛИЧНЫЙ РАСЧЕТ</span></a>. <p>После подтверждения заказа менеджером, вы получаете Счет-фактуру на оплату заказа.</p>
+																									Оплата производится путем безналичного перечисления на наш расчетный счет.
+
+                        </li>
+                        <li>
+                            <a class="delivAndPaym-linkBold-holder" href="#"><img src="/res/img/icons/online.min.svg">
+                                <span class="delivAndPaym-linkBold">НАЛИЧНЫЙ РАСЧЕТ ДЛЯ ФИЗИЧЕСКИХ ЛИЦ</span></a>.<p>Оплата наличными или пластиковой картой в момент получения заказа после проверки комплектности и качества товаров.</p>
+																									Вид документа подтверждающего оплату: кассовый чек. 
+																									
+
+                        </li>
+                        <li>
+                            <a class="delivAndPaym-linkBold-holder" href="#"><img src="/res/img/icons/onCredit.min.svg">
+                                <span class="delivAndPaym-linkBold">ЧЕРЕЗ СИСТЕМУ РАСЧЕТ «ЕРИП» ДЛЯ ФИЗИЧЕСКИХ ЛИЦ</span></a>. <p>Оплатить товары интернет-магазин paperki.by Вы можете через систему ”Расчет“ (ЕРИП), в любом удобном для Вас месте, в удобное для Вас время, в удобном для Вас пункте банковского обслуживания – интернет-банке, с помощью мобильного банкинга, инфокиоске, кассе банков, банкомате и т.д.</p>
+																												<p>Совершить оплату можно с использованием наличных денежных средств, электронных денег и банковских платежных карточек в пунктах банковского обслуживания банков, которые оказывают услуги по приему платежей, а также посредством инструментов дистанционного банковского обслуживания.</p>
+																												<h2>ДЛЯ ПРОВЕДЕНИЯ ПЛАТЕЖА НЕОБХОДИМО:</h2>
+																												<p>1. Выбрать последовательно пункты: - Система "Расчет" (ЕРИП) - Интернет-магазины/сервисы - P - Paperki.by</p>
+																												<p>2. Для оплаты "Товара" ввести Номер заказа.</p>
+																												<p>3. Ввести сумму платежа (если не указана).</p>
+																												<p>4. Проверить корректность информации</p>
+																												<p>5. Совершить платеж.</p>
+																												<p>Если Вы осуществляете платеж в кассе банка, пожалуйста, сообщите кассиру о необходимости проведения платежа через систему ”Расчет“ (ЕРИП). Техническое взаимодействие с системой "Расчет" (ЕРИП) осуществляется с помощью сервиса «Экспресс Платежи» (<a href="https://express-pay.by/" class="delivAndPaym-linkBold">https://express-pay.by/</a>).</p>
+														
+
+
+                        </li>
+                       <!--<li>
+                            <a class="delivAndPaym-linkBold-holder" href="#"><img src="/res/img/icons/pap.min.svg">
+                                <span class="delivAndPaym-linkBold">Бонусными баллами (PAP-бонусами)</span></a>. Получайте в рамках акций бонусы за покупки в Юлмарте и оплачивайте ими последующие покупки.
+                        </li>
+                        <li>
+                            <a class="delivAndPaym-linkBold-holder" href="#"><img src="/res/img/icons/gift.min.svg">
+                                <span class="delivAndPaym-linkBold">Подарочными сертификатами ПАПЕРКИ</span></a>. Активируйте сертификат и расплачивайтесь за покупки.
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
