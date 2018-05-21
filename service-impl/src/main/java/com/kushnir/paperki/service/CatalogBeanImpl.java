@@ -127,73 +127,63 @@ public class CatalogBeanImpl implements CatalogBean {
     }
 
     @Override
-    public String updateCatalog() throws ServiceException, IOException {
+    public String updateCatalog() {
         LOGGER.debug("updateCatalog() START PROCESS >>>");
         StringBuilder sb = new StringBuilder();
-        Integer countToAdd = 0, countAdded = 0;
+        int countToAdd = 0, countAdded = 0;
+
+        List<Category> updCat = new ArrayList<>();
 
         try {
 
-            CategoryContainer CSVCategories = getCategoriesFromCSVToContainer(sb);
-            Assert.notNull(CSVCategories, "CSVCategories = null");
-            CategoryContainer categories = getCategoriesToContainer();
-            Assert.notNull(categories, "categories = null");
+            HashMap<Integer, Category> CSVCategories = catalogDao.getAllCSVCategories(sb);
+            Assert.notEmpty(CSVCategories, "CSVCategories is empty");
 
-            List<Category> updCat = new ArrayList<>();
+            HashMap<Integer, Category> categories = catalogDao.getAllCategories();
+            Assert.notEmpty(categories, "categories is empty");
 
-            /* ========== PARENTS =============================================================*/
-            for (Map.Entry<Integer, Category> entry : CSVCategories.getParents().entrySet()) {
+            for (Map.Entry<Integer, Category> entry : CSVCategories.entrySet()) {
                 try {
-                    Category CSVParentCategory = entry.getValue();
-                    Assert.notNull(CSVParentCategory, "CSVParentCategory = null");
-                    String translitName = Transliterator.cyr2lat(CSVParentCategory.getName());
-                    CSVParentCategory.setTranslitName(translitName);
-                    validateCategory(CSVParentCategory);
+                    Category CSVCategory = entry.getValue();
+                    Assert.notNull(CSVCategory, "CSVCategory is null");
+                    String translitName = Transliterator.cyr2lat(CSVCategory.getName());
+                    CSVCategory.setTranslitName(translitName);
+                    CSVCategory.setLink(new StringBuilder()
+                            .append(catalogURL)
+                            .append(translitName).toString());
+                    validateCategory(CSVCategory);
 
-                    for(Map.Entry<Integer, Category> catEntry : categories.getParents().entrySet()) {
-                        Category category = catEntry.getValue();
+                    Category category = categories.get(CSVCategory.getPapId());
 
-                        Integer catPapId = category.getPapId();
+                    if (category != null) {
+                        // update category
+                        CSVCategory.setId(category.getId());
 
-                        if(catPapId != null && !catPapId.equals(0)) {
-                            if (CSVParentCategory.getPapId().equals(catPapId)) {
-                                CSVParentCategory.setId(category.getId());
-                                CSVParentCategory.setLink(new StringBuilder()
-                                        .append(catalogURL)
-                                        /*.append(category.getId())
-                                        .append("-")*/
-                                        .append(translitName).toString());
-                                updCat.add(CSVParentCategory);
-                                break;
-                            }
-                        } else if (category.getTranslitName() != null){
-                            if (CSVParentCategory.getTranslitName().equals(category.getTranslitName())) {
-                                CSVParentCategory.setId(category.getId());
-                                CSVParentCategory.setLink(new StringBuilder()
-                                        .append(catalogURL)
-                                        /*.append(category.getId())
-                                        .append("-")*/
-                                        .append(translitName).toString());
-                                updCat.add(CSVParentCategory);
-                                break;
-                            }
-                        }
-                    }
+                        setParentCategory(CSVCategory, categories);
+                        updCat.add(CSVCategory);
 
-                    if (CSVParentCategory.getId() == null) {
+                    } else {
+                        // add new category
+                        CSVCategory.setLink(new StringBuilder()
+                                .append(catalogURL)
+                                .append(translitName).toString());
+
+                        setParentCategory(CSVCategory, categories);
+
                         try {
-                            countToAdd ++;
-                            CSVParentCategory.setLink(catalogURL+translitName);
-                            int id = addCategory(CSVParentCategory);
+                            countToAdd++;
+                            int id = addCategory(CSVCategory);
                             if (id > 0) {
-                                CSVParentCategory.setId(id);
-                                addRefCategory(CSVParentCategory);
+                                CSVCategory.setId(id);
+                                addRefCategory(CSVCategory);
                                 countAdded++;
                             }
                         } catch (DuplicateKeyException e) {
-                            LOGGER.error("ERROR >>> {}", "Вероятно категория '"+CSVParentCategory.getName()+"' уже существует");
+                            LOGGER.error("ERROR >>> {}", "Вероятно категория '"+CSVCategory.getName()+"' уже существует");
                             sb.append("ERROR >>> ")
-                                    .append("Вероятно категория '"+CSVParentCategory.getName()+"' уже существует")
+                                    .append("Вероятно категория '")
+                                    .append(CSVCategory.getName())
+                                    .append("' уже существует")
                                     .append('\n');
                         } catch (Exception e) {
                             LOGGER.error("ERROR >>> Непредвиденная ошибка добавления категории: {}", e.getMessage());
@@ -205,90 +195,15 @@ public class CatalogBeanImpl implements CatalogBean {
                     LOGGER.error("ERROR >>> {}", e.getMessage());
                     sb.append("ERROR >>> ").append(e).append(" >>> ").append(e.getMessage()).append('\n');
                 }
-            }
 
-            /* ========== CHILDREN =============================================================*/
-            for (Map.Entry<Integer, Category> entry : CSVCategories.getChildren().entrySet()) {
-                try {
-                    Category CSVChildCategory = entry.getValue();
-                    Assert.notNull(CSVChildCategory, "CSVChildCategory = null");
-                    String translitName = Transliterator.cyr2lat(CSVChildCategory.getName());
-                    CSVChildCategory.setTranslitName(translitName);
-                    validateCategory(CSVChildCategory);
-
-                    Integer parentPapId = CSVChildCategory.getParent();
-                    if (parentPapId != null && parentPapId > 0) {
-                        Category parent = CSVCategories.getParents().get(parentPapId);
-                        if (parent != null) {
-                            Integer parentId = parent.getId();
-                            if (parentId != null && parentId > 0) {
-                                CSVChildCategory.setParent(parentId);
-                            }
-                        }
-                    }
-
-                    for(Map.Entry<Integer, Category> catEntry : categories.getChildren().entrySet()) {
-                        Category category = catEntry.getValue();
-
-                        Integer catPapId = category.getPapId();
-
-                        if(catPapId != null && !catPapId.equals(0)) {
-                            if (CSVChildCategory.getPapId().equals(catPapId)) {
-                                CSVChildCategory.setId(category.getId());
-                                CSVChildCategory.setLink(new StringBuilder()
-                                        .append(catalogURL)
-                                        /*.append(category.getId())
-                                        .append("-")*/
-                                        .append(translitName).toString());
-                                updCat.add(CSVChildCategory);
-                                break;
-                            }
-                        } else if (category.getTranslitName() != null){
-                            if (CSVChildCategory.getTranslitName().equals(category.getTranslitName())) {
-                                CSVChildCategory.setId(category.getId());
-                                CSVChildCategory.setLink(new StringBuilder()
-                                        .append(catalogURL)
-                                        /*.append(category.getId())
-                                        .append("-")*/
-                                        .append(translitName).toString());
-                                updCat.add(CSVChildCategory);
-                                break;
-                            }
-                        }
-                    }
-
-                    if (CSVChildCategory.getId() == null) {
-                        try {
-                            countToAdd ++;
-                            CSVChildCategory.setLink(catalogURL+translitName);
-                            int id = addCategory(CSVChildCategory);
-                            if (id > 0) {
-                                CSVChildCategory.setId(id);
-                                addRefCategory(CSVChildCategory);
-                                countAdded ++;
-                            }
-                        } catch (DuplicateKeyException e) {
-                            LOGGER.error("ERROR >>> {}", "Вероятно категория '"+CSVChildCategory.getName()+"' уже существует");
-                            sb.append("ERROR >>> ")
-                                    .append("Вероятно категория '"+CSVChildCategory.getName()+"' уже существует")
-                                    .append('\n');
-                        } catch (Exception e) {
-                            LOGGER.error("ERROR >>> Непредвиденная ошибка добавления категории: {}", e.getMessage());
-                            sb.append("ERROR >>> Непредвиденная ошибка добавления категории: ").append(e.getMessage()).append('\n');
-                        }
-                    }
-
-                } catch (Exception e) {
-                    LOGGER.error("ERROR >>> {}", e.getMessage());
-                    sb.append("ERROR >>> ").append(e).append(" >>> ").append(e.getMessage()).append('\n');
-                }
             }
 
             /* ========== UPDATE ALL ==========================================================*/
-            if (!updCat.isEmpty() && updCat.size() > 0) {
+            if (!updCat.isEmpty()) {
                 sb.append(updateCategories(updCat.toArray())).append('\n');
                 sb.append(updateCategoriesRef(updCat.toArray())).append('\n');
             }
+
             if (countToAdd > 0) sb.append("NEW ADDED: ").append(countToAdd).append("/").append(countAdded).append('\n');
 
             sb.append("========== UPDATE FINISHED ==========");
@@ -302,17 +217,15 @@ public class CatalogBeanImpl implements CatalogBean {
         return sb.toString();
     }
 
-
-    @Override
-    public CategoryContainer getCategoriesFromCSVToContainer(StringBuilder sb) throws IOException {
-        LOGGER.debug("getCategoriesFromCSVToContainer() >>>");
-        return catalogDao.getCategoriesFromCSVToContainer(sb);
-    }
-
-    @Override
-    public CategoryContainer getCategoriesToContainer() {
-        LOGGER.debug("getCategoriesToContainer() >>>");
-        return catalogDao.getCategoriesToContainer();
+    private void setParentCategory(Category category, HashMap<Integer, Category> categories) {
+        Integer parentPapId = category.getParentPapId();
+        if (parentPapId != 0) {
+            Category parentCategory = categories.get(parentPapId);
+            Assert.notNull(parentCategory, "parentCategory doesn't exists");
+            category.setParent(parentCategory.getId());
+        } else {
+            category.setParent(parentPapId);
+        }
     }
 
     @Override

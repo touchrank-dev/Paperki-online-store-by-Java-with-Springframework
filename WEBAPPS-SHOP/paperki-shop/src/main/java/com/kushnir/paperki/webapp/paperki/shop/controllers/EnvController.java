@@ -35,10 +35,4 @@ public class EnvController {
     @ModelAttribute("sysProperties")
     public Properties properties () {return System.getProperties();}
 
-    @ModelAttribute("CSVcategories")
-    public CategoryContainer categories() throws IOException {
-        return catalogBean.getCategoriesFromCSVToContainer(new StringBuilder());
-    }
-
-
 }

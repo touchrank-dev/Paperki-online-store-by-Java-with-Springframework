@@ -106,6 +106,10 @@ public class CatalogDaoImpl implements CatalogDao {
         return getAllOld();
     }
 
+    public HashMap<Integer, Category> getAllCategories() {
+        return jdbcTemplate.query(getAllSqlQuery, new AllCategoriesResultSetExtractor());
+    }
+
     private HashMap<Integer, HashMap<Integer, Category>> getAllOld() throws DataAccessException {
         HashMap<Integer, HashMap<Integer, Category>> categories =
                 jdbcTemplate.query(getAllByStockSqlQuery, new CategoryResultSetExtractor());
@@ -136,15 +140,13 @@ public class CatalogDaoImpl implements CatalogDao {
     }
 
     @Override
-    public CategoryContainer getCategoriesFromCSVToContainer(StringBuilder sb) throws IOException, DataAccessException {
+    public HashMap<Integer, Category> getAllCSVCategories(StringBuilder sb) throws IOException, DataAccessException {
         String file = csvFilesPath + csvFileCatalog;
         sb.append("Starting retrieve data from CSV file: ").append(file).append('\n')
                 .append(">>> PROGRESS ...").append('\n');
         LOGGER.debug("Starting retrieve data from CSV file: {}\n>>> PROGRESS ...", file);
 
-        CategoryContainer cats = new CategoryContainer();
-        HashMap<Integer, Category> parents = cats.getParents();
-        HashMap<Integer, Category> children = cats.getChildren();
+        HashMap<Integer, Category> categories = new HashMap<>();
 
         try {
             Iterable<CSVRecord> records =
@@ -163,33 +165,26 @@ public class CatalogDaoImpl implements CatalogDao {
                     String metakey =            record.get(3);
                     String customtitle =        record.get(4);
                     Integer order =             Integer.parseInt(record.get(5));
-                    Integer parent =            Integer.parseInt(record.get(6));
+                    Integer parentPapId =       Integer.parseInt(record.get(6));
                     String shortDescription =   record.get(7);
                     String fullDescription =    record.get(8);
 
-                    Category category = new Category(
+                    categories.put(papId, new Category(
                             papId,
                             name,
                             metadesc.equals("metadesk")? null:metadesc,
                             metakey.equals("metakey")? null:metakey,
                             customtitle.equals("customtitle")? null:customtitle,
                             order,
-                            parent,
+                            parentPapId,
                             shortDescription,
                             fullDescription
-                    );
-
-                    if (parent.equals(0)) {
-                        parents.put(papId, category);
-                    } else {
-                        children.put(papId, category);
-                    }
+                    ));
 
                 } catch (Exception e) {
                     sb.append("ERROR >>> row: ")
                             .append(record.getRecordNumber()+1).append(", MESSAGE: ").append(e.getMessage()).append('\n');
                     LOGGER.error("ERROR >>> row: {} {}", record.getRecordNumber(), e.getMessage());
-                    continue;
                 }
             }
         } catch (FileNotFoundException e) {
@@ -198,20 +193,14 @@ public class CatalogDaoImpl implements CatalogDao {
             return null;
         }
         LOGGER.debug(">>> FINISH");
-        return cats;
+
+        return categories;
     }
 
     private String normalizeName(String name) {
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
-    @Override
-    public CategoryContainer getCategoriesToContainer() {
-        LOGGER.debug("getCategoriesToContainer() >>>");
-        CategoryContainer cats =
-                (CategoryContainer)jdbcTemplate.query(getAllSqlQuery, new CategoryContainerResultExtractor());
-        return cats;
-    }
 
     @Override
     public int[] addCategories(Object[] categories) {
@@ -269,14 +258,11 @@ public class CatalogDaoImpl implements CatalogDao {
         return namedParameterJdbcTemplate.batchUpdate(updateCategoriesRefSqlQuery, batch);
     }
 
-
-    private class CategoryContainerResultExtractor implements ResultSetExtractor {
+    private class AllCategoriesResultSetExtractor implements ResultSetExtractor<HashMap<Integer, Category>> {
 
         @Override
-        public CategoryContainer extractData(ResultSet rs) throws SQLException, DataAccessException {
-
-            CategoryContainer container = new CategoryContainer();
-
+        public HashMap<Integer, Category> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            HashMap<Integer, Category> categories = new HashMap<>();
             while (rs.next()) {
 
                 Integer papId =             rs.getInt("pap_id");
@@ -293,7 +279,7 @@ public class CatalogDaoImpl implements CatalogDao {
                 Integer order =             rs.getInt("order_catalog");
                 Integer parent =            rs.getInt("parent");
 
-                Category category = new Category(
+                categories.put(papId, new Category(
                         id,
                         papId,
                         name,
@@ -307,15 +293,10 @@ public class CatalogDaoImpl implements CatalogDao {
                         isVisible,
                         order,
                         parent
-                );
-
-                if (parent == 0) {
-                    container.getParents().put(id, category);
-                } else {
-                    container.getChildren().put(id, category);
-                }
+                ));
             }
-            return container;
+
+            return categories;
         }
     }
 

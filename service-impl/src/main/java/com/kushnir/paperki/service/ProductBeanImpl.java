@@ -152,12 +152,12 @@ public class ProductBeanImpl implements ProductBean {
                     Assert.isTrue(csvPnt > 0, "csvPnt <= 0");
 
                     // SET CATEGORY ID
-                    Integer groupPapIdPapId = csvProduct.getGroupPapId();
-                    Assert.notNull(groupPapIdPapId, "groupPapIdPapId = null");
-                    Assert.isTrue(groupPapIdPapId > 0, "groupPapIdPapId <= 0");
+                    Integer groupPapId = csvProduct.getGroupPapId();
+                    Assert.notNull(groupPapId, "groupPapId = null");
+                    Assert.isTrue(groupPapId > 0, "groupPapId <= 0");
 
-                    CategorySimple categorySimple = categories.get(groupPapIdPapId);
-                    Assert.notNull(categorySimple, "Категория PapId: "+groupPapIdPapId+
+                    CategorySimple categorySimple = categories.get(groupPapId);
+                    Assert.notNull(categorySimple, "Категория PapId: "+groupPapId+
                             ", для pnt: "+csvPnt+" не найдена");
                     Integer categoryId = categorySimple.getId();
                     Assert.notNull(categoryId, "Категория Id = null");

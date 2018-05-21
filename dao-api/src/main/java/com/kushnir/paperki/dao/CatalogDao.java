@@ -13,12 +13,12 @@ import java.util.List;
 public interface CatalogDao {
 
     HashMap<Integer, HashMap<Integer, Category>> getAll();
+    HashMap<Integer, Category> getAllCategories();
     HashMap<Integer, CategorySimple> getAllChildrenWithPapIdKey();
     Category getCategoryByTName(String categoryTName);
     int[] addCategories(Object[] categories);
     int[] addCategoriesRef(Object[] categories);
-    CategoryContainer getCategoriesFromCSVToContainer(StringBuilder sb) throws IOException, DataAccessException;
-    CategoryContainer getCategoriesToContainer();
+    HashMap<Integer, Category> getAllCSVCategories(StringBuilder sb) throws IOException, DataAccessException;
     int addCategory(Category category);
     int addRefCategory(Category category);
     int[] updateCategories(Object[] categories);

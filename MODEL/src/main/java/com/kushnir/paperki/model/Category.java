@@ -41,7 +41,7 @@ public class Category {
                     String metakey,
                     String customtitle,
                     Integer order,
-                    Integer parent,
+                    Integer parentPapId,
                     String shortDescription,
                     String fullDescription) {
         this.papId = papId;
@@ -50,7 +50,7 @@ public class Category {
         this.metakey = metakey;
         this.customtitle = customtitle;
         this.order = order;
-        this.parent = parent;
+        this.parentPapId = parentPapId;
         this.shortDescription = shortDescription;
         this.fullDescription = fullDescription;
     }
